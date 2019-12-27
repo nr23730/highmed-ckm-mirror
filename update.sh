@@ -25,3 +25,4 @@ rm archetypes.zip
 
 git add local/
 git commit -m "Update `date`"
+git push
