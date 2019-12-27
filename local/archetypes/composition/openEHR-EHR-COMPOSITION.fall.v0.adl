@@ -1,0 +1,100 @@
+﻿archetype (adl_version=1.4; uid=d92e6b4f-25f7-4fe4-b540-aeda80e93ad1)
+	openEHR-EHR-COMPOSITION.fall.v0
+
+concept
+	[at0000]	-- Fall
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Antje Wulff">
+		["email"] = <"antje.wulff@plri.de">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation eines Falls, welcher eine Strukturierte Sammlung von Informationen zu einem Sachverhalt oder Problem darstellt.">
+			use = <"Strukturierte Sammlung von Informationen zu einem Sachverhalt oder Problem, der bzw. das bearbeitet werden muss. Die Bearbeitungsschritte eines Falles werden durch Aktivitäten und Bearbeiter definiert, die dem Fall zugeordnet werden.
+Zum Beispiel: outpatient, inpatient, ambulant, stationär, Voraufnahme, vorstationär, teilstationär, nachstationär">
+			keywords = <"Fall", "Sachverhalt", "Problemfall", "Aktivität", "Handlung", "Ereignis", "Geschehen", "Vorfall", "ambulant", "stationär", "Voraufnahme", "vorstationär", "Aufnahme", "teilstationär", "nachstationär">
+			misuse = <"Nicht zur Darstellung von Details eines gesamten Falles geeignet.
+Nicht zur Darstellung von Informationen über die Person geeignet.
+">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"SAP: https://help.sap.com/doc/saphelp_crm700_ehp01/7.0.1.15/de-DE/45/f0430d312c3112e10000000a1553f7/content.htm?no_cache=true">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"0041C26B564D97AE6C6182D7E89CEBC4">
+		["build_uid"] = <"c704f6ba-e5b5-46a6-92c2-4dfa48033223">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Fall
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Baum
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Fall-ID
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Fallklasse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Erweiterung
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fall">
+					description = <"Strukturierte Sammlung von Informationen zu einem Sachverhalt oder Problem, der bzw. das bearbeitet werden muss. Die Bearbeitungsschritte eines Falles werden durch Aktivitäten und Bearbeiter definiert, die dem Fall zugeordnet werden.">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Erweiterung">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Fall-ID">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Fallklasse">
+					description = <"*">
+				>
+			>
+		>
+	>

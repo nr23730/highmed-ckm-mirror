@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>64677565-5ad3-4dc9-b12f-0e82cd28aee7</id>
+  <name>Laborbefund</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Sarah Ballout </key>
+        <value>MHH-Hannover </value>
+      </item>
+    </original_author>
+    <other_contributors />
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation der Laborergebnisse.</purpose>
+      <keywords>
+        <item>Laborbefund </item>
+        <item>Befund</item>
+        <item>Labor </item>
+        <item>Untersuchungsbefund </item>
+        <item>Laborwerte</item>
+        <item>Laboruntersuchung</item>
+        <item>Laborparameter</item>
+        <item>Labordiagnostik</item>
+        <item>Laborergebnis</item>
+        <item>Laboranalyse</item>
+      </keywords>
+      <use>Zur Repräsentation der Ergebnisse von Laboruntersuchungen eines Patienten. </use>
+      <misuse>Nicht zur Repräsentation  spezifischer Laborergebnisse (z. B. Mikrobiologische Befunde) verwenden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="Laborbefund ">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" min="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" min="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Anforderung " />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" name="Gesamt-Untersuchungsstatus">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0037</excludedValues>
+          <excludedValues>local::at0120</excludedValues>
+          <excludedValues>local::at0040</excludedValues>
+          <excludedValues>local::at0115</excludedValues>
+          <excludedValues>local::at0119</excludedValues>
+          <excludedValues>local::at0116</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" name="Interpretation" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" name="Auftrags-ID (Einsender)">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" min="1">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" name="Untersuchungsmethode">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen.v0" concept_name="Probe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]">
+        <Rule path="/items[at0088]" max="0" />
+        <Rule path="/items[at0034]" name="Laboreingang" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0015]" name="Probenentnahme">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Date_Time</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0067]" max="0" />
+        <Rule path="/items[at0070]" max="0" />
+        <Rule path="/items[at0080]" max="0" />
+        <Rule path="/items[at0003]" max="1" />
+        <Rule path="/items[at0042]" max="0" />
+        <Rule path="/items[at0041]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0024]" min="1" name="Bezeichnung" />
+        <Rule path="/items[at0001]" max="1" min="1" name="Messwert">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+            <includedTypes>Quantity</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" name="Referenzbereich Typ" />
+        <Rule path="/items[at0006]" name="Dokumentationsdatum Untersuchung" />
+        <Rule path="/items[at0026]" name="Probe ID" />
+        <Rule path="/items[at0003]" max="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0017]" name="Laborbereich">
+        <Rule path="/items[at0040]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Labor</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0046]" name="Laborbereich" />
+        <Rule path="/items[at0048]" name="Kode des Laborbereichs" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]/items[at0002]" name="Identifikator des Laborbefunds" />
+      <Rule path="/context/other_context[at0001]/items[at0005]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Teilweise</includedValues>
+          <includedValues>Vorläufig</includedValues>
+          <includedValues>Final</includedValues>
+          <includedValues>Final korrigiert</includedValues>
+          <includedValues>Final geändert</includedValues>
+          <includedValues>Erweitert</includedValues>
+        </constraint>
+      </Rule>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
+    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">23F3FA85E424FE7A9017D0DF173874AC</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.specimen.v0">
+    <digest id="MD5-CAM-1.0.1">DA5B45FFCEB7ECF2DC743C086516AA77</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">17EE509C521168FB4D0FBF23E9590DF6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">AF8FC4FE8923C8D99D22695E21B0A712</digest>
+  </integrity_checks>
+</template>
