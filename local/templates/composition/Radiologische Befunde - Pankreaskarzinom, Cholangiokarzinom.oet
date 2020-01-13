@@ -66,7 +66,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>aa2058f99bfa6a8af5e8f9f665b9a0b9</value>
+                <value>5b773819d69bfa00bfa01a90a2051b79</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -118,8 +118,8 @@
             <Rule name="Diagnostische Qualität" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>ausreichend</includedValues>
-                    <includedValues>nicht diagnostisch</includedValues>
                     <includedValues>eingeschränkt</includedValues>
+                    <includedValues>nicht diagnostisch</includedValues>
                 </constraint>
             </Rule>
             <Rule name="Details zur Bildstudie (DICOM Studie)" path="/protocol[at0025]/items[at0027]"/>
@@ -128,8 +128,29 @@
             <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0031]"/>
             <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0027]/items[at0033]"/>
             <Rule name="Details zur Bildserie (DICOM Serie)" path="/protocol[at0025]/items[at0027]/items[at0034]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0035]"/>
+            <Rule max="0" name="Phase / Gewichtung" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0037]">
+                <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <includedValues>Native Phase</includedValues>
+                    <includedValues>Spätarterielle Phase</includedValues>
+                    <includedValues>Venöse Phase</includedValues>
+                    <includedValues>Spätvenöse Phase</includedValues>
+                    <includedValues>T1 mit chemical Shift Imaging (in-opp-Phase /Dixon)</includedValues>
+                    <includedValues>T1 GRE fettsupprimiert nativ axial</includedValues>
+                    <includedValues>T1 GRE fettsupprimiert spätarteriell axial</includedValues>
+                    <includedValues>T1 GRE fettsupprimiert venös axial</includedValues>
+                    <includedValues>T1 GRE fettsupprimiert spätvenös axial</includedValues>
+                    <includedValues>T1 GRE fettsupprimiert hepatobiliär axial</includedValues>
+                    <includedValues>T2 axial</includedValues>
+                    <includedValues>T2 koronar</includedValues>
+                    <includedValues>Diffusionswichtung b=0-100 s/mm2</includedValues>
+                    <includedValues>Diffusionswichtung b=500-1000 s/mm2</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0038]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0040]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0042]"/>
-            <Rule clone="true" max="0"
+            <Rule max="0"
                 name="Identifzierungsmerkmal des Antragstellers" path="/protocol[at0025]/items[at0042]/items[at0028]"/>
             <Rule clone="true" max="0" name="DICOM Studienkennzeichen" path="/protocol[at0025]/items[at0042]/items[at0032]"/>
             <Rule clone="true" max="0" name="Bildkennung" path="/protocol[at0025]/items[at0042]/items[at0035]"/>
@@ -140,17 +161,23 @@
             <Rule clone="true" max="0" name="Bild" path="/protocol[at0025]/items[at0042]/items[at0040]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
                 concept_name="Ergebnis der Bildgebung" min="1"
-                name="Tumoridentität"
+                name="Tomuridentität"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule min="1" name="Tumoridentität" path="/items[at0001]"/>
-                <Rule min="1" name="Tumoridentität" path="/items[at0001]/items[at0002]">
+                <Rule min="1" name="Tomuridentität" path="/items[at0001]"/>
+                <Rule min="1" name="Tomuridentität" path="/items[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Primärtumor</includedValues>
-                        <includedValues>Lokalrezidiv</includedValues>
-                        <includedValues>Fernmetastasen</includedValues>
+                        <includedValues>Primärtumor vorhanden</includedValues>
+                        <includedValues>kein Primärtumor</includedValues>
+                        <includedValues>Primärtumor unklar</includedValues>
+                        <includedValues>Lokalrezidiv vorhanden</includedValues>
+                        <includedValues>kein Lokalrezidiv</includedValues>
+                        <includedValues>Lokalrezidiv unklar</includedValues>
+                        <includedValues>Fernmetastasen vorhanden</includedValues>
+                        <includedValues>keine Fernmetastasen</includedValues>
+                        <includedValues>Fernmetastasen unklar</includedValues>
                     </constraint>
                 </Rule>
-                <Rule min="1" name="Vorhandensein von Tumoridentität" path="/items[at0001]/items[at0003]">
+                <Rule max="0" name="Vorhandensein von Tumoridentität" path="/items[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ja</includedValues>
                         <includedValues>nein</includedValues>
@@ -203,16 +230,26 @@
                 name="Gefäßkontakt"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
                 <Rule min="1" path="/items[at0001]"/>
-                <Rule min="1" name="Blutgefäß" path="/items[at0001]/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>TC (truncus coeliacus)</includedValues>
-                        <includedValues>LA (Leberarterie)</includedValues>
-                        <includedValues>AMS (Arteria mesenterica superior)</includedValues>
-                        <includedValues>VMS (Vena mesenterica superia)</includedValues>
-                        <includedValues>PA (inkl. PA-Thrombose)</includedValues>
+                <Rule min="1" name="Gefäßkontakt" path="/items[at0001]/items[at0002]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                        <includedValues>TC (truncus coeliacus) - kein Kontakt</includedValues>
+                        <includedValues>TC (truncus coeliacus) - Kontakt ≤ 180°</includedValues>
+                        <includedValues>TC (truncus coeliacus) - Kontakt &gt; 180°</includedValues>
+                        <includedValues>LA (Leberarterie) - kein Kontakt</includedValues>
+                        <includedValues>LA (Leberarterie) - Kontakt ≤ 180°</includedValues>
+                        <includedValues>LA (Leberarterie) - Kontakt &gt; 180°</includedValues>
+                        <includedValues>AMS (Arteria mesenterica superior) - kein Kontakt</includedValues>
+                        <includedValues>AMS (Arteria mesenterica superior) - Kontakt ≤ 180°</includedValues>
+                        <includedValues>AMS (Arteria mesenterica superior) - Kontakt &gt; 180°</includedValues>
+                        <includedValues>VMS (Vena mesenterica superia) - kein Kontakt</includedValues>
+                        <includedValues>VMS (Vena mesenterica superia) - Kontakt ≤ 180°</includedValues>
+                        <includedValues>VMS (Vena mesenterica superia) - Kontakt &gt; 180°</includedValues>
+                        <includedValues>PA (inkl. PA-Thrombose) - kein Kontakt</includedValues>
+                        <includedValues>PA (inkl. PA-Thrombose) - Kontakt ≤ 180°</includedValues>
+                        <includedValues>PA (inkl. PA-Thrombose) - Kontakt &gt; 180°</includedValues>
                     </constraint>
                 </Rule>
-                <Rule min="1" name="Gefäßkontakt" path="/items[at0001]/items[at0003]">
+                <Rule max="0" name="Gefäßkontakt" path="/items[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Kein Kontakt</includedValues>
                         <includedValues>Kontakt ≤ 180°</includedValues>
@@ -229,9 +266,9 @@
                 <Rule min="1" path="/items[at0001]"/>
                 <Rule min="1" name="Pfortaderthrombose" path="/items[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Pfortaderthrombose vorhanden</includedValues>
-                        <includedValues>keine Pfortaderthrombose vorhanden</includedValues>
-                        <includedValues>Pfortaderthrombose unklar</includedValues>
+                        <includedValues>ja</includedValues>
+                        <includedValues>nein</includedValues>
+                        <includedValues>unklar</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0001]/items[at0003]"/>
@@ -283,21 +320,29 @@
                     </constraint>
                 </Rule>
                 <Rule name="Angabe des/der Lebersegment(e)" path="/items[at0023]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>Lebersegment 1</includedValues>
                         <includedValues>Lebersegment 2</includedValues>
                         <includedValues>Lebersegment 3</includedValues>
                         <includedValues>Lebersegment 4</includedValues>
+                        <includedValues>Lebersegment 4a</includedValues>
+                        <includedValues>Lebersegment 4b</includedValues>
+                        <includedValues>Lebersegment 4a/b</includedValues>
                         <includedValues>Lebersegment 5</includedValues>
                         <includedValues>Lebersegment 6</includedValues>
                         <includedValues>Lebersegment 7</includedValues>
                         <includedValues>Lebersegment 8</includedValues>
+                        <includedValues>Lebersegmente 2/3</includedValues>
+                        <includedValues>Lebersegmente 7/6</includedValues>
+                        <includedValues>Lebersegmente 8/5</includedValues>
+                        <includedValues>Lebersegmente 2/4a</includedValues>
+                        <includedValues>Lebersegmente 3/4b</includedValues>
                     </constraint>
                 </Rule>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.imaging.v0"
                 path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
+                <Rule name="Untersuchungsprotokoll" path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Native Phase</includedValues>
                         <includedValues>Spätarterielle Phase</includedValues>
