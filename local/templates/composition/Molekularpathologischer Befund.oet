@@ -66,6 +66,10 @@
                 <key>build_uid</key>
                 <value>049f2a54-38cd-40a4-ab98-a8bb28653e4c</value>
             </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>854673176c2b67eec62838f5730d457d</value>
+            </item>
         </other_details>
     </description>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v0]/items[at0071]">
@@ -73,6 +77,22 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.collector</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v0]/items[at0070]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.collector</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v0]/items[at0088]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.identifier</value>
             </item>
         </items>
     </annotations>
@@ -105,6 +125,22 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.quantity</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v0]/items[at0007]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.method</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v0]/items[at0029]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.type</value>
             </item>
         </items>
     </annotations>
@@ -141,12 +177,12 @@
         </items>
     </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="Molekularpathologischer Befund"
+        concept_name="Report" name="Molekularpathologischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            concept_name="Laborergebnis"
+            concept_name="Laboratory test result"
             name="Molekularpathologische Begutachtung" path="/content" xsi:type="tem:OBSERVATION">
             <Rule default="Molekularpathologische Begutachtung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
             <Rule name="Testdiagnose / Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]">
@@ -157,7 +193,12 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]"/>
-            <Rule name="Analyse-ID / Laborinterne Kennzeichnung" path="/protocol[at0004]/items[at0068]"/>
+            <Rule name="Analyse-ID / Laborinterne Kennzeichnung" path="/protocol[at0004]/items[at0068]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Identifier</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/protocol[at0004]/items[at0111]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0121]">
                 <constraint xsi:type="tem:multipleConstraint">
@@ -204,12 +245,7 @@
                 <Rule max="0" path="/items[at0007]"/>
                 <Rule max="0" path="/items[at0079]"/>
                 <Rule max="0" path="/items[at0087]"/>
-                <Rule max="0" path="/items[at0015]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Date_Time</includedTypes>
-                        <includedTypes>Interval</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/items[at0015]"/>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0070]"/>
@@ -351,24 +387,6 @@
                         path="/items[at0009]" xsi:type="tem:CLUSTER"/>
                 </Items>
                 <Items
-                    archetype_id="openEHR-EHR-CLUSTER.inversion_variant.v0"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER">
-                    <Items
-                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        path="/items[at0007]" xsi:type="tem:CLUSTER"/>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.substitution_variant.v0"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER">
-                    <Rule
-                        name="Position substituted (Genomposition (aus vcf-File))" path="/items[at0001]"/>
-                    <Rule name="Reference nucleotide (&quot;ref&quot;)" path="/items[at0003]"/>
-                    <Rule name="New nucleotide (&quot;alt&quot;)" path="/items[at0005]"/>
-                    <Items
-                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        path="/items[at0006]" xsi:type="tem:CLUSTER"/>
-                </Items>
-                <Items
                     archetype_id="openEHR-EHR-CLUSTER.copy_number_variant.v0"
                     path="/items[at0045]" xsi:type="tem:CLUSTER">
                     <Rule name="Allelzahl (Total copy number)" path="/items[at0003]"/>
@@ -384,8 +402,56 @@
                         path="/items[at0006]" xsi:type="tem:CLUSTER"/>
                 </Items>
                 <Items
+                    archetype_id="openEHR-EHR-CLUSTER.inversion_variant.v0"
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0007]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
                     archetype_id="openEHR-EHR-CLUSTER.repeated_sequence_variant.v0"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER"/>
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0008]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.substitution_variant.v0"
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Rule
+                        name="Position substituted (Genomposition (aus vcf-File))" path="/items[at0001]"/>
+                    <Rule name="Reference nucleotide (&quot;ref&quot;)" path="/items[at0003]"/>
+                    <Rule name="New nucleotide (&quot;alt&quot;)" path="/items[at0005]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0006]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0007]" xsi:type="tem:CLUSTER"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        concept_name="Reference sequence"
+                        name="Reference sequence (2)"
+                        path="/items[at0008]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.indel_variant.v0"
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0008]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.insertion_variant.v0"
+                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        path="/items[at0007]" xsi:type="tem:CLUSTER"/>
+                </Items>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
@@ -442,7 +508,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.specimen.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">DA5B45FFCEB7ECF2DC743C086516AA77</digest>
+        <digest id="MD5-CAM-1.0.1">4DACCA8635A692B6DF3033631F040048</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.specimen_preparation.v0"
@@ -480,18 +546,6 @@
         <digest id="MD5-CAM-1.0.1">2F62AAE90D8EFACA0D65EE92F3588B3C</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.inversion_variant.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">B2DF05DFB90D400F2023CC7727DBD65D</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.substitution_variant.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">38F5205AD062B15B9B2B39F91981020C</digest>
-    </integrity_checks>
-    <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.copy_number_variant.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
@@ -504,10 +558,40 @@
         <digest id="MD5-CAM-1.0.1">569C67BBAE2FF5E994FCDCF73F90C92B</digest>
     </integrity_checks>
     <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.inversion_variant.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B2DF05DFB90D400F2023CC7727DBD65D</digest>
+    </integrity_checks>
+    <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.repeated_sequence_variant.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F18AB3F10E749285867F650453734A94</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.substitution_variant.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">38F5205AD062B15B9B2B39F91981020C</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7852F2FDDC1F75361C4C6BA00A56FD7A</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.indel_variant.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B35FF7C2669B2B249942C839DAB11ED6</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.insertion_variant.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">CCFDAF28147EE4761DFF22EAD653AD66</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
