@@ -7,36 +7,42 @@ language
 	original_language = <[ISO_639-1::de]>
 description
 	original_author = <
+		["name"] = <"Caroline Bönisch">
+		["organisation"] = <"UMG">
+		["email"] = <"Caroline.boenisch@med.uni-goettingen.de">
+		["date"] = <"2020-01-22">
 	>
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Dokumentation der Anzahl der Beatmungsstunden während eines Aufenhalts">
-			use = <"Zur Dokumentation der gesamtbeatmungzeit für den Krankenhausfall.">
+			purpose = <"Zur Dokumentation der Anzahl der Beatmungsstunden während eines Aufenthalts">
+			use = <"Zur Dokumentation der Gesamtbeatmungszeit für den Krankenhausfall.">
 			keywords = <"Beatmungstunden", "Beatmungszeit">
-			misuse = <"Nicht zur Dokumentaion der Beatmung">
-			copyright = <"© HiGHmed">
+			misuse = <"Nicht zur Dokumentation der Beatmung verwenden. ">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"20F5BAE797EF8D82E22226847CA254CB">
-		["build_uid"] = <"9c559682-f9ce-432f-8b95-019dcaecea85">
+		["MD5-CAM-1.0.1"] = <"9E7E1CD172DA4ADACDE987EA750C1CDB">
+		["build_uid"] = <"0f983620-c902-4649-969b-60bb85e8a75c">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Beatmungsstunden
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Beatmungsstunden
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Beatmungsstunden
 				value matches {
-					DV_COUNT matches {*}
+					C_DV_QUANTITY <
+						property = <[openehr::128]>
+						list = <
+							["1"] = <
+								units = <"h">
+								magnitude = <|>=0.0|>
+							>
+						>
+					>
 				}
 			}
 		}
@@ -51,9 +57,10 @@ ontology
 					text = <"Beatmungsstunden">
 					description = <"Die Beatmungsstunden sind als Gesamtbeatmungszeit für den Krankenhausfall entsprechend DKR anzu-geben. ">
 				>
-				["at0001"] = <
+				["at0002"] = <
 					text = <"Beatmungsstunden">
-					description = <"Gesamtbeatmungszeit für den Krankenhausfall">
+					description = <"Gesamtanzahl der Stunden mit künstlicher Beatmung
+">
 				>
 			>
 		>
