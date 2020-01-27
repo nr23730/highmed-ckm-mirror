@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>3d2838d7-27e7-49b4-ab12-eb81134d813e</id>
-  <name>Stammdaten</name>
+  <name>UMG_Stammdaten</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -72,7 +72,19 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" path="/content">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0" concept_name="Versicherungsinformationen" path="/content">
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.pseudonym.v0" concept_name="UMG_Pseudonym" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.altersangaben.v0" concept_name="Altersangaben" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.UMG_Geschlecht.v0" concept_name="Geschlecht" path="/content">
+      <Rule path="/data[at0002]/items[at0022]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Männlich</includedValues>
+          <includedValues>Weiblich</includedValues>
+          <includedValues>Undifferenziert</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0002]/items[at0026]" max="0" />
       <Rule path="/data[at0002]/items[at0019]" max="0" />
       <Rule path="/data[at0002]/items[at0025]" max="0" />
@@ -81,66 +93,35 @@
       <Rule path="/data[at0002]/items[at0014]" max="0" />
       <Rule path="/protocol[at0003]/items[at0004]" max="0" />
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0" concept_name="Versicherungsinformationen" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.age.v0" concept_name="Alter" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Alter Jahresanteil" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Alter Tagesanteil" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
-    </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v0" concept_name="Personenname" path="/context/other_context[at0001]/items[at0006]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v0" concept_name="UMG_Personenname" path="/context/other_context[at0001]/items[at0006]">
         <Rule path="/items[at0006]" max="0" />
         <Rule path="/items[at0022]" max="0" />
-        <Rule path="/items[at0001]" name="Namenszusatz" />
-        <Rule path="/items[at0002]/items[at0017]" name="Vorsatzwort" />
-        <Rule path="/items[at0002]/items[at0004]" max="1" name="Nachname" />
-        <Rule path="/items[at0002]/items[at0018]" name="Präfix" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0002]/items[at0017]" max="0" />
+        <Rule path="/items[at0002]/items[at0004]" max="0" />
+        <Rule path="/items[at0002]/items[at0018]" max="0" />
         <Rule path="/items[at0014]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_birth_data_iso.v0" concept_name="Daten zur Geburt" path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0002]" name="Geburtsjahr" />
-        <Rule path="/items[at0003]" name="Geburtsmonat" />
-        <Rule path="/items[at0004]" max="0" />
-        <Rule path="/items[at0005]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address.v0" concept_name="Adresse" path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0001]/items[at0006]" hide_on_form="true" />
-        <Rule path="/items[at0001]/items[at0002]" max="0" />
-        <Rule path="/items[at0001]/items[at0003]/items[at0005]" name="Wohnort" />
-        <Rule path="/items[at0001]/items[at0003]/items[at0009]" max="1" name="Land" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0" concept_name="Person identifier" max="1" path="/context/other_context[at0001]/items[at0006]" name="Patient_ID">
-        <Rule path="/items[at0001]" max="1" name="Patient_ID" />
-        <Rule path="/items[at0002]" hide_on_form="true" />
+        <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
         <Rule path="/items[at0005]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.death_details.v1" concept_name="Angaben zum Tod " path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0001]" name="Todeszeitpunkt" />
-        <Rule path="/items[at0002]" name="Patient verstorben" />
-        <Rule path="/items[at0004]" name="Informationsquelle" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.umg_adresse.v0" concept_name="UMG_Adresse" path="/context/other_context[at0001]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.umg_todesangaben.v0" concept_name="UMG_Todesangaben " path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_death_data_iso.v0" concept_name="Daten zum Tod" path="/items[at0005]">
-          <Rule path="/items[at0001]" name="Letzter Lebendzeitpunkt" />
-          <Rule path="/items[at0002]" max="0" />
+          <Rule path="/items[at0001]" name="Todeszeitpunkt" />
         </Items>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisationseinheiten.v0" concept_name="Organisationseinheiten" max="1" path="/context/other_context[at0001]/items[at0006]" name="Data_origin">
-        <Rule path="/items[at0003]" name="Data_origin" />
-        <Rule path="/items[at0003]/items[at0005]" max="1" name="Data_origin" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisationseinheiten.v0" concept_name="Organisationseinheiten" max="1" path="/context/other_context[at0001]/items[at0006]" name="Data Origin">
         <Rule path="/items[at0003]/items[at0087]" max="0" />
       </Items>
-      <Rule path="/context/other_context[at0001]/items[at0002]" name="Identifikation" />
-      <Rule path="/context/other_context[at0001]/items[at0005]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>aktiv</includedValues>
-          <includedValues>abgeschlossen</includedValues>
-          <includedValues>geplant</includedValues>
-          <includedValues>unterbrochen</includedValues>
-          <includedValues>abgebrochen</includedValues>
-        </constraint>
-      </Rule>
     </Context>
   </definition>
   <view>
@@ -159,19 +140,16 @@
     <digest id="MD5-CAM-1.0.1">55DB2D45BC470E831EE8C905348471E4</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.person_name.v0">
-    <digest id="MD5-CAM-1.0.1">E88930E2CA39AC74FC59591BE8DAA4BF</digest>
+    <digest id="MD5-CAM-1.0.1">C6EBFD0DC870317B8009E625ED72B413</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_birth_data_iso.v0">
     <digest id="MD5-CAM-1.0.1">E34F3CB975887B460840F95ADA73C4FF</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.address.v0">
-    <digest id="MD5-CAM-1.0.1">E0EB7F3ABF472AF6AB27D958C6C290AE</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.umg_adresse.v0">
+    <digest id="MD5-CAM-1.0.1">915EB126DEEF7A3B707A7EEF3CC6B5C1</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0">
-    <digest id="MD5-CAM-1.0.1">C8352CC97A2F9BF24377E076AF524502</digest>
-  </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.death_details.v1">
-    <digest id="MD5-CAM-1.0.1">53E515B70943459BFA18F8802BE6DDA5</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.umg_todesangaben.v0">
+    <digest id="MD5-CAM-1.0.1">1ED7EB22231E22AAB8E6CD28C6E70012</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_death_data_iso.v0">
     <digest id="MD5-CAM-1.0.1">637B911C4FDDA0BA860B6314C740E561</digest>
@@ -179,13 +157,16 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.organisationseinheiten.v0">
     <digest id="MD5-CAM-1.0.1">96504D293AFF6D84749E8E8EB0755D28</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.gender.v1">
-    <digest id="MD5-CAM-1.0.1">EF96C484C92DFA57E8F10DE3D42BE8D1</digest>
-  </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0">
-    <digest id="MD5-CAM-1.0.1">18549857EA14C63C833CD3B341C27784</digest>
+    <digest id="MD5-CAM-1.0.1">9127158B22AD6C180D3F3A2D488AFDA2</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.age.v0">
-    <digest id="MD5-CAM-1.0.1">DC3170C3E873B139C3C004F67A0469FD</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.pseudonym.v0">
+    <digest id="MD5-CAM-1.0.1">892AEC3818895DBF57892F81D1F620C7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.altersangaben.v0">
+    <digest id="MD5-CAM-1.0.1">6DF4AF28FDD1AD6ED83B2B766F8710FE</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.UMG_Geschlecht.v0">
+    <digest id="MD5-CAM-1.0.1">526A2A5B5B2953EA347C92D55C285171</digest>
   </integrity_checks>
 </template>
