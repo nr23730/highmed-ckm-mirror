@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>30e49337-1151-4999-9405-507348dcba58</id>
+  <name>Patient</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Stammdaten vom Patienten">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" path="/content">
+      <Rule path="/data[at0002]" hide_on_form="true" />
+      <Rule path="/data[at0002]/items[at0022]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>m</includedValues>
+          <includedValues>w</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/items[at0026]" max="0" />
+      <Rule path="/data[at0002]/items[at0019]" max="0" />
+      <Rule path="/data[at0002]/items[at0025]" max="0" />
+      <Rule path="/data[at0002]/items[at0001]" max="0" />
+      <Rule path="/data[at0002]/items[at0020]" max="0" />
+      <Rule path="/data[at0002]/items[at0014]" max="0" />
+      <Rule path="/protocol[at0003]" hide_on_form="true" />
+      <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.age.v0" concept_name="Alter" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PY</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_birth_data_iso.v0" concept_name="Daten zur Geburt" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0" concept_name="Person identifier" max="1" path="/context/other_context[at0001]/items[at0006]" name="Personenidentifikator">
+        <Rule path="/items[at0001]" max="1" name="Patienten ID" />
+        <Rule path="/items[at0002]" hide_on_form="true" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]" hide_on_form="true" />
+      <Rule path="/context/other_context[at0001]/items[at0002]" max="0" />
+      <Rule path="/context/other_context[at0001]/items[at0005]" max="0" />
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">55DB2D45BC470E831EE8C905348471E4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_birth_data_iso.v0">
+    <digest id="MD5-CAM-1.0.1">E34F3CB975887B460840F95ADA73C4FF</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0">
+    <digest id="MD5-CAM-1.0.1">C8352CC97A2F9BF24377E076AF524502</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.gender.v1">
+    <digest id="MD5-CAM-1.0.1">EF96C484C92DFA57E8F10DE3D42BE8D1</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.age.v0">
+    <digest id="MD5-CAM-1.0.1">DC3170C3E873B139C3C004F67A0469FD</digest>
+  </integrity_checks>
+</template>

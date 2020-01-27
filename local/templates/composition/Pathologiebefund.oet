@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>7c162915-0ad5-4a7d-a599-869c40a4bf6a</id>
+  <name>Pathologiebefund</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <keywords />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.banff.v0" concept_name="Banff" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0082]/items[at0084]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Kategorie 1</includedValues>
+          <includedValues>Kategorie 2</includedValues>
+          <includedValues>Kategorie 3</includedValues>
+          <includedValues>Kategorie 4</includedValues>
+          <includedValues>Kategorie 5</includedValues>
+          <includedValues>Katgeorie 6</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0003]" hide_on_form="true" />
+      <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.auftragsinformationen.v0" concept_name="Auftragsinformationen" path="/context/other_context[at0001]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" name="Fallnummer" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]" hide_on_form="true" />
+      <Rule path="/context/other_context[at0001]/items[at0002]" name="Dokument ID" />
+      <Rule path="/context/other_context[at0001]/items[at0005]" max="0" />
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+  <view>
+    <constraints path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.banff.v0]/data[at0001]/events[at0002]/time">
+      <items id="VisibleInView">
+        <value>Datum der Dokumentenerstellung</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report-result.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.auftragsinformation.v0]/items[at0004]/value/id">
+      <items id="VisibleInView">
+        <value>id</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report-result.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.auftragsinformation.v0]/items[at0003]/value/id">
+      <items id="VisibleInView">
+        <value>id</value>
+      </items>
+    </constraints>
+  </view>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
+    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.auftragsinformationen.v0">
+    <digest id="MD5-CAM-1.0.1">B64D0F2DB90B8B54B48A0E7E4CB349CF</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.banff.v0">
+    <digest id="MD5-CAM-1.0.1">67B423D10C871267B0C7C02FFFEB9A6F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.absence.v2">
+    <digest id="MD5-CAM-1.0.1">FA64598AE8138478AC93FA9A83572288</digest>
+  </integrity_checks>
+</template>
