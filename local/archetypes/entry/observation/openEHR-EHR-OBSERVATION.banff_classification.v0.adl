@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=50f42709-8c9f-4c7d-8ef9-fbf73d19896f)
-	openEHR-EHR-OBSERVATION.banff.v0
+﻿archetype (adl_version=1.4; uid=472da6f8-409d-4636-9217-b3f596df360a)
+	openEHR-EHR-OBSERVATION.banff_classification.v0
 
 concept
-	[at0000]	-- Banff
+	[at0000]	-- Banff-Klassifikation
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -33,21 +33,21 @@ Loupy A, Haas M, Solez K, Racusen L, Glotz D, Seron D et al. (2017). The Banff 2
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"05ACCCBF1D553E434D5CB978CCCBA2DD">
-		["build_uid"] = <"2d381ad4-fa08-4993-9cc6-9c8c3e98b09a">
+		["MD5-CAM-1.0.1"] = <"98C17658EDC9D89B31659159CAAD5A40">
+		["build_uid"] = <"97438661-e7d9-4929-b974-4e03de425f44">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Banff
+	OBSERVATION[at0000] matches {	-- Banff-Klassifikation
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
 					EVENT[at0002] occurrences matches {0..*} matches {	-- Jedes Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Baum
-								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0082] occurrences matches {0..6} matches {	-- Banff Kategorie
+								items cardinality matches {0..*; ordered} matches {
+									CLUSTER[at0082] occurrences matches {0..6} matches {	-- Banff-Kategorie
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0084] occurrences matches {0..1} matches {	-- Kategorie
 												value matches {
@@ -281,7 +281,7 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Banff">
+					text = <"Banff-Klassifikation">
 					description = <"Zum Aufzeichnen der Banff-Klassifikationen im Laufe einer Nierenbiopsie.">
 				>
 				["at0001"] = <
@@ -609,8 +609,8 @@ ontology
 					description = <"Eine erweiterte Beschreibung bzw. Kommentar zu den Banff Kategorien.">
 				>
 				["at0082"] = <
-					text = <"Banff Kategorie">
-					description = <"Angabe der Banff Kategorie und jeweiliger Beschreibung bzw. Ausprägung.">
+					text = <"Banff-Kategorie">
+					description = <"Angabe der Banff-Kategorie und jeweiliger Beschreibung bzw. Ausprägung.">
 				>
 				["at0083"] = <
 					text = <"Beschreibung">
