@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
   <id>87fb93dc-9f54-4d8d-8e9d-60dfa5ce255c</id>
-  <name>Erkrankung</name>
+  <name>Diagnosenliste</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,8 +60,8 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.problem_list.v1" concept_name="Problem list" name="Diagnosenliste">
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.problem_list.v0" concept_name="Problemliste" path="/content">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.problem_list.v1" concept_name="Problemliste" name="Diagnosenliste">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.problem_list.v0" concept_name="Problemliste" max="1" path="/content">
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/items[at0001]">
         <Rule path="/data[at0001]" hide_on_form="true" />
         <Rule path="/data[at0001]/items[at0002]" name="Bezeichnung der Diagnose" />
@@ -113,8 +113,8 @@
           </Rule>
           <Rule path="/items[at0073]" max="0" />
         </Items>
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.erkrankungsdetail.v0" concept_name="Erkrankungsdetail" path="/data[at0001]/items[at0043]">
-          <Rule path="/items[at0001]" min="1">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.disease_detail.v0" concept_name="Erkrankungsdetail" path="/data[at0001]/items[at0043]">
+          <Rule path="/items[at0001]">
             <constraint xsi:type="textConstraint">
               <includedValues>H</includedValues>
               <includedValues>I</includedValues>
@@ -126,7 +126,7 @@
     </Content>
     <Context>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" path="/context/other_context[at0006]/items[at0008]">
-        <Rule path="/items[at0001]" min="1" name="Fallnummer" />
+        <Rule path="/items[at0001]" name="Fallnummer" />
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0006]" max="0" />
@@ -136,7 +136,7 @@
     </Context>
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.problem_list.v1">
-    <digest id="MD5-CAM-1.0.1">0CA62AF2B9495CC802003ADD3A0FC2D5</digest>
+    <digest id="MD5-CAM-1.0.1">452F11AF1291ED7CAB90062C5EC03674</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
@@ -150,7 +150,7 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v1">
     <digest id="MD5-CAM-1.0.1">0BD365363DF2981EDD549811E5C4B954</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.erkrankungsdetail.v0">
-    <digest id="MD5-CAM-1.0.1">5F73557957F1EBC088D4C87C8863FF9B</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.disease_detail.v0">
+    <digest id="MD5-CAM-1.0.1">6B5AA9B73C9BCE325CE8DCF61368FEB7</digest>
   </integrity_checks>
 </template>

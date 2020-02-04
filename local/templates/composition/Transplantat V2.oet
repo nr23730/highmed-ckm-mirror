@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
   <id>392197ae-9f11-4a4b-b920-000b989d0443</id>
-  <name>Transplantat_V2</name>
+  <name>Transplantat V2</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,8 +60,9 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Informationen zum Transplantat">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.device_summary.v0" concept_name="Zusammenfassung der Medizinprodukte" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0020]">
         <constraint xsi:type="textConstraint">
           <includedValues>Nierentransplantat</includedValues>
@@ -88,10 +89,11 @@
       <Rule path="/data[at0001]/items[at0022]/items[at0019]" max="0" />
       <Rule path="/protocol[at0016]" hide_on_form="true" />
       <Rule path="/protocol[at0016]/items[at0017]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.transplantat_details.v0" concept_name="Transplantat details" path="/data[at0001]/items[at0022]/items[at0010]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.transplant_details.v0" concept_name="Details zum Transplantat" path="/data[at0001]/items[at0022]/items[at0010]" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Name der Diagnose">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" default="Niereninsuffizienz" name="Name der Diagnose">
         <constraint xsi:type="textConstraint">
           <includedValues>Niereninsuffizienz</includedValues>
         </constraint>
@@ -130,8 +132,8 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.device_summary.v0">
     <digest id="MD5-CAM-1.0.1">7EE902EA923945345C4755B6D8D07B38</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.transplantat_details.v0">
-    <digest id="MD5-CAM-1.0.1">61FD1F6B27755740CA72AC683F3502C5</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.transplant_details.v0">
+    <digest id="MD5-CAM-1.0.1">AC950F0C3405D213D9D49559A9A8CCE5</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
     <digest id="MD5-CAM-1.0.1">714FD09D39A922BCADF58B178C81E8BB</digest>
