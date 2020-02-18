@@ -1,0 +1,502 @@
+﻿archetype (adl_version=1.4; uid=15e672b3-d57e-45db-9e7e-36e5ff94fd6d)
+	openEHR-EHR-CLUSTER.lirads.v0
+
+concept
+	[at0000]	-- LI-RADS
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Samer Alkarkoukly">
+		["organisation"] = <"Uniklinik Köln">
+		["email"] = <"Mabbouda@uni-koeln.de">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"zur Darstellung der standardisierten Befundung und Datenerfassung von CT- und MRT-Bildgebung beim Leberzellkarzinom (HCC).">
+			use = <"Dieser Archetyp soll verwendet werden, um die 
+standardisierte Berichterstattung und Datenerfassung von CT- und MRT-Bildgebung für das hepatozelluläre Karzinom (HCC) darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Grad des Verdachts auf eine bösartige Erkrankung zu ermitteln.
+
+
+Dieser Cluster kann in dem Slot \"Ergebnis der Bildgebung\" des übergeordneten Archetypen \"Bildgebendes Untersuchungsergebnis\" (openEHR-EHR-OBSERVATION.imaging_exam_result) eingebettet werden.
+">
+			keywords = <"LI-RADS", "CT", "MRT", "HCC", "Leberbildgebung", "Ultraschall", "CEUS", "hepatozelluläres Karzinom", "American College of Radiology", "ACR">
+			misuse = <"Nicht zur Dokumentation bei Patienten ohne Risikofaktoren für die Entwicklung eines hepatozellulären Karzinoms oder bei Patienten unter 18 Jahren verwenden.
+
+Nicht zur Dokumentation des Verdachts auf andere Läsionen in der Leber zu verwenden.
+
+Nicht für die Dokumentation von Läsionen in einem anderen Körperorgan zu verwenden.">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"for presentration of the standardized reporting and data collection of CT, MRI imaging and ultrasound for hepatocellular carcinoma (HCC).">
+			use = <"This archetype will be used to present the standardized reporting and data collection of CT and MRI imaging, and ultrasound for hepatocellular carcinoma (HCC). LI-RADS uses specific imaging features of the lesion in question to identify the degree of suspicion for malignancy.
+
+This cluster can be used in the slot \"Imaging result\" of the superordinate archetype \"Imaging examination result\" (openEHR-EHR-OBSERVATION.imaging_exam_result).
+
+
+">
+			keywords = <"LI-RADS", "CT", "MRI", "HCC", "Liver imaging", "ultrasound", "CEUS", "hepatocellular carcinoma", "American College of Radiology", "ACR">
+			misuse = <"Not to be used for the documentation for patients without the risk factors of developing a hepatocelluar carcinoma, or for patients under 18 years of age.
+
+Not to be used for the documentation of suspiction of any other lieson in the liver.
+
+Not to be used for the documentation of lesions in any other body organ.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"1. Elsayes K, Kielar A, Chernyak V, Morshid A, Furlan A, Masch W, Marks R, Kamaya A, Do R, Kono Y, Fowler K, Tang A, Bashir M, Hecht E, Jambhekar K, Lyshchik A, Rodgers S, Heiken J, Kohli M, Fetzer D, Wilson S, Kassam Z, Mendiratta-Lala M, Singal A, Lim C, Cruite I, Lee J, Ash R, Mitchell D, McInnes M, Sirlin C. <p>LI-RADS: a conceptual and historical review from its beginning to its recent integration into AASLD clinical practice guidance</p>. Journal of Hepatocellular Carcinoma. 2019;Volume 6:49-69.
+
+2. LI-RADS [Internet]. Acr.org. 2020. Available from: https://www.acr.org/Clinical-Resources/Reporting-and-Data-Systems/LI-RADS">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"E8CE544BFC61DB2F82011090A09C11E2">
+		["build_uid"] = <"9c905f07-9060-4576-8136-2b1dbd60ad24">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- LI-RADS
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- LI-RADS Algorithm
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0004, 	-- Ultraschall LI-RADS®
+							at0005, 	-- CEUS LI-RADS®
+							at0006, 	-- CT/MRT Diagnostisches LI-RADS®
+							at0007]	-- CT/MRT Therapieansprechen LI-RADS®
+						}
+					}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- LI-RADS Version
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Diagnostische Katgorien
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0010, 	-- LR-NC
+							at0011, 	-- LR-TIV
+							at0012, 	-- LR-1
+							at0013, 	-- LR-2
+							at0014, 	-- LR-3
+							at0015, 	-- LR-4
+							at0016, 	-- LR-5
+							at0017]	-- LR-M
+						}
+					}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kategorien Therapieansprechen
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0019, 	-- LR-TR Nicht beurteilbar
+							at0020, 	-- LR-TR Avital
+							at0021, 	-- LR-TR nicht eindeutig
+							at0022]	-- LR-TR vital
+						}
+					}
+				}
+			}
+			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Arterielle Hypervaskularisation (APHE)
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0025, 	-- Kein APHE
+							at0026]	-- APHE (kein rim-Zeichen)
+						}
+					}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Größe der Observation
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::122]>
+						list = <
+							["1"] = <
+								units = <"mm">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Anreichernde “Kapsel”
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0029, 	-- ja
+							at0030]	-- nein
+						}
+					}
+				}
+			}
+			ELEMENT[at0031] occurrences matches {0..1} matches {	-- "Washout” (nicht peripher)
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0032, 	-- ja
+							at0033]	-- nein
+						}
+					}
+				}
+			}
+			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Schwellenwachstum
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0035, 	-- ja
+							at0036]	-- nein
+						}
+					}
+				}
+			}
+			ELEMENT[at0037] occurrences matches {0..*} matches {	-- Gefäße Beteiligung
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0038, 	-- ja
+							at0039]	-- nein
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"LI-RADS">
+					description = <"The Liver Imaging Reporting and Data System (LI-RADS®) is a comprehensive system for standardizing the terminology, technique, interpretation, reporting, and data collection of liver observations in individuals at high risk for hepatocellular carcinoma (HCC).">
+				>
+				["at0003"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0004"] = <
+					text = <"*Ultraschall LI-RADS®(en)">
+					description = <"*Zur Überwachung. Mittels konventioneller Sonographie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten.(en)">
+				>
+				["at0005"] = <
+					text = <"*CEUS LI-RADS®(en)">
+					description = <"*Zur HCC-Diagnostik. Mittels Kontrastmittel-Ultraschall (KMUS, contrast-enhanced. (en)">
+				>
+				["at0006"] = <
+					text = <"*CT/MRT Diagnostisches LI-RADS®(en)">
+					description = <"*Zur HCC-Diagnostik und zum Staging. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. (en)">
+				>
+				["at0007"] = <
+					text = <"*CT/MRT Therapieansprechen LI-RADS®(en)">
+					description = <"*Zur Beurteilung des HCC-Therapieansprechens auf lokoregionäre Therapie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. Mittels CT, MRT mit extrazellulären Kontrastmittteln (extracellular agents, ECA), oder MRT mit hepatobiliären Kontrastmitteln (hepatobiliary agents, HBA).(en)">
+				>
+				["at0008"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0009"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0010"] = <
+					text = <"*LR-NC(en)">
+					description = <"*Bei fehlender Beurteilbarkeit aufgrund fehlender oder schlechter Bildgebung.(en)">
+				>
+				["at0011"] = <
+					text = <"*LR-TIV(en)">
+					description = <"*Bei definitivem Nachweis von Tumorinfiltration in die Vene (TIV).(en)">
+				>
+				["at0012"] = <
+					text = <"*LR-1(en)">
+					description = <"*Wenn definitiv gutartig.(en)">
+				>
+				["at0013"] = <
+					text = <"*LR-2(en)">
+					description = <"*Wenn wahrscheinlich gutartig.(en)">
+				>
+				["at0014"] = <
+					text = <"*LR-3(en)">
+					description = <"*Bei mittlerer Wahrscheinlichkeit für Malignität.(en)">
+				>
+				["at0015"] = <
+					text = <"*LR-4(en)">
+					description = <"*Wenn wahrscheinlich HCC.(en)">
+				>
+				["at0016"] = <
+					text = <"*LR-5(en)">
+					description = <"*Wenn definitiv HCC.(en)">
+				>
+				["at0017"] = <
+					text = <"*LR-M(en)">
+					description = <"*Wenn wahrscheinlich oder definitiv maligne aber nicht HCC-spezifisch (z. B. Schießscheibenzeichen).(en)">
+				>
+				["at0018"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0019"] = <
+					text = <"*LR-TR Nicht beurteilbar(en)">
+					description = <"*Behandelt, Ansprechen nicht beurteilbar (aufgrund fehlender Bildgebung oder schlechter Qualität)(en)">
+				>
+				["at0020"] = <
+					text = <"*LR-TR Avital(en)">
+					description = <"*Behandelt, wahrscheinlich oder definitiv avital(en)">
+				>
+				["at0021"] = <
+					text = <"*LR-TR nicht eindeutig(en)">
+					description = <"*Behandelt, nicht eindeutig vital(en)">
+				>
+				["at0022"] = <
+					text = <"*LR-TR vital(en)">
+					description = <"*Behandelt, wahrscheinlich oder definitiv vital(en)">
+				>
+				["at0023"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0025"] = <
+					text = <"*Kein APHE(en)">
+					description = <"**(en)">
+				>
+				["at0026"] = <
+					text = <"*APHE (kein rim-Zeichen)(en)">
+					description = <"**(en)">
+				>
+				["at0027"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0028"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0029"] = <
+					text = <"*ja(en)">
+					description = <"**(en)">
+				>
+				["at0030"] = <
+					text = <"*nein(en)">
+					description = <"**(en)">
+				>
+				["at0031"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0032"] = <
+					text = <"*ja(en)">
+					description = <"**(en)">
+				>
+				["at0033"] = <
+					text = <"*nein(en)">
+					description = <"**(en)">
+				>
+				["at0034"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0035"] = <
+					text = <"*ja(en)">
+					description = <"**(en)">
+				>
+				["at0036"] = <
+					text = <"*nein(en)">
+					description = <"**(en)">
+				>
+				["at0037"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0038"] = <
+					text = <"*ja(en)">
+					description = <"**(en)">
+				>
+				["at0039"] = <
+					text = <"*nein(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"LI-RADS">
+					description = <"Das Liver Imaging Reporting and Data System (LI-RADS®) ist ein umfassendes System zur Standardisierung der Terminologie, Technik, Interpretation, Berichterstattung und Datenerfassung von Leberbeobachtungen bei Personen mit hohem Risiko für ein hepatozelluläres Karzinom (HCC)">
+				>
+				["at0003"] = <
+					text = <"LI-RADS Algorithm">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Ultraschall LI-RADS®">
+					description = <"Zur Überwachung. Mittels konventioneller Sonographie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten.">
+				>
+				["at0005"] = <
+					text = <"CEUS LI-RADS®">
+					description = <"Zur HCC-Diagnostik. Mittels Kontrastmittel-Ultraschall (KMUS, contrast-enhanced ultrasound, CEUS). Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten. ">
+				>
+				["at0006"] = <
+					text = <"CT/MRT Diagnostisches LI-RADS®">
+					description = <"Zur HCC-Diagnostik und zum Staging. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. ">
+				>
+				["at0007"] = <
+					text = <"CT/MRT Therapieansprechen LI-RADS®">
+					description = <"Zur Beurteilung des HCC-Therapieansprechens auf lokoregionäre Therapie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. Mittels CT, MRT mit extrazellulären Kontrastmittteln (extracellular agents, ECA), oder MRT mit hepatobiliären Kontrastmitteln (hepatobiliary agents, HBA).">
+				>
+				["at0008"] = <
+					text = <"LI-RADS Version">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Diagnostische Katgorien">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"LR-NC">
+					description = <"Bei fehlender Beurteilbarkeit aufgrund fehlender oder schlechter Bildgebung.">
+				>
+				["at0011"] = <
+					text = <"LR-TIV">
+					description = <"Bei definitivem Nachweis von Tumorinfiltration in die Vene (TIV).">
+				>
+				["at0012"] = <
+					text = <"LR-1">
+					description = <"Wenn definitiv gutartig.">
+				>
+				["at0013"] = <
+					text = <"LR-2">
+					description = <"Wenn wahrscheinlich gutartig.">
+				>
+				["at0014"] = <
+					text = <"LR-3">
+					description = <"Bei mittlerer Wahrscheinlichkeit für Malignität.">
+				>
+				["at0015"] = <
+					text = <"LR-4">
+					description = <"Wenn wahrscheinlich HCC.">
+				>
+				["at0016"] = <
+					text = <"LR-5">
+					description = <"Wenn definitiv HCC.">
+				>
+				["at0017"] = <
+					text = <"LR-M">
+					description = <"Wenn wahrscheinlich oder definitiv maligne aber nicht HCC-spezifisch (z. B. Schießscheibenzeichen).">
+				>
+				["at0018"] = <
+					text = <"Kategorien Therapieansprechen">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"LR-TR Nicht beurteilbar">
+					description = <"Behandelt, Ansprechen nicht beurteilbar (aufgrund fehlender Bildgebung oder schlechter Qualität)">
+				>
+				["at0020"] = <
+					text = <"LR-TR Avital">
+					description = <"Behandelt, wahrscheinlich oder definitiv avital">
+				>
+				["at0021"] = <
+					text = <"LR-TR nicht eindeutig">
+					description = <"Behandelt, nicht eindeutig vital">
+				>
+				["at0022"] = <
+					text = <"LR-TR vital">
+					description = <"Behandelt, wahrscheinlich oder definitiv vital">
+				>
+				["at0023"] = <
+					text = <"Arterielle Hypervaskularisation (APHE)">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Kein APHE">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"APHE (kein rim-Zeichen)">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Größe der Observation">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Anreichernde “Kapsel”">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"ja">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"nein">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"\"Washout” (nicht peripher)">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"ja">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"nein">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Schwellenwachstum">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"ja">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"nein">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Gefäße Beteiligung">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"ja">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"nein">
+					description = <"*">
+				>
+			>
+		>
+	>

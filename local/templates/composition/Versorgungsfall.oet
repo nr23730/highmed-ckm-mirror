@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>ee9ef52d-1084-4b8f-aa50-8ddfa7f2bcdf</id>
+  <name>Versorgungsfall</name>
+  <description>
+    <original_author />
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation der administrativen Daten eines Falls (Fallinformationen, Aufnahme, Entlassung) eines Patienten innerhalb einer Einrichtung. Ein “Fall” beginnt mit der Aufnahme ins Krankenhaus an einem Aufnahmedatum und endet mit der Entlassung an einem Entlassungsdatum. </purpose>
+      <keywords>
+        <item>Versorgungsfall</item>
+        <item>Fall</item>
+        <item>Aufnahme</item>
+      </keywords>
+      <use>Für die Abbildung ambulanter, stationärer, prästationärer oder nachstationärer Aufenthalte eines Patienten in einer Gesundheitseinrichtung.</use>
+      <misuse>Nicht zur Repräsentation eines einzelnen stationären Aufenthalts eines Patienten auf einer Station zu verwenden. Bitte den Archetyp ADMIN_ENTRY.krankenhausaufenthalt.v0 zur Dokumentation einzelne Aufenthalte unterhalb eines Falls verwenden. </misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Versorgungsfall">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0" concept_name="Patientenaufnahme" max="1" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" max="0" />
+      <Rule path="/data[at0001]/items[at0013]" name="Versorgungsfallgrund" />
+      <Rule path="/data[at0001]/items[at0049]">
+        <constraint xsi:type="textConstraint" limitToList="true">
+          <includedValues>Unfall / Notarztwagen</includedValues>
+          <includedValues>wahlfreie Aufnahme</includedValues>
+          <includedValues>Notfall ohne Einweisung</includedValues>
+          <includedValues>Entbindung / Geburt</includedValues>
+          <includedValues>Neugeborenes</includedValues>
+          <includedValues>Normalaufnahme</includedValues>
+          <includedValues>dringliche Aufnahme</includedValues>
+          <includedValues>Sonstige</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0023]" max="0" />
+      <Rule path="/data[at0001]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0121]" max="0" />
+      <Rule path="/data[at0001]/items[at0041]" max="0" />
+      <Rule path="/data[at0001]/items[at0051]" max="0" />
+      <Rule path="/data[at0001]/items[at0061]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" concept_name="Entlassungsdaten" max="1" path="/content">
+      <Rule path="/data[at0001]/items[at0052]" max="0" />
+      <Rule path="/data[at0001]/items[at0058]" max="0" />
+      <Rule path="/data[at0001]/items[at0062]" max="0" />
+      <Rule path="/data[at0001]/items[at0033]" max="0" />
+      <Rule path="/data[at0001]/items[at0038]" max="0" />
+      <Rule path="/data[at0001]/items[at0039]" max="0" />
+      <Rule path="/data[at0001]/items[at0040]">
+        <constraint xsi:type="textConstraint" limitToList="true" />
+      </Rule>
+      <Rule path="/data[at0001]/items[at0049]" max="0" />
+      <Rule path="/data[at0001]/items[at0051]" max="0" />
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0003]" name="Fall-Kennung"/>
+      <Rule path="/context/other_context[at0001]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Stationär</includedValues>
+          <includedValues>Ambulant</includedValues>
+          <includedValues>Teilstationär</includedValues>
+        </constraint>
+      </Rule>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.fall.v0">
+    <digest id="MD5-CAM-1.0.1">0041C26B564D97AE6C6182D7E89CEBC4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0">
+    <digest id="MD5-CAM-1.0.1">8195922934B33A6ADEB388549788529A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0">
+    <digest id="MD5-CAM-1.0.1">47CD9C0546662F7E116617685C365BCC</digest>
+  </integrity_checks>
+</template>
