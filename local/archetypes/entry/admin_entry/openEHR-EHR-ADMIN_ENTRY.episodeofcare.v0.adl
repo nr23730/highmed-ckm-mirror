@@ -1,0 +1,326 @@
+﻿archetype (adl_version=1.4; uid=3d7ec201-251c-4c9a-95a4-faea440f3400)
+	openEHR-EHR-ADMIN_ENTRY.episodeofcare.v0
+
+concept
+	[at0000]	-- Episodeofcare
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Birger Haarbrandt">
+		["organisation"] = <"HiGHmed">
+		["email"] = <"birger.haarbrandt@plri.de">
+		["date"] = <"2019-12-01">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"The EpisodeOfCare Archetype contains information about an association of a Patient with a Healthcare Provider for a period of time under which related healthcare activities may occur.
+
+In many cases, this represents a period of time where the Healthcare Provider has some level of responsibility for the care of the patient regarding a specific condition or problem, even if not currently participating in an encounter.">
+			use = <"The EpisodeOfCare Archetype is closely aligned with the EpisodeOfCare Resource">
+			misuse = <"">
+			copyright = <"© *(de), HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"*The EpisodeOfCare Archetype contains information about an association of a Patient with a Healthcare Provider for a period of time under which related healthcare activities may occur.
+
+In many cases, this represents a period of time where the Healthcare Provider has some level of responsibility for the care of the patient regarding a specific condition or problem, even if not currently participating in an encounter.(de)">
+			use = <"*The EpisodeOfCare Archetype is closely aligned with the EpisodeOfCare Resource(de)">
+			misuse = <"*(de)">
+			copyright = <"© *(de), HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"40E6B269A354B36D80ABA7BDDD13CDB7">
+		["build_uid"] = <"3339ac88-b1ea-4a7a-bb74-b31505c2ef39">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Episodeofcare
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- identifier
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- status
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0004, 	-- planned
+									at0005, 	-- waitlist
+									at0006, 	-- active
+									at0007, 	-- onhold
+									at0008, 	-- finished
+									at0009, 	-- cancelled
+									at0010]	-- entered-in-error
+								}
+							}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- period
+						value matches {
+							DV_INTERVAL<DV_DATE_TIME> matches {
+								upper matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+								lower matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0018] occurrences matches {0..1} matches {	-- diagnosis
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0019] matches {	-- diagnosis entry
+								value matches {
+									DV_EHR_URI matches {*}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- role
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- rank
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- care manager
+						value matches {
+							DV_URI matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- managing organization(
+						value matches {
+							DV_URI matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- team
+						value matches {
+							DV_URI matches {*}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- account
+						value matches {
+							DV_URI matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Episodeofcare">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"identifier">
+					description = <"Business Identifier(s) relevant for this EpisodeOfCare">
+				>
+				["at0003"] = <
+					text = <"status">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"planned">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"waitlist">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"active">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"onhold">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"finished">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"cancelled">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"entered-in-error">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"type">
+					description = <"Type/class - e.g. specialist referral, disease management">
+				>
+				["at0012"] = <
+					text = <"care manager">
+					description = <"Care manager/care coordinator for the patient">
+				>
+				["at0013"] = <
+					text = <"team">
+					description = <"Other practitioners facilitating this episode of care">
+				>
+				["at0014"] = <
+					text = <"period">
+					description = <"Interval during responsibility is assumed">
+				>
+				["at0016"] = <
+					text = <"account">
+					description = <"The set of accounts that may be used for billing for this EpisodeOfCare">
+				>
+				["at0017"] = <
+					text = <"managing organization">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"diagnosis">
+					description = <"The list of diagnosis relevant to this episode of care">
+				>
+				["at0019"] = <
+					text = <"diagnosis entry">
+					description = <"Conditions/problems/diagnoses this episode of care is for">
+				>
+				["at0020"] = <
+					text = <"role">
+					description = <"Role that this diagnosis has within the episode of care (e.g. admission, billing, discharge...)">
+				>
+				["at0021"] = <
+					text = <"rank">
+					description = <"Ranking of the diagnosis (for each role type)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Episodeofcare">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"*@ internal @">
+				>
+				["at0002"] = <
+					text = <"identifier">
+					description = <"Business Identifier(s) relevant for this EpisodeOfCare">
+				>
+				["at0003"] = <
+					text = <"status">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"planned">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"waitlist">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"active">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"onhold">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"finished">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"cancelled">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"entered-in-error">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"type">
+					description = <"Type/class - e.g. specialist referral, disease management(de)">
+				>
+				["at0012"] = <
+					text = <"care manager">
+					description = <"Care manager/care coordinator for the patient(de)">
+				>
+				["at0013"] = <
+					text = <"team">
+					description = <"Other practitioners facilitating this episode of care(de)">
+				>
+				["at0014"] = <
+					text = <"period">
+					description = <"Interval during responsibility is assumed(de)">
+				>
+				["at0016"] = <
+					text = <"account">
+					description = <"The set of accounts that may be used for billing for this EpisodeOfCare(de)">
+				>
+				["at0017"] = <
+					text = <"managing organization(">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"diagnosis">
+					description = <"The list of diagnosis relevant to this episode of care(de)">
+				>
+				["at0019"] = <
+					text = <"diagnosis entry">
+					description = <"Conditions/problems/diagnoses this episode of care is for(de)">
+				>
+				["at0020"] = <
+					text = <"role">
+					description = <"Role that this diagnosis has within the episode of care (e.g. admission, billing, discharge...)(de)">
+				>
+				["at0021"] = <
+					text = <"rank">
+					description = <"Ranking of the diagnosis (for each role type)(de)">
+				>
+			>
+		>
+	>
