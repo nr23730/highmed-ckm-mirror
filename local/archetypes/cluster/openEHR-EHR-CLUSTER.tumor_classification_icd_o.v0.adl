@@ -1,0 +1,213 @@
+﻿archetype (adl_version=1.4; uid=a8cd1be2-e748-42a5-9299-51d63baa9ac4)
+	openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0
+
+concept
+	[at0000]	-- Tumor classification ICD-O
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Aurelie Tomczak">
+				["organisation"] = <"au.tomczak@yahoo.com">
+				["email"] = <"Institute of Pathology, University Hospital Heidelberg">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Aurelie Tomczak">
+		["organisation"] = <"Institute of Pathology, University Hospital Heidelberg">
+		["email"] = <"au.tomczak@yahoo.com">
+		["date"] = <"2020-02-19">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung der Klassifizierung eines Tumors nach dem ICD-O-3-System.">
+			use = <"Der Archetyp kann verwendet werden, um die Morphologieklassifizierung im Slot \"Strukturierte Befunde\" des Archetyps openEHR-EHR-CLUSTER.histopathology_findings.v0 darzustellen. Er kann aber auch in anderen Archetypen verwendet werden, sofern dies klinisch angemessen ist.
+">
+			keywords = <"ICD-O", "Morphologie", "Morphologischer Schlüssel", "Topographie", "Topographischer Schlüssel", "Tumorklassifikation", "Neoplasma", "Krebs", "Tumor", "Histologie", "Verhalten", "Klassifikation", "Unterscheidung", "Phänotyp", "Zelltyp">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the classification of a tumor according to the ICD-O-3 system.">
+			use = <"Can be used to report the morphology classification in the \"Structured findings\" slot of the archetype openEHR-EHR-CLUSTER.histopathology_findings.v0, but can also be used within other archetypes, where clinically appropriate.">
+			keywords = <"ICD-O", "morphology", "morphological code", "topography", "topographical code", "tumor classification", "neoplasm", "cancer", "tumor", "histology", "behavior", "grade", "differentiation", "phenotype", "cell type">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Citation: World Health Organization. (‎2013)‎. International classification of diseases for oncology (‎‎ICD-O)‎‎ – 3rd edition, 1st revision, 3rd ed.. https://apps.who.int/iris/handle/10665/96612 
+Web: http://www.iacr.com.fr/index.php?option=com_content&view=category&layout=blog&id=100&Itemid=577
+German: https://www.dimdi.de/dynamic/de/klassifikationen/icd/icd-o-3/index.html">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"3E85FFD43FA44FCC6C2C879083EF5143">
+		["build_uid"] = <"18c04aef-5fc8-42ff-8d85-ef681fcc2eaa">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] occurrences matches {0..1} matches {    -- Tumor classification ICD-O
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- ICD-O Morphological Code
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[ac0000]
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Morphological Code Description
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {    -- ICD-O Version
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0010,    -- Version 3.0
+							at0011,    -- Version 3.1
+							at0012]    -- Version 3.2
+						}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {    -- ICD-O Topography (Localization)
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location\.v1/}
+			}
+		}
+	}
+
+
+ontology
+	terminologies_available = <"ICD-O-3 Morphology", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tumor classification ICD-O">
+					description = <"International Classification of Diseases for Oncology
+ICD-O-3 is a dual classification. It contains both a topographical code and a histological code for each neoplasm. 
+The topographical describes the site of the neoplasm; in general, it uses the same three- or four-character codes as used in ICD-10 for malignant neoplasms. This results in a greater accuracy in the encoding of the topography of benign tumors than achieved in ICD-10. 
+The morphological code describes the cell type of the neoplasm and its biological behaviour. It thus characterises the neoplasm itself.">
+				>
+				["at0001"] = <
+					text = <"ICD-O Morphological Code">
+					description = <"To record the type of cell that has become neoplastic and its biologic activity with the morphology code according to the International classification of diseases for oncology (‎‎ICD-O)‎‎.">
+					comment = <"There are three parts to a complete morphology code:
+4 digits – Cell type (histology)
+1 digit – Behavior
+1 digit – Grade, differentiation or phenotype
+In   ICD-O morphology codes, a common root codes the cell type of a given  tumor, while an additional digit codes the behavior. The grade, differentiation,  or phenotype code provides supplementary information about the tumor.">
+				>
+				["at0003"] = <
+					text = <"Morphological Code Description">
+					description = <"To record the term (narrative description/synonyms) of the morphology code according to the International classification of diseases for oncology (‎‎ICD-O)‎‎.">
+				>
+				["at0009"] = <
+					text = <"ICD-O Version">
+					description = <"To record the ICD-O Version used.">
+				>
+				["at0010"] = <
+					text = <"Version 3.0">
+					description = <"ICD-O-3 (2000).">
+				>
+				["at0011"] = <
+					text = <"Version 3.1">
+					description = <"ICD-O-3.1 (2011).">
+				>
+				["at0012"] = <
+					text = <"Version 3.2">
+					description = <"ICD-O-3.2 (2020).">
+				>
+				["at0013"] = <
+					text = <"ICD-O Topography (Localization)">
+					description = <"The topography describes the site of the neoplasm within a openEHR-EHR-CLUSTER.anatomical_location.v1 archetype.">
+					comment = <"In general, it uses the same three- or four-character codes as used in ICD-10 for malignant neoplasms.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tumorklassifikation ICD-O">
+					description = <"Internationale Klassifikation von Krankheiten für die Onkologie
+Die ICD-O-3 ist eine duale Klassifikation. Sie enthält einen Schlüssel für die Lokalisation und einen Schlüssel für die Histologie einer Neubildung. Der Lokalisationskode beschreibt den Sitz der Neubildung und verwendet in der Regel dieselben drei- und vierstelligen Schlüsselnummern, die in der ICD-10 für die bösartigen Neubildungen benutzt werden. Dies führt zu einer größeren Genauigkeit bei der Kodierung der Lokalisation benigner Tumoren, als sie in der ICD-10 erreicht wird. Der morphologische Kode beschreibt den Zelltyp der Neubildung und ihr biologisches Verhalten. Er charakterisiert sozusagen die Neubildung selbst.">
+				>
+				["at0001"] = <
+					text = <"Morphologischer ICD-O-Code">
+					description = <"Zur Erfassung des neoplastisch gewordenen Zelltyps und seiner biologischen Aktivität anhand des Morphologieschlüssels gemäß der \"International classification of diseases for oncology (ICD-O-3)\".">
+					comment = <"Morphologische Schlüsselnummern bestehen aus fünfstelligen Kodenummern des Nummernkreises 8000/0 bis 9989/3. Die ersten vier Stellen verweisen auf die histologische Bezeichnung. Die fünfte Stelle befindet sich hinter dem Schrägstrich (/). Sie steht für den sogenannten \"Behavior-Kode\". Dieser beschreibt, inwieweit der Tumor bös- oder gutartig ist oder ob es sich um ein Carcinoma in situ oder um eine Neubildung fraglicher Dignität handelt.
+Zur Beschreibung der histologischen Differenzierung (Grading) ist ein gesonderter einstelliger Schlüssel an der sechsten Stelle vorgesehen. Bei den Lymphomen und den Leukämien wird dieser Teil des Kode zur immunologischen Charakterisierung (T-Zell, B-Zell, NK-Zell und Null-Zell) verwendet.">
+				>
+				["at0003"] = <
+					text = <"Morphologische Codebeschreibung">
+					description = <"Zur Erfassung der Textbeschreibung (Synonyme) des Morphologiecodes gemäß der \"International classification of diseases for oncology (ICD-O-3)\".">
+				>
+				["at0009"] = <
+					text = <"ICD-O-Version">
+					description = <"Zur Erfassung der verwendeten ICD-O-Version.">
+				>
+				["at0010"] = <
+					text = <"Version 3.0">
+					description = <"ICD-O-3 (2000).">
+				>
+				["at0011"] = <
+					text = <"Version 3.1">
+					description = <"ICD-O-3.1 (2011).">
+				>
+				["at0012"] = <
+					text = <"Version 3.2">
+					description = <"ICD-O-3.2 (2020).">
+				>
+				["at0013"] = <
+					text = <"ICD-O-Topographie (Lokalisation)">
+					description = <"Die Topographie beschreibt die Stelle des Neoplasmas eingebettet in den archetyp openEHR-EHR-CLUSTER.anatomical_location.v1.">
+					comment = <"Im Allgemeinen werden dieselben drei- oder vierstelligen Codes verwendet, die in ICD-10 für maligne Neoplasien verwendet werden.">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["en"] = <
+			items = <
+				["ac0000"] = <
+					text = <"ICD-O Classification">
+					description = <"ICD-O Classification">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["ac0000"] = <
+					text = <"ICD-O-Klassifikation">
+					description = <"ICD-O-Klassifikation">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["ICD-O-3 Morphology"] = <
+			items = <
+				["ac0000"] = <https://codes.iarc.fr/codegroup/2>
+			>
+		>
+	>
