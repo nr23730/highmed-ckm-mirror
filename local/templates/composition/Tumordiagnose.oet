@@ -44,6 +44,10 @@
                 <key>PARENT:MD5-CAM-1.0.1</key>
                 <value>452F11AF1291ED7CAB90062C5EC03674</value>
             </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>ea656d6065cf5349b730b09f9e1f29ce</value>
+            </item>
         </other_details>
     </description>
     <annotations path="[openEHR-EHR-COMPOSITION.problem_list.v1]/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1, 'ICD-10 Diagnose']/data[at0001]/items[openEHR-EHR-CLUSTER.tnm.v0]/items[at0032]">
@@ -133,11 +137,7 @@
                 <constraint xsi:type="tem:textConstraint"/>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0012]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local::at0047</includedValues>
-                    <includedValues>local::at0048</includedValues>
-                    <includedValues>local::at0049</includedValues>
-                </constraint>
+                <constraint xsi:type="tem:textConstraint"/>
             </Rule>
             <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
             <Rule max="0" path="/data[at0001]/items[at0003]"/>
@@ -155,6 +155,9 @@
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
+                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v0"
                 concept_name="Klinische TNM-Klassifikation"
                 name="Klinische TNM-Klassifikation (cTNM)"
@@ -179,63 +182,64 @@
                 <Rule max="0" path="/items[at0030.1]"/>
                 <Rule name="UICC Stadium" path="/items[at0031.1]"/>
             </Items>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            concept_name="Problem/Diagnose" name="ICD-O-3 Topographie"
-            path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="ICD-O-3 Topographie Code" path="/data[at0001]/items[at0002]"/>
-            <Rule name="ICD-O-3 Topographie Text" path="/data[at0001]/items[at0009]">
-                <constraint xsi:type="tem:textConstraint"/>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0012]"/>
-            <Rule max="0" name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
-            <Rule max="0" path="/data[at0001]/items[at0003]"/>
-            <Rule max="0" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0072]"/>
-            <Rule max="0" path="/data[at0001]/items[at0030]"/>
-            <Rule max="0" path="/data[at0001]/items[at0073]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            concept_name="Problem/Diagnose" name="ICD-O-3 Histologie"
-            path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="ICD-O-3 Histologie Code" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint"/>
-            </Rule>
-            <Rule name="ICD-O-3 Histologie Text" path="/data[at0001]/items[at0009]"/>
-            <Rule max="0" path="/data[at0001]/items[at0012]"/>
-            <Rule max="0" path="/data[at0001]/items[at0077]"/>
-            <Rule max="0" path="/data[at0001]/items[at0003]"/>
-            <Rule max="0" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0072]"/>
-            <Rule max="0" path="/data[at0001]/items[at0030]"/>
-            <Rule max="0" path="/data[at0001]/items[at0073]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+                path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0065]"/>
+                <Rule name="Seitenlokalisation" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0083]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0023]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
+                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
-                path="/protocol[at0032]/items[at0071]" xsi:type="tem:CLUSTER">
-                <Rule name="Beschreibung des Stadium/Gruppe/Grad" path="/items[at0002]"/>
+                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule name="Beschreibung des Stadium/Gruppe/Grades" path="/items[at0002]"/>
             </Items>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            concept_name="Problem/Diagnose"
+            name="Frühere Tumorerkrankungen" path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Frühere Tumorerkrankugen ICD-10 Code" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint"/>
+            </Rule>
+            <Rule name="Frühere Tumorerkrankugen ICD-10 Text" path="/data[at0001]/items[at0009]">
+                <constraint xsi:type="tem:textConstraint"/>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0012]">
+                <constraint xsi:type="tem:textConstraint"/>
+            </Rule>
+            <Rule max="0"
+                name="Frühere Tumoerkrankungen Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
         </Content>
     </definition>
     <view>
@@ -257,6 +261,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">714FD09D39A922BCADF58B178C81E8BB</digest>
     </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DCB974F6ECC146719DE64F0D50283239</digest>
+    </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tnm.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
@@ -267,6 +277,18 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">C06F57CB797B9F46ED73106EC1B15E77</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E1B9E9E2BAE3D348573B962C42255E91</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
