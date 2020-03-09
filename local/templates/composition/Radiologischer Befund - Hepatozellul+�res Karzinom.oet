@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>386cb528-b43e-4168-8be8-4b0c341c04b1</id>
-    <name>Radiologische Befunde - Hepatozelluläres Karzinom</name>
+    <name>Radiologischer Befund - Hepatozelluläres Karzinom</name>
     <description>
         <original_author>
             <item>
@@ -29,7 +29,7 @@
         </other_contributors>
         <lifecycle_state>in_development</lifecycle_state>
         <details>
-            <purpose>Zur Erfassungen von Ergebnissen und Interpretationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen, die bei einem Patienten mit Hepatozellulärem Karzinom durchgeführt wurden.</purpose>
+            <purpose>Zur Erfassungen von Ergebnissen und Interpretationen einer bildgebenden Untersuchung, die bei einem Patienten mit Hepatozellulärem Karzinom durchgeführt wurden.</purpose>
             <keywords>
                 <item>Hepatozelluläres Karzinom</item>
                 <item>HCC</item>
@@ -37,10 +37,14 @@
                 <item>Diagnostik</item>
                 <item>Bildgebendes Verfahren</item>
                 <item>Bildgebende Diagnostik</item>
-                <item>bildgebend</item>
-                <item>Untersuchung</item>
+                <item>Bildgebende Untersuchung</item>
+                <item>Radiologische Untersuchung</item>
+                <item>MRT-Untersuchung</item>
+                <item>CT-Untersuchung</item>
                 <item>Ergebnis</item>
                 <item>Untersuchungsergebnis</item>
+                <item>Radiologischer Befundbericht</item>
+                <item>Radiologische Befundung</item>
             </keywords>
             <use/>
         </details>
@@ -67,7 +71,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>aa2058f99bfa6a8af5e8f9f665b9a0b9</value>
+                <value>0d63d1b11ebf26818e6b6d8eb00f0b54</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -81,7 +85,7 @@
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht"
-        name="Radiologische Befunde - Hepatozelluläres Karzinom"
+        name="Radiologischer Befund - Hepatozelluläres Karzinom"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
@@ -123,7 +127,7 @@
                     <includedValues>nicht diagnostisch</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Details zur Bildstudie (DICOM Studie)" path="/protocol[at0025]/items[at0027]"/>
+            <Rule max="1" name="Details zur Bildstudie (DICOM Studie)" path="/protocol[at0025]/items[at0027]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0028]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0029]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0031]"/>
@@ -148,13 +152,7 @@
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
                 <Rule min="1" name="Anzahl HCCs" path="/items[at0001]"/>
                 <Rule min="1" name="Anzahl HCCs" path="/items[at0001]/items[at0002]"/>
-                <Rule max="0" name="Vorhandensein von Tumoridentität" path="/items[at0001]/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ja</includedValues>
-                        <includedValues>nein</includedValues>
-                        <includedValues>unklar</includedValues>
-                    </constraint>
-                </Rule>
+                <Rule name="Anzahl HCC Kommentar" path="/items[at0001]/items[at0003]"/>
                 <Rule max="0" path="/items[at0001]/items[at0004]"/>
                 <Rule max="0" path="/items[at0001]/items[at0011]"/>
             </Items>
@@ -163,7 +161,6 @@
                 concept_name="Physische Eigenschaften eines Objektes"
                 name="Größe"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0036]"/>
                 <Rule max="0" path="/items[at0023]"/>
                 <Rule name="Größe des HCC" path="/items[at0042]">
                     <constraint xsi:type="tem:quantityConstraint">
@@ -192,7 +189,7 @@
                 name="Metastasierung"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
                 <Rule min="1" name="Metastasierung" path="/items[at0001]"/>
-                <Rule name="Metstasenidentität" path="/items[at0001]/items[at0002]">
+                <Rule name="Metastasenidentität" path="/items[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>regionären Lymphknotenmetastasen vorhanden</includedValues>
                         <includedValues>keine regionären Lymphknotenmetastasen</includedValues>
@@ -227,9 +224,10 @@
                             <includedValues>PLE</includedValues>
                             <includedValues>PER</includedValues>
                             <includedValues>ADR</includedValues>
+                            <includedValues>KID</includedValues>
                             <includedValues>SKI</includedValues>
                             <includedValues>OTH</includedValues>
-                            <includedValues>missing</includedValues>
+                            <includedValues>NULL</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0065]"/>
@@ -262,23 +260,23 @@
                         <includedValues>Pfortaderthrombose unklar</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0001]/items[at0003]"/>
+                <Rule name="Pfortaderthrombose Kommentar" path="/items[at0001]/items[at0003]"/>
                 <Rule max="0" path="/items[at0001]/items[at0004]"/>
                 <Rule max="0" path="/items[at0001]/items[at0011]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
                 concept_name="Ergebnis der Bildgebung"
-                name="Restaktivität"
+                name="Resvitaliät"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
                 <Rule min="1" path="/items[at0001]"/>
-                <Rule min="1" name="Restaktivität" path="/items[at0001]/items[at0002]">
+                <Rule min="1" name="Resvitaliät" path="/items[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Restaktivität vorhanden</includedValues>
                         <includedValues>kein Restaktivität</includedValues>
                         <includedValues>Restaktivität unklar</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0001]/items[at0003]"/>
+                <Rule name="Resvitaliät Kommentar" path="/items[at0001]/items[at0003]"/>
                 <Rule max="0" path="/items[at0001]/items[at0004]"/>
                 <Rule max="0" path="/items[at0001]/items[at0011]"/>
             </Items>
@@ -288,7 +286,6 @@
                 <Rule path="/items[at0008]">
                     <constraint xsi:type="tem:textConstraint">
                         <excludedValues>local::at0013</excludedValues>
-                        <excludedValues>local::at0014</excludedValues>
                     </constraint>
                 </Rule>
             </Items>
@@ -300,12 +297,14 @@
                         <includedValues>Leber</includedValues>
                     </constraint>
                 </Rule>
-                <Rule name="Tumorlokalisation HCCs" path="/items[at0065]">
-                    <constraint xsi:type="tem:textConstraint">
+                <Rule path="/items[at0065]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>Lebersegment 1</includedValues>
                         <includedValues>Lebersegment 2</includedValues>
                         <includedValues>Lebersegment 3</includedValues>
                         <includedValues>Lebersegment 4</includedValues>
+                        <includedValues>Lebersegment 4a</includedValues>
+                        <includedValues>Lebersegment 4b</includedValues>
                         <includedValues>Lebersegment 5</includedValues>
                         <includedValues>Lebersegment 6</includedValues>
                         <includedValues>Lebersegment 7</includedValues>
@@ -339,9 +338,21 @@
                     </constraint>
                 </Rule>
             </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.lirads.v0"
+                concept_name="LI-RADS" name="Ansprechen LI-RADS"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule max="0" path="/items[at0027]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0031]"/>
+                <Rule max="0" path="/items[at0034]"/>
+                <Rule max="0" path="/items[at0037]"/>
+            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.imaging.v0"
                 path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
+                <Rule name="Untersuchungsprotokoll" path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Native Phase</includedValues>
                         <includedValues>Spätarterielle Phase</includedValues>
@@ -361,6 +372,9 @@
                 </Rule>
                 <Rule max="0" path="/items[at0010]"/>
                 <Rule max="0" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0011]/items[at0012]"/>
+                <Rule max="0" path="/items[at0011]/items[at0013]"/>
+                <Rule max="0" path="/items[at0011]/items[at0015]"/>
             </Items>
         </Content>
         <Context>
@@ -373,7 +387,19 @@
             </Items>
         </Context>
         <Rule min="1" path="/context/other_context[at0001]/items[at0002]"/>
-        <Rule min="1" path="/context/other_context[at0001]/items[at0005]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>Registriert</includedValues>
+                <includedValues>Teilweise</includedValues>
+                <includedValues>Vorläufig</includedValues>
+                <includedValues>Final</includedValues>
+                <includedValues>Abgeändert</includedValues>
+                <includedValues>Korrigiert</includedValues>
+                <includedValues>Hinzugefügt</includedValues>
+                <includedValues>Abgebrochen</includedValues>
+                <includedValues>Irrtümlich eingegeben</includedValues>
+            </constraint>
+        </Rule>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -415,6 +441,11 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">37C57315B633A25C4371903AD5835162</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lirads.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E8CE544BFC61DB2F82011090A09C11E2</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.imaging.v0"
         xmlns:tem="openEHR/v1/Template"

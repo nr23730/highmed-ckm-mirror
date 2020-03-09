@@ -9,7 +9,9 @@ language
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"Samer Alkarkoukly">
+				["organisation"] = <"Uniklinik Köln">
+				["email"] = <"mabbouda@uni-koeln.de">
 			>
 		>
 	>
@@ -22,9 +24,8 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"zur Darstellung der standardisierten Befundung und Datenerfassung von CT- und MRT-Bildgebung beim Leberzellkarzinom (HCC).">
-			use = <"Dieser Archetyp soll verwendet werden, um die 
-standardisierte Berichterstattung und Datenerfassung von CT- und MRT-Bildgebung für das hepatozelluläre Karzinom (HCC) darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Grad des Verdachts auf eine bösartige Erkrankung zu ermitteln.
+			purpose = <"zur Darstellung der standardisierten Befundung und Datenerfassung von CT- und MRT-Bildgebung, und Ultraschall beim Leberzellkarzinom (HCC).">
+			use = <"Dieser Archetyp soll verwendet werden, um die standardisierte Berichterstattung und Datenerfassung von CT- und MRT-Bildgebung, und Ultraschall für das hepatozelluläre Karzinom (HCC) darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Grad des Verdachts auf eine bösartige Erkrankung zu ermitteln.
 
 
 Dieser Cluster kann in dem Slot \"Ergebnis der Bildgebung\" des übergeordneten Archetypen \"Bildgebendes Untersuchungsergebnis\" (openEHR-EHR-OBSERVATION.imaging_exam_result) eingebettet werden.
@@ -62,78 +63,84 @@ Not to be used for the documentation of lesions in any other body organ.">
 		["custodian_organisation"] = <"HiGHmed">
 		["references"] = <"1. Elsayes K, Kielar A, Chernyak V, Morshid A, Furlan A, Masch W, Marks R, Kamaya A, Do R, Kono Y, Fowler K, Tang A, Bashir M, Hecht E, Jambhekar K, Lyshchik A, Rodgers S, Heiken J, Kohli M, Fetzer D, Wilson S, Kassam Z, Mendiratta-Lala M, Singal A, Lim C, Cruite I, Lee J, Ash R, Mitchell D, McInnes M, Sirlin C. <p>LI-RADS: a conceptual and historical review from its beginning to its recent integration into AASLD clinical practice guidance</p>. Journal of Hepatocellular Carcinoma. 2019;Volume 6:49-69.
 
-2. LI-RADS [Internet]. Acr.org. 2020. Available from: https://www.acr.org/Clinical-Resources/Reporting-and-Data-Systems/LI-RADS">
+2. LI-RADS [Internet]. Acr.org. 2020. Available from: https://www.acr.org/Clinical-Resources/Reporting-and-Data-Systems/LI-RADS
+
+3. 1. Schima W, Heiken J. LI-RADS v2017 for liver nodules: how we read and report. Cancer Imaging [Internet]. 2018;18(1). Available from: https://cancerimagingjournal.biomedcentral.com/articles/10.1186/s40644-018-0149-5
+
+4. 2. Morgan M. LI-RADS | Radiology Reference Article | Radiopaedia.org [Internet]. Radiopaedia.org. 2020 [cited 2020 Mar 9]. Available from: https://radiopaedia.org/articles/li-rads">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E8CE544BFC61DB2F82011090A09C11E2">
-		["build_uid"] = <"9c905f07-9060-4576-8136-2b1dbd60ad24">
+		["MD5-CAM-1.0.1"] = <"5CCCB2318C52D41E3D1DBF22FAE7DC6A">
+		["build_uid"] = <"96ad5cb5-c12f-42e7-a067-05bb1cba4202">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- LI-RADS
+	CLUSTER[at0000] matches {    -- LI-RADS
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- LI-RADS Algorithm
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0004, 	-- Ultraschall LI-RADS®
-							at0005, 	-- CEUS LI-RADS®
-							at0006, 	-- CT/MRT Diagnostisches LI-RADS®
-							at0007]	-- CT/MRT Therapieansprechen LI-RADS®
+							at0004,    -- *Ultraschall LI-RADS®(en)
+							at0005,    -- *CEUS LI-RADS®(en)
+							at0006,    -- *CT/MRT Diagnostisches LI-RADS®(en)
+							at0007]    -- *CT/MRT Therapieansprechen LI-RADS®(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- LI-RADS Version
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Diagnostische Katgorien
-				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0010, 	-- LR-NC
-							at0011, 	-- LR-TIV
-							at0012, 	-- LR-1
-							at0013, 	-- LR-2
-							at0014, 	-- LR-3
-							at0015, 	-- LR-4
-							at0016, 	-- LR-5
-							at0017]	-- LR-M
-						}
+					DV_DATE matches {
+						value matches {yyyy-??-XX}
 					}
 				}
 			}
-			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kategorien Therapieansprechen
+			ELEMENT[at0009] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0019, 	-- LR-TR Nicht beurteilbar
-							at0020, 	-- LR-TR Avital
-							at0021, 	-- LR-TR nicht eindeutig
-							at0022]	-- LR-TR vital
+							at0010,    -- *LR-NC(en)
+							at0011,    -- *LR-TIV(en)
+							at0012,    -- *LR-1(en)
+							at0013,    -- *LR-2(en)
+							at0014,    -- *LR-3(en)
+							at0015,    -- *LR-4(en)
+							at0016,    -- *LR-5(en)
+							at0017]    -- *LR-M(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Arterielle Hypervaskularisation (APHE)
+			ELEMENT[at0018] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0025, 	-- Kein APHE
-							at0026]	-- APHE (kein rim-Zeichen)
+							at0019,    -- *LR-TR Nicht beurteilbar(en)
+							at0020,    -- *LR-TR Avital(en)
+							at0021,    -- *LR-TR nicht eindeutig(en)
+							at0022]    -- *LR-TR vital(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Größe der Observation
+			ELEMENT[at0023] occurrences matches {0..1} matches {    -- *New element(en)
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0025,    -- *Kein APHE(en)
+							at0026]    -- *APHE (kein rim-Zeichen)(en)
+						}
+					}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					C_DV_QUANTITY <
 						property = <[openehr::122]>
@@ -145,48 +152,53 @@ definition
 					>
 				}
 			}
-			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Anreichernde “Kapsel”
+			ELEMENT[at0028] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0029, 	-- ja
-							at0030]	-- nein
+							at0029,    -- *ja(en)
+							at0030]    -- *nein(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0031] occurrences matches {0..1} matches {	-- "Washout” (nicht peripher)
+			ELEMENT[at0031] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0032, 	-- ja
-							at0033]	-- nein
+							at0032,    -- *ja(en)
+							at0033]    -- *nein(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Schwellenwachstum
+			ELEMENT[at0034] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0035, 	-- ja
-							at0036]	-- nein
+							at0035,    -- *ja(en)
+							at0036]    -- *nein(en)
 						}
 					}
 				}
 			}
-			ELEMENT[at0037] occurrences matches {0..*} matches {	-- Gefäße Beteiligung
+			ELEMENT[at0037] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0038, 	-- ja
-							at0039]	-- nein
+							at0038,    -- *ja(en)
+							at0039]    -- *nein(en)
 						}
 					}
+				}
+			}
+			ELEMENT[at0040] occurrences matches {0..1} matches {    -- DV_TEXT
+				value matches {
+					DV_TEXT matches {*}
 				}
 			}
 		}
@@ -345,6 +357,10 @@ ontology
 					text = <"*nein(en)">
 					description = <"**(en)">
 				>
+				["at0040"] = <
+					text = <"DV_TEXT">
+					description = <"*">
+				>
 			>
 		>
 		["de"] = <
@@ -355,7 +371,7 @@ ontology
 				>
 				["at0003"] = <
 					text = <"LI-RADS Algorithm">
-					description = <"*">
+					description = <"Der Algorithmus, der zur Beurteilung und Diagnose eines Patienten verwendet wurde.">
 				>
 				["at0004"] = <
 					text = <"Ultraschall LI-RADS®">
@@ -375,11 +391,11 @@ ontology
 				>
 				["at0008"] = <
 					text = <"LI-RADS Version">
-					description = <"*">
+					description = <"Das Jahr der LI-RADS-Version, die zur Beurteilung und Diagnose des Patienten verwendet wurde.">
 				>
 				["at0009"] = <
 					text = <"Diagnostische Katgorien">
-					description = <"*">
+					description = <"Die LI-RADS-Kategorie ist eine Bewertung, die einer fokalen Leberbeobachtung zugeordnet wird.  Die Kategorien umfassen das Spektrum der gutartigen bis bösartigen Beobachtungen, die bei Patienten mit chronischer Lebererkrankung mit einem Risiko für eine Zirrhose auftreten. ">
 				>
 				["at0010"] = <
 					text = <"LR-NC">
@@ -415,7 +431,7 @@ ontology
 				>
 				["at0018"] = <
 					text = <"Kategorien Therapieansprechen">
-					description = <"*">
+					description = <"Die Kategorien des Therapieansprechens (TR) werden zur Beurteilung des Ansprechens des Tumors nach einer lokoregionalen Therapie verwendet">
 				>
 				["at0019"] = <
 					text = <"LR-TR Nicht beurteilbar">
@@ -435,7 +451,8 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Arterielle Hypervaskularisation (APHE)">
-					description = <"*">
+					description = <"Das Enhancement in der arteriellen Phase, das eindeutig größer ist als das der Leber.">
+					comment = <"Es ist ein Hauptmerkmal von LI-RADS, das zur Kategorisierung von Massen verwendet wird, die weder definitiv gutartige Entitäten noch wahrscheinlich gutartige Entitäten sind und die keine Merkmale einer Nicht-HCC-Malignität oder eines Venentumors aufweisen.">
 				>
 				["at0025"] = <
 					text = <"Kein APHE">
@@ -447,11 +464,12 @@ ontology
 				>
 				["at0027"] = <
 					text = <"Größe der Observation">
-					description = <"*">
+					description = <"Die Größe des beobachteten Knötchens bzw. der Läsion in der Leber.">
+					comment = <"Sie sollte in der größten Außen-zu-Außen-Dimension gemessen werden">
 				>
 				["at0028"] = <
 					text = <"Anreichernde “Kapsel”">
-					description = <"*">
+					description = <"Peripherer Rand einer glatten Hyperenhancement in der portalen venösen Phase, Übergangsphase oder verzögerten Phase.">
 				>
 				["at0029"] = <
 					text = <"ja">
@@ -463,7 +481,7 @@ ontology
 				>
 				["at0031"] = <
 					text = <"\"Washout” (nicht peripher)">
-					description = <"*">
+					description = <"Eine visuelle Beurteilung der relativen Hypointensität der Läsion im Vergleich zur Hintergrundleber in der portalvenösen und verzögerten Phase.">
 				>
 				["at0032"] = <
 					text = <"ja">
@@ -475,7 +493,8 @@ ontology
 				>
 				["at0034"] = <
 					text = <"Schwellenwachstum">
-					description = <"*">
+					description = <"Durchmesservergrößerung ≥50% Zunahme in ≤6 Monaten. Andere frühere Kriterien werden jetzt als Unterschwellen-Wachstum, ein zusätzliches Merkmal, betrachtet (wenn die frühere Untersuchung >6 Monate dauert, der Durchmesser ≥100% zunimmt oder wenn eine neue Läsion ≥10 mm in <24 Monaten entsteht).">
+					comment = <"Das Schwellenwachstum sollte bei ähnlichen Sequenzen zwischen den Studien verglichen werden. Dieses Kriterium sollte nur angewendet werden, wenn die Läsion definitiv eine Masse ist (z.B. keine Perfusionsänderung).">
 				>
 				["at0035"] = <
 					text = <"ja">
@@ -487,7 +506,7 @@ ontology
 				>
 				["at0037"] = <
 					text = <"Gefäße Beteiligung">
-					description = <"*">
+					description = <"Das Vorhandensein von eindeutigem, sich verbesserndem Weichgewebe im Gefäßlumen.">
 				>
 				["at0038"] = <
 					text = <"ja">
@@ -496,6 +515,10 @@ ontology
 				["at0039"] = <
 					text = <"nein">
 					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen über den Bericht, welche noch nicht an anderer Stelle dokumentiert wurden.">
 				>
 			>
 		>
