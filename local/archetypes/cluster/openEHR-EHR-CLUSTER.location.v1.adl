@@ -66,25 +66,25 @@ To represent the address data of the location, please use the archetype CLUSTER.
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E514A2A4470A5123B3A5F8DEA99EBA82">
-		["build_uid"] = <"fad164e8-e874-44be-b01b-32e2b8b29180">
-		["revision"] = <"1.1.0">
+		["MD5-CAM-1.0.1"] = <"E240EC9FB0BB243D3200FF9AA274FB71">
+		["build_uid"] = <"842bfb3a-0b47-4369-bcb3-3e6874df3271">
+		["revision"] = <"1.1.1">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Location
+	CLUSTER[at0000] matches {	-- Standort
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0040] occurrences matches {0..1} matches {	-- Location Type
+			ELEMENT[at0040] occurrences matches {0..1} matches {	-- Standorttyp
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0046] occurrences matches {0..1} matches {	-- Location description
+			ELEMENT[at0046] occurrences matches {0..1} matches {	-- Standortbeschreibung
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0048] occurrences matches {0..1} matches {	-- Location key
+			ELEMENT[at0048] occurrences matches {0..*} matches {	-- Standortschlüssel
 				value matches {
 					DV_IDENTIFIER matches {*}
 				}
@@ -94,27 +94,27 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Building
+			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Gebäudegruppe
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Level
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Ebene
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Ward
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Station
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Room
+			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Zimmer
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Bed Location
+			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Bettstellplatz
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -153,7 +153,7 @@ ontology
 				>
 				["at0029"] = <
 					text = <"Room">
-					description = <"Room that is assigned as a room, it can have walls/roofs, etc., but does not need them.">
+					description = <"A location that was declared as a room. Some locations can have the room in the corridor, e.g. ward XYZ corridor 2; where bed space 2 is in the corridor of the respective ward.  ">
 				>
 				["at0034"] = <
 					text = <"Bed Location">
@@ -201,7 +201,7 @@ ontology
 				>
 				["at0029"] = <
 					text = <"Zimmer">
-					description = <"Ein Ort, der als Zimmer deklariert wurde. Er kann durch Wände oder anderes abgegrenzt sein, muss es aber nicht.">
+					description = <"Ein Ort, der als Zimmer deklariert wurde. Bei einigen Standorten kann das Zimmer im Flur liegen zB: Station XYZ Flur 2. Hierbei liegt der Bettstellplatz 2 auf dem Flur der jeweiligen Station. ">
 				>
 				["at0034"] = <
 					text = <"Bettstellplatz">
