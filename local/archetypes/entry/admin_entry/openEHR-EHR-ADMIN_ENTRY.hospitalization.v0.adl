@@ -31,8 +31,8 @@ Nicht zur Abbildung von Krankenhausaufenthalten mit Bedeutung für klinische Ver
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"6574E1512583F431EA7855B3D248CA51">
-		["build_uid"] = <"d959697f-f6ae-4519-b34f-24e153fd2b31">
+		["MD5-CAM-1.0.1"] = <"777E79861481CFA3799F7B3953D8C0AD">
+		["build_uid"] = <"bbafaefc-d643-46c2-9ae7-2218aac3fd69">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -41,20 +41,14 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Krankenhausaufenthalt
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Art des Aufenthaltes
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
 									at0010, 	-- Stationär
-									at0011]	-- Ambulant
+									at0011, 	-- Ambulant
+									at0012]	-- Sonstige
 								}
 							}
 						}
@@ -72,11 +66,6 @@ definition
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Grund des Aufenthaltes
 						value matches {
 							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Anzahl der Aufenthalte
-						value matches {
-							DV_COUNT matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0008] occurrences matches {0..1} matches {	-- Standort
@@ -106,10 +95,6 @@ ontology
 					text = <"Baum">
 					description = <"@ internal @">
 				>
-				["at0002"] = <
-					text = <"Krankenhausaufenthalt">
-					description = <"Hatte der Patient einen Krankenhausaufenthalt (bzw. mehrere Krankenhausaufenthalte, wenn diese gesammelt dargestellt werden sollen)? Dieser Wert wird als \"Wahr\" angenommen, wenn der Patient einen oder mehrere Krankenhausaufenthalte hatte und als \"Falsch\", wenn der Patient keinen Krankenhausaufenthalte hatte.">
-				>
 				["at0003"] = <
 					text = <"Art des Aufenthaltes">
 					description = <"Art des Aufenthaltes.">
@@ -126,10 +111,6 @@ ontology
 					text = <"Grund des Aufenthaltes">
 					description = <"Grund des Aufenthaltes">
 				>
-				["at0007"] = <
-					text = <"Anzahl der Aufenthalte">
-					description = <"Anzahl der bisherigen Aufenthalte zum Zeitpunkt der Dokumentation dieses Aufenthaltes.">
-				>
 				["at0008"] = <
 					text = <"Standort">
 					description = <"Dieser Slot dient der Erfassung des Standortes des Patienten während des Krankenhausaufenthaltes.">
@@ -145,6 +126,10 @@ ontology
 				["at0011"] = <
 					text = <"Ambulant">
 					description = <"Ambulant">
+				>
+				["at0012"] = <
+					text = <"Sonstige">
+					description = <"Sonstige">
 				>
 			>
 		>

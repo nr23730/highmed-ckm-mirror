@@ -5,15 +5,16 @@
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Repräsentation der Aufenthalte eines Patienten innerhalb eines Abteilungsfalls. Dabei kann es mehrere Abteilungsfällen zu einem Versorgungsfall geben. Ein Abteilungsfall kann mehrere Aufenthaltsorte eines Patienten speichern. </purpose>
+      <purpose>Zur Repräsentation eines zusammengefassten Abteilungsfalls ohne Angabe der konkreten Versorgungsorte bzw. Aufenthaltsorte der Patienten. Jeder Abteilungsfall wird in einer Composition gespeichert, ein Versorgungsfall kann aber mehrere Abteilungsfälle umfassen.</purpose>
       <keywords>
         <item>Abteilungsfall</item>
         <item>Fall</item>
         <item>Versorgungsort</item>
-        <item>Bewegung</item>
       </keywords>
-      <use>Für die Abbildung der Aufenthalte eines Patienten auf einer Station (meist eines Krankenhauses) innerhalb eines Abteilungsfalls.</use>
-      <misuse>Nicht zur Repräsentation der administrativen Daten des zugehörigen, übergeordneten Versorgungsfalls (inkl. Aufnahme und Entlassung). Bitte die Archetypen  ADMIN_ENTRY.discharge_summary.v0 und/oder  ADMIN_ENTRY.admission.v0 oder das Template Versorgungsfall verwenden.</misuse>
+      <use>Für die zusammenfassende Darstellung des Patientenaufenthalts auf einer Station (meist eines Krankenhauses).</use>
+      <misuse>Nicht zur Repräsentation der administrativen Daten des zugehörigen, übergeordneten Versorgungsfalls (inkl. Aufnahme und Entlassung). Bitte die Archetypen  ADMIN_ENTRY.discharge_summary.v0 und/oder  ADMIN_ENTRY.admission.v0 oder das Template Versorgungsfall verwenden.
+	  
+	  Nicht zur Repräsentation der einzelnen Versorgungsorte des Patienten während seines Abteilungsaufenthaltes (z.B. Aufenthalt in Flur/Bett/zugehörige Station etc.). Bitte das Template Patientenaufenthalt verwenden und die entsprechende Abteilungsfall-Kennung dort hinterlegen. </misuse>
     </details>
     <other_details>
       <item>
@@ -67,48 +68,18 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Abteilungsfall">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hospitalization.v0" concept_name="Aufenthaltsdaten" path="/content" name="Versorgungsorte">
-      <Rule path="/data[at0001]/items[at0002]" max="0" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hospitalization.v0" concept_name="Aufenthaltsdaten" max="1" min="1" path="/content" name="Abteilungsaufenthalt">
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
       <Rule path="/data[at0001]/items[at0004]" min="1" />
-      <Rule path="/data[at0001]/items[at0007]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/data[at0001]/items[at0008]" name="Versorgungsort">
-        <Rule path="/items[at0046]" name="Abteilungsname" />
-        <Rule path="/items[at0048]" name="Abteilungsschlüssel" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medizingerät" max="1" path="/items[at0047]" name="Details zum Bett">
-          <Rule path="/items[at0003]">
-            <constraint xsi:type="textConstraint">
-              <includedValues>Bett</includedValues>
-            </constraint>
-          </Rule>
-          <Rule path="/items[at0002]" max="0" />
-          <Rule path="/items[at0004]" max="0" />
-          <Rule path="/items[at0005]" max="0" />
-          <Rule path="/items[at0020]" max="0" />
-          <Rule path="/items[at0022]" max="0" />
-          <Rule path="/items[at0023]" max="0" />
-          <Rule path="/items[at0006]" max="0" />
-          <Rule path="/items[at0025]" max="0" />
-          <Rule path="/items[at0007]" max="0" />
-          <Rule path="/items[at0024]" max="0" />
-          <Rule path="/items[at0008]" max="0" />
-        </Items>
-      </Items>
-    </Content>
-    <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0002]" name="Zugehöriger Versorgungsfall">
-        <Rule path="/items[at0001]" name="Versorgungsfall-Kennung" />
-        <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/context/other_context[at0001]/items[at0002]" name="Zugeordnete Fachabteilung">
+      <Rule path="/data[at0001]/items[at0006]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" min="1" path="/data[at0001]/items[at0008]" name="Fachabteilung">
         <Rule path="/items[at0040]">
           <constraint xsi:type="textConstraint">
             <includedValues>Fachabteilung</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0046]" name="Fachabteilungsname" />
-        <Rule path="/items[at0048]" name="Fachabteilungsschlüssel" />
+        <Rule path="/items[at0048]" max="1" name="Fachabteilungsidentifikator" />
         <Rule path="/items[at0024]" max="0" />
         <Rule path="/items[at0025]" max="0" />
         <Rule path="/items[at0028]" max="0" />
@@ -116,33 +87,34 @@
         <Rule path="/items[at0029]" max="0" />
         <Rule path="/items[at0034]" max="0" />
       </Items>
-      <Rule path="/context/other_context[at0001]/items[at0003]" name="Abteilungsfall-Kennung" />
-      <Rule path="/context/other_context[at0001]/items[at0004]">
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0002]" name="Versorgungsfall">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Station</includedValues>
-          <includedValues>Operation</includedValues>
-          <includedValues>Untersuchung und Behandlung</includedValues>
-          <includedValues>Konsil</includedValues>
-          <includedValues>Vorstationär</includedValues>
-          <includedValues>Nachstationär</includedValues>
-          <includedValues>Sonstige</includedValues>
+          <excludedValues>local::at0006</excludedValues>
+          <excludedValues>local::at0008</excludedValues>
         </constraint>
       </Rule>
+      <Rule path="/context/other_context[at0001]/items[at0004]" name="Abteilungsfallklasse" />
+      <Rule path="/context/other_context[at0001]/items[at0003]" name="Abteilungsfall-Kennung" />
     </Context>
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.fall.v0">
-    <digest id="MD5-CAM-1.0.1">0041C26B564D97AE6C6182D7E89CEBC4</digest>
+    <digest id="MD5-CAM-1.0.1">80CF4DAA0D1854880E59D213D467ED76</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
-    <digest id="MD5-CAM-1.0.1">AF8FC4FE8923C8D99D22695E21B0A712</digest>
-  </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.hospitalization.v0">
-    <digest id="MD5-CAM-1.0.1">6574E1512583F431EA7855B3D248CA51</digest>
+    <digest id="MD5-CAM-1.0.1">777E79861481CFA3799F7B3953D8C0AD</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.device.v1">
-    <digest id="MD5-CAM-1.0.1">08C28B0330D6A5C90573D9FF66DB1AF3</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">E240EC9FB0BB243D3200FF9AA274FB71</digest>
   </integrity_checks>
 </template>

@@ -49,8 +49,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"47CD9C0546662F7E116617685C365BCC">
-		["build_uid"] = <"88dabe9f-e376-4dd0-96ce-741d36e997bd">
+		["MD5-CAM-1.0.1"] = <"FFF8C6A6D1CCF30F6FF5B70CB57F52B7">
+		["build_uid"] = <"f9876465-7f7e-464e-8360-4203ea903104">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -59,6 +59,11 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Art der Entlassung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Klinischer Zustand des Patienten
 						value matches {
 							DV_CODED_TEXT matches {
@@ -69,12 +74,47 @@ definition
 									at0005, 	-- Identischer Zustand
 									at0006, 	-- Schlechter
 									at0007, 	-- Verstorben
-									at0008]	-- Unbestimmt
+									at0008, 	-- Unbestimmt
+									at0068]	-- Sonstige
 								}
 							}
 						}
 					}
-					ELEMENT[at0052] occurrences matches {0..1} matches {	-- Überweisung zu einem anderen Dienstleistungsbereich
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Entlassungsdatum/-uhrzeit
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Aufenthaltsdauer
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"a">
+									>
+									["2"] = <
+										units = <"h">
+									>
+									["3"] = <
+										units = <"mo">
+									>
+									["4"] = <
+										units = <"wk">
+									>
+									["5"] = <
+										units = <"d">
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Entlassungsanweisungen
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Zusätzliche Informationen
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -136,61 +176,11 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Aufenthaltsdauer
-						value matches {
-							C_DV_QUANTITY <
-								property = <[openehr::128]>
-								list = <
-									["1"] = <
-										units = <"a">
-									>
-									["2"] = <
-										units = <"h">
-									>
-									["3"] = <
-										units = <"mo">
-									>
-									["4"] = <
-										units = <"wk">
-									>
-									["5"] = <
-										units = <"d">
-									>
-								>
-							>
-						}
-					}
-					ELEMENT[at0039] occurrences matches {0..1} matches {	-- Endpreisanzeige
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Entlassungsstatus
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Entlassung auf Patientenwunsch
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Entlassungsanweisungen
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Zusätzliche Informationen
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Entlassungsdatum/-uhrzeit
-						value matches {
-							DV_DATE_TIME matches {*}
-						}
-					}
 					allow_archetype CLUSTER[at0066] occurrences matches {0..*} matches {	-- Letzter Patientenstandort
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0067] occurrences matches {0..*} matches {	-- Zugewiesener Patientenstandort
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -265,17 +255,9 @@ ontology
 					text = <"Lenght of stay">
 					description = <"Lenght of stay on hospital ">
 				>
-				["at0039"] = <
-					text = <"Final price charge indicator">
-					description = <"*">
-				>
 				["at0040"] = <
 					text = <"Discharge status">
 					description = <"Discharge status. ">
-				>
-				["at0049"] = <
-					text = <"Discharge at patient´s request">
-					description = <"The patient can refuse the proposed procedure or service and leave the hospital. ">
 				>
 				["at0050"] = <
 					text = <"Additional information">
@@ -284,10 +266,6 @@ ontology
 				["at0051"] = <
 					text = <"Discharge instructions ">
 					description = <"Discharge instructions  to patients. ">
-				>
-				["at0052"] = <
-					text = <"Transfer to another service">
-					description = <"For local use, this field hold the type of organizational unit or clinical unit. ">
 				>
 				["at0058"] = <
 					text = <"Attending doctor">
@@ -324,6 +302,14 @@ ontology
 				["at0066"] = <
 					text = <"Last patient location">
 					description = <"*">
+				>
+				["at0067"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0068"] = <
+					text = <"*Sonstige(en)">
+					description = <"*Sonstige(en)">
 				>
 			>
 		>
@@ -389,17 +375,9 @@ ontology
 					text = <"Aufenthaltsdauer">
 					description = <"Dauer des Krankenhausaufenthaltes.">
 				>
-				["at0039"] = <
-					text = <"Endpreisanzeige">
-					description = <"*">
-				>
 				["at0040"] = <
-					text = <"Entlassungsstatus">
-					description = <"Entlassungsstatus.">
-				>
-				["at0049"] = <
-					text = <"Entlassung auf Patientenwunsch">
-					description = <"Der Patient kann die vorgeschlagene Prozedur oder Leistung ablehnen und das Krankenhaus verlassen.">
+					text = <"Art der Entlassung">
+					description = <"Grund der Entlassung">
 				>
 				["at0050"] = <
 					text = <"Zusätzliche Informationen">
@@ -408,10 +386,6 @@ ontology
 				["at0051"] = <
 					text = <"Entlassungsanweisungen">
 					description = <"Entlassungsanweisungen für Patienten.">
-				>
-				["at0052"] = <
-					text = <"Überweisung zu einem anderen Dienstleistungsbereich">
-					description = <"Für die lokale Verwendung enthält dieses Feld den Typ der Organisationseinheit oder der klinischen Einheit.">
 				>
 				["at0058"] = <
 					text = <"Behandelnder Arzt">
@@ -448,6 +422,14 @@ ontology
 				["at0066"] = <
 					text = <"Letzter Patientenstandort">
 					description = <"*">
+				>
+				["at0067"] = <
+					text = <"Zugewiesener Patientenstandort">
+					description = <"Für die lokale Verwendung enthält dieses Feld den Typ der Organisationseinheit oder der klinischen Einheit.">
+				>
+				["at0068"] = <
+					text = <"Sonstige">
+					description = <"Sonstige">
 				>
 			>
 		>
