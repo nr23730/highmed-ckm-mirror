@@ -1,5 +1,5 @@
-﻿<?xml version="1.0"?>
-<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>8839b870-6998-48d9-b400-f3ff3d2f0759</id>
   <name>Strahlentherapie</name>
   <description>
@@ -26,11 +26,14 @@
       <purpose>Zur Repräsentation von Daten zu einer Strahlentherapie eines Patienten mit einer onkologischen Diagnose im HiGHmed Projekt.</purpose>
       <keywords>
         <item>Strahlentherapie</item>
-        <item>Radiochemotherapie</item>
         <item>Radiatio</item>
+        <item>Radiotherapie</item>
+        <item>Bestrahlung</item>
+        <item>Brachytherapie</item>
+        <item>Radioonkologie</item>
       </keywords>
       <use>Dieses Template wird verwendet, um Daten zu einer Strahlentherapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der Strahlentherapie wie Lokalisation der Bestrahlung, Beginn und Ende, Applikationsart, Strahlenart, Dosis, Fraktionen, Art der Bildgebung, Relation zur OP, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.</use>
-      <misuse>Dieses Template soll nicht verwendet werden, um den Allgemeinzustand, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen), radiologische Daten oder molekularpathologische Daten des Patienten zu verzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
+      <misuse>Dieses Template soll nicht verwendet werden, um den Allgemeinzustand, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen) oder molekularpathologische Daten des Patienten zu verzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
     </details>
     <other_details>
       <item>
@@ -59,7 +62,7 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Strahlentherapie">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prozedur" max="1" min="1" path="/content" name="Strahlentherapie">
       <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
@@ -67,7 +70,6 @@
           <includedValues>Nukleramedizinische Therapie</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/description[at0001]/items[at0049]" max="0" />
       <Rule path="/description[at0001]/items[at0065]" max="0" />
       <Rule path="/description[at0001]/items[at0058]" max="0" />
       <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -96,9 +98,20 @@
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0005]" name="Anmerkungen" />
-      <Rule path="/protocol[at0053]/items[at0054]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]" name="Strahlentherapie ID">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
       <Rule path="/protocol[at0053]/items[at0056]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.relation_to_operation.v1" concept_name="Relation zur OP" max="1" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.relation_to_operation.v1" concept_name="Relation zur OP" max="1" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0007</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1" concept_name="Therapieansprechen" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0008]" max="0" />
         <Rule path="/items[at0001]">
@@ -117,7 +130,6 @@
         <Rule path="/items[at0033]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.radiotherapy.v1" concept_name="Bestrahlung" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="0" />
         <Rule path="/items[at0005]" max="1">
           <constraint xsi:type="textConstraint">
             <includedValues>applikationsart::PRCJ::perkutane Radiochemotherapie/Sensitizer: ja</includedValues>
@@ -132,32 +144,18 @@
             <includedValues>applikationsart::MPRRT::metabolische Therapie: Peptid-Radio-Rezeptor-Therapie</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0027]" max="1">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Photonen</includedValues>
-            <includedValues>Elektronen</includedValues>
-            <includedValues>Protonen</includedValues>
-            <includedValues>Radioaktive Strahlung</includedValues>
-            <includedValues>Kohlenstoffionen</includedValues>
-            <includedValues>Neutronen</includedValues>
-            <includedValues>Sauerstoffionen</includedValues>
-            <includedValues>Heliumionen</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0027]" max="1" />
+        <Rule path="/items[at0015]/items[at0016]" max="0" />
+        <Rule path="/items[at0015]/items[at0017]" max="0" />
+        <Rule path="/items[at0015]/items[at0018]" max="0" />
         <Rule path="/items[at0025]" max="0" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomische Lokalisation" max="1" path="/items[at0002]">
-          <Rule path="/items[at0065]" name="Zielgebiet">
-            <constraint xsi:type="textConstraint" limitToList="false">
-              <includedValues>ZNS</includedValues>
-              <includedValues>Kopf-Hals mit/ ohne Lymphknotenregion</includedValues>
-              <includedValues>Thorax mit /ohne Lymphknotenregion</includedValues>
-              <includedValues>Abdomen (ohne Becken) mit /ohne Lymphknotenregion</includedValues>
-              <includedValues>Becken mit/ ohne Lymphknotenregion</includedValues>
-              <includedValues>Stütz-/Bewegungsapparat</includedValues>
-              <includedValues>Haut</includedValues>
-              <includedValues>Sonstiges</includedValues>
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId queryName="ICD O ()" />
             </constraint>
           </Rule>
+          <Rule path="/items[at0065]" max="0" />
           <Rule path="/items[at0002]" max="0" />
           <Rule path="/items[at0083]" max="0" />
           <Rule path="/items[at0064]" max="0" />
@@ -172,19 +170,51 @@
             </constraint>
           </Rule>
         </Items>
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.imaging.v0" concept_name="Bildgebungsdetails" max="1" path="/items[at0021]">
-          <Rule path="/items[at0001]" name="Art der Bildgebung zur Bestrahlungsplanung">
-            <constraint xsi:type="textConstraint" limitToList="false">
-              <includedValues>Sonographie</includedValues>
-              <includedValues>CT</includedValues>
-              <includedValues>MRT</includedValues>
-              <includedValues>DSA</includedValues>
-            </constraint>
-          </Rule>
-          <Rule path="/items[at0010]" max="0" />
-          <Rule path="/items[at0011]" max="0" />
-        </Items>
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1" concept_name="Symptom/Krankheitsanzeichen" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]" name="Toxizität" />
+        <Rule path="/items[at0035]" max="0" />
+        <Rule path="/items[at0151]" max="0" />
+        <Rule path="/items[at0175]" max="0" />
+        <Rule path="/items[at0186]" max="0" />
+        <Rule path="/items[at0152]" max="0" />
+        <Rule path="/items[at0164]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0021]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ctcae::XX::Fehlende Angabe</includedValues>
+            <includedValues>ctcae::0::keine</includedValues>
+            <includedValues>ctcae::4::lebensbedrohlich</includedValues>
+            <includedValues>ctcae::5::tödlich</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0189]" max="0" />
+        <Rule path="/items[at0180]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0018]" max="0" />
+        <Rule path="/items[at0165]" max="0" />
+        <Rule path="/items[at0155]" max="0" />
+        <Rule path="/items[at0037]" max="0" />
+        <Rule path="/items[at0161]" max="0" />
+        <Rule path="/items[at0057]" max="0" />
+        <Rule path="/items[at0031]" max="0" />
+        <Rule path="/items[at0163]" name="Anmerkung" />
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.imaging_exam.v0" concept_name="Bildgebende Untersuchung" max="1" path="/content" name="Bestrahlungsplanung">
+      <Rule path="/description[at0001]/items[at0017]" name="Art der Bildgebung zur Bestrahlungsplanung">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Sonographie</includedValues>
+          <includedValues>CT</includedValues>
+          <includedValues>MRT</includedValues>
+          <includedValues>DSA</includedValues>
+          <includedValues>PET-CT</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0018]" max="0" />
+      <Rule path="/description[at0001]/items[at0019]" max="0" />
+      <Rule path="/description[at0001]/items[at0020]" max="0" />
     </Content>
     <Context>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0006]">
@@ -192,11 +222,11 @@
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0006]" max="0" />
       </Items>
-      <Rule path="/context/other_context[at0001]/items[at0002]" name="Strahlentherapie ID" />
+      <Rule path="/context/other_context[at0001]/items[at0002]" min="1" />
     </Context>
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
-    <digest id="MD5-CAM-1.0.1">55DB2D45BC470E831EE8C905348471E4</digest>
+    <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
@@ -210,13 +240,16 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
     <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.imaging.v0">
-    <digest id="MD5-CAM-1.0.1">3286A4CC8ECC1DAD3730675B50B9D765</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.imaging_exam.v0">
+    <digest id="MD5-CAM-1.0.1">18818F3D4855B27BB5854FC44CA95E93</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.relation_to_operation.v1">
     <digest id="MD5-CAM-1.0.1">89D4906F63FD39B5B1C81F4DD9D047E0</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1">
     <digest id="MD5-CAM-1.0.1">8E76F197B9C4C8137437A5F3467E03A1</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1">
+    <digest id="MD5-CAM-1.0.1">62D04D64E703E7E600EE3F61358ED42D</digest>
   </integrity_checks>
 </template>

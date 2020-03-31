@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=b8801ac1-4ea3-4cb5-8071-4fe27365ab9d)
-	openEHR-EHR-OBSERVATION.medication_use.v0
+﻿archetype (adl_version=1.4; uid=85d3d519-cb37-4ead-bf3b-cf13ced6bd5d)
+	openEHR-EHR-OBSERVATION.medication_use_local.v0
 
 concept
 	[at0000]	-- Medication use
@@ -9,7 +9,9 @@ language
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"Kim Sommer">
+				["organisation"] = <"MHH">
+				["email"] = <"sommer.kimkatrin@mh-hannover.de">
 			>
 		>
 		["nb"] = <
@@ -31,10 +33,15 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Dokumentation des Gebrauchs eines Arzneimittels">
-			use = <"">
-			misuse = <"">
-			copyright = <"© openEHR Foundation, Nasjonal IKT HF, openEHR Foundation, HiGHmed, HiGHmed, HiGHmed">
+			purpose = <"Zur Erfassung von Informationen über die Verabreichung oder die Einnahme eines bestimmten Medikaments oder einer bestimmten Art/Klasse von Medikamenten bei oder während eines Ereignisses, wie z.B. einem bestimmten Zeitpunkt oder einer bestimmten Zeitdauer.">
+			use = <"Zu Verwenden, um Informationen über die Verabreichung oder die Einnahme eines bestimmten Medikaments oder einer bestimmten Art/Klasse von Medikamenten bei oder während eines Ereignisses, wie z.B. einem bestimmten Zeitpunkt oder einer bestimmten Zeitdauer, zu erfassen.
+
+Dieser Archetyp wurde speziell für aggregierte Informationen entwickelt, wie man sie in Medikamententagebüchern und Berichtsdatensätzen finden kann.">
+			misuse = <"Nicht zur Erfassung einer Verordnung für die Verabreichung oder Einnahme eines Medikaments verwenden - verwenden Sie dazu INSTRUCTION.medication_order.
+
+Nicht für die Dokumentation der Verabreichung oder die Einnahme eines Medikaments verwenden - verwenden Sie dazu ACTION.medication.
+
+Nicht für die Dokumentation einer Zusammenfassung der Verabreichung oder der Einnahme eines Medikaments über die Lebenszeit der Person verwenden - verwenden Sie zu diesem Zweck EVALUATION.medication_summary.">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
@@ -45,7 +52,7 @@ description
 Skal ikke brukes for å dokumentere administrering eller inntak av et legemiddel - bruk ACTION.medication for dette formålet.
 
 Skal ikke brukes for å dokumentere et sammendrag av legemiddelinntak for individets levetid - bruk EVALUATION.medication_summary for dette formålet.">
-			copyright = <"© openEHR Foundation, Nasjonal IKT HF, openEHR Foundation, HiGHmed, HiGHmed, HiGHmed">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF, openEHR Foundation">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -58,71 +65,66 @@ This archetype is specifically designed to be used for aggregated information su
 Not to be used for documenting the administration or consumption of a medication - use ACTION.medication for this purpose.
 
 Not to be used for documenting a summary of administration or consumption of a medication over the lifetime of the individual - use EVALUATION.medication_summary for this purpose.">
-			copyright = <"© openEHR Foundation, Nasjonal IKT HF, openEHR Foundation, HiGHmed, HiGHmed, HiGHmed">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF, openEHR Foundation">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway", "Heather Leslie, Atomica Informatics, Australia", "Ian McNicoll, FreshEHR Clinical Informatics, United Kingdom">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: https://ckm.openehr.org/ckm/archetypes/1013.1.3546">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"D0A024852DDA4D8609ABF7931067DEF8">
-		["build_uid"] = <"e51126e7-e132-4909-9aa2-1787aa771a95">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"E4A26DB420FFC7D966E627CBAD77F8AF">
+		["build_uid"] = <"3bc027c2-e7b5-4547-8275-649ee4f40ea9">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Medikamentennutzung
+	OBSERVATION[at0000] matches {    -- Medication use
 		data matches {
-			HISTORY[at0022] matches {	-- Event Series
-				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0023] occurrences matches {0..*} matches {	-- Definiertes Ereignis
+			HISTORY[at0022] matches {    -- HISTORY
+				events cardinality matches {0..*; unordered} matches {
+					EVENT[at0023] occurrences matches {0..*} matches {    -- Defined event
 						data matches {
-							ITEM_TREE[at0001] matches {	-- Tree
+							ITEM_TREE[at0001] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0002] occurrences matches {0..1} matches {	-- Name des Medikaments
+									ELEMENT[at0002] occurrences matches {0..1} matches {    -- Medication name
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0003] occurrences matches {0..1} matches {	-- Genutzt im Ereignis?
+									ELEMENT[at0003] occurrences matches {0..1} matches {    -- Used in event?
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											DV_BOOLEAN matches {*}
 										}
 									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Beschreibung
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Description
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									CLUSTER[at0008] occurrences matches {0..*} matches {	-- Unterklassifizierung des Medikaments
+									CLUSTER[at0008] occurrences matches {0..*} matches {    -- Specific/subclass medication
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0021] occurrences matches {0..1} matches {	-- Name des Medikaments
+											ELEMENT[at0021] occurrences matches {0..1} matches {    -- Medication name
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0024] occurrences matches {0..1} matches {	-- Genutzt im Ereignis?
+											ELEMENT[at0024] occurrences matches {0..1} matches {    -- Used in event?
 												value matches {
-													DV_BOOLEAN matches {
-														value matches {True, False}
-													}
+													DV_BOOLEAN matches {*}
 												}
 											}
-											ELEMENT[at0014] occurrences matches {0..1} matches {	-- Beschreibung
+											ELEMENT[at0014] occurrences matches {0..1} matches {    -- Description
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Kommentar
+									ELEMENT[at0025] occurrences matches {0..1} matches {    -- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -135,9 +137,9 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0005] matches {	-- Tree
+			ITEM_TREE[at0005] matches {    -- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Erweiterung
+					allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -145,6 +147,7 @@ definition
 			}
 		}
 	}
+
 
 
 ontology
@@ -278,21 +281,21 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Medikamentennutzung">
-					description = <"*Aggregated information about the administration or consumption of a specified medication or type/class of medication at or during an event such as a specific point in time or duration of time. (en)">
+					text = <"Medikamentenverwendung">
+					description = <"Aggregierte Informationen über die Verabreichung oder die Einnahme eines bestimmten Medikaments oder einer bestimmten Art/Klasse von Medikamenten bei oder während eines Ereignisses, wie z.B. einem bestimmten Zeitpunkt oder einer bestimmten Zeitdauer.">
 				>
 				["at0001"] = <
 					text = <"Tree">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Name des Medikaments">
-					description = <"*Name of medication, class or type of medication. (en)">
-					comment = <"*For example: Oxycodone; opioid; or analgesic. (en)">
+					text = <"Medikamentenname">
+					description = <"Name des Medikaments, Klasse oder Typ des Medikaments.">
+					comment = <"Zum Beispiel: Oxycodon, Opioid oder Analgetikum.">
 				>
 				["at0003"] = <
-					text = <"Genutzt im Ereignis?">
-					description = <"*Is the individual using the medication, class or type of medication at or during the identified event? (en)">
+					text = <"Bei Ereignis verwendet?">
+					description = <"Nimmt die Person das Medikament, die Klasse oder den Typ des Medikaments bei oder während der genannten Ereignisse ein?">
 				>
 				["at0005"] = <
 					text = <"Tree">
@@ -300,26 +303,26 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Beschreibung">
-					description = <"*Narrative description about the use of the medication, class or type of medication at, or during, the identified event. (en)">
+					description = <"Beschreibung der Verwendung des Medikaments, der Medikamentenklasse oder des Medikamententyps bei oder während des genannten Ereignisses.">
 				>
 				["at0008"] = <
-					text = <"Unterklassifizierung des Medikaments">
-					description = <"*Details about a specific medication or subclass of medication, if a medication type or class is specified in the 'Medication name'. (en)">
-					comment = <"*This cluster is redundant if the specific medication name is identified using the top level 'Medication name' data element. (en)">
+					text = <"Spezifische/Unterklasse Medikament">
+					description = <"Details zu einem bestimmten Medikament oder einer Unterklasse von Medikamenten, wenn im 'Medikamentenname' eine Medikamentenart oder -klasse angegeben ist.">
+					comment = <"Dieses Cluster ist redundant, wenn der spezifische Medikamentenname über das Datenelement der obersten Ebene 'Medikamentenname' identifiziert wird.">
 				>
 				["at0014"] = <
 					text = <"Beschreibung">
-					description = <"*Narrative description about the use of the medication or subclass of medication at, or during, the identified event. (en)">
+					description = <"Beschreibung der Verwendung des Medikaments, der Medikamentenklasse oder des Medikamententyps bei oder während des genannten Ereignisses.">
 				>
 				["at0019"] = <
 					text = <"Erweiterung">
-					description = <"*Additional information required to capture local content or to align with other reference models/formalisms. (en)">
-					comment = <"*For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents. (en)">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+					comment = <"Zum Beispiel: lokale Informationsanforderungen oder zusätzliche Metadaten zur Anpassung an FHIR- oder CIMI-Äquivalente.">
 				>
 				["at0021"] = <
-					text = <"Name des Medikaments">
-					description = <"*Name of medication or subclass of medication. (en)">
-					comment = <"*For example: Oxycode; or opioid if analgesic is identified as the class in the top level 'Medication name'. (en)">
+					text = <"Medikamentenname">
+					description = <"Name des Medikaments, Klasse oder Typ des Medikaments.">
+					comment = <"Zum Beispiel: Oxycodon, Opioid oder Analgetikum, wie genannt als Klasse in der obersten Ebene \"Medikamentenname\".">
 				>
 				["at0022"] = <
 					text = <"Event Series">
@@ -327,15 +330,15 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Definiertes Ereignis">
-					description = <"*This event attribute of the reference model needs to be explicitly defined and constrained as a specific point-in-time or interval of time in a template or at run-time. (en)">
+					description = <"Dieses Ereignisattribut des Referenzmodells muss explizit als ein bestimmter Zeitpunkt oder ein bestimmtes Zeitintervall in einem Template oder zur Laufzeit definiert und eingeschränkt werden.">
 				>
 				["at0024"] = <
-					text = <"Genutzt im Ereignis?">
-					description = <"*Is the individual using the medication or subclass of medication at or during the identified event? (en)">
+					text = <"Bei Ereignis verwendet?">
+					description = <"Nimmt die Person das Medikament, die Klasse oder den Typ des Medikaments bei oder während der genannten Ereignisse ein?">
 				>
 				["at0025"] = <
 					text = <"Kommentar">
-					description = <"*Additional narrative about the medication use during an identified event, not captured in other fields. (en)">
+					description = <"Zusätzlicher Kommentar über die Medikamenteneinnahme während eines bestimmten Ereignisses, der in anderen Bereichen nicht erfasst wurde.">
 				>
 			>
 		>

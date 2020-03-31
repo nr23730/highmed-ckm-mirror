@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>e90d1b02-c0d7-4b06-b997-6e81b283944d</id>
+  <name>Sonstiger Versorgungsfall</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation eines zusammengefassten Abteilungsfalls ohne Angabe der konkreten Versorgungsorte bzw. Aufenthaltsorte der Patienten. Jeder Abteilungsfall wird in einer Composition gespeichert, ein Versorgungsfall kann aber mehrere Abteilungsfälle umfassen.</purpose>
+      <keywords>
+        <item>Abteilungsfall</item>
+        <item>Fall</item>
+        <item>Versorgungsort</item>
+      </keywords>
+      <use>Für die zusammenfassende Darstellung des Patientenaufenthalts auf einer Station (meist eines Krankenhauses).</use>
+      <misuse>Nicht zur Repräsentation der administrativen Daten des zugehörigen, übergeordneten Versorgungsfalls (inkl. Aufnahme und Entlassung). Bitte die Archetypen  ADMIN_ENTRY.discharge_summary.v0 und/oder  ADMIN_ENTRY.admission.v0 oder das Template Versorgungsfall verwenden.
+	  
+	  Nicht zur Repräsentation der einzelnen Versorgungsorte des Patienten während seines Abteilungsaufenthaltes (z.B. Aufenthalt in Flur/Bett/zugehörige Station etc.). Bitte das Template Patientenaufenthalt verwenden und die entsprechende Abteilungsfall-Kennung dort hinterlegen. </misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Sonstiger Versorgungsfall">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hospitalization.v0" concept_name="Aufenthaltsdaten" max="1" min="1" path="/content" name="Versorgungsaufenthalt">
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" min="1" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0007</excludedValues>
+          <excludedValues>local::at0008</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/context/other_context[at0001]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Prästationär</includedValues>
+          <includedValues>Nachstationär</includedValues>
+          <includedValues>Ambulant</includedValues>
+          <includedValues>Sonstige</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/context/other_context[at0001]/items[at0003]" min="1" name="Fall-Kennung" />
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.fall.v0">
+    <digest id="MD5-CAM-1.0.1">4BB38766F2C86D0EF064DAB869B5D4E4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.hospitalization.v0">
+    <digest id="MD5-CAM-1.0.1">777E79861481CFA3799F7B3953D8C0AD</digest>
+  </integrity_checks>
+</template>

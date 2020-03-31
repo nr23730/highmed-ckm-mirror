@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>a0ee19e5-0542-48b7-8743-30e250fee9e4</id>
+  <name>groupwork_v1</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="1" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomische Lokalisation" path="/data[at0001]/items[at0043]">
+        <Rule path="/items[at0064]" max="0" />
+        <Rule path="/items[at0055]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prozedur" path="/content">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>OPS</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="1" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" min="1" name="Schnittzeit" />
+      <Rule path="/description[at0001]/items[at0060]" min="1" name="Nahtzeit" />
+      <Rule path="/description[at0001]/items[at0061]" min="1" name="Dauer(Std)">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PTH</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0014]" min="1" name="OP-Intention" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.free_text.v0" concept_name="Free text" max="1" path="/description[at0001]/items[at0003]" name="OP-Kurzbericht">
+        <Rule path="/items[at0001]" max="1" min="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.tumour_resection_margins.v0" concept_name="Operative Resektionsränder" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0018]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" path="/protocol[at0053]/items[at0064]">
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" min="1" />
+        <Rule path="/items[at0028]" min="1" />
+        <Rule path="/items[at0027]" min="1" />
+        <Rule path="/items[at0029]" min="1" />
+        <Rule path="/items[at0034]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
+    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
+    <digest id="MD5-CAM-1.0.1">1BA7DBDFBC67678A19B93822D9F3A6A7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
+    <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.procedure.v1">
+    <digest id="MD5-CAM-1.0.1">CCA98FC01E850D302CF1E149938C4E54</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.free_text.v0">
+    <digest id="MD5-CAM-1.0.1">9D2C75011DC4692CC59A530B4A853B6A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.tumour_resection_margins.v0">
+    <digest id="MD5-CAM-1.0.1">7323F700EC9DD50E535E654F4D7D7D30</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">E240EC9FB0BB243D3200FF9AA274FB71</digest>
+  </integrity_checks>
+</template>

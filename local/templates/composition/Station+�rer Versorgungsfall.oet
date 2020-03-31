@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>ee9ef52d-1084-4b8f-aa50-8ddfa7f2bcdf</id>
-  <name>Versorgungsfall</name>
+  <id>fd914852-07d5-4aaf-b982-34beb3bd83e6</id>
+  <name>Stationärer Versorgungsfall</name>
   <description>
     <original_author />
     <lifecycle_state>Initial</lifecycle_state>
@@ -12,7 +12,7 @@
         <item>Fall</item>
         <item>Aufnahme</item>
       </keywords>
-      <use>Für die Abbildung ambulanter, stationärer, prästationärer oder nachstationärer Aufenthalte eines Patienten in einer Gesundheitseinrichtung.</use>
+      <use>Für die Abbildung stationärer Aufenthalte eines Patienten in einer Gesundheitseinrichtung.</use>
       <misuse>Nicht zur Repräsentation eines einzelnen stationären Aufenthalts eines Patienten auf einer Station zu verwenden. Bitte den Archetyp ADMIN_ENTRY.krankenhausaufenthalt.v0 zur Dokumentation einzelne Aufenthalte unterhalb eines Falls verwenden. </misuse>
     </details>
     <other_details>
@@ -66,8 +66,8 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Versorgungsfall">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0" concept_name="Patientenaufnahme" max="1" min="1" path="/content">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Stationärer Versorgungsfall">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0" concept_name="Patientenaufnahme" max="1" min="1" path="/content" name="Aufnahmedaten">
       <Rule path="/data[at0001]/items[at0002]" max="0" />
       <Rule path="/data[at0001]/items[at0013]" name="Versorgungsfallgrund" />
       <Rule path="/data[at0001]/items[at0023]" max="0" />
@@ -79,7 +79,7 @@
       <Rule path="/data[at0001]/items[at0061]" max="0" />
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" concept_name="Entlassungsdaten" max="1" path="/content">
-      <Rule path="/data[at0001]/items[at0011]" min="1" />
+      <Rule path="/data[at0001]/items[at0011]" min="1" name="Datum/Uhrzeit der Entlassung" />
       <Rule path="/data[at0001]/items[at0038]" max="0" />
       <Rule path="/data[at0001]/items[at0051]" max="0" />
       <Rule path="/data[at0001]/items[at0058]" max="0" />
@@ -96,14 +96,13 @@
       <Rule path="/context/other_context[at0001]/items[at0004]">
         <constraint xsi:type="textConstraint">
           <includedValues>Stationär</includedValues>
-          <includedValues>Ambulant</includedValues>
         </constraint>
       </Rule>
       <Rule path="/context/other_context[at0001]/items[at0003]" min="1" name="Fall-Kennung" />
     </Context>
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.fall.v0">
-    <digest id="MD5-CAM-1.0.1">80CF4DAA0D1854880E59D213D467ED76</digest>
+    <digest id="MD5-CAM-1.0.1">4BB38766F2C86D0EF064DAB869B5D4E4</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0">
     <digest id="MD5-CAM-1.0.1">8195922934B33A6ADEB388549788529A</digest>
