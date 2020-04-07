@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>0e029090-1d28-4b11-886f-9dd0ab9d0b48</id>
-  <name>Intensivmedizinisches Monitoring Blutdruck</name>
+  <id>5a54bbb8-865d-4611-9bef-f29e699fff31</id>
+  <name>Intensivmedizinisches Monitoring Flüssigkeitshaushalt</name>
   <description>
     <original_author>
       <item>
@@ -23,8 +23,8 @@
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Darstellung des Blutdrucks innerhalb eines intensivmedizinischen Monitorings eines an COVID-19 erkrankten Patienten.</purpose>
-      <use>Dieses Template wird verwendet, um den Blutdruck innerhalb eines intensivmedizinischen Monitorings eines Patienten mit COVID-19 aufzuzeichnen.</use>
+      <purpose>Zur Darstellung des Flüssigkeitshaushalts innerhalb eines intensivmedizinischen Monitorings eines an COVID-19 erkrankten Patienten.</purpose>
+      <use>Dieses Template wird verwendet, um den Flüssigkeitshaushalts innerhalb eines intensivmedizinischen Monitorings eines Patienten mit COVID-19 aufzuzeichnen.</use>
       <misuse />
     </details>
     <other_details>
@@ -79,10 +79,9 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2" concept_name="Blutdruck" path="/content">
-      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0004]" min="1" />
-      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0005]" min="1" />
-    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.fluid_balance.v1" concept_name="Flüssigkeitshaushalt" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.fluid_input.v1" concept_name="Flüssigkeitszufuhr" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.fluid_output.v1" concept_name="Flüssigkeitsausscheidung" path="/content" />
     <Context>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
         <Rule path="/items[at0001]" min="1" />
@@ -103,7 +102,13 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2">
-    <digest id="MD5-CAM-1.0.1">17CAAD568AC5BB315D0A86780DC576C5</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.fluid_balance.v1">
+    <digest id="MD5-CAM-1.0.1">942ABE6E6D83C6C19727E67650B216F2</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.fluid_input.v1">
+    <digest id="MD5-CAM-1.0.1">BA764C976130B917F30B881297B90D5A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.fluid_output.v1">
+    <digest id="MD5-CAM-1.0.1">8B847255B553E219501181472295CF26</digest>
   </integrity_checks>
 </template>
