@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>35dbe232-3f1c-4f30-9b18-7d3450f88d0b</id>
+  <name>Intensivmedizinische Maßnahme Beatmung</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v1" concept_name="Verfahrensbericht">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prozedur" path="/content">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Beatmung</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.ventilator_vital_signs.v0" concept_name="Beobachtungen am Beatmungsgerät" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0" concept_name="Beatmungsgerät Einstellungen/Messwerte" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.gas_delivery-oxygen.v0" concept_name="Sauerstoffversorgung" path="/items[at0051]">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen.v0" concept_name="Luftsauerstoff" path="/items[at0015]" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0" concept_name="Beatmungsgerät Einstellungen/Messwerte" path="/data[at0001]/events[at0002]/state[at0010]/items[at0011]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.gas_delivery-oxygen.v0" concept_name="Sauerstoffversorgung" path="/items[at0051]">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen.v0" concept_name="Luftsauerstoff" path="/items[at0015]" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medizingerät" path="/protocol[at0012]/items[at0014]" />
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]/items[at0002]" min="1" name="Bericht Name">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Intensivmedizinische Maßnahme</includedValues>
+        </constraint>
+      </Rule>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v1">
+    <digest id="MD5-CAM-1.0.1">2A789520F48E91960C4825733C8BA68F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.procedure.v1">
+    <digest id="MD5-CAM-1.0.1">CCA98FC01E850D302CF1E149938C4E54</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.ventilator_vital_signs.v0">
+    <digest id="MD5-CAM-1.0.1">31EFEC16D002EEA7D1049C29CE4C4B14</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0">
+    <digest id="MD5-CAM-1.0.1">EBA1A7732F98B4B0DD5CBBCA7633F7E9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.gas_delivery-oxygen.v0">
+    <digest id="MD5-CAM-1.0.1">2A63F74D72E0106D85B70493ACA06664</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen.v0">
+    <digest id="MD5-CAM-1.0.1">79BF71E77415F1EB5554585B1CE6A6D5</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.device.v1">
+    <digest id="MD5-CAM-1.0.1">08C28B0330D6A5C90573D9FF66DB1AF3</digest>
+  </integrity_checks>
+</template>
