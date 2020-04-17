@@ -34,52 +34,53 @@ Dieser Archetyp wurde entwickelt, um Entscheidungshilfen und therapeutische Vors
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"AD7B6CBA8EF94E398C5C9F4C605F330B">
-		["build_uid"] = <"041243f4-77a3-4c53-8e21-7a9ec548e958">
+		["MD5-CAM-1.0.1"] = <"185D39F7B5DC8C6BFD923A143E0D0E7A">
+		["build_uid"] = <"7e9f34dd-e7d8-4896-ae94-8c08a2f10242">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Kennzeichnung Erregernachweis
+	EVALUATION[at0000] matches {    -- Kennzeichnung Erregernachweis
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Baum
+			ITEM_TREE[at0001] matches {    -- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Erregernachweis
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Erregernachweis
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
+							DV_BOOLEAN matches {*}
 						}
 					}
-					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Erregername
+					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Erregername
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Hinweistext
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Hinweistext
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Erregernacheis in der Klinik
+					ELEMENT[at0015] occurrences matches {0..1} matches {    -- Zeitpunkt der Kennzeichnung
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Erregernachweis in der Klinik
+						value matches {
+							DV_BOOLEAN matches {*}
 						}
 					}
 				}
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0003] matches {	-- Baum
+			ITEM_TREE[at0003] matches {    -- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Zuletzt aktualisiert
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Zuletzt aktualisiert
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Erweiterung
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Erweiterung
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -118,7 +119,7 @@ ontology
 					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
 				>
 				["at0011"] = <
-					text = <"Erregernacheis in der Klinik">
+					text = <"Erregernachweis in der Klinik">
 					description = <"Bei dem Patienten wurde der Erreger in der Klinik nachgewiesen.">
 				>
 				["at0012"] = <
@@ -128,6 +129,10 @@ ontology
 				["at0013"] = <
 					text = <"Hinweistext">
 					description = <"Ein Freitext mit Hinweisen zu dem nachgewiesenen Erreger bei dem Patienten.">
+				>
+				["at0015"] = <
+					text = <"Zeitpunkt der Kennzeichnung">
+					description = <"*">
 				>
 			>
 		>
