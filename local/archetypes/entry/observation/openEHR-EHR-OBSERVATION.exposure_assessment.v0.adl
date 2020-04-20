@@ -33,14 +33,13 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Dokumentation der Antworten eines individuellen oder selbst erstellten Fragebogen zum Screening auf eine Exposition gegenüber einem chemischen, physikalischen oder biologischen Wirkstoffes, der einer Person Schaden zugefügt hat oder zufügen kann.">
-			use = <"Zur Dokumentation der Antworten eines individuellen oder selbst erstellten Fragebogen zum Screening auf eine Exposition gegenüber einem chemischen, physikalischen oder biologischen Wirkstoffes, der einer Person Schaden zugefügt hat oder zufügen kann
+			purpose = <"Zur Darstellung der Antworten auf einen Screening-Fragebogen über die potenzielle Exposition gegenüber einem chemischen, physikalischen oder biologischen Stoff, der einer Person geschadet oder schaden kann.">
+			use = <"Verwenden Sie diesen Archetyp, um die Antworten auf einen Screening-Fragebogen über die mögliche Exposition gegenüber einem chemischen, physikalischen oder biologischen Stoff darzustellen, der einer Person geschadet oder schaden kann.
 
-Übliche Anwendungsfälle sind unter anderem, sind aber nicht darauf beschränkt:
+Häufige Anwendungsfälle sind unter anderem:
 - Systematische Befragung bei jeder Konsultation; oder
-- Spezifische Befragung im Zusammenhang mit der Überwachung von Infektionskrankheiten.
-">
-			misuse = <"Nicht zur Dokumentation von Einzelheiten über eine bestimmte Exposition, die als vorhanden identifiziert wurde oder vorhanden war. Verwenden Sie zu diesem Zweck den Archetyp EVALUATION.exposure.">
+- Spezifische Befragung im Zusammenhang mit der Überwachung von Infektionskrankheiten.">
+			misuse = <"Nicht zur Darstellung von detaillierten Informationen über eine bestimmte Exposition, die als vorhanden identifiziert wurde oder vorhanden war. Verwenden Sie zu diesem Zweck den Archetyp EVALUATION.exposure.">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
@@ -54,8 +53,8 @@ Vanlige bruksområder inkluderer, men er ikke begrenset til:
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the responses to an individual- or self-reported questionnaire screening for exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.">
-			use = <"Use to record the responses to an individual- or self-reported questionnaire screening for exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.
+			purpose = <"To record the responses to a screening questionnaire about potential  exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.">
+			use = <"Use to record the responses to a screening questionnaire about potential exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.
 
 Common use cases include, but are not limited to:
 - Systematic questioning in any consultation; or
@@ -72,8 +71,8 @@ Common use cases include, but are not limited to:
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"086E3F25B704840C5EC808749BAF0ACE">
-		["build_uid"] = <"4714c81b-6e44-4282-a12c-2746d6a14d07">
+		["MD5-CAM-1.0.1"] = <"AFF6FEE1D12B76D075848A42962C4B77">
+		["build_uid"] = <"5d3d10ec-96e7-4149-965c-e41882d4042d">
 		["ip_acknowledgements"] = <"This artefact includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyrighted material of the International Health Terminology Standards Development Organisation (IHTSDO). Where an implementation of this artefact makes use of SNOMED CT content, the implementer must have the appropriate SNOMED CT Affiliate license - for more information contact http://www.snomed.org/snomed-ct/get-snomedct or info@snomed.org.">
 		["revision"] = <"0.0.1-alpha">
 	>
@@ -92,13 +91,13 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0057] occurrences matches {0..1} matches {    -- Presence of any exposure?
+									ELEMENT[at0057] occurrences matches {0..1} matches {    -- Any exposure to agent?
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0058,    -- Present
-													at0059,    -- Absent
+													at0058,    -- Exposed
+													at0059,    -- Not exposed
 													at0060]    -- Unknown
 												}
 											}
@@ -106,7 +105,7 @@ definition
 									}
 									CLUSTER[at0044] occurrences matches {0..*} matches {    -- Specific exposure
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0045] matches {    -- Exposure
+											ELEMENT[at0045] matches {    -- Exposure situation
 												value matches {
 													DV_TEXT matches {*}
 												}
@@ -122,6 +121,10 @@ definition
 														}
 													}
 												}
+											}
+											allow_archetype CLUSTER[at0062] occurrences matches {0..*} matches {    -- Additional detailed questions
+												include
+													archetype_id/value matches {/.*/}
 											}
 										}
 									}
@@ -156,7 +159,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Exposure screening questionnaire">
-					description = <"An individual- or self-reported questionnaire screening for exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.">
+					description = <"A screening questionnaire about potential exposure to a chemical, physical or biological agent which has caused or may cause harm to an individual.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -181,28 +184,28 @@ ontology
 				>
 				["at0044"] = <
 					text = <"Specific exposure">
-					description = <"Details about each possible specific exposure.">
+					description = <"Details about each possible specific exposure circumstance.">
 				>
 				["at0045"] = <
-					text = <"Exposure">
-					description = <"Name of the exposure being screened.">
-					comment = <"For example: Travel to an 'at risk' location; or exposure to infected body fluids. Coding of 'Risk factor' with a terminology is preferred, where possible.">
+					text = <"Exposure situation">
+					description = <"The circumstance of possible exposure.">
+					comment = <"For example: Travel to an 'at risk' location; exposure to infected body fluids; or worked as a dental technician. Coding of 'Exposure situation' with a terminology is preferred, where possible.">
 				>
 				["at0046"] = <
 					text = <"Presence">
-					description = <"Presence of the exposure.">
+					description = <"Presence of the exposure situation.">
 				>
 				["at0047"] = <
 					text = <"Present">
-					description = <"The specific exposure is or has been present at or during the event.">
+					description = <"The specific exposure situation is or has been present.">
 				>
 				["at0048"] = <
 					text = <"Unknown">
-					description = <"It is unknown whether the exposure exposure is or has been present or absent at or during the event.">
+					description = <"It is not known whether the exposure situation is or has been present or absent.">
 				>
 				["at0049"] = <
 					text = <"Absent">
-					description = <"The specific exposure is or has been absent at or during the event.">
+					description = <"The specific exposure situation is or has been absent.">
 				>
 				["at0055"] = <
 					text = <"Comment">
@@ -214,20 +217,24 @@ ontology
 					comment = <"For example: local information requirements; or additional metadata to align with FHIR.">
 				>
 				["at0057"] = <
-					text = <"Presence of any exposure?">
+					text = <"Any exposure to agent?">
 					description = <"Presence of any relevant exposure.">
 				>
 				["at0058"] = <
-					text = <"Present">
-					description = <"Exposure is or has been present at or during the event.">
+					text = <"Exposed">
+					description = <"The individual has been exposed to the agent.">
 				>
 				["at0059"] = <
-					text = <"Absent">
-					description = <"Exposure is or has been absent at or during the event.">
+					text = <"Not exposed">
+					description = <"The individual has not been exposed to the agent.">
 				>
 				["at0060"] = <
 					text = <"Unknown">
-					description = <"It is unknown whether any exposure is or has been present or absent at or during the event.">
+					description = <"It is not known whether the individual has been exposed to the agent.">
+				>
+				["at0062"] = <
+					text = <"Additional detailed questions">
+					description = <"Additional questionnaire questions directly related to the Specific exposure.">
 				>
 			>
 		>
@@ -260,32 +267,32 @@ ontology
 				>
 				["at0044"] = <
 					text = <"Spesifikk eksponeringsmåte">
-					description = <"Detaljer om hver mulige eksponeringsmåte.">
+					description = <"Detaljer om hvert mulige spesifikke eksponeringsforhold.">
 				>
 				["at0045"] = <
-					text = <"Eksponeringsmåte">
-					description = <"Navn på eksponeringsmåten.">
-					comment = <"For eksempel: Reis til et \"utsatt\" sted; eller eksponering for infiserte kroppsvæsker. Koding av \"risikofaktor\" med en terminologi er å foretrekke, der det er mulig.">
+					text = <"Eksponeringssituasjon">
+					description = <"Omstendigheten rundt mulig eksponering.">
+					comment = <"For eksempel: Reist til et \"utsatt\" sted; eksponering for infiserte kroppsvæsker; eller jobbet som tanntekniker. Koding av \"Eksponeringssituasjon\" med en terminologi er å foretrekke, der det er mulig.">
 				>
 				["at0046"] = <
 					text = <"Tilstedeværelse">
-					description = <"*Presence of the exposure.(en)">
+					description = <"Tilstedeværelse av eksponeringssituasjon.">
 				>
 				["at0047"] = <
 					text = <"Tilstede">
-					description = <"*The specific exposure is or has been present at or during the event.(en)">
+					description = <"Den spesifikke eksponeringssituasjonen er eller har vært til stede.">
 				>
 				["at0048"] = <
 					text = <"Ukjent">
-					description = <"*It is unknown whether the exposure exposure is or has been present or absent at or during the event.(en)">
+					description = <"Den ukjent om den spesifikke eksponeringssituasjonen er eller har vært til stede.">
 				>
 				["at0049"] = <
 					text = <"Ikke tilstede">
-					description = <"*The specific exposure is or has been absent at or during the event.(en)">
+					description = <"Den spesifikke eksponeringssituasjonen er ikke eller har ikke vært til stede.">
 				>
 				["at0055"] = <
 					text = <"Kommentar">
-					description = <"*Additional narrative about the exposure screening questionnaire not captured in other fields.(en)">
+					description = <"Ytterligere fritekst om spørreskjemaet om eksponering som ikke er fanget i andre felt.">
 				>
 				["at0056"] = <
 					text = <"Tilleggsinformasjon">
@@ -293,7 +300,7 @@ ontology
 					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR.">
 				>
 				["at0057"] = <
-					text = <"Exponert?">
+					text = <"Eksponert?">
 					description = <"Individet er eller har blitt eksponert for relevant agens.">
 				>
 				["at0058"] = <
@@ -308,13 +315,17 @@ ontology
 					text = <"Ukjent">
 					description = <"Det er ukjent om individet er eller har blitt eksponert for agensen.">
 				>
+				["at0062"] = <
+					text = <"Flere detaljerte spørsmål">
+					description = <"Ytterligere spørreskjemaspørsmål direkte relatert til den spesifikke eksponeringen.">
+				>
 			>
 		>
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Fragebogen zum Screening der Exposition">
-					description = <"Ein individueller oder selbst erstellter Fragebogen zum Screening auf eine Exposition gegenüber einem chemischen, physikalischen oder biologischen Stoff, der einer Person Schaden zugefügt hat oder zufügen kann.">
+					text = <"Screening-Fragebogen zur Exposition">
+					description = <"Screening-Fragebogen über die potenzielle Exposition gegenüber einem chemischen, physikalischen oder biologischen Stoff, der einer Person geschadet oder schaden kann.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -333,34 +344,34 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0043"] = <
-					text = <"Wirkstoff">
-					description = <"Der Name des chemischen, physikalischen oder biologischen Wirkstoffes, dem eine Person ausgesetzt gewesen sein könnte.">
-					comment = <"Die Codierung von 'Wirkstoff' mit einer Terminologie wird bevorzugt, wenn möglich. Freitext sollte nur verwendet werden, wenn keine geeignete Terminologie zur Verfügung steht. Zum Beispiel: 2019-nCoV; oder HIV.">
+					text = <"Stoff">
+					description = <"Der Name des chemischen, physikalischen oder biologischen Stoffes, dem eine Person ausgesetzt gewesen sein könnte.">
+					comment = <"Die Codierung von \"Stoff\" mit einer Terminologie wird bevorzugt, wenn möglich. Freitext sollte nur verwendet werden, wenn keine geeignete Terminologie zur Verfügung steht. Zum Beispiel: 2019-nCoV oder HIV.">
 				>
 				["at0044"] = <
 					text = <"Spezifische Exposition">
-					description = <"Details über jede mögliche spezifische Exposition.">
+					description = <"Details zu jedem möglichen spezifischen Expositionsumstand.">
 				>
 				["at0045"] = <
-					text = <"Exposition">
-					description = <"Bezeichnung des Expositionsrisikofaktors.">
-					comment = <"Zum Beispiel: Reisen in Risikogebiet oder Exposition gegenüber infizierten Körperflüssigkeiten. Die Kodierung des \"Risikofaktors\" sollte, wenn möglich, mit Hilfe einer Terminologie erfolgen.">
+					text = <"Expositionssituation">
+					description = <"Der Umstand einer möglichen Exposition.">
+					comment = <"Zum Beispiel: Reisen zu einem gefährdeten Ort; Exposition gegenüber infizierten Körperflüssigkeiten oder als Zahntechniker gearbeitet. Wenn möglich, wird die Codierung der Expositionssituation mit einer Terminologie bevorzugt.">
 				>
 				["at0046"] = <
 					text = <"Vorhandensein">
-					description = <"Das Vorhandensein der Exposition.">
+					description = <"Vorhandensein der Expositionssituation.">
 				>
 				["at0047"] = <
 					text = <"Vorhanden">
-					description = <"Die spezifische Exposition ist oder war bei oder während der Veranstaltung vorhanden.">
+					description = <"Die spezifische Expositionssituation ist oder war vorhanden.">
 				>
 				["at0048"] = <
 					text = <"Unbekannt">
-					description = <"Es ist unbekannt, ob die spezifische Exposition bei oder während der Veranstaltung vorhanden ist oder war.">
+					description = <"Es ist unbekannt, ob die spezifische Expositionssituation ist oder war vorhanden oder nicht vorhanden.">
 				>
 				["at0049"] = <
 					text = <"Nicht vorhanden">
-					description = <"Die spezifische Exposition ist oder war bei oder während der Veranstaltung nicht vorhanden.">
+					description = <"Die spezifische Expositionssituation ist oder war nicht vorhanden.">
 				>
 				["at0055"] = <
 					text = <"Kommentar">
@@ -372,20 +383,24 @@ ontology
 					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 				["at0057"] = <
-					text = <"Gibt es eine Exposition?">
+					text = <"Exposition gegenüber Stoffen?">
 					description = <"Vorhandensein einer relevanten Exposition.">
 				>
 				["at0058"] = <
-					text = <"Vorhanden">
-					description = <"Die Exposition ist oder war bei oder während des Ergenisses vorhanden.">
+					text = <"Ausgesetzt">
+					description = <"Die Person wurde dem Stoff ausgesetzt.">
 				>
 				["at0059"] = <
-					text = <"Nicht vorhanden">
-					description = <"Die Exposition ist oder war bei oder während des Ergenisses nicht vorhanden.">
+					text = <"Nicht ausgesetzt">
+					description = <"Die Person wurde dem Stoff nicht ausgesetzt.">
 				>
 				["at0060"] = <
 					text = <"Unbekannt">
-					description = <"Es ist unbekannt, ob eine Exposition bei oder während des Ergenisses vorhanden ist oder war.">
+					description = <"Es ist nicht bekannt, ob die Person dem Stoff ausgesetzt war.">
+				>
+				["at0062"] = <
+					text = <"Zusätzliche detaillierte Fragen">
+					description = <"Zusätzliche Fragen im Fragebogen, die in direktem Zusammenhang mit der spezifischen Exposition stehen.">
 				>
 			>
 		>
@@ -397,8 +412,7 @@ ontology
 				["at0047"] = <[SNOMED-CT::410515003]>
 				["at0049"] = <[SNOMED-CT::410516002]>
 				["at0060"] = <[SNOMED-CT::261665006]>
-				["at0058"] = <[SNOMED-CT::410515003]>
-				["at0059"] = <[SNOMED-CT::410516002]>
+				["at0058"] = <[SNOMED-CT::24932003]>
 			>
 		>
 	>
