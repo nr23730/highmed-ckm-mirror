@@ -1,0 +1,124 @@
+﻿archetype (adl_version=1.4; uid=f2d11589-9745-4b3c-bb55-dceb7789f4f7)
+	openEHR-EHR-CLUSTER.response_to_treatment.v1
+
+concept
+	[at0000]	-- Therapieansprechen
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2019-06-14">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der Bewertung des Ansprechens einer Erkrankung auf die Therapie.">
+			use = <"Zur Darstellung der Bewertung der Behandlungserfolge einer Erkankung.
+Dieser Archetyp kann verwendet werden, um das dokumentierte Therapieansprechen der Erkrankung des Patienten darzustellen.
+Die Bewertung für ein Ansprechen auf eine Behandlung ist üblicherweise durch genaue Regeln festgelegt und wird anhand konkreter Kriterien bestimmt. 
+Damit wird definiert, wann sich eine (Krebs-)Erkrankung unter einer bestimmten Therapie zurückbildet, unverändert bleibt oder voranschreitet. Die Merkmale für ein Ansprechen auf eine Therapie können für verschiedene Erkrankungen unterschiedlich festgelegt werden. Dabei wird die Bewertung des Ansprechens von dem behandelnden Kliniker festgelegt.
+Dieser Archetyp wird in der Regel im Rahmen einer Therapie als ein Ergebnis dokumentiert und ist für die Verwendung als Details zur Prozedur innerhalb des Archetyp \"Prozedur\" bestimmt.">
+			keywords = <"Response", "Ansprechen", "Beurteilung", "Therapie", "Therapieansprechen", "Behandlungsansprechen">
+			misuse = <"Nicht zur Darstellung anderer Untersuchungsergebnisse oder Aktivitäten verwenden. 
+Nicht zur Darstellung der normalen Entwicklung eines Organs verwenden.
+Nicht zur Dokumentation der Verlaufsbeurteilung eines Untersuchungsbefundes verwenden.
+
+">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"">
+		["original_namespace"] = <"org.highmed">
+		["custodian_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["MD5-CAM-1.0.1"] = <"8E76F197B9C4C8137437A5F3467E03A1">
+		["build_uid"] = <"cd212123-4ee5-4e54-bae1-71e8e470008b">
+		["revision"] = <"1.1.0">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Therapieansprechen
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- Datum der Feststellung
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Gesamtansprechen
+				value matches {
+					DV_CODED_TEXT matches {*}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0034] occurrences matches {0..1} matches {    -- Klassifikation
+				value matches {
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0035] occurrences matches {0..1} matches {    -- Version der Klassifikation
+				value matches {
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0033] occurrences matches {0..*} matches {    -- Messmethode
+				value matches {
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0010] occurrences matches {0..1} matches {    -- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Therapieansprechen">
+					description = <"Bewertung des Ansprechens einer Erkrankung auf die Therapie. Dies hilft dabei, den Erfolg der Behandlung, z.B. einer Strahlen- oder Chemotherapie bei einer Tumorerkrankung zu beurteilen.">
+				>
+				["at0001"] = <
+					text = <"Gesamtansprechen">
+					description = <"Ausdruck, der das Ansprechen auf die Behandlung einer Erkrankung beschreibt.">
+					comment = <"Es handelt sich um eine bereits kodierte Terminologie des Ansprechens auf z.B. eine onkologische Therapie.
+Ausprägungen können beispielsweise CR (Vollremisson der Erkrankung), PR (Teilremission), SD (Stabile Erkrankung) oder PD (Progression der Erkrankung) sein.
+">
+				>
+				["at0008"] = <
+					text = <"Datum der Feststellung">
+					description = <"Datum der Bewertung.">
+				>
+				["at0010"] = <
+					text = <"Kommentar">
+					description = <"Kommentarfeld zum Therapieansprechen.">
+				>
+				["at0033"] = <
+					text = <"Messmethode">
+					description = <"Methode, mit der das Ansprechen auf die Behandlung festgestellt wurde.">
+					comment = <"Messmethoden, mit denen das Therapieansprechen beurteilt werden kann sind beispielsweise ein(e) CT, MRT, Röntgenthorax,  Ultraschall, (Bauch-)spiegelung, Tumormarker, Zytologie/Histologie, Klinisch diagnostizierte Läsion, Endoskopie oder Laparoskopie.">
+				>
+				["at0034"] = <
+					text = <"Klassifikation">
+					description = <"Gibt die Klassifikation an, mit der das Ansprechen der Behandlung bewertet wurde.">
+					comment = <"Klassifikationen die zur Bewertung des Ansprechens der Behandlung genutzt werden können sind beispielsweise RECIST, Cheson-Kriterien, mRECIST-Klassifikation, Choi-Kriterien, iRECIST oder Lugano.">
+				>
+				["at0035"] = <
+					text = <"Version der Klassifikation">
+					description = <"Gibt die Version der Klassifikation an, mit der das Ansprechen der Behandlung bewertet wurde.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,139 @@
+﻿archetype (adl_version=1.4; uid=f44f6719-d5b8-4f4b-a3a2-393ec161b614)
+	openEHR-EHR-EVALUATION.flag_pathogen.v0
+
+concept
+	[at0000]	-- Kennzeichnung Erregernachweis
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2020-04-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation eines Nachweis eines Erregers bei einem Patienten.">
+			use = <"Dient zur Kennzeichnung des positiven, gegenwärtigen Nachweis eines Erregers bei einem Patienten innerhalb eines klinischen Systems, um den Patient als \"infiziert\" zu markieren.
+
+Wenn der Patient nicht mehr mit dem Erreger infiziert ist, sollte dieses Kennzeichen entfernt werden.
+
+Dieser Archetyp wurde entwickelt, um Entscheidungshilfen und therapeutische Vorsichtsmassnahmen in klinischen Systemen auszulösen, ohne notwendigerweise Kenntnis von Details über den Erreger zu haben.">
+			keywords = <"Erreger", "Erregernachweis">
+			misuse = <"Nicht zu verwenden, um Details zu einem bestimmten Erreger zu dokumentierenn - verwenden Sie zu diesem Zweck spezielle Archetypen wie CLUSTER.erregerdetails.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"185D39F7B5DC8C6BFD923A143E0D0E7A">
+		["build_uid"] = <"7e9f34dd-e7d8-4896-ae94-8c08a2f10242">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Kennzeichnung Erregernachweis
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Erregernachweis
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Erregername
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Hinweistext
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {    -- Zeitpunkt der Kennzeichnung
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Erregernachweis in der Klinik
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0003] matches {    -- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Zuletzt aktualisiert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kennzeichnung Erregernachweis">
+					description = <"Dokumentation eines Nachweis eines Erregers bei einem Patienten.">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Zuletzt aktualisiert">
+					description = <"Datum der letzten Aktualisierung der Diagnose bzw. des Problems.">
+				>
+				["at0005"] = <
+					text = <"Erregernachweis">
+					description = <"Bei dem Patienten wurde ein Erreger nachgewiesen.">
+				>
+				["at0007"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+				>
+				["at0011"] = <
+					text = <"Erregernachweis in der Klinik">
+					description = <"Bei dem Patienten wurde der Erreger in der Klinik nachgewiesen.">
+				>
+				["at0012"] = <
+					text = <"Erregername">
+					description = <"Der Name des nachgewiesenen Erregers bei dem Patienten.">
+				>
+				["at0013"] = <
+					text = <"Hinweistext">
+					description = <"Ein Freitext mit Hinweisen zu dem nachgewiesenen Erreger bei dem Patienten.">
+				>
+				["at0015"] = <
+					text = <"Zeitpunkt der Kennzeichnung">
+					description = <"*">
+				>
+			>
+		>
+	>
