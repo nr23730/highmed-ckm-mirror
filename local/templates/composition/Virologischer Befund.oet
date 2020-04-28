@@ -62,6 +62,10 @@
                 <key>PARENT:MD5-CAM-1.0.1</key>
                 <value>075C04692C7FEB6DDCC2C90FBE5C9098</value>
             </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
         </other_details>
     </description>
     <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0071]">
@@ -93,14 +97,6 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.sourceSite</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.accessionIdentifier</value>
             </item>
         </items>
     </annotations>
@@ -165,6 +161,14 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.type</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.accessionIdentifier</value>
             </item>
         </items>
     </annotations>
@@ -313,7 +317,6 @@
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0068]">
                 <constraint xsi:type="tem:multipleConstraint">
@@ -322,7 +325,7 @@
                 </constraint>
             </Rule>
             <Rule max="1" min="1" path="/protocol[at0004]/items[at0094]"/>
-            <Rule min="1" name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]"/>
+            <Rule name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]"/>
             <Rule min="1" path="/protocol[at0004]/items[at0094]/items[at0063]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Identifier</includedTypes>
@@ -343,9 +346,16 @@
                         <includedValues>local_terms::9999::Sonstige</includedValues>
                     </constraint>
                 </Rule>
+                <Rule min="1" path="/items[at0001]"/>
                 <Rule max="1" path="/items[at0088]"/>
                 <Rule max="0" path="/items[at0008]"/>
                 <Rule max="0" path="/items[at0007]"/>
+                <Rule min="1" path="/items[at0015]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0080]">
@@ -391,7 +401,7 @@
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0"
-                concept_name="Labortest-Panel" min="1" name="Kultur"
+                concept_name="Labortest-Panel" min="1" name="Test-Panel"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
@@ -402,7 +412,7 @@
                             <includedValues>local_terms::COV::SARS-CoV-2</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule max="1" name="Nachweis" path="/items[at0001]">
+                    <Rule max="1" min="1" name="Nachweis" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>positiv</includedValues>
                             <includedValues>negativ</includedValues>
