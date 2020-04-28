@@ -1,0 +1,169 @@
+﻿archetype (adl_version=1.4; uid=ec643066-ff51-405e-8071-9335e0db9b29)
+	openEHR-EHR-OBSERVATION.follow_up.v0
+
+concept
+	[at0000]	-- Follow-Up
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kim Sommer">
+		["date"] = <"2019-11-21">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation eines Follow-Ups nach einer Intervention.">
+			use = <"Dieser Archetyp dient der Dokumentation einer Nachverfolgung eines Patienten nach einer Intervention. In diesem Archetyp werden Informationen zur Kontaktaufnahme zum Patienten dokumentiert. Das Ergebnis des Follow-Ups wird über die Einbindung von verschiedenen CLUSTER Archetypen dokumentiert (z.B. CLUSTER.hospitalization, CLUSTER.death_details).
+Mögliche Arten der Kontaktaufnahme sind Telefonate, die direkte Kommunikation (z.B. bei der Wiedervorstellung des Patienten im Krankenhaus) oder ein gedruckter/maschineller Brief (z.B. Arztbrief).
+Für den Fall, dass kein Kontakt mit dem Patienten aufgenommen werden kann, können auch andere Personen als Infomationsquelle angegeben werden, z.B. ein Angehöriger oder ein Arzt.">
+			keywords = <"Follow-Up", "Nachverfolgung", "Verlauf">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"3D43C75E5B853E2285AD3C81638B27B3">
+		["build_uid"] = <"d7613197-c87e-4909-b1af-7fa9e2b0523e">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Follow-Up
+		provider matches {
+			PARTY_PROXY matches {*}
+		}
+		other_participations cardinality matches {0..*; unordered} matches {
+			PARTICIPATION occurrences matches {0..1} matches {
+				mode matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[openehr::
+							204, 
+							216, 
+							210]
+						}
+					}
+				}
+				function matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0022, 	-- Patient
+							at0023, 	-- Angehöriger
+							at0024, 	-- Arzt
+							at0025]	-- Sonstiger
+						}
+					}
+				}
+			}
+		}
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Beliebiges Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Kontaktaufnahme erfolgreich?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..*} matches {	-- Details zur Kommunikationsart
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..*} matches {	-- Details zum Teilnehmer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..*} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Follow-Up Ergebnis
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Follow-Up">
+					description = <"Zur Darstellung eines Follow-Ups nach einer Intervention.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Beliebiges Ereignis.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"Follow-Up Ergebnis">
+					description = <"In diesem SLOT sollen Ergebnisse, die im Rahmen des Follow-Ups erhoben werden, dokumentiert werden.">
+				>
+				["at0022"] = <
+					text = <"Patient">
+					description = <"Das Gespräch/Telefonat wurde mit dem Patienten selbst geführt.">
+				>
+				["at0023"] = <
+					text = <"Angehöriger">
+					description = <"Das Gespräch/Telefonat wurde mit einem Angehörigen des Patienten geführt.">
+				>
+				["at0024"] = <
+					text = <"Arzt">
+					description = <"Das Gespräch/Telefonat wurde mit dem Arzt des Patienten geführt.">
+				>
+				["at0025"] = <
+					text = <"Sonstiger">
+					description = <"Das Gespräch/Telefonat wurde mit einer anderen Person geführt.">
+				>
+				["at0037"] = <
+					text = <"Kontaktaufnahme erfolgreich?">
+					description = <"War die Kontaktaufnahme zu dem Patienten erfolgreich?">
+				>
+				["at0038"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Kommentar.">
+				>
+				["at0039"] = <
+					text = <"Details zur Kommunikationsart">
+					description = <"Mit diesem Element können zusätzliche Details zur Kommunikationsart erfasst werden, die nicht mit anderen Elementen abgebildet werden.">
+				>
+				["at0042"] = <
+					text = <"Details zum Teilnehmer">
+					description = <"Mit diesem Element können zusätzliche Details zum Gesprächsteilnehmer erfasst werden, die nicht mit anderen Elementen abgebildet werden.">
+				>
+			>
+		>
+	>

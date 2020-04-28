@@ -1,0 +1,325 @@
+﻿archetype (adl_version=1.4; uid=b137e58d-2fbf-48c1-8709-af435b142cc5)
+	openEHR-EHR-OBSERVATION.murray_score.v0
+
+concept
+	[at0000]	-- Murray score
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"MHH-Hannover">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2020-04-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des Lung Injury Score nach Murray. Dieser ist ein klinischer Scorewert, der den Schweregrad eines Lungenversagens (ARDS) quantifiziert.">
+			use = <"Zur Repräsentation von Patienten mit schwerer hypoxämischer respiratorischer Insuffizienz aufgrund des akuten Atemnotsyndroms (ARDS). Es kann in Verbindung mit anderen klinischen Faktoren verwendet werden, um die Patientenauswahl für die extrakorporale Membranoxygenierung (ECMO) zu erleichtern.
+
+Nützliche Hinweise für COVID-19: Zur Identifizierung der ECMO verwenden. Standard-Punktzahl, um festzustellen, wann die ECMO angezeigt wurde. Wird in der CESAR-Studie, einem zentralen RCT in der ECMO, verwendet.">
+			keywords = <"Murrey-Score", "Lungenversagen", "ARDS", "Lunge", "Scorenwert", "Intensivmedizin", "Pneumologie">
+			misuse = <"Der Murray-Score ist lediglich ein Leitfaden und sollte die klinische Beurteilung der Angemessenheit der ECMO-Initiation durch Kliniker nicht ersetzen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://www.mdcalc.com/murray-score-acute-lung-injury
+
+https://flexikon.doccheck.com/de/Lung_Injury_Score_nach_Murray
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3173767/">
+		["original_namespace"] = <"org.highmed">
+		["custodian_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["MD5-CAM-1.0.1"] = <"0F65D7A901F9AC3BB5207C3FAFE4DB93">
+		["build_uid"] = <"696dde93-e7af-44bb-84c2-a7c3f56a15ab">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Murray score
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					POINT_EVENT[at0002] occurrences matches {0..*} matches {	-- Beliebiges Ereignis zu einem Zeitpunkt
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Röntgenbefund der Lunge 
+										value matches {
+											0|[local::at0006], 	--  keine alveolären Verschattungen 
+											1|[local::at0005], 	-- alveoläre Verschattungen in 1 Quadranten 
+											2|[local::at0008], 	-- alveoläre Verschattungen in 2 Quadranten 
+											3|[local::at0009], 	-- alveoläre Verschattungen in 3 Quadranten 
+											4|[local::at0010]  	-- alveoläre Verschattungen in allen Quadranten 
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Oxygenierungsindex (PaO2/FIO2) 
+										value matches {
+											0|[local::at0014], 	-- ≥300 mmHg 
+											1|[local::at0015], 	-- 225–299 mmHg 
+											2|[local::at0016], 	-- 175–224 mmHg 
+											3|[local::at0017], 	-- 100–174 mmHg 
+											4|[local::at0018]; 	-- <100 mmHg 
+											4  	-- assumed value
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- PEEP, cm H₂O
+										value matches {
+											0|[local::at0021], 	-- ≤5 mbar 
+											1|[local::at0022], 	-- 6–8 mbar 
+											2|[local::at0023], 	-- 9–11 mbar 
+											3|[local::at0024], 	-- 12–14 mbar 
+											4|[local::at0025]  	-- ≥ 15 mbar
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Effektive Compliance 
+										value matches {
+											0|[local::at0028], 	-- ≥ 80 ml/mbar 
+											1|[local::at0029], 	-- 60–79 ml/mbar 
+											2|[local::at0030], 	-- 40–59 ml/mbar 
+											3|[local::at0031], 	-- 20–39 ml/mbar 
+											4|[local::at0032]  	-- ≤ 19 ml/mbar 
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Murray-Score
+										name matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0040, 	-- 0
+													at0041, 	-- 0.1–2.5
+													at0042, 	-- >2.5
+													at0043; 	-- ≥3.0
+													at0040]	-- assumed value
+												}
+											}
+										}
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..3|}
+											}
+										}
+									}
+									ELEMENT[at0047] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Ist das ein COVID-19 Patient?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0035, 	-- Positiv bestätigt
+													at0036, 	-- Verdachtsfall
+													at0037, 	-- Unwahrscheinlich
+													at0038]	-- Negativ bestätigt
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0044] matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0045] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0046] occurrences matches {0..*} matches {	-- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Murray score">
+					description = <"Zur Darstellung des Schweregrades eines akuten Lungenversagens bei ARDS. Der Murray-Score wurde später in der CESAR-Studie (Conventional Ventilation oder ECMO for Severe Adult Respiratory Failure) verwendet, um festzustellen, welche Patienten mit ARDS für die ECMO geeignet waren.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis zu einem Zeitpunkt">
+					description = <"Ein undefiniertes Zeitpunktereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Röntgenbefund der Lunge ">
+					description = <"Röntgenbefund der Lunge. ">
+				>
+				["at0005"] = <
+					text = <"alveoläre Verschattungen in 1 Quadranten ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Kommt nicht für die ECMO in Frage (1 Punkte).">
+				>
+				["at0006"] = <
+					text = <" keine alveolären Verschattungen ">
+					description = <"Keine Lungenverletzung. Nicht geeignet für ECMO (0,0 Punkte).">
+				>
+				["at0008"] = <
+					text = <"alveoläre Verschattungen in 2 Quadranten ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (2 Punkte).">
+				>
+				["at0009"] = <
+					text = <"alveoläre Verschattungen in 3 Quadranten ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (3 Punkte).">
+				>
+				["at0010"] = <
+					text = <"alveoläre Verschattungen in allen Quadranten ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (4 Punkte).">
+				>
+				["at0012"] = <
+					text = <"Oxygenierungsindex (PaO2/FIO2) ">
+					description = <"Der Oxygenierungsindex (PaO2/FIO2). ">
+				>
+				["at0014"] = <
+					text = <"≥300 mmHg ">
+					description = <"Keine Lungenverletzung. Nicht geeignet für ECMO (0,0 Punkte).">
+				>
+				["at0015"] = <
+					text = <"225–299 mmHg ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (1 Punkte).">
+				>
+				["at0016"] = <
+					text = <"175–224 mmHg ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (2 Punkte).">
+				>
+				["at0017"] = <
+					text = <"100–174 mmHg ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (3 Punkte).">
+				>
+				["at0018"] = <
+					text = <"<100 mmHg ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (4 Punkte).">
+				>
+				["at0019"] = <
+					text = <"PEEP, cm H₂O">
+					description = <"Der positive endexspiratorische Druck (PEEP). ">
+				>
+				["at0021"] = <
+					text = <"≤5 mbar ">
+					description = <"Keine Lungenverletzung nach Murray Score (0 Punkte).">
+				>
+				["at0022"] = <
+					text = <"6–8 mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (1 Punkt).">
+				>
+				["at0023"] = <
+					text = <"9–11 mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (2 Punkte).">
+				>
+				["at0024"] = <
+					text = <"12–14 mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (3 Punkte).">
+				>
+				["at0025"] = <
+					text = <"≥ 15 mbar">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (4 Punkte).">
+				>
+				["at0026"] = <
+					text = <"Effektive Compliance ">
+					description = <"Elastizität eines Gewebes oder Organs, z.B. Lungen-Compliance. ">
+				>
+				["at0028"] = <
+					text = <"≥ 80 ml/mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (0 Punkte).">
+				>
+				["at0029"] = <
+					text = <"60–79 ml/mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (1 Punkte).">
+				>
+				["at0030"] = <
+					text = <"40–59 ml/mbar ">
+					description = <"Leichte bis mittelschwere Lungenverletzung. Nicht geeignet für ECMO (2 Punkte).">
+				>
+				["at0031"] = <
+					text = <"20–39 ml/mbar ">
+					description = <"Schwere Lungenverletzung. Nicht geeignet für die ECMO (3 Punkte).">
+				>
+				["at0032"] = <
+					text = <"≤ 19 ml/mbar ">
+					description = <"Schwere Lungenverletzung. Überweisung an ein ECMO-Zentrum in Erwägung ziehen (4 Punkte).">
+				>
+				["at0034"] = <
+					text = <"Ist das ein COVID-19 Patient?">
+					description = <"Diese Antwort hat KEINE Auswirkungen auf die Ergebnisse. Dient nur zur Forschungszwecke. ">
+				>
+				["at0035"] = <
+					text = <"Positiv bestätigt">
+					description = <"Der Patient wurde \"Porsitiv\" bestätigt. ">
+				>
+				["at0036"] = <
+					text = <"Verdachtsfall">
+					description = <"Der Patient ist ein Verdachtsfall. ">
+				>
+				["at0037"] = <
+					text = <"Unwahrscheinlich">
+					description = <"Es ist Unwahrscheinlich das der Patient COVID-19 hat. ">
+				>
+				["at0038"] = <
+					text = <"Negativ bestätigt">
+					description = <"Der Patient wurde\"Negativ\" bestätigt. ">
+				>
+				["at0039"] = <
+					text = <"Murray-Score">
+					description = <"Die Summe der Punkte, die für jeden der Parameter der Komponente zugewiesen wurden.">
+				>
+				["at0040"] = <
+					text = <"0">
+					description = <"No lung injury">
+				>
+				["at0041"] = <
+					text = <"0.1–2.5">
+					description = <"Mild to moderate">
+				>
+				["at0042"] = <
+					text = <">2.5">
+					description = <"Severe">
+				>
+				["at0043"] = <
+					text = <"≥3.0">
+					description = <"The patient should be considered for ECMO referral.">
+				>
+				["at0044"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0045"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0046"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+				>
+				["at0047"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliches Kommentarfeld zum Murray-Score, was in anderen Feldern nicht dargestellt wurde.">
+				>
+			>
+		>
+	>
