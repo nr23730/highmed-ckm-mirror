@@ -1,0 +1,365 @@
+﻿archetype (adl_version=1.4; uid=f9a8f220-9937-476b-8845-ba616889ebff)
+	openEHR-EHR-CLUSTER.erregerdetails.v1
+
+concept
+	[at0000]	-- Erregerdetails
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Sarah Ballout">
+				["organisation"] = <"MHH-Hanover">
+				["email"] = <"ballout.sarah@mh-hannover.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"MHH-Hanover">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2020-03-05">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Erfassung von ergänzenden Angaben oder Beobachtungen zu einem im Labor nachgewiesenen Erreger, zum Beispiel Keimzahl und -häufigkeit, Subtypisierung, MRE-Klasse, etc.">
+			use = <"Zur Erfassung von zum Beispiel Keimzahl und -häufigkeit, Subtypisierungen, MRE-Klasse für die nachgewiesenen Erreger, als Erweiterung der Cluser.Labatory Test Result - Archetypen.">
+			keywords = <"Erreger", "Keim", "Virulenzfaktor ", "Keimzahl">
+			misuse = <"Dieser Archetyp eignet sich nicht zur Darstellung allgemeiner Labortest Ergebnisse.">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Use to record additional information or observations on a pathogen detected in the laboratory, e.g. germ count and frequency, subtyping, MRE class, etc.">
+			use = <"Used to record, in addition to the Cluser.Labatory Test Result - Archetypes, for example, germ counts and frequency, subtyping, MRE class for the pathogens detected.">
+			keywords = <"Pathogen", "Germ", "Virulence factor", "Germ value">
+			misuse = <"Do not use this archetype to represent general laboratory test results.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"D1814162CE3BDBF4D2665F1729D4858E">
+		["build_uid"] = <"ddc96603-4174-49c4-8fb8-fefc8dd7b95a">
+		["revision"] = <"1.1.2-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Erregerdetails
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0047] occurrences matches {0..*} matches {	-- Keim Subtyp
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0035] occurrences matches {0..1} matches {	-- Keimzahl
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::118]>
+						list = <
+							["1"] = <
+								units = <"KbE/ml">
+							>
+						>
+					>
+				}
+				null_flavour existence matches {0..1} matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[openehr::
+							272, 
+							273, 
+							253, 
+							271]
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Häufigkeit
+				value matches {
+					0|[local::at0068], 	-- (+)
+					1|[local::at0069], 	-- +
+					2|[local::at0070], 	-- ++
+					3|[local::at0071], 	-- +++
+					4|[local::at0072]  	-- ++++
+				}
+			}
+			ELEMENT[at0016] occurrences matches {0..1} matches {	-- Virulenzfaktor
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0064] occurrences matches {0..*} matches {	-- Antibiogramm
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.laboratory_test_analyte(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.laboratory_test_panel(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+			CLUSTER[at0057] occurrences matches {0..*} matches {	-- Resistenzmechanismus
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0017] occurrences matches {0..*} matches {	-- Resistenzmechanismus Bezeichnung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0063] occurrences matches {0..*} matches {	-- Resistenzmechanismus Spezialisierung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- MRE Klasse
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0019, 	-- MRSA
+							at0055, 	-- VRE
+							at0056, 	-- LVRE
+							at0067, 	-- LRE
+							at0048, 	-- 2MRGN
+							at0065, 	-- 3MRGN
+							at0066]	-- 4MRGN
+						}
+					}
+				}
+			}
+			ELEMENT[at0062] occurrences matches {0..*} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0059] occurrences matches {0..*} matches {	-- Weitere Ergänzungen
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.adhoc_cluster_heading(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.case_identification(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.conversion_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.death_details_parent(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.deletion_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.dosage(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.duplication_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.dzhk_dataset_pacemaker_info(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.dzhk_echocardiography_quality_level(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.echocardiography_view_quality_assessment(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.exam_lip(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.exclusion_exam(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.family_prevalence(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.funktionseinheit(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.gender(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.histopathology_findings(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.imaging_result(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.indel_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.insertion_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.inversion_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.issue(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.laboratory_test_analyte(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.laboratory_test_panel(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.level_of_exertion(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.lymph_node_metastases(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.nyha_heart_failure(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.organisation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.organisationseinheiten(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.quality_of_process(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.Reference_sequence(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.repeated_sequence_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.sample_device(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.sample_level_of_exertion(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.sample_symptom-pain(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.sample_symptom(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.Sequence_variation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.specimen_preparation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.substitution_variant(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.symptom_sign(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.therapeutic_direction(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.tnm_stage_clinical(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.tumour_resection_margins(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.weitere_klassifikation(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Erregerdetails">
+					description = <"Detaillierte Angaben zum nachgewiesenen Erreger.">
+				>
+				["at0003"] = <
+					text = <"Häufigkeit">
+					description = <"Semiquantitative Angabe zur Keimzahl.">
+				>
+				["at0016"] = <
+					text = <"Virulenzfaktor">
+					description = <"Angabe zu untersuchten
+Virulenzeigenschaften oder -genen, z.B. PVL bei S. aureus oder EHEC bei E. coli.">
+				>
+				["at0017"] = <
+					text = <"Resistenzmechanismus Bezeichnung">
+					description = <"Bezeichnung des Resistenzmechanismus. ">
+					comment = <"Ein bestes Beispiel wäre, die Untersuchung eines „Staphylococcus aureus“ der hier die Bezeichnung des Keims ist. ">
+				>
+				["at0018"] = <
+					text = <"MRE Klasse">
+					description = <"Angabe zur MRE-Klassifikation des
+Erregers, z.B. 3MRGN oder 4MRGN. Bei VRE und MRSA kann es zu einer Redundanz zum Resistenzmechanismus \"Methicillin-resistenz\" kommen, dies ist aber problemlos.">
+				>
+				["at0019"] = <
+					text = <"MRSA">
+					description = <"Methicillin-resistenter Staphylococcus aureus (und CA- community-acquired, LA – lifestock acquired, HA – hospital acquired)">
+				>
+				["at0035"] = <
+					text = <"Keimzahl">
+					description = <"Quantitative Angabe zur Keimzahl, z.B. bei Urinen">
+				>
+				["at0047"] = <
+					text = <"Keim Subtyp">
+					description = <"Subtyp, welcher zusätzlich zur Speziesidentifizierung zur weiteren Kennzeichnung des Erregers genutzt werden kann, z.B. spa-Typ im Falle von S. aureus oder MLST-Typ.">
+					comment = <"Bestimmte Keimsubtypen beeinflussen die Wirtsreaktion bzw. Immunantwort. 
+Beispielsweise ein Resultat einer spa-Typsierung bei einem S. aureus oder anderen Typsierungen wie MLST. ">
+				>
+				["at0048"] = <
+					text = <"2MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 2 der 4 Antibiotikagruppen)">
+				>
+				["at0055"] = <
+					text = <"VRE">
+					description = <"Vancomycin-resistente Enterokokken">
+				>
+				["at0056"] = <
+					text = <"LVRE">
+					description = <"Linezolid-Vancomycin-resistenter Enterokokken">
+				>
+				["at0057"] = <
+					text = <"Resistenzmechanismus">
+					description = <"Angabe der bei dem Erreger vorliegenden Resistenzmechanismen, z.B. ESBL oder Carbapenemase.">
+				>
+				["at0059"] = <
+					text = <"Weitere Ergänzungen">
+					description = <"Der Cluster dient dazu, weitere Ergänzungen zum Archetyp Erregerdetails aufzunehmen. ">
+				>
+				["at0062"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Infomationen zum Erreger. ">
+				>
+				["at0063"] = <
+					text = <"Resistenzmechanismus Spezialisierung">
+					description = <"Weitere Angaben zum Resistenzmechanismus.">
+					comment = <"Ein bestes Beispiel wäre, die Untersuchung eines „Staphylococcus aureus“ der hier die Bezeichnung des Keims ist. Jedoch möchte man später nochmal die „Toxine“ des „Staphylococcus aureus“ untersuchen. Hier wären die „Toxine“ die Spezialisierung des untersuchten Keims. ">
+				>
+				["at0064"] = <
+					text = <"Antibiogramm">
+					description = <"Benennung des Antibiogramms, zur Bestimmung der Empfindlichkeit bzw. Resistenz von mikrobiellen Krankheitserregern gegenüber Antibiotika verwendet wurde.">
+					comment = <"Weitere Informationen werden in den Archetypen \"Laboranalyt-Panel\" und \"Labortest-Panel\" erfasst.">
+				>
+				["at0065"] = <
+					text = <"3MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 3 der 4 Antibiotikagruppen)">
+				>
+				["at0066"] = <
+					text = <"4MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 4 der 4 Antibiotikagruppen)">
+				>
+				["at0067"] = <
+					text = <"LRE">
+					description = <"Linezolid-resistente Enterokokken ">
+				>
+				["at0068"] = <
+					text = <"(+)">
+					description = <"(+)">
+				>
+				["at0069"] = <
+					text = <"+">
+					description = <"+">
+				>
+				["at0070"] = <
+					text = <"++">
+					description = <"++">
+				>
+				["at0071"] = <
+					text = <"+++">
+					description = <"+++">
+				>
+				["at0072"] = <
+					text = <"++++">
+					description = <"++++">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pathogen details">
+					description = <"Detailed information about the detected pathogen.
+
+">
+				>
+				["at0003"] = <
+					text = <"Frequency">
+					description = <"Semi-quantitative information regarding the germination value.">
+				>
+				["at0016"] = <
+					text = <"Virulence factor">
+					description = <"Details of the analysed
+virulence characteristics or genes, e.g. PVL in S. aureus or EHEC in E. coli.">
+				>
+				["at0017"] = <
+					text = <"Name of the resistance mechanism">
+					description = <"The name of the resistance mechanism.">
+					comment = <"For example, the examination of a \"Staphylococcus aureus\"species, which represents the name of the germ.">
+				>
+				["at0018"] = <
+					text = <"MRE class">
+					description = <"Specification for the MRE classification of theexciter, e.g. 3MRGN or 4MRGN. In AER and MRSA there can be a redundancy to the resistance mechanism \"methicillin resistance\", which is not a problem.">
+				>
+				["at0019"] = <
+					text = <"MRSA">
+					description = <"Methicillin-resistenter Staphylococcus aureus (und CA- community-acquired, LA – lifestock acquired, HA – hospital acquired)">
+				>
+				["at0035"] = <
+					text = <"Germination value">
+					description = <"Quantitative information about the germ value, e.g. for urines.">
+				>
+				["at0047"] = <
+					text = <"Germ subtype">
+					description = <"In addition species identification, this subtype can be used for further identification of the pathogen, e.g. spa type in the case of S. aureus or MLST type.">
+					comment = <"Specific germ subtypes affect the immune response of the host. 
+For example, a result of a spa-typing in S. aureus or other typings like MLST.">
+				>
+				["at0048"] = <
+					text = <"2MRGN">
+					description = <"Multiresistant Gramnegative bacteria (resistance to 2 of the 4 antibiotic groups).">
+				>
+				["at0055"] = <
+					text = <"VRE">
+					description = <"Vancomycin-resistente Enterococcus.">
+				>
+				["at0056"] = <
+					text = <"LVRE">
+					description = <"Linezolid-Vancomycin-resistente Enterococcus.">
+				>
+				["at0057"] = <
+					text = <"Resistance mechanism)">
+					description = <"Information regarding the resistance mechanisms of the pathogen, e.g. ESBL or carbapenemase.">
+				>
+				["at0059"] = <
+					text = <"Further additions">
+					description = <"Use this cluster to include further additions to the pathogen details archetype.">
+				>
+				["at0062"] = <
+					text = <"Comment">
+					description = <"Additional information about the pathogen.">
+				>
+				["at0063"] = <
+					text = <"Specialisation of the resistance mechanism">
+					description = <"Further information about the resistance mechanism">
+					comment = <"An example for this is the examination of a \"Staphylococcus aureus\" species, which represents the name of the germ. In the future, they would like to examine the \"toxins\" of the \"Staphylococcus aureus\".In this case the \"toxins\" would be the specialization of the examined germ.">
+				>
+				["at0064"] = <
+					text = <"Antibiogram">
+					description = <"The name of the antibiogram which has been used to determine the sensitivity or resistance of microbial pathogens to antibiotics.">
+					comment = <"Additional information is recorded in the archetypes \"Laboratory Analytical Panel\" and \"Laboratory Test Panel\".">
+				>
+				["at0065"] = <
+					text = <"3MRGN">
+					description = <"Multiresistant Gramnegative bacteria (resistance to 3 of the 4 antibiotic groups).">
+				>
+				["at0066"] = <
+					text = <"4MRGN">
+					description = <"Multiresistant Gramnegative bacteria (resistance to 4 of the 4 antibiotic groups).">
+				>
+				["at0067"] = <
+					text = <"LRE">
+					description = <"Linezolid-resistente Enterococcus">
+				>
+				["at0068"] = <
+					text = <"(+)">
+					description = <"(+)">
+				>
+				["at0069"] = <
+					text = <"+">
+					description = <"+">
+				>
+				["at0070"] = <
+					text = <"++">
+					description = <"++">
+				>
+				["at0071"] = <
+					text = <"+++">
+					description = <"+++">
+				>
+				["at0072"] = <
+					text = <"++++">
+					description = <"++++">
+				>
+			>
+		>
+	>
