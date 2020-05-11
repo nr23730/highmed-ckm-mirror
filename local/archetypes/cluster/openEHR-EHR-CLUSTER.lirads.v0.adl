@@ -24,18 +24,19 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"zur Darstellung der standardisierten Befundung und Datenerfassung von CT- und MRT-Bildgebung, und Ultraschall beim Leberzellkarzinom (HCC).">
-			use = <"Dieser Archetyp soll verwendet werden, um die standardisierte Berichterstattung und Datenerfassung von CT- und MRT-Bildgebung, und Ultraschall für das hepatozelluläre Karzinom (HCC) darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Grad des Verdachts auf eine bösartige Erkrankung zu ermitteln.
+			purpose = <"Zur Darstellung von Bildgebungen mit CT, MRT oder Ultraschall der Leber hinsichtlich des Risikos eines hepatozellulären Karzinoms (HCC) bei Risikopatienten.">
+			use = <"Dieser Archetyp soll verwendet werden, um die standardisierte Befundung und Datensammlung bei der CT-, MRT-Bildgebung sowohl Ultraschall für das hepatozelluläre Karzinom (HCC) nach LI-RADS darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Malignitätsgrad zu ermitteln, neue Fakte im Verlauf der Beobachtung zu erfassen und die Behandlung zu evaluieren.
 
+Zur Bestimmung des Grades der vermuteten Bösartigkeit, verwendet LI-RADS spezifische bildgebende Merkmale der betreffenden Läsion.
 
-Dieser Cluster kann in dem Slot \"Ergebnis der Bildgebung\" des übergeordneten Archetypen \"Bildgebendes Untersuchungsergebnis\" (openEHR-EHR-OBSERVATION.imaging_exam_result) eingebettet werden.
+Dieser Cluster kann in dem Slot \"Ergebnis der Bildgebung\" des übergeordneten Archetypen \"Bildgebendes Untersuchungsergebnis\" (openEHR-EHR-OBSERVATION.imaging_exam_result), und auch in der Archetypen, die eine HCC Diagnose darstellen (z.B. EVALUATION.problem/diagnose)  eingebettet werden.
 ">
-			keywords = <"LI-RADS", "CT", "MRT", "HCC", "Leberbildgebung", "Ultraschall", "CEUS", "hepatozelluläres Karzinom", "American College of Radiology", "ACR">
+			keywords = <"LI-RADS", "CT", "MRT", "HCC", "Leberbildgebung", "Ultraschall", "CEUS", "hepatozelluläres Karzinom", "American College of Radiology", "ACR", "Diagnostische Interventionelle Radiologie", "Leberläsionen", "Klassifizierung", "Diagnostik", "Therapieansprechen", "Befundungsalgorithmus", "Behandlungsevaluation", "Enhancement">
 			misuse = <"Nicht zur Dokumentation bei Patienten ohne Risikofaktoren für die Entwicklung eines hepatozellulären Karzinoms oder bei Patienten unter 18 Jahren verwenden.
 
-Nicht zur Dokumentation des Verdachts auf andere Läsionen in der Leber zu verwenden.
+Nicht zur Darstellung des Verdachts auf andere Läsionen in der Leber verwenden.
 
-Nicht für die Dokumentation von Läsionen in einem anderen Körperorgan zu verwenden.">
+Nicht Darstellung von Läsionen in einem anderen Organ des Körpers verwenden.">
 			copyright = <"© HiGHmed">
 		>
 		["en"] = <
@@ -71,8 +72,8 @@ Not to be used for the documentation of lesions in any other body organ.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"5CCCB2318C52D41E3D1DBF22FAE7DC6A">
-		["build_uid"] = <"96ad5cb5-c12f-42e7-a067-05bb1cba4202">
+		["MD5-CAM-1.0.1"] = <"78C0927AF7A3D0DEA75FA4A2781201E3">
+		["build_uid"] = <"a607f050-f233-420a-85a6-6ad83ac9ff0f">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -94,9 +95,7 @@ definition
 			}
 			ELEMENT[at0008] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
-					DV_DATE matches {
-						value matches {yyyy-??-XX}
-					}
+					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0009] occurrences matches {0..1} matches {    -- *New element(en)
@@ -150,6 +149,7 @@ definition
 							>
 						>
 					>
+					DV_CODED_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0028] occurrences matches {0..1} matches {    -- *New element(en)
@@ -159,6 +159,16 @@ definition
 							[local::
 							at0029,    -- *ja(en)
 							at0030]    -- *nein(en)
+						}
+					}
+				}
+				name matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0041,    -- *Ja (de)
+							at0042,    -- *Nein (de)
+							at0043]    -- *Ubestimmt (de)
 						}
 					}
 				}
@@ -173,6 +183,16 @@ definition
 						}
 					}
 				}
+				name matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0044,    -- *Ja (de)
+							at0045,    -- *Nein (de)
+							at0046]    -- *Ubestimmt (de)
+						}
+					}
+				}
 			}
 			ELEMENT[at0034] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
@@ -184,6 +204,16 @@ definition
 						}
 					}
 				}
+				name matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0047,    -- *Ja (de)
+							at0048,    -- *Nein (de)
+							at0049]    -- *Ubestimmt (de)
+						}
+					}
+				}
 			}
 			ELEMENT[at0037] occurrences matches {0..1} matches {    -- *New element(en)
 				value matches {
@@ -192,6 +222,16 @@ definition
 							[local::
 							at0038,    -- *ja(en)
 							at0039]    -- *nein(en)
+						}
+					}
+				}
+				name matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0050,    -- *Ja (de)
+							at0051,    -- *Nein (de)
+							at0052]    -- *Ubestimmt (de)
 						}
 					}
 				}
@@ -361,41 +401,89 @@ ontology
 					text = <"DV_TEXT">
 					description = <"*">
 				>
+				["at0041"] = <
+					text = <"*Ja (de)">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"*Nein (de)">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"*Ubestimmt (de)">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"*Ja (de)">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"*Nein (de)">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"*Ubestimmt (de)">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"*Ja (de)">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"*Nein (de)">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"*Ubestimmt (de)">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"*Ja (de)">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"*Nein (de)">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"*Ubestimmt (de)">
+					description = <"*">
+				>
 			>
 		>
 		["de"] = <
 			items = <
 				["at0000"] = <
 					text = <"LI-RADS">
-					description = <"Das Liver Imaging Reporting and Data System (LI-RADS®) ist ein umfassendes System zur Standardisierung der Terminologie, Technik, Interpretation, Berichterstattung und Datenerfassung von Leberbeobachtungen bei Personen mit hohem Risiko für ein hepatozelluläres Karzinom (HCC)">
+					description = <"Das Liver Imaging Reporting and Data System (LI-RADS®) ist ein umfassendes System zur Standardisierung der Terminologie, Technik, Interpretation, Befundung und Datensammlung bei der Bildgebung von Leber bei Personen mit hohem Risiko für ein hepatozelluläres Karzinom (HCC).">
 				>
 				["at0003"] = <
-					text = <"LI-RADS Algorithm">
-					description = <"Der Algorithmus, der zur Beurteilung und Diagnose eines Patienten verwendet wurde.">
+					text = <"LI-RADS Algorithmus">
+					description = <"Der Algorithmus, der zur Beurteilung und Diagnostik von Leberläsionen eines Patienten mit HCC-Risiko verwendet wurde.">
 				>
 				["at0004"] = <
 					text = <"Ultraschall LI-RADS®">
-					description = <"Zur Überwachung. Mittels konventioneller Sonographie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten.">
+					description = <"Zur Überwachung mittels konventioneller Sonographie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten.">
 				>
 				["at0005"] = <
 					text = <"CEUS LI-RADS®">
-					description = <"Zur HCC-Diagnostik. Mittels Kontrastmittel-Ultraschall (KMUS, contrast-enhanced ultrasound, CEUS). Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten. ">
+					description = <"Zur HCC-Diagnostik. Mittels Kontrastmittel-Ultraschall (KMUS, contrast-enhanced ultrasound, CEUS). Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten.">
 				>
 				["at0006"] = <
 					text = <"CT/MRT Diagnostisches LI-RADS®">
-					description = <"Zur HCC-Diagnostik und zum Staging. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. ">
+					description = <"Zur HCC-Diagnostik und zum Staging. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC.">
 				>
 				["at0007"] = <
 					text = <"CT/MRT Therapieansprechen LI-RADS®">
-					description = <"Zur Beurteilung des HCC-Therapieansprechens auf lokoregionäre Therapie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC. Mittels CT, MRT mit extrazellulären Kontrastmittteln (extracellular agents, ECA), oder MRT mit hepatobiliären Kontrastmitteln (hepatobiliary agents, HBA).">
+					description = <"Zur Beurteilung des HCC-Therapieansprechens auf lokoregionäre Therapie. Bei Patienten mit Leberzirrhose und anderen Hochrisikopatienten einschließlich Transplantationskandidaten mit HCC mittels CT, MRT mit extrazellulären Kontrastmitteln (extracellular agents, ECA), oder MRT mit hepatobiliären Kontrastmitteln (hepatobiliary agents, HBA).">
 				>
 				["at0008"] = <
 					text = <"LI-RADS Version">
 					description = <"Das Jahr der LI-RADS-Version, die zur Beurteilung und Diagnose des Patienten verwendet wurde.">
 				>
 				["at0009"] = <
-					text = <"Diagnostische Katgorien">
-					description = <"Die LI-RADS-Kategorie ist eine Bewertung, die einer fokalen Leberbeobachtung zugeordnet wird.  Die Kategorien umfassen das Spektrum der gutartigen bis bösartigen Beobachtungen, die bei Patienten mit chronischer Lebererkrankung mit einem Risiko für eine Zirrhose auftreten. ">
+					text = <"Diagnostische Katgorie">
+					description = <"Die LI-RADS-Kategorie ist eine Bewertung, die einer fokalen Läsion zugeordnet wird. Die Kategorien umfassen das Spektrum der gutartigen bis bösartigen Beobachtungen, die bei Patienten mit chronischer Lebererkrankung mit einem Risiko für eine Zirrhose auftreten.">
 				>
 				["at0010"] = <
 					text = <"LR-NC">
@@ -430,8 +518,8 @@ ontology
 					description = <"Wenn wahrscheinlich oder definitiv maligne aber nicht HCC-spezifisch (z. B. Schießscheibenzeichen).">
 				>
 				["at0018"] = <
-					text = <"Kategorien Therapieansprechen">
-					description = <"Die Kategorien des Therapieansprechens (TR) werden zur Beurteilung des Ansprechens des Tumors nach einer lokoregionalen Therapie verwendet">
+					text = <"Kategorie Therapieansprechen">
+					description = <"Die Kategorien des Therapieansprechens (TR) werden zur Beurteilung des Ansprechens des Tumors nach einer lokoregionären Therapie verwendet.">
 				>
 				["at0019"] = <
 					text = <"LR-TR Nicht beurteilbar">
@@ -451,21 +539,21 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Arterielle Hypervaskularisation (APHE)">
-					description = <"Das Enhancement in der arteriellen Phase, das eindeutig größer ist als das der Leber.">
+					description = <"Das Enhancement in der arteriellen Phase, das eindeutig höher ist als das der Leber.">
 					comment = <"Es ist ein Hauptmerkmal von LI-RADS, das zur Kategorisierung von Massen verwendet wird, die weder definitiv gutartige Entitäten noch wahrscheinlich gutartige Entitäten sind und die keine Merkmale einer Nicht-HCC-Malignität oder eines Venentumors aufweisen.">
 				>
 				["at0025"] = <
 					text = <"Kein APHE">
-					description = <"*">
+					description = <"Keine Kontrastmittelanreicherung in der arteriellen Phase.">
 				>
 				["at0026"] = <
 					text = <"APHE (kein rim-Zeichen)">
-					description = <"*">
+					description = <"Kontrastmittelanreicherung in der arteriellen Phase, nicht-randartig.">
 				>
 				["at0027"] = <
 					text = <"Größe der Observation">
 					description = <"Die Größe des beobachteten Knötchens bzw. der Läsion in der Leber.">
-					comment = <"Sie sollte in der größten Außen-zu-Außen-Dimension gemessen werden">
+					comment = <"Sie sollte in der größten Außen-zu-Außen-Dimension gemessen werden.">
 				>
 				["at0028"] = <
 					text = <"Anreichernde “Kapsel”">
@@ -518,7 +606,55 @@ ontology
 				>
 				["at0040"] = <
 					text = <"Kommentar">
-					description = <"Zusätzliche Informationen über den Bericht, welche noch nicht an anderer Stelle dokumentiert wurden.">
+					description = <"Zusätzliche Informationen über den Bericht, welche noch nicht an anderer Stelle dokumentiert wurde.">
+				>
+				["at0041"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Nein">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Ubestimmt">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Nein">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Ubestimmt">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Nein">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Ubestimmt">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Nein">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Ubestimmt">
+					description = <"*">
 				>
 			>
 		>
