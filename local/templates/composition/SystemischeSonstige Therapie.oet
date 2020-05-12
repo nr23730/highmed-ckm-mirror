@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>8839b870-6998-48d9-b400-f3ff3d2f0759</id>
-    <name>Strahlentherapie</name>
+    <id>949c0c75-c812-4196-ad64-f57ec8468e15</id>
+    <name>SystemischeSonstige Therapie</name>
     <description>
         <original_author>
             <item>
@@ -9,16 +9,16 @@
                 <value>2019-12-03</value>
             </item>
             <item>
-                <key>email</key>
-                <value>rehberg.alina@mh-hannover.de</value>
+                <key>name</key>
+                <value>Alina Rehberg</value>
             </item>
             <item>
                 <key>organisation</key>
                 <value>Medizinische Hochschule Hannover</value>
             </item>
             <item>
-                <key>name</key>
-                <value>Alina Rehberg</value>
+                <key>email</key>
+                <value>rehberg.alina@mh-hannover.de</value>
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
@@ -50,7 +50,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>b01904c919ff406a0e41b42a2884de43</value>
+                <value>ad1f0e082122fe76a48127ac58d85a4d</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -63,14 +63,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-ACTION.procedure.v1"
             concept_name="Prozedur" max="1" min="1"
-            name="Strahlentherapie" path="/content" xsi:type="tem:ACTION">
-            <Rule path="/description[at0001]/items[at0002]">
+            name="Systemische/Sonstige Therapie" path="/content" xsi:type="tem:ACTION">
+            <Rule name="Therapieart" path="/description[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Strahlentherapie</includedValues>
-                    <includedValues>Nukleramedizinische Therapie</includedValues>
+                    <includedValues>local_terms::CH::Chemotherapie</includedValues>
+                    <includedValues>local_terms::HO::Hormontherapie</includedValues>
+                    <includedValues>local_terms::IM::Immuntherapie</includedValues>
+                    <includedValues>local_terms::AK::Antikörpertherapie</includedValues>
+                    <includedValues>local_terms::KM::Knochenmarktransplantation</includedValues>
+                    <includedValues>local_terms::WS::Wait and see</includedValues>
+                    <includedValues>local_terms::AS::Active Surveillance</includedValues>
+                    <includedValues>local_terms::ZS::Zielgerichtete Substanzen</includedValues>
+                    <includedValues>local_terms::SO::Sonstiges</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0065]"/>
+            <Rule max="0" path="/description[at0001]/items[at0049]"/>
+            <Rule max="1" name="Protokoll" path="/description[at0001]/items[at0065]"/>
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="0" path="/description[at0001]/items[at0063]"/>
             <Rule max="1" name="Ende Grund" path="/description[at0001]/items[at0048]">
@@ -78,6 +86,7 @@
                     <includedValues>ende grund::AA::Abbruch wegen Nebenwirkung/Toxizität</includedValues>
                     <includedValues>ende grund::AE::Reguläres Ende</includedValues>
                     <includedValues>ende grund::AV::Patient verweigert weitere Therapie</includedValues>
+                    <includedValues>ende grund::AR::Reguläres Ende mit Dosisreduktion</includedValues>
                     <includedValues>ende grund::AP::Abbruch wegen Progress</includedValues>
                     <includedValues>ende grund::AX::Unbekannt</includedValues>
                     <includedValues>ende grund::AG::Abbruch aus sonstigen Gründen</includedValues>
@@ -94,7 +103,7 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0067]"/>
+            <Rule name="Nummer der Therapielinie" path="/description[at0001]/items[at0067]"/>
             <Rule max="1" name="Intention" path="/description[at0001]/items[at0014]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>intention::K::Kurativ</includedValues>
@@ -103,8 +112,8 @@
                     <includedValues>intention::FA::Fehlende Angabe</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Anmerkungen" path="/description[at0001]/items[at0005]"/>
-            <Rule name="Strahlentherapie ID" path="/protocol[at0053]/items[at0054]"/>
+            <Rule name="Anmerkungen zur Therapie" path="/description[at0001]/items[at0005]"/>
+            <Rule name="Systemische Therapie ID" path="/protocol[at0053]/items[at0054]"/>
             <Rule max="0" path="/protocol[at0053]/items[at0056]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Text</includedTypes>
@@ -122,6 +131,9 @@
                 </Rule>
             </Items>
             <Items
+                archetype_id="openEHR-EHR-CLUSTER.relation_to_radiotherapy.v1"
+                max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
+            <Items
                 archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1"
                 max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0008]"/>
@@ -134,70 +146,16 @@
                         <includedValues>ansprechen::MR::Mixed response</includedValues>
                         <includedValues>ansprechen::U::Beurteilung unmöglich</includedValues>
                         <includedValues>ansprechen::X::Fehlende Angabe</includedValues>
+                        <includedValues>ansprechen::MP::Mixed Progress</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0034]"/>
                 <Rule max="0" path="/items[at0035]"/>
                 <Rule max="0" path="/items[at0033]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.radiotherapy.v1"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule max="1" path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>applikationsart::PRCJ::perkutane Radiochemotherapie/Sensitizer: ja</includedValues>
-                        <includedValues>applikationsart::PRCN::perkutane Radiochemotherapie/Sensitizer: nein</includedValues>
-                        <includedValues>applikationsart::KHDR::endokavitaere Kontakttherapie (Brachytherapie): high dose rate</includedValues>
-                        <includedValues>applikationsart::KPDR::endokavitaere Kontakttherapie (Brachytherapie): pulsed dose rate</includedValues>
-                        <includedValues>applikationsart::KLDR::endokavitaere Kontakttherapie (Brachytherapie): low dose rate</includedValues>
-                        <includedValues>applikationsart::IHDR::interstitielle Kontakttherapie (Brachytherapie): high dose rate</includedValues>
-                        <includedValues>applikationsart::IPDR::interstitielle Kontakttherapie (Brachytherapie): pulsed dose rate</includedValues>
-                        <includedValues>applikationsart::ILDR::interstitielle Kontakttherapie (Brachytherapie): low dose rate</includedValues>
-                        <includedValues>applikationsart::MSIRT::metabolische Therapie: Selektive interne Radio-Therapie</includedValues>
-                        <includedValues>applikationsart::MPRRT::metabolische Therapie: Peptid-Radio-Rezeptor-Therapie</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="1" path="/items[at0027]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0015]/items[at0016]"/>
-                <Rule max="0" path="/items[at0015]/items[at0017]"/>
-                <Rule max="0" path="/items[at0015]/items[at0018]"/>
-                <Rule max="0" path="/items[at0025]"/>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-                    max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0065]"/>
-                    <Rule max="0" path="/items[at0002]"/>
-                    <Rule max="0" path="/items[at0083]"/>
-                    <Rule max="0" path="/items[at0064]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
-                            <includedTypes>Text</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0055]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
-                            <includedTypes>Text</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Seite Zielgebiet" path="/items[at0023]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>seite zielgebiet::L::links</includedValues>
-                            <includedValues>seite zielgebiet::R::rechts</includedValues>
-                            <includedValues>seite zielgebiet::B::beidseitig</includedValues>
-                            <includedValues>seite zielgebiet::M::mittig</includedValues>
-                            <includedValues>seite zielgebiet::Ux::unbekannt</includedValues>
-                        </constraint>
-                    </Rule>
-                </Items>
-            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
                 path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule name="Toxizität" path="/items[at0001]"/>
+                <Rule name="Nebenwirkung" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0035]"/>
                 <Rule max="0" path="/items[at0151]"/>
                 <Rule max="0" path="/items[at0175]"/>
@@ -242,26 +200,104 @@
                 </Rule>
                 <Rule name="Anmerkung" path="/items[at0163]"/>
             </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.therapeutic_direction.v1"
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0057]">
+                    <constraint xsi:type="tem:countConstraint">
+                        <minMagnitude>1</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0066]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule name="Anzahl Zyklus" path="/items[at0172]">
+                    <constraint xsi:type="tem:countConstraint">
+                        <minMagnitude>1</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+            </Items>
         </Content>
-        <Content archetype_id="openEHR-EHR-ACTION.imaging_exam.v0"
-            concept_name="Bildgebende Untersuchung" max="1"
-            name="Bestrahlungsplanung" path="/content" xsi:type="tem:ACTION">
-            <Rule name="Art der Bildgebung zur Bestrahlungsplanung" path="/description[at0001]/items[at0017]">
-                <constraint limitToList="false" xsi:type="tem:textConstraint">
-                    <includedValues>Sonographie</includedValues>
-                    <includedValues>CT</includedValues>
-                    <includedValues>MRT</includedValues>
-                    <includedValues>DSA</includedValues>
-                    <includedValues>PET-CT</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0018]"/>
-            <Rule max="0" path="/description[at0001]/items[at0019]"/>
-            <Rule max="0" path="/description[at0001]/items[at0020]"/>
+        <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
+            path="/content" xsi:type="tem:ACTION">
+            <Rule name="Substanzname" path="/description[at0017]/items[at0020]"/>
+            <Rule max="0" path="/description[at0017]/items[at0132]"/>
+            <Rule max="0" path="/description[at0017]/items[at0133]"/>
+            <Rule max="0" path="/description[at0017]/items[at0043]"/>
+            <Rule max="0" path="/description[at0017]/items[at0154]"/>
+            <Rule max="0" path="/description[at0017]/items[at0155]"/>
+            <Rule max="0" path="/description[at0017]/items[at0021]"/>
+            <Rule max="0" path="/description[at0017]/items[at0140]"/>
+            <Rule max="0" path="/description[at0017]/items[at0033]"/>
+            <Rule max="0" path="/description[at0017]/items[at0149]"/>
+            <Rule max="0" path="/description[at0017]/items[at0025]"/>
+            <Rule max="0" path="/protocol[at0030]/items[at0103]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v1" max="1"
+                path="/description[at0017]/items[at0131]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0164]">
+                    <constraint xsi:type="tem:countConstraint">
+                        <minMagnitude>1</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0135]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0178]"/>
+                <Rule max="0" path="/items[at0134]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0102]">
+                    <constraint xsi:type="tem:durationConstraint">
+                        <pattern>PDTHMS</pattern>
+                        <minMagnitude>PT0H</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0176]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0177]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
+                path="/description[at0017]/items[at0053]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0033]"/>
+                <Rule max="0" path="/items[at0012]"/>
+                <Rule max="0" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0010]"/>
+                <Rule max="0" path="/items[at0015]"/>
+                <Rule max="0" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+                <Rule max="0" path="/items[at0018]"/>
+                <Rule max="0" path="/items[at0019]"/>
+                <Rule max="0" path="/items[at0020]"/>
+                <Rule max="0" path="/items[at0005]"/>
+            </Items>
         </Content>
-		
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.problem_list.v0" template_id="0989ef74-099a-43e2-aaa8-6008cc76c30b" concept_name="tumor_diagnosis" max="1" path="/content" name="Tumordiagnose_section" />
-    <Context>
+       <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.problem_list.v0" template_id="0989ef74-099a-43e2-aaa8-6008cc76c30b" concept_name="tumor_diagnosis" max="1" path="/content" name="Tumordiagnose_section" />
+      <Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
                 max="1"
@@ -272,6 +308,7 @@
             </Items>
         </Context>
         <Rule min="1" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -296,33 +333,45 @@
         <digest id="MD5-CAM-1.0.1">89D4906F63FD39B5B1C81F4DD9D047E0</digest>
     </integrity_checks>
     <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.relation_to_radiotherapy.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">913302875F467FDEB850954DAC558CE2</digest>
+    </integrity_checks>
+    <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">8E76F197B9C4C8137437A5F3467E03A1</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.radiotherapy.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">77B9831743E2977A2AE3EA6024C5B9B9</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">62D04D64E703E7E600EE3F61358ED42D</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-ACTION.imaging_exam.v0"
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.therapeutic_direction.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">18818F3D4855B27BB5854FC44CA95E93</digest>
+        <digest id="MD5-CAM-1.0.1">AC3B1CF801C2F0E5B01ADAB43BFB2FA2</digest>
     </integrity_checks>
-     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E0C69F83865D3910946385034A86310F</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">CD1EACAF2A90BEE4DFD15DA9897B7049</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">4244C5EC7B82DFE4829DD920989058F8</digest>
+    </integrity_checks>
+  <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">EA7C3BB3920E871925B9DBA1468AA645</digest>
