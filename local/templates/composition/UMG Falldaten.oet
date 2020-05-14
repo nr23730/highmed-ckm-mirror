@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
   <id>ee9ef52d-1084-4b8f-aa50-8ddfa7f2bcge</id>
   <name>UMG Falldaten</name>
   <description>
@@ -84,7 +84,6 @@
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.umg_aufenthaltsdaten.v0" concept_name="UMG_Aufenthaltsdaten" path="/content">
       <Rule path="/data[at0001]/items[at0002]" max="0" />
-      <Rule path="/data[at0001]/items[at0003]" max="0" />
       <Rule path="/data[at0001]/items[at0006]" name="Behandlungsbeginn-vorstationär" />
       <Rule path="/data[at0001]/items[at0007]" max="0" />
       <Rule path="/data[at0001]/items[at0008]" name="Behandlungsende-nachstationär" />
@@ -96,18 +95,11 @@
       <Rule path="/data[at0001]/items[at0013]" max="0" />
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" path="/content">
-      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]" name="Aufnahmegewicht">
-        <constraint xsi:type="quantityConstraint">
-          <excludedUnits>kg</excludedUnits>
-          <excludedUnits>[lb_av]</excludedUnits>
-        </constraint>
-      </Rule>
       <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0008]" hide_on_form="true" />
       <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
       <Rule path="/data[at0002]/events[at0026]" max="0" />
-      <Rule path="/protocol[at0015]" hide_on_form="true" />
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.umg_entlassungsdaten.v0" concept_name="UMG_Entlassungsdaten" path="/content">
       <Rule path="/data[at0001]/items[at0002]" max="0" />
@@ -121,12 +113,13 @@
       <Rule path="/data[at0001]/items[at0049]" max="0" />
       <Rule path="/data[at0001]/items[at0051]" max="0" />
       <Rule path="/data[at0001]/items[at0050]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patientenstandort.v1" concept_name="Standort" max="1" path="/data[at0001]/items[at0066]" name="Entlassender Standort">
-        <Rule path="/items[at0005]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0006</excludedValues>
-          </constraint>
-        </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.umg_patientenstandort.v0" concept_name="UMG_Patientenstandort" max="1" path="/data[at0001]/items[at0066]" name="Entlassender Standort">
+        <Rule path="/items[at0092]" max="0" />
+        <Rule path="/items[at0093]" max="0" />
+        <Rule path="/items[at0096]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.umg_patientenstandort.v0" concept_name="UMG_Patientenstandort" path="/data[at0001]/items[at0066]">
+        <Rule path="/items[at0095]" min="1" />
         <Rule path="/items[at0092]" max="0" />
         <Rule path="/items[at0093]" max="0" />
         <Rule path="/items[at0096]" max="0" />
@@ -187,16 +180,16 @@
     <digest id="MD5-CAM-1.0.1">6DF4AF28FDD1AD6ED83B2B766F8710FE</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.umg_aufenthaltsdaten.v0">
-    <digest id="MD5-CAM-1.0.1">4CC645900D43660A0DB173DE588CA53B</digest>
+    <digest id="MD5-CAM-1.0.1">D77073F020E34C1641D706F8F0CB2F0B</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2">
-    <digest id="MD5-CAM-1.0.1">28F2580FAEB8D0C7799D0B536FC312A4</digest>
+    <digest id="MD5-CAM-1.0.1">87C7C42F0886971EA090D4CE1144DD56</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.umg_entlassungsdaten.v0">
     <digest id="MD5-CAM-1.0.1">AA734DD4F51D4AB2480CDEA33AF14CA0</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.patientenstandort.v1">
-    <digest id="MD5-CAM-1.0.1">C1DE0D38537CA22B28B4A9C6ADDC492D</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.umg_patientenstandort.v0">
+    <digest id="MD5-CAM-1.0.1">4103EE62A4AF8DF80750CF80153D97DB</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.umg_beatmungsstunden.v0">
     <digest id="MD5-CAM-1.0.1">9E7E1CD172DA4ADACDE987EA750C1CDB</digest>
