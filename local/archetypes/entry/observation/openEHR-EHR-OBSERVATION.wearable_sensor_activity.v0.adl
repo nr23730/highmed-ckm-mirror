@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.wearable_sensor_activity.v0
 
 concept
-	[at0000]	-- Wearable Aktivitätsmessung
+	[at0000]	-- Messung körperliche Aktivität
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -17,7 +17,7 @@ description
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Darstellung der körperlichen Aktivität von Patienten anhand eines tragbaren Sensors.">
 			use = <"Zur Darstellung der körperlichen Aktivität von Patienten anhand eines tragbaren Sensors.">
-			keywords = <"Schrittzahl", "Schritte", "Beschleunigungssensor", "Accelerometer", "PRO", "Aktivität", "Bewegung", "Schwimmen", "Rennen", "Joggen", "Treppensteigen", "Stockwerke", "Kalorien", "Energieverbrauch">
+			keywords = <"Schrittzahl", "Schritte", "Beschleunigungssensor", "Accelerometer", "PRO", "Aktivität", "Bewegung", "Schwimmen", "Rennen", "Joggen", "Treppensteigen", "Stockwerke", "Kalorien", "Energieverbrauch", "Sensor", "Wearable", "Aktivitätsmessung", "Messung", "tragbar">
 			misuse = <"Nicht zur Aufzeichnung von Herzfrequenz und Puls. Verwenden Sie dazu OBSERVATION.pulse.">
 			copyright = <"© HiGHmed">
 		>
@@ -33,17 +33,17 @@ Validity of Using Tri-Axial Accelerometers to Measure Human Movement - Part I: P
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"3A65A113C1C4D222024539B384727741">
-		["build_uid"] = <"bcf8e99d-acce-4fca-ba2f-7d65c6330f27">
+		["MD5-CAM-1.0.1"] = <"185B7B03E8E4722CD86EDEF033A92E75">
+		["build_uid"] = <"96e1f0c1-dc17-438d-8e0f-995832240a09">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Wearable Aktivitätsmessung
+	OBSERVATION[at0000] matches {	-- Messung körperliche Aktivität
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Jedes Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Baum
 								items cardinality matches {0..*; unordered} matches {
@@ -79,10 +79,19 @@ definition
 									}
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Anzahl Stufen
 										value matches {
-											DV_COUNT matches {*}
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
 										}
 									}
-									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Höhe
+									ELEMENT[at0051] occurrences matches {0..1} matches {	-- Schwimmzüge
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..*} matches {	-- Höhe
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::122]>
@@ -110,7 +119,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Energieverbrauch
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Aktivitätsenergie
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::121]>
@@ -121,6 +130,48 @@ definition
 													>
 													["2"] = <
 														units = <"J">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0054] occurrences matches {0..1} matches {	-- Gesamtenergie
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::121]>
+												list = <
+													["1"] = <
+														units = <"kcal">
+														magnitude = <|>=0.0|>
+													>
+													["2"] = <
+														units = <"J">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- VO2 max (relativ)
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::336]>
+												list = <
+													["1"] = <
+														units = <"ml/kg/min">
+														magnitude = <|>=0.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0047] occurrences matches {0..1} matches {	-- VO2 max (absolut)
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::336]>
+												list = <
+													["1"] = <
+														units = <"l/min">
+														magnitude = <|>=0.0|>
 													>
 												>
 											>
@@ -148,10 +199,22 @@ definition
 												property = <[openehr::126]>
 												list = <
 													["1"] = <
-														units = <"l/min">
+														units = <"min/km">
 														magnitude = <|>=0.0|>
 													>
 												>
+											>
+										}
+									}
+									ELEMENT[at0049] occurrences matches {0..1} matches {	-- SMA
+										value matches {
+											C_DV_QUANTITY <
+											>
+										}
+									}
+									ELEMENT[at0048] occurrences matches {0..1} matches {	-- Andere Aktivitätsquantität
+										value matches {
+											C_DV_QUANTITY <
 											>
 										}
 									}
@@ -174,9 +237,19 @@ definition
 													at0035, 	-- Gehen
 													at0036, 	-- Laufen
 													at0037, 	-- Radfahren
-													at0034]	-- Schwimmen
+													at0034, 	-- Schwimmen
+													at0038, 	-- Crosstrainer
+													at0039, 	-- Rudern
+													at0040, 	-- Stepper
+													at0041, 	-- HIIT
+													at0042, 	-- Wandern
+													at0043, 	-- Yoga
+													at0044, 	-- Rollstuhl (Gehtempo)
+													at0045, 	-- Rollstuhl (Lauftempo)
+													at0055]	-- Ruhe
 												}
 											}
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Kommentar
@@ -188,6 +261,28 @@ definition
 							}
 						}
 					}
+					INTERVAL_EVENT[at0052] occurrences matches {0..*} matches {	-- Pro Intervall
+						math_function matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[openehr::
+									144, 
+									145, 
+									146, 
+									148, 
+									268, 
+									521, 
+									522]
+								}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Jedes Ereignis]/data[Baum]
+						}
+						state matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/state[at0027]	-- /data[Event Series]/events[Jedes Ereignis]/state[Baum]
+						}
+					}
 				}
 			}
 		}
@@ -197,6 +292,19 @@ definition
 					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Gerät
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0056] occurrences matches {0..1} matches {	-- Körperstelle
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0057, 	-- Linker Arm
+									at0058, 	-- Rechter Arm
+									at0059]	-- Brust
+								}
+							}
+							DV_TEXT matches {*}
+						}
 					}
 					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Kommentar
 						value matches {
@@ -214,7 +322,7 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Wearable Aktivitätsmessung">
+					text = <"Messung körperliche Aktivität">
 					description = <"Zur Dokumentation von Aktivitätsparametern, gemessen mit einem tragbaren Sensor.">
 				>
 				["at0001"] = <
@@ -223,7 +331,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Jedes Ereignis">
-					description = <"*">
+					description = <"Ein Standardwert, ein spezifizierter Zeitpunkt oder ein Intervallereignis, welches explizit in einem Template oder während der Laufzeit definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Baum">
@@ -239,11 +347,11 @@ ontology
 				>
 				["at0014"] = <
 					text = <"Kommentar">
-					description = <"Weitere Informationen über die Messung, welche noch nicht einem strukturierten Datenfeld aufgenommen wurde.">
+					description = <"Weitere Informationen über die Messung, welche noch nicht in einem strukturierten Datenfeld aufgenommen wurde.">
 				>
 				["at0015"] = <
 					text = <"Gerät">
-					description = <"Details über den verwendeten Sensor, der zur Aufzeichnung der gezählten Schritte verwendet wurde.">
+					description = <"Details über den verwendeten Sensor, der zur Aufzeichnung der Aktivität verwendet wurde.">
 				>
 				["at0016"] = <
 					text = <"Anzahl der zurückgelegten Schritte">
@@ -254,8 +362,8 @@ ontology
 					description = <"Distanz, die vom Probanden zurückgelegt wurde.">
 				>
 				["at0019"] = <
-					text = <"Energieverbrauch">
-					description = <"Menge an Energie, die durch die Aktivität verbraucht und vom Sensor festgehalten wurde.">
+					text = <"Aktivitätsenergie">
+					description = <"Menge an Energie, die durch die Aktivität verbraucht und vom Sensor festgehalten wurde. Auch als Energieumsatz bezeichnet wird sie von der Ruheenergie (Grundumsatz) unterschieden. Ruhe- und Aktivitätsenergie zusammen ergeben den Gesamtenergieverbrauch des Körpers.">
 				>
 				["at0020"] = <
 					text = <"Anzahl Stockwerke">
@@ -267,7 +375,7 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Ruheenergie">
-					description = <"Menge an Energie, die vom Probanden bei Ruhe verbraucht wird.">
+					description = <"Menge an Energie, die vom Probanden bei Ruhe verbraucht wird. Wird auch als Grundumsatz bezeichnet. Zusammen mit der Aktivitätsenergie ergibt sich der gesamte Energieverbrauch des Körpers.">
 				>
 				["at0024"] = <
 					text = <"Pace">
@@ -279,7 +387,8 @@ ontology
 				>
 				["at0026"] = <
 					text = <"Höhe">
-					description = <"Höhe über dem Meeresspiegel, in der sich der Proband bei der Aktivität befand.">
+					description = <"Höhe über dem Meeresspiegel, in der sich der Proband zu einem bestimmten Zeitpunkt der Aktivität befand, oder Höhenänderung bei Intervallmessungen.">
+					comment = <"Dieser Messwert kann gut zu einem exakten Messzeitpunkt bestimmt werden. Bei einer Invervallmessung bietet sich die Dokumentation der Verringerung oder Erhöhung oder gegebenenfalls ein Durschnitts- oder Maximalwert an.">
 				>
 				["at0027"] = <
 					text = <"Baum">
@@ -307,7 +416,88 @@ ontology
 				>
 				["at0037"] = <
 					text = <"Radfahren">
-					description = <"Die Aktivität war Fortbewegung mit einem Fahrrad.">
+					description = <"Die Aktivität war Fortbewegung mit einem Fahrrad oder Training auf einem Gerät wie beispielsweise Spinning.">
+				>
+				["at0038"] = <
+					text = <"Crosstrainer">
+					description = <"Aktivität des Trainings auf einem Crosstrainer wurde aufgezeichnet.">
+				>
+				["at0039"] = <
+					text = <"Rudern">
+					description = <"Die Aktivität war Rudern in einem Boot oder auf einem Rudergerät.">
+				>
+				["at0040"] = <
+					text = <"Stepper">
+					description = <"Training auf einem Stepper wurde aufgezeichnet.">
+				>
+				["at0041"] = <
+					text = <"HIIT">
+					description = <"Hochintensives Intervalltraining (HIIT), bei dem sich intensive sportliche Aktivität und kürzere Ruheintervalle abwechseln, wurde aufgezeichnet.">
+				>
+				["at0042"] = <
+					text = <"Wandern">
+					description = <"Aufzeichung von Aktivitäten bei Fortbewegung zu Fuß im Gelände.">
+				>
+				["at0043"] = <
+					text = <"Yoga">
+					description = <"Erfassung von Yogaübungen.">
+				>
+				["at0044"] = <
+					text = <"Rollstuhl (Gehtempo)">
+					description = <"Erfassung der Fortbewegung mit einem manuellen Rollstuhl im Gehtempo.">
+				>
+				["at0045"] = <
+					text = <"Rollstuhl (Lauftempo)">
+					description = <"Erfassung der Fortbewegung mit einem manuellen Rollstuhl im Lauftempo.">
+				>
+				["at0046"] = <
+					text = <"VO2 max (relativ)">
+					description = <"Measurement of the maximum amount of oxygen a person can utilize during intense exercise. Also known as maximal oxygen uptake. The relative VO2 max is documented in relation to the body weight.">
+				>
+				["at0047"] = <
+					text = <"VO2 max (absolut)">
+					description = <"Measurement of the maximum amount of oxygen a person can utilize during intense exercise. Also known as maximal oxygen uptake. Das absolute VO2 max berücksichtigt nicht das Körpergewicht des Probanden.">
+				>
+				["at0048"] = <
+					text = <"Andere Aktivitätsquantität">
+					description = <"Quantität zur Beschreibung der Aktivität, die bei Laufzeit festgelegt wird und in keinem anderen Feld dokumentiert werden kaonnte.">
+				>
+				["at0049"] = <
+					text = <"SMA">
+					description = <"Größe des Betrages der berechneten Signal Magnitude Area (SMA). Es handelt sich um das normalisierte Integral der ursprünglichen Beschleunigungswerte. Die üblicherweise verwendete Maßeinheit ist das Maß der Erdbeschleunigung [g].">
+				>
+				["at0051"] = <
+					text = <"Schwimmzüge">
+					description = <"Anzahl der durchgeführten Schwimmzüge.">
+				>
+				["at0052"] = <
+					text = <"Pro Intervall">
+					description = <"Zusammenfassende Beobachtung der Aktivität in einem bestimmten Messintervall. Dies kann Maximum, Minimum, Durschnitt, Gesamt oder Median sein, je nach Messgröße. 
+Bei Höhenänderungen kann \"verringern\" oder \"erhöhen\" eine sinnvolle Zusammenfassung sein.">
+				>
+				["at0054"] = <
+					text = <"Gesamtenergie">
+					description = <"Gesamtenergieverbrauch des Körpers im gemessenen Zeitraum. Die Gesamtenergie ergibt sich aus der Summe aus Ruheenergie/Grundumsatz und Aktivitätsenergie.">
+				>
+				["at0055"] = <
+					text = <"Ruhe">
+					description = <"Körper ruht, keine Bewegung wird gemessen.">
+				>
+				["at0056"] = <
+					text = <"Körperstelle">
+					description = <"Körperstelle, an der der Sensor angebracht ist, der die Aktivität aufzeichnet.">
+				>
+				["at0057"] = <
+					text = <"Linker Arm">
+					description = <"Der Aktivitätssensor befindet sich am linken Arm.">
+				>
+				["at0058"] = <
+					text = <"Rechter Arm">
+					description = <"Der Aktivitätssensor befindet sich am rechten Arm.">
+				>
+				["at0059"] = <
+					text = <"Brust">
+					description = <"Der Sensor misst an der Brust, beispielsweise ein Brustgurt oder aufgekleptes Sensorpanel.">
 				>
 			>
 		>
