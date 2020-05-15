@@ -1,0 +1,115 @@
+﻿archetype (adl_version=1.4; uid=7191c861-d4bc-4096-b4a8-3a794e6bbbb6)
+	openEHR-EHR-COMPOSITION.personendetails_kontaktverfolgung.v0
+
+concept
+	[at0000]	-- Personendetails für Kontaktverfolgung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2020-04-28">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7BAFE6BDB899689AEB2BF94217ED4B9D">
+		["build_uid"] = <"b4403264-829c-4ac3-9adf-cbab1409bf04">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	COMPOSITION[at0000] matches {    -- Personendetails für Kontaktverfolgung
+		category matches {
+			DV_CODED_TEXT[at0001] matches {    -- Coded text
+				defining_code matches {
+					[openehr::433]
+				}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT[at0002] matches {    -- Event Context
+				other_context matches {
+					ITEM_TREE[at0003] matches {    -- Item tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0005] occurrences matches {0..1} matches {    -- Art der Person
+								value matches {
+									DV_TEXT matches {*}
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0007,    -- Indexperson
+											at0008]    -- Kontaktperson
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {    -- Erweiterung
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Personendetails für Kontaktverfolgung">
+					description = <"Personendetails_fuer_Kontaktverfolgung">
+				>
+				["at0001"] = <
+					text = <"Coded text">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Event Context">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Art der Person">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0007"] = <
+					text = <"Indexperson">
+					description = <"Indexperson">
+				>
+				["at0008"] = <
+					text = <"Kontaktperson">
+					description = <"Kontaktperson">
+				>
+			>
+		>
+	>

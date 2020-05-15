@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>fe129559-0aa8-4c7c-b348-a037dc0f88ef</id>
+  <name>Kontaktverfolgung</name>
+  <description>
+    <original_author>
+      <item>
+        <key>name</key>
+        <value>Alina Rehberg</value>
+      </item>
+      <item>
+        <key>organisation</key>
+        <value>Medizinische Hochschule Hannover</value>
+      </item>
+      <item>
+        <key>email</key>
+        <value>rehberg.alina@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>date</key>
+        <value>2020-04-27</value>
+      </item>
+    </original_author>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+      <item>
+        <key>MD5-CAM-1.0.1</key>
+        <value>c0004cfcb5f1f15a2585f9ef72f94f96</value>
+      </item>
+      <item>
+        <key>PARENT:MD5-CAM-1.0.1</key>
+        <value>E3BC8668BB89A4BD43BF551931977A9D</value>
+      </item>
+      <item>
+        <key>original_language</key>
+        <value>ISO_639-1::de</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.contact.v0" concept_name="Kontakt" path="/content">
+      <Rule path="/description[at0001]/items[at0011]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>local_terms::Kategorie I::Kategorie I</includedValues>
+          <includedValues>local_terms::Kategorie II::Kategorie II</includedValues>
+          <includedValues>local_terms::Kategorie III::Kategorie III</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0012]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.protective_clothing_.v0" concept_name="Schutzkleidung" max="2" path="/description[at0001]/items[at0005]">
+        <Rule path="/items[at0001]" max="2" />
+        <Rule path="/items[at0002]" max="2">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Coded_text</includedTypes>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0" concept_name="Meldung an das Gesundheitsamt" max="1" path="/content">
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Kontakt zu einer SARS-CoV-2 infizierten Person</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0" concept_name="Eventsummary" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" min="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Kontakt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="2" min="2">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Identifier</includedTypes>
+          </constraint>
+        </Rule>
+      </Items>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0">
+    <digest id="MD5-CAM-1.0.1">D0F7FDA786C5C8B31FFC17724F39DF40</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.contact.v0">
+    <digest id="MD5-CAM-1.0.1">8A63FF74A1C5240BFC0D8793F022B956</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.protective_clothing_.v0">
+    <digest id="MD5-CAM-1.0.1">BB9C09891A388D455F4F61173F0A548F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0">
+    <digest id="MD5-CAM-1.0.1">74EF02E7FA030BF16C5117E507ECF4E2</digest>
+  </integrity_checks>
+</template>
