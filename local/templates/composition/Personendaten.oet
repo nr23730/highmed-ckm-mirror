@@ -63,7 +63,8 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.personendetails_kontaktverfolgung.v0" concept_name="Personendetails Kontaktverfolgung" name="Personendaten">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0" concept_name="Personendaten" max="1" path="/content">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0" concept_name="Personendaten" max="1" min="1" path="/content">
+      <Rule path="/data[at0001]/items[at0004]" min="1" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address_cc.v0" concept_name="Adresse" max="1" path="/data[at0001]/items[at0005]">
         <Rule path="/items[at0001]" max="0" />
         <Rule path="/items[at0006]" max="0" />
@@ -73,8 +74,8 @@
         <Rule path="/items[at0016]" max="0" />
         <Rule path="/items[at0017]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.employment_covid.v0" concept_name="Mitarbeiter im Gesundheitswesen" max="1" path="/data[at0001]/items[at0007]">
-        <Rule path="/items[at0001]" min="1" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.employment_covid.v0" concept_name="Mitarbeiter im Gesundheitswesen" max="1" path="/data[at0001]/items[at0007]" name="Mitarbeiter im Gesundheitswesen der MHH?">
+        <Rule path="/items[at0001]" min="1" name="Im Gesundheitswesen der MHH tätig?" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_record.v1" concept_name="Beschäftigung" max="1" path="/data[at0001]/items[at0007]">
         <Rule path="/items[at0016]" max="0" />
@@ -87,18 +88,35 @@
         <Rule path="/items[at0008]" max="0" />
       </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0" concept_name="Screening-Fragebogen zur Symptomen/Anzeichen" max="1" path="/content">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0" concept_name="Screening-Fragebogen zur Symptomen/Anzeichen" path="/content">
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]" min="1" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]" max="0" />
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0" concept_name="Kennzeichnung Erregernachweis" max="1" path="/content">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0" concept_name="Kennzeichnung Erregernachweis" path="/content">
       <Rule path="/data[at0001]/items[at0013]" max="0" />
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exemption_from_work.v0" concept_name="Freistellung von der Arbeit" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exemption_from_work.v0" concept_name="Freistellung von der Arbeit" path="/content">
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Nachweis einer SARS-CoV-2 Infektion</includedValues>
+          <includedValues>Ungeschützer Kontakt zu einer SARS-CoV-2 infizierten Person</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0" concept_name="Meldung an das Gesundheitsamt" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" min="1" />
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Nachweis einer SARS-CoV-2 Infektion</includedValues>
+          <includedValues>Ungeschützer Kontakt zu einer SARS-CoV-2 infizierten Person</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0" concept_name="Eventsummary" path="/context/other_context[at0003]/items[at0006]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0" concept_name="Eventsummary" max="1" min="1" path="/context/other_context[at0003]/items[at0006]">
         <Rule path="/items[at0002]">
           <constraint xsi:type="textConstraint">
             <includedValues>Kontakt</includedValues>
@@ -113,6 +131,9 @@
       </Rule>
     </Context>
   </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0">
+    <digest id="MD5-CAM-1.0.1">74EF02E7FA030BF16C5117E507ECF4E2</digest>
+  </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.exemption_from_work.v0">
     <digest id="MD5-CAM-1.0.1">9886F9CD40BC596A14A4CE48DBA606D5</digest>
   </integrity_checks>
