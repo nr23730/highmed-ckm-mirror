@@ -30,8 +30,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"7B6BE8E696459446BA93B1C040CE3A24">
-		["build_uid"] = <"b119cff4-a1b0-4c94-956f-11ea8009d67d">
+		["MD5-CAM-1.0.1"] = <"F1FF32A6AEFB1B8E6BBD635C4BD4DA49">
+		["build_uid"] = <"c7008f32-7577-498b-9b2a-12fd88bc87de">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -44,23 +44,9 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Baum
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0006] occurrences matches {0..*} matches {	-- Frage und Antwort
-										items cardinality matches {2..*; unordered} matches {
-											ELEMENT[at0007] matches {	-- Frage
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {[local::at0009]}		-- Frage
-													}
-												}
-											}
-											ELEMENT[at0008] occurrences matches {0..*} matches {	-- Antwort
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {[local::at0010]}		-- Antwort
-													}
-												}
-											}
-										}
+									allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Ergebnis der Befragung
+										include
+											archetype_id/value matches {/.*/}
 									}
 								}
 							}
@@ -92,25 +78,9 @@ ontology
 					text = <"Baum">
 					description = <"@ internal @">
 				>
-				["at0006"] = <
-					text = <"Frage und Antwort">
-					description = <"Eine Frage mit Antwort.">
-				>
-				["at0007"] = <
-					text = <"Frage">
-					description = <"Eine Fragestellung an den Patienten.">
-				>
-				["at0008"] = <
-					text = <"Antwort">
-					description = <"Eine Antwort, die der Patient gibt.">
-				>
-				["at0009"] = <
-					text = <"Frage">
-					description = <"Eine Frage, die der Patient beantworten soll.">
-				>
-				["at0010"] = <
-					text = <"Antwort">
-					description = <"Eine Antwort, die der Patient geben kann.">
+				["at0017"] = <
+					text = <"Ergebnis der Befragung">
+					description = <"Weitere Resourcen oder Verschachtelung der Fragebogen Einträge.">
 				>
 			>
 		>
