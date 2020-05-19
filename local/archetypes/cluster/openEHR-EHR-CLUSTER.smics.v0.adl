@@ -15,10 +15,11 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Repräsentation eines Ausbruchs von Krankheitserregern in einer Klinik oder einer Region. 
+			purpose = <"Zur Repräsentation von einem nachgewiesenen Erreger. Zum Beispiel Keimzahl und -häufigkeit, Subtypisierung, MRE-Klasse, etc.eines Ausbruchs bzw. einer Häufung von Erregern in einer Klinik oder einer Region. 
 
 ">
-			use = <"Zur Repräsentation eines Ausbruchs in einer Klinik von meldepflichtigen Krankheiten und Erregern gemäß Infektionsschutzgesetz (IfSG). ">
+			use = <"Zur Repräsentation eines Ausbruchs bzw. einer Häufung von Erregern in einer Klinik oder einer Region, welches vom Personal dokumentiert wurde. 
+">
 			keywords = <"Erreger", "Ausbruch", "Meldung", "COVID-19", "SmICS", "System", "Infektion", "MRE">
 			misuse = <"Der Archetyp dient nicht zur Erfassung von Labordaten. Um Labordaten zu repräsentieren, verwenden Sie bitte den Archetyp \"Laborergebnis\".">
 			copyright = <"© HiGHmed">
@@ -32,63 +33,139 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"644AC2A0B51A62F746F6541C0767C5F0">
-		["build_uid"] = <"50d47cf0-dd5a-4c64-b005-817d756e6140">
+		["MD5-CAM-1.0.1"] = <"921B3BCE8095BE3837A7EE4B7885DD69">
+		["build_uid"] = <"9cbcf602-2119-4247-8704-5b0a0063ecf8">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- SmICS Ergebnisarchetyp 
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Erreger 
+			ELEMENT[at0071] occurrences matches {0..1} matches {	-- Erregernachweis
 				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::]}
+					DV_BOOLEAN matches {
+						value matches {True, False}
 					}
 				}
 			}
-			ELEMENT[at0052] occurrences matches {0..1} matches {	-- Erregeranzahl
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Erregername
 				value matches {
-					C_DV_QUANTITY <
-						property = <[openehr::381]>
-					>
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0051] matches {	-- Multiresistent
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0053] occurrences matches {0..1} matches {	-- MRE Klasse
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0054, 	-- MRSA
+							at0055, 	-- VRE
+							at0056, 	-- LVRE
+							at0057, 	-- LRE
+							at0058, 	-- 2MRGN
+							at0059, 	-- 3MRGN
+							at0060]	-- 4MRGN
+						}
+					}
 				}
 			}
 			CLUSTER[at0016] occurrences matches {0..*} matches {	-- Spezifische Angaben zum Ausbruch 
-				items cardinality matches {2..*; unordered} matches {
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0088] occurrences matches {0..1} matches {	-- ID des Patienten
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
 					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Fallkennung
 						value matches {
 							DV_TEXT matches {*}
 							DV_IDENTIFIER matches {*}
 						}
 					}
-					ELEMENT[at0018] matches {	-- Gibt es einen Ausbruch
+					ELEMENT[at0018] matches {	-- Gibt es einen Ausbruch?
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
 							}
 						}
 					}
-					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Art des Ausbruchs
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[local::]}
-							}
-						}
-					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Übertragungsweg
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0051] matches {	-- Multiresistent
+					ELEMENT[at0086] occurrences matches {0..1} matches {	-- Gibt es eine Häufung?
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Datum/ Zeit des Ausbruchs
+					CLUSTER[at0097] occurrences matches {0..1} matches {	-- Art der Übertragung 
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0083] occurrences matches {0..1} matches {	-- Art der Person
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0084, 	-- Indexperson
+											at0085]	-- Kontaktperson
+										}
+									}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..*} matches {	-- Übertragungsweg im Ausbruch
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0089, 	-- Patient zu Patient 
+											at0090, 	-- Personal auf Patient 
+											at0091, 	-- Punktquelle in der Umwelt 
+											at0111, 	-- Andere
+											at0112]	-- Unbekannt
+										}
+									}
+								}
+							}
+							ELEMENT[at0123] occurrences matches {0..1} matches {	-- Andere Übertragungswege zum Ausbruch
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0093] occurrences matches {0..*} matches {	-- Infektionsweg 
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0094, 	-- Kontaktübertragung
+											at0095, 	-- Tröpfchenübertragung 
+											at0096, 	-- Aaerogene Übertragung
+											at0100]	-- Unbekannt
+										}
+									}
+								}
+							}
+							ELEMENT[at0092] occurrences matches {0..1} matches {	-- Andere Übertragungswege zur Infektion
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Beginn
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0103] occurrences matches {0..1} matches {	-- Dauer 
+						value matches {
+							DV_DURATION matches {*}
+						}
+					}
+					ELEMENT[at0101] occurrences matches {0..1} matches {	-- Ende 
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
@@ -99,62 +176,87 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Ort des Ausbruchs
+					allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {	-- Angaben zum Standort
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0124] occurrences matches {0..1} matches {	-- Kommentar 
 						value matches {
 							DV_TEXT matches {*}
 						}
-					}
-					allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {	-- Angaben zum Standort 
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Körperstelle
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0022, 	-- Oral
-									at0023, 	-- Inhalativ
-									at0024, 	-- Dermal
-									at0025, 	-- Intravenös
-									at0026, 	-- Intramuskulär
-									at0027]	-- Intraperitoneal
-								}
-							}
-						}
-					}
-					allow_archetype CLUSTER[at0028] occurrences matches {0..*} matches {	-- Angabe zur anatomischen Lokalisation
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Kontakt
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {	-- Angabe der Ursache
-						include
-							archetype_id/value matches {/.*/}
 					}
 					ELEMENT[at0047] occurrences matches {0..1} matches {	-- Datum/ Zeit der Meldung
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0048] occurrences matches {0..*} matches {	-- Einflussfaktoren
-						include
-							archetype_id/value matches {/.*/}
+				}
+			}
+			CLUSTER[at0074] occurrences matches {0..1} matches {	-- Multispezies Ausbruch
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0072] occurrences matches {0..*} matches {	-- Erregername
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0075] occurrences matches {0..1} matches {	-- MRE Klasse
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0076, 	-- MRSA
+									at0077, 	-- VRE
+									at0078, 	-- LVRE
+									at0079, 	-- LRE
+									at0080, 	-- 2MRGN
+									at0081, 	-- 3MRGN
+									at0082]	-- 4MRGN
+								}
+							}
+						}
 					}
 				}
 			}
-			ELEMENT[at0049] occurrences matches {0..1} matches {	-- Gesamtzahl aller infektiösen Kontakte
+			ELEMENT[at0113] occurrences matches {0..1} matches {	-- Gesamtzahl der betroffenen Mitarbeiter
 				value matches {
 					DV_COUNT matches {*}
 				}
 			}
-			ELEMENT[at0050] occurrences matches {0..1} matches {	-- Risikoeinschätzung
+			ELEMENT[at0049] occurrences matches {0..1} matches {	-- Gesamtzahl der betroffenen Patienten
 				value matches {
-					DV_TEXT matches {*}
+					DV_COUNT matches {*}
+				}
+			}
+			CLUSTER[at0115] occurrences matches {0..1} matches {	-- Molekulare Typisierung 
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0116] occurrences matches {0..1} matches {	-- Neues Element
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0117] occurrences matches {0..1} matches {	-- Welche?
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0119] occurrences matches {0..1} matches {	-- Bildgebene Diagnose
+						value matches {
+							DV_URI matches {*}
+						}
+					}
+					ELEMENT[at0118] occurrences matches {0..1} matches {	-- Bewertung
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0120, 	-- identisch
+									at0121]	-- nicht identisch
+								}
+							}
+						}
+					}
 				}
 			}
 			ELEMENT[at0013] occurrences matches {0..1} matches {	-- Kommentar
@@ -179,116 +281,248 @@ ontology
 					description = <"Zur Repräsentation von Krankheiten und Erregern, welche sich durch die hohe Mobilität der Menschen über große Entfernungen und ein größeres Risikopotential für die schnelle Ausbreitung von Infektionskrankheiten und Erregern kennzeichnet.">
 				>
 				["at0002"] = <
-					text = <"Erreger ">
-					description = <"Name des Erregers, mit dem der Träger in Kontakt gekommen ist.">
+					text = <"Erregername">
+					description = <"Name des Häufungs bzw. Ausbruchserregers. Zum Beispiel Klebsiella pneumoniae. ">
 				>
 				["at0007"] = <
-					text = <"Datum/ Zeit des Ausbruchs">
+					text = <"Beginn">
 					description = <"Zeitpunkt an dem der Ausbruchsbeginn stattfand.">
 				>
 				["at0012"] = <
 					text = <"Weitere Angaben">
-					description = <"*">
+					description = <"Der Cluster dient dazu, weitere Ergänzungen zum SmICS-Ergebnisarchetyp aufzunehmen. ">
 				>
 				["at0013"] = <
 					text = <"Kommentar">
-					description = <"*">
+					description = <"Risikoeinschätzung über den Ausbruch zum Infektionserreger.">
 				>
 				["at0016"] = <
 					text = <"Spezifische Angaben zum Ausbruch ">
 					description = <"Angaben zum Ausbruch eines Erregers. ">
 				>
 				["at0018"] = <
-					text = <"Gibt es einen Ausbruch">
-					description = <"Ausbruchsverifikation? ">
-				>
-				["at0019"] = <
-					text = <"Art des Ausbruchs">
-					description = <"Der Übertragungsweg des Ausbruchs eines Erregers. ">
+					text = <"Gibt es einen Ausbruch?">
+					description = <"Ausbruchsverifikation? -> Infektion">
 				>
 				["at0020"] = <
-					text = <"Übertragungsweg">
+					text = <"Übertragungsweg im Ausbruch">
 					description = <"Angaben zur Expositionsmethode.">
 				>
-				["at0021"] = <
-					text = <"Körperstelle">
-					description = <"Die Art der Aufnahme eines Errergers durch einen bestimmten Kontakts (Inkorpoation). ">
-				>
-				["at0022"] = <
-					text = <"Oral">
-					description = <"Durch den Mund, auch als Ingestion. ">
-				>
-				["at0023"] = <
-					text = <"Inhalativ">
-					description = <"Durch die Atmung ">
-				>
-				["at0024"] = <
-					text = <"Dermal">
-					description = <"Durch Hautkontakt">
-				>
-				["at0025"] = <
-					text = <"Intravenös">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Intramuskulär">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Intraperitoneal">
-					description = <"Durch die Bauchhöhle.">
-				>
-				["at0028"] = <
-					text = <"Angabe zur anatomischen Lokalisation">
-					description = <"Strukturierte Angaben über die  Anatomische Lokalisation.">
-				>
-				["at0029"] = <
-					text = <"Ort des Ausbruchs">
-					description = <"Ausbruchsort in der Gesundheitseinrichtung (Station/Organisationseinheit).">
-				>
 				["at0030"] = <
-					text = <"Angaben zum Standort ">
+					text = <"Angaben zum Standort">
 					description = <"Strukturierte Angaben über den Standort eines Trägers. ">
-				>
-				["at0031"] = <
-					text = <"Kontakt">
-					description = <"Die Aktivität, die zum Kontakt geführt hat.">
 				>
 				["at0041"] = <
 					text = <"Ausbruchsdauer">
 					description = <"Die Dauer des Ausbruchs.">
 				>
-				["at0045"] = <
-					text = <"Angabe der Ursache">
-					description = <"Strukturierte Angaben über die Person, die die eigentliche Infektionsquelle ist.">
-				>
 				["at0046"] = <
 					text = <"Fallkennung">
-					description = <"Die Fallkennung des Trägers. ">
+					description = <"Die Fallkennung des Trägers bzw. der Träger. Zum Beispiel I-Zahl">
 				>
 				["at0047"] = <
 					text = <"Datum/ Zeit der Meldung">
-					description = <"Datum und Uhrzeit an dem die Meldung einging.">
-				>
-				["at0048"] = <
-					text = <"Einflussfaktoren">
-					description = <"Faktoren, die zu dem infektiösen Kontakt beigetragen haben. ">
+					description = <"Datum und Uhrzeit an dem die Meldung einging. Meldung an das Gesundheitsamt was nur für Ausbrüche geht. ">
 				>
 				["at0049"] = <
-					text = <"Gesamtzahl aller infektiösen Kontakte">
-					description = <"Die Gesamtanzahl der Ausbrüche gegenüber dem Infektionserreger oder die Gesamtzahl der infektiösen Kontakte.">
-				>
-				["at0050"] = <
-					text = <"Risikoeinschätzung">
-					description = <"Risikoeinschätzung über den Aubsruch zum Infektionserreger.">
+					text = <"Gesamtzahl der betroffenen Patienten">
+					description = <"Anzahl der in den Ausbruch involvierten Patienten. ">
 				>
 				["at0051"] = <
 					text = <"Multiresistent">
 					description = <"Ist der Erreger Multiresistent (ja/nein)?">
 				>
-				["at0052"] = <
-					text = <"Erregeranzahl">
-					description = <"Angabe der Erregerhäufigkeit oder Keimzahl, z.B. bei Urinen. ">
+				["at0053"] = <
+					text = <"MRE Klasse">
+					description = <"Angabe zur MRE-Klassifikation des Erregers, z.B. 3MRGN oder 4MRGN.">
+				>
+				["at0054"] = <
+					text = <"MRSA">
+					description = <"Methicillin-resistenter Staphylococcus aureus (und CA- community-acquired, LA – lifestock acquired, HA – hospital acquired).">
+				>
+				["at0055"] = <
+					text = <"VRE">
+					description = <"Vancomycin-resistente Enterokokken.">
+				>
+				["at0056"] = <
+					text = <"LVRE">
+					description = <"Linezolid-Vancomycin-resistenter Enterokokken">
+				>
+				["at0057"] = <
+					text = <"LRE">
+					description = <"Linezolid-resistente Enterokokken.">
+				>
+				["at0058"] = <
+					text = <"2MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 2 der 4 Antibiotikagruppen).">
+				>
+				["at0059"] = <
+					text = <"3MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 3 der 4 Antibiotikagruppen).">
+				>
+				["at0060"] = <
+					text = <"4MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 4 der 4 Antibiotikagruppen).">
+				>
+				["at0071"] = <
+					text = <"Erregernachweis">
+					description = <"Wurde ein Erreger Nachgewiesen. ">
+				>
+				["at0072"] = <
+					text = <"Erregername">
+					description = <"Eine Erregerhäufung bzw. Ausbruch von mehrern involvierten Spezies. ">
+				>
+				["at0074"] = <
+					text = <"Multispezies Ausbruch">
+					description = <"Multispezies Ausbrüche Übertragung von bestimmten mobilen genetischen Resistenz Elementen. Angaben von Ausbrüchen und Häufungen von mereren Erregern. ">
+				>
+				["at0075"] = <
+					text = <"MRE Klasse">
+					description = <"Angabe zur MRE-Klassifikation des Erregers, z.B. 3MRGN oder 4MRGN.">
+				>
+				["at0076"] = <
+					text = <"MRSA">
+					description = <"Methicillin-resistenter Staphylococcus aureus (und CA- community-acquired, LA – lifestock acquired, HA – hospital acquired).">
+				>
+				["at0077"] = <
+					text = <"VRE">
+					description = <"Vancomycin-resistente Enterokokken.">
+				>
+				["at0078"] = <
+					text = <"LVRE">
+					description = <"Linezolid-Vancomycin-resistenter Enterokokken">
+				>
+				["at0079"] = <
+					text = <"LRE">
+					description = <"Linezolid-resistente Enterokokken.">
+				>
+				["at0080"] = <
+					text = <"2MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 2 der 4 Antibiotikagruppen).">
+				>
+				["at0081"] = <
+					text = <"3MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 3 der 4 Antibiotikagruppen).">
+				>
+				["at0082"] = <
+					text = <"4MRGN">
+					description = <"Multiresistente Gramnegative Bakterien (Resistenz gegen 4 der 4 Antibiotikagruppen).">
+				>
+				["at0083"] = <
+					text = <"Art der Person">
+					description = <"*">
+				>
+				["at0084"] = <
+					text = <"Indexperson">
+					description = <"*">
+				>
+				["at0085"] = <
+					text = <"Kontaktperson">
+					description = <"*">
+				>
+				["at0086"] = <
+					text = <"Gibt es eine Häufung?">
+					description = <"Besiedlung ">
+				>
+				["at0088"] = <
+					text = <"ID des Patienten">
+					description = <"Die Identifikationsnummer des Patienten. ">
+				>
+				["at0089"] = <
+					text = <"Patient zu Patient ">
+					description = <"Die Übertragungsquelle war vom Patienten zum Patienten. ">
+				>
+				["at0090"] = <
+					text = <"Personal auf Patient ">
+					description = <"Die Übertragungsquelle war vom Personal zum Patienten. ">
+				>
+				["at0091"] = <
+					text = <"Punktquelle in der Umwelt ">
+					description = <"Die Übertragungsquelle war über ein Medizingerät. ">
+				>
+				["at0092"] = <
+					text = <"Andere Übertragungswege zur Infektion">
+					description = <"Zusätzliche Angaben zum Übetragungsweg für den Ausbruch. ">
+				>
+				["at0093"] = <
+					text = <"Infektionsweg ">
+					description = <"Der Transmissionsweg des Erregers. ">
+				>
+				["at0094"] = <
+					text = <"Kontaktübertragung">
+					description = <"*">
+				>
+				["at0095"] = <
+					text = <"Tröpfchenübertragung ">
+					description = <"*">
+				>
+				["at0096"] = <
+					text = <"Aaerogene Übertragung">
+					description = <"*">
+				>
+				["at0097"] = <
+					text = <"Art der Übertragung ">
+					description = <"Der Übertragungsweg des Ausbruchs eines Erregers. ">
+				>
+				["at0100"] = <
+					text = <"Unbekannt">
+					description = <"*">
+				>
+				["at0101"] = <
+					text = <"Ende ">
+					description = <"Zeitpunkt an dem der Ausbruch beendet wurde.">
+				>
+				["at0103"] = <
+					text = <"Dauer ">
+					description = <"Die Gesamtdauer des Ausbruches. ">
+				>
+				["at0111"] = <
+					text = <"Andere">
+					description = <"*">
+				>
+				["at0112"] = <
+					text = <"Unbekannt">
+					description = <"*">
+				>
+				["at0113"] = <
+					text = <"Gesamtzahl der betroffenen Mitarbeiter">
+					description = <"Anzahl der in den Ausbruch involvierten Mitarbeiter. ">
+				>
+				["at0115"] = <
+					text = <"Molekulare Typisierung ">
+					description = <"Die Molekulare Typisierung von Pathogenen. ">
+				>
+				["at0116"] = <
+					text = <"Neues Element">
+					description = <"*">
+				>
+				["at0117"] = <
+					text = <"Welche?">
+					description = <"*">
+				>
+				["at0118"] = <
+					text = <"Bewertung">
+					description = <"Das Ergebnis der Molekularen Typisierung. ">
+				>
+				["at0119"] = <
+					text = <"Bildgebene Diagnose">
+					description = <"Internetlink zur Multimedia-Ressource.">
+				>
+				["at0120"] = <
+					text = <"identisch">
+					description = <"*">
+				>
+				["at0121"] = <
+					text = <"nicht identisch">
+					description = <"*">
+				>
+				["at0123"] = <
+					text = <"Andere Übertragungswege zum Ausbruch">
+					description = <"*">
+				>
+				["at0124"] = <
+					text = <"Kommentar ">
+					description = <"*">
 				>
 			>
 		>
