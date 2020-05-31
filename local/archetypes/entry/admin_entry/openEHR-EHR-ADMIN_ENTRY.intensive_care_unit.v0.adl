@@ -1,0 +1,439 @@
+﻿archetype (adl_version=1.4; uid=0ce04a40-1d7f-4ac4-93ab-684f1d21f434)
+	openEHR-EHR-ADMIN_ENTRY.intensive_care_unit.v0
+
+concept
+	[at0000]	-- Intensivstation
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Nina Schewe, Natalia Strauch">
+		["organisation"] = <"MHH">
+		["date"] = <"2020-04-09">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung Struktur und Ausstattung von Intensivtherapiestation.">
+			use = <"Für die Darstellung der Struktur und Ausstattung von Intensivtherapiestation gemäß der Qualitätskriterien des DIVI-Kerndatensatzes, einmalig für den Erfassungszeitraum von einem Jahr oder allgemein.">
+			keywords = <"Intensivtherapiestation", "ITS", "IMC", "Bettenzahl", "Patientenzahl", "Qualifikation", "PICU", "Intermediate Care", "Intensivstation", "Intensivpflegestation", "Intensive Care Unit">
+			misuse = <"Nicht für die Darstellung von Struktur und Ausstattung anderen Stationen oder Einrichtungen verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Kerndatensatz Intensivmedizin 2010 der DIVI und DGAI.
+
+L. Martin L., Marx G. Qualitätsindikatoren in der Intensivmedizin: Quality indicators in intensive care medicine. Aktuelles Wissen für Anästhesisten. Refresher Course Nr. 41. 2015; 99-106.">
+		["MD5-CAM-1.0.1"] = <"90DB190B873FB8E7517D5382071B25E5">
+		["build_uid"] = <"8820a3ed-a505-4360-a438-496021749673">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Intensivstation
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0073] occurrences matches {0..*} matches {	-- Organisation
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Versorgungsstufe
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0042] occurrences matches {0..1} matches {	-- Art der Intensivstation
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0043, 	-- ITS
+									at0044, 	-- ITS & IMC
+									at0045, 	-- IMC
+									at0046, 	-- PICU
+									at0047]	-- Sonstige
+								}
+							}
+						}
+					}
+					ELEMENT[at0048] occurrences matches {0..*} matches {	-- Äztlicher Bestand im Schichtplan
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0049] occurrences matches {0..1} matches {	-- Anzahl ärztlicher Stellen
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0035] occurrences matches {0..1} matches {	-- Anästhesie und Intensivmedizin
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0050] occurrences matches {0..1} matches {	-- Examinierte Pflegekräfte
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0051] occurrences matches {0..1} matches {	-- Nicht examinierte Pflegekräfte
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0052] occurrences matches {0..1} matches {	-- Sonstige Stellen
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Leitungsstruktur
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0036] occurrences matches {0..*} matches {	-- Dienstregelungen
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Pflege VK-Stellen
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					CLUSTER[at0067] occurrences matches {0..1} matches {	-- Anzahl der Pflegekräfte
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0068] occurrences matches {0..1} matches {	-- Fachpflegenden
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0071] occurrences matches {0..1} matches {	-- Examinierte
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0070] occurrences matches {0..1} matches {	-- Nicht examinierte
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0069] occurrences matches {0..1} matches {	-- Sonstige Pflegekräfte
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0039] occurrences matches {0..1} matches {	-- Pflegeschlüssel/Bett
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Bettenzahl
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Patienten pro Jahr
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Behandlungstage pro Jahr
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Beatmungspatienten
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Liegedauer <24h
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Verstorbene <24h
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0057] occurrences matches {0..1} matches {	-- Mikrobiologievisite
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0058, 	-- Ja
+									at0059, 	-- Nein
+									at0060]	-- Unbekannt
+								}
+							}
+						}
+					}
+					ELEMENT[at0053] occurrences matches {0..1} matches {	-- Order-Entry-System
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0054, 	-- Ja
+									at0055, 	-- Nein
+									at0056]	-- Unbekannt
+								}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Verbrauch von Desinfektionsmittel
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::129]>
+								list = <
+									["1"] = <
+										units = <"l">
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0061] occurrences matches {0..*} matches {	-- Diagnostische Möglichkeiten
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0062] occurrences matches {0..*} matches {	-- Therapeutische Möglichkeiten
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0040] occurrences matches {0..1} matches {	-- PDMS
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0063, 	-- Ja
+									at0064, 	-- Nein
+									at0065]	-- Unbekannt
+								}
+							}
+						}
+					}
+					ELEMENT[at0072] occurrences matches {0..*} matches {	-- Qualitätsindikatoren
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intensivstation">
+					description = <"Struktur und Ausstattung von Intensivtherapiestation.">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Versorgungsstufe">
+					description = <"Die Beschreibung der Versorgungsstufe eines Krankenhauses.">
+					comment = <"zum Beispiel: Fachklinik, Regelversorgung oder Universitätsklinik. Das Element ist notwendig, wenn im Slot Organisation keine Angaben zur Versorgungsstufe vorhanden sind.">
+				>
+				["at0006"] = <
+					text = <"Verbrauch von Desinfektionsmittel">
+					description = <"Der Händedesinfektionsmittelverbrauch pro Jahr.">
+					comment = <"Liter pro Jahr.">
+				>
+				["at0007"] = <
+					text = <"Bettenzahl">
+					description = <"Anzahl der Betten auf der Intensivstation.">
+				>
+				["at0008"] = <
+					text = <"Patienten pro Jahr">
+					description = <"Gesamtzahl aller Patienten, die auf der Station lagen.">
+				>
+				["at0009"] = <
+					text = <"Behandlungstage pro Jahr">
+					description = <"Anzahl der Behandlungstage aller Patienten pro Jahr.">
+				>
+				["at0010"] = <
+					text = <"Beatmungspatienten">
+					description = <"Gesamtzahl aller Patienten, die auch nur kurzfristig beatmet wurden (DRG-Kriterien).">
+				>
+				["at0011"] = <
+					text = <"Liegedauer <24h">
+					description = <"Anzahl Patienten (n) mit einer Liegedauer unter 24h.">
+				>
+				["at0012"] = <
+					text = <"Verstorbene <24h">
+					description = <"Anzahl der verstorbenen Patienten innerhalb der ersten 24 Stunden.">
+				>
+				["at0016"] = <
+					text = <"Leitungsstruktur">
+					description = <"Die Leitungsstruktur der Intensivtherapiestation.">
+					comment = <"Zum Beispiel: Die Leitung ist Vollzeitig für die Intensivstation tätig.">
+				>
+				["at0035"] = <
+					text = <"Anästhesie und Intensivmedizin">
+					description = <"Zahl an Fachpflegenden mit Fachweiterbildung Anästhesie und Intensivmedizin.">
+				>
+				["at0036"] = <
+					text = <"Dienstregelungen">
+					description = <"Angaben über die vorliegenden Dienstregelungen der Station.">
+					comment = <"Zum Beispiel: \"Der Arzt ist permanent auf der Station anwesend\" oder \"Facharzt mit Zusatzbezeichnung Intensivmedizin permanent im Hause anwesend\".">
+				>
+				["at0037"] = <
+					text = <"Pflege VK-Stellen">
+					description = <"Anzahl der Pflege Vollkosten/Vollkräften-Stellen.">
+				>
+				["at0039"] = <
+					text = <"Pflegeschlüssel/Bett">
+					description = <"Vollkosten Pflegeschlüssel/Bett.">
+				>
+				["at0040"] = <
+					text = <"PDMS">
+					description = <"Existiert ein Patientendatenmanagementsystem?">
+				>
+				["at0042"] = <
+					text = <"Art der Intensivstation">
+					description = <"Art der Intensivtherapiestation.">
+				>
+				["at0043"] = <
+					text = <"ITS">
+					description = <"Intensivtherapiestation.">
+				>
+				["at0044"] = <
+					text = <"ITS & IMC">
+					description = <"Art der Intensivtherapiestation & Intermediate Care.">
+				>
+				["at0045"] = <
+					text = <"IMC">
+					description = <"Intermediate Care.">
+				>
+				["at0046"] = <
+					text = <"PICU">
+					description = <"Pediatric Intensive Care Unit.">
+				>
+				["at0047"] = <
+					text = <"Sonstige">
+					description = <"Sonstige Art der Intensivversorgung.">
+				>
+				["at0048"] = <
+					text = <"Äztlicher Bestand im Schichtplan">
+					description = <"Zugehörigkeit der Mitarbeiter im ärztlichen Schichtplan der Intensivtherapiestation.">
+					comment = <"Liste der Zugehörigkeiten, die in einem ärztlichen Schichtplan vertreten sind, z.B. Anästhesie, Chirurgie, Pädiatrie, Pneumologie und sonstige Fachrichtungen. Eine Kodierung mit Terminologie ist nach Möglichkeit wünschenswert.">
+				>
+				["at0049"] = <
+					text = <"Anzahl ärztlicher Stellen">
+					description = <"Die Anzahl der ärztlichen Stellen auf der Intensivstation. Angaben in VK-Stellen.">
+				>
+				["at0050"] = <
+					text = <"Examinierte Pflegekräfte">
+					description = <"Zahl an examinierten Pflegekräfte.">
+				>
+				["at0051"] = <
+					text = <"Nicht examinierte Pflegekräfte">
+					description = <"Zahl an nicht examinierten Pflegekräften.">
+				>
+				["at0052"] = <
+					text = <"Sonstige Stellen">
+					description = <"Zahl an sonstigen permanent auf der Intensivstation tätigen Kräften.">
+				>
+				["at0053"] = <
+					text = <"Order-Entry-System">
+					description = <"Pharmazeutische/pharmakologische Visite oder Order-Entry-System.">
+				>
+				["at0054"] = <
+					text = <"Ja">
+					description = <"Pharmazeutische/pharmakologische Visite oder Order-Entry-System vorhanden.">
+				>
+				["at0055"] = <
+					text = <"Nein">
+					description = <"Pharmazeutische/pharmakologische Visite oder Order-Entry-System nicht vorhanden.">
+				>
+				["at0056"] = <
+					text = <"Unbekannt">
+					description = <"Es ist nicht bekannt, ob solche Visite durchgeführt wird.">
+				>
+				["at0057"] = <
+					text = <"Mikrobiologievisite">
+					description = <"Mikrobiologie/Infektiologie- Visite regelmäßig, strukturiert.">
+				>
+				["at0058"] = <
+					text = <"Ja">
+					description = <"Visite wird regelmäßig, strukturiert durchgeführt.">
+				>
+				["at0059"] = <
+					text = <"Nein">
+					description = <"Visite wird nicht regelmäßig, strukturiert durchgeführt.">
+				>
+				["at0060"] = <
+					text = <"Unbekannt">
+					description = <"Es ist nicht bekannt, ob Visite regelmäßig, strukturiert durchgeführt wird.">
+				>
+				["at0061"] = <
+					text = <"Diagnostische Möglichkeiten">
+					description = <"Diagnostische Möglichkeiten auf der ITS als Regeldienst/Bereitschaftsdienst.">
+					comment = <"Beispiele: Röntgen; Sonographie, Bronchoskopie, Computertomographie usw.">
+				>
+				["at0062"] = <
+					text = <"Therapeutische Möglichkeiten">
+					description = <"Therapeutische Möglichkeiten auf der ITS.">
+					comment = <"Beispiele: extrakorporale Lungenersatzverfahren ohne Pumpe/ - mit Pumpe; IABP - Kardiales Assistverfahren; Leberersatzverfahren; Nierenersatzverfahren;  Induzierte Hypothermie. Zusätzlich bei Pädiatrie: NO- und/oder HF-Beatmung.">
+				>
+				["at0063"] = <
+					text = <"Ja">
+					description = <"Es existiert ein Patienten Daten Management System.">
+				>
+				["at0064"] = <
+					text = <"Nein">
+					description = <"Es existiert kein Patienten Daten Management System.">
+				>
+				["at0065"] = <
+					text = <"Unbekannt">
+					description = <"Es ist nicht bekannt, ob ein Patienten Daten Management System existiert.">
+				>
+				["at0067"] = <
+					text = <"Anzahl der Pflegekräfte">
+					description = <"Anzahl der Pflegekräfte pro Qualifikation.">
+				>
+				["at0068"] = <
+					text = <"Fachpflegenden">
+					description = <"Zahl an Fachpflegenden mit Fachweiterbildung Anästhesie und Intensivmedizin.">
+				>
+				["at0069"] = <
+					text = <"Sonstige Pflegekräfte">
+					description = <"Zahl an sonstigen permanent auf der Intensivstation tätigen Kräften.">
+				>
+				["at0070"] = <
+					text = <"Nicht examinierte">
+					description = <"Zahl an nicht examinierten Pflegekräften.">
+				>
+				["at0071"] = <
+					text = <"Examinierte">
+					description = <"Zahl an examinierten Pflegekräfte.">
+				>
+				["at0072"] = <
+					text = <"Qualitätsindikatoren">
+					description = <"Angaben welche Qualitätsindikatoren werden von der ITS erfasst.">
+					comment = <"Beispiele: Monitoring von Sedierung/Schmerz/Delir; Lungenprotektive Beatmung; Oberkörper-Hochlagerung; Antibiotikabeginn innerhalb 1 h bei schwerer Sepsis; Angehörigengespräche oder weitere Indikatoren, die dokumentiert werden, um die Qualität der Versorgung zu beurteilen.">
+				>
+				["at0073"] = <
+					text = <"Organisation">
+					description = <"Idetifikation der Organisation wie Krankenhaus oder Klinik.">
+				>
+			>
+		>
+	>
