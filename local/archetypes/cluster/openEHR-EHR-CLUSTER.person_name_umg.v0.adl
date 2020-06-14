@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=c4afe75a-0176-402c-824e-debdf25766e7)
-	openEHR-EHR-CLUSTER.person_name.v0
+﻿archetype (adl_version=1.4; uid=3115ddb0-6cd7-45be-ad18-f193d2171e50)
+	openEHR-EHR-CLUSTER.person_name_umg.v0
 
 concept
 	[at0000]	-- Person name
@@ -51,7 +51,7 @@ description
 			use = <"Zur Dokumentation der Namensangaben einer Person">
 			keywords = <"Familenname", "Vorname", "Name">
 			misuse = <"Nicht zur Erstaufzeichnung des Patientennamens zu benutzen. Nicht zur Identifikation von Individuen zu benutzen, die eindeutig Registern mit demografischen Daten zugeordnet werden können (z.B. einer elektronischen Krankenakte, einem Master Patient Index, etc.).">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, HiGHmed">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
@@ -59,7 +59,7 @@ description
 			use = <"Utilizar para registrar detalles del nombre de un individuo.">
 			keywords = <"apellido", "nombre de pila", "primer nombre">
 			misuse = <"No utilizar para el registro primario del nombre del paciente. No utilizar para identificar individuos que pueden ser unívocamente referenciados desde registros de datos demográficos. ej.: dentro del registro de salud electrónico, índices maestros de pacientes, etc.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, HiGHmed">
 		>
 		["pt-br"] = <
 			language = <[ISO_639-1::pt-br]>
@@ -68,7 +68,7 @@ description
 ">
 			keywords = <"último nome", "nome próprio", "primeiro nome">
 			misuse = <"Não deve ser usado para registro primário do nome do paciente. Não deve ser usado para identificar os indivíduos que podem ser referenciados unicamente por meio de detalhes do registro demográfico p.e. registro eletrônico de saúde, prontuário eletrônico em saúde e etc.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, HiGHmed">
 		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
@@ -76,7 +76,7 @@ description
 			use = <"لتسجيل تفاصيل الاسم حول شخص ما.">
 			keywords = <"اسم العائلة/اللقب", "الاسم الشخصي", "الاسم الأول">
 			misuse = <"لا يستخدم للتسجيل الأولي لاسم المريض. لا يستخدم لتعريف الأفراد الذين يمكن الرجوع إليهم في سجلات التفاصيل الديموغرافية, مثلا: السجل الطبي الإلكتروني و فهرس المرضى الرئيسي.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, HiGHmed">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -84,77 +84,100 @@ description
 			use = <"Use to record name details about an individual.">
 			keywords = <"surname", "forename", "first name">
 			misuse = <"Not to be used for primary recording of patient name. Not to be used to identify the individuals who can be uniquely referenced from registers of demographic details eg within the electronic health record, master patient indexes etc.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <"Rigoleta Dutra, Ministry of Defense, Brazil (Editor)", "Sergio Freire, State University of Rio de Janeiro, Brazil (Editor)", "Heather Leslie, Ocean Informatics, Australia", "Ian McNicoll, Ocean Informatics, United Kingdom (Editor)">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"openEHR Foundation">
-		["references"] = <"From NHS Scotland SCI-XML messaging standards http://www.isdscotland.org/isd/files/general-v2-7.xsd NHS Scotland Interoperability Working Group http://www.isdscotland.org/isd/5194.htm originally based on: Personal name of the person.  ENV 13606 - 4:2000 7.11.12
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+From NHS Scotland SCI-XML messaging standards http://www.isdscotland.org/isd/files/general-v2-7.xsd NHS Scotland Interoperability Working Group http://www.isdscotland.org/isd/5194.htm originally based on: Personal name of the person. ENV 13606 - 4:2000 7.11.12
 
 Aligned with openEHR-DEMOGRAPHICS-person_name.v1 http://www.openehr.org/ckm/#showArchetype_1013.1.477_9
 
 ISO/TS 22220:2008(E) - Identification of Subject of Care - Technical Specification- International Organization for Standardization.">
-		["original_namespace"] = <"org.openehr">
-		["original_publisher"] = <"openEHR Foundation">
-		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"4A2B8D4C0E557A14843B5DBA7D434820">
-		["build_uid"] = <"1cf48a3e-7fff-40b0-bd54-42ee778fa29e">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"02AC09B168BD6C90296B4AF34047C77B">
+		["build_uid"] = <"6c79f0ac-f93e-438c-bdf6-6a69c038b874">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Person name
+	CLUSTER[at0000] matches {	-- UMG_Personenname
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Name type
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Namenstyp
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0020, 	-- Registered name
-							at0008, 	-- Previous name
-							at0009, 	-- Birth name
+							at0008, 	-- Früherer Name
+							at0009, 	-- Geburtsname
 							at0010, 	-- AKA
 							at0011, 	-- Alias
-							at0012, 	-- Maiden name
-							at0019, 	-- Professional name
-							at0021]	-- Reporting name
+							at0012]	-- Mädchenname
 						}
 					}
 				}
 			}
-			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Preferred name
+			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Bevorzugter Name
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True}
 					}
 				}
 			}
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Unstructured name
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Name unstrukturiert
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			CLUSTER[at0002] occurrences matches {0..1} matches {	-- Structured name
+			CLUSTER[at0002] occurrences matches {0..1} matches {	-- Name strukturiert
 				items cardinality matches {2..*; unordered} matches {
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Title
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Titel
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] matches {	-- Given name
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Präfix
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Middle name
+					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Art des Präfix
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0005] matches {	-- Family name
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Vorsatzwort
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Vorname
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Weiterer Vorname
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Familienname
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nachname
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Geburtsname
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -164,9 +187,14 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Namenszusatz 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Validity period
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- *Validity period(en)
 				value matches {
 					DV_INTERVAL<DV_DATE_TIME> matches {
 						upper matches {
@@ -180,6 +208,7 @@ definition
 			}
 		}
 	}
+
 
 ontology
 	term_definitions = <
@@ -247,28 +276,40 @@ ontology
 					description = <"Additional term used following a person name.">
 					comment = <"e.g. 'Snr'">
 				>
-				["at0019"] = <
-					text = <"Professional name">
-					description = <"The name used by the subject for business or professional purposes.">
-				>
-				["at0020"] = <
-					text = <"Registered name">
-					description = <"The name by which the subject is officially registered.">
-				>
-				["at0021"] = <
-					text = <"Reporting name">
-					description = <"The subject’s name as it is to be used for reporting, when used with a specific identifier.">
-				>
 				["at0022"] = <
 					text = <"Preferred name">
 					description = <"Indicates that this is the name by which a person chooses to be identified.">
+				>
+				["at0024"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0025"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0026"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0027"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0028"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0029"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Personenname">
+					text = <"UMG_Personenname">
 					description = <"Details des Personennamens einer Privatperson, eines Versorgers oder einer Dritten Person">
 				>
 				["at0001"] = <
@@ -281,7 +322,7 @@ ontology
 				>
 				["at0003"] = <
 					text = <"Vorname">
-					description = <"Vorname">
+					description = <"Vollständiger Vorname einer Person">
 				>
 				["at0004"] = <
 					text = <"Weiterer Vorname">
@@ -289,11 +330,11 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Familienname">
-					description = <"Familienname">
+					description = <"Der vollständige Familienname, einschließlich aller Vorsatz- und Zusatzwörter, mit Leerzeichen getrennt.">
 				>
 				["at0006"] = <
-					text = <"*Name type(en)">
-					description = <"*Type of name described.(en)">
+					text = <"Namenstyp">
+					description = <"Typ des Namens">
 				>
 				["at0008"] = <
 					text = <"Früherer Name">
@@ -320,30 +361,43 @@ ontology
 					description = <"*The date interval at which this name was valid.(en)">
 				>
 				["at0017"] = <
-					text = <"*Title(en)">
-					description = <"**(en)">
+					text = <"Titel">
+					description = <"Titel einer Person">
 					comment = <"*e.g. 'Mr', 'Mrs', 'Ms', 'Dr', 'Lord'(en)">
 				>
 				["at0018"] = <
-					text = <"*Suffix(en)">
-					description = <"*Additional term used following a person name.(en)">
+					text = <"Suffix">
+					description = <"Zusätzlicher Begriff, der im Anschluss an einen Personennamen verwendet wird.">
 					comment = <"*e.g. 'Snr'(en)">
 				>
-				["at0019"] = <
-					text = <"*Professional name(en)">
-					description = <"*The name used by the subject for business or professional purposes.(en)">
-				>
-				["at0020"] = <
-					text = <"*Registered name(en)">
-					description = <"*The name by which the subject is officially registered(en)">
-				>
-				["at0021"] = <
-					text = <"*Reporting name(en)">
-					description = <"*The subject’s name as it is to be used for reporting, when used with a specific identifier.(en)">
-				>
 				["at0022"] = <
-					text = <"*Preferred name(en)">
-					description = <"*Indicates that this is the name by which a person chooses to be identified.(en)">
+					text = <"Bevorzugter Name">
+					description = <"Gibt an, dass dies der Name ist, mit dem eine Person sich entscheidet, identifiziert zu werden.">
+				>
+				["at0024"] = <
+					text = <"Geburtsname">
+					description = <"Familienname einer Person zum Zeitpunkt ihrer Geburt. Kann sich danach z.B. durch Heirat und Annahme eines anderen Familiennamens ändern.">
+				>
+				["at0025"] = <
+					text = <"Nachname">
+					description = <"Nachname einer Person ohne Vor- und Zusätze. Dient z.B. der alphabetischen Einordnung des Namens.">
+				>
+				["at0026"] = <
+					text = <"Vorsatzwort">
+					description = <"Vorsatzwort wie z.B.: von, van, zu Vgl. auch VSDM-Spezifikation der Gematik (Versichertenstammdatenmanagement, \"eGK\")">
+				>
+				["at0027"] = <
+					text = <"Namenszusatz ">
+					description = <"Namenszusatz als Bestandteil das Nachnamens, wie in VSDM (Versichertenstammdatenmanagement, \"eGK\") definiert. Beispiele: Gräfin, Prinz oder Fürst">
+				>
+				["at0028"] = <
+					text = <"Präfix">
+					description = <"Namensteile vor dem Vornamen, z.B. akademischer Grad
+">
+				>
+				["at0029"] = <
+					text = <"Art des Präfix">
+					description = <"Art des Präfixes, z.B. \"AC\" für Akademische Titel">
 				>
 			>
 		>
@@ -411,21 +465,33 @@ ontology
 					description = <"*Additional term used following a person name.(en)">
 					comment = <"*e.g. 'Snr'(en)">
 				>
-				["at0019"] = <
-					text = <"*Professional name(en)">
-					description = <"*The name used by the subject for business or professional purposes.(en)">
-				>
-				["at0020"] = <
-					text = <"*Registered name(en)">
-					description = <"*The name by which the subject is officially registered.(en)">
-				>
-				["at0021"] = <
-					text = <"*Reporting name(en)">
-					description = <"*The subject’s name as it is to be used for reporting, when used with a specific identifier.(en)">
-				>
 				["at0022"] = <
 					text = <"*Preferred name(en)">
 					description = <"*Indicates that this is the name by which a person chooses to be identified.(en)">
+				>
+				["at0024"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0025"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0026"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0027"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0028"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0029"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
@@ -493,21 +559,33 @@ ontology
 					description = <"*Additional term used following a person name.(en)">
 					comment = <"*e.g. 'Snr'(en)">
 				>
-				["at0019"] = <
-					text = <"*Professional name(en)">
-					description = <"*The name used by the subject for business or professional purposes.(en)">
-				>
-				["at0020"] = <
-					text = <"*Registered name(en)">
-					description = <"*The name by which the subject is officially registered.(en)">
-				>
-				["at0021"] = <
-					text = <"*Reporting name(en)">
-					description = <"*The subject’s name as it is to be used for reporting, when used with a specific identifier.(en)">
-				>
 				["at0022"] = <
 					text = <"*Preferred name(en)">
 					description = <"*Indicates that this is the name by which a person chooses to be identified.(en)">
+				>
+				["at0024"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0025"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0026"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0027"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0028"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0029"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
@@ -576,21 +654,33 @@ ontology
 					description = <"Termo adicional usado em sequência ao nome da pessoa">
 					comment = <"p.e. Jr.">
 				>
-				["at0019"] = <
-					text = <"Nome profissional">
-					description = <"O nome usado pelo pelo indivíduo para negócios ou assuntos profissionais.">
-				>
-				["at0020"] = <
-					text = <"Nome de registro">
-					description = <"O nome no qual o sujeito é oficialmente registrado.">
-				>
-				["at0021"] = <
-					text = <"Nome informado">
-					description = <"O nome do sujeito que é usado para relatórios, quando usado com um identificador específico.">
-				>
 				["at0022"] = <
 					text = <"Nome favorito">
 					description = <"Indica o nome pelo qual a pessoa prefere ser identificada.">
+				>
+				["at0024"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0025"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0026"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0027"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0028"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
+				>
+				["at0029"] = <
+					text = <"*Neues Element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
