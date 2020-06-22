@@ -1,0 +1,1184 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>49784ed1-399c-4555-bde8-6e6976f9f1aa</id>
+  <name>Mikrobiologischer Befund</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Das Template dient dazu einen mikrobiologischen Befund strukturiert wiederzugeben. Wichtige Informationen, wie das Antibiogramm und die MRE-Klassen werden miterfasst. </purpose>
+	  <keywords>
+        <item>Mikrobiologischer Befund</item>
+        <item>Antibiogramm</item>
+        <item>Kultur</item>
+        <item>Erreger</item>
+      </keywords>
+      <use>Für die Abbildung eines mikrobiologischen Befundes mit mehreren Anforderungen, Proben und Kulturergebnissen sowie den zugehörigen Antibiogrammen.</use>
+      <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="Mikrobiologischer Befund ">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" min="1" path="/content" name="Befund">
+      <Rule path="/data[at0001]/events[at0002]" max="1" min="1"  />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Mikrobiologische Untersuchung</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="1" min="1" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" min="1" name="Anforderung">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>MRSA</includedValues>
+          <includedValues>VRE</includedValues>
+          <includedValues>3-MRGN</includedValues>
+          <includedValues>4-MRGN</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0062]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" min="1">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen.v1" concept_name="Probe" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]">
+        <Rule path="/items[at0029]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>local_terms::00BK::Blutkultur</includedValues>
+			<includedValues>local_terms::01BK::Blutkultur aerob</includedValues>
+			<includedValues>local_terms::02BK::Blutkultur anaerob</includedValues>
+            <includedValues>local_terms::03AB::Abstrich</includedValues>
+			<includedValues>local_terms::9999::Sonstige</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0088]" max="1" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0015]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Date_Time</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0067]" max="0" />
+        <Rule path="/items[at0080]" max="0" />
+        <Rule path="/items[at0003]" max="1" />
+        <Rule path="/items[at0042]" max="0" />
+        <Rule path="/items[at0041]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomische Lokalisation" max="1" path="/items[at0013]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint" limitToList="false">
+              <includedValues>local_terms::10::Anus</includedValues>
+              <includedValues>local_terms::211::Nase</includedValues>
+              <includedValues>local_terms::212::Nase/Rachen</includedValues>
+              <includedValues>local_terms::267::Rachen</includedValues>
+              <includedValues>local_terms::271::Rektum</includedValues>
+              <includedValues>local_terms::20::arteriell</includedValues>
+              <includedValues>local_terms::355::venös</includedValues>
+			  <includedValues>local_terms::999::Sonstige</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0065]" max="0" />
+          <Rule path="/items[at0002]" max="0" />
+          <Rule path="/items[at0083]" max="0" />
+          <Rule path="/items[at0064]" max="0" />
+          <Rule path="/items[at0055]" max="0" />
+          <Rule path="/items[at0023]" max="0" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Kultur">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" min="1" path="/items[at0013]" name="Pro Erreger">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]" min="1" name="Nachweis">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Nachweis</includedValues>
+              <includedValues>Kein Nachweis</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" max="1" name="Erregername ">
+            <constraint xsi:type="textConstraint" limitToList="false">
+              <includedValues>local_terms::sdf::Abiotrophia defectiva</includedValues>
+              <includedValues>local_terms::HD_amde::Achromobacter denitrificans</includedValues>
+              <includedValues>local_terms::HD_amin::Achromobacter insolitus</includedValues>
+              <includedValues>local_terms::HD_ampi::Achromobacter piechaudii</includedValues>
+              <includedValues>local_terms::HD_amru::Achromobacter ruhlandii</includedValues>
+              <includedValues>local_terms::ach::Achromobacter sp.</includedValues>
+              <includedValues>local_terms::HD_amsa::Achromobacter spanius</includedValues>
+              <includedValues>local_terms::G_ach.xylc::Achromobacter xylosoxidans Komplex</includedValues>
+              <includedValues>local_terms::axy::Achromobacter xylosoxidans ssp. xylosoxidans</includedValues>
+              <includedValues>local_terms::B_ACHXYD::Achromobacter xylosoxidans ssp. denitrificans</includedValues>
+              <includedValues>local_terms::aba::Acinetobacter baumannii</includedValues>
+              <includedValues>local_terms::G_ac.bac::Acinetobacter calcoaceticus-Acinetobacter baumannii</includedValues>
+              <includedValues>local_terms::G_ac.bay::Acinetobacter baylyi</includedValues>
+              <includedValues>local_terms::G_ac.ber::Acinetobacter bereziniae</includedValues>
+              <includedValues>local_terms::G_ac.bou::Acinetobacter bouvetii</includedValues>
+              <includedValues>local_terms::aca::Acinetobacter calcoaceticus</includedValues>
+              <includedValues>local_terms::G_ac.dij::Acinetobacter dijkshoorniae</includedValues>
+              <includedValues>local_terms::G_ac.gen::Acinetobacter genomospecies</includedValues>
+              <includedValues>local_terms::G_ac.g11::Acinetobacter genomospecies 11</includedValues>
+              <includedValues>local_terms::HD_acgs3::Acinetobacter genomospecies 3</includedValues>
+              <includedValues>local_terms::G_ac.g13::Acinetobacter genomospecies TU13</includedValues>
+              <includedValues>local_terms::G_ac.ger::Acinetobacter gerneri</includedValues>
+              <includedValues>local_terms::HD_acgu::Acinetobacter guillouiae</includedValues>
+              <includedValues>local_terms::aha::Acinetobacter haemolyticus</includedValues>
+              <includedValues>local_terms::ajo::Acinetobacter johnsonii</includedValues>
+              <includedValues>local_terms::aju::Acinetobacter junii</includedValues>
+              <includedValues>local_terms::alw::Acinetobacter lwoffii</includedValues>
+              <includedValues>local_terms::H_acinnoso::Acinetobacter nosocomialis</includedValues>
+              <includedValues>local_terms::apt::Acinetobacter pittii</includedValues>
+              <includedValues>local_terms::HD_acra::Acinetobacter radioresistens</includedValues>
+              <includedValues>local_terms::HD_acsc::Acinetobacter schindleri</includedValues>
+              <includedValues>local_terms::G_ac.sei::Acinetobacter seifertii</includedValues>
+              <includedValues>local_terms::ac-::Acinetobacter sp.</includedValues>
+              <includedValues>local_terms::G_ac.tan::Acinetobacter tandoii</includedValues>
+              <includedValues>local_terms::G_ac.tje::Acinetobacter tjernbergiae</includedValues>
+              <includedValues>local_terms::G_ac.tow::Acinetobacter towneri</includedValues>
+              <includedValues>local_terms::HD_acur::Acinetobacter ursingii</includedValues>
+              <includedValues>local_terms::G_ac.var::Acinetobacter variabilis</includedValues>
+              <includedValues>local_terms::HD_ansc::Actinobaculum schaalii</includedValues>
+              <includedValues>local_terms::ane::Actinomyces naeslundii</includedValues>
+              <includedValues>local_terms::HD_ainu::Actinomyces neuii</includedValues>
+              <includedValues>local_terms::aod::Actinomyces odontolyticus</includedValues>
+              <includedValues>local_terms::act::Actinomyces sp.</includedValues>
+              <includedValues>local_terms::atc::Actinomyces turicensis</includedValues>
+              <includedValues>local_terms::G_adeno.n::Adenoviren: negativ</includedValues>
+              <includedValues>local_terms::G_adeno.p::Adenoviren: positiv</includedValues>
+              <includedValues>local_terms::HD_spobi::Aerobe Sporenbildner</includedValues>
+              <includedValues>local_terms::aec::Aerococcus sp.</includedValues>
+              <includedValues>local_terms::aun::Aerococcus urinae</includedValues>
+              <includedValues>local_terms::B_AEURI::Aerococcus urinaehominis</includedValues>
+              <includedValues>local_terms::HD_aebe::Aeromonas bestiarum</includedValues>
+              <includedValues>local_terms::acv::Aeromonas caviae</includedValues>
+              <includedValues>local_terms::HD_aeen::Aeromonas encheleia</includedValues>
+              <includedValues>local_terms::HD_aeet::Aeromonas enteropelogenes</includedValues>
+              <includedValues>local_terms::aeu::Aeromonas eucrenophila</includedValues>
+              <includedValues>local_terms::aeh::Aeromonas hydrophila</includedValues>
+              <includedValues>local_terms::G_ae.hyc::Aeromonas hydrophila/caviae</includedValues>
+              <includedValues>local_terms::HD_aeic::Aeromonas ichthiosmia</includedValues>
+              <includedValues>local_terms::aja::Aeromonas jandaei</includedValues>
+              <includedValues>local_terms::amd::Aeromonas media</includedValues>
+              <includedValues>local_terms::G_aem.mol::Aeromonas molluscorum</includedValues>
+              <includedValues>local_terms::HD_aepo::Aeromonas popoffii</includedValues>
+              <includedValues>local_terms::apn::Aeromonas punctata</includedValues>
+              <includedValues>local_terms::G_ae.sal::Aeromonas salm.salmonicida</includedValues>
+              <includedValues>local_terms::ash::Aeromonas schubertii</includedValues>
+              <includedValues>local_terms::G_aem.sim::Aeromonas simiae</includedValues>
+              <includedValues>local_terms::aso::Aeromonas sobria</includedValues>
+              <includedValues>local_terms::aer::Aeromonas sp.</includedValues>
+              <includedValues>local_terms::ave::Aeromonas veronii</includedValues>
+              <includedValues>local_terms::hac2::Aggregatibacter actinomycetemcomitans</includedValues>
+              <includedValues>local_terms::G_alc.den::Alcaligenes denitrificans(B96.5!)</includedValues>
+              <includedValues>local_terms::HD_alfa::Alcaligenes faecalis</includedValues>
+              <includedValues>local_terms::HD_alfafa::Alcaligenes faecalis ssp. faecalis</includedValues>
+              <includedValues>local_terms::alc::Alcaligenes sp.</includedValues>
+              <includedValues>local_terms::axy2::Alcaligenes xylosoxidans</includedValues>
+              <includedValues>local_terms::HD_ast-::Anaerobe gramnegative Stäbchen</includedValues>
+              <includedValues>local_terms::HD_ast+::Anaerobe grampositive Stäbchen</includedValues>
+              <includedValues>local_terms::B_ANA::Anaerobier</includedValues>
+              <includedValues>local_terms::HD_azsp::Anaerococcus sp.</includedValues>
+              <includedValues>local_terms::X_aHEVm::Anti-HEV-IgM</includedValues>
+              <includedValues>local_terms::HD_ahcu::Arthrobacter cumminsii</includedValues>
+              <includedValues>local_terms::X_aspergAP::Aspergillus - Antigen Platelia</includedValues>
+              <includedValues>local_terms::G_asp.bra::Aspergillus brasiliensis</includedValues>
+              <includedValues>local_terms::afl::Aspergillus flavus</includedValues>
+              <includedValues>local_terms::H_aspeflak::Aspergillus flavus-Komplex</includedValues>
+              <includedValues>local_terms::afu::Aspergillus fumigatus</includedValues>
+              <includedValues>local_terms::H_aspefumk::Aspergillus fumigatus-Komplex</includedValues>
+              <includedValues>local_terms::agl::Aspergillus glaucus</includedValues>
+              <includedValues>local_terms::H_aspehira::Aspergillus hiratsukae</includedValues>
+              <includedValues>local_terms::and::Aspergillus nidulans</includedValues>
+              <includedValues>local_terms::H_aspenidk::Aspergillus nidulans-Komplex</includedValues>
+              <includedValues>local_terms::ani::Aspergillus niger</includedValues>
+              <includedValues>local_terms::H_aspenigr::Aspergillus niger-Komplex</includedValues>
+              <includedValues>local_terms::G_asp.niv::Aspergillus niveus</includedValues>
+              <includedValues>local_terms::G_asp.och::Aspergillus ochraceus</includedValues>
+              <includedValues>local_terms::asp::Aspergillus sp.</includedValues>
+              <includedValues>local_terms::G_asp.sfla::Aspergillus spec. Sektion Flavi</includedValues>
+              <includedValues>local_terms::G_asp.sfum::Aspergillus spec. Sektion Fumigati</includedValues>
+              <includedValues>local_terms::G_asp.snig::Aspergillus spec. Sektion Nigri</includedValues>
+              <includedValues>local_terms::H_aspespnf::Aspergillus species (kein Aspergillus fumigatus)</includedValues>
+              <includedValues>local_terms::G_asp.syd::Aspergillus sydowi</includedValues>
+              <includedValues>local_terms::G_asp.tam::Aspergillus tamarii</includedValues>
+              <includedValues>local_terms::ate::Aspergillus terreus</includedValues>
+              <includedValues>local_terms::H_aspeterk::Aspergillus terreus-Komplex</includedValues>
+              <includedValues>local_terms::G_asp.ust::Aspergillus ustus</includedValues>
+              <includedValues>local_terms::avl::Aspergillus versicolor</includedValues>
+              <includedValues>local_terms::asv::Astrovirus</includedValues>
+              <includedValues>local_terms::bce::Bacillus cereus</includedValues>
+              <includedValues>local_terms::H_bacicegr::Bacillus cereus-Gruppe</includedValues>
+              <includedValues>local_terms::bci::Bacillus circulans</includedValues>
+              <includedValues>local_terms::bli::Bacillus licheniformis</includedValues>
+              <includedValues>local_terms::bmc::Bacillus macerans</includedValues>
+              <includedValues>local_terms::bmg::Bacillus megaterium</includedValues>
+              <includedValues>local_terms::bpm::Bacillus pumilus</includedValues>
+              <includedValues>local_terms::HD_bcsx::Bacillus simplex</includedValues>
+              <includedValues>local_terms::bcs::Bacillus sp.</includedValues>
+              <includedValues>local_terms::bsl::Bacillus subtilis</includedValues>
+              <includedValues>local_terms::btu::Bacillus thuringiensis</includedValues>
+              <includedValues>local_terms::bcc::Bacteroides caccae</includedValues>
+              <includedValues>local_terms::bfr::Bacteroides fragilis</includedValues>
+              <includedValues>local_terms::H_bactfrgg::Bacteroides fragilis-Gruppe</includedValues>
+              <includedValues>local_terms::bov::Bacteroides ovatus</includedValues>
+              <includedValues>local_terms::bac::Bacteroides sp.</includedValues>
+              <includedValues>local_terms::bst::Bacteroides stercoris</includedValues>
+              <includedValues>local_terms::bth::Bacteroides thetaiotaomicron</includedValues>
+              <includedValues>local_terms::bun::Bacteroides uniformis</includedValues>
+              <includedValues>local_terms::bvu::Bacteroides vulgatus</includedValues>
+              <includedValues>local_terms::bbv::Bifidobacterium breve</includedValues>
+              <includedValues>local_terms::bdn::Bifidobacterium dentium</includedValues>
+              <includedValues>local_terms::X_bord.per::Bordetella pertussis</includedValues>
+              <includedValues>local_terms::X_BorrIgGB::Borrelien-IGG Immunoblot</includedValues>
+              <includedValues>local_terms::X_BorrIgGE::Borrelien-IgG-ELISA</includedValues>
+              <includedValues>local_terms::G_br.aur::Brevundimonas aurantiaca</includedValues>
+              <includedValues>local_terms::pdi::Brevundimonas diminuta</includedValues>
+              <includedValues>local_terms::G_bvm.dve::Brevundimonas diminuta/vesicularis</includedValues>
+              <includedValues>local_terms::G_br.int::Brevundimonas intermedia</includedValues>
+              <includedValues>local_terms::G_br.nas::Brevundimonas nasdae</includedValues>
+              <includedValues>local_terms::brv::Brevundimonas sp.</includedValues>
+              <includedValues>local_terms::G_br.sub::Brevundimonas subvibrioides</includedValues>
+              <includedValues>local_terms::pve::Brevundimonas vesicularis</includedValues>
+              <includedValues>local_terms::G_bu.amb::Burkholderia ambifaria</includedValues>
+              <includedValues>local_terms::G_bu.and::Burkholderia andropogonis</includedValues>
+              <includedValues>local_terms::G_bu.ant::Burkholderia anthina</includedValues>
+              <includedValues>local_terms::G_bu.cal::Burkholderia caledonica</includedValues>
+              <includedValues>local_terms::G_bu.car::Burkholderia caribensis</includedValues>
+              <includedValues>local_terms::HD_bucn::Burkholderia cenocepacia</includedValues>
+              <includedValues>local_terms::pce::Burkholderia cepacia</includedValues>
+              <includedValues>local_terms::HD_bucek::Burkholderia cepacia Komplex</includedValues>
+              <includedValues>local_terms::H_burkce3::Burkholderia cepacia Komplex (B.cenocepacia) G.III</includedValues>
+              <includedValues>local_terms::H_burkce3a::Burkholderia cepacia Komplex, Genomovar 3 A</includedValues>
+              <includedValues>local_terms::H_burkce3b::Burkholderia cepacia Komplex, Genomovar 3 B</includedValues>
+              <includedValues>local_terms::G_bu.dol::Burkholderia dolosa</includedValues>
+              <includedValues>local_terms::G_bu.fun::Burkholderia fungorum</includedValues>
+              <includedValues>local_terms::bgl::Burkholderia gladioli</includedValues>
+              <includedValues>local_terms::HD_bugu::Burkholderia glumae</includedValues>
+              <includedValues>local_terms::bma::Burkholderia mallei</includedValues>
+              <includedValues>local_terms::HD_bumu::Burkholderia multivorans</includedValues>
+              <includedValues>local_terms::HD_buph::Burkholderia phenazinium</includedValues>
+              <includedValues>local_terms::G_bu.phy::Burkholderia phymatum</includedValues>
+              <includedValues>local_terms::G_bu.pla::Burkholderia plantarii</includedValues>
+              <includedValues>local_terms::ppm::Burkholderia pseudomallei</includedValues>
+              <includedValues>local_terms::H_burkpsmu::Burkholderia pseudomultivorans (B. cepacia-Komplex)</includedValues>
+              <includedValues>local_terms::HD_bupy::Burkholderia pyrrocinia</includedValues>
+              <includedValues>local_terms::G_bu.sac::Burkholderia sacchari</includedValues>
+              <includedValues>local_terms::G_bu.sep::Burkholderia sepacia</includedValues>
+              <includedValues>local_terms::buk::Burkholderia sp.</includedValues>
+              <includedValues>local_terms::HD_bust::Burkholderia stabilis</includedValues>
+              <includedValues>local_terms::G_bu.ter::Burkholderia terricola</includedValues>
+              <includedValues>local_terms::HD_buth::Burkholderia thailandensis</includedValues>
+              <includedValues>local_terms::G_bu.tro::Burkholderia tropica</includedValues>
+              <includedValues>local_terms::G_bul.tub::Burkholderia tuberum</includedValues>
+              <includedValues>local_terms::HD_buvi::Burkholderia vietnamiensis</includedValues>
+              <includedValues>local_terms::G_bu.xen::Burkholderia xenovorans</includedValues>
+              <includedValues>local_terms::cco::Campylobacter coli</includedValues>
+              <includedValues>local_terms::caj::Campylobacter jejuni</includedValues>
+              <includedValues>local_terms::G_cam.jc::Campylobacter jejuni/coli</includedValues>
+              <includedValues>local_terms::H_bactureo::Campylobacter ureolyticus (Bacteroides ureolyticus)</includedValues>
+              <includedValues>local_terms::cal::Candida albicans</includedValues>
+              <includedValues>local_terms::H_candaldu::Candida albicans / dubliniensis - Gruppe</includedValues>
+              <includedValues>local_terms::crs::Candida auris</includedValues>
+              <includedValues>local_terms::cdu::Candida dubliniensis</includedValues>
+              <includedValues>local_terms::cgl::Candida glabrata</includedValues>
+              <includedValues>local_terms::cgu::Candida guilliermondii</includedValues>
+              <includedValues>local_terms::tin::Candida inconspicua</includedValues>
+              <includedValues>local_terms::HD_cake::Candida kefyr</includedValues>
+              <includedValues>local_terms::ckr::Candida krusei</includedValues>
+              <includedValues>local_terms::clu::Candida lusitaniae</includedValues>
+              <includedValues>local_terms::HD_cama::Candida magnoliae</includedValues>
+              <includedValues>local_terms::cnv::Candida norvegensis</includedValues>
+              <includedValues>local_terms::cpa::Candida parapsilosis</includedValues>
+              <includedValues>local_terms::H_candpako::Candida parapsilosis-Komplex</includedValues>
+              <includedValues>local_terms::cru::Candida rugosa</includedValues>
+              <includedValues>local_terms::can::Candida sp.</includedValues>
+              <includedValues>local_terms::HD_caspna::Candida sp. (nicht C. albicans)</includedValues>
+              <includedValues>local_terms::ctr::Candida tropicalis</includedValues>
+              <includedValues>local_terms::cut::Candida utilis</includedValues>
+              <includedValues>local_terms::M_CAPSPP::Capnocytophaga spp.</includedValues>
+              <includedValues>local_terms::X_chla.pneuIgA::Chlam. pneum. IgA-Elisa</includedValues>
+              <includedValues>local_terms::X_chla.pneuIgG::Chlam. pneum. IgG-ELISA</includedValues>
+              <includedValues>local_terms::fgl::Chryseobacterium gleum</includedValues>
+              <includedValues>local_terms::fin::Chryseobacterium indologenes</includedValues>
+              <includedValues>local_terms::fme::Chryseobacterium meningosepticum</includedValues>
+              <includedValues>local_terms::cml::Citrobacter amalonaticus</includedValues>
+              <includedValues>local_terms::G_cit.amac::Citrobacter amalonaticus Komplex</includedValues>
+              <includedValues>local_terms::cbk::Citrobacter braakii</includedValues>
+              <includedValues>local_terms::cdi::Citrobacter diversus</includedValues>
+              <includedValues>local_terms::cfa::Citrobacter farmeri</includedValues>
+              <includedValues>local_terms::cfr::Citrobacter freundii</includedValues>
+              <includedValues>local_terms::H_citrfreg::Citrobacter freundii Gruppe</includedValues>
+              <includedValues>local_terms::G_ci.frc::Citrobacter freundii Komplex</includedValues>
+              <includedValues>local_terms::G_cit.gil::Citrobacter gillenii</includedValues>
+              <includedValues>local_terms::cdi2::Citrobacter koseri</includedValues>
+              <includedValues>local_terms::G_ci.koc::Citrobacter koseri Komplex</includedValues>
+              <includedValues>local_terms::G_cit.mur::Citrobacter murliniae</includedValues>
+              <includedValues>local_terms::HD_ciro::Citrobacter rodentium</includedValues>
+              <includedValues>local_terms::csk::Citrobacter sedlakii</includedValues>
+              <includedValues>local_terms::ci-::Citrobacter sp.</includedValues>
+              <includedValues>local_terms::cyo::Citrobacter youngae</includedValues>
+              <includedValues>local_terms::cdf::Clostridium difficile</includedValues>
+              <includedValues>local_terms::G_cd.ant.p::Clostridium difficile GDH-Antigen - Nachweis direkt aus klinischem Material: positiv.</includedValues>
+              <includedValues>local_terms::G_cldifagn::Clostridium difficile GDH-Antigen direkt aus klinischem Material: negativ</includedValues>
+              <includedValues>local_terms::G_cldifagp::Clostridium difficile GDH-Antigen direkt aus klinischem Material: positiv</includedValues>
+              <includedValues>local_terms::G_cldif.nn::Clostridium difficile kulturell nicht nachgewiesen.</includedValues>
+              <includedValues>local_terms::G_cl.dif.::Clostridium difficile Toxin - ELISA direkt: negativ.</includedValues>
+              <includedValues>local_terms::G_cl.dif.n::Clostridium difficile Toxin - Nachweis direkt aus klinischem Material: positiv</includedValues>
+              <includedValues>local_terms::G_cl.dif.p::Clostridium difficile Toxin - Nachweis direkt aus klinischem Material: positiv.</includedValues>
+              <includedValues>local_terms::G_clidi.kna::Clostridium difficile Toxin aus Kultur nachgewiesen</includedValues>
+              <includedValues>local_terms::G_cldi.kna::Clostridium difficile Toxin aus Kultur nachgewiesen.</includedValues>
+              <includedValues>local_terms::G_cldi.knn::Clostridium difficile Toxin aus Kultur nicht nachgwiesen.</includedValues>
+              <includedValues>local_terms::G_cdipcr.n::Clostridium difficile Toxin-Nachweis direkt aus klinischem Material mittels PCR: negativ</includedValues>
+              <includedValues>local_terms::G_cdipcr.p::Clostridium difficile Toxin-Nachweis direkt aus klinischem Material mittels PCR: positiv</includedValues>
+              <includedValues>local_terms::cic::Clostridium innocuum</includedValues>
+              <includedValues>local_terms::cpp::Clostridium paraputrificum</includedValues>
+              <includedValues>local_terms::cpe::Clostridium perfringens</includedValues>
+              <includedValues>local_terms::cra::Clostridium ramosum</includedValues>
+              <includedValues>local_terms::cse::Clostridium septicum</includedValues>
+              <includedValues>local_terms::clo::Clostridium sp.</includedValues>
+              <includedValues>local_terms::cov::Coronavirus</includedValues>
+              <includedValues>local_terms::cao::Corynebacterium accolens</includedValues>
+              <includedValues>local_terms::caf::Corynebacterium afermentans</includedValues>
+              <includedValues>local_terms::ci2::Corynebacterium amycolatum</includedValues>
+              <includedValues>local_terms::H_coryamxe::Corynebacterium amycolatum / xerosis</includedValues>
+              <includedValues>local_terms::G_co.aum::Corynebacterium aurimucosum</includedValues>
+              <includedValues>local_terms::cdt::Corynebacterium diphtheriae</includedValues>
+              <includedValues>local_terms::cgy::Corynebacterium glucuronolyticum</includedValues>
+              <includedValues>local_terms::cjk::Corynebacterium jeikeium</includedValues>
+              <includedValues>local_terms::HD_copr::Corynebacterium propinquum</includedValues>
+              <includedValues>local_terms::cpd::Corynebacterium pseudodiphtheriticum</includedValues>
+              <includedValues>local_terms::cor::Corynebacterium sp.</includedValues>
+              <includedValues>local_terms::cst::Corynebacterium striatum</includedValues>
+              <includedValues>local_terms::G_co.tub::Corynebacterium tuberculostearicum</includedValues>
+              <includedValues>local_terms::cxv::Coxsackievirus</includedValues>
+              <includedValues>local_terms::G_cro.dub::Cronobacter dublinensis ssp. dublinensis</includedValues>
+              <includedValues>local_terms::G_cro.dla::Cronobacter dublinensis ssp. lactaridi</includedValues>
+              <includedValues>local_terms::G_cro.dus::Cronobacter dublinensis ssp. lausannensis</includedValues>
+              <includedValues>local_terms::G_cro.ge1::Cronobacter genomospecies 1</includedValues>
+              <includedValues>local_terms::G_cro.mal::Cronobacter malonaticus</includedValues>
+              <includedValues>local_terms::G_cro.muy::Cronobacter muytjensii</includedValues>
+              <includedValues>local_terms::esa2::Cronobacter sakazakii</includedValues>
+              <includedValues>local_terms::G_cro.sag::Cronobacter sakazakii Gruppe</includedValues>
+              <includedValues>local_terms::G_cro.tur::Cronobacter turicensis</includedValues>
+              <includedValues>local_terms::cln::Cryptococcus laurentii</includedValues>
+              <includedValues>local_terms::cry::Cryptococcus sp.</includedValues>
+              <includedValues>local_terms::c4c2::Cupriavidus pauculus</includedValues>
+              <includedValues>local_terms::H_propspp::Cutibacterium sp. (Propionibacterium sp)</includedValues>
+              <includedValues>local_terms::cac2::Delftia acidovorans</includedValues>
+              <includedValues>local_terms::dho::Dermabacter hominis</includedValues>
+              <includedValues>local_terms::X_EBV::EBV</includedValues>
+              <includedValues>local_terms::ele2::Eggerthella lenta</includedValues>
+              <includedValues>local_terms::G_ehecn::EHEC negativ (STX 1und 2) mittels Elisa nicht nachgewiesen</includedValues>
+              <includedValues>local_terms::G_ehecp::EHEC positiv (STX 1 und 2) mittels Elisa nachgewiesen</includedValues>
+              <includedValues>local_terms::ecr::Eikenella corrodens</includedValues>
+              <includedValues>local_terms::HD_crme::Elizabethkingia meningoseptica</includedValues>
+              <includedValues>local_terms::G_elz.mir::Elizabethkingia miricola</includedValues>
+              <includedValues>local_terms::eae::Klebsiella aerogenes</includedValues>
+              <includedValues>local_terms::eag::Enterobacter agglomerans</includedValues>
+              <includedValues>local_terms::eam::Enterobacter amnigenus</includedValues>
+              <includedValues>local_terms::ea1::Enterobacter amnigenus 1</includedValues>
+              <includedValues>local_terms::ea2::Enterobacter amnigenus 2</includedValues>
+              <includedValues>local_terms::eas::Enterobacter asburiae</includedValues>
+              <includedValues>local_terms::G_en.canc::Enterobacter cancerogenus</includedValues>
+              <includedValues>local_terms::ecl::Enterobacter cloacae</includedValues>
+              <includedValues>local_terms::H_enteclgr::Enterobacter cloacae - Gruppe</includedValues>
+              <includedValues>local_terms::G_en.clc::Enterobacter cloacae Komplex</includedValues>
+              <includedValues>local_terms::G_en.csc::Enterobacter cloacae ssp. cloacae</includedValues>
+              <includedValues>local_terms::G_en.csd::Enterobacter cloacae ssp. dissolvens</includedValues>
+              <includedValues>local_terms::G_en.cow::Enterobacter cowanii</includedValues>
+              <includedValues>local_terms::egg::Enterobacter gergoviae</includedValues>
+              <includedValues>local_terms::ehm::Enterobacter hormaechei</includedValues>
+              <includedValues>local_terms::ehm::Enterobacter hormaechei</includedValues>
+              <includedValues>local_terms::HD_etko::Enterobacter kobei</includedValues>
+              <includedValues>local_terms::HD_etlu::Enterobacter ludwigii</includedValues>
+              <includedValues>local_terms::HD_etpy::Enterobacter pyrinus</includedValues>
+              <includedValues>local_terms::G_en.rad::Enterobacter radicincitans</includedValues>
+              <includedValues>local_terms::en-::Enterobacter sp.</includedValues>
+              <includedValues>local_terms::HD_enba::Enterobacterales (Enterobacteriaceae)</includedValues>
+              <includedValues>local_terms::eav::Enterococcus avium</includedValues>
+              <includedValues>local_terms::H_enteavra::Enterococcus avium / raffinosus</includedValues>
+              <includedValues>local_terms::eca::Enterococcus casseliflavus</includedValues>
+              <includedValues>local_terms::edu::Enterococcus durans</includedValues>
+              <includedValues>local_terms::efa::Enterococcus faecalis</includedValues>
+              <includedValues>local_terms::G_ent.favr::Enterococcus faecalis/VRE-Stamm</includedValues>
+              <includedValues>local_terms::efm::Enterococcus faecium</includedValues>
+              <includedValues>local_terms::G_ent.fvre::Enterococcus faecium/VRE-Stamm</includedValues>
+              <includedValues>local_terms::ega::Enterococcus gallinarum</includedValues>
+              <includedValues>local_terms::enh::Enterococcus hirae</includedValues>
+              <includedValues>local_terms::ema::Enterococcus malodoratus</includedValues>
+              <includedValues>local_terms::ent::Enterococcus sp.</includedValues>
+              <includedValues>local_terms::env::Enterovirus</includedValues>
+              <includedValues>local_terms::eco::Escherichia coli</includedValues>
+              <includedValues>local_terms::G_e.c.o157::Escherichia coli O157</includedValues>
+              <includedValues>local_terms::evu::Escherichia vulneris</includedValues>
+              <includedValues>local_terms::eli::Eubacterium limosum</includedValues>
+              <includedValues>local_terms::HD_exde::Exophiala dermatitidis</includedValues>
+              <includedValues>local_terms::B_FAPI::Fadenpilz</includedValues>
+              <includedValues>local_terms::pmg::Finegoldia magna</includedValues>
+              <includedValues>local_terms::fne::Fusobacterium necrophorum</includedValues>
+              <includedValues>local_terms::fnu::Fusobacterium nucleatum</includedValues>
+              <includedValues>local_terms::fu-::Fusobacterium sp.</includedValues>
+              <includedValues>local_terms::gva::Gardnerella vaginalis</includedValues>
+              <includedValues>local_terms::gcn::Geotrichum candidum</includedValues>
+              <includedValues>local_terms::gca2::Geotrichum capitatum</includedValues>
+              <includedValues>local_terms::geo::Geotrichum sp.</includedValues>
+              <includedValues>local_terms::HD_gnst::Gramnegative Stäbchen</includedValues>
+              <includedValues>local_terms::H_5grnegst::Gramnegatives Stäbchen</includedValues>
+              <includedValues>local_terms::HD_gpko::Grampositive Kokken</includedValues>
+              <includedValues>local_terms::H_5grpokoa::Grampositive Kokken (anaerob)</includedValues>
+              <includedValues>local_terms::B_GPS::grampositive Stäbchen</includedValues>
+              <includedValues>local_terms::H_5grpstan::Grampositives sporenloses Stäbchen (anaerob)</includedValues>
+              <includedValues>local_terms::saj2::Granulicatella adiacens</includedValues>
+              <includedValues>local_terms::M_HAEMOB::Haemobacter/Rhodobacter sp.</includedValues>
+              <includedValues>local_terms::hap2::Haemophilus aphrophilus</includedValues>
+              <includedValues>local_terms::hhe::Haemophilus haemolyticus</includedValues>
+              <includedValues>local_terms::hin::Haemophilus influenzae</includedValues>
+              <includedValues>local_terms::H_haeminfb::Haemophilus influenzae Typ B</includedValues>
+              <includedValues>local_terms::hph::Haemophilus parahaemolyticus</includedValues>
+              <includedValues>local_terms::hpi::Haemophilus parainfluenzae</includedValues>
+              <includedValues>local_terms::hal::Hafnia alvei</includedValues>
+              <includedValues>local_terms::X_HBsAg::HBs-Antigen</includedValues>
+              <includedValues>local_terms::H_hefen.ve::Hefen (vereinzelt)</includedValues>
+              <includedValues>local_terms::H_hef.o.id::Hefen (weitere Identifizierung nicht durchgeführt)</includedValues>
+              <includedValues>local_terms::X_HAV::Hepatitis A Virus</includedValues>
+              <includedValues>local_terms::X_HEV::Hepatitis E Virus</includedValues>
+              <includedValues>local_terms::X_HSV::HSV</includedValues>
+              <includedValues>local_terms::X_HRV::Human Rhinovirus</includedValues>
+              <includedValues>local_terms::hhv::Humanes Herpesvirus</includedValues>
+              <includedValues>local_terms::X_hMPV::Humanes Metapneumovirus</includedValues>
+              <includedValues>local_terms::X_InflA::Influenza A</includedValues>
+              <includedValues>local_terms::G_infah1n1::Influenza A (H1N1)2009</includedValues>
+              <includedValues>local_terms::X_InflB::Influenza B</includedValues>
+              <includedValues>local_terms::X_InflRNA::Influenza-A/B-RNA</includedValues>
+              <includedValues>local_terms::G_inq.lim::Inquilinus limosus</includedValues>
+              <includedValues>local_terms::X_IGRAp::Interferon Gamma Release Assay (IGRA): positiv</includedValues>
+              <includedValues>local_terms::kox::Klebsiella oxytoca</includedValues>
+              <includedValues>local_terms::koz::Klebsiella ozaenae</includedValues>
+              <includedValues>local_terms::kpn::Klebsiella pneumoniae</includedValues>
+              <includedValues>local_terms::G_kl.pnc::Klebsiella pneumoniae Komplex</includedValues>
+              <includedValues>local_terms::kpnss::Klebsiella pneumoniae ssp. pneumoniae</includedValues>
+              <includedValues>local_terms::krnss::Klebsiella pneumoniae ssp. rhinoscleromatis</includedValues>
+              <includedValues>local_terms::kl-::Klebsiella sp.</includedValues>
+              <includedValues>local_terms::kte::Klebsiella terrigena</includedValues>
+              <includedValues>local_terms::HD_klva::Klebsiella variicola</includedValues>
+              <includedValues>local_terms::HD_knst::Koagulase-negative Staphylokokken</includedValues>
+              <includedValues>local_terms::kkr::Kocuria kristinae</includedValues>
+              <includedValues>local_terms::HD_kysc::Kytococcus schroeteri</includedValues>
+              <includedValues>local_terms::lcs::Lactobacillus casei</includedValues>
+              <includedValues>local_terms::lcp::Lactobacillus crispatus</includedValues>
+              <includedValues>local_terms::lfe::Lactobacillus fermentum</includedValues>
+              <includedValues>local_terms::lgs::Lactobacillus gasseri</includedValues>
+              <includedValues>local_terms::lje::Lactobacillus jensenii</includedValues>
+              <includedValues>local_terms::G_lb.par::Lactobacillus paracasei</includedValues>
+              <includedValues>local_terms::HD_larh::Lactobacillus rhamnosus</includedValues>
+              <includedValues>local_terms::lac::Lactobacillus sp.</includedValues>
+              <includedValues>local_terms::llass::Lactococcus lactis ssp. lactis</includedValues>
+              <includedValues>local_terms::M_LACRHA::Lactococcus rhamnosus</includedValues>
+              <includedValues>local_terms::lad2::Leclercia adecarboxylata</includedValues>
+              <includedValues>local_terms::laa::Legionella anisa</includedValues>
+              <includedValues>local_terms::G_leg.bel::Legionella beliardensis</includedValues>
+              <includedValues>local_terms::lbi::Legionella birminghamensis</includedValues>
+              <includedValues>local_terms::lbo2::Legionella bozemanii</includedValues>
+              <includedValues>local_terms::lbn::Legionella brunensis</includedValues>
+              <includedValues>local_terms::lch::Legionella cherrii</includedValues>
+              <includedValues>local_terms::lcn::Legionella cincinnatiensis</includedValues>
+              <includedValues>local_terms::ldu2::Legionella dumoffii</includedValues>
+              <includedValues>local_terms::ler::Legionella erythra</includedValues>
+              <includedValues>local_terms::HD_lefe::Legionella feeleii</includedValues>
+              <includedValues>local_terms::lgo2::Legionella gormanii</includedValues>
+              <includedValues>local_terms::lha::Legionella hackeliae</includedValues>
+              <includedValues>local_terms::G_leg.imp::Legionella impletisoli</includedValues>
+              <includedValues>local_terms::lir::Legionella israelensis</includedValues>
+              <includedValues>local_terms::lja::Legionella jamestowniensis</includedValues>
+              <includedValues>local_terms::ljr::Legionella jordanis</includedValues>
+              <includedValues>local_terms::llg::Legionella lansingensis</includedValues>
+              <includedValues>local_terms::llo::Legionella longbeachae</includedValues>
+              <includedValues>local_terms::lmc::Legionella micdadei</includedValues>
+              <includedValues>local_terms::lmr::Legionella moravica</includedValues>
+              <includedValues>local_terms::lok::Legionella oakridgensis</includedValues>
+              <includedValues>local_terms::lpa::Legionella parisiensis</includedValues>
+              <includedValues>local_terms::H_legipneu::Legionella pneumophila</includedValues>
+              <includedValues>local_terms::H_legipne1::Legionella pneumophila (Serogruppe 1)</includedValues>
+              <includedValues>local_terms::X_legipne10::Legionella pneumophila (Serogruppe 10)</includedValues>
+              <includedValues>local_terms::X_legipne11::Legionella pneumophila (Serogruppe 11)</includedValues>
+              <includedValues>local_terms::X_legipne12::Legionella pneumophila (Serogruppe 12)</includedValues>
+              <includedValues>local_terms::X_legipne13::Legionella pneumophila (Serogruppe 13)</includedValues>
+              <includedValues>local_terms::X_legipne14::Legionella pneumophila (Serogruppe 14)</includedValues>
+              <includedValues>local_terms::H_legip2hy::Legionella pneumophila (Serogruppe 2-14)</includedValues>
+              <includedValues>local_terms::X_legipne3::Legionella pneumophila (Serogruppe 3)</includedValues>
+              <includedValues>local_terms::X_legipne4::Legionella pneumophila (Serogruppe 4)</includedValues>
+              <includedValues>local_terms::X_legipne5::Legionella pneumophila (Serogruppe 5)</includedValues>
+              <includedValues>local_terms::X_legipne6::Legionella pneumophila (Serogruppe 6)</includedValues>
+              <includedValues>local_terms::X_legipne7::Legionella pneumophila (Serogruppe 7)</includedValues>
+              <includedValues>local_terms::X_legipne8::Legionella pneumophila (Serogruppe 8)</includedValues>
+              <includedValues>local_terms::X_legipne9::Legionella pneumophila (Serogruppe 9)</includedValues>
+              <includedValues>local_terms::lru::Legionella rubrilucens</includedValues>
+              <includedValues>local_terms::lsh::Legionella sainthelensi</includedValues>
+              <includedValues>local_terms::lsc::Legionella santicrucis</includedValues>
+              <includedValues>local_terms::leg::Legionella sp.</includedValues>
+              <includedValues>local_terms::ltu::Legionella tucsonensis</includedValues>
+              <includedValues>local_terms::lwa::Legionella wadsworthii</includedValues>
+              <includedValues>local_terms::G_leg.yab::Legionella yabuuchiae</includedValues>
+              <includedValues>local_terms::llc::Leuconostoc lactis</includedValues>
+              <includedValues>local_terms::HD_limo::Listeria monocytogenes</includedValues>
+              <includedValues>local_terms::X_MAS::Masern</includedValues>
+              <includedValues>local_terms::HD_mrsa::Methicillin-resistenter Staphylococcus aureus</includedValues>
+              <includedValues>local_terms::HD_mmfl::Microbacterium flavescens</includedValues>
+              <includedValues>local_terms::mlu::Micrococcus luteus</includedValues>
+              <includedValues>local_terms::HD_mrca::Moraxella catarrhalis</includedValues>
+              <includedValues>local_terms::G_mo.gro::Moraxella group</includedValues>
+              <includedValues>local_terms::mla::Moraxella lacunata</includedValues>
+              <includedValues>local_terms::mnl::Moraxella nonliquefaciens</includedValues>
+              <includedValues>local_terms::mos::Moraxella osloensis</includedValues>
+              <includedValues>local_terms::mmo::Morganella morganii</includedValues>
+              <includedValues>local_terms::mmoss::Morganella morganii ssp. morganii</includedValues>
+              <includedValues>local_terms::msb::Morganella morganii ssp. sibonii</includedValues>
+              <includedValues>local_terms::X_MUMPS::Mumps</includedValues>
+              <includedValues>local_terms::mab::Mycobacterium abscessus</includedValues>
+              <includedValues>local_terms::maf::Mycobacterium africanum</includedValues>
+              <includedValues>local_terms::mav::Mycobacterium avium</includedValues>
+              <includedValues>local_terms::mbo::Mycobacterium bovis</includedValues>
+              <includedValues>local_terms::H_mycobobo::Mycobacterium bovis bovis</includedValues>
+              <includedValues>local_terms::H_mycoboca::Mycobacterium bovis caprae</includedValues>
+              <includedValues>local_terms::mch::Mycobacterium chelonae</includedValues>
+              <includedValues>local_terms::G_m.tub.gr::Mycobacterium der Tb.-Gruppe</includedValues>
+              <includedValues>local_terms::mgo::Mycobacterium gordonae</includedValues>
+              <includedValues>local_terms::min::Mycobacterium intracellulare</includedValues>
+              <includedValues>local_terms::mka::Mycobacterium kansasii</includedValues>
+              <includedValues>local_terms::mmi::Mycobacterium microti</includedValues>
+              <includedValues>local_terms::myc::Mycobacterium sp.</includedValues>
+              <includedValues>local_terms::mtu::Mycobacterium tuberculosis</includedValues>
+              <includedValues>local_terms::mtc::Mycobacterium tuberculosis complex</includedValues>
+              <includedValues>local_terms::myp::Mycoplasma sp.</includedValues>
+              <includedValues>local_terms::myr::Myroides sp.</includedValues>
+              <includedValues>local_terms::ngo::Neisseria gonorrhoeae</includedValues>
+              <includedValues>local_terms::nme::Neisseria meningitidis</includedValues>
+              <includedValues>local_terms::ne-::Neisseria sp.</includedValues>
+              <includedValues>local_terms::nsu::Neisseria subflava</includedValues>
+              <includedValues>local_terms::HD_nonh::Nichthämolysierende Streptokokken</includedValues>
+              <includedValues>local_terms::noc::Nocardia sp.</includedValues>
+              <includedValues>local_terms::B_NORO::Noroviren</includedValues>
+              <includedValues>local_terms::oan::Ochrobactrum anthropi</includedValues>
+              <includedValues>local_terms::eag2::Pantoea agglomerans</includedValues>
+              <includedValues>local_terms::HD_pnan::Pantoea ananatis</includedValues>
+              <includedValues>local_terms::G_pa.ca::Pantoea calida</includedValues>
+              <includedValues>local_terms::HD_pndi::Pantoea dispersa</includedValues>
+              <includedValues>local_terms::G_pa.sep::Pantoea septica</includedValues>
+              <includedValues>local_terms::pan::Pantoea sp.</includedValues>
+              <includedValues>local_terms::G_pa.ste::Pantoea stewartii</includedValues>
+              <includedValues>local_terms::G_pa.ter::Pantoea terrea</includedValues>
+              <includedValues>local_terms::HD_pjdi::Parabacteroides distasonis</includedValues>
+              <includedValues>local_terms::X_parainfl::Parainfluenza</includedValues>
+              <includedValues>local_terms::pmc::Parvimonas (Peptostreptococcus) micra</includedValues>
+              <includedValues>local_terms::X_ParvoB19::Parvovirus B19</includedValues>
+              <includedValues>local_terms::pog::Pasteurella aerogenes</includedValues>
+              <includedValues>local_terms::G_pas.bet::Pasteurella bettayae</includedValues>
+              <includedValues>local_terms::pcn::Pasteurella canis</includedValues>
+              <includedValues>local_terms::pda::Pasteurella dagmatis</includedValues>
+              <includedValues>local_terms::pha2::Pasteurella haemolytica</includedValues>
+              <includedValues>local_terms::pmr::Pasteurella mairii</includedValues>
+              <includedValues>local_terms::pam::Pasteurella multocida</includedValues>
+              <includedValues>local_terms::ppn::Pasteurella pneumotropica</includedValues>
+              <includedValues>local_terms::pas::Pasteurella sp.</includedValues>
+              <includedValues>local_terms::psm::Pasteurella stomatis</includedValues>
+              <includedValues>local_terms::pai::Pediococcus acidilactici</includedValues>
+              <includedValues>local_terms::ppo::Pediococcus pentosaceus</includedValues>
+              <includedValues>local_terms::pen::Penicillium sp.</includedValues>
+              <includedValues>local_terms::B_PEASA::Peptoniphilus asaccharolyticus</includedValues>
+              <includedValues>local_terms::HD_ptha::Peptoniphilus harei</includedValues>
+              <includedValues>local_terms::G_phi.spec::Peptoniphilus sp.</includedValues>
+              <includedValues>local_terms::pes::Peptostreptococcus anaerobius</includedValues>
+              <includedValues>local_terms::pic::Pichia sp.</includedValues>
+              <includedValues>local_terms::B_PNJIR::Pneumocystis jirovecii</includedValues>
+              <includedValues>local_terms::HD_pvbe::Prevotella bergensis</includedValues>
+              <includedValues>local_terms::bbi2::Prevotella bivia</includedValues>
+              <includedValues>local_terms::pbu2::Prevotella buccae</includedValues>
+              <includedValues>local_terms::bde2::Prevotella denticola</includedValues>
+              <includedValues>local_terms::bdi2::Prevotella disiens</includedValues>
+              <includedValues>local_terms::pin2::Prevotella intermedia</includedValues>
+              <includedValues>local_terms::bme2::Prevotella melaninogenica</includedValues>
+              <includedValues>local_terms::HD_pvna::Prevotella nanceiensis</includedValues>
+              <includedValues>local_terms::poi2::Prevotella oris</includedValues>
+              <includedValues>local_terms::prt::Prevotella sp.</includedValues>
+              <includedValues>local_terms::pro::Propionibacterium acnes</includedValues>
+              <includedValues>local_terms::prp::Propionibacterium sp.</includedValues>
+              <includedValues>local_terms::HD_prha::Proteus hauseri</includedValues>
+              <includedValues>local_terms::pmi::Proteus mirabilis</includedValues>
+              <includedValues>local_terms::pmy::Proteus myxofaciens</includedValues>
+              <includedValues>local_terms::ppe::Proteus penneri</includedValues>
+              <includedValues>local_terms::pr-::Proteus sp.</includedValues>
+              <includedValues>local_terms::pvu::Proteus vulgaris</includedValues>
+              <includedValues>local_terms::G_pr.vpe::Proteus vulgaris / Proteus penneri</includedValues>
+              <includedValues>local_terms::HD_prvug::Proteus vulgaris Gruppe</includedValues>
+              <includedValues>local_terms::G_pr.vuc::Proteus vulgaris Komplex</includedValues>
+              <includedValues>local_terms::pal2::Providencia alcalifaciens</includedValues>
+              <includedValues>local_terms::phe::Providencia heimbachae</includedValues>
+              <includedValues>local_terms::pre2::Providencia rettgeri</includedValues>
+              <includedValues>local_terms::prg::Providencia rustigianii</includedValues>
+              <includedValues>local_terms::prv::Providencia sp.</includedValues>
+              <includedValues>local_terms::pst::Providencia stuartii</includedValues>
+              <includedValues>local_terms::G_p.ver::Providencia vermicola</includedValues>
+              <includedValues>local_terms::H_flavoryz::Pseudomonas (Flavimonas) oryzihabitans</includedValues>
+              <includedValues>local_terms::pae::Pseudomonas aeruginosa</includedValues>
+              <includedValues>local_terms::H_pseuschl::Pseudomonas aeruginosa (schleimig)</includedValues>
+              <includedValues>local_terms::G_ps.cit::Pseudomonas citronellolis</includedValues>
+              <includedValues>local_terms::H_pseucide::Pseudomonas citronellolis/delhiensis</includedValues>
+              <includedValues>local_terms::pfl::Pseudomonas fluorescens</includedValues>
+              <includedValues>local_terms::G_ps.flc::Pseudomonas fluorescens Komplex</includedValues>
+              <includedValues>local_terms::G_ps.kee::Pseudomonas koreensis</includedValues>
+              <includedValues>local_terms::clt2::Pseudomonas luteola</includedValues>
+              <includedValues>local_terms::pme::Pseudomonas mendocina</includedValues>
+              <includedValues>local_terms::for2::Pseudomonas oryzihabitans</includedValues>
+              <includedValues>local_terms::ppu::Pseudomonas putida</includedValues>
+              <includedValues>local_terms::ps-::Pseudomonas sp.</includedValues>
+              <includedValues>local_terms::H_pseunaer::Pseudomonas sp. (NICHT P. aeruginosa)</includedValues>
+              <includedValues>local_terms::psz::Pseudomonas stutzeri</includedValues>
+              <includedValues>local_terms::HD_ruor::Raoultella ornithinolytica</includedValues>
+              <includedValues>local_terms::kpl3::Raoultella planticola</includedValues>
+              <includedValues>local_terms::rao::Raoultella sp.</includedValues>
+              <includedValues>local_terms::kte2::Raoultella terrigena</includedValues>
+              <includedValues>local_terms::X_RSV::Respiratory Syncytial Virus</includedValues>
+              <includedValues>local_terms::atu3::Rhizobium radiobacter</includedValues>
+              <includedValues>local_terms::rru::Rhodotorula mucilaginosa</includedValues>
+              <includedValues>local_terms::G_rota.p::Rotaviren: positiv</includedValues>
+              <includedValues>local_terms::X_Rubella::Röteln</includedValues>
+              <includedValues>local_terms::HD_rtmu::Rothia (Stomatococcus) mucilaginosa</includedValues>
+              <includedValues>local_terms::rde::Rothia dentocariosa</includedValues>
+              <includedValues>local_terms::G_ro.muc::Rothia mucilaginosa</includedValues>
+              <includedValues>local_terms::rot::Rothia sp.</includedValues>
+              <includedValues>local_terms::sce::Saccharomyces cerevisiae</includedValues>
+              <includedValues>local_terms::G_s.ade::Salmonella Adelaide</includedValues>
+              <includedValues>local_terms::sag::Salmonella Agona</includedValues>
+              <includedValues>local_terms::G_s.alb::Salmonella Albany</includedValues>
+              <includedValues>local_terms::G_s.alt::Salmonella Altona</includedValues>
+              <includedValues>local_terms::G_s.apa::Salmonella Apapa</includedValues>
+              <includedValues>local_terms::G_s.ari::Salmonella Arizonae</includedValues>
+              <includedValues>local_terms::sba::Salmonella Bareilly</includedValues>
+              <includedValues>local_terms::sbl::Salmonella Blockley</includedValues>
+              <includedValues>local_terms::sbm::Salmonella Bovismorbificans</includedValues>
+              <includedValues>local_terms::sbr::Salmonella Braenderup</includedValues>
+              <includedValues>local_terms::sbn::Salmonella Brandenburg</includedValues>
+              <includedValues>local_terms::brd::Salmonella Bredeney</includedValues>
+              <includedValues>local_terms::G_s.brev::Salmonella Brevörde</includedValues>
+              <includedValues>local_terms::sch::Salmonella Choleraesuis</includedValues>
+              <includedValues>local_terms::G_s.chvku::Salmonella Choleraesuis var Kunzendorf</includedValues>
+              <includedValues>local_terms::HD_kc46::Salmonella Corvallis</includedValues>
+              <includedValues>local_terms::G_s.b.grup::Salmonella der Gruppe B</includedValues>
+              <includedValues>local_terms::G_s.c.grup::Salmonella der Gruppe C</includedValues>
+              <includedValues>local_terms::G_s.d.grup::Salmonella der Gruppe D</includedValues>
+              <includedValues>local_terms::G_s.e.grup::Salmonella der Gruppe E</includedValues>
+              <includedValues>local_terms::G_s.k.grup::Salmonella der Gruppe K</includedValues>
+              <includedValues>local_terms::G_s.o.grup::Salmonella der Gruppe O</includedValues>
+              <includedValues>local_terms::drb::Salmonella Derby</includedValues>
+              <includedValues>local_terms::sdu::Salmonella Dublin</includedValues>
+              <includedValues>local_terms::HD_kb06::Salmonella Duisburg</includedValues>
+              <includedValues>local_terms::G_s.esd::Salmonella enterica ssp. diarizonae</includedValues>
+              <includedValues>local_terms::G_s.ese::Salmonella enterica ssp enterica</includedValues>
+              <includedValues>local_terms::sen::Salmonella Enteritidis</includedValues>
+              <includedValues>local_terms::sga::Salmonella Gallinarum</includedValues>
+              <includedValues>local_terms::sgi::Salmonella Give</includedValues>
+              <includedValues>local_terms::gol::Salmonella Goldcoast</includedValues>
+              <includedValues>local_terms::HD_sagr::Salmonella Gruppe</includedValues>
+              <includedValues>local_terms::shr::Salmonella Hadar</includedValues>
+              <includedValues>local_terms::G_s.hav::Salmonella Havana</includedValues>
+              <includedValues>local_terms::shg::Salmonella Heidelberg</includedValues>
+              <includedValues>local_terms::ind::Salmonella Indiana</includedValues>
+              <includedValues>local_terms::inf::Salmonella Infantis</includedValues>
+              <includedValues>local_terms::jav::Salmonella Java</includedValues>
+              <includedValues>local_terms::ske::Salmonella Kentucky</includedValues>
+              <includedValues>local_terms::G_s.kia::Salmonella kiambu</includedValues>
+              <includedValues>local_terms::G_s.kum::Salmonella Kumasi</includedValues>
+              <includedValues>local_terms::slv::Salmonella Livingstone</includedValues>
+              <includedValues>local_terms::slo::Salmonella London</includedValues>
+              <includedValues>local_terms::HD_kc35::Salmonella Manchester</includedValues>
+              <includedValues>local_terms::smh::Salmonella Manhattan</includedValues>
+              <includedValues>local_terms::HD_kc20::Salmonella Mikawasima</includedValues>
+              <includedValues>local_terms::G_s.mo::Salmonella Monschaui</includedValues>
+              <includedValues>local_terms::smo::Salmonella Montevideo</includedValues>
+              <includedValues>local_terms::smn::Salmonella Muenchen</includedValues>
+              <includedValues>local_terms::smr::Salmonella Muenster</includedValues>
+              <includedValues>local_terms::sne::Salmonella Newport</includedValues>
+              <includedValues>local_terms::soh::Salmonella Ohio</includedValues>
+              <includedValues>local_terms::sor::Salmonella Oranienburg</includedValues>
+              <includedValues>local_terms::spm::Salmonella Panama</includedValues>
+              <includedValues>local_terms::G_s.pty::Salmonella paratyphi</includedValues>
+              <includedValues>local_terms::saa::Salmonella Paratyphi A</includedValues>
+              <includedValues>local_terms::sab::Salmonella Paratyphi B</includedValues>
+              <includedValues>local_terms::sac2::Salmonella Paratyphi C</includedValues>
+              <includedValues>local_terms::G_s.pom::Salmonella Pomona</includedValues>
+              <includedValues>local_terms::spo::Salmonella Poona</includedValues>
+              <includedValues>local_terms::pot::Salmonella Potsdam</includedValues>
+              <includedValues>local_terms::sre::Salmonella Reading</includedValues>
+              <includedValues>local_terms::G_s.ric::Salmonella Richmond</includedValues>
+              <includedValues>local_terms::pau::Salmonella Saintpaul</includedValues>
+              <includedValues>local_terms::ssd::Salmonella Sandiego</includedValues>
+              <includedValues>local_terms::ssw::Salmonella Schwarzengrund</includedValues>
+              <includedValues>local_terms::sse::Salmonella Senftenberg</includedValues>
+              <includedValues>local_terms::G_s.sin::Salmonella Sinstorf</includedValues>
+              <includedValues>local_terms::sal::Salmonella sp.</includedValues>
+              <includedValues>local_terms::ssy::Salmonella Stanley</includedValues>
+              <includedValues>local_terms::G_s.stav::Salmonella Stanleyville</includedValues>
+              <includedValues>local_terms::G_s.sub3::Salmonella ssp.3a</includedValues>
+              <includedValues>local_terms::G_s.sub1::Salmonella ssp.1 monophasische Variante</includedValues>
+              <includedValues>local_terms::tns::Salmonella Tennessee</includedValues>
+              <includedValues>local_terms::thm::Salmonella Thompson</includedValues>
+              <includedValues>local_terms::sat::Salmonella Typhi</includedValues>
+              <includedValues>local_terms::sam::Salmonella typhimurium</includedValues>
+              <includedValues>local_terms::G_s.tm.mv::Salmonella Typhimurium monophasische Variante</includedValues>
+              <includedValues>local_terms::svc::Salmonella Typhimurium var. Copenhagen</includedValues>
+              <includedValues>local_terms::G_s.uga::Salmonella Uganda</includedValues>
+              <includedValues>local_terms::svr::Salmonella Virchow</includedValues>
+              <includedValues>local_terms::G_s.wie::Salmonella Wien</includedValues>
+              <includedValues>local_terms::G_schim::Schimmelpilze</includedValues>
+              <includedValues>local_terms::H_schipi.k::Schimmelpilze (kein Aspergillus)</includedValues>
+              <includedValues>local_terms::sem::Serratia entomophila</includedValues>
+              <includedValues>local_terms::sfi::Serratia ficaria</includedValues>
+              <includedValues>local_terms::sfo::Serratia fonticola</includedValues>
+              <includedValues>local_terms::sgr::Serratia grimesii</includedValues>
+              <includedValues>local_terms::slq::Serratia liquefaciens</includedValues>
+              <includedValues>local_terms::G_se.lgr::Serratia liquefaciens Gruppe</includedValues>
+              <includedValues>local_terms::sma::Serratia marcescens</includedValues>
+              <includedValues>local_terms::G_se.mac::Serratia marcescens Komplex</includedValues>
+              <includedValues>local_terms::sod::Serratia odorifera</includedValues>
+              <includedValues>local_terms::spl::Serratia plymuthica</includedValues>
+              <includedValues>local_terms::spc::Serratia proteamaculans</includedValues>
+              <includedValues>local_terms::G_se.qui::Serratia quinivorans</includedValues>
+              <includedValues>local_terms::sru::Serratia rubidaea</includedValues>
+              <includedValues>local_terms::se-::Serratia sp.</includedValues>
+              <includedValues>local_terms::G_se.ure::Serratia ureilytica</includedValues>
+              <includedValues>local_terms::HD_swal::Shewanella algae</includedValues>
+              <includedValues>local_terms::spf2::Shewanella putrefaciens</includedValues>
+              <includedValues>local_terms::shc::Shigella boydii</includedValues>
+              <includedValues>local_terms::sha::Shigella dysenteriae</includedValues>
+              <includedValues>local_terms::shb::Shigella flexneri</includedValues>
+              <includedValues>local_terms::HD_shgr::Shigella Gruppe</includedValues>
+              <includedValues>local_terms::shd::Shigella sonnei</includedValues>
+              <includedValues>local_terms::shi::Shigella sp.</includedValues>
+              <includedValues>local_terms::sml2::Sphingobacterium multivorum</includedValues>
+              <includedValues>local_terms::B_SPI::Sproßpilze</includedValues>
+              <includedValues>local_terms::G_st.arg::Staphylococcus argenteus</includedValues>
+              <includedValues>local_terms::sau::Staphylococcus aureus</includedValues>
+              <includedValues>local_terms::sca::Staphylococcus capitis</includedValues>
+              <includedValues>local_terms::scp::Staphylococcus caprae</includedValues>
+              <includedValues>local_terms::sep2::Staphylococcus epidermidis</includedValues>
+              <includedValues>local_terms::H_stapepgr::Staphylococcus epidermidis-Gruppe</includedValues>
+              <includedValues>local_terms::shl::Staphylococcus haemolyticus</includedValues>
+              <includedValues>local_terms::sho::Staphylococcus hominis</includedValues>
+              <includedValues>local_terms::shoss::Staphylococcus hominis ssp. hominis</includedValues>
+              <includedValues>local_terms::sit::Staphylococcus intermedius</includedValues>
+              <includedValues>local_terms::slu::Staphylococcus lugdunensis</includedValues>
+              <includedValues>local_terms::stt::Staphylococcus pasteuri</includedValues>
+              <includedValues>local_terms::HD_stpe::Staphylococcus pettenkoferi</includedValues>
+              <includedValues>local_terms::pps2::Staphylococcus saccharolyticus</includedValues>
+              <includedValues>local_terms::sap::Staphylococcus saprophyticus</includedValues>
+              <includedValues>local_terms::ssi::Staphylococcus simulans</includedValues>
+              <includedValues>local_terms::sta::Staphylococcus sp.</includedValues>
+              <includedValues>local_terms::swa::Staphylococcus warneri</includedValues>
+              <includedValues>local_terms::sxy::Staphylococcus xylosus</includedValues>
+              <includedValues>local_terms::scn::Staphylococcus, coagulase negative</includedValues>
+              <includedValues>local_terms::G_ste.aci::Stenotrophomonas acidaminiphila</includedValues>
+              <includedValues>local_terms::pma2::Stenotrophomonas maltophilia</includedValues>
+              <includedValues>local_terms::G_ste.nit::Stenotrophomonas nitritireducens</includedValues>
+              <includedValues>local_terms::G_ste.rhi::Stenotrophomonas rhizophila</includedValues>
+              <includedValues>local_terms::ste::Stenotrophomonas sp.</includedValues>
+              <includedValues>local_terms::sgc::Streptococcus agalactiae</includedValues>
+              <includedValues>local_terms::HD_srag::Streptococcus agalactiae (Gruppe B)</includedValues>
+              <includedValues>local_terms::san::Streptococcus anginosus</includedValues>
+              <includedValues>local_terms::H_streangr::Streptococcus anginosus - Gruppe</includedValues>
+              <includedValues>local_terms::HD_srca::Streptococcus canis</includedValues>
+              <includedValues>local_terms::sct::Streptococcus constellatus</includedValues>
+              <includedValues>local_terms::B_STRCO::Streptococcus constellatus constell.</includedValues>
+              <includedValues>local_terms::G_str.csp::Streptococcus constellatus ssp. pharyngis</includedValues>
+              <includedValues>local_terms::src2::Streptococcus cristatus</includedValues>
+              <includedValues>local_terms::sdy::Streptococcus dysgalactiae</includedValues>
+              <includedValues>local_terms::H_stredyse::Streptococcus dysgalactiae equisimilis</includedValues>
+              <includedValues>local_terms::sdyss::Streptococcus dysgalactiae ssp. dysgalactiae</includedValues>
+              <includedValues>local_terms::sqn::Streptococcus equinus</includedValues>
+              <includedValues>local_terms::HD_srga::Streptococcus gallolyticus</includedValues>
+              <includedValues>local_terms::sgy2::Streptococcus gallolyticus ssp. gallolyticus</includedValues>
+              <includedValues>local_terms::sgo::Streptococcus gordonii</includedValues>
+              <includedValues>local_terms::sin::Streptococcus intermedius</includedValues>
+              <includedValues>local_terms::smt::Streptococcus mitis</includedValues>
+              <includedValues>local_terms::H_streminp::Streptococcus mitis-Gruppe (nicht S. pneumoniae)</includedValues>
+              <includedValues>local_terms::B_STRMIOR::Streptococcus mitis/oralis</includedValues>
+              <includedValues>local_terms::G_str.mor::Streptococcus mitis/oralis Komplex</includedValues>
+              <includedValues>local_terms::sol::Streptococcus oralis</includedValues>
+              <includedValues>local_terms::sgu::Streptococcus parasanguinis</includedValues>
+              <includedValues>local_terms::spn::Streptococcus pneumoniae</includedValues>
+              <includedValues>local_terms::B_STRPY::Streptococcus pyogenes</includedValues>
+              <includedValues>local_terms::ssa::Streptococcus salivarius</includedValues>
+              <includedValues>local_terms::H_stresagr::Streptococcus salivarius - Gruppe</includedValues>
+              <includedValues>local_terms::HD_srsa::Streptococcus sanguinis</includedValues>
+              <includedValues>local_terms::G_str.gra::Streptococcus sp (hämolysierend, Gruppe A)</includedValues>
+              <includedValues>local_terms::G_str.grb::Streptococcus sp (hämolysierend, Gruppe B)</includedValues>
+              <includedValues>local_terms::str::Streptococcus sp.</includedValues>
+              <includedValues>local_terms::HD_srth::Streptococcus thermophilus</includedValues>
+              <includedValues>local_terms::sth::Streptococcus thoraltensis</includedValues>
+              <includedValues>local_terms::sve::Streptococcus vestibularis</includedValues>
+              <includedValues>local_terms::M_TRIINT::Trichophytum interdigitale</includedValues>
+              <includedValues>local_terms::ure::Ureaplasma sp.</includedValues>
+              <includedValues>local_terms::uur::Ureaplasma urealyticum</includedValues>
+              <includedValues>local_terms::HD_vafu::Vagococcus fluvialis</includedValues>
+              <includedValues>local_terms::HD_vre::Vancomycin resistente Enterokokken</includedValues>
+              <includedValues>local_terms::HD_vrenfa::Vancomycin resistenter Enterococcus faecium</includedValues>
+              <includedValues>local_terms::vzv::Varicella zoster virus</includedValues>
+              <includedValues>local_terms::vpa::Veillonella parvula</includedValues>
+              <includedValues>local_terms::vei::Veillonella sp.</includedValues>
+              <includedValues>local_terms::HD_vest::Vergrünende Streptokokken</includedValues>
+              <includedValues>local_terms::wvi::Weeksella virosa</includedValues>
+              <includedValues>local_terms::HD_yeen::Yersinia enterocolitica</includedValues>
+              <includedValues>local_terms::HD_yeeng::Yersinia enterocolitica Gruppe</includedValues>
+              <includedValues>local_terms::G_y.ent.o3::Yersinia enterocolitica O3</includedValues>
+              <includedValues>local_terms::G_y.ent.o5::Yersinia enterocolitica O5</includedValues>
+              <includedValues>local_terms::G_y.ent.o9::Yersinia enterocolitica O9</includedValues>
+              <includedValues>local_terms::HD_yeps::Yersinia pseudotuberculosis</includedValues>
+              <includedValues>local_terms::HD_zyba::Zygosaccharomyces bailii</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0026]" min="1" name="Zugehörige Laborprobe">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Identifier</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0003]" max="1" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1" concept_name="Erregerdetails" max="1" path="/items[at0014]">
+            <Rule path="/items[at0057]/items[at0017]" max="1" />
+            <Rule path="/items[at0057]/items[at0063]" max="0" />
+            <Rule path="/items[at0062]" max="1" />
+            <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" max="1" path="/items[at0064]" name="Antibiogramm">
+              <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" min="1" path="/items[at0013]" name="Pro Antibiotikum">
+                <Rule path="/items[at0027]" max="0" />
+                <Rule path="/items[at0024]" min="1" name="Antibiotikum">
+                  <constraint xsi:type="textConstraint" limitToList="false">
+                    <includedValues>LOINC::18862-3::Amoxycillin/Clavulansäure</includedValues>
+                    <includedValues>LOINC::18860-7::Amikacin</includedValues>
+                    <includedValues>LOINC::18864-9::Ampicillin</includedValues>
+                    <includedValues>LOINC::18861-5::Amoxicillin</includedValues>
+                    <includedValues>LOINC::57095-2::Anidulafungin</includedValues>
+                    <includedValues>LOINC::18868-0::Aztreonam</includedValues>
+                    <includedValues>LOINC::18867-2::Azlocillin</includedValues>
+                    <includedValues>LOINC::18866-4::Azithromycin</includedValues>
+                    <includedValues>LOINC::73606-6::Besifloxacin</includedValues>
+                    <includedValues>LOINC::43272-4::Ceftobiprol</includedValues>
+                    <includedValues>LOINC::32377-4::Cefetamet</includedValues>
+                    <includedValues>LOINC::18893-8::Ceftazidim</includedValues>
+                    <includedValues>LOINC::35776-4::Ceftazidim/Clavulansäure</includedValues>
+                    <includedValues>LOINC::23636-4::Cefdinir</includedValues>
+                    <includedValues>LOINC::18874-8::Cefaclor</includedValues>
+                    <includedValues>LOINC::18900-1::Cephalothin</includedValues>
+                    <includedValues>LOINC::18880-5::Cefixim</includedValues>
+                    <includedValues>LOINC::18884-7::Cefoperazon</includedValues>
+                    <includedValues>LOINC::18875-5::Cefadroxil</includedValues>
+                    <includedValues>LOINC::18903-5::Chloramphenicol</includedValues>
+                    <includedValues>LOINC::18883-9::Cefonicid</includedValues>
+                    <includedValues>LOINC::18905-0::Cinoxacin</includedValues>
+                    <includedValues>LOINC::18906-8::Ciprofloxacin</includedValues>
+                    <includedValues>LOINC::18908-4::Clindamycin</includedValues>
+                    <includedValues>LOINC::18907-6::Clarithromycin</includedValues>
+                    <includedValues>LOINC::32376-6::Clinafloxacin</includedValues>
+                    <includedValues>LOINC::18881-3::Cefmetazol</includedValues>
+                    <includedValues>LOINC::18912-6::Colistin</includedValues>
+                    <includedValues>LOINC::73604-1::Ceftarolin/Avibactam</includedValues>
+                    <includedValues>LOINC::18890-4::Cefpodoxim</includedValues>
+                    <includedValues>LOINC::18891-2::Cefprozil</includedValues>
+                    <includedValues>LOINC::73605-8::Ceftarolin</includedValues>
+                    <includedValues>LOINC::18873-0::Carbenicillin</includedValues>
+                    <includedValues>LOINC::18895-3::Ceftriaxon</includedValues>
+                    <includedValues>LOINC::35779-8::Ceftibuten</includedValues>
+                    <includedValues>LOINC::35771-5::Cefotaxim/Clavulansäure</includedValues>
+                    <includedValues>LOINC::18887-0::Cefotetan</includedValues>
+                    <includedValues>LOINC::18886-2::Cefotaxim</includedValues>
+                    <includedValues>LOINC::51724-3::Cefuroxim</includedValues>
+                    <includedValues>LOINC::73603-3::Ceftazidim/Avibactam</includedValues>
+                    <includedValues>LOINC::18878-9::Cefazolin</includedValues>
+                    <includedValues>LOINC::73602-5::Ceftolozan/Tazobactam</includedValues>
+                    <includedValues>LOINC::18894-6::Ceftizoxim</includedValues>
+                    <includedValues>LOINC::41734-5::Dalbavancin</includedValues>
+                    <includedValues>LOINC::73601-7::Danofloxacin</includedValues>
+                    <includedValues>LOINC::35789-7::Daptomycin</includedValues>
+                    <includedValues>LOINC::35792-1::Difloxacin</includedValues>
+                    <includedValues>LOINC::35795-4::Dirithromycin</includedValues>
+                    <includedValues>LOINC::35762-4::Cefditoren</includedValues>
+                    <includedValues>LOINC::60535-2::Doripenem</includedValues>
+                    <includedValues>LOINC::18917-5::Doxycyclin</includedValues>
+                    <includedValues>LOINC::18918-3::Enoxacin</includedValues>
+                    <includedValues>LOINC::18919-1::Erythromycin</includedValues>
+                    <includedValues>LOINC::35802-8::Ertapenem</includedValues>
+                    <includedValues>LOINC::73600-9::Faropenem</includedValues>
+                    <includedValues>LOINC::18855-7::5-Fluorocytosin</includedValues>
+                    <includedValues>LOINC::73599-3::Fidaxomicin</includedValues>
+                    <includedValues>LOINC::18879-7::Cefepim</includedValues>
+                    <includedValues>LOINC::73598-5::Finafloxacin</includedValues>
+                    <includedValues>LOINC::32372-5::Fleroxacin</includedValues>
+                    <includedValues>LOINC::23740-4::Florfenicol</includedValues>
+                    <includedValues>LOINC::18924-1::Fluconazol</includedValues>
+                    <includedValues>LOINC::25596-8::Fosfomycin</includedValues>
+                    <includedValues>LOINC::18888-8::Cefoxitin</includedValues>
+                    <includedValues>LOINC::18927-4::Fusidinsäure</includedValues>
+                    <includedValues>LOINC::18863-1::Amphotericin B</includedValues>
+                    <includedValues>LOINC::18870-6::Bacitracin</includedValues>
+                    <includedValues>LOINC::6984-9::ESBL - Testung</includedValues>
+                    <includedValues>LOINC::18938-1::Lincomycin</includedValues>
+                    <includedValues>LOINC::6985-6::Nitrocephin</includedValues>
+                    <includedValues>LOINC::10697-1::Nystatin</includedValues>
+                    <includedValues>LOINC::18978-7::Roxithromycin</includedValues>
+                    <includedValues>LOINC::31038-3::Gatifloxacin</includedValues>
+                    <includedValues>LOINC::18929-0::Gentamicin High-Level</includedValues>
+                    <includedValues>LOINC::35816-8::Gemifloxacin</includedValues>
+                    <includedValues>LOINC::18928-2::Gentamicin</includedValues>
+                    <includedValues>LOINC::35813-5::Garenoxacin</includedValues>
+                    <includedValues>LOINC::23638-0::Grepafloxacin</includedValues>
+                    <includedValues>LOINC::88703-4::Bedaquiline</includedValues>
+                    <includedValues>LOINC::18892-0::Cefsulodin</includedValues>
+                    <includedValues>LOINC::23627-3::Clofazimin</includedValues>
+                    <includedValues>LOINC::18914-2::Cycloserin</includedValues>
+                    <includedValues>LOINC::25597-6::Josamycin</includedValues>
+                    <includedValues>LOINC::55614-2::Sulbactam</includedValues>
+                    <includedValues>LOINC::18872-2::Capreomycin</includedValues>
+                    <includedValues>LOINC::76143-7::Cefcapen</includedValues>
+                    <includedValues>LOINC::18889-6::Cefpirom</includedValues>
+                    <includedValues>LOINC::76144-5::Cefteram</includedValues>
+                    <includedValues>LOINC::32374-1::Cefotiam</includedValues>
+                    <includedValues>LOINC::54185-4::Caspofungin (E-Test)</includedValues>
+                    <includedValues>LOINC::85048-7::Micafungin (E-Test)</includedValues>
+                    <includedValues>LOINC::54186-2::Posaconazol (E-Test)</includedValues>
+                    <includedValues>LOINC::18923-3::Flucloxacillin</includedValues>
+                    <includedValues>LOINC::23629-9::para-Amino-Salicylsäure</includedValues>
+                    <includedValues>LOINC::32383-2::Pristinamycin</includedValues>
+                    <includedValues>LOINC::19149-4::Rifabutin</includedValues>
+                    <includedValues>LOINC::54166-4::Cefoperazon/Sulbactam</includedValues>
+                    <includedValues>LOINC::18991-0::Temocillin</includedValues>
+                    <includedValues>LOINC::76146-0::Tosufloxacin</includedValues>
+                    <includedValues>LOINC::531-4::Zidovudin</includedValues>
+                    <includedValues>LOINC::30302-4::Stavudin</includedValues>
+                    <includedValues>LOINC::30301-6::Zalcitabin</includedValues>
+                    <includedValues>LOINC::30300-8::Didanosin</includedValues>
+                    <includedValues>LOINC::30298-4::Lamivudin</includedValues>
+                    <includedValues>LOINC::18921-7::Ethambutol</includedValues>
+                    <includedValues>LOINC::18934-0::Isoniazid</includedValues>
+                    <includedValues>LOINC::256-8::Foscarnet</includedValues>
+                    <includedValues>LOINC::54197-9::Piperacillin/Sulbactam</includedValues>
+                    <includedValues>LOINC::63565-6::Protionamid</includedValues>
+                    <includedValues>LOINC::18973-8::Pyrazinamid</includedValues>
+                    <includedValues>LOINC::73597-7::Iclaprim</includedValues>
+                    <includedValues>LOINC::18932-4::Imipenem</includedValues>
+                    <includedValues>LOINC::88887-5::Isavuconazol</includedValues>
+                    <includedValues>LOINC::32603-3::Itraconazol</includedValues>
+                    <includedValues>LOINC::18936-5::Kanamycin-High</includedValues>
+                    <includedValues>LOINC::18935-7::Kanamycin</includedValues>
+                    <includedValues>LOINC::18897-9::Cephalexin</includedValues>
+                    <includedValues>LOINC::29258-1::Linezolid</includedValues>
+                    <includedValues>LOINC::18939-9::Lomefloxacin</includedValues>
+                    <includedValues>LOINC::18940-7::Loracarbef</includedValues>
+                    <includedValues>LOINC::20629-2::Levofloxacin</includedValues>
+                    <includedValues>LOINC::18876-3::Cefamandol</includedValues>
+                    <includedValues>LOINC::18859-9::Mecillinam (Amdinocillin)</includedValues>
+                    <includedValues>LOINC::18943-1::Meropenem</includedValues>
+                    <includedValues>LOINC::18945-6::Methicillin</includedValues>
+                    <includedValues>LOINC::88892-5::Meropenem/Vaborbactam</includedValues>
+                    <includedValues>LOINC::18947-2::Mezlocillin</includedValues>
+                    <includedValues>LOINC::31039-1::Moxifloxacin</includedValues>
+                    <includedValues>LOINC::18948-0::Minocyclin</includedValues>
+                    <includedValues>LOINC::18950-6::Moxalactam (Latamoxef)</includedValues>
+                    <includedValues>LOINC::18946-4::Metronidazol</includedValues>
+                    <includedValues>LOINC::20389-3::Mupirocin</includedValues>
+                    <includedValues>LOINC::18951-4::Nafcillin</includedValues>
+                    <includedValues>LOINC::18952-2::Nalidixinsäure</includedValues>
+                    <includedValues>LOINC::18953-0::Neomycin</includedValues>
+                    <includedValues>LOINC::18954-8::Netilmicin</includedValues>
+                    <includedValues>LOINC::18955-5::Nitrofurantoin</includedValues>
+                    <includedValues>LOINC::18956-3::Norfloxacin</includedValues>
+                    <includedValues>LOINC::18957-1::Novobiocin</includedValues>
+                    <includedValues>LOINC::18959-7::Ofloxacin</includedValues>
+                    <includedValues>LOINC::73594-4::Omadacyclin</includedValues>
+                    <includedValues>LOINC::41736-0::Oritavancin</includedValues>
+                    <includedValues>LOINC::18961-3::Oxacillin</includedValues>
+                    <includedValues>LOINC::18965-4::Penicillin G</includedValues>
+                    <includedValues>LOINC::18969-6::Piperacillin</includedValues>
+                    <includedValues>LOINC::73592-8::Plazomicin</includedValues>
+                    <includedValues>LOINC::18964-7::Penicillin</includedValues>
+                    <includedValues>LOINC::18966-2::Penicillin V</includedValues>
+                    <includedValues>LOINC::421-8::Polymyxin B</includedValues>
+                    <includedValues>LOINC::73591-0::Premafloxacin</includedValues>
+                    <includedValues>LOINC::23640-6::Quinupristin/Dalfopristin</includedValues>
+                    <includedValues>LOINC::41737-8::Ramoplanin</includedValues>
+                    <includedValues>LOINC::18974-6::Rifampin</includedValues>
+                    <includedValues>LOINC::73590-2::Razupenem</includedValues>
+                    <includedValues>LOINC::18865-6::Ampicillin/Sulbactam</includedValues>
+                    <includedValues>LOINC::73588-6::Sarafloxacin</includedValues>
+                    <includedValues>LOINC::55289-3::Sulopenem</includedValues>
+                    <includedValues>LOINC::18985-2::Sulfamethoxazol</includedValues>
+                    <includedValues>LOINC::73587-8::Solithromycin</includedValues>
+                    <includedValues>LOINC::18986-0::Sulfisoxazol</includedValues>
+                    <includedValues>LOINC::18980-3::Spectinomycin</includedValues>
+                    <includedValues>LOINC::23628-1::Sparfloxacin</includedValues>
+                    <includedValues>LOINC::18987-8::Sulfonamid</includedValues>
+                    <includedValues>LOINC::18983-7::Streptomycin-High</includedValues>
+                    <includedValues>LOINC::18982-9::Streptomycin</includedValues>
+                    <includedValues>LOINC::18998-5::Sulfamethoxazol/Trimethoprim (Cotrimoxazol)</includedValues>
+                    <includedValues>LOINC::18995-1::Ticarcillin/Clavulansäure</includedValues>
+                    <includedValues>LOINC::18993-6::Tetracyclin</includedValues>
+                    <includedValues>LOINC::18989-4::Teicoplanin</includedValues>
+                    <includedValues>LOINC::42357-4::Tigecyclin</includedValues>
+                    <includedValues>LOINC::18994-4::Ticarcillin</includedValues>
+                    <includedValues>LOINC::35845-7::Telithromycin</includedValues>
+                    <includedValues>LOINC::88886-7::Telavancin</includedValues>
+                    <includedValues>LOINC::18997-7::Trimethoprim</includedValues>
+                    <includedValues>LOINC::18990-2::Temafloxacin</includedValues>
+                    <includedValues>LOINC::18996-9::Tobramycin</includedValues>
+                    <includedValues>LOINC::23642-2::Trovafloxacin</includedValues>
+                    <includedValues>LOINC::18970-4::Piperacillin/Tazobactam</includedValues>
+                    <includedValues>LOINC::19000-9::Vancomycin</includedValues>
+                    <includedValues>LOINC::32379-0::Voriconazol</includedValues>
+                    <includedValues>LOINC::8-3::Mecillinam (Amdinocillin)</includedValues>
+                  </constraint>
+                </Rule>
+                <Rule path="/items[at0001]" max="1" name="Minimale Hemmkonzentration">
+                  <constraint xsi:type="quantityConstraint">
+                    <includedUnits>mg/mL</includedUnits>
+                  </constraint>
+                </Rule>
+                <Rule path="/items[at0004]" name="Resistenz">
+                  <constraint xsi:type="textConstraint">
+                    <includedValues>eucast::R::Resistant</includedValues>
+                    <includedValues>eucast::S::Susceptible, standard dosing regimen</includedValues>
+                    <includedValues>eucast::I::Susceptible, increased exposure</includedValues>
+                  </constraint>
+                </Rule>
+                <Rule path="/items[at0025]" max="0" />
+                <Rule path="/items[at0005]" max="0" />
+                <Rule path="/items[at0006]" max="0" />
+                <Rule path="/items[at0026]" max="0" />
+                <Rule path="/items[at0003]" max="1" />
+              </Items>
+            </Items>
+          </Items>
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0017]" name="Empfängerstandort">
+        <Rule path="/items[at0048]" name="Standortschlüssel" min="1" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0094]/items[at0090]" name="Einsenderstandort">
+        <Rule path="/items[at0048]" name="Standortschlüssel" min="1" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Zwischenbefund</includedValues>
+          <includedValues>Endbefund</includedValues>
+        </constraint>
+      </Rule>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
+    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.specimen.v1">
+    <digest id="MD5-CAM-1.0.1">03CCDF7BDB564478867E6002950FB7C3</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
+    <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0">
+    <digest id="MD5-CAM-1.0.1">16ACB1FB473C63B4BC99E2DDF970BED2</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">17EE509C521168FB4D0FBF23E9590DF6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1">
+    <digest id="MD5-CAM-1.0.1">4CCA48930963E367BE0F8AE6CDC0B8F7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
+  </integrity_checks>
+</template>

@@ -1,0 +1,166 @@
+﻿archetype (adl_version=1.4; uid=32adcf74-4bc3-4b30-8066-4c1f875724d7)
+	openEHR-EHR-ACTION.contact.v0
+
+concept
+	[at0000]	-- Kontakt
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2020-04-27">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dient zur Erfassung der Details auf Dokumentebene einer einzelnen Interaktion, eines Kontaktes oder eines Pflegeereignisses zwischen einer zu pflegenden Person und Gesundheitsdienstleistern für die Bereitstellung von Gesundheitsdienstleistung. ">
+			use = <"Verwendung als generischer Container auf Dokumentebene zum Aufzeichnen von Details einer einzelnen Interaktion, eines Kontakts oder eines Pflegeereignisses zwischen einem Subjekt und einem Gesundheitsdienstleister.
+Dient der detallierten Dokumentation des Kontaktes zwischen zwei Personen.">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"8A63FF74A1C5240BFC0D8793F022B956">
+		["build_uid"] = <"10287555-b722-4b53-9f1c-4dfbcc4436ef">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	ACTION[at0000] matches {    -- Kontakt
+		description matches {
+			ITEM_TREE[at0001] matches {    -- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0009] occurrences matches {0..1} matches {    -- Beschreibung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {    -- Beginn
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {    -- Ende
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Gesamtdauer
+						value matches {
+							DV_DURATION matches {
+								value matches {|>=PT0S|}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {    -- Abstand
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {    -- Details zum Kontakt
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Kontaktkategorie
+						value matches {
+							DV_CODED_TEXT matches {*}
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Rollen der Kontaktpersonen
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0013,    -- Mitarbeiter - Mitarbeiter
+									at0014,    -- Patient - Patient
+									at0015]    -- Mitarbeiter - Patient
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kontakt">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Gesamtdauer">
+					description = <"Die Gesamtdauer des Kontaktes.">
+				>
+				["at0005"] = <
+					text = <"Details zum Kontakt">
+					description = <"Weitere Angaben zum Kontakt zwischen zwei Personen.">
+				>
+				["at0006"] = <
+					text = <"Beginn">
+					description = <"Das Datum und/oder die Uhrzeit an dem der Kontakt begonnen hat.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Beschreibung der Aktivität, die in anderen Bereichen nicht erfasst wurden.">
+				>
+				["at0008"] = <
+					text = <"Abstand">
+					description = <"Der Abstand zwischen den beiden Kontaktpersonen.">
+				>
+				["at0009"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung des Kontaktes zwischen den beiden Personen.">
+				>
+				["at0011"] = <
+					text = <"Kontaktkategorie">
+					description = <"Eingruppierung des Kontaktes in Kategorien.">
+				>
+				["at0012"] = <
+					text = <"Rollen der Kontaktpersonen">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Mitarbeiter - Mitarbeiter">
+					description = <"Mitarbeiter - Mitarbeiter">
+				>
+				["at0014"] = <
+					text = <"Patient - Patient">
+					description = <"Patient - Patient">
+				>
+				["at0015"] = <
+					text = <"Mitarbeiter - Patient">
+					description = <"Mitarbeiter - Patient">
+				>
+				["at0016"] = <
+					text = <"Ende">
+					description = <"Das Datum und/oder die Uhrzeit an dem der Kontakt geendet hat.">
+				>
+			>
+		>
+	>

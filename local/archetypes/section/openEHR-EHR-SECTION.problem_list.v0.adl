@@ -1,0 +1,150 @@
+﻿archetype (adl_version=1.4; uid=4fb2ceac-7dd6-4aa9-ac46-c4a302242f86)
+	openEHR-EHR-SECTION.problem_list.v0
+
+concept
+	[at0000]	-- Problem List
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Caroline Thoms">
+				["organisation"] = <"UMG">
+				["email"] = <"Caroline.Thoms@med.uni-goettingen.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["date"] = <"2010-07-03">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Demonstration eines Entwurfsmusters zur Darstellung einer Problemliste, die sowohl für die episodische als auch für die Langzeit-Aufzeichnung von Problemen geeignet ist.">
+			use = <"Diese Liste kann als Quelle für aktuelle Daten zum Austausch oder als Grundlage für die Entscheidungsunterstützung genutzt werden. 
+Die Liste kann aus drei Typen von Archetypen bestehen:
+- Aussagen über das Vorhandensein von Problemen, Diagnosen, Medikamentenanwendungen oder früheren Prozeduren werden mit den entsprechenden Archetypen aufgezeichnet; ODER
+- Aussagen über den Ausschluss können mit den spezifischen Archetypen z.B. EVALUATION.exclusion-problem_diagnosis oder EVALUATION.exclusion-procedure erfasst werden, z.B.: \"Keine signifikanten Probleme oder Diagnosen\" oder \"Keine Historie von signifikanten Operationen oder Prozeduren\"; ODER
+- Aussagen, dass keine Informationen verfügbar sind - weder das ein Problem, eine Diagnose oder ein durchgeführter Eingriff vorliegt, noch ein Ausschluss dessen - dies kann mit dem Archetyp EVALUATION.absence aufgezeichnet werden.
+
+Damit diese Liste als präzise Grundlage für die Entscheidungsunterstützung und für den Austausch verwendet werden kann, sollte diese Liste idealerweise von einem für die Krankenakte verantwortlichen Arzt erstellt werden und nicht automatisch durch das klinische System mittels Geschäftsregeln generiert werden.
+
+
+">
+			keywords = <"Problem", "Diagnose", "Ausschlusskriterien", "Fehlende Informationen", "bekannt", "Liste", "Ausschluss", "Fehlen", "Abwesenheit">
+			misuse = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To demonstrate a design pattern for representation of a Problem List suitable for use with both episodic and longitudinal recording of problems.">
+			use = <"This list can be utilised as a source of up-to-date problem list data for exchange or as the basis for decision support. 
+
+This list can be comprised of three types of archetype:
+- statements about the positive presence of problems, diagnoses or previous procedures are recorded using the EVALUATION.problem_diagnosis and/or ACTION.procedure archetypes; OR
+- a statement about the positive exclusion of medication use can be recorded using the specific EVALUATION.exclusion-problem_diagnosis or EVALUATION.exclusion-procedure archetypes - for example: \"No significant problems or diagnoses\" or No history of significant operations or procedures\"; OR
+- a statement about no information being available - neither a positive presence of a problem, diagnosis or procedure performed nor a positive exclusion - can be recorded using the EVALUATION.absence archetype.
+
+In order for this list to be accurate and safe to use as the basis for decision support activities and for exchange, this Problem List should ideally be curated by a clinician responsible for the health record, rather than managed automatically by the clinical system through business rules alone.">
+			keywords = <"problem", "diagnosis", "exclusion", "absence", "known", "list">
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Ian McNicoll, Ocean Informatics", "Heath Frankel, Ocean Informatics">
+	other_details = <
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+Derived from: Problem List (composition), draft archetype, National eHealth Transition Authority [Internet]. NEHTA Clinical Knowledge Manager. Authored: 19 Feb 2013. Available at: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.1235 (accessed Feb 27, 2012).">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"EA7C3BB3920E871925B9DBA1468AA645">
+		["build_uid"] = <"faaf9949-f703-457c-a44c-9f96ecc80cb6">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	SECTION[at0000] matches {	-- Problem List
+		items cardinality matches {1..*; unordered} matches {
+			allow_archetype EVALUATION[at0001] occurrences matches {0..*} matches {	-- Problems or Diagnoses
+				include
+					archetype_id/value matches {/openEHR-EHR-EVALUATION\.problem_diagnosis(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			allow_archetype ACTION[at0002] occurrences matches {0..*} matches {	-- Procedures
+				include
+					archetype_id/value matches {/openEHR-EHR-ACTION\.procedure(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			allow_archetype EVALUATION[at0003] occurrences matches {0..*} matches {	-- Exclusion Statements
+				include
+					archetype_id/value matches {/openEHR-EHR-EVALUATION\.exclusion-problem_diagnosis(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-EVALUATION\.exclusion-procedure(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			allow_archetype EVALUATION[at0004] occurrences matches {0..*} matches {	-- Absent Information
+				include
+					archetype_id/value matches {/openEHR-EHR-EVALUATION\.absence(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+		}
+	}
+
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Problem List">
+					description = <"Suggested design pattern for including a Problem List in a template.">
+				>
+				["at0001"] = <
+					text = <"Problems or Diagnoses">
+					description = <"Details about identified problems or diagnoses.">
+				>
+				["at0002"] = <
+					text = <"Procedures">
+					description = <"Details about identified procedures that have been performed.">
+				>
+				["at0003"] = <
+					text = <"Exclusion Statements">
+					description = <"Positive statement about the known exclusion of known problems or diagnoses and procedures performed.">
+					comment = <"For example: \"No significant problems or diagnoses\" or No history of significant operations or procedures\".">
+				>
+				["at0004"] = <
+					text = <"Absent Information">
+					description = <"Positive statement that no information is available about identification of problems or diagnoses, nor procedures performed.">
+					comment = <"For example: \"No information available concerning procedures\".">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Problemliste">
+					description = <"Empfohlenes Muster zum Einbinden einer Problemliste in einem Template.">
+				>
+				["at0001"] = <
+					text = <"Probleme oder Diagnosen">
+					description = <"Angaben zu identifizierten Problemen oder Diagnosen.">
+				>
+				["at0002"] = <
+					text = <"Prozeduren">
+					description = <"Angaben zu identifizierten Prozeduren, die durchgeführt wurden.">
+				>
+				["at0003"] = <
+					text = <"Ausschlusskriterien">
+					description = <"Aussagen über ausgeschlossene Probleme oder Diagnosen und durchgeführter Prozeduren.">
+					comment = <"Zum Beispiel: \"Keine signifikanten Probleme oder Diagnosen\" oder \"Keine Vorgeschichte signifikanter Operationen oder Prozeduren\".">
+				>
+				["at0004"] = <
+					text = <"Fehlende Informationen">
+					description = <"Bestätigte Aussage, dass keine Informationen zur Identifizierung von Problemen, Diagnosen oder durchgeführte Prozeduren verfügbar sind.">
+					comment = <"Zum Beispiel: \"Keine Informationen zu Prozeduren verfügbar\".">
+				>
+			>
+		>
+	>
