@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=dd35401a-1c1e-4a0b-9298-099a64241492)
-	openEHR-EHR-OBSERVATION.pain_scale.v0
+﻿archetype (adl_version=1.4; uid=1eb231d6-d6ba-451b-9681-096d4f640f8b)
+	openEHR-EHR-OBSERVATION.pain_scale.v1
 
 concept
-	[at0000]	-- Visuelle Analogskala (VAS) für Schmerz
+	[at0000]	-- Schmerzskala (VAS)
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -15,13 +15,15 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Darstellung der subjektiven Beurteilung von Schmerzstärke mittels einer Analogskala (VAS).">
-			use = <"Dieser Archetyp soll verwendet werden um die subjektive Schmerzempfindung eines Patienten darzustellen. Die Visuelle Analogskala wird häufig in der Schmerzforschung und Schmerztherapie eingesetzt. Meistens handelt es sich um eine Linie, deren Endpunkte extreme Zustände darstellen, wie z. B. „kein Schmerz“ und „unerträglicher Schmerz“. Der Befragte markiert seine subjektive Empfindung durch einen vertikalen Strich auf der Linie. Der angegebene Wert wird dann durch den Befragenden als Prozentzahl oder mittels einer definierten Skala, meist von 0 bis 10 quantifiziert. Der Befragte sieht die diskreten Skalen jedoch nicht.">
+			use = <"Dieser Archetyp soll verwendet werden um die subjektive Schmerzempfindung eines Patienten darzustellen. 
+Die Visuelle Analogskala wird häufig in der Schmerzforschung und Schmerztherapie eingesetzt. Meistens handelt es sich um eine Linie, deren Endpunkte extreme Zustände darstellen, wie z. B. „kein Schmerz“ und „unerträglicher Schmerz“. Der Befragte markiert seine subjektive Empfindung durch einen vertikalen Strich auf der Linie.
+Der angegebene Wert wird dann durch den Befragenden als Prozentzahl oder mittels einer definierten Skala, meist von 0 bis 10 quantifiziert. Der Befragte sieht die diskreten Skalen jedoch nicht.">
 			keywords = <"Schmerzskala", "Schmerz", "Skala", "VAS", "Schmerzstärke", "Schmerzintensität">
 			misuse = <"Der Archetyp darf nicht bei Kindern unter 12 Jahren genutzt werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -30,17 +32,17 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"C8D88DD1E4ACA063763B4D894E25AFCA">
-		["build_uid"] = <"9b220f9a-50ae-4b97-8f65-7f253dfad795">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"B19F482B937653B8F6D0C39B6E9E273B">
+		["build_uid"] = <"100d26cb-d099-4d3f-af47-a43cfddcd2e7">
+		["revision"] = <"1.0.0">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Visuelle Analogskala (VAS) für Schmerz
+	OBSERVATION[at0000] matches {	-- Schmerzskala (VAS)
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					POINT_EVENT[at0002] occurrences matches {0..*} matches {	-- Jedes Ereignis
+					POINT_EVENT[at0002] occurrences matches {0..*} matches {	-- Beliebiges Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Baum
 								items cardinality matches {0..*; unordered} matches {
@@ -62,7 +64,7 @@ definition
 						state matches {
 							ITEM_TREE[at0006] matches {	-- Baum
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Störfaktoren
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Einflussfaktoren
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -92,7 +94,7 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Visuelle Analogskala (VAS) für Schmerz">
+					text = <"Schmerzskala (VAS)">
 					description = <"Die Schmerzskala VAS ist eine Visuelle Analogskala für die subjektive Messung der Empfindungsstärke vom Schmerz.">
 				>
 				["at0001"] = <
@@ -100,7 +102,7 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Jedes Ereignis">
+					text = <"Beliebiges Ereignis">
 					description = <"Ein definierter Zeitpunkt, der explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
 				>
 				["at0003"] = <
@@ -120,7 +122,7 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0007"] = <
-					text = <"Störfaktoren">
+					text = <"Einflussfaktoren">
 					description = <"Alle zufälligen Faktoren im Zusammenhang mit dem Zustand des Patienten, der die klinische Interpretation der Messung beeinflussen könnte.">
 				>
 				["at0008"] = <
@@ -129,8 +131,8 @@ ontology
 				>
 				["at0011"] = <
 					text = <"Erweiterung">
-					description = <"Zusätzliche Informationen, die erforderlich sind, um lokale Inhalte zu erfassen oder sich an anderen Referenzmodellen / Formalismen auszurichten.">
-					comment = <"Zum Beispiel: Anforderungen an lokale Informationen oder zusätzliche Metadaten zur Ausrichtung auf FHIR- oder CIMI-Entsprechungen.">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 			>
 		>

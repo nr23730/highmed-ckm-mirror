@@ -15,10 +15,15 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Darstellung des Residualstatus nach Resektion oder nach dem Ende der (Primär-) Therapie.">
-			use = <"Dieser Archetyp soll verwendet werden, um den lokalen Residualstatus nach Resektion oder nach dem Ende der (Primär-) Therapie zu dokumentieren sowie den gesamten Tumorstatus zu beurteilen. Der Tumorstatus ist wichtig um den Erfolg der Therapie zu beurteilen und beschreibt die Veränderungen des Tumors nach der (Primär-) Therapie. Es soll festgestellt werden, ob zum Beispiel Tumorgewebe noch vorhanden ist; ein Progress bei vorhandenen Tumorresten (Residualtumor) vorliegt; keine Veränderungen bei vorhandenen Tumorresten (Residualtumor) oder ein Lokalrezidiv vorliegt. Dieser Archetyp kann in dem Slot \"Spezifische Details\" des übergeordneten Archetypen \"Problem/Diagnose\" (openEHR-EHR-EVALUATION.problem_diagnosis) eingebettet werden.">
-			keywords = <"Residualstatus", "Primärtumor", "Therapie", "Tumorstatus", "Residualtumor", "Lokalrezidiv", "Tumor", "Progress", "Keine Veränderung", "Vollremission", "Teilremission", "CR", "PR", "divergent", "MR", "CRr", "NC", "Tumorrest", "Veränderung", "partial remission", "no change", "complete remission", "minimal response", "residual">
-			misuse = <"Darf nicht zur Dokumentation eines Erkrankungsstatus genutzt werden. Es dürfen keine Diagnosen von Erkrankungen damit beurteilt werden.">
+			purpose = <"Zur Darstellung des Status der Tumorerkrankung im Verlauf oder nach dem Ende der Therapie bzw. der Nachsorge.">
+			use = <"Dieser Archetyp soll verwendet werden, um die Beurteilungen zum Status des Tumors lokal, gesamt und in den Bereichen der Fernmetastasen und der regionären Lymphknoten im Verlauf oder nach dem Ende der Therapie bzw. der Nachsorge darzustellen.
+
+Der Tumorstatus ist wichtig um den Erfolg der Therapie zu beurteilen und beschreibt die Veränderungen des Tumors nach der (Primär-) Therapie. Es soll festgestellt werden, ob zum Beispiel Tumorgewebe noch vorhanden ist; ein Progress bei vorhandenen Tumorresten (Residualtumor) vorliegt; keine Veränderungen bei vorhandenen Tumorresten (Residualtumor) oder ein Lokalrezidiv vorliegt. 
+Darüber hinaus wird mit diesem Archetyp der Verlaufsstatus in Bereichen der Fernmetastasen und der regionären Lymphknoten dargestellt. 
+
+Dieser Archetyp kann in dem Slot \"Spezifische Details\" des übergeordneten Archetyps \"Problem/Diagnose\" (openEHR-EHR-EVALUATION.problem_diagnosis) eingebettet werden.">
+			keywords = <"Residualstatus", "Primärtumor", "Therapie", "Tumorstatus", "Residualtumor", "Lokalrezidiv", "Tumor", "Progress", "Keine Veränderung", "Vollremission", "Teilremission", "CR", "PR", "divergent", "MR", "CRr", "NC", "Tumorrest", "Veränderung", "partial remission", "no change", "complete remission", "minimal response", "residual", "Tumorverlauf", "Lymphknotenmetastasen", "Fernmetastasen", "Ausbreitung", "Residuen">
+			misuse = <"Darf nicht zur Darstellung eines Erkrankungsstatus außerhalb der Tumorerkrankung genutzt werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -30,8 +35,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"993D200FD758C5505AAC0C787190A1B1">
-		["build_uid"] = <"59fd6e30-e8c5-45e8-be35-7e01d5af23d5">
+		["MD5-CAM-1.0.1"] = <"CD6BAD06E93ABAAD093A23C92D3A4611">
+		["build_uid"] = <"d0fea933-cf38-4e5b-ae9f-bbfba8789120">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -55,12 +60,7 @@ definition
 					}
 				}
 			}
-			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Kommentar Tumorstatus
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Verlauf Fernmetastasen Ausbreitung
+			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Tumorstatus Fernmetastase(n)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
@@ -78,12 +78,7 @@ definition
 					}
 				}
 			}
-			ELEMENT[at0032] occurrences matches {0..1} matches {	-- Kommentar Fernmetastasen
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0033] occurrences matches {0..1} matches {	-- Verlauf Lymphknoten Tumorstatus
+			ELEMENT[at0033] occurrences matches {0..1} matches {	-- Tumorstatus Lymphknoten
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
@@ -97,11 +92,6 @@ definition
 							at0040]	-- X = Fehlende Angabe
 						}
 					}
-				}
-			}
-			ELEMENT[at0041] occurrences matches {0..1} matches {	-- Kommentar Lymphknoten
-				value matches {
-					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0010] occurrences matches {0..1} matches {	-- Gesamtbeurteilung Tumorstatus
@@ -122,7 +112,7 @@ definition
 					}
 				}
 			}
-			ELEMENT[at0020] occurrences matches {0..1} matches {	-- Kommentar Gesamtbeurteilung
+			ELEMENT[at0020] occurrences matches {0..1} matches {	-- Kommentar Tumorstatus
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -137,11 +127,11 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Tumorstatus">
-					description = <"Der Residualstatus wird nach Resektion oder nach dem Ende der (Primär-) Therapie dokumentiert.">
+					description = <"Status der Tumorerkrankung im Verlauf oder nach dem Ende der Therapie bzw. der Nachsorge.">
 				>
 				["at0001"] = <
 					text = <"Lokaler Tumorstatus">
-					description = <"Der Zustand vom Primärtumor wird bewertet.">
+					description = <"Der Zustand vom Primärtumor wird beurteilt.">
 				>
 				["at0002"] = <
 					text = <"K = Kein Tumor nachweisbar">
@@ -161,7 +151,7 @@ ontology
 				>
 				["at0006"] = <
 					text = <"R= Lokalrezidiv">
-					description = <"Wiederauftreten des Tumors nach der Behandlung am gleichen Ort.">
+					description = <"Wiederauftreten des Primärtumors nach einer erfolgreichen Behandlung bzw. der vollständigen Entfernung am gleichen Ort.">
 				>
 				["at0007"] = <
 					text = <"F= Fraglicher Befund">
@@ -177,7 +167,7 @@ ontology
 				>
 				["at0010"] = <
 					text = <"Gesamtbeurteilung Tumorstatus">
-					description = <"Die Gesamtbeurteilung des Tumorstatus wird nach dem Ende der Therapie dokumentiert.">
+					description = <"Gesamtbeurteilung der Erkrankung unter Berücksichtigung aller Manifestationen.">
 				>
 				["at0011"] = <
 					text = <"V= Vollremission (complete remission, CR)">
@@ -216,16 +206,12 @@ ontology
 					description = <"Es sind keine Angaben zur Gesamtbeurteilung des Tumorstatus vorhanden.">
 				>
 				["at0020"] = <
-					text = <"Kommentar Gesamtbeurteilung">
+					text = <"Kommentar Tumorstatus">
 					description = <"Ergänzende Beschreibung des Tumorstatus, die nicht in anderen Bereichen erfasst wurde.">
 				>
 				["at0021"] = <
-					text = <"Verlauf Fernmetastasen Ausbreitung">
-					description = <"Zur Dokumentation der Fernmetastasen Ausbreitung.">
-				>
-				["at0022"] = <
-					text = <"Kommentar Tumorstatus">
-					description = <"Ergänzende Beschreibung des Tumorstatus, die nicht in anderen Bereichen erfasst wurde.">
+					text = <"Tumorstatus Fernmetastase(n)">
+					description = <"Beurteilung der Situation im Bereich der Fernmetastasen.">
 				>
 				["at0023"] = <
 					text = <"K = Keine Fernmetastasen nachweisbar">
@@ -233,15 +219,15 @@ ontology
 				>
 				["at0024"] = <
 					text = <"M = Verbliebene Fernmetastase(n)">
-					description = <"Es ist/sind Fernmetastase(n) vorhanden.">
+					description = <"Es ist/sind Fernmetastase(n), die nach einer Behandlung noch verblieben sind.">
 				>
 				["at0025"] = <
 					text = <"R = Neu aufgetretene Fernmetastase(n) bzw. Metastasenrezidiv">
-					description = <"Es sind wieder Metastasen vorhanden bzw. neu aufgetreten.">
+					description = <"Es sind neue Fernmetastasen vorhanden bzw. die zurückgegangenen Fernmetastasen am gleichen Ort wieder aufgetreten.">
 				>
 				["at0026"] = <
 					text = <"T = Fernmetastasen Residuen">
-					description = <"Es gibt Fernmetastasen, die nach einer Behandlung noch verblieben sind.">
+					description = <"Es gibt Reste oder Teile der Fernmetastasen, die nach einer Behandlung noch verblieben sind.">
 				>
 				["at0027"] = <
 					text = <"P = Fernmetastasen Progress">
@@ -253,31 +239,27 @@ ontology
 				>
 				["at0029"] = <
 					text = <"F = Fraglicher Befund">
-					description = <"Es liegt kein eindeutiges Ergebnis des Tumorstatus bei der/den Fernmetastase(n) vor.">
+					description = <"Es liegt kein eindeutiges Ergebnis des Tumorstatus im Bereich der Fernmetastase(n) vor.">
 				>
 				["at0030"] = <
 					text = <"U = Unbekannt">
-					description = <"Der Tumorstatus bei der/den Fernmetastase(n) konnte nicht ermittelt werden.">
+					description = <"Der Tumorstatus im Bereich der Fernmetastase(n) konnte nicht ermittelt werden.">
 				>
 				["at0031"] = <
 					text = <"X = Fehlende Angabe">
-					description = <"Es ist keine Angabe zum Tumorstatus der Fernmetastase(n) vorhanden.">
-				>
-				["at0032"] = <
-					text = <"Kommentar Fernmetastasen">
-					description = <"Ergänzende Beschreibung des Tumorstatus, die nicht in anderen Bereichen erfasst wurde.">
+					description = <"Es ist keine Angabe zum Tumorstatus im Bereich der Fernmetastase(n) vorhanden.">
 				>
 				["at0033"] = <
-					text = <"Verlauf Lymphknoten Tumorstatus">
-					description = <"Zur Dokumentation des Lymphknoten Verlaufs.">
+					text = <"Tumorstatus Lymphknoten">
+					description = <"Beurteilung der Situation im Bereich der regionären Lymphknoten.">
 				>
 				["at0034"] = <
 					text = <"K = Keine Lymphknoten nachweisbar">
-					description = <"Es wurden keine Lymphknoten nachgewiesen.">
+					description = <"Es wurde kein Befall von Lymphknoten nachgewiesen.">
 				>
 				["at0035"] = <
 					text = <"R = Neu aufgetretenes Lymphknotenrezidiv">
-					description = <"Wiederauftreten von Lymphknotentumor nach der Behandlung am gleichen Ort.">
+					description = <"Wiederauftreten von einmal vollständig zurückgebildeten Lymphknotenmetastasen.">
 				>
 				["at0036"] = <
 					text = <"T = bekannter Lymphknotenbefall Residuen">
@@ -289,19 +271,15 @@ ontology
 				>
 				["at0038"] = <
 					text = <"F = Fraglicher Befund">
-					description = <"Es liegt kein eindeutiges Ergebnis des Tumorstatus beim Lymphknoten vor.">
+					description = <"Es liegt kein eindeutiges Ergebnis des Tumorstatus im Bereich der regionären Lymphknoten vor.">
 				>
 				["at0039"] = <
 					text = <"U = Unbekannt">
-					description = <"Der Tumorstatus beim Lymphknoten konnte nicht ermittelt werden.">
+					description = <"Der Tumorstatus im Bereich der regionären Lymphknoten konnte nicht ermittelt werden.">
 				>
 				["at0040"] = <
 					text = <"X = Fehlende Angabe">
-					description = <"Es ist keine Angabe zum Tumorstatus des Lymphknoten vorhanden.">
-				>
-				["at0041"] = <
-					text = <"Kommentar Lymphknoten">
-					description = <"Ergänzende Beschreibung des Tumorstatus, die nicht in anderen Bereichen erfasst wurde.">
+					description = <"Es ist keine Angabe zum Tumorstatus im Bereich der regionären Lymphknoten vorhanden.">
 				>
 			>
 		>
