@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
   <id>49784ed1-399c-4555-bde8-6e6976f9f1aa</id>
   <name>Mikrobiologischer Befund</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
       <purpose>Das Template dient dazu einen mikrobiologischen Befund strukturiert wiederzugeben. Wichtige Informationen, wie das Antibiogramm und die MRE-Klassen werden miterfasst. </purpose>
-	  <keywords>
+      <keywords>
         <item>Mikrobiologischer Befund</item>
         <item>Antibiogramm</item>
         <item>Kultur</item>
@@ -68,7 +68,7 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="Mikrobiologischer Befund ">
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" min="1" path="/content" name="Befund">
-      <Rule path="/data[at0001]/events[at0002]" max="1" min="1"  />
+      <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <constraint xsi:type="textConstraint">
           <includedValues>Mikrobiologische Untersuchung</includedValues>
@@ -84,7 +84,7 @@
       <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
       <Rule path="/protocol[at0004]/items[at0068]" max="0" />
       <Rule path="/protocol[at0004]/items[at0094]" max="1" min="1" />
-      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" min="1" name="Anforderung">
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="1" min="1" name="Anforderung">
         <constraint xsi:type="textConstraint" limitToList="false">
           <includedValues>MRSA</includedValues>
           <includedValues>VRE</includedValues>
@@ -108,10 +108,10 @@
         <Rule path="/items[at0029]">
           <constraint xsi:type="textConstraint" limitToList="false">
             <includedValues>local_terms::00BK::Blutkultur</includedValues>
-			<includedValues>local_terms::01BK::Blutkultur aerob</includedValues>
-			<includedValues>local_terms::02BK::Blutkultur anaerob</includedValues>
+            <includedValues>local_terms::01BK::Blutkultur aerob</includedValues>
+            <includedValues>local_terms::02BK::Blutkultur anaerob</includedValues>
             <includedValues>local_terms::03AB::Abstrich</includedValues>
-			<includedValues>local_terms::9999::Sonstige</includedValues>
+            <includedValues>local_terms::9999::Sonstige</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0088]" max="1" />
@@ -138,12 +138,11 @@
               <includedValues>local_terms::271::Rektum</includedValues>
               <includedValues>local_terms::20::arteriell</includedValues>
               <includedValues>local_terms::355::venös</includedValues>
-			  <includedValues>local_terms::999::Sonstige</includedValues>
+              <includedValues>local_terms::999::Sonstige</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0065]" max="0" />
           <Rule path="/items[at0002]" max="0" />
-          <Rule path="/items[at0083]" max="0" />
           <Rule path="/items[at0064]" max="0" />
           <Rule path="/items[at0055]" max="0" />
           <Rule path="/items[at0023]" max="0" />
@@ -151,7 +150,7 @@
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Kultur">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" min="1" path="/items[at0013]" name="Pro Erreger">
-          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0027]" name="Isolatnummer" />
           <Rule path="/items[at0024]" min="1" name="Nachweis">
             <constraint xsi:type="textConstraint">
               <includedValues>Nachweis</includedValues>
@@ -1121,7 +1120,7 @@
         </Items>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0017]" name="Empfängerstandort">
-        <Rule path="/items[at0048]" name="Standortschlüssel" min="1" />
+        <Rule path="/items[at0048]" min="1" />
         <Rule path="/items[at0024]" max="0" />
         <Rule path="/items[at0025]" max="0" />
         <Rule path="/items[at0028]" max="0" />
@@ -1130,7 +1129,7 @@
         <Rule path="/items[at0034]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0094]/items[at0090]" name="Einsenderstandort">
-        <Rule path="/items[at0048]" name="Standortschlüssel" min="1" />
+        <Rule path="/items[at0048]" min="1" />
         <Rule path="/items[at0024]" max="0" />
         <Rule path="/items[at0025]" max="0" />
         <Rule path="/items[at0028]" max="0" />
@@ -1167,16 +1166,16 @@
     <digest id="MD5-CAM-1.0.1">03CCDF7BDB564478867E6002950FB7C3</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
-    <digest id="MD5-CAM-1.0.1">8F242A3494D18872E7484433716A5FF9</digest>
+    <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0">
     <digest id="MD5-CAM-1.0.1">16ACB1FB473C63B4BC99E2DDF970BED2</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
-    <digest id="MD5-CAM-1.0.1">17EE509C521168FB4D0FBF23E9590DF6</digest>
+    <digest id="MD5-CAM-1.0.1">680EC10B4D17A6D947A9EFF8237202F9</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1">
-    <digest id="MD5-CAM-1.0.1">4CCA48930963E367BE0F8AE6CDC0B8F7</digest>
+    <digest id="MD5-CAM-1.0.1">93C0884D18B21980A99A7398E04E9E7A</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
     <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>

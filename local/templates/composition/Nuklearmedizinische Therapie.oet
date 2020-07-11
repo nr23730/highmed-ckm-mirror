@@ -27,7 +27,7 @@
       <keywords>
         <item>Nuklearmedizinischen Therapie</item>
       </keywords>
-      <use>Dieses Template wird verwendet, um Daten zu einer Nuklearmedizinischen Therapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der Nuklearmedizinischen Therapie wie Lokalisation der Bestrahlung, Beginn und Ende, Applikationsart, Strahlenart, Dosis, Fraktionen, Art der Bildgebung, Relation zur OP, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.</use>
+      <use>Dieses Template wird verwendet, um Daten zu einer Nuklearmedizinischen Therapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der Nuklearmedizinischen Therapie wie Zielgebiet der Bestrahlung, Beginn und Ende, Applikationsart, Strahlenart, Dosis, Fraktionen, Art der Bildgebung, Relation zur OP, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.</use>
       <misuse>Dieses Template soll nicht verwendet werden, um den Allgemeinzustand, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen) oder molekularpathologische Daten des Patienten zu verzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
     </details>
     <other_details>
@@ -128,8 +128,23 @@
         <Rule path="/items[at0033]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.radiotherapy.v1" concept_name="Bestrahlung" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0005]" max="1" />
-        <Rule path="/items[at0027]" max="1" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0047]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0048</excludedValues>
+            <excludedValues>local::at0049</excludedValues>
+            <excludedValues>local::at0051</excludedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="1">
+          <constraint xsi:type="textConstraint">
+           <includedValues>applikationsart::MSIRT::metabolische Therapie: Selektive interne Radio-Therapie</includedValues>
+           <includedValues>applikationsart::MPRRT::metabolische Therapie: Peptid-Radio-Rezeptor-Therapie</includedValues>          
+          </constraint>
+        </Rule>
+ <Rule path="/items[at0027]" max="1" />
+        <Rule path="/items[at0011]" name="Zielvolumen" />
+        <Rule path="/items[at0014]" max="0" />
         <Rule path="/items[at0015]/items[at0016]" max="0" />
         <Rule path="/items[at0015]/items[at0017]" max="0" />
         <Rule path="/items[at0015]/items[at0018]" max="0" />
@@ -141,7 +156,23 @@
               <includedValues>Leber</includedValues>
             </constraint>
           </Rule>
-          <Rule path="/items[at0065]" max="0" />
+          <Rule path="/items[at0065]">
+            <constraint xsi:type="textConstraint" limitToList="false">
+              <includedValues>nicht zutreffend</includedValues>
+              <includedValues>rechter Leberlappen</includedValues>
+              <includedValues>linker Leberlappen</includedValues>
+              <includedValues>Lebersegment 1</includedValues>
+              <includedValues>Lebersegment 2</includedValues>
+              <includedValues>Lebersegment 3</includedValues>
+              <includedValues>Lebersegment 4</includedValues>
+              <includedValues>Lebersegment 4a</includedValues>
+              <includedValues>Lebersegment 4b</includedValues>
+              <includedValues>Lebersegment 5</includedValues>
+              <includedValues>Lebersegment 6</includedValues>
+              <includedValues>Lebersegment 7</includedValues>
+              <includedValues>Lebersegment 8</includedValues>
+            </constraint>
+          </Rule>
           <Rule path="/items[at0002]" max="0" />
           <Rule path="/items[at0064]" max="0" />
           <Rule path="/items[at0055]" max="0" />
