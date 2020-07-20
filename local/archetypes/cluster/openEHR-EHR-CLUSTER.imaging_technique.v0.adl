@@ -17,9 +17,9 @@ description
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation der technischen Spezifikationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen.">
 			use = <"Zur Verwendung in einem anderen bildgebenden Archetyp, um die technischen Spezifikationen des durchgeführten bildgebenden Verfahrens zu dokumentieren.">
-			keywords = <"Bildgebung", "Bildgebendes Verfahren", "technische Details", "CT", "MRT", "Phase", "Kontrastmittel", "Diffusionswichtung">
-			misuse = <"Nicht zur Dokumentation von bildgebenden Befunden.
-Nicht zur Dokumentation von klinischen Informationen eines Patienten.">
+			keywords = <"Bildgebung", "Bildgebendes Verfahren", "technische Details", "CT", "MRT", "Phase", "Kontrastmittel", "Diffusionswichtung", "Bildgebende Diagnostik", "Modalität">
+			misuse = <"Nicht zur Dokumentation von bildgebenden Befunden verwenden.
+Nicht zur Dokumentation von klinischen Informationen eines Patienten verwenden.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -31,41 +31,35 @@ Nicht zur Dokumentation von klinischen Informationen eines Patienten.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"89953261B66631F327A8BE6B4100472F">
-		["build_uid"] = <"6a0d788e-e603-4cbe-bf58-fc38418165f3">
+		["MD5-CAM-1.0.1"] = <"D16EC5C3A9D474A5418C3AEAADE26367">
+		["build_uid"] = <"b58245c2-83a2-48cc-b543-f10d90f041a3">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	CLUSTER[at0000] matches {    -- Bildgebendes Verfahren
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..*} matches {    -- CT Typ
+			ELEMENT[at0013] occurrences matches {0..1} matches {    -- Name des Verfahrens
 				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0002,    -- Ja
-							at0003,    -- Nein
-							at0010]    -- Unbekannt
-						}
-					}
-				}
-			}
-			ELEMENT[at0007] occurrences matches {0..*} matches {    -- MRT Typ
-				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0008,    -- Ja
-							at0009,    -- Nein
-							at0011]    -- Unbekannt
-						}
-					}
-				}
-			}
-			ELEMENT[at0012] occurrences matches {0..*} matches {    -- Kontrastmittel
-				value matches {
+					DV_TEXT matches {*}
 					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..*} matches {    -- Anwendung
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0016] occurrences matches {0..*} matches {    -- Kontrastmittel
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {    -- Kommentar
+				value matches {
+					DV_TEXT matches {*}
 				}
 			}
 		}
@@ -78,47 +72,28 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Bildgebendes Verfahren">
-					description = <"Zur Darstellung der  der technischen Spezifikationen einer durchgeführten bildgebenden Untersuchung.
+					description = <"Zur Darstellung der technischen Spezifikationen einer durchgeführten bildgebenden Untersuchung.
 ">
 				>
-				["at0001"] = <
-					text = <"CT Typ">
-					description = <"zur Dokumentation des Typs des durchgeführten CT.">
-					comment = <"z. B. Native Phase, Spätarterielle Phase, Venöse Phase, Spätvenöse Phase">
+				["at0013"] = <
+					text = <"Name des Verfahrens">
+					description = <"Zur Dokumentation des Typs des durchgeführten bildgebenden Verfahrens.">
+					comment = <"z. B. CT, MRT">
 				>
-				["at0002"] = <
-					text = <"Ja">
-					description = <"*">
+				["at0014"] = <
+					text = <"Anwendung">
+					description = <"Zur Dokumentation des Subtyps des durchgeführten bildgebenden Verfahrens.">
+					comment = <"z. B.  Native Phase, Spätarterielle Phase für CT, oder T1 GRE fettsupprimiert spätvenös axial, T2 koronar für MRT">
 				>
-				["at0003"] = <
-					text = <"Nein">
-					description = <"*">
+				["at0015"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen über das durchgeführte bildgebende Verfahren.">
+					comment = <"kann einen Textkommentar enthalten wie z.B. \"der Patient lehnte die Verwendung eines Kontrastmittels ab\" oder \" MRT konnte nicht durchgeführt werden wegen ...\".">
 				>
-				["at0007"] = <
-					text = <"MRT Typ">
-					description = <"zur Dokumentation des Typs des durchgeführten MRT.">
-					comment = <"z. B. T1 GRE fettsupprimiert spätvenös axial, T2 axial, T2 koronar, Diffusionswichtung b=0-100 s/mm2">
-				>
-				["at0008"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"Nein">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Unbekannt">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"Unbekannt">
-					description = <"*">
-				>
-				["at0012"] = <
+				["at0016"] = <
 					text = <"Kontrastmittel">
-					description = <"das Kontrastmittel, das bei der Bildgebung verwendet wurde.">
-					comment = <"z.B. nativ, extrazelluläres KM, intrazelluläres KM">
+					description = <"Das Kontrastmittel, das bei der Bildgebung verwendet wurde.">
+					comment = <"z. B. extrazelluläres KM, intrazelluläres KM">
 				>
 			>
 		>
