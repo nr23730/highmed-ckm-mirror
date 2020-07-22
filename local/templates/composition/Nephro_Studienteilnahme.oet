@@ -27,7 +27,7 @@
         <item>Prüfung</item>
         <item>Clinical Trial</item>
       </keywords>
-      <use>Zur Repräsentation von Informationen, über die Teilnahme an einer klinischen Prüfung, Beobachtungs-, Register-, Diagnostik-, Therapiestudie.</use>
+      <use>Zur Repräsentation von Informationen über die Teilnahme an einer klinischen Studie.</use>
       <misuse>Dieses Template soll nicht verwendet werden, um andere klinische Konzepte wie bspw. Diagnosen, Therapien etc. aufzuzeichnen. Dazu jeweils das eigene Template benutzen.</misuse>
     </details>
     <other_details>
@@ -84,7 +84,11 @@
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Studienteilnahme">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.informed_consent.v0" concept_name="Einwilligungserklärung" path="/content">
       <Rule path="/description[at0001]" hide_on_form="true" />
-      <Rule path="/description[at0001]/items[at0002]" max="1" default="Studienteilnahme" name="Studienteilnahme" />
+      <Rule path="/description[at0001]/items[at0002]" max="1" name="Studienteilnahme">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Studienteilnahme</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0030]" max="0" />
       <Rule path="/description[at0001]/items[at0031]" max="0" />
       <Rule path="/description[at0001]/items[at0011]" max="0" />
@@ -123,7 +127,7 @@
       </Items>
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" path="/context/other_context[at0001]/items[at0006]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0006]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0006]" max="0" />
