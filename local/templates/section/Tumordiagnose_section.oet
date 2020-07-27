@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>0989ef74-099a-43e2-aaa8-6008cc76c30b</id>
     <name>Tumordiagnose_section</name>
@@ -26,13 +26,13 @@
         </other_contributors>
         <lifecycle_state>in_development</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation von Erkrankungsdaten einer Tumordiagnose bei Patienten mit einer onkologischen Diagnose im HiGHmed Projekt.</purpose>
+            <purpose>Zur Repräsentation von Daten einer Tumorerkrankung bei Patienten mit einer onkologischen Diagnose im HiGHmed Projekt.</purpose>
             <keywords>
                 <item>Tumordiagnose, Krebserkrankung, Onkologische Diagnose, Tumor</item>
             </keywords>
-            <use>Dieses Template wird verwendet, um Erkrankungsdaten zu einer Tumordiagnose bei Patienten mit einer onkologischen Diagnose aufzuzeichnen. Es ist als SECTION-template konzipiert, um in anderen Templates (z.B. Histopathologischer Befund der Genomics Template) wiederverwendbar zu sein. 
+            <use>Dieses Template wird verwendet, um Daten zu einer Tumorerkrankung bei Patienten mit einer onkologischen Diagnose darzustellen. Es ist als SECTION-Template konzipiert, um in anderen Templates (z.B. Histopathologischer Befund der Genomics Template oder andere Templates) wieder zu verwenden. 
 Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, die ICD-O-3 Topographie, die ICD-O-3 Morphologie, der klinische TNM-Status sowie der pathologische TNM-Status und Fernmetastasen.</use>
-            <misuse>Dieses Template soll nicht verwendet werden, um Therapien und Prozeduren, Medikationen, Laborparameter, Residualstatus, Fernmetastasen, radiologische Daten oder molekularpathologische Daten des Patienten aufzuzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
+            <misuse>Dieses Template soll nicht verwendet werden, um andere Diagnosen außer der Tumorerkrankung darzustellen. Dieses Template soll ebenfalls nicht verwendet werden, um Therapien und Prozeduren, Medikationen, Laborparameter, Residualstatus, radiologische Daten oder molekularpathologische Daten des Patienten aufzuzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
         </details>
         <other_details>
             <item>
@@ -57,7 +57,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>e9598f64f7e21bf715ddc3379b19fb09</value>
+                <value>141920e2fad17b55ebfc1034e811ed1d</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -78,7 +78,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:SECTION">
         <Item archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            concept_name="Problem/Diagnose" name="Tumordiagnose"
+            concept_name="Problem/Diagnose" max="1" name="Tumordiagnose"
             path="/items[at0001]" xsi:type="tem:EVALUATION">
             <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
@@ -86,7 +86,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
                 </constraint>
             </Rule>
             <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
-            <Rule max="1" path="/data[at0001]/items[at0012]">
+            <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Links (L)</includedValues>
                     <includedValues>Rechts (R)</includedValues>
@@ -105,6 +105,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
+            <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
             <Rule max="0" path="/data[at0001]/items[at0030]"/>
             <Rule max="0" path="/data[at0001]/items[at0073]">
@@ -115,7 +116,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
             </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
-                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <termQueryId terminologyID="//highmed.org/codesystems/icd-O-3-dimdi:Morphologie"/>
@@ -144,7 +145,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
-                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
                 path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
@@ -162,7 +163,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
                 </constraint>
             </Rule>
             <Rule max="0" name="Fernmetastase ICD-10 Text" path="/data[at0001]/items[at0009]"/>
-            <Rule name="FM Lokalisation" path="/data[at0001]/items[at0012]">
+            <Rule max="1" name="Fernmetastase Lokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Lunge (PUL)</includedValues>
                     <includedValues>Knochen (OSS)</includedValues>
@@ -223,7 +224,7 @@ Es sollen Daten zu der Tumordiagnose erfasst werden d.h. die ICD 10 Diagnose, di
         archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">DB643A21B994B2278797E94A0FDFD340</digest>
+        <digest id="MD5-CAM-1.0.1">5D2C997BC3ED4A0F8700D73050FE8DAB</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
