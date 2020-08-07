@@ -1,0 +1,135 @@
+﻿archetype (adl_version=1.4; uid=d5bba8a7-4805-48dc-ace7-29796cb16b50)
+	openEHR-EHR-EVALUATION.exemption_from_work.v0
+
+concept
+	[at0000]	-- Freistellung von der Arbeit
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2020-04-27">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentatin der Freistellung von der Arbeit einer Person.">
+			use = <"Zur Dokumentation der Freistellung von der Arbeit einer Person.
+
+Dieser Archetyp dient zur Dokumentation, ob und von wann bis wann eine Person von der Arbeit freigestellt ist.">
+			keywords = <"Freistellung,Arbeit", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"9886F9CD40BC596A14A4CE48DBA606D5">
+		["build_uid"] = <"3d263cad-3eb3-4f69-a42d-efe87e170359">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Freistellung von der Arbeit
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {    -- Freigestellt von der Arbeit?
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Grund für die Freistellung
+						value matches {
+							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {    -- Beschreibung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Startdatum der Freistellung
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Wiederaufnahme der Arbeit
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {    -- Zusätzliche Angaben
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0009] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Freistellung von der Arbeit">
+					description = <"Dokumentation der Freistellung von der Arbeit einer Person.">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung der Freistellung der Person von der Arbeit.">
+				>
+				["at0003"] = <
+					text = <"Startdatum der Freistellung">
+					description = <"Datum an dem die Freistellung der Person von der Arbeit begonnen hat.">
+				>
+				["at0004"] = <
+					text = <"Wiederaufnahme der Arbeit">
+					description = <"Datum an dem die Person die Arbeit wieder aufgenommen hat.">
+				>
+				["at0005"] = <
+					text = <"Grund für die Freistellung">
+					description = <"Grund für die Freistellung der Person von der Arbeit.">
+				>
+				["at0006"] = <
+					text = <"Zusätzliche Angaben">
+					description = <"Weitere Angaben zu der aktuellen Freistellung einer Person. ">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Beschreibung der Aktivität, die in anderen Bereichen nicht erfasst wurden.">
+				>
+				["at0008"] = <
+					text = <"Freigestellt von der Arbeit?">
+					description = <"Wurde die Person von der Arbeit freigestellt?">
+				>
+				["at0009"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>

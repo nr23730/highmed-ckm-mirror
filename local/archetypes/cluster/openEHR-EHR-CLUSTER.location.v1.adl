@@ -1,0 +1,228 @@
+﻿archetype (adl_version=1.4; uid=6d5616fe-7f15-4bfb-a0d2-3e3d3b9a83a5)
+	openEHR-EHR-CLUSTER.location.v1
+
+concept
+	[at0000]	-- Location
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Sarah Ballout">
+				["organisation"] = <"MHH-Hannover">
+				["email"] = <"ballout.sarah@mh-hannover.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"MHH-Hannover ">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2019-11-12">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dieser Archetyp wird verwendet, um die Lokalisierung des Patienten während seines Klinikaufenthalts zu erfassen.
+
+Zur Erfassung sämtlicher Standorte, wie z.B. zur Dokumentation der Aufenthaltsorte des Patienten während eines Krankenhausaufenthaltes oder zur näheren Beschreibung der an Aktionen oder Observationen beteiligter Standorte (Kliniken, Abteilungen und weitere).">
+			use = <"Zur Dokumentation der Aufenthaltsorte des Patienten während eines Krankenhausaufenthaltes.
+
+Zur detaillierten Beschreibung an Aktionen oder Observationen beteiligter Standorte (Kliniken, Abteilungen und weitere).
+
+Zur Repräsentation weiterer Informationen über das genutzte Bett des Patienten (Betten-ID, usw.) verwenden Sie bitte den Archetyp CLUSTER.device im Slot \"Details\".
+
+Zur Repräsentation der Adressdaten des Standorts nutzen Sie bitte den Archetyp CLUSTER.address im Slot \"Details\".">
+			keywords = <"Patientenstandort", "Standort", "Versorgungsort", "Station", "Fachabteilung", "Abteilung">
+			misuse = <"Der Archetyp dient nicht zur Erfassung der Geräte. Um diesen einzutragen, verwenden Sie bitte den Archetyp \"Medizingerät\".">
+			copyright = <"HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"This archetype is used to record the localization of the patient during their stay in the clinic.
+
+To record all locations, e.g. to document the patient's location during a hospital stay or to describe in detail the locations involved in Action or Observation (clinics, departments and others).">
+			use = <"To document the patient's location during a hospital. 
+
+To describe in detail the locations (clinics, departments and others) take Action or Observation.
+
+To represent further information about the bed of the patient used (bed ID, etc.), please use the archetype CLUSTER.device in the \"Details\" Slot.
+
+To represent the address data of the location, please use the archetype CLUSTER.address in the \"Details\" Slot.">
+			keywords = <"patient location", "location", "department", "supply point", "specialist department", "station">
+			misuse = <"The archetype does not serve to record the devices. To enter this, please use the archetype \"medical device\".">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"
+">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"40B9297A554992A52D82807F4F1EF25D">
+		["build_uid"] = <"0d9ee3bf-1601-4be4-a50c-4c09f536f3af">
+		["revision"] = <"1.1.2">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Standort
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0040] occurrences matches {0..1} matches {	-- Standorttyp
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0046] occurrences matches {0..1} matches {	-- Standortbeschreibung
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0048] occurrences matches {0..1} matches {	-- Standortschlüssel
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {	-- Campus
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Gebäudegruppe
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Ebene
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Station
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Zimmer
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Bettstellplatz
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0047] occurrences matches {0..*} matches {	-- Details
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Location">
+					description = <"Location includes both casual locations (a place used for health care without prior designation or authorisation) and dedicated, formally designated locations. The sites can be private, public, mobile or fixed.">
+				>
+				["at0024"] = <
+					text = <"Campus">
+					description = <"A group of buildings or other locations such as a site or campus. For example: Campus that is outside the facility, but belongs to the hospital, university.">
+				>
+				["at0025"] = <
+					text = <"Building">
+					description = <"Either building or structure. These can include rooms, corridors, wings, etc.. It may not have walls or a roof, but is considered a defined/allocated space.">
+				>
+				["at0027"] = <
+					text = <"Ward">
+					description = <"A ward is part of a medical facility that can contain rooms and other types of locations.">
+				>
+				["at0028"] = <
+					text = <"Level">
+					description = <"A level in a multi-level building/structure.">
+				>
+				["at0029"] = <
+					text = <"Room">
+					description = <"A location that was declared as a room. Some locations can have the room in the corridor, e.g. ward XYZ corridor 2; where bed space 2 is in the corridor of the respective ward.  ">
+				>
+				["at0034"] = <
+					text = <"Bed Location">
+					description = <"Used to document information about the bed space e.g. bed was placed next to the window or next to the door.">
+				>
+				["at0040"] = <
+					text = <"Location Type">
+					description = <"The person location type is the categorization of the person's location. For example: Clinic, Home.">
+				>
+				["at0046"] = <
+					text = <"Location description">
+					description = <"The field contains the optional free text description of the location, e.g. thoracic, heart and vascular surgery.">
+				>
+				["at0047"] = <
+					text = <"Details">
+					description = <"To record further information about the bed or about the address of the location. For this purpose use the archetype CLUSTER.device or CLUSTER.address.">
+				>
+				["at0048"] = <
+					text = <"Location key">
+					description = <"Coding of the location, e.g. the department code (e.g. 2000 thoracic surgery).">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Standort">
+					description = <"Standort umfasst sowohl beiläufige Orte (ein Ort, der für die medizinische Versorgung ohne vorherige Benennung oder Genehmigung genutzt wird) als auch spezielle, offiziell benannte Orte. Die Standorte können privat, öffentlich, mobil oder stationär sein.">
+				>
+				["at0024"] = <
+					text = <"Campus">
+					description = <"Eine Gruppe von Gebäuden an anderen Orten, wie ein örtlich entfernter Campus, der außerhalb der Einrichtung liegt, aber zur Institution gehört.">
+				>
+				["at0025"] = <
+					text = <"Gebäudegruppe">
+					description = <"Ein Gebäude oder Bauwerk. Dazu können Räume, Flure, Flügel, etc. gehören. Es hat möglicherweise keine Wände oder ein Dach, wird aber dennoch als definierter/zugeordneter Raum angesehen.">
+				>
+				["at0027"] = <
+					text = <"Station">
+					description = <"Eine Station ist Teil einer medizinischen Einrichtung, die Räume und andere Arten von Orten enthalten kann.">
+				>
+				["at0028"] = <
+					text = <"Ebene">
+					description = <"Die Ebene in einem mehrstöckigen Gebäude/Bauwerk.">
+				>
+				["at0029"] = <
+					text = <"Zimmer">
+					description = <"Ein Ort, der als Zimmer deklariert wurde. Bei einigen Standorten kann das Zimmer im Flur liegen zB: Station XYZ Flur 2. Hierbei liegt der Bettstellplatz 2 auf dem Flur der jeweiligen Station. ">
+				>
+				["at0034"] = <
+					text = <"Bettstellplatz">
+					description = <"Beschreibung des Bettstellplatzes z.B. Bett stand neben dem Fenster oder neben der Tür.">
+				>
+				["at0040"] = <
+					text = <"Standorttyp">
+					description = <"Kategorisierung des Standorttyps, z.B. Klinik, zu Hause.">
+				>
+				["at0046"] = <
+					text = <"Standortbeschreibung">
+					description = <"Das Feld enthält die Freitextbeschreibung des Standorts, z.B. Throax-, Herz- und Gefäßchirurgie.">
+				>
+				["at0047"] = <
+					text = <"Details">
+					description = <"Für die Erfassung weiterer Angaben über das Bett oder der Adresse. Verwenden Sie dazu den Archetyp CLUSTER.device oder CLUSTER.address.">
+				>
+				["at0048"] = <
+					text = <"Standortschlüssel">
+					description = <"Kodierung des Standortes, z.B. der Fachabteilungsschlüssel (z. B. 2000 Thoraxchirurgie).">
+				>
+			>
+		>
+	>
