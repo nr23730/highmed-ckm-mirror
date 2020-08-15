@@ -25,14 +25,7 @@
             <item>Katrin Tröltzsch, Heidelberg University Hospital, Germany</item>
         </other_contributors>
         <lifecycle_state>release_candidate</lifecycle_state>
-        <details>
-            <purpose>Das Template dient zur Erfassung der pathologisch-anatomischen Begutachtung mit kritischer Stellungnahme. z. B. Makroskopie, Mikroskopie, histologische Begutachtung, Immunhistochemie</purpose>
-            <keywords>
-                <item>Report; Befund; Histologie; Histopathologie; Pathologie; pTNM; Grading; Onkologie</item>
-            </keywords>
-            <use>Zur Repräsentation der pathologisch-anatomischen Begutachtung mit kritischer Stellungnahme.</use>
-            <misuse>Nicht zur Repräsentation anderer pathologischer Befunde bestimmt. Es wird z.B. ein anderes Template für den Molekularpathologischen Befund benötigt.</misuse>
-        </details>
+        <details/>
         <other_details>
             <item>
                 <key>notes</key>
@@ -60,7 +53,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>0bdfbd91e6e7e61542c2d05441494efd</value>
+                <value>7aa0e0a3c038749d44a41271225c8c62</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -69,6 +62,10 @@
             <item>
                 <key>build_uid</key>
                 <value>884ff6bd-ce65-4268-a9f2-6731eca57c5f</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
@@ -158,23 +155,55 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            concept_name="Laborergebnis"
+            concept_name="Laborergebnis" max="1"
             name="Histopathologischer Bericht" path="/content" xsi:type="tem:OBSERVATION">
             <Rule
                 default="Pathologisch-anatomische Begutachtung mit kritischer Stellungnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Rule
                 name="Ausgangsdatum des histologischen Befunds (Histologiedatum)" path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0111]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0121]">
                 <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Boolean</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                    <includedTypes>MultiMedia</includedTypes>
+                    <includedTypes>Quantity</includedTypes>
+                    <includedTypes>Count</includedTypes>
+                    <includedTypes>Date_Time</includedTypes>
+                    <includedTypes>Date</includedTypes>
+                    <includedTypes>Time</includedTypes>
+                    <includedTypes>Duration</includedTypes>
+                    <includedTypes>Ordinal</includedTypes>
+                    <includedTypes>Proportion</includedTypes>
+                    <includedTypes>URI</includedTypes>
                     <includedTypes>Text</includedTypes>
                     <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Parsable</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>URI</includedTypes>
                 </constraint>
             </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.anatomical_pathology_exam.v0"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0019]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0005]/items[at0017]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Identifier</includedTypes>
@@ -196,12 +225,12 @@
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0010]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>local_terms::R0::kein Residualtumor</includedValues>
-                        <includedValues>local_terms::R1::Mikroskopischer Residualtumor</includedValues>
-                        <includedValues>local_terms::R1(is)::in-Situ-Rest</includedValues>
-                        <includedValues>local_terms::R1(cy+)::Zytologischer Rest</includedValues>
-                        <includedValues>local_terms::R2::Makroskopischer Residualtumor</includedValues>
-                        <includedValues>local_terms::RX::Vorhandensein von Residualtumor kann nicht beurteilt werden</includedValues>
+                        <includedValues>local_terms::R0::kein Residualtumor (R0)</includedValues>
+                        <includedValues>local_terms::R1::Mikroskopischer Residualtumor (R1)</includedValues>
+                        <includedValues>local_terms::R1(is)::in-Situ-Rest (R1(is))</includedValues>
+                        <includedValues>local_terms::R1(cy+)::Zytologischer Rest (R1(cy+))</includedValues>
+                        <includedValues>local_terms::R2::Makroskopischer Residualtumor (R2)</includedValues>
+                        <includedValues>local_terms::RX::Vorhandensein von Residualtumor kann nicht beurteilt werden (RX)</includedValues>
                     </constraint>
                 </Rule>
             </Items>
@@ -214,6 +243,7 @@
                 <Rule name="Histologie Grading (nach WHO)" path="/items[at0001]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
+                max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0034]"/>
                 <Rule max="0" path="/items[at0008]"/>
@@ -253,16 +283,16 @@
             </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
-            concept_name="Problemliste" name="Tumordiagnose_section"
-            path="/content" xsi:type="tem:SECTION">
+            concept_name="Problemliste" max="1"
+            name="Tumordiagnose_section" path="/content" xsi:type="tem:SECTION">
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-                concept_name="Problem/Diagnose" name="Tumordiagnose"
-                path="/items[at0001]" xsi:type="tem:EVALUATION">
-                <Rule name="ICD-10 Code" path="/data[at0001]/items[at0002]"/>
-                <Rule name="ICD-10 Text" path="/data[at0001]/items[at0009]"/>
-                <Rule path="/data[at0001]/items[at0012]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                concept_name="Problem/Diagnose" max="1"
+                name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
+                <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
+                <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
+                <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                    <constraint xsi:type="tem:textConstraint">
                         <includedValues>Links (L)</includedValues>
                         <includedValues>Rechts (R)</includedValues>
                         <includedValues>Multilokuär (X)</includedValues>
@@ -288,27 +318,279 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
+                <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
-                    path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
-                <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v1" max="0"
+                    max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                    <Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
+                    <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
+                </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v1" max="1"
                     path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0002]"/>
+                    <Rule path="/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1a1</includedValues>
+                            <includedValues>1a2</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1b1</includedValues>
+                            <includedValues>1b2</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1c1</includedValues>
+                            <includedValues>1c2</includedValues>
+                            <includedValues>1c3</includedValues>
+                            <includedValues>1d</includedValues>
+                            <includedValues>1mic</includedValues>
+                            <includedValues>2</includedValues>
+                            <includedValues>2a</includedValues>
+                            <includedValues>2a1</includedValues>
+                            <includedValues>2a2</includedValues>
+                            <includedValues>2b</includedValues>
+                            <includedValues>2c</includedValues>
+                            <includedValues>2d</includedValues>
+                            <includedValues>3</includedValues>
+                            <includedValues>3a</includedValues>
+                            <includedValues>3b</includedValues>
+                            <includedValues>3c</includedValues>
+                            <includedValues>3d</includedValues>
+                            <includedValues>3e</includedValues>
+                            <includedValues>4</includedValues>
+                            <includedValues>4a</includedValues>
+                            <includedValues>4b</includedValues>
+                            <includedValues>4c</includedValues>
+                            <includedValues>4d</includedValues>
+                            <includedValues>4e</includedValues>
+                            <includedValues>a</includedValues>
+                            <includedValues>is</includedValues>
+                            <includedValues>is(DCIS)</includedValues>
+                            <includedValues>is(LAMN)</includedValues>
+                            <includedValues>is(LCIS)</includedValues>
+                            <includedValues>is(Paget)</includedValues>
+                            <includedValues>is(pd)</includedValues>
+                            <includedValues>is(pu)</includedValues>
+                            <includedValues>X</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0004]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>0(i+)</includedValues>
+                            <includedValues>0(i-)</includedValues>
+                            <includedValues>0(i-)(sn)</includedValues>
+                            <includedValues>0(mol+)</includedValues>
+                            <includedValues>0(mol-)</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1a(sn)</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1b a)</includedValues>
+                            <includedValues>1b b)</includedValues>
+                            <includedValues>1b c)</includedValues>
+                            <includedValues>1b d)</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1mi</includedValues>
+                            <includedValues>2</includedValues>
+                            <includedValues>2a</includedValues>
+                            <includedValues>2b</includedValues>
+                            <includedValues>2c</includedValues>
+                            <includedValues>3</includedValues>
+                            <includedValues>3a</includedValues>
+                            <includedValues>3b</includedValues>
+                            <includedValues>3c</includedValues>
+                            <includedValues>4</includedValues>
+                            <includedValues>X</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>X</includedValues>
+                            <includedValues>0</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1bi</includedValues>
+                            <includedValues>1bii</includedValues>
+                            <includedValues>1biii</includedValues>
+                            <includedValues>1biv</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1d</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0006]"/>
                     <Rule max="0" path="/items[at0028]"/>
-                    <Rule max="0" path="/items[at0030]"/>
+                    <Rule path="/items[at0031]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>0a</includedValues>
+                            <includedValues>0is</includedValues>
+                            <includedValues>I</includedValues>
+                            <includedValues>IA</includedValues>
+                            <includedValues>IA1</includedValues>
+                            <includedValues>IA2</includedValues>
+                            <includedValues>IA3</includedValues>
+                            <includedValues>IB</includedValues>
+                            <includedValues>IS</includedValues>
+                            <includedValues>II</includedValues>
+                            <includedValues>IIA</includedValues>
+                            <includedValues>IIB</includedValues>
+                            <includedValues>IIC</includedValues>
+                            <includedValues>III</includedValues>
+                            <includedValues>IIIA</includedValues>
+                            <includedValues>IIIB</includedValues>
+                            <includedValues>IIIC</includedValues>
+                            <includedValues>IIID</includedValues>
+                            <includedValues>IV</includedValues>
+                            <includedValues>IVA</includedValues>
+                            <includedValues>IVB</includedValues>
+                            <includedValues>IVC</includedValues>
+                            <includedValues>kein Stadtium ermittelbar</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule default="Auflage 8" path="/items[at0032]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>Auflage 8</includedValues>
+                            <includedValues>Auflage 7</includedValues>
+                            <includedValues>Auflage 6</includedValues>
+                            <includedValues>Auflage 5</includedValues>
+                            <includedValues>Auflage 4</includedValues>
+                            <includedValues>Auflage 3</includedValues>
+                            <includedValues>Auflage 2</includedValues>
+                            <includedValues>Auflage 1</includedValues>
+                        </constraint>
+                    </Rule>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1"
-                    path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                    max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0002]"/>
-                    <Rule max="0" path="/items[at0028]"/>
-                    <Rule max="0" path="/items[at0030.1]"/>
+                    <Rule path="/items[at0003.1]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1a1</includedValues>
+                            <includedValues>1a2</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1b1</includedValues>
+                            <includedValues>1b2</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1c1</includedValues>
+                            <includedValues>1c2</includedValues>
+                            <includedValues>1c3</includedValues>
+                            <includedValues>1d</includedValues>
+                            <includedValues>1mic</includedValues>
+                            <includedValues>2</includedValues>
+                            <includedValues>2a</includedValues>
+                            <includedValues>2a1</includedValues>
+                            <includedValues>2a2</includedValues>
+                            <includedValues>2b</includedValues>
+                            <includedValues>2c</includedValues>
+                            <includedValues>2d</includedValues>
+                            <includedValues>3</includedValues>
+                            <includedValues>3a</includedValues>
+                            <includedValues>3b</includedValues>
+                            <includedValues>3c</includedValues>
+                            <includedValues>3d</includedValues>
+                            <includedValues>3e</includedValues>
+                            <includedValues>4</includedValues>
+                            <includedValues>4a</includedValues>
+                            <includedValues>4b</includedValues>
+                            <includedValues>4c</includedValues>
+                            <includedValues>4d</includedValues>
+                            <includedValues>4e</includedValues>
+                            <includedValues>a</includedValues>
+                            <includedValues>is</includedValues>
+                            <includedValues>is(DCIS)</includedValues>
+                            <includedValues>is(LAMN)</includedValues>
+                            <includedValues>is(LCIS)</includedValues>
+                            <includedValues>is(Paget)</includedValues>
+                            <includedValues>is(pd)</includedValues>
+                            <includedValues>is(pu)</includedValues>
+                            <includedValues>X</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0004.1]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>0(i+)</includedValues>
+                            <includedValues>0(i-)</includedValues>
+                            <includedValues>0(i-)(sn)</includedValues>
+                            <includedValues>0(mol+)</includedValues>
+                            <includedValues>0(mol-)</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1a(sn)</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1b a)</includedValues>
+                            <includedValues>1b b)</includedValues>
+                            <includedValues>1b c)</includedValues>
+                            <includedValues>1b d)</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1mi</includedValues>
+                            <includedValues>2</includedValues>
+                            <includedValues>2a</includedValues>
+                            <includedValues>2b</includedValues>
+                            <includedValues>2c</includedValues>
+                            <includedValues>3</includedValues>
+                            <includedValues>3a</includedValues>
+                            <includedValues>3b</includedValues>
+                            <includedValues>3c</includedValues>
+                            <includedValues>4</includedValues>
+                            <includedValues>X</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0005.1]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>X</includedValues>
+                            <includedValues>0</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>1a</includedValues>
+                            <includedValues>1b</includedValues>
+                            <includedValues>1bi</includedValues>
+                            <includedValues>1bii</includedValues>
+                            <includedValues>1biii</includedValues>
+                            <includedValues>1biv</includedValues>
+                            <includedValues>1c</includedValues>
+                            <includedValues>1d</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0006]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>1</includedValues>
+                            <includedValues>2</includedValues>
+                            <includedValues>3</includedValues>
+                            <includedValues>4</includedValues>
+                            <includedValues>Differenzierungsgrad nicht bestimmbar</includedValues>
+                            <includedValues>Niedriggradig maligne</includedValues>
+                            <includedValues>Mittelgradig maligne</includedValues>
+                            <includedValues>Hochgradig maligne</includedValues>
+                            <includedValues>Trifft nicht zu</includedValues>
+                            <includedValues>Borderline</includedValues>
+                            <includedValues>Unbekannt</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule default="Auflage 8" path="/items[at0032]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>Auflage 8</includedValues>
+                            <includedValues>Auflage 7</includedValues>
+                            <includedValues>Auflage 6</includedValues>
+                            <includedValues>Auflage 5</includedValues>
+                            <includedValues>Auflage 4</includedValues>
+                            <includedValues>Auflage 3</includedValues>
+                            <includedValues>Auflage 2</includedValues>
+                            <includedValues>Auflage 1</includedValues>
+                        </constraint>
+                    </Rule>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
-                    max="0" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+                    max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
                     path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
@@ -319,17 +601,29 @@
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose" name="Fernmetastase"
                 path="/items[at0001]" xsi:type="tem:EVALUATION">
-                <Rule name="Fernmetastase ICD-10 Code" path="/data[at0001]/items[at0002]"/>
-                <Rule name="Fernmetastase ICD-10 Text" path="/data[at0001]/items[at0009]"/>
-                <Rule name="Lokalisation" path="/data[at0001]/items[at0012]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
-                        <includedValues>Links (L)</includedValues>
-                        <includedValues>Rechts (R)</includedValues>
-                        <includedValues>Multilokuär (X)</includedValues>
-                        <includedValues>Beidseitig (B)</includedValues>
-                        <includedValues>Mittellinie/ Mittig (M)</includedValues>
-                        <includedValues>Unbekannt (U)</includedValues>
-                        <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
+                <Rule default="Fernmetastase(n)" name="Fernmetastase" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Fernmetastase(n)</includedValues>
+                        <includedValues>Keine Fernmetastase</includedValues>
+                        <includedValues>Unbekannt</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0009]"/>
+                <Rule max="1" name="Fernmetastase Lokalisation" path="/data[at0001]/items[at0012]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Lunge (PUL)</includedValues>
+                        <includedValues>Knochen (OSS)</includedValues>
+                        <includedValues>Leber (HEP)</includedValues>
+                        <includedValues>Hirn (BRA)</includedValues>
+                        <includedValues>Lymphknoten (LYM)</includedValues>
+                        <includedValues>Knochenmark (MAR)</includedValues>
+                        <includedValues>Pleura (PLE)</includedValues>
+                        <includedValues>Peritoneum (PER)</includedValues>
+                        <includedValues>Nebenniere (ADR)</includedValues>
+                        <includedValues>Nieren (KID)</includedValues>
+                        <includedValues>Haut (SKI)</includedValues>
+                        <includedValues>Andere Organe (OTH)</includedValues>
+                        <includedValues>Generalisierte Metastasierung (GEN)</includedValues>
                     </constraint>
                 </Rule>
                 <Rule name="Fernmetastase Diagnosedatum" path="/data[at0001]/items[at0077]"/>
@@ -353,7 +647,9 @@
         <Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1" min="1"
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
