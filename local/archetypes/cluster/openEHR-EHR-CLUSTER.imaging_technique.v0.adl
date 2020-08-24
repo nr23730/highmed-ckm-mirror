@@ -16,7 +16,7 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation der technischen Spezifikationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen.">
-			use = <"Zur Verwendung in einem anderen bildgebenden Archetyp, um die technischen Spezifikationen des durchgeführten bildgebenden Verfahrens zu dokumentieren.">
+			use = <"Dieser Archetyp wird normalerweise im Slot \"Technisches Verfahren strukturiert\" des übergeordneten Archetypen OBSERVATION.imaging_exam_result verwendet. Kann aber auch in einem anderen bildgebenden Archetyp verwendet werden, um die technischen Spezifikationen des durchgeführten bildgebenden Verfahrens zu dokumentieren.">
 			keywords = <"Bildgebung", "Bildgebendes Verfahren", "technische Details", "CT", "MRT", "Phase", "Kontrastmittel", "Diffusionswichtung", "Bildgebende Diagnostik", "Modalität">
 			misuse = <"Nicht zur Dokumentation von bildgebenden Befunden verwenden.
 Nicht zur Dokumentation von klinischen Informationen eines Patienten verwenden.">
@@ -31,27 +31,21 @@ Nicht zur Dokumentation von klinischen Informationen eines Patienten verwenden."
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"D16EC5C3A9D474A5418C3AEAADE26367">
-		["build_uid"] = <"b58245c2-83a2-48cc-b543-f10d90f041a3">
+		["MD5-CAM-1.0.1"] = <"8ED03AD4DC39B0F8FD1666EEC8114EB2">
+		["build_uid"] = <"0e78fa37-71dd-4d11-9c00-9961639f6f31">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	CLUSTER[at0000] matches {    -- Bildgebendes Verfahren
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0013] occurrences matches {0..1} matches {    -- Name des Verfahrens
+			ELEMENT[at0013] occurrences matches {0..*} matches {    -- Bezeichnung des technischen Details oder Verfahrens
 				value matches {
 					DV_TEXT matches {*}
 					DV_CODED_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..*} matches {    -- Anwendung
-				value matches {
-					DV_TEXT matches {*}
-					DV_CODED_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0016] occurrences matches {0..*} matches {    -- Kontrastmittel
+			ELEMENT[at0014] occurrences matches {0..*} matches {    -- Angewendete Parameter
 				value matches {
 					DV_TEXT matches {*}
 					DV_CODED_TEXT matches {*}
@@ -72,16 +66,15 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Bildgebendes Verfahren">
-					description = <"Zur Darstellung der technischen Spezifikationen einer durchgeführten bildgebenden Untersuchung.
-">
+					description = <"Zur Darstellung der technischen Spezifikationen einer durchgeführten bildgebenden Untersuchung.">
 				>
 				["at0013"] = <
-					text = <"Name des Verfahrens">
+					text = <"Bezeichnung des technischen Details oder Verfahrens">
 					description = <"Zur Dokumentation des Typs des durchgeführten bildgebenden Verfahrens.">
-					comment = <"z. B. CT, MRT">
+					comment = <"z. B. Diffusionswichtung bei MRT, die Art oder Weg der Verabreichung von Kontrastmittel, Radiopharmazeutika und / oder angewendete Behandlung.">
 				>
 				["at0014"] = <
-					text = <"Anwendung">
+					text = <"Angewendete Parameter">
 					description = <"Zur Dokumentation des Subtyps des durchgeführten bildgebenden Verfahrens.">
 					comment = <"z. B.  Native Phase, Spätarterielle Phase für CT, oder T1 GRE fettsupprimiert spätvenös axial, T2 koronar für MRT">
 				>
@@ -89,11 +82,6 @@ ontology
 					text = <"Kommentar">
 					description = <"Zusätzliche Informationen über das durchgeführte bildgebende Verfahren.">
 					comment = <"kann einen Textkommentar enthalten wie z.B. \"der Patient lehnte die Verwendung eines Kontrastmittels ab\" oder \" MRT konnte nicht durchgeführt werden wegen ...\".">
-				>
-				["at0016"] = <
-					text = <"Kontrastmittel">
-					description = <"Das Kontrastmittel, das bei der Bildgebung verwendet wurde.">
-					comment = <"z. B. extrazelluläres KM, intrazelluläres KM">
 				>
 			>
 		>
