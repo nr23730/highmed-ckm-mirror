@@ -1,0 +1,748 @@
+﻿archetype (adl_version=1.4; uid=b27acfb1-fac5-42f0-bee6-1ff35d51280d)
+	openEHR-EHR-OBSERVATION.banff_classification_2019.v0
+
+concept
+	[at0000]	-- Banff-Klassifikation 2019
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Nina Schewe">
+		["organisation"] = <"Hochschule Hannover">
+		["email"] = <"nina.schewe@hs-hannover.de">
+		["date"] = <"2020-08-24">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der nephropathologischen Begutachtung der Transplantatnierenbiopsie nach der Banff-Klassifikation von 2019.">
+			use = <"Dieser Archetyp wird verwendet, um die Art und den Schweregrad von Abstoßungsreaktionen mittels der Banff-Klassifikation an Transplantatnierenbiopsien zu beurteilen.
+
+Zu verwenden, wenn die aktuell zum Biopsiezeitpunkt gültige Banff-Klassifikation von 2019 stammt.">
+			keywords = <"Banff", "Niere", "Abstoßung", "Schweregrad", "Banff-Kategorie", "Klassifizierung", "Transplantatnierenbiopsie", "Begutachtung">
+			misuse = <"Nicht zu verwenden, um mikroskopische Befunde im Zusammenhang mit einer nicht-neoplastischen Nierenbiopsie zu dokumentieren. Hierzu den Archetypen openEHR-EHR-CLUSTER.microscopy_renal_biopsy_non_neoplastic.v0 verwenden.
+
+Nicht verwenden, um einen allgemeinen histopathologischen Befund abzubilden. Verwenden Sie hierzu openEHR-EHR-CLUSTER.anatomical_pathology_exam.v0  innerhalb von OBSERVATION.laboratory_test_result.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Roufosse C, Simmonds N, Clahsen-van Groningen M, Haas M, Henriksen KJ, Horsfield C et. al (2018). A 2018 Reference Guide to the Banff Classification of Renal Allograft Pathology. Transplantation; 102(11):1795-814.
+
+Loupy A, Haas M, Roufosse C, et al. The Banff 2019 Kidney Meeting Report (I): Updates on and clarification of criteria for T cell– and antibody-mediated rejection. Am J Transplant. 2020;00:1–14. https://doi.org/10.1111/ajt.15898">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"C35C2C7ED98990FF2A5C6DA660E8AC14">
+		["build_uid"] = <"b9fc2291-c819-42b6-9f6d-7b2b45c8f3a0">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Banff-Klassifikation 2019
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; ordered} matches {
+									CLUSTER[at0082] occurrences matches {0..6} matches {	-- Banff-Kategorie
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0084] occurrences matches {0..1} matches {	-- Kategorie
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0085, 	-- 1
+															at0086, 	-- 2
+															at0087, 	-- 3
+															at0088, 	-- 4
+															at0089]	-- 5
+														}
+													}
+												}
+											}
+											ELEMENT[at0083] occurrences matches {0..1} matches {	-- Beschreibung
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0004] occurrences matches {0..1} matches {	-- Banff-Klassifizierung der Läsionen
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- v-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0020, 	-- 0
+															at0021, 	-- 1
+															at0022, 	-- 2
+															at0023]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {	-- i-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0024, 	-- 0
+															at0025, 	-- 1
+															at0026, 	-- 2
+															at0027]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0007] occurrences matches {0..1} matches {	-- t-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0028, 	-- 0
+															at0029, 	-- 1
+															at0030, 	-- 2
+															at0031]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0008] occurrences matches {0..1} matches {	-- g-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0032, 	-- 0
+															at0033, 	-- 1
+															at0034, 	-- 2
+															at0035]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0009] occurrences matches {0..1} matches {	-- ptc-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0036, 	-- 0
+															at0037, 	-- 1
+															at0038, 	-- 2
+															at0039]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0010] occurrences matches {0..1} matches {	-- ti-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0040, 	-- 0
+															at0041, 	-- 1
+															at0042, 	-- 2
+															at0043]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0011] occurrences matches {0..1} matches {	-- i-IFTA-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0044, 	-- 0
+															at0045, 	-- 1
+															at0046, 	-- 2
+															at0047]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- c4d-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0048, 	-- 0
+															at0049, 	-- 1
+															at0050, 	-- 2
+															at0051]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {	-- cg-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0052, 	-- 0
+															at0053, 	-- 1a
+															at0054, 	-- 1b
+															at0055, 	-- 2
+															at0056]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0014] occurrences matches {0..1} matches {	-- mm-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0057, 	-- 0
+															at0058, 	-- 1
+															at0059, 	-- 2
+															at0060]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0015] occurrences matches {0..1} matches {	-- ah-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0061, 	-- 0
+															at0062, 	-- 1
+															at0063, 	-- 2
+															at0064]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {	-- aah-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0065, 	-- 0
+															at0066, 	-- 1
+															at0067, 	-- 2
+															at0068]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- cv-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0069, 	-- 0
+															at0070, 	-- 1
+															at0071, 	-- 2
+															at0072]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- ci-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0073, 	-- 0
+															at0074, 	-- 1
+															at0075, 	-- 2
+															at0076]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0019] occurrences matches {0..1} matches {	-- ct-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0077, 	-- 0
+															at0078, 	-- 1
+															at0079, 	-- 2
+															at0080]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0091] occurrences matches {0..1} matches {	-- t-IFTA-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0094, 	-- 0
+															at0095, 	-- 1
+															at0096, 	-- 2
+															at0097]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0092] occurrences matches {0..1} matches {	-- pvl-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0100, 	-- 0
+															at0101, 	-- 1
+															at0102, 	-- 2
+															at0103]	-- 3
+														}
+													}
+												}
+											}
+											ELEMENT[at0093] occurrences matches {0..1} matches {	-- ptcml-score
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0098, 	-- 0
+															at0099]	-- 1
+														}
+													}
+												}
+											}
+										}
+									}
+									ELEMENT[at0081] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Banff-Klassifikation 2019">
+					description = <"Zur Darstellung der nephropathologischen Begutachtung der Transplantatnierenbiopsie nach der Banff-Klassifikation von 2019.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardmäßiger, nicht näher beschriebener Zeitpunkt oder Intervall Ereignis welches in einem Template oder bei der Anwendung genauer definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Banff-Klassifizierung der Läsionen">
+					description = <"Die Banff-Klassifizierung der Läsionen.">
+				>
+				["at0005"] = <
+					text = <"v-score">
+					description = <"Quantitative Kriterien für die Entzündung in der arteriellen Intima.">
+				>
+				["at0006"] = <
+					text = <"i-score">
+					description = <"Quantitative Kriterien für Entzündungen.">
+				>
+				["at0007"] = <
+					text = <"t-score">
+					description = <"Quantitative Kriterien für Tubulitis.">
+				>
+				["at0008"] = <
+					text = <"g-score">
+					description = <"Quantitative Kriterien für Glomerulitis.">
+				>
+				["at0009"] = <
+					text = <"ptc-score">
+					description = <"Quantitative Kriterien für die peritubuläre Kapillaritis.">
+				>
+				["at0010"] = <
+					text = <"ti-score">
+					description = <"Quantitative Kriterien für die Gesamtentzündung.">
+				>
+				["at0011"] = <
+					text = <"i-IFTA-score">
+					description = <"Quantitative Kriterien für Entzündungen im Bereich der interstitiellen Fibrose und tubulären Atrophie.">
+				>
+				["at0012"] = <
+					text = <"c4d-score">
+					description = <"Qualitative Kriterien für C4d.">
+				>
+				["at0013"] = <
+					text = <"cg-score">
+					description = <"Quantitative Kriterien für die Doppelkonturen der glomerulären Basalmembran (GBM).">
+				>
+				["at0014"] = <
+					text = <"mm-score">
+					description = <"Quantitative Kriterien für die mesangiale Matrixerweiterung.">
+				>
+				["at0015"] = <
+					text = <"ah-score">
+					description = <"Quantitative Kriterien für die arterioläre Hyalinose.">
+				>
+				["at0016"] = <
+					text = <"aah-score">
+					description = <"Alternative quantitative Kriterien für die hyalin-arterioläre Verdickung.">
+				>
+				["at0017"] = <
+					text = <"cv-score">
+					description = <"Quantitative Kriterien für die vaskuläre faserige Intimaverdickung.">
+				>
+				["at0018"] = <
+					text = <"ci-score">
+					description = <"Quantitative Kriterien für die interstitielle Fibrose.">
+				>
+				["at0019"] = <
+					text = <"ct-score">
+					description = <"Quantitative Kriterien für die tubuläre Atrophie.">
+				>
+				["at0020"] = <
+					text = <"0">
+					description = <"Keine Arteriitis.">
+				>
+				["at0021"] = <
+					text = <"1">
+					description = <"Leichte bis mittelschwere Arteriitis der Intima in mindestens einem arteriellen Querschnitt. <25% des Lumens ist obliteriert.">
+				>
+				["at0022"] = <
+					text = <"2">
+					description = <"Mäßige Arteriitis der Intima mit mindestens 25% Lumenverlust in mindestens 1 Arterienquerschnitt.">
+				>
+				["at0023"] = <
+					text = <"3">
+					description = <"Schwere transmurale Arteriitis und/oder arterielle Fibrinoidveränderung und mediale Nekrose der glatten Muskulatur mit lymphozytärer Infiltrate im Gefäß.">
+				>
+				["at0024"] = <
+					text = <"0">
+					description = <"Keine Entzündung oder in <10% des nicht vernarbten kortikalen Parenchyms.">
+				>
+				["at0025"] = <
+					text = <"1">
+					description = <"Entzündung in 10-25% des nicht vernarbten kortikalen Parenchyms.">
+				>
+				["at0026"] = <
+					text = <"2">
+					description = <"Entzündung in 26-50% des nicht vernarbten kortikalen Parenchyms.">
+				>
+				["at0027"] = <
+					text = <"3">
+					description = <"Entzündung in >50% des nicht vernarbten kortikalen Parenchyms.">
+				>
+				["at0028"] = <
+					text = <"0">
+					description = <"Keine mononukleären Zellen in den Tubuli oder nur ein einziger Infektionsherd.">
+				>
+				["at0029"] = <
+					text = <"1">
+					description = <"Foci mit 1-4 mononukleären Zellen pro Tubulusquerschnitt (oder 10 Tubulusepithelien).">
+				>
+				["at0030"] = <
+					text = <"2">
+					description = <"Foci mit 5-10 mononukleären Zellen pro Tubulusquerschnitt (oder 10 Tubulusepithelien).">
+				>
+				["at0031"] = <
+					text = <"3">
+					description = <"Foci mit >10 mononukleären Zellen pro Tubulusquerschnitt oder das Vorhandensein von ≥2 Bereichen mit Destruktion der tubulären Basalmembran begleitet von interstitieller Entzündung (i2/i3) und t2-Tubulitis an anderer Stelle derselben Biopsie.">
+				>
+				["at0032"] = <
+					text = <"0">
+					description = <"Keine Glomerulitis.">
+				>
+				["at0033"] = <
+					text = <"1">
+					description = <"Segmentale oder globale Glomerulitis bei <25% der Glomeruli.">
+				>
+				["at0034"] = <
+					text = <"2">
+					description = <"Segmentale oder globale Glomerulitis bei 25-75% der Glomeruli.">
+				>
+				["at0035"] = <
+					text = <"3">
+					description = <"Segmentale oder globale Glomerulitis bei >75% der Glomeruli.">
+				>
+				["at0036"] = <
+					text = <"0">
+					description = <"Maximale Anzahl von Leukozyten <3.">
+				>
+				["at0037"] = <
+					text = <"1">
+					description = <"Mindestens eine Leukozytenzelle in ≥10% der kortikalen peritubulären Kapillaren (PTCs) mit 3-4 Leukozyten in den am stärksten betroffenen peritubulären Kapillaren.">
+				>
+				["at0038"] = <
+					text = <"2">
+					description = <"Mindestens ein Leukozyt in ≥10% der kortikalen peritubulären Kapillaren (PTCs) mit 5-10 Leukozyten in den am stärksten betroffenen peritubulären Kapillaren.">
+				>
+				["at0039"] = <
+					text = <"3">
+					description = <"Mindestens ein Leukozyt in ≥10% der kortikalen peritubulären Kapillaren (PTCs) mit >10 Leukozyten in den am stärksten betroffenen peritubulären Kapillaren.">
+				>
+				["at0040"] = <
+					text = <"0">
+					description = <"Keine oder triviale interstitielle Entzündung (<10% des gesamten kortikalen Parenchyms).">
+				>
+				["at0041"] = <
+					text = <"1">
+					description = <"10-25% des gesamten kortikalen Parenchyms sind entzündet.">
+				>
+				["at0042"] = <
+					text = <"2">
+					description = <"26-50% des gesamten kortikalen Parenchyms sind entzündet.">
+				>
+				["at0043"] = <
+					text = <"3">
+					description = <">50% des gesamten kortikalen Parenchyms entzündet.">
+				>
+				["at0044"] = <
+					text = <"0">
+					description = <"Keine Entzündung oder <10% des vernarbten kortikalen Parenchyms.">
+				>
+				["at0045"] = <
+					text = <"1">
+					description = <"Entzündung bei 10-25% des vernarbten kortikalen Parenchyms.">
+				>
+				["at0046"] = <
+					text = <"2">
+					description = <"Entzündung bei 26-50% des vernarbten kortikalen Parenchyms.">
+				>
+				["at0047"] = <
+					text = <"3">
+					description = <"Entzündung bei >50% des vernarbten kortikalen Parenchyms.">
+				>
+				["at0048"] = <
+					text = <"0">
+					description = <"Keine Färbung von peritubulären Kapillaren (PTCs) und medullärer Vasa recta (0%).">
+				>
+				["at0049"] = <
+					text = <"1">
+					description = <"Minimale C4d-Färbung (>0 aber <10% der peritubulären Kapillaren (PTCs) und der medullären Vasa recta).">
+				>
+				["at0050"] = <
+					text = <"2">
+					description = <"Fokale C4d-Färbung (10-50% der peritubulären Kapillaren (PTCs) und der medullären Vasa recta).">
+				>
+				["at0051"] = <
+					text = <"3">
+					description = <"Partielle C4d-Färbung (>50% der peritubulären Kapillaren (PTCs) und der medullären Vasa recta).">
+				>
+				["at0052"] = <
+					text = <"0">
+					description = <"Keine GBM-Doppelkonturen durch Lichtmikroskopie (LM) oder Elektronenmikroskopie (EM) darstellbar.">
+				>
+				["at0053"] = <
+					text = <"1a">
+					description = <"Keine GBM-Doppelkonturen durch Lichtmikroskopie (LM) darstellbar, sondern (unvollständige oder umlaufende) GBM-Doppelkonturen in mindestens drei glomerulären Kapillaren durch Elektronenmikroskopie (EM) darstellbar, mit assoziierter endothelialer Schwellung und/oder subendothelialer elektronenluzenter Verbreiterung.">
+				>
+				["at0054"] = <
+					text = <"1b">
+					description = <"Doppelkonturen der GBM in 1-25% der Kapillarschlaufen im am stärksten von Lichtmikroskopie (LM) betroffenen nicht sklerotischen Glomerulus (Elektronenmikroskopie (EM) wird empfohlen).">
+				>
+				["at0055"] = <
+					text = <"2">
+					description = <"Doppelkonturen in 26–50% der peripheren Kapillarschlaufen des am stärksten betroffenen Glomerulus.">
+				>
+				["at0056"] = <
+					text = <"3">
+					description = <"Doppelkonturen in >50% der peripheren Kapillarschlaufen des am stärksten betroffenen Glomerulus.">
+				>
+				["at0057"] = <
+					text = <"0">
+					description = <"Keine oder leichte mesangiale Expansion in jedem Glomerulus.">
+				>
+				["at0058"] = <
+					text = <"1">
+					description = <"Mindestens moderate mesangiale Matrixzunahme von bis zu 25% der nicht sklerotischen Glomeruli.">
+				>
+				["at0059"] = <
+					text = <"2">
+					description = <"Mindestens moderate mesangiale Matrixzunahme in 26-50% der nicht sklerotischen Glomeruli.">
+				>
+				["at0060"] = <
+					text = <"3">
+					description = <"Mindestens moderate mesangiale Matrixzunahme von >50% der nicht sklerotischen Glomeruli.">
+				>
+				["at0061"] = <
+					text = <"0">
+					description = <"Keine PAS-positive hyaline arterioläre Verdickung.">
+				>
+				["at0062"] = <
+					text = <"1">
+					description = <"Leichte bis moderate PAS-positive Hyalinisierung der Arteriolen in mindestens einer Arteriole.">
+				>
+				["at0063"] = <
+					text = <"2">
+					description = <"Mäßige bis schwere PAS-positive Hyalinisierung der Arteriolen in mehr als einer Arteriole.">
+				>
+				["at0064"] = <
+					text = <"3">
+					description = <"Schwere PAS-positive Hyalinisierung der Arteriolen in vielen Arteriolen.">
+				>
+				["at0065"] = <
+					text = <"0">
+					description = <"Keine typischen Läsionen der Calcineurinhemmer-bezogenen Arteriolopathie.">
+				>
+				["at0066"] = <
+					text = <"1">
+					description = <"Ersatz von degenerierten glatten Muskelzellen durch hyaline Ablagerungen in nur einer Arteriole, ohne Einnahme/Beteiligung der Zirkumferenz.">
+				>
+				["at0067"] = <
+					text = <"2">
+					description = <"Ersatz degenerierte glatter Muskelzellen durch hyaline Ablagerungen in mehr als einer Arteriole, ohne Einnahme/Beteiligung der Zirkumferenz.">
+				>
+				["at0068"] = <
+					text = <"3">
+					description = <"Ersatz degenerierter glatter Muskelzellen durch hyaline Ablagerungen mit Einnahme/Beteiligung der Zirkumferenz, unabhängig von der Anzahl der beteiligten Arteriolen.">
+				>
+				["at0069"] = <
+					text = <"0">
+					description = <"Keine chronischen vaskulären Veränderungen.">
+				>
+				["at0070"] = <
+					text = <"1">
+					description = <"Gefäßverengung von bis zu 25% der Lumenfläche durch fibrointimale Verdickung.">
+				>
+				["at0071"] = <
+					text = <"2">
+					description = <"Gefäßverengung von 26-50% der Lumenfläche durch fibrointimale Verdickung.">
+				>
+				["at0072"] = <
+					text = <"3">
+					description = <"Gefäßverengung von >50% der Lumenfläche durch fibrointimale Verdickung.">
+				>
+				["at0073"] = <
+					text = <"0">
+					description = <"Interstitielle Fibrose in bis zu 5% der kortikalen Fläche.">
+				>
+				["at0074"] = <
+					text = <"1">
+					description = <"Interstitielle Fibrose in 6-25% der kortikalen Zone (leichte interstitielle Fibrose).">
+				>
+				["at0075"] = <
+					text = <"2">
+					description = <"Interstitielle Fibrose in 26-50% der kortikalen Zone (moderate interstitielle Fibrose).">
+				>
+				["at0076"] = <
+					text = <"3">
+					description = <"Interstitielle Fibrose in >50% der kortikalen Zone (schwere interstitielle Fibrose).">
+				>
+				["at0077"] = <
+					text = <"0">
+					description = <"Keine tubuläre Atrophie.">
+				>
+				["at0078"] = <
+					text = <"1">
+					description = <"Tubuläre Atrophie, die bis zu 25% der Fläche der kortikalen Tubuli einnimmt (milde tubuläre Atrophie).">
+				>
+				["at0079"] = <
+					text = <"2">
+					description = <"Tubuläre Atrophie, die 26-50% der Fläche der kortikalen Tubuli einnimmt (moderate tubuläre Atrophie).">
+				>
+				["at0080"] = <
+					text = <"3">
+					description = <"Tubuläre Atrophie, die in >50% der Fläche der kortikalen Tubuli involviert ist (schwere tubuläre Atrophie).">
+				>
+				["at0081"] = <
+					text = <"Kommentar">
+					description = <"Eine zusätzliche Beschreibung der Banff-Klassifikation, die in anderen Bereichen nicht erfasst werden konnte.">
+				>
+				["at0082"] = <
+					text = <"Banff-Kategorie">
+					description = <"Angabe der Banff-Kategorie und jeweiliger Beschreibung bzw. Ausprägung.">
+				>
+				["at0083"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung der möglichen Ausprägungen der Banff Kategorien.">
+					comment = <"Zum Beispiel: Grad I oder Typ IIA.">
+				>
+				["at0084"] = <
+					text = <"Kategorie">
+					description = <"Die Angabe der genauen Banff-Kategorie.">
+				>
+				["at0085"] = <
+					text = <"1">
+					description = <"Normale Biopsie oder unspezifische Veränderungen.">
+				>
+				["at0086"] = <
+					text = <"2">
+					description = <"Antikörpervermittelte Abstoßung (ABMR).">
+				>
+				["at0087"] = <
+					text = <"3">
+					description = <"Borderline-Veränderungen für akute T-Zell-vermittelte Abstoßung (TCMR).">
+				>
+				["at0088"] = <
+					text = <"4">
+					description = <"T-Zell-vermittelte Abstoßung (TCMR).">
+				>
+				["at0089"] = <
+					text = <"5">
+					description = <"Polyomavirus-Nephritis.">
+				>
+				["at0091"] = <
+					text = <"t-IFTA-score">
+					description = <"Quantitative Kriterien für Tubulitis in Tubuli innerhalb des vernarbten Kortex.">
+				>
+				["at0092"] = <
+					text = <"pvl-score">
+					description = <"Quantitative Kriterien für die intrarenale Polyomavirus-Belastung.">
+				>
+				["at0093"] = <
+					text = <"ptcml-score">
+					description = <"Quantitative Kriterien für ultrastrukturelles Multilayering der peritubulären Kapillarbasalmembranen (erfordert Elektronenmikroskopie (EM)).">
+				>
+				["at0094"] = <
+					text = <"0">
+					description = <"Keine.">
+				>
+				["at0095"] = <
+					text = <"1">
+					description = <"Mild, 1-4 mononukleare Leukozyten pro Tubulusquerschnitt oder 10 tubuläre Epithelzellen in den am stärksten betroffenen Tubuli.">
+				>
+				["at0096"] = <
+					text = <"2">
+					description = <"Mäßig, 5-10 mononukleare Leukozyten.">
+				>
+				["at0097"] = <
+					text = <"3">
+					description = <"Schwer, >10 mononukleare Leukozyten.">
+				>
+				["at0098"] = <
+					text = <"0">
+					description = <"Kriterien werden nicht erfüllt.">
+				>
+				["at0099"] = <
+					text = <"1">
+					description = <"≥7 Basalmembranschichten in den am stärksten betroffenen peritubuläre Kapillaren (PTCs) und ≥5 Schichten in zwei weiteren peritubuläre Kapillaren (PTCs).">
+				>
+				["at0100"] = <
+					text = <"0">
+					description = <"Keine intrarenale Polyomavirus-Belastung.">
+				>
+				["at0101"] = <
+					text = <"1">
+					description = <"Milde, positive Zellen in ≤1% der Tubuli.">
+				>
+				["at0102"] = <
+					text = <"2">
+					description = <"Mäßig, >1% und <10%.">
+				>
+				["at0103"] = <
+					text = <"3">
+					description = <"Schwer, ≥10%.">
+				>
+			>
+		>
+	>
