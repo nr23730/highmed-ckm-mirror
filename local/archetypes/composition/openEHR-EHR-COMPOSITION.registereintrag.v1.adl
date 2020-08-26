@@ -1,0 +1,83 @@
+﻿archetype (adl_version=1.4; uid=e4a99e44-db93-4dc9-962f-264965e4b892)
+	openEHR-EHR-COMPOSITION.registereintrag.v1
+
+concept
+	[at0000]	-- Registereintrag
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"MHH-Hannover">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2020-08-25">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation eines Registereintrages, welcher eine Strukturierte Samllung von Informationen von COVID-19 Personendaten gibt. ">
+			use = <"Diese Datensatzzusammensetzung ermöglicht die Repräsentation von Forschungsdaten der GECCO-Datensätze. ">
+			keywords = <"COVID-19", "GECCO", "SARS-CoV-2", "Coronavirus ", "Virus", "Forschungszwecke", "Register", "Registereintrag">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Antje Wulff", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Simplifier: https://simplifier.net/forschungsnetzcovid-19/~resources?category=Profile
+GECCO: http://cocos.team/datasets.html
+">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"34DE2220DB30D4D45B8C57D2971897DA">
+		["build_uid"] = <"07131a3b-d717-401a-b4a5-e4126626ae1b">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Registereintrag
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Baum
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Erweiterung
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registereintrag">
+					description = <"Generische Zusammenstellung zur Darstellung eines Datensatzes für Forschungszwecke. ">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Erweiterung">
+					description = <"Ergänzende Angaben zum Registereintrag. ">
+				>
+			>
+		>
+	>
