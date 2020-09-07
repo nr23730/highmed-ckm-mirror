@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
-  <id>3df2097e-2eee-412a-8f2c-d969743b17fc</id>
+  <id>b943b98e-087b-4bae-b376-a88284fb9dc2</id>
   <name>Klinische Frailty-Skala</name>
   <description>
     <original_author>
       <item>
-        <key>Name</key>
+        <key>Name </key>
         <value>Sarah Ballout</value>
       </item>
       <item>
@@ -13,15 +13,24 @@
         <value>ballout.sarah@mh-hannover.de</value>
       </item>
       <item>
-        <key>Organisation</key>
-        <value>MHH-Hannover</value>
+        <key>Organisation </key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
       </item>
     </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Darstellung der Klinische Frailty-Skala von COVID-19  Patienten.</purpose>
-      <use>Zur Repräsentation der Scores für die Klinische Frailty-Skala bei COVID-19 Patienten verwenden.</use>
-      <misuse>Nicht zur Darstellung anderer Scores gedacht.</misuse>
+      <purpose>Zur Repräsentation von Klinischen Frailty-Skala Werte im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>Klinische Frailty Skala</item>
+        <item>CFS</item>
+      </keywords>
+      <use>Für die Abbildung Klinischer Frailty-Skala Werte für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatze.</use>
+      <misuse>Nicht zur Repräsentation anderer Scores verwenden.</misuse>
     </details>
     <other_details>
       <item>
@@ -74,25 +83,16 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v0" concept_name="Klinische Frailty-Skala (CFS)" path="/content" />
-    <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" min="1" path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0001]" min="1" />
-        <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
-      </Items>
-      <Rule path="/context/other_context[at0001]/items[at0002]" min="1" name="Bericht Name " />
-    </Context>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Klinische Frailty-Skala">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1" concept_name="Klinische Frailty-Skala (CFS)" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="1" />
+    </Content>
+    <Context />
   </definition>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
-    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1">
+    <digest id="MD5-CAM-1.0.1">34DE2220DB30D4D45B8C57D2971897DA</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
-    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
-  </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v0">
-    <digest id="MD5-CAM-1.0.1">8A3D6DAAC1BF88AF17F61BF65957CB0E</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1">
+    <digest id="MD5-CAM-1.0.1">C5464637C93F73E369071B9AD3803C79</digest>
   </integrity_checks>
 </template>
