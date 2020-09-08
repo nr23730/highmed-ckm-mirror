@@ -33,26 +33,46 @@ GECCO: http://cocos.team/datasets.html
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"34DE2220DB30D4D45B8C57D2971897DA">
-		["build_uid"] = <"07131a3b-d717-401a-b4a5-e4126626ae1b">
-		["revision"] = <"1.0.0">
+		["MD5-CAM-1.0.1"] = <"515C91F8EE30D3AADE88BBBA2F073D9B">
+		["build_uid"] = <"118aef79-d993-48d7-a202-946c958f0950">
+		["revision"] = <"1.0.1">
 	>
 
 definition
-	COMPOSITION[at0000] matches {	-- Registereintrag
+	COMPOSITION[at0000] matches {    -- Registereintrag
 		category matches {
 			DV_CODED_TEXT matches {
-				defining_code matches {[openehr::433]}
+				defining_code matches {
+					[openehr::433]
+				}
 			}
 		}
 		context matches {
 			EVENT_CONTEXT matches {
 				other_context matches {
-					ITEM_TREE[at0001] matches {	-- Baum
+					ITEM_TREE[at0001] matches {    -- Baum
 						items cardinality matches {0..*; unordered} matches {
-							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Erweiterung
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {    -- Erweiterung
 								include
 									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {    -- Status
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0006,    -- registered
+											at0007,    -- preliminary
+											at0008,    -- final
+											at0009]    -- amended
+										}
+									}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {    -- Kategorie
+								value matches {
+									DV_TEXT matches {*}
+								}
 							}
 						}
 					}
@@ -77,6 +97,30 @@ ontology
 				["at0002"] = <
 					text = <"Erweiterung">
 					description = <"Ergänzende Angaben zum Registereintrag. ">
+				>
+				["at0004"] = <
+					text = <"Status">
+					description = <"Status der gelieferten Daten für den Registereintrag. Hinweis: Dies ist nicht der Status einzelner Komponenten.">
+				>
+				["at0005"] = <
+					text = <"Kategorie">
+					description = <"Die Klassifikation des Registereintrags (z.B. Typ der Observation des FHIR-Profils).">
+				>
+				["at0006"] = <
+					text = <"registered">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"preliminary">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"final">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"amended">
+					description = <"">
 				>
 			>
 		>
