@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
-  <id>b943b98e-087b-4bae-b376-a88284fb9dc2</id>
-  <name>Klinische Frailty-Skala</name>
+  <id>a02d5081-d6cb-4793-ab2d-c6675d82e1a3</id>
+  <name>Körpergewicht </name>
   <description>
     <original_author>
       <item>
-        <key>Name </key>
+        <key>Name</key>
         <value>Sarah Ballout</value>
       </item>
       <item>
@@ -13,7 +13,7 @@
         <value>ballout.sarah@mh-hannover.de</value>
       </item>
       <item>
-        <key>Organisation </key>
+        <key>Organisation</key>
         <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
       </item>
     </original_author>
@@ -22,15 +22,14 @@
     </other_contributors>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Repräsentation von Klinischen Frailty-Skala Werte im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
+      <purpose>Zur Repräsentation des Körpergewichtes im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
       <keywords>
         <item>GECCO</item>
         <item>NUM</item>
-        <item>Klinische Frailty Skala</item>
-        <item>CFS</item>
+        <item>Körpergewicht</item>
       </keywords>
-      <use>Für die Abbildung Klinischer Frailty-Skala Werte für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatze.</use>
-      <misuse>Nicht zur Repräsentation anderer Scores verwenden.</misuse>
+      <use>Für die Abbildung des Körpergewicht-Wertes für die Speicherung im Rahmen des NUM-Projektes / GECCO-Datensatzes.</use>
+      <misuse>Nicht zur Repräsentation zur Berechnung des Body Mass Index verwenden.</misuse>
     </details>
     <other_details>
       <item>
@@ -83,16 +82,26 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Klinische Frailty-Skala">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1" concept_name="Klinische Frailty-Skala (CFS)" max="1" path="/content">
-      <Rule path="/data[at0001]/events[at0002]" max="1" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Körpergewicht">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]" max="1" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>[lb_av]</excludedUnits>
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
+      <Rule path="/data[at0002]/events[at0026]" max="0" />
     </Content>
     <Context />
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1">
     <digest id="MD5-CAM-1.0.1">515C91F8EE30D3AADE88BBBA2F073D9B</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1">
-    <digest id="MD5-CAM-1.0.1">C5464637C93F73E369071B9AD3803C79</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2">
+    <digest id="MD5-CAM-1.0.1">87C7C42F0886971EA090D4CE1144DD56</digest>
   </integrity_checks>
 </template>
