@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
-  <id>2d8bb743-256b-4038-ad9f-f91fe98daf9f</id>
-  <name>SmICS-Befund</name>
+  <id>d402e29c-be0a-4bfd-aba6-679b0b41f7b0</id>
+  <name>SmICS-Befund </name>
   <description>
     <original_author>
       <item>
         <key>Name</key>
-        <value>Sarah Ballout</value>
+        <value>Sarah Ballout </value>
       </item>
       <item>
         <key>Email</key>
@@ -22,9 +22,17 @@
     </other_contributors>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
-      <use />
-      <misuse />
+      <purpose>Template dient dazu einen SmICS-Befund strukturiert wiederzugeben. Wichtige Informationen über die Anzahl der Erreger werden mit erfasst. </purpose>
+      <keywords>
+        <item>SmICS</item>
+        <item>Erreger</item>
+        <item>Infektionsweg</item>
+        <item>Übertragung</item>
+        <item>Keime</item>
+        <item>Molekulare Typisierung</item>
+      </keywords>
+      <use>Für die Abbildung eines SmICS-Befundes mit den unterschiedlichen Ergebniskategorien, Erregeranzahl und Infektionswege sowie den zugehörigen Antibiogrammen.</use>
+      <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.</misuse>
     </details>
     <other_details>
       <item>
@@ -77,9 +85,28 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.personendetails_kontaktverfolgung.v0" concept_name="Personendetails Kontaktverfolgung">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.smics_befund.v0" concept_name="SmICS-Ergebnis" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0016]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="SmICS Befund ">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.smics_befund.v1" concept_name="SmICS-Ergebnis" max="1" min="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" min="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" min="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]" min="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0014]" max="1">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Patient zu Patient</includedValues>
+          <includedValues>Personal auf Patient</includedValues>
+          <includedValues>Punktquelle in der Umwelt</includedValues>
+          <includedValues>Andere</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0013]" max="1">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Kontaktübertragung</includedValues>
+          <includedValues>Tröpfchenübertragung</includedValues>
+          <includedValues>Aaerogene Übertragung</includedValues>
+          <includedValues>Andere</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0016]" max="1">
         <constraint xsi:type="textConstraint">
           <includedValues>SNOMED-CT::113714003::Abiotrophia defectiva (organism)</includedValues>
           <includedValues>SNOMED-CT::413414001::Achromobacter denitrificans (organism)</includedValues>
@@ -710,32 +737,269 @@
         </constraint>
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]">
-        <Rule path="/items[at0048]" max="0" />
+        <Rule path="/items[at0048]" min="1" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1" concept_name="Erregerdetails" path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0018]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.molekulare_typisierung.v0" concept_name="Molekulare Typisierung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0019]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1" concept_name="Erregerdetails" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0018]">
+        <Rule path="/items[at0057]/items[at0017]" max="1" />
+        <Rule path="/items[at0057]/items[at0063]" max="0" />
+        <Rule path="/items[at0062]" max="1" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" max="1" path="/items[at0064]" name="Antibiogramm">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" min="1" path="/items[at0013]">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0024]" min="1" name="Antibiotikum">
+              <constraint xsi:type="textConstraint" limitToList="false">
+                <includedValues>LOINC::18862-3::Amoxycillin/Clavulansäure</includedValues>
+                <includedValues>LOINC::18860-7::Amikacin</includedValues>
+                <includedValues>LOINC::18864-9::Ampicillin</includedValues>
+                <includedValues>LOINC::18861-5::Amoxicillin</includedValues>
+                <includedValues>LOINC::57095-2::Anidulafungin</includedValues>
+                <includedValues>LOINC::18868-0::Aztreonam</includedValues>
+                <includedValues>LOINC::18867-2::Azlocillin</includedValues>
+                <includedValues>LOINC::18866-4::Azithromycin</includedValues>
+                <includedValues>LOINC::73606-6::Besifloxacin</includedValues>
+                <includedValues>LOINC::43272-4::Ceftobiprol</includedValues>
+                <includedValues>LOINC::32377-4::Cefetamet</includedValues>
+                <includedValues>LOINC::18893-8::Ceftazidim</includedValues>
+                <includedValues>LOINC::35776-4::Ceftazidim/Clavulansäure</includedValues>
+                <includedValues>LOINC::23636-4::Cefdinir</includedValues>
+                <includedValues>LOINC::18874-8::Cefaclor</includedValues>
+                <includedValues>LOINC::18900-1::Cephalothin</includedValues>
+                <includedValues>LOINC::18880-5::Cefixim</includedValues>
+                <includedValues>LOINC::18884-7::Cefoperazon</includedValues>
+                <includedValues>LOINC::18875-5::Cefadroxil</includedValues>
+                <includedValues>LOINC::18903-5::Chloramphenicol</includedValues>
+                <includedValues>LOINC::18883-9::Cefonicid</includedValues>
+                <includedValues>LOINC::18905-0::Cinoxacin</includedValues>
+                <includedValues>LOINC::18906-8::Ciprofloxacin</includedValues>
+                <includedValues>LOINC::18908-4::Clindamycin</includedValues>
+                <includedValues>LOINC::18907-6::Clarithromycin</includedValues>
+                <includedValues>LOINC::32376-6::Clinafloxacin</includedValues>
+                <includedValues>LOINC::18881-3::Cefmetazol</includedValues>
+                <includedValues>LOINC::18912-6::Colistin</includedValues>
+                <includedValues>LOINC::73604-1::Ceftarolin/Avibactam</includedValues>
+                <includedValues>LOINC::18890-4::Cefpodoxim</includedValues>
+                <includedValues>LOINC::18891-2::Cefprozil</includedValues>
+                <includedValues>LOINC::73605-8::Ceftarolin</includedValues>
+                <includedValues>LOINC::18873-0::Carbenicillin</includedValues>
+                <includedValues>LOINC::18895-3::Ceftriaxon</includedValues>
+                <includedValues>LOINC::35779-8::Ceftibuten</includedValues>
+                <includedValues>LOINC::35771-5::Cefotaxim/Clavulansäure</includedValues>
+                <includedValues>LOINC::18887-0::Cefotetan</includedValues>
+                <includedValues>LOINC::18886-2::Cefotaxim</includedValues>
+                <includedValues>LOINC::51724-3::Cefuroxim</includedValues>
+                <includedValues>LOINC::73603-3::Ceftazidim/Avibactam</includedValues>
+                <includedValues>LOINC::18878-9::Cefazolin</includedValues>
+                <includedValues>LOINC::73602-5::Ceftolozan/Tazobactam</includedValues>
+                <includedValues>LOINC::18894-6::Ceftizoxim</includedValues>
+                <includedValues>LOINC::41734-5::Dalbavancin</includedValues>
+                <includedValues>LOINC::73601-7::Danofloxacin</includedValues>
+                <includedValues>LOINC::35789-7::Daptomycin</includedValues>
+                <includedValues>LOINC::35792-1::Difloxacin</includedValues>
+                <includedValues>LOINC::35795-4::Dirithromycin</includedValues>
+                <includedValues>LOINC::35762-4::Cefditoren</includedValues>
+                <includedValues>LOINC::60535-2::Doripenem</includedValues>
+                <includedValues>LOINC::18917-5::Doxycyclin</includedValues>
+                <includedValues>LOINC::18918-3::Enoxacin</includedValues>
+                <includedValues>LOINC::18919-1::Erythromycin</includedValues>
+                <includedValues>LOINC::35802-8::Ertapenem</includedValues>
+                <includedValues>LOINC::73600-9::Faropenem</includedValues>
+                <includedValues>LOINC::18855-7::5-Fluorocytosin</includedValues>
+                <includedValues>LOINC::73599-3::Fidaxomicin</includedValues>
+                <includedValues>LOINC::18879-7::Cefepim</includedValues>
+                <includedValues>LOINC::73598-5::Finafloxacin</includedValues>
+                <includedValues>LOINC::32372-5::Fleroxacin</includedValues>
+                <includedValues>LOINC::23740-4::Florfenicol</includedValues>
+                <includedValues>LOINC::18924-1::Fluconazol</includedValues>
+                <includedValues>LOINC::25596-8::Fosfomycin</includedValues>
+                <includedValues>LOINC::18888-8::Cefoxitin</includedValues>
+                <includedValues>LOINC::18927-4::Fusidinsäure</includedValues>
+                <includedValues>LOINC::18863-1::Amphotericin B</includedValues>
+                <includedValues>LOINC::18870-6::Bacitracin</includedValues>
+                <includedValues>LOINC::6984-9::ESBL - Testung</includedValues>
+                <includedValues>LOINC::18938-1::Lincomycin</includedValues>
+                <includedValues>LOINC::6985-6::Nitrocephin</includedValues>
+                <includedValues>LOINC::10697-1::Nystatin</includedValues>
+                <includedValues>LOINC::18978-7::Roxithromycin</includedValues>
+                <includedValues>LOINC::31038-3::Gatifloxacin</includedValues>
+                <includedValues>LOINC::18929-0::Gentamicin High-Level</includedValues>
+                <includedValues>LOINC::35816-8::Gemifloxacin</includedValues>
+                <includedValues>LOINC::18928-2::Gentamicin</includedValues>
+                <includedValues>LOINC::35813-5::Garenoxacin</includedValues>
+                <includedValues>LOINC::23638-0::Grepafloxacin</includedValues>
+                <includedValues>LOINC::88703-4::Bedaquiline</includedValues>
+                <includedValues>LOINC::18892-0::Cefsulodin</includedValues>
+                <includedValues>LOINC::23627-3::Clofazimin</includedValues>
+                <includedValues>LOINC::18914-2::Cycloserin</includedValues>
+                <includedValues>LOINC::25597-6::Josamycin</includedValues>
+                <includedValues>LOINC::55614-2::Sulbactam</includedValues>
+                <includedValues>LOINC::18872-2::Capreomycin</includedValues>
+                <includedValues>LOINC::76143-7::Cefcapen</includedValues>
+                <includedValues>LOINC::18889-6::Cefpirom</includedValues>
+                <includedValues>LOINC::76144-5::Cefteram</includedValues>
+                <includedValues>LOINC::32374-1::Cefotiam</includedValues>
+                <includedValues>LOINC::54185-4::Caspofungin (E-Test)</includedValues>
+                <includedValues>LOINC::85048-7::Micafungin (E-Test)</includedValues>
+                <includedValues>LOINC::54186-2::Posaconazol (E-Test)</includedValues>
+                <includedValues>LOINC::18923-3::Flucloxacillin</includedValues>
+                <includedValues>LOINC::23629-9::para-Amino-Salicylsäure</includedValues>
+                <includedValues>LOINC::32383-2::Pristinamycin</includedValues>
+                <includedValues>LOINC::19149-4::Rifabutin</includedValues>
+                <includedValues>LOINC::54166-4::Cefoperazon/Sulbactam</includedValues>
+                <includedValues>LOINC::18991-0::Temocillin</includedValues>
+                <includedValues>LOINC::76146-0::Tosufloxacin</includedValues>
+                <includedValues>LOINC::531-4::Zidovudin</includedValues>
+                <includedValues>LOINC::30302-4::Stavudin</includedValues>
+                <includedValues>LOINC::30301-6::Zalcitabin</includedValues>
+                <includedValues>LOINC::30300-8::Didanosin</includedValues>
+                <includedValues>LOINC::30298-4::Lamivudin</includedValues>
+                <includedValues>LOINC::18921-7::Ethambutol</includedValues>
+                <includedValues>LOINC::18934-0::Isoniazid</includedValues>
+                <includedValues>LOINC::256-8::Foscarnet</includedValues>
+                <includedValues>LOINC::54197-9::Piperacillin/Sulbactam</includedValues>
+                <includedValues>LOINC::63565-6::Protionamid</includedValues>
+                <includedValues>LOINC::18973-8::Pyrazinamid</includedValues>
+                <includedValues>LOINC::73597-7::Iclaprim</includedValues>
+                <includedValues>LOINC::18932-4::Imipenem</includedValues>
+                <includedValues>LOINC::88887-5::Isavuconazol</includedValues>
+                <includedValues>LOINC::32603-3::Itraconazol</includedValues>
+                <includedValues>LOINC::18936-5::Kanamycin-High</includedValues>
+                <includedValues>LOINC::18935-7::Kanamycin</includedValues>
+                <includedValues>LOINC::18897-9::Cephalexin</includedValues>
+                <includedValues>LOINC::29258-1::Linezolid</includedValues>
+                <includedValues>LOINC::18939-9::Lomefloxacin</includedValues>
+                <includedValues>LOINC::18940-7::Loracarbef</includedValues>
+                <includedValues>LOINC::20629-2::Levofloxacin</includedValues>
+                <includedValues>LOINC::18876-3::Cefamandol</includedValues>
+                <includedValues>LOINC::18859-9::Mecillinam (Amdinocillin)</includedValues>
+                <includedValues>LOINC::18943-1::Meropenem</includedValues>
+                <includedValues>LOINC::18945-6::Methicillin</includedValues>
+                <includedValues>LOINC::88892-5::Meropenem/Vaborbactam</includedValues>
+                <includedValues>LOINC::18947-2::Mezlocillin</includedValues>
+                <includedValues>LOINC::31039-1::Moxifloxacin</includedValues>
+                <includedValues>LOINC::18948-0::Minocyclin</includedValues>
+                <includedValues>LOINC::18950-6::Moxalactam (Latamoxef)</includedValues>
+                <includedValues>LOINC::18946-4::Metronidazol</includedValues>
+                <includedValues>LOINC::20389-3::Mupirocin</includedValues>
+                <includedValues>LOINC::18951-4::Nafcillin</includedValues>
+                <includedValues>LOINC::18952-2::Nalidixinsäure</includedValues>
+                <includedValues>LOINC::18953-0::Neomycin</includedValues>
+                <includedValues>LOINC::18954-8::Netilmicin</includedValues>
+                <includedValues>LOINC::18955-5::Nitrofurantoin</includedValues>
+                <includedValues>LOINC::18956-3::Norfloxacin</includedValues>
+                <includedValues>LOINC::18957-1::Novobiocin</includedValues>
+                <includedValues>LOINC::18959-7::Ofloxacin</includedValues>
+                <includedValues>LOINC::73594-4::Omadacyclin</includedValues>
+                <includedValues>LOINC::41736-0::Oritavancin</includedValues>
+                <includedValues>LOINC::18961-3::Oxacillin</includedValues>
+                <includedValues>LOINC::18965-4::Penicillin G</includedValues>
+                <includedValues>LOINC::18969-6::Piperacillin</includedValues>
+                <includedValues>LOINC::73592-8::Plazomicin</includedValues>
+                <includedValues>LOINC::18964-7::Penicillin</includedValues>
+                <includedValues>LOINC::18966-2::Penicillin V</includedValues>
+                <includedValues>LOINC::421-8::Polymyxin B</includedValues>
+                <includedValues>LOINC::73591-0::Premafloxacin</includedValues>
+                <includedValues>LOINC::23640-6::Quinupristin/Dalfopristin</includedValues>
+                <includedValues>LOINC::41737-8::Ramoplanin</includedValues>
+                <includedValues>LOINC::18974-6::Rifampin</includedValues>
+                <includedValues>LOINC::73590-2::Razupenem</includedValues>
+                <includedValues>LOINC::18865-6::Ampicillin/Sulbactam</includedValues>
+                <includedValues>LOINC::73588-6::Sarafloxacin</includedValues>
+                <includedValues>LOINC::55289-3::Sulopenem</includedValues>
+                <includedValues>LOINC::18985-2::Sulfamethoxazol</includedValues>
+                <includedValues>LOINC::73587-8::Solithromycin</includedValues>
+                <includedValues>LOINC::18986-0::Sulfisoxazol</includedValues>
+                <includedValues>LOINC::18980-3::Spectinomycin</includedValues>
+                <includedValues>LOINC::23628-1::Sparfloxacin</includedValues>
+                <includedValues>LOINC::18987-8::Sulfonamid</includedValues>
+                <includedValues>LOINC::18983-7::Streptomycin-High</includedValues>
+                <includedValues>LOINC::18982-9::Streptomycin</includedValues>
+                <includedValues>LOINC::18998-5::Sulfamethoxazol/Trimethoprim (Cotrimoxazol)</includedValues>
+                <includedValues>LOINC::18995-1::Ticarcillin/Clavulansäure</includedValues>
+                <includedValues>LOINC::18993-6::Tetracyclin</includedValues>
+                <includedValues>LOINC::18989-4::Teicoplanin</includedValues>
+                <includedValues>LOINC::42357-4::Tigecyclin</includedValues>
+                <includedValues>LOINC::18994-4::Ticarcillin</includedValues>
+                <includedValues>LOINC::35845-7::Telithromycin</includedValues>
+                <includedValues>LOINC::88886-7::Telavancin</includedValues>
+                <includedValues>LOINC::18997-7::Trimethoprim</includedValues>
+                <includedValues>LOINC::18990-2::Temafloxacin</includedValues>
+                <includedValues>LOINC::18996-9::Tobramycin</includedValues>
+                <includedValues>LOINC::23642-2::Trovafloxacin</includedValues>
+                <includedValues>LOINC::18970-4::Piperacillin/Tazobactam</includedValues>
+                <includedValues>LOINC::19000-9::Vancomycin</includedValues>
+                <includedValues>LOINC::32379-0::Voriconazol</includedValues>
+                <includedValues>LOINC::8-3::Mecillinam (Amdinocillin)</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]" max="1" name="Minimale Hemmkonzentration">
+              <constraint xsi:type="quantityConstraint">
+                <includedUnits>ml</includedUnits>
+                <includedUnits>mg</includedUnits>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" min="1" name="Resistenz">
+              <constraint xsi:type="textConstraint">
+                <includedValues>Resistant</includedValues>
+                <includedValues>Susceptible, standard dosing regimen</includedValues>
+                <includedValues>Susceptible, increased exposure</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0005]" max="0" />
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0026]" max="0" />
+            <Rule path="/items[at0003]" max="1" />
+          </Items>
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.molekulare_typisierung.v0" concept_name="Molekulare Typisierung" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]/items[at0019]" name="Erregertypisierung" />
     </Content>
     <Context>
-      <Rule path="/context/other_context[at0003]/items[at0005]">
-        <constraint xsi:type="textConstraint" limitToList="false">
-          <includedValues>Indexperson</includedValues>
-          <includedValues>Kontaktperson</includedValues>
-          <includedValues>Andere</includedValues>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0" concept_name="Eventsummary" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]" max="1" min="1" name="Fallidentifikation" />
+        <Rule path="/items[at0002]" max="1" min="1" name="Fall-Art" />
+        <Rule path="/items[at0007]" min="1" />
+        <Rule path="/items[at0007]/items[at0011]" max="1" min="1">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Indexperson</includedValues>
+            <includedValues>Kontaktperson</includedValues>
+            <includedValues>Andere</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" min="1" name="Fall-Kategorie" />
+      </Items>
+      <Rule path="/context/other_context[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Zwischenbefund</includedValues>
+          <includedValues>Endbefund</includedValues>
         </constraint>
       </Rule>
     </Context>
   </definition>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.personendetails_kontaktverfolgung.v0">
-    <digest id="MD5-CAM-1.0.1">02BD1FA718F88D332B6B01359FC36164</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.smics_befund.v0">
-    <digest id="MD5-CAM-1.0.1">C1B3F9A39F279059B835FB7818EE7FDF</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.eventsummary.v0">
+    <digest id="MD5-CAM-1.0.1">C4CCA0A3BB0F4E0F2BAC6D6C8EDDF6C6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.smics_befund.v1">
+    <digest id="MD5-CAM-1.0.1">BEC602C1B726A0C6C1694A9E5B3C88F7</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
     <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.erregerdetails.v1">
     <digest id="MD5-CAM-1.0.1">93C0884D18B21980A99A7398E04E9E7A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0">
+    <digest id="MD5-CAM-1.0.1">16ACB1FB473C63B4BC99E2DDF970BED2</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">680EC10B4D17A6D947A9EFF8237202F9</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.molekulare_typisierung.v0">
     <digest id="MD5-CAM-1.0.1">BD00B24CC5B2C5967B4B14A119BE03EE</digest>
