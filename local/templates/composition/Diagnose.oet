@@ -22,10 +22,22 @@
             </item>
         </original_author>
         <lifecycle_state>Initial</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Zur Repräsentation einer fallspezifischen Diagnose der Patienten.</purpose>
+            <keywords>
+                <item>Diagnose, Problemliste, ICD, Ätiopathogenese</item>
+            </keywords>
+            <use>Für die Repräsentation einer Diagnose der Patienten.</use>
+            <misuse>Nicht zur Repräsentation spezifischer Diagnosen oder Zustände, die weitere Angaben erfordern (z. B. Tumordiagnosen in ICD-O). Dafür bitte eigene Templates unter Nutzung des Problem/Diagnose-Archetyps anlegen.</misuse>
+            <copyright>© HiGHmed</copyright>
+        </details>
         <other_details>
             <item>
-                <key>MetaDataSet:Sample Set </key>
+                <key>notes</key>
+                <value>Generated automatically by Adl Designer</value>
+            </item>
+            <item>
+                <key>MetaDataSet:Sample Set</key>
                 <value>Template metadata sample set </value>
             </item>
             <item>
@@ -84,6 +96,10 @@
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
         </other_details>
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
@@ -94,6 +110,20 @@
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
             max="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]"/>
+            <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" name="Lokalisation" path="/data[at0001]/items[at0012]"/>
+            <Rule
+                name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
+            <Rule name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule
+                name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
             <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED::415684004::Suspected</includedValues>
@@ -102,20 +132,6 @@
                     <includedValues>SNOMED::237679004::Status post</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
-            <Rule max="0" name="Lokalisation" path="/data[at0001]/items[at0012]"/>
-            <Rule
-                name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
-            <Rule
-                name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
-            <Rule max="0" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0072]"/>
-            <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
             <Rule name="Letztes Dokumentationsdatum" path="/protocol[at0032]/items[at0070]"/>
             <Items
@@ -143,8 +159,8 @@
                 archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
                 path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                 <Rule name="Körperstelle" path="/items[at0001]"/>
-                <Rule name="Seitenlokalisation" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0065]"/>
+                <Rule name="Seitenlokalisation" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0064]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -158,6 +174,27 @@
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0023]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.lebensphase.v0"
+                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::133936004::Adult (person)</includedValues>
+                        <includedValues>SNOMED CT::133937008::Adolescent (person)</includedValues>
+                        <includedValues>SNOMED CT::410601007::Childhood age person (person)</includedValues>
+                        <includedValues>SNOMED CT::105724001:246454002=713153009::Disease related state (finding):Occurrence (attribute)=Toddler (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::133931009::Infant (person)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::133936004::Adult (person)</includedValues>
+                        <includedValues>SNOMED CT::133937008::Adolescent (person)</includedValues>
+                        <includedValues>SNOMED CT::410601007::Childhood age person (person)</includedValues>
+                        <includedValues>SNOMED CT::105724001:246454002=713153009::Disease related state (finding):Occurrence (attribute)=Toddler (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::133931009::Infant (person)</includedValues>
+                    </constraint>
+                </Rule>
             </Items>
         </Content>
         <Context>
@@ -201,5 +238,10 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lebensphase.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">EB15D2E6F311E065DCEEDCDDD906140A</digest>
     </integrity_checks>
 </template>
