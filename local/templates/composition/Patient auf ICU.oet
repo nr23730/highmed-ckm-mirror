@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>dd004c1c-347e-4969-97e1-3494827dd570</id>
-    <name>Raucherstatus</name>
+    <id>d0a15ffe-6e54-4458-a03e-3b0301c338fd</id>
+    <name>Patient auf ICU</name>
     <description>
         <original_author>
             <item>
@@ -22,16 +22,16 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation des Raucherstatus im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+            <purpose>Zur Repräsentation, ob Patienten auf der Intensivstation behandelt werden/wurden; im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
-                <item>Raucherstatus</item>
-                <item>Rauchverhalten</item>
+                <item>Patient in ICU</item>
+                <item>Intensivstation</item>
                 <item>GECCO</item>
                 <item>NUM</item>
                 <item>FoDaPl</item>
             </keywords>
-            <use>Für die Abbildung des Raucherstatus für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
-            <misuse>Nicht zur Repräsentation über die Art des Raucherverhaltens verwenden. </misuse>
+            <use>Für die Abbildung der Information, ob Patienten auf der Intensivstation behandelt werden/wurden; für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+            <misuse>Nicht zur Repräsentation für einen spezifischen Krankenhausaufenthalt (mit Zeitangaben) eines Patienten verwenden. Bitte den ADMIN_ENTRY.hospitalization nutzen oder das Template Patientensaufenthalt.</misuse>
         </details>
         <other_details>
             <item>
@@ -84,7 +84,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>dd1b0fb3605e4198d1ab9e066fa900b6</value>
+                <value>e8f980dec63d52e3ddcc3f3d24c5aa51</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -98,66 +98,46 @@
     </description>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="Raucherstatus"
+        concept_name="Registereintrag"
+        name="Patient auf der Intensivstation"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
-            archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1"
-            concept_name="Zusammenfassung Rauchverhalten" max="1"
-            min="1" name="Raucherstatus" path="/content" xsi:type="tem:EVALUATION">
-            <Rule max="0" path="/data[at0001]/items[at0089]"/>
-            <Rule min="1" name="Rauchverhalten" path="/data[at0001]/items[at0043]">
+            archetype_id="openEHR-EHR-OBSERVATION.management_screening.v0"
+            concept_name="Screening-Fragebogen zu Management/Behandlung"
+            max="1" min="1" name="Patient auf der Intensivstation"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0"
+                name="Ist der Patient auf der Intensivstation?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>LOINC::LA18976-3::Ja</includedValues>
-                    <includedValues>LOINC::LA18978-9::Nichtraucher</includedValues>
-                    <includedValues>LOINC::LA15920-4::Ehemaliger Raucher</includedValues>
-                    <includedValues>LOINC::LA18980-5::Unbekannt</includedValues>
+                    <includedValues>Behandlung auf der Intensivstation</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0015]"/>
-            <Rule max="0" path="/data[at0001]/items[at0080]"/>
-            <Rule max="0" path="/data[at0001]/items[at0029]"/>
-            <Rule max="0" path="/data[at0001]/items[at0016]"/>
-            <Rule max="0" path="/data[at0001]/items[at0093]">
-                <constraint xsi:type="tem:quantityConstraint">
-                    <unitMagnitude>
-                        <unit>a</unit>
-                        <minMagnitude>0.0</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </unitMagnitude>
+            <Rule min="1" name="Wird/Wurde die Aktivität durchgeführt?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::261665006::Unknown (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::74964007::Other (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::385432009::Not applicable (qualifier value)</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0094]">
-                <constraint xsi:type="tem:countConstraint">
-                    <minMagnitude>0</minMagnitude>
-                    <includesMaximum>false</includesMaximum>
-                    <includesMinimum>true</includesMinimum>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0074]">
-                <constraint xsi:type="tem:countConstraint">
-                    <minMagnitude>0</minMagnitude>
-                    <includesMaximum>false</includesMaximum>
-                    <includesMinimum>true</includesMinimum>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0019]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0071]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0085]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0075]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0076]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0079]"/>
-            <Rule max="0" path="/protocol[at0021]/items[at0072]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Count</includedTypes>
-                    <includedTypes>Quantity</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/protocol[at0021]/items[at0022]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
         </Content>
         <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-OBSERVATION.management_screening.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+    </view>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -165,9 +145,9 @@
         <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1"
+        archetype_id="openEHR-EHR-OBSERVATION.management_screening.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D74EEFF295F045EF03F7BAF5F73D9796</digest>
+        <digest id="MD5-CAM-1.0.1">05E503214D10CE3F5276FD97F001CF52</digest>
     </integrity_checks>
 </template>
