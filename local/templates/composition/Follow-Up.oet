@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>892af58d-bbef-426d-88ee-65e46304c38f</id>
+  <name>Follow-Up</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>
+	  Das Template Follow-Up dient der Dokumentation einer Nachverfolgung eines Patienten nach einem stationären Krankenhausaufenthalt aufgrund einer Herzinsuffizienz. 
+	  </purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.progress_note.v0" concept_name="Fortschrittsbericht">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.follow_up.v0" concept_name="Follow-Up" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0039]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Wiedervorstellung ambulant</includedValues>
+          <includedValues>Wiedervorstellung stationär</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0042]" max="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0038]" max="1" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.hospitalization.v0" concept_name="Krankenhausaufenthalt" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" name="Stationärer Krankenhausaufenthalt in den letzten 6 Monaten aufgrund einer Verschlechterung der Herzinsuffizienz seit letzter studienbedingter Kontaktaufnahme?">
+        <Rule path="/items[at0007]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0009</excludedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0012]" max="1" />
+        <Rule path="/items[at0012]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Verschlechterung der Herzinsuffizienz</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0012]/items[at0013]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.hospitalization.v0" concept_name="Krankenhausaufenthalt" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" name="Weitere Krankenhausaufenthalte seit letzter studienbedingter Kontaktaufnahme (außer Herzinsuffizienz)?">
+        <Rule path="/items[at0007]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0009</excludedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0012]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>kardiovaskulär</includedValues>
+            <includedValues>nicht kardiovaskulär</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0012]/items[at0013]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Herzinfarkt</includedValues>
+            <includedValues>Schlaganfall</includedValues>
+            <includedValues>andere kardiovaskuläre Ursache</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.death_details.v1" concept_name="Angaben zum Tod " max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>highmed_ucc::01::Herzinsuffizienz</includedValues>
+            <includedValues>highmed_ucc::02::kardiovaskulär, außer Herzinsuffizienz</includedValues>
+            <includedValues>highmed_ucc::03::nicht kardiovaskulär</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" name="Todesursache kardiovaskulär">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Herzinfarkt</includedValues>
+            <includedValues>Schlaganfall</includedValues>
+            <includedValues>andere kardiovaskuläre Ursache</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Context />
+  </definition>
+  <view>
+    <constraints path="[openEHR-EHR-COMPOSITION.progress_note.v0]/content[openEHR-EHR-OBSERVATION.follow_up.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.hospitalization.v0 and name/value='Weitere Krankenhausaufenthalte seit letzter studienbedingter Kontaktaufnahme (außer Herzinsuffizienz)?']/items[at0012]/items[at0002]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.progress_note.v0]/content[openEHR-EHR-OBSERVATION.follow_up.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.death_details.v1]/items[at0001]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+  </view>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.progress_note.v0">
+    <digest id="MD5-CAM-1.0.1">888BCB57B31377F978FA830961443EE4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.follow_up.v0">
+    <digest id="MD5-CAM-1.0.1">3D43C75E5B853E2285AD3C81638B27B3</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.hospitalization.v0">
+    <digest id="MD5-CAM-1.0.1">3D57A05426FA007417578E06DB9F67EA</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.death_details.v1">
+    <digest id="MD5-CAM-1.0.1">53E515B70943459BFA18F8802BE6DDA5</digest>
+  </integrity_checks>
+</template>

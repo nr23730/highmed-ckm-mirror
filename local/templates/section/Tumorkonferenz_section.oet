@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>c0e5949e-cf73-4788-b5d6-9cc0506150ed</id>
+  <name>Tumorkonferenz_section</name>
+  <description>
+    <original_author>
+      <item>
+        <key>date</key>
+        <value>2020-07-14</value>
+      </item>
+      <item>
+        <key>name</key>
+        <value>Alina Rehberg</value>
+      </item>
+      <item>
+        <key>organisation</key>
+        <value>Medizinische Hochschule Hannover</value>
+      </item>
+      <item>
+        <key>email</key>
+        <value>rehberg.alina@mh-hannover.de</value>
+      </item>
+    </original_author>
+    <lifecycle_state>in_development</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation von Daten einer Tumorkonferenz von einem Patienten mit einer onkologischen Diagnose.</purpose>
+      <keywords>
+        <item>Tumorkonferenz, Tumorboard</item>
+      </keywords>
+      <use>Dieses Template wird verwendet, um Daten zu einer Tumorkonferenz von einem Patienten mit einer onkologischen Diagnose aufzuzeichnen. Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Datum, der Typ der Tumorkonferenz, die Fragestellung, sowie die teilnehmenden und vorstellenden Ärzte.</use>
+      <misuse>Dieses Template soll nicht verwendet werden, um das Ergebnis oder die Vorbereitungen einer Tumorkonferenz aufzuzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>licence</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_organisation</key>
+        <value />
+      </item>
+      <item>
+        <key>original_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>original_publisher</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>MD5-CAM-1.0.1</key>
+        <value>6f4fb6f787dcf6959456abfb8bfdb723</value>
+      </item>
+      <item>
+        <key>PARENT:MD5-CAM-1.0.1</key>
+        <value>ADAD488D3CC144486612C75F4E995F94</value>
+      </item>
+      <item>
+        <key>original_language</key>
+        <value>ISO_639-1::en</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Tumorkonferenz Section">
+    <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.service.v0" concept_name="Leistung" max="1" path="/items" name="Tumorkonferenz">
+      <Rule path="/description[at0001]/items[at0011]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Organtumorboard</includedValues>
+          <includedValues>Molekulares Tumorboard</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0014]" name="Typ der Tumorkonferenz">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Tumorkonferenzart::praeth::prätherapeutisch</includedValues>
+          <includedValues>Tumorkonferenzart::postop::postoperativ</includedValues>
+          <includedValues>Tumorkonferenzart::postth::posttherapeutisch</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0025]" name="Tumorkonferenz Datum" />
+      <Rule path="/description[at0001]/items[at0021]" max="0" />
+      <Rule path="/description[at0001]/items[at0012]" name="Fragestellung">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Therapierelevanz des Panelbefundes</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0028]" name="Anmerkungen" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v0" concept_name="Rolle" max="1" path="/description[at0001]/items[at0027]" name="Erforderliche Fachdisziplinen">
+        <Rule path="/items[at0001]" name="Fachdisziplinen">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>(Translationale) Onkologie</includedValues>
+            <includedValues>Molekularpathologie</includedValues>
+            <includedValues>Pathologie</includedValues>
+            <includedValues>Biologie</includedValues>
+            <includedValues>Bioinformatik</includedValues>
+            <includedValues>Humangenetik</includedValues>
+            <includedValues>Radiologie</includedValues>
+            <includedValues>Chirurgie</includedValues>
+            <includedValues>Radioonkologie</includedValues>
+            <includedValues>Nuklearmedizin</includedValues>
+            <includedValues>Allgemein-, Viszeral- und Transplantationschirurgie</includedValues>
+            <includedValues>Gastroenterologie, Hepatologie und Endokrinologie</includedValues>
+            <includedValues>Diagnostische und Interventionelle Radiologie</includedValues>
+            <includedValues>Strahlentherapie</includedValues>
+            <includedValues>Hämatologie</includedValues>
+            <includedValues>Internistische Onkologie</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/description[at0001]/items[at0027]" name="Vorstellende Klinik">
+        <Rule path="/items[at0040]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Fachabteilung</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0046]" name=" Fachabteilungsname ">
+          <constraint xsi:type="textConstraint">
+            <includedValues>§301 SGB V::0100::Innere Medizin</includedValues>
+            <includedValues>§301 SGB V::0200::Geriatrie</includedValues>
+            <includedValues>§301 SGB V::0300::Kardiologie</includedValues>
+            <includedValues>§301 SGB V::0400::Nephrologie</includedValues>
+            <includedValues>§301 SGB V::0500::Hämatologie und internistische Onkologie</includedValues>
+            <includedValues>§301 SGB V::0600::Endokrinologie</includedValues>
+            <includedValues>§301 SGB V::0700::Gastroenterologie</includedValues>
+            <includedValues>§301 SGB V::0800::Pneumologie</includedValues>
+            <includedValues>§301 SGB V::0900::Rheumatologie</includedValues>
+            <includedValues>§301 SGB V::1000::Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::1100::Kinderkardiologie</includedValues>
+            <includedValues>§301 SGB V::1200::Neonatologie</includedValues>
+            <includedValues>§301 SGB V::1300::Kinderchirurgie</includedValues>
+            <includedValues>§301 SGB V::1400::Lungen- und Bronchialheilkunde</includedValues>
+            <includedValues>§301 SGB V::1500::Allgemeine Chirurgie</includedValues>
+            <includedValues>§301 SGB V::1600::Unfallchirurgie</includedValues>
+            <includedValues>§301 SGB V::1700::Neurochirurgie</includedValues>
+            <includedValues>§301 SGB V::1800::Gefäßchirurgie</includedValues>
+            <includedValues>§301 SGB V::1900::Plastische Chirurgie</includedValues>
+            <includedValues>§301 SGB V::2000::Thoraxchirurgie</includedValues>
+            <includedValues>§301 SGB V::2100::Herzchirurgie</includedValues>
+            <includedValues>§301 SGB V::2200::Urologie</includedValues>
+            <includedValues>§301 SGB V::2300::Orthopädie</includedValues>
+            <includedValues>§301 SGB V::2400::Frauenheilkunde und Geburtshilfe</includedValues>
+            <includedValues>§301 SGB V::2500::davon Geburtshilfe</includedValues>
+            <includedValues>§301 SGB V::2600::Hals-, Nasen-, Ohrenheilkunde</includedValues>
+            <includedValues>§301 SGB V::2700::Augenheilkunde</includedValues>
+            <includedValues>§301 SGB V::2800::Neurologie</includedValues>
+            <includedValues>§301 SGB V::2900::Allgemeine Psychiatrie</includedValues>
+            <includedValues>§301 SGB V::3000::Kinder- und Jugendpsychiatrie</includedValues>
+            <includedValues>§301 SGB V::3100::Psychosomatik/Psychotherapie</includedValues>
+            <includedValues>§301 SGB V::3200::Nuklearmedizin</includedValues>
+            <includedValues>§301 SGB V::3300::Strahlenheilkunde</includedValues>
+            <includedValues>§301 SGB V::3400::Dermatologie</includedValues>
+            <includedValues>§301 SGB V::3500::Zahn- und Kieferheilkunde, Mund- und Kieferchirurgie</includedValues>
+            <includedValues>§301 SGB V::3600::Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::2316::Orthopädie und Unfallchirurgie</includedValues>
+            <includedValues>§301 SGB V::2425::Frauenheilkunde</includedValues>
+            <includedValues>§301 SGB V::3700::Sonstige Fachabteilung</includedValues>
+            <includedValues>§301 SGB V::0102::Innere Medizin/Schwerpunkt Geriatrie</includedValues>
+            <includedValues>§301 SGB V::0103::Innere Medizin/Schwerpunkt Kardiologie</includedValues>
+            <includedValues>§301 SGB V::0104::Innere Medizin/Schwerpunkt Nephrologie</includedValues>
+            <includedValues>§301 SGB V::0105::Innere Medizin/Schwerpunkt Hämatologie und internistische Onkologie</includedValues>
+            <includedValues>§301 SGB V::0106::Innere Medizin/Schwerpunkt Endokrinologie</includedValues>
+            <includedValues>§301 SGB V::0107::Innere Medizin/Schwerpunkt Gastroenterologie</includedValues>
+            <includedValues>§301 SGB V::0108::Innere Medizin/Schwerpunkt Pneumologie</includedValues>
+            <includedValues>§301 SGB V::0109::Innere Medizin/Schwerpunkt Rheumatologie</includedValues>
+            <includedValues>§301 SGB V::0114::Innere Medizin/Schwerpunkt Lungen- und Bronchialheilkunde</includedValues>
+            <includedValues>§301 SGB V::0150::Innere Medizin/Tumorforschung</includedValues>
+            <includedValues>§301 SGB V::0151::Innere Medizin/Schwerpunkt Coloproktologie</includedValues>
+            <includedValues>§301 SGB V::0152::Innere Medizin/Schwerpunkt Infektionskrankheiten</includedValues>
+            <includedValues>§301 SGB V::0153::Innere Medizin/Schwerpunkt Diabetes</includedValues>
+            <includedValues>§301 SGB V::0154::Innere Medizin/Schwerpunkt Naturheilkunde</includedValues>
+            <includedValues>§301 SGB V::0156::Innere Medizin/Schwerpunkt Schlaganfallpatienten</includedValues>
+            <includedValues>§301 SGB V::0224::Geriatrie/Schwerpunkt Frauenheilkunde</includedValues>
+            <includedValues>§301 SGB V::0260::Geriatrie/Tagesklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::0261::Geriatrie/Nachtklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::0410::Nephrologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::0436::Nephrologie/Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::0510::Hämatologie und internistische Onkologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::0524::Hämatologie und internistische Onkologie/Schwerpunkt Frauenheilkunde</includedValues>
+            <includedValues>§301 SGB V::0533::Hämatologie und internistische Onkologie/Schwerpunkt Strahlenheilkunde</includedValues>
+            <includedValues>§301 SGB V::0607::Endokrinologie/Schwerpunkt Gastroenterologie</includedValues>
+            <includedValues>§301 SGB V::0610::Endokrinologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::0706::Gastroenterologie/Schwerpunkt Endokrinologie</includedValues>
+            <includedValues>§301 SGB V::0710::Gastroenterologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::0910::Rheumatologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::1004::Pädiatrie/Schwerpunkt Nephrologie</includedValues>
+            <includedValues>§301 SGB V::1005::Pädiatrie/Schwerpunkt Hämatologie und internistische Onkologie</includedValues>
+            <includedValues>§301 SGB V::1006::Pädiatrie/Schwerpunkt Endokrinologie</includedValues>
+            <includedValues>§301 SGB V::1007::Pädiatrie/Schwerpunkt Gastroenterologie</includedValues>
+            <includedValues>§301 SGB V::1009::Pädiatrie/Schwerpunkt Rheumatologie</includedValues>
+            <includedValues>§301 SGB V::1011::Pädiatrie/Schwerpunkt Kinderkardiologie</includedValues>
+            <includedValues>§301 SGB V::1012::Pädiatrie/Schwerpunkt Neonatologie</includedValues>
+            <includedValues>§301 SGB V::1014::Pädiatrie/Schwerpunkt Lungen- und Bronchialheilkunde</includedValues>
+            <includedValues>§301 SGB V::1028::Pädiatrie/Schwerpunkt Kinderneurologie</includedValues>
+            <includedValues>§301 SGB V::1050::Pädiatrie/Schwerpunkt Perinatalmedizin</includedValues>
+            <includedValues>§301 SGB V::1051::Langzeitbereich Kinder</includedValues>
+            <includedValues>§301 SGB V::1136::Kinderkardiologie/Schwerpunkt Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::1410::Lungen- und Bronchialheilkunde/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::1513::Allgemeine Chirurgie/Schwerpunkt Kinderchirurgie</includedValues>
+            <includedValues>§301 SGB V::1516::Allgemeine Chirurgie/Schwerpunkt Unfallchirurgie</includedValues>
+            <includedValues>§301 SGB V::1518::Allgemeine Chirurgie/Schwerpunkt Gefäßchirurgie</includedValues>
+            <includedValues>§301 SGB V::1519::Allgemeine Chirurgie/Schwerpunkt Plastische Chirurgie</includedValues>
+            <includedValues>§301 SGB V::1520::Allgemeine Chirurgie/Schwerpunkt Thoraxchirurgie</includedValues>
+            <includedValues>§301 SGB V::1523::Chirurgie/Schwerpunkt Orthopädie</includedValues>
+            <includedValues>§301 SGB V::1536::Allgemeine Chirurgie/Intensivmedizin (§ 13 Abs. 2 Satz 3, 2. Halbs. BPflV in der am 31.12.2003 geltenden Fassung</includedValues>
+            <includedValues>§301 SGB V::1550::Allgemeine Chirurgie/Schwerpunkt Abdominal- und Gefäßchirurgie</includedValues>
+            <includedValues>§301 SGB V::1551::Allgemeine Chirurgie/Schwerpunkt Handchirurgie</includedValues>
+            <includedValues>§301 SGB V::2021::Thoraxchirurgie/Schwerpunkt Herzchirurgie</includedValues>
+            <includedValues>§301 SGB V::2036::Thoraxchirurgie/Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::2050::Thoraxchirurgie/Schwerpunkt Herzchirurgie Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::2118::Herzchirurgie/Schwerpunkt Gefäßchirurgie</includedValues>
+            <includedValues>§301 SGB V::2120::Herzchirurgie/Schwerpunkt Thoraxchirurgie</includedValues>
+            <includedValues>§301 SGB V::2136::Herzchirurgie/Intensivmedizin (§ 13 Abs. 2 Satz 3 2. Halbsatz BPflV in der am 31.12.2003 geltenden Fassung)</includedValues>
+            <includedValues>§301 SGB V::2150::Herzchirurgie/Schwerpunkt Thoraxchirurgie Intensivmedizin</includedValues>
+            <includedValues>§301 SGB V::2309::Orthopädie/Schwerpunkt Rheumatologie</includedValues>
+            <includedValues>§301 SGB V::2315::Orthopädie/Schwerpunkt Chirurgie</includedValues>
+            <includedValues>§301 SGB V::2402::Frauenheilkunde/Schwerpunkt Geriatrie</includedValues>
+            <includedValues>§301 SGB V::2405::Frauenheilkunde/Schwerpunkt Hämatologie und internistische Onkologie</includedValues>
+            <includedValues>§301 SGB V::2406::Frauenheilkunde/Schwerpunkt Endokrinologie</includedValues>
+            <includedValues>§301 SGB V::2810::Neurologie/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::2851::Neurologie/Schwerpunkt Gerontologie</includedValues>
+            <includedValues>§301 SGB V::2856::Neurologie/Schwerpunkt Schlaganfallpatienten</includedValues>
+            <includedValues>§301 SGB V::2928::Allgemeine Psychiatrie/Schwerpunkt Neurologie</includedValues>
+            <includedValues>§301 SGB V::2930::Allgemeine Psychiatrie/Schwerpunkt Kinder- und Jugendpsychiatrie</includedValues>
+            <includedValues>§301 SGB V::2931::Allgemeine Psychiatrie/Schwerpunkt Psychosomatik/Psychotherapie</includedValues>
+            <includedValues>§301 SGB V::2950::Allgemeine Psychiatrie/Schwerpunkt Suchtbehandlung</includedValues>
+            <includedValues>§301 SGB V::2951::Allgemeine Psychiatrie/Schwerpunkt Gerontopsychiatrie</includedValues>
+            <includedValues>§301 SGB V::2952::Allgemeine Psychiatrie/Schwerpunkt Forensische Behandlung</includedValues>
+            <includedValues>§301 SGB V::2953::Allgemeine Psychiatrie/Schwerpunkt Suchtbehandlung, Tagesklinik</includedValues>
+            <includedValues>§301 SGB V::2954::Allgemeine Psychiatrie/Schwerpunkt Suchtbehandlung, Nachtklinik</includedValues>
+            <includedValues>§301 SGB V::2955::Allgemeine Psychiatrie/Schwerpunkt Gerontopsychiatrie, Tagesklinik</includedValues>
+            <includedValues>§301 SGB V::2956::Allgemeine Psychiatrie/Schwerpunkt Gerontopsychiatrie, Nachtklinik</includedValues>
+            <includedValues>§301 SGB V::2960::Allgemeine Psychiatrie/Tagesklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::2961::Allgemeine Psychiatrie/Nachtklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3060::Kinder- und Jugendpsychiatrie/Tagesklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3061::Kinder- und Jugendpsychiatrie/Nachtklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3110::Psychosomatik/Psychotherapie/Schwerpunkt Kinder- und Jugendpsychosomatik</includedValues>
+            <includedValues>§301 SGB V::3160::Psychosomatik/Psychotherapie/Tagesklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3161::Psychosomatik/Psychotherapie/Nachtklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3233::Nuklearmedizin/Schwerpunkt Strahlenheilkunde</includedValues>
+            <includedValues>§301 SGB V::3305::Strahlenheilkunde/Schwerpunkt Hämatologie und internistische Onkologie</includedValues>
+            <includedValues>§301 SGB V::3350::Strahlenheilkunde/Schwerpunkt Radiologie</includedValues>
+            <includedValues>§301 SGB V::3460::Dermatologie/Tagesklinik (für teilstationäre Pflegesätze)</includedValues>
+            <includedValues>§301 SGB V::3601::Intensivmedizin/Schwerpunkt Innere Medizin</includedValues>
+            <includedValues>§301 SGB V::3603::Intensivmedizin/Schwerpunkt Kardiologie</includedValues>
+            <includedValues>§301 SGB V::3610::Intensivmedizin/Schwerpunkt Pädiatrie</includedValues>
+            <includedValues>§301 SGB V::3617::Intensivmedizin/Schwerpunkt Neurochirurgie</includedValues>
+            <includedValues>§301 SGB V::3618::Intensivmedizin/Schwerpunkt Chirurgie</includedValues>
+            <includedValues>§301 SGB V::3621::Intensivmedizin/Herzchirurgie</includedValues>
+            <includedValues>§301 SGB V::3622::Intensivmedizin/Schwerpunkt Urologie</includedValues>
+            <includedValues>§301 SGB V::3624::Intensivmedizin/Schwerpunkt Frauenheilkunde und Geburtshilfe</includedValues>
+            <includedValues>§301 SGB V::3626::Intensivmedizin/Schwerpunkt Hals-, Nasen-, Ohrenheilkunde</includedValues>
+            <includedValues>§301 SGB V::3628::Intensivmedizin/Schwerpunkt Neurologie</includedValues>
+            <includedValues>§301 SGB V::3650::Operative Intensivmedizin/Schwerpunkt Chirurgie</includedValues>
+            <includedValues>§301 SGB V::3651::Intensivmedizin/Thorax-Herzchirurgie</includedValues>
+            <includedValues>§301 SGB V::3652::Intensivmedizin/Herz-Thoraxchirurgie</includedValues>
+            <includedValues>§301 SGB V::3750::Angiologie</includedValues>
+            <includedValues>§301 SGB V::3751::Radiologie</includedValues>
+            <includedValues>§301 SGB V::3752::Palliativmedizin</includedValues>
+            <includedValues>§301 SGB V::3753::Schmerztherapie</includedValues>
+            <includedValues>§301 SGB V::3754::Heiltherapeutische Abteilung</includedValues>
+            <includedValues>§301 SGB V::3755::Wirbelsäulenchirurgie</includedValues>
+            <includedValues>§301 SGB V::3756::Suchtmedizin</includedValues>
+            <includedValues>§301 SGB V::3757::Visceralchirurgie</includedValues>
+            <includedValues>§301 SGB V::3758::Weaningeinheit</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0048]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address.v0" concept_name="Adresse" max="1" path="/items[at0047]" name="Standort der Klinik">
+          <Rule path="/items[at0001]/items[at0006]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0011</excludedValues>
+              <excludedValues>local::at0012</excludedValues>
+              <excludedValues>local::at0014</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]/items[at0002]" max="0" />
+          <Rule path="/items[at0001]/items[at0015]" max="0" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v0" concept_name="Personenname" max="1" min="1" path="/protocol[at0015]/items[at0017]" name="Anmeldende Arzt">
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0002]/items[at0017]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Dr. med.</includedValues>
+            <includedValues>Prof. Dr. med.</includedValues>
+            <includedValues>PD Dr. med.</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]/items[at0018]" max="0" />
+        <Rule path="/items[at0014]" max="0" />
+      </Items>
+    </Item>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-SECTION.adhoc.v1">
+    <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.service.v0">
+    <digest id="MD5-CAM-1.0.1">7E061EECABAC057F17CABCB1FDBAA7C1</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.professional_role.v0">
+    <digest id="MD5-CAM-1.0.1">D6072DBF64A0C64FC42C372AD0B10AB2</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.person_name.v0">
+    <digest id="MD5-CAM-1.0.1">4A2B8D4C0E557A14843B5DBA7D434820</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.address.v0">
+    <digest id="MD5-CAM-1.0.1">E0EB7F3ABF472AF6AB27D958C6C290AE</digest>
+  </integrity_checks>
+</template>
