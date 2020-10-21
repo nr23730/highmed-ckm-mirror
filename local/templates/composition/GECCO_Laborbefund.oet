@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>b1930d42-4f5a-4115-a36e-8cadec936092</id>
+  <name>GECCO_Laborbefund</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name</key>
+        <value>Sarah Ballout</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>ballout.sarah@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>Organisation </key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation von Laborergebnisse eines Patienten im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>Laborbefund </item>
+        <item>Labor</item>
+        <item>Befund</item>
+        <item>Analyt</item>
+        <item>Laborwerte</item>
+        <item>Laborergebnis</item>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>FoDaPl</item>
+      </keywords>
+      <use>Für die Abbildung von Laborergebnissen eines Patienten für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+      <misuse>Nicht zur Repräsentation von spezifischen Laborergebnissen wie z. B. Mikrobiologische oder Virologische Befunde verwenden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Laborbefund ">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" min="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Labortest-Kategorie ">
+        <constraint xsi:type="textConstraint">
+          <includedValues>LOINC::26436-6::Laboratory studies (set)</includedValues>
+          <includedValues>LOINC::18767-4::Blood gas studies (set)</includedValues>
+          <includedValues>LOINC::18719-5::Chemistry studies (set)</includedValues>
+          <includedValues>LOINC::18723-7::Hematology studies (set)</includedValues>
+          <includedValues>LOINC::18720-3::Coagulation studies (set)</includedValues>
+          <includedValues>LOINC::18728-6::Toxicology studies (set)</includedValues>
+          <includedValues>LOINC::18725-2::Microbiology studies (set)</includedValues>
+          <includedValues>LOINC::56874-1::Serology and blood bank studies (set)</includedValues>
+          <includedValues>LOINC::18729-4::Urinalysis studies (set)</includedValues>
+          <includedValues>LOINC::56847-7::Calculated and derived values (set)</includedValues>
+          <includedValues>LOINC::56846-9::Cardiac biomarkers (set)</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="1" min="1" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" min="1" name="Identifikation der Laboranforderung " />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen.v1" concept_name="Probe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]">
+        <Rule path="/items[at0029]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ABS::Abscess</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNE::Tissue, Acne</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNFLD::Fluid, Acne</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AIRS::Air Sample</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ALL::Allograft</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AMN::Amniotic fluid</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AMP::Amputation</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ANGI::Catheter Tip, Angio</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ARTC::Catheter Tip, Arterial</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ASERU::Serum, Acute</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ASP::Aspirate</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ATTE::Environment, Attest</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTOA::Environmental, Autoclave Ampule</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTOC::Environmental, Autoclave Capsule</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTP::Autopsy</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BBL::Blood bag</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BCYST::Cyst, Baker's</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BDY::Whole body</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BIFL::Bile Fluid</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BITE::Bite</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLD::Whole blood</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDA::Blood arterial</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDCO::Cord blood</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDV::Blood venous</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLEB::Bleb</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLIST::Blister</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BOIL::Boil</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BON::Bone</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BONE::Bone</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BOWL::Bowel contents</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BPH::Basophils</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BPU::Blood product unit</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRN::Burn</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRSH::Brush</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRTH::Breath (use EXHLD)</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRUS::Brushing</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BUB::Bubo</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BULLA::Bulla/Bullae</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BX::Biopsy</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CALC::Calculus (=Stone)</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CARBU::Carbuncle</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CAT::Catheter</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CBITE::Bite, Cat</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CDM::Cardiac muscle</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CLIPP::Clippings</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CNJT::Conjunctiva</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CNL::Cannula</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::COL::Colostrum</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CONE::Biospy, Cone</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSCR::Scratch, Cat</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSERU::Serum, Convalescent</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSF::Cerebral spinal fluid</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSITE::Catheter Insertion Site</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSMY::Fluid, Cystostomy Tube</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CST::Fluid, Cyst</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSVR::Blood, Cell Saver</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CTP::Catheter tip</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CUR::Curretage</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVM::Cervical Mucus</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVPS::Site, CVP</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVPT::Catheter Tip, CVP</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CYN::Nodule, Cystic</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CYST::Cyst</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::DBITE::Bite, Dog</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::DCS::Sputum, Deep Coug</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0088]" max="1" />
+        <Rule path="/items[at0079]" max="0" />
+        <Rule path="/items[at0087]" name="Körperstelle" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0067]" max="0" />
+        <Rule path="/items[at0080]" max="0" />
+        <Rule path="/items[at0042]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Pro Laboranalyt">
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0024]" min="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>LOINC::48421-2::C reactive protein [Mass/volume] in Capillary blood</includedValues>
+            <includedValues>LOINC::71426-1::C reactive protein [Mass/volume] in Blood by High sensitivity method</includedValues>
+            <includedValues>LOINC::76486-0::C reactive protein [Moles/volume] in Serum or Plasma by High sensitivity method</includedValues>
+            <includedValues>LOINC::30522-7::C reactive protein [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+            <includedValues>LOINC::1988-5::C reactive protein [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::76485-2::C reactive protein [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::20567-4::Ferritin [Mass/volume] in Serum or Plasma by Immunoassay</includedValues>
+            <includedValues>LOINC::86914-9::Ferritin goal [Mass/volume] Serum or Plasma</includedValues>
+            <includedValues>LOINC::14723-1::Ferritin [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::2276-4::Ferritin [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::24373-3::Ferritin [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::1971-1::Bilirubin.indirect [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::1975-2::Bilirubin.total [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::14631-6::Bilirubin.total [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::59828-4::Bilirubin.total [Mass/volume] in Venous blood</includedValues>
+            <includedValues>LOINC::59827-6::Bilirubin.total [Mass/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::42719-5::Bilirubin.total [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::48066-5::Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma</includedValues>
+            <includedValues>LOINC::48067-3::Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma by Immunoassay</includedValues>
+            <includedValues>LOINC::55398-2::Short Fibrin D-dimer FEU and DDU panel - Platelet poor plasma</includedValues>
+            <includedValues>LOINC::71427-9::Fibrin D-dimer FEU [Mass/volume] in Blood by Immunoassay</includedValues>
+            <includedValues>LOINC::7799-0::Fibrin D-dimer [Units/volume] in Platelet poor plasma</includedValues>
+            <includedValues>LOINC::91556-1::Fibrin D-dimer DDU [Mass/volume] in Blood by Immunoassay</includedValues>
+            <includedValues>LOINC::38898-3::Fibrin D-dimer [Titer] in Platelet poor plasma</includedValues>
+            <includedValues>LOINC::3246-6::Fibrin D-dimer [Units/volume] in Platelet poor plasma by Immunoassay</includedValues>
+            <includedValues>LOINC::48058-2::Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay</includedValues>
+            <includedValues>LOINC::2325-9::Gamma glutamyl transferase/Aspartate aminotransferase [Enzymatic activity ratio] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::2324-2::Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::1920-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::30239-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P</includedValues>
+            <includedValues>LOINC::88112-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by No addition of P-5'-P</includedValues>
+            <includedValues>LOINC::2532-0::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::14805-6::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Pyruvate to lactate reaction</includedValues>
+            <includedValues>LOINC::14804-9::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Lactate to pyruvate reaction</includedValues>
+            <includedValues>LOINC::14803-1::Lactate dehydrogenase [Enzymatic activity/volume] in Body fluid by Lactate to pyruvate reaction</includedValues>
+            <includedValues>LOINC::60017-1::Lactate dehydrogenase [Enzymatic activity/volume] in Body fluid by Pyruvate to lactate reaction</includedValues>
+            <includedValues>LOINC::49563-0::Troponin I.cardiac [Mass/volume] in Serum or Plasma by Detection limit &lt;= 0.01 ng/mL</includedValues>
+            <includedValues>LOINC::89579-7::Troponin I.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+            <includedValues>LOINC::67151-1::Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+            <includedValues>LOINC::6598-7::Troponin T.cardiac [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::6597-9::Troponin T.cardiac [Mass/volume] in Venous blood</includedValues>
+            <includedValues>LOINC::48425-3::Troponin T.cardiac [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::42757-5::Troponin I.cardiac [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::10839-9::Troponin I.cardiac [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::76769-9::Hemoglobin [Mass/volume] in Venous blood by Oximetry</includedValues>
+            <includedValues>LOINC::59260-0::Hemoglobin [Moles/volume] in Blood</includedValues>
+            <includedValues>LOINC::718-7::Hemoglobin [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::20509-6::Hemoglobin [Mass/volume] in Blood by calculation</includedValues>
+            <includedValues>LOINC::55782-7::Hemoglobin [Mass/volume] in Blood by Oximetry</includedValues>
+            <includedValues>LOINC::75928-2::Hemoglobin [Moles/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::14775-1::Hemoglobin [Mass/volume] in Arterial blood by Oximetry</includedValues>
+            <includedValues>LOINC::30313-1::Hemoglobin [Mass/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::30350-3::Hemoglobin [Mass/volume] in Venous blood</includedValues>
+            <includedValues>LOINC::30351-1::Hemoglobin [Mass/volume] in Mixed venous blood</includedValues>
+            <includedValues>LOINC::30352-9::Hemoglobin [Mass/volume] in Capillary blood</includedValues>
+            <includedValues>LOINC::76768-1::Hemoglobin [Mass/volume] in Mixed venous blood by Oximetry</includedValues>
+            <includedValues>LOINC::21232-4::Creatinine [Mass/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::38483-4::Creatinine [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::59826-8::Creatinine [Moles/volume] in Blood</includedValues>
+            <includedValues>LOINC::12190-5::Creatinine [Mass/volume] in Body fluid</includedValues>
+            <includedValues>LOINC::25386-4::Creatinine [Moles/volume] in Body fluid</includedValues>
+            <includedValues>LOINC::2160-0::Creatinine [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::14682-9::Creatinine [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::14118-4::Lactate [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::59032-3::Lactate [Mass/volume] in Blood</includedValues>
+            <includedValues>LOINC::32693-4::Lactate [Moles/volume] in Blood</includedValues>
+            <includedValues>LOINC::2520-5::Lactate [Moles/volume] in Cerebral spinal fluid</includedValues>
+            <includedValues>LOINC::19239-3::Lactate [Moles/volume] in Capillary blood</includedValues>
+            <includedValues>LOINC::19240-1::Lactate [Moles/volume] in Mixed venous blood</includedValues>
+            <includedValues>LOINC::2518-9::Lactate [Moles/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::2519-7::Lactate [Moles/volume] in Venous blood</includedValues>
+            <includedValues>LOINC::2524-7::Lactate [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::30242-2::Lactate [Mass/volume] in Arterial blood</includedValues>
+            <includedValues>LOINC::27941-4::Lactate [Mass/volume] in Cerebral spinal fluid</includedValues>
+            <includedValues>LOINC::49498-9::Leukocytes [#/volume] in Blood by Estimate</includedValues>
+            <includedValues>LOINC::6690-2::Leukocytes [#/volume] in Blood by Automated count</includedValues>
+            <includedValues>LOINC::804-5::Leukocytes [#/volume] in Blood by Manual count</includedValues>
+            <includedValues>LOINC::26464-8::Leukocytes [#/volume] in Blood</includedValues>
+            <includedValues>LOINC::732-8::Lymphocytes [#/volume] in Blood by Manual count</includedValues>
+            <includedValues>LOINC::731-0::Lymphocytes [#/volume] in Blood by Automated count</includedValues>
+            <includedValues>LOINC::30364-4::Lymphocytes [#/volume] in Blood by Flow cytometry (FC)</includedValues>
+            <includedValues>LOINC::26474-7::Lymphocytes [#/volume] in Blood</includedValues>
+            <includedValues>LOINC::753-4::Neutrophils [#/volume] in Blood by Manual count</includedValues>
+            <includedValues>LOINC::751-8::Neutrophils [#/volume] in Blood by Automated count</includedValues>
+            <includedValues>LOINC::26499-4::Neutrophils [#/volume] in Blood</includedValues>
+            <includedValues>LOINC::16631-4::aPTT in Blood by Coagulation 1:1 saline</includedValues>
+            <includedValues>LOINC::43734-3::aPTT in Platelet poor plasma by Coagulation 1:1 saline</includedValues>
+            <includedValues>LOINC::14979-9::aPTT in Platelet poor plasma by Coagulation assay</includedValues>
+            <includedValues>LOINC::3173-2::aPTT in Blood by Coagulation assay</includedValues>
+            <includedValues>LOINC::74775-8::Platelets [#/volume] in Platelet rich plasma by Automated count</includedValues>
+            <includedValues>LOINC::13056-7::Platelets [#/volume] in Plasma by Automated count</includedValues>
+            <includedValues>LOINC::26516-5::Platelets [#/volume] in Plasma</includedValues>
+            <includedValues>LOINC::74464-9::Platelets [#/volume] in Capillary blood by Manual count</includedValues>
+            <includedValues>LOINC::778-1::Platelets [#/volume] in Blood by Manual count</includedValues>
+            <includedValues>LOINC::49497-1::Platelets [#/volume] in Blood by Estimate</includedValues>
+            <includedValues>LOINC::777-3::Platelets [#/volume] in Blood by Automated count</includedValues>
+            <includedValues>LOINC::26515-7::Platelets [#/volume] in Blood</includedValues>
+            <includedValues>LOINC::6301-6::INR in Platelet poor plasma by Coagulation assay</includedValues>
+            <includedValues>LOINC::46418-0::INR in Capillary blood by Coagulation assay</includedValues>
+            <includedValues>LOINC::34714-6::INR in Blood by Coagulation assay</includedValues>
+            <includedValues>LOINC::76631-1::Albumin [Mass/volume] in Blood by Bromocresol purple (BCP) dye binding method</includedValues>
+            <includedValues>LOINC::62235-7::Albumin [Moles/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method</includedValues>
+            <includedValues>LOINC::62234-0::Albumin [Moles/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method</includedValues>
+            <includedValues>LOINC::61152-5::Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method</includedValues>
+            <includedValues>LOINC::61151-7::Albumin [Mass/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method</includedValues>
+            <includedValues>LOINC::2862-1::Albumin [Mass/volume] in Serum or Plasma by Electrophoresis</includedValues>
+            <includedValues>LOINC::1751-7::Albumin [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::54347-0::Albumin [Moles/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::3176-5::Antithrombin [Moles/volume] in Platelet poor plasma by Chromogenic method</includedValues>
+            <includedValues>LOINC::91120-6::Antithrombin in Platelet poor plasma by Chromo.no addition of heparin</includedValues>
+            <includedValues>LOINC::3174-0::Antithrombin [Units/volume] in Platelet poor plasma by Chromogenic method</includedValues>
+            <includedValues>LOINC::75241-0::Procalcitonin [Mass/volume] in Serum or Plasma by Immunoassay</includedValues>
+            <includedValues>LOINC::33959-8::Procalcitonin [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::44322-6::Interleukin 6 [Presence] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::26881-3::Interleukin 6 [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::49919-4::Interleukin 6 [Mass/volume] in Cerebral spinal fluid</includedValues>
+            <includedValues>LOINC::49732-1::Interleukin 6 [Mass/volume] in Body fluid</includedValues>
+            <includedValues>LOINC::33762-6::Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma</includedValues>
+            <includedValues>LOINC::16859-1::Fibrinogen [Presence] in Platelet poor plasma</includedValues>
+            <includedValues>LOINC::30902-1::Fibrinogen [Mass/volume] in Platelet poor plasma by Heat denaturation</includedValues>
+            <includedValues>LOINC::48664-7::Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived</includedValues>
+            <includedValues>LOINC::3255-7::Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" min="1" name="Messwert ">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+            <includedTypes>Quantity</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" name="Interpretation">
+          <constraint xsi:type="textConstraint">
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::CAR::Carrier</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::B::Better</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::D::Significant change down</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::U::Significant change up</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::W::Worse</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::&lt;::Off scale low</includedValues>
+            <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::&gt;::Off scale hig</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0025]" min="1" />
+        <Rule path="/items[at0005]" min="1" />
+        <Rule path="/items[at0026]" name="Probe ID" />
+      </Items>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0004]" min="1" />
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1">
+    <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.specimen.v1">
+    <digest id="MD5-CAM-1.0.1">387596AF709CE27D623064209E998D45</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
+  </integrity_checks>
+</template>
