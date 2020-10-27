@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>b6e9dce4-21d4-49e5-9bcd-4f63eec8e2bf</id>
-    <name>Impfung</name>
+    <name>Impfstatus</name>
     <description>
         <original_author>
             <item>
@@ -20,9 +20,9 @@
         <other_contributors>
             <item>Antje Wulff</item>
         </other_contributors>
-        <lifecycle_state>Initial</lifecycle_state>
+        <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation des Impfstatus im Rahmen des FoDaPl-Projektes / GECCO-Datensa</purpose>
+            <purpose>Zur Repräsentation des Impfstatus im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
                 <item>Impfung</item>
                 <item>Impfungen</item>
@@ -86,7 +86,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>4abfcc9d7b516e7d702a012f82d90a47</value>
+                <value>1a917264b91c3b32e0efdf1e5f80949b</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -116,11 +116,12 @@
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="Impfung"
+        concept_name="Registereintrag" name="Impfstatus"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-ACTION.medication.v1" max="1"
-            min="1" path="/content" xsi:type="tem:ACTION">
+        <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
+            concept_name="Arzneimittelverwaltung" max="1" min="1"
+            name="Impfung" path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0109]"/>
             <Rule max="0" min="0" path="/ism_transition[at0145]"/>
             <Rule max="0" min="0" path="/ism_transition[at0013]"/>
@@ -136,19 +137,83 @@
             <Rule max="0" min="0" path="/ism_transition[at0004]"/>
             <Rule max="0" min="0" path="/ism_transition[at0041]"/>
             <Rule max="0" min="0" path="/ism_transition[at0005]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0018]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0006]"/>
+            <Rule name="not-done" path="/ism_transition[at0018]"/>
             <Rule max="0" min="0" path="/ism_transition[at0044]"/>
             <Rule max="0" min="0" path="/ism_transition[at0008]"/>
             <Rule max="0" min="0" path="/ism_transition[at0009]"/>
             <Rule max="0" min="0" path="/ism_transition[at0011]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0015]"/>
+            <Rule name="stopped" path="/ism_transition[at0015]"/>
             <Rule max="0" min="0" path="/ism_transition[at0039]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0151]"/>
+            <Rule name="entered-in error" path="/ism_transition[at0151]"/>
             <Rule max="0" min="0" path="/ism_transition[at0007]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0152]"/>
+            <Rule name="completed" path="/ism_transition[at0152]"/>
             <Rule name="Impfstoff" path="/description[at0017]/items[at0020]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//snomed.info/sct"/>
+                    <includedValues>SNOMED Clinical Terms::421245007::Diphtheria + pertussis + tetanus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002::Vaccine product (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::37146000::Typhus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::407746005::Varicella-zoster live attenuated vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:127489000=412300006::Vaccine product (product): Has active ingredient (attribute) = Rubella and mumps vaccine (substance)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=428126001}{127489000=412374001}{127489000=396433007}{127489000=412375000}{127489000=396424005}{127489000=768365004}{127489000=768366003}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) } { Has active ingredient (attribute) = Meningococcus group A vaccine (substance) } { Has active ingredient (attribute) = Meningococcus group C vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::427542001::Diphtheria + tetanus + pertussis + poliomyelitis + recombinant hepatitis B virus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=428126001}{127489000=412374001}{127489000=396433007}{127489000=412375000}{127489000=396424005}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333707007::Hepatitis A+typhoid vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::426842004::Diphtheria + tetanus + pertussis + poliomyelitis + recombinant hepatitis B virus + recombinant haemophilus influenzae type B vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::426971004::Haemophilus influenzae Type b + recombinant hepatitis B virus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=428126001}{127489000=396424005}{127489000=412375000}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::414004005::Diphtheria + tetanus + pertussis + poliomyelitis + haemophilus influenzae b vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::426081003::Diphtheria + tetanus + pertussis + recombinant hepatitis B virus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=412374001}{127489000=396436004}::Vaccine product (product): { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Live Poliovirus vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=428126001}{127489000=396438003}{127489000=412375000}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Rubella vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::414005006::Diphtheria + tetanus + pertussis + poliomyelitis vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::414006007::Diphtheria + tetanus + poliomyelitis vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::419550004::Measles + mumps + rubella + varicella vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=396427003}{127489000=396438003}::Vaccine product (product): { Has active ingredient (attribute) = Measles vaccine (substance) } { Has active ingredient (attribute) = Rubella vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::61153008::Measles, mumps and rubella vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::785865001::Measles and mumps vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333702001::Hepatitis A+B vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::350327004::Diphtheria + tetanus vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::78785900:{127489000=398730001}{127489000=412374001}::Vaccine product (product): { Has active ingredient (attribute) = Pneumococcal vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::423912009::Haemophilus influenzae type b + Meningococcal group C vaccine (product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=412374001}{127489000=396433007}{127489000=396411005}::Vaccine product (product): { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Toxoid (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::787859002:{127489000=396422009}{127489000=396441007}::Vaccine product (product): { Has active ingredient (attribute) = Cholera vaccine (substance) } { Has active ingredient (attribute) = Typhoid vaccine (substance) }</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333697005::Japanese B encephalitis vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333699008::Tick-borne encephalitis vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::90043005::Mumps live virus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::111164008::Poliovirus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::116077000::Rotavirus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333606008::Rabies vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::407737004::Varicella-zoster vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::33234009::Smallpox vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::424519000::Human papillomavirus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::56844000::Yellow fever vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::386013003::Rubella vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::386012008::Measles vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::14745005::Hepatitis A virus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::34689006::Hepatitis B virus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::46233009::Influenza virus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::89428009::Typhoid vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::420538001::Tuberculosos vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333621002::Tetanus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333598008::Pneumococcal vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::11866009::Plague vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::61602008::Pertussis vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::423531006::Meningococcus vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333680004::Haemophilus influenzae Type b vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::428214002::Diphtheria vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::35736007::Cholera vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::7230005::Brucella vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::333521006::Anthrax vaccine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::714569001::Product containing normal immunoglobulin human (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::786224004::Product containing human anti-D immunoglobulin (medicinal product)|</includedValues>
+                    <includedValues>SNOMED Clinical Terms::384706007::Product containing tetanus antitoxin (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::62294009::Product containing Varicella-zoster virus antibody (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::9542007::Product containing Hepatitis B surface antigen immunoglobulin (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::80834004::Product containing rabies human immune globulin (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::9778000::Product containing Cytomegalovirus antibody (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::108725001::Product containing palivizumab (medicinal product)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::763703008::Product containing bezlotoxumab (medicinal product)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
@@ -252,6 +317,20 @@
                 <Rule max="0" path="/items[at0177]"/>
             </Items>
         </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            concept_name="Fehlen von Informationen" max="1"
+            name="Unbekannter Impfstatus" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>HL7 NoImmunizationInfoUvIps::no-immunization-info::No information about immunizations</includedValues>
+                    <includedValues>HL7 NoImmunizationInfoUvIps::no-known-immunizations::No known immunizations</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0004]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <view>
         <constraints path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-ACTION.medication.v1]/description[at0017]/items[at0020]/null_flavour">
@@ -275,5 +354,10 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">CD1EACAF2A90BEE4DFD15DA9897B7049</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
     </integrity_checks>
 </template>
