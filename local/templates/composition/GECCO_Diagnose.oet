@@ -58,11 +58,27 @@
                 <value/>
             </item>
             <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>0f5a401d5f8a9549d499f0de05f7dc0e</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>137DCA7D21FA274494054E1B81B67FC5</value>
+            </item>
+            <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]">
+        <items>
+            <item>
+                <key>410605003</key>
+                <value>Confirmed present (qualifier value)</value>
+            </item>
+        </items>
+    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         concept_name="Registereintrag" name="GECCO_Diagnose"
@@ -85,12 +101,12 @@
                     <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/items[at0012]">
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId terminologyID="//snomed.info/sct"/>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0009]"/>
             <Rule max="0" path="/data[at0001]/items[at0003]"/>
             <Rule path="/data[at0001]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
@@ -98,13 +114,35 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
-            <Rule path="/data[at0001]/items[at0073]">
+            <Rule max="0" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
             <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+                concept_name="Anatomische Lokalisation"
+                name="Körperstelle" path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0065]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0023]"/>
+            </Items>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
@@ -135,7 +173,18 @@
                 </constraint>
             </Rule>
         </Content>
-        <Rule min="1" path="/context/other_context[at0001]/items[at0005]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>SNOMED Clinical Terms::418112009::pulmonaryMedicine</includedValues>
+                <includedValues>SNOMED Clinical Terms::722414000::vascularMedicine</includedValues>
+                <includedValues>SNOMED Clinical Terms::408472002::hepatology</includedValues>
+                <includedValues>SNOMED Clinical Terms::394810000::rheumatoloty</includedValues>
+                <includedValues>SNOMED Clinical Terms::408480009::immunology</includedValues>
+                <includedValues>SNOMED Clinical Terms::394807007::infectiousDiseases</includedValues>
+                <includedValues>SNOMED Clinical Terms::408475000::Diabetic Medicine</includedValues>
+                <includedValues>SNOMED Clinical Terms::394593009::Oncology</includedValues>
+            </constraint>
+        </Rule>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
@@ -148,6 +197,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
