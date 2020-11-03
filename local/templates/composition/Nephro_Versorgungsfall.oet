@@ -3,7 +3,15 @@
   <id>42029dcb-68f7-4bd8-9eff-5740ac820f87</id>
   <name>Nephro_Versorgungsfall</name>
   <description>
-    <original_author />
+    <original_author>
+      <item>
+        <key>Name </key>
+        <value>Antje Wulff</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Nina Schewe</item>
+    </other_contributors>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
       <purpose>Zur Repräsentation der administrativen Daten eines Falls (Fallinformationen, Aufnahme, Entlassung) eines Patienten innerhalb einer Einrichtung. Ein “Fall” beginnt mit der Aufnahme ins Krankenhaus an einem Aufnahmedatum und endet mit der Entlassung an einem Entlassungsdatum. </purpose>
@@ -68,6 +76,7 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.fall.v0" concept_name="Fall" name="Versorgungsfall">
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.admission.v0" concept_name="Patientenaufnahme" max="1" min="1" path="/content" name="Aufnahmedaten">
+      <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0002]" max="0" />
       <Rule path="/data[at0001]/items[at0013]" name="Versorgungsfallgrund" />
       <Rule path="/data[at0001]/items[at0023]" max="0" />
@@ -80,6 +89,7 @@
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" concept_name="Entlassungsdaten" max="1" path="/content">
       <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" max="0" />
       <Rule path="/data[at0001]/items[at0011]" min="1" name="Datum/Uhrzeit der Entlassung" />
       <Rule path="/data[at0001]/items[at0038]" max="0" />
       <Rule path="/data[at0001]/items[at0051]" max="0" />
@@ -88,7 +98,7 @@
       <Rule path="/data[at0001]/items[at0033]" max="0" />
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0" concept_name="Multimedia-Ressource" max="1" path="/context/other_context[at0001]/items[at0002]" name="PDF">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0" concept_name="Multimedia-Ressource" max="1" path="/context/other_context[at0001]/items[at0002]" name="Arztbrief">
         <Rule path="/items[at0008]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0009]" max="0" />
