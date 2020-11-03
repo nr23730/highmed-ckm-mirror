@@ -1,0 +1,238 @@
+﻿archetype (adl_version=1.4; uid=7d79c97d-5986-4d65-ab87-bd35dd68acca)
+	openEHR-EHR-ADMIN_ENTRY.its_discharge.v0
+
+concept
+	[at0000]	-- Entlassung von der Intensivstation
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Natalia Strauch">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Strauch.Natalia@mh-hannover.de">
+		["date"] = <"2020-04-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung spezifschen administrativen Daten bei der Entlassung von der Intensivstation.">
+			use = <"Verwenden Sie diesen archetypen, um spezifsche administrative Daten bei der Entlassung von der Intensivstation darzustellen. Die Daten entsprechen den Qualitätskriterien des DIVI-Kerndatensatzes.">
+			keywords = <"Intensive Care Unit", "ITS", "Entlassung">
+			misuse = <"Nicht für die Darstellung administrativer Daten bei der Entlassung von anderen Stationen verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Kerndatensatz Intensivmedizin 2010 der DIVI und DGAI.
+
+https://www.divi.de/empfehlungen/publikationen/intensivmedizin/397-kerndatensatz-intensivmedizin-2010/file
+
+L. Martin L., Marx G. Qualitätsindikatoren in der Intensivmedizin: Quality indicators in intensive care medicine. Aktuelles Wissen für Anästhesisten. Refresher Course Nr. 41. 2015; 99-106.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"1E16780FA54049A4587357C38A91DB1A">
+		["build_uid"] = <"d2a33403-6ce0-42fc-9303-75860a9df13a">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Entlassung von der Intensivstation
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Palliative Therapie?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003, 	-- Ja
+									at0004]	-- Nein
+								}
+							}
+						}
+					}
+					ELEMENT[at0063] occurrences matches {0..1} matches {	-- DNR/AND
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0064, 	-- Ja
+									at0065]	-- Nein
+								}
+							}
+						}
+					}
+					ELEMENT[at0061] occurrences matches {0..1} matches {	-- DNR-Grund
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0062, 	-- Patientenverfügung
+									at0066, 	-- Entscheidung des Betreuers
+									at0067]	-- Keine medizinische Indikation
+								}
+							}
+						}
+					}
+					ELEMENT[at0068] occurrences matches {0..1} matches {	-- DNR-Therapeutisches Prozedere
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0069, 	-- Palliativbehandlung
+									at0070]	-- Therapiebegrenzung
+								}
+							}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Exitus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0028, 	-- Ja
+									at0029]	-- Nein
+								}
+							}
+						}
+					}
+					ELEMENT[at0072] occurrences matches {0..1} matches {	-- Organspende
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0073, 	-- Ja
+									at0074]	-- Nein
+								}
+							}
+						}
+					}
+					ELEMENT[at0071] occurrences matches {0..1} matches {	-- Beatmungsstunden
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"h">
+									>
+								>
+							>
+						}
+					}
+					allow_archetype CLUSTER[at0075] occurrences matches {0..1} matches {	-- Verlegungsziel
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Entlassung von der Intensivstation">
+					description = <"Administrative Daten bei der Entlassung von der Intensivstation.">
+				>
+				["at0001"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Palliative Therapie?">
+					description = <"Entlassung zur palliativen Therapie?">
+				>
+				["at0003"] = <
+					text = <"Ja">
+					description = <"Es wurden palliative Maßnahmen durchgeführt.">
+				>
+				["at0004"] = <
+					text = <"Nein">
+					description = <"Es wurden keine palliativen Maßnahmen durchgeführt.">
+				>
+				["at0027"] = <
+					text = <"Exitus">
+					description = <"Exitus auf Intensivstation?">
+				>
+				["at0028"] = <
+					text = <"Ja">
+					description = <"Der Patient ist während seines Aufenthaltes auf ITS verstorben.">
+				>
+				["at0029"] = <
+					text = <"Nein">
+					description = <"Der Patient ist während seines Aufenthaltes auf ITS nicht verstorben.">
+				>
+				["at0061"] = <
+					text = <"DNR-Grund">
+					description = <"Begründung des DNR (Do not resuscitate)-Vermerks.">
+					comment = <"Der Wert fehlt, wenn das Element \"DNR/AND\" Wert \"Nein\" angenommen hat. ">
+				>
+				["at0062"] = <
+					text = <"Patientenverfügung">
+					description = <"Ein DNR-Vermerk wurde durch Patientenverfügung vom Patienten selbst gemacht.">
+				>
+				["at0063"] = <
+					text = <"DNR/AND">
+					description = <"Es wurde ein Verzicht auf die cardiopulmonale Wiederbelebung und eine Therapiebegrenzung in Form einer DNR-Anordnung (do not resuscitate) oder AND (allow natural death) erteilt.">
+				>
+				["at0064"] = <
+					text = <"Ja">
+					description = <"Es gibt ein DNR-Vermerk in den Patientenakten.">
+				>
+				["at0065"] = <
+					text = <"Nein">
+					description = <"Es gibt kein DNR-Vermerk in den Patientenakten.">
+				>
+				["at0066"] = <
+					text = <"Entscheidung des Betreuers">
+					description = <"Ein DNR-Vermerk wurde durch den Betreuer/Stellvertreter des Patienten gemacht.">
+				>
+				["at0067"] = <
+					text = <"Keine medizinische Indikation">
+					description = <"NDR-Vermerk durch den verantwortlichen Arzt aufgrund fehlender medizinischer Indikation.">
+				>
+				["at0068"] = <
+					text = <"DNR-Therapeutisches Prozedere">
+					description = <"Weitere Behandlung des Patienten mit einer DNR-Anordnung.">
+					comment = <"Der Wert fehlt, wenn das Element \"DNR/AND\" Wert \"Nein\" angenommen hat. ">
+				>
+				["at0069"] = <
+					text = <"Palliativbehandlung">
+					description = <"Palliativbehandlung mit DNR-Vermerk.">
+				>
+				["at0070"] = <
+					text = <"Therapiebegrenzung">
+					description = <"Es erfolgt eine Therapiebegrenzung.">
+				>
+				["at0071"] = <
+					text = <"Beatmungsstunden">
+					description = <"Gesamt-Beatmungsstunden auf der ITS.">
+				>
+				["at0072"] = <
+					text = <"Organspende">
+					description = <"Wurde eine Organspende durchgeführt?">
+					comment = <"Der Wert fehlt, wenn das Element \"Exitus\" Wert \"Nein\" angenommen hat. ">
+				>
+				["at0073"] = <
+					text = <"Ja">
+					description = <"Eine postmortale Organspende wurde durchgeführt.">
+				>
+				["at0074"] = <
+					text = <"Nein">
+					description = <"Keine Organspende wurde durchgeführt.">
+				>
+				["at0075"] = <
+					text = <"Verlegungsziel">
+					description = <"Detaillierte Angaben zum Verlegungsziel (für Überlebende).">
+				>
+			>
+		>
+	>
