@@ -19,10 +19,11 @@
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Darstellung eines Medikamentenplans in Anlehnung an den Bundeseinheitlichen Medikamentenplans (BMP).</purpose>
+      <purpose>Zur Darstellung eines Medikamentenplans in Anlehnung an den Bundeseinheitlichen Medikamentenplans (BMP). https://www.kbv.de/html/medikationsplan.php und https://www.bundesaerztekammer.de/aerzte/telematiktelemedizin/medikationsplaene/</purpose>
       <keywords>
         <item>Medikament</item>
         <item>Arzneimittel</item>
+        <item>Therapie</item>
       </keywords>
       <use>Zur Repräsentation des Medikamentenplans eines Patienten in Anlehnung an den BMP.</use>
       <misuse />
@@ -78,8 +79,8 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.medication_list.v1" concept_name="Medikamentenliste" name="Medikation">
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v2" concept_name="Medikamentenverordnung" path="/content">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.medication_list.v1" concept_name="Medikamentenliste">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v2" concept_name="Verordnung von Arzneimittel" path="/content">
       <Rule path="/activities[at0001]" hide_on_form="true" />
       <Rule path="/activities[at0001]/description[at0002]" hide_on_form="true" />
       <Rule path="/activities[at0001]/description[at0002]/items[at0070]" name="Handelsname" />
@@ -106,7 +107,7 @@
       <Rule path="/protocol[at0005]" hide_on_form="true" />
       <Rule path="/protocol[at0005]/items[at0004]" max="0" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medication.v1" concept_name="Arzneimittel" path="/activities[at0001]/description[at0002]/items[at0143]">
-        <Rule path="/items[at0132]" name="Wirkstoff" />
+        <Rule path="/items[at0132]" max="0" />
         <Rule path="/items[at0071]">
           <constraint xsi:type="textConstraint">
             <includedValues>Ätherisches Öl</includedValues>
@@ -362,6 +363,7 @@
         <Rule path="/items[at0142]" max="0" />
         <Rule path="/items[at0152]" max="0" />
         <Rule path="/items[at0158]" max="0" />
+        <Rule path="/items[at0115]" max="0" />
         <Rule path="/items[at0151]" max="0" />
         <Rule path="/items[at0150]" max="0" />
         <Rule path="/items[at0003]" max="0" />
@@ -371,6 +373,23 @@
         <Rule path="/items[at0007]" max="0" />
         <Rule path="/items[at0127]" max="0" />
         <Rule path="/items[at0133]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medication.v1" concept_name="Arzneimittel" max="1" path="/items[at0138]" name="Wirkstoff">
+          <Rule path="/items[at0132]" name="Wirkstoff" />
+          <Rule path="/items[at0071]" max="0" />
+          <Rule path="/items[at0142]" max="0" />
+          <Rule path="/items[at0152]" max="0" />
+          <Rule path="/items[at0158]" max="0" />
+          <Rule path="/items[at0115]" name="Wirkstoffstärke" />
+          <Rule path="/items[at0151]" max="0" />
+          <Rule path="/items[at0150]" max="0" />
+          <Rule path="/items[at0003]" max="0" />
+          <Rule path="/items[at0139]" max="0" />
+          <Rule path="/items[at0008]" max="0" />
+          <Rule path="/items[at0148]" max="0" />
+          <Rule path="/items[at0007]" max="0" />
+          <Rule path="/items[at0127]" max="0" />
+          <Rule path="/items[at0133]" max="0" />
+        </Items>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.therapeutic_direction.v1" concept_name="Therapeutische Anweisung" path="/activities[at0001]/description[at0002]/items[at0166]">
         <Rule path="/items[at0057]" max="0" />
@@ -421,7 +440,7 @@
             </constraint>
           </Rule>
           <Rule path="/items[at0135]" max="0" />
-          <Rule path="/items[at0178]" max="0" />
+          <Rule path="/items[at0178]" name="Dosierung Freitext" />
           <Rule path="/items[at0134]" max="0" />
           <Rule path="/items[at0102]" max="0" />
           <Rule path="/items[at0176]" max="0" />
@@ -430,7 +449,10 @@
             <Rule path="/items[at0003]" max="0" />
             <Rule path="/items[at0014]" max="0" />
             <Rule path="/items[at0004]" max="0" />
-            <Rule path="/items[at0027]">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0023]" max="0" />
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0039]/items[at0026]" name="Ereignis">
               <constraint xsi:type="textConstraint">
                 <includedValues>morgens</includedValues>
                 <includedValues>mittags</includedValues>
@@ -438,14 +460,23 @@
                 <includedValues>nachts</includedValues>
               </constraint>
             </Rule>
-            <Rule path="/items[at0023]" max="0" />
+            <Rule path="/items[at0039]/items[at0040]" max="0" />
+            <Rule path="/items[at0035]" max="0" />
           </Items>
         </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1" concept_name="Zeitablauf - nicht täglich" max="1" path="/items[at0090]" name="Dosierung - nicht täglich">
           <Rule path="/items[at0001]" max="0" />
-          <Rule path="/items[at0003]" max="0" />
+          <Rule path="/items[at0003]" max="1" />
           <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0006]/items[at0005]" name="Ereignis" />
+          <Rule path="/items[at0006]/items[at0009]" max="0" />
+          <Rule path="/items[at0010]" max="0" />
         </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation.v0" concept_name="Einrichtung" max="1" path="/protocol[at0005]/items[at0008]" name="Autor Eintrag">
+        <Rule path="/items[at0001]" name="Einrichtung/Organisation" />
+        <Rule path="/items[at0011]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
       </Items>
     </Content>
     <Context>
@@ -465,7 +496,7 @@
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v2">
-    <digest id="MD5-CAM-1.0.1">E6B520A25FDC09E5512C6BBA08FD8218</digest>
+    <digest id="MD5-CAM-1.0.1">9E291C33479D637EB408AD301B2E6A83</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.medication.v1">
     <digest id="MD5-CAM-1.0.1">2F8FAC73C32910334C637CF675BD3713</digest>
@@ -481,5 +512,8 @@
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1">
     <digest id="MD5-CAM-1.0.1">47B10A6B5F4FD1E21ED98352AE29F6AD</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.organisation.v0">
+    <digest id="MD5-CAM-1.0.1">205EF4F78CEBF8D851B406A89632FD93</digest>
   </integrity_checks>
 </template>
