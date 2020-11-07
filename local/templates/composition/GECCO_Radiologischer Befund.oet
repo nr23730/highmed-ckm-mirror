@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>bbcbf2d9-eacc-4ca9-a55e-2c06d8b28b1c</id>
+  <name>GECCO_Radiologischer Befund</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name </key>
+        <value>Sarah Ballout</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>ballout.sarah@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>Oganisation</key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation der Ergebnisse und Interpretationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>Radiologischer Befund</item>
+        <item>Covid-typischer Befund</item>
+        <item>MRT</item>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>FoDaPl</item>
+        <item>CODEX</item>
+      </keywords>
+      <use>Für die Abbildung der Ergebnisse und Interpretationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+      <misuse>Nicht zur Repräsentation der klinischen Veränderungen einer Krankheit verwenden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Radiologischer Befund ">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result-dicom_series_metadata.v0" concept_name="Bildgebendes Untersuchungsergebnis" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004.1]" name="Name des Untersuchung" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Bildgebungsverfahren" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::373068000::Unspezifischer Befund</includedValues>
+          <includedValues>SNOMED-CT::840539006::COVID-19-typischer Befund</includedValues>
+          <includedValues>SNOMED-CT::17621005::Normalbefund</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0056]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]" max="0" />
+      <Rule path="/protocol[at0025]/items[at0049]" max="0" />
+      <Rule path="/protocol[at0025]/items[at0057]" max="0" />
+      <Rule path="/protocol[at0025]/items[at0027]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0" concept_name="Ergebnis der Bildgebung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]">
+        <Rule path="/items[at0001]/items[at0002]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>MultiMedia</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]/items[at0003]" max="0" />
+        <Rule path="/items[at0001]/items[at0004]" max="0" />
+        <Rule path="/items[at0001]/items[at0011]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0004]" min="1" />
+      <Rule path="/context/other_context[at0001]/items[at0005]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HL7::AU::Audiology</includedValues>
+          <includedValues>HL7::BG::Blood Gases</includedValues>
+          <includedValues>HL7::BLB::Blood Bank</includedValues>
+          <includedValues>HL7::CG::Cytogenetics</includedValues>
+          <includedValues>HL7::CH::Chemistry</includedValues>
+          <includedValues>HL7::CP::Cytopathology</includedValues>
+          <includedValues>HL7::CT::CAT Scan</includedValues>
+          <includedValues>HL7::CTH::Cardiac Catheterization</includedValues>
+          <includedValues>HL7::CUS::Cardiac Ultrasound</includedValues>
+          <includedValues>HL7::EC::Electrocardiac (e.g., EKG, EEC, Holter)</includedValues>
+          <includedValues>HL7::EN::Electroneuro (EEG, EMG,EP,PSG)</includedValues>
+          <includedValues>HL7::GE::Genetics</includedValues>
+          <includedValues>HL7::HM::Hematology</includedValues>
+          <includedValues>HL7::ICU::Bedside ICU Monitoring</includedValues>
+          <includedValues>HL7::IMM::Immunology</includedValues>
+          <includedValues>HL7::LAB::Laboratory</includedValues>
+          <includedValues>HL7::MB::Microbiology</includedValues>
+          <includedValues>HL7::MCB::Mycobacteriology</includedValues>
+          <includedValues>HL7::MYC::Mycology</includedValues>
+          <includedValues>HL7::NMR::Nuclear Magnetic Resonance</includedValues>
+          <includedValues>HL7::NMS::Nuclear Medicine Scan</includedValues>
+          <includedValues>HL7::NRS::Nursing Service Measures</includedValues>
+          <includedValues>HL7::OSL::Outside Lab</includedValues>
+          <includedValues>HL7::OT::Occupational Therapy</includedValues>
+          <includedValues>HL7::OTH::Other</includedValues>
+          <includedValues>HL7::OUS::OB Ultrasound</includedValues>
+          <includedValues>HL7::PF::Pulmonary Function</includedValues>
+          <includedValues>HL7::PHR::Pharmacy</includedValues>
+          <includedValues>HL7::PHY::Physician (Hx. Dx, admission note, etc.)</includedValues>
+          <includedValues>HL7::PT::Physical Therapy</includedValues>
+          <includedValues>HL7::RAD::Radiology</includedValues>
+          <includedValues>HL7::RC::Respiratory Care (therapy)</includedValues>
+          <includedValues>HL7::RT::Radiation Therapy</includedValues>
+          <includedValues>HL7::RUS::Radiology Ultrasound</includedValues>
+          <includedValues>HL7::RX::Radiograph</includedValues>
+          <includedValues>HL7::SP::Surgical Pathology</includedValues>
+          <includedValues>HL7::SR::Serology</includedValues>
+          <includedValues>HL7::TX::Toxicology</includedValues>
+          <includedValues>HL7::VR::Virology</includedValues>
+          <includedValues>HL7::VUS::Vascular Ultrasound</includedValues>
+          <includedValues>HL7::XRC::Cineradiograph</includedValues>
+        </constraint>
+      </Rule>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1">
+    <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result-dicom_series_metadata.v0">
+    <digest id="MD5-CAM-1.0.1">A4E4AD7252E6B5B517F72C7E97FC1BB6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0">
+    <digest id="MD5-CAM-1.0.1">603A5F60C26B4415285A6F29EC8035A1</digest>
+  </integrity_checks>
+</template>
