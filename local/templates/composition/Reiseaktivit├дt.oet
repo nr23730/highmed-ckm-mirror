@@ -84,7 +84,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>ca8052ad9a6d98a340920036a76c976f</value>
+                <value>df22e27da0410484ba907d40010d4974</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -96,25 +96,32 @@
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-OBSERVATION.travel_event.v0]">
+        <items>
+            <item>
+                <key>8691-8</key>
+                <value>History of Travel</value>
+            </item>
+        </items>
+    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         concept_name="Registereintrag" name="Reiseaktivität"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-OBSERVATION.travel_event.v0"
-            concept_name="Reisefall" max="1" min="1"
-            name="Reiseaktivität" path="/content" xsi:type="tem:OBSERVATION">
+            concept_name="Reisefall" max="1" name="Reiseaktivität"
+            path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
-            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::373066001::Ja</includedValues>
-                    <includedValues>SNOMED Clinical Terms::373067005::Nein</includedValues>
-                    <includedValues>SNOMED Clinical Terms::261665006::Unbekannt</includedValues>
+                    <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
             <Rule max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0022]"/>
+            <Rule max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]/items[at0011]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>ISO3166-1-2::AD::Andorra</includedValues>
@@ -396,6 +403,44 @@
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0018]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0020]"/>
         </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+            concept_name="Ausschluss - spezifisch" max="1"
+            name="Keine Reiseaktivität" path="/content" xsi:type="tem:EVALUATION">
+            <Rule min="1" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>LOINC::8691-8::History of Travel</includedValues>
+                </constraint>
+                <nameConstraint>
+                    <excludedValues>local::at0008</excludedValues>
+                    <excludedValues>local::at0005</excludedValues>
+                    <excludedValues>local::at0006</excludedValues>
+                    <excludedValues>local::at0007</excludedValues>
+                </nameConstraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            concept_name="Fehlen von Informationen" max="1"
+            name="Unbekannte Reiseaktivität" path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Fehlende Information" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>LOINC::8691-8::History of Travel</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="1" min="1"
+                name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED Clinical Terms::261665006::Unknown (qualifier value)</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
         <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
     </definition>
     <integrity_checks
@@ -409,5 +454,16 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">BF1CA2D363655EBF46316581EE739BE9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
     </integrity_checks>
 </template>
