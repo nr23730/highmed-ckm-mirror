@@ -33,25 +33,25 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Darstellung einer Übersicht des Ernährungsstatus eines Individuums.">
-			use = <"Zur Darstellung einer Übersicht des Ernährungsstatus eines Individuums, der durch einen Kliniker erfasst wurde.">
-			keywords = <"Ernährung", "Nahrung", "Fettleibigkeit", "Übergewicht", "Untergewicht", "unterernährt", "Ernährungssicherheit", "Ernährungszustand", "Ernährungsstatus", "Ernährungsweise">
-			misuse = <"Sollte nicht zur Darstellung von Gewicht, Größe oder Body Mass Index benutzt werden. Zur Darstellung dieser Messungen sollten spezifische Archetypen wie OBSERVATION.weight, OBSERVATION.height and OBSERVATION.body_mass_index benutzt werden.">
+			purpose = <"Zur Darstellung einer Übersicht der Nahrungs- und Ernährungssituation einer Person, einschließlich der Auswirkungen auf die sozialen Faktoren der Gesundheit.">
+			use = <"Zur Darstellung einer Übersicht der Nahrungs- und Ernährungssituation einer Person, einschließlich der Auswirkungen auf die sozialen Faktoren der Gesundheit.">
+			keywords = <"Ernährung", "Nahrung", "Fettleibigkeit", "Übergewicht", "Untergewicht", "unterernährt">
+			misuse = <"Nicht zur Darstellung von Messungen wie Körpergewicht, Körpergröße oder Body Mass Index verwenden. Verwenden Sie dafür bestimmte Archetypen, um diese Messungen darzustellen - OBSERVATION.weight, OBSERVATION.height und OBSERVATION.body_mass_index.">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record an overview of the nutritional status of an individual.">
-			use = <"Use to record an overview of the nutritional status of an individual, as assessed by a clinician.">
+			purpose = <"To record an overview of the food and nutritional situation for an individual, including the impact on social determinants of health.">
+			use = <"Use to record an overview of the food and nutritional situation for an individual, including the impact on social determinants of health.">
 			keywords = <"nutrition", "obese", "overweight", "underweight", "malnourished">
-			misuse = <"Not to be used to record measurements such as weight, height or Body Mass Index. Use specific archetypes to record these measurements - OBSERVATION.weight, OBSERVATION.height and OBSERVATION.body_mass_index.">
+			misuse = <"Not to be used to record measurements such as body weight, height or Body Mass Index. Use specific archetypes to record these measurements - OBSERVATION.weight, OBSERVATION.height and OBSERVATION.body_mass_index.">
 			copyright = <"© Australian Digital Health Agency, openEHR Foundation">
 		>
 		["nl"] = <
 			language = <[ISO_639-1::nl]>
-			purpose = <"Om een overzicht van de voedingsstatus van een individu vast te leggen.">
-			use = <"Gebruik om een overzicht van de voedingsstatus van een individu vast te leggen, zoals vastgesteld door een clinicus.">
+			purpose = <"*To record an overview of the food and nutritional situation for an individual, including the impact on social determinants of health. (en)">
+			use = <"*Use to record an overview of the food and nutritional situation for an individual, including the impact on social determinants of health. (en)">
 			keywords = <"*voeding", "*obesitas", "*overgewicht", "*ondergewicht", "*ondervoed">
-			misuse = <"Niet te gebruiken voor het vastleggen van metingen zoals gewicht, lengte of Body Mass Index. Gebruik specifieke archetypes om dit vast te leggen, zoals OBSERVATION.weight, OBSERVATION.height en OBSERVATION.body_mass_index.">
+			misuse = <"*Not to be used to record measurements such as body weight, height or Body Mass Index. Use specific archetypes to record these measurements - OBSERVATION.weight, OBSERVATION.height and OBSERVATION.body_mass_index. (en)">
 		>
 	>
 	lifecycle_state = <"in_development">
@@ -64,8 +64,8 @@ description
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"C530AEC6117CA895C7B3BDBC140FC176">
-		["build_uid"] = <"77a33370-1c93-48fd-a8e9-4967237402bf">
+		["MD5-CAM-1.0.1"] = <"E4D7E4C1710FF7EDD1B26A917D25BAB0">
+		["build_uid"] = <"8df113e1-08dd-4b46-8449-0c75fc645b51">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -75,6 +75,23 @@ definition
 			ITEM_TREE[at0001] matches {    -- Tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Food security status
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0014,    -- Secure
+									at0015,    -- Changeable
+									at0016]    -- Insecure
+								}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {    -- Food security description
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -103,24 +120,6 @@ definition
 						}
 					}
 					ELEMENT[at0009] occurrences matches {0..*} matches {    -- Dietary constraints
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Food security status
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0014,    -- Food security
-									at0015,    -- Marginal food security
-									at0016,    -- Low food security
-									at0017]    -- Very low food security
-								}
-							}
-						}
-					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {    -- Food security description
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -156,7 +155,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Food and nutrition summary">
-					description = <"Summary of the nutritional status of an individual, as assessed by a clinician.">
+					description = <"Summary of the food and nutritional situation for an individual.">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -164,7 +163,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Nutrition status">
-					description = <"Description of the individual's nutritional status as assessed by a clinician, for example, malnourished or well nourished.  Coding with a terminology is desirable, where possible.">
+					description = <"Description of the individual's nutritional status as assessed by a clinician, for example, malnourished or well nourished. Coding with a terminology is desirable, where possible.">
 				>
 				["at0003"] = <
 					text = <"Weight status">
@@ -189,12 +188,12 @@ ontology
 				["at0008"] = <
 					text = <"Dietary preference">
 					description = <"A description of an individual's dietary preference.">
-					comment = <"For example: omnivore; vegetarian or vegan.  Coding with a terminology is desirable, where possible.">
+					comment = <"For example: omnivore; vegetarian or vegan. Coding with a terminology is desirable, where possible.">
 				>
 				["at0009"] = <
 					text = <"Dietary constraints">
 					description = <"Description of a special dietary requirements or constraints.">
-					comment = <"For example: lactose or gluten free; low sodium.  Coding with a terminology is desirable, where possible.">
+					comment = <"For example: lactose or gluten free; low sodium. Coding with a terminology is desirable, where possible.">
 				>
 				["at0010"] = <
 					text = <"Comment">
@@ -210,24 +209,19 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Food security status">
-					description = <"The current category for secure access to food.">
-					comment = <"The scope of food security includes access to food that is adequate in quantity and nutritional quality; culturally acceptable; safe; and acquired in socially acceptable ways.">
+					description = <"Category describing the individual's perception about about secure and reliable access to food that is adequate in quantity and nutritional quality; culturally acceptable; safe; and acquired in socially acceptable ways.">
 				>
 				["at0014"] = <
-					text = <"Food security">
-					description = <"An absence of any form of food insecurity.">
+					text = <"Secure">
+					description = <"The individual has a sense of certainty and peace of mind about their access to appropriate food.">
 				>
 				["at0015"] = <
-					text = <"Marginal food security">
-					description = <"Mild food insecurity.">
+					text = <"Changeable">
+					description = <"The individual has a sense of uncertainty about reliable and consistent access to appropriate food.">
 				>
 				["at0016"] = <
-					text = <"Low food security">
-					description = <"Moderate food insecurity.">
-				>
-				["at0017"] = <
-					text = <"Very low food security">
-					description = <"Severe food insecurity.">
+					text = <"Insecure">
+					description = <"The individual has a sense of worry and concern about their access to appropriate food.">
 				>
 				["at0018"] = <
 					text = <"Last updated">
@@ -240,7 +234,7 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Food security description">
-					description = <"Narrative description about any difficulties or issues around food security.">
+					description = <"Narrative description about the individual's ability to access appropriate food.">
 				>
 			>
 		>
@@ -248,7 +242,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Zusammenfassung der Ernährung und Ernährungsweise">
-					description = <"Übersicht des Ernährungsstatus eines Individuums, der durch einen Kliniker erfasst wurde.">
+					description = <"Zusammenfassung der Nahrungs- und Ernährungssituation einer Person.">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -302,26 +296,19 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Status der Ernährungssicherheit">
-					description = <"Der aktuelle Zustand der sicheren Nahrungsaufnahme.">
-					comment = <"Die Ernährungssicherheit stellt den Zugang zu Nahrung dar, welche in einer adäquaten Menge und Qualität, kulturell akzeptiert, sicher und in einer sozialverträglichen Weise zu erlangen sein muss.
-
-">
+					description = <"Kategorie, die die Wahrnehmung des Individuums über einen sicheren und zuverlässigen Zugang zu Nahrungsmitteln beschreibt, der in Bezug auf Quantität und Ernährungsqualität angemessen, kulturell akzeptabel, sicher und auf sozial verträgliche Weise erworben ist.">
 				>
 				["at0014"] = <
-					text = <"Ernährungssicherheit">
-					description = <"Fehlen jeglicher Form von Ernährungsunsicherheit.">
+					text = <"Sicher">
+					description = <"Die Person hat ein Gefühl von Sicherheit und Unbesorgtheit über den Zugang zu angemessener Nahrung.">
 				>
 				["at0015"] = <
-					text = <"Marginale Ernährungssicherheit">
-					description = <"Grenzwertige Ernährungssicherheit.">
+					text = <"Wechselhaft">
+					description = <"Die Person hat ein Gefühl von Unsicherheit über den zuverlässigen und konsistenten Zugang zu angemessener Nahrung.">
 				>
 				["at0016"] = <
-					text = <"Geringe Ernährungssicherheit">
-					description = <"Moderate Ernährungsunsicherheit.">
-				>
-				["at0017"] = <
-					text = <"Sehr geringe Ernährungssicherheit">
-					description = <"Schwere Ernährungsunsicherheit.">
+					text = <"Unsicher">
+					description = <"Die Person hat ein Gefühl von Angst und Sorge über sein Zugang zu angemessener Nahrung.">
 				>
 				["at0018"] = <
 					text = <"Letzte Aktualisierung">
@@ -334,7 +321,7 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Beschreibung der Ernährungssicherheit">
-					description = <"Beschreibung aller Schwierigkeiten oder Probleme im Zusammenhang mit der Ernährungssicherheit.">
+					description = <"Beschreibung der Fähigkeit der Person, auf geeignete Nahrung zuzugreifen.">
 				>
 			>
 		>
@@ -342,7 +329,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Voedsel en voeding overzicht">
-					description = <"Overzicht van de voedingsstatus van een individu, zoals vastgesteld door een clinicus.">
+					description = <"*Summary of the food and nutritional situation for an individual. (en)">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -396,24 +383,19 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Voedselzekerheid">
-					description = <"De huidige categorie voor veilige toegang tot voedsel.">
-					comment = <"De scope van voedselzekerheid omvat toegang tot voedsel dat voldoende in kwaliteit en voedingswaarde, cultureel acceptabel en veilig is; en verkregen op sociaal-acceptable manieren.">
+					description = <"*Category describing the individual's perception about about secure and reliable access to food that is adequate in quantity and nutritional quality; culturally acceptable; safe; and acquired in socially acceptable ways. (en)">
 				>
 				["at0014"] = <
-					text = <"Voedselzekerheid">
-					description = <"De afwezigheid van enige vorm van voedselonzekerheid.">
+					text = <"*Secure (en)">
+					description = <"*The individual has a sense of certainty and peace of mind about their access to appropriate food. (en)">
 				>
 				["at0015"] = <
-					text = <"Marginale voedselzekerheid">
-					description = <"Milde voedselonzekerheid.">
+					text = <"*Changeable (en)">
+					description = <"*The individual has a sense of uncertainty about their access to appropriate food. (en)">
 				>
 				["at0016"] = <
-					text = <"Lage voedselzekerheid">
-					description = <"Matige voedselonzekerheid">
-				>
-				["at0017"] = <
-					text = <"Erg lage voedselzekerheid">
-					description = <"Ernstige voedselonzekerheid.">
+					text = <"*Insecure (en)">
+					description = <"*The individual has a sense of worry and concern about their access to appropriate food. (en)">
 				>
 				["at0018"] = <
 					text = <"Laatst bijgewerkt">
@@ -426,7 +408,7 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Voedselzekerheid beschrijving">
-					description = <"Verhalende beschrijving over de moeilijkheden of problemen rond voedselzekerheid.">
+					description = <"*Narrative description about the individual's ability to access appropriate food. (en)">
 				>
 			>
 		>
