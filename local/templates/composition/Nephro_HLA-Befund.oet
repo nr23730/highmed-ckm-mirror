@@ -19,14 +19,17 @@
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Repräsentation der Ergebnisse einer HLA-Antikörperuntersuchung und einer Non-HLA Antikörperuntersuchung eines Patienten.</purpose>
+      <purpose>Zur Repräsentation der Ergebnisse einer HLA-Untersuchung eines Patienten.</purpose>
       <keywords>
         <item>HLA</item>
-        <item>Non-HLA Antikörper</item>
+        <item>Antikörper</item>
         <item>HLA Antikörper</item>
         <item>DSA</item>
+        <item>HvG-Mismatch</item>
+        <item>HLA-Screening</item>
+        <item>HLA-Spezifizierung</item>
       </keywords>
-      <use>Zur Darstellung der Ergebnisse einer HLA- und einer Non-HLA Antikörperuntersuchung.</use>
+      <use>Zur Darstellung der Ergebnisse einer HLA-Untersuchung.</use>
       <misuse />
     </details>
     <other_details>
@@ -81,12 +84,12 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="HLA-Befund">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HLA-Antikörper">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HLA-Screening">
       <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" default="HLA-Antikörper">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <includedValues>HLA-Antikörper</includedValues>
+          <includedValues>HLA-Screening</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
@@ -102,10 +105,73 @@
       <Rule path="/protocol[at0004]/items[at0068]" max="0" />
       <Rule path="/protocol[at0004]/items[at0094]" max="0" />
       <Rule path="/protocol[at0004]/items[at0111]" max="0" />
-      <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" name="Methode">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
         <Rule path="/items[at0027]" max="0" />
-        <Rule path="/items[at0001]" max="1" name="Nachweis">
+        <Rule path="/items[at0024]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>HLA-Klasse I</includedValues>
+            <includedValues>HLA-Klasse II</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>positiv</includedValues>
+            <includedValues>negativ</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" clone="true" name="HLA-Spezifität">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HLA-Spezifizierung">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HLA-Spezifizierung</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]" hide_on_form="true" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" name="Methode">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0024]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>HLA-Klasse I</includedValues>
+            <includedValues>HLA-Klasse II</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]">
           <constraint xsi:type="multipleConstraint">
             <includedTypes>Text</includedTypes>
           </constraint>
@@ -123,12 +189,169 @@
         <Rule path="/items[at0003]" max="0" />
       </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="Non-HLA-Antikörper">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HLA-Patiententypisierung">
       <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" default="Non-HLA-Antikörper">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Non-HLA-Antikörper</includedValues>
+          <includedValues>HLA-Patiententypisierung</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]" hide_on_form="true" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      <SubjectOfCare>
+        <includedValues>openehr::0</includedValues>
+      </SubjectOfCare>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/items[at0013]">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>HLA-A</includedValues>
+              <includedValues>HLA-B</includedValues>
+              <includedValues>HLA-C</includedValues>
+              <includedValues>HLA-DRB1</includedValues>
+              <includedValues>HLA-DQB1</includedValues>
+              <includedValues>HLA-DQA1</includedValues>
+              <includedValues>HLA-DPB1</includedValues>
+              <includedValues>HLA-DRB3</includedValues>
+              <includedValues>HLA-DRB4</includedValues>
+              <includedValues>HLA-DRB5</includedValues>
+              <includedValues>HLA-DPA1</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Text</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0026]" max="0" />
+          <Rule path="/items[at0003]" max="0" />
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HLA-Spendertypisierung">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HLA-Spendertypisierung</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]" hide_on_form="true" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      <SubjectOfCare>
+        <includedValues>openehr::6</includedValues>
+      </SubjectOfCare>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/items[at0013]">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>HLA-A</includedValues>
+              <includedValues>HLA-B</includedValues>
+              <includedValues>HLA-C</includedValues>
+              <includedValues>HLA-DRB1</includedValues>
+              <includedValues>HLA-DQB1</includedValues>
+              <includedValues>HLA-DQA1</includedValues>
+              <includedValues>HLA-DPB1</includedValues>
+              <includedValues>HLA-DRB3</includedValues>
+              <includedValues>HLA-DRB4</includedValues>
+              <includedValues>HLA-DRB5</includedValues>
+              <includedValues>HLA-DPA1</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Text</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0026]" max="0" />
+          <Rule path="/items[at0003]" max="0" />
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="HvG-Mismatche">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HvG-Mismatche</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]" hide_on_form="true" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" name="Methode" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0024]" name="HvG-Mismatch" />
+        <Rule path="/items[at0001]" max="1" name="DSA">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" clone="true" name="HLA-Spezifität">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="Panel reactive Antibodies">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Panel reactive Antibodies</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
@@ -147,14 +370,14 @@
       <Rule path="/protocol[at0004]/items[at0121]" max="0" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
         <Rule path="/items[at0027]" max="0" />
-        <Rule path="/items[at0001]" max="1" name="Nachweis">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Text</includedTypes>
+        <Rule path="/items[at0024]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>PRA</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0001]" max="1" clone="true" name="HLA-Spezifität">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Text</includedTypes>
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="quantityConstraint">
+            <includedUnits>%</includedUnits>
           </constraint>
         </Rule>
         <Rule path="/items[at0004]" max="0" />
@@ -194,6 +417,9 @@
     <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
-    <digest id="MD5-CAM-1.0.1">680EC10B4D17A6D947A9EFF8237202F9</digest>
+    <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0">
+    <digest id="MD5-CAM-1.0.1">16ACB1FB473C63B4BC99E2DDF970BED2</digest>
   </integrity_checks>
 </template>
