@@ -70,7 +70,7 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>aae0f61cda1c8d17ad8422db80944e9e</value>
+                <value>47cf3fad0fc5bc7157af7281e06d5c04</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -260,6 +260,10 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 <key>fhir_mapping</key>
                 <value>Observation.code</value>
             </item>
+            <item>
+                <key>LOINC value set</key>
+                <value>LOINC {STATUS in {ACTIVE}, CLASSTYPE in {1}, CLASS exclude {CHALSKIN, H&amp;P.HX.LAB, LABORDERS, NR STATS, PATH, PATH.*, MOLPATH, MOLPATH.*, CYTO, HL7.CYTOGEN, HL7.GENETICS}}</value>
+            </item>
         </items>
     </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]">
@@ -295,32 +299,7 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
             concept_name="Laborergebnis" max="1" min="1"
             name="Laborbefund" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
-            <Rule name="Labortest-Kategorie" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>LOINC::26436-6::Laboratory studies (set)</includedValues>
-                    <includedValues>LOINC::18767-4::Blood gas studies (set)</includedValues>
-                    <includedValues>LOINC::18719-5::Chemistry studies (set)</includedValues>
-                    <includedValues>LOINC::18723-7::Hematology studies (set)</includedValues>
-                    <includedValues>LOINC::18720-3::Coagulation studies (set)</includedValues>
-                    <includedValues>LOINC::18728-6::Toxicology studies (set)</includedValues>
-                    <includedValues>LOINC::18725-2::Microbiology studies (set)</includedValues>
-                    <includedValues>LOINC::56874-1::Serology and blood bank studies (set)</includedValues>
-                    <includedValues>LOINC::18729-4::Urinalysis studies (set)</includedValues>
-                    <includedValues>LOINC::56847-7::Calculated and derived values (set)</includedValues>
-                    <includedValues>LOINC::56846-9::Cardiac biomarkers (set)</includedValues>
-					<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::social-history::Social History</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::vital-signs::Vital Signs</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::imaging::Imaging</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::procedure::Procedure</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::survey::Survey</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::exam::Exam</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::therapy::Therapy</includedValues>
-<includedValues>http://terminology.hl7.org/CodeSystem/observation-category::activity::Activity</includedValues>
-
-				
-                </constraint>
-            </Rule>
+            <Rule name="Labortest-Kategorie" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
@@ -358,6 +337,11 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 </constraint>
             </Rule>
             <Rule max="0" path="/protocol[at0004]/items[at0111]"/>
+            <Rule path="/protocol[at0004]/items[at0121]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId terminologyID="//snomed.info"/>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
                 concept_name="Probe" name="Probenmaterial"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]" xsi:type="tem:CLUSTER">
@@ -716,13 +700,13 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 <Rule max="0" path="/items[at0027]"/>
                 <Rule min="1" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
-                        <termQueryId terminologyID="//hl7.org/fhir/uv/ips/ValueSet/laboratory-tests-and-panels-uv-ips"/>
+                        <termQueryId terminologyID="//simplifier.net/packages/hl7.fhir.uv.ips/1.0.0/files/244220"/>
                     </constraint>
                 </Rule>
-                <Rule max="1" min="1" name="Messwert" path="/items[at0001]">
+                <Rule min="1" name="Messwert" path="/items[at0001]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
                     </constraint>
                 </Rule>
                 <Rule name="Interpretation" path="/items[at0004]">
