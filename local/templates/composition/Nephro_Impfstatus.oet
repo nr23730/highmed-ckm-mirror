@@ -9,12 +9,12 @@
         <value>Nina Schewe</value>
       </item>
       <item>
-        <key>Organisator</key>
+        <key>Organisation </key>
         <value>Medizinische Hochschule Hannover</value>
       </item>
       <item>
-        <key>Email</key>
-        <value>Schewe.Nina@mh-hannover.de</value>
+        <key>Email </key>
+        <value>schewe.nina@mh-hannover.de</value>
       </item>
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
@@ -79,10 +79,10 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.immunisation_list.v0" concept_name="Immunisation list" name="Impfstatus">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.vaccination_list.v0" concept_name="Vaccination list" name="Impfstatus">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Arzneimittelverwaltung" max="1" path="/content" name="Impfung">
       <Rule path="/description[at0017]" hide_on_form="true" />
-      <Rule path="/description[at0017]/items[at0020]" name="Handelsname " />
+      <Rule path="/description[at0017]/items[at0020]" name="Handelsname" />
       <Rule path="/description[at0017]/items[at0132]" max="0" />
       <Rule path="/description[at0017]/items[at0133]" max="0" />
       <Rule path="/description[at0017]/items[at0043]" name="Datum der Impfung" />
@@ -118,8 +118,11 @@
         <Rule path="/items[at0007]" max="0" />
         <Rule path="/items[at0127]" max="0" />
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.details_vaccination_record.v0" concept_name="Details zum Impfpass" path="/description[at0017]/items[at0053]">
+        <Rule path="/items[at0001]" max="0" />
+      </Items>
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.immunisation_summary.v0" concept_name="Immunisation summary" path="/content">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.immunisation_summary.v0" concept_name="Zusammenfassung des Immunstatus" path="/content">
       <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0002]" max="1" name="Erkrankung, gegen die geimpft wurde" />
       <Rule path="/data[at0001]/items[at0003]" name="Status" />
@@ -147,7 +150,9 @@
       <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
       <Rule path="/protocol[at0004]" hide_on_form="true" />
       <Rule path="/protocol[at0004]/items[at0068]" max="0" />
-      <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" max="0" />
       <Rule path="/protocol[at0004]/items[at0111]" max="0" />
       <Rule path="/protocol[at0004]/items[at0121]" max="0" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
@@ -201,8 +206,8 @@
       <hide_on_form>true</hide_on_form>
     </Context>
   </definition>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.immunisation_list.v0">
-    <digest id="MD5-CAM-1.0.1">CF14C5C491FE8A7F34E0169DEAF03F9E</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.vaccination_list.v0">
+    <digest id="MD5-CAM-1.0.1">6D980D42A5C5D9F49A8C9B1500EC9282</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
@@ -213,6 +218,9 @@
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.medication.v1">
     <digest id="MD5-CAM-1.0.1">2F8FAC73C32910334C637CF675BD3713</digest>
   </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.details_vaccination_record.v0">
+    <digest id="MD5-CAM-1.0.1">27B72E6D42F186FD4C09CA66B3F5E002</digest>
+  </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.immunisation_summary.v0">
     <digest id="MD5-CAM-1.0.1">52BFB1A8443DFED4930E4E0A264D4465</digest>
   </integrity_checks>
@@ -220,7 +228,7 @@
     <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
-    <digest id="MD5-CAM-1.0.1">680EC10B4D17A6D947A9EFF8237202F9</digest>
+    <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
     <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
