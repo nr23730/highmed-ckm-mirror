@@ -23,11 +23,11 @@
         </original_author>
         <lifecycle_state>in_development</lifecycle_state>
         <details>
-            <purpose>Zur Darstellung von Informationen zum Allgemeinzustand eines Patienten mit einer onkologischen Diagnose im HiGHmed Projekt.</purpose>
+            <purpose>Zur Darstellung von Informationen zum Allgemeinzustand eines Patienten mit einer onkologischen Erkrankung im HiGHmed Projekt.</purpose>
             <keywords>
-                <item>Allgemeinzustand, AZ, Größe, Körpergewicht, Karnofsky Index, Organfunktion, ALBI-Grad, Child-Pugh Score, ECOG Performance Status, New York Heart Association functional classification, Leberfunktion, NYHA, Schmerzskala; VAS</item>
+                <item>Allgemeinzustand, AZ, Größe, Körpergewicht, Karnofsky Index, Organfunktion, ALBI-Grad, Child-Pugh Score, ECOG Performance Status, New York Heart Association functional classification, Leberfunktion, NYHA, Schmerzskala; VAS; Herzfunktion</item>
             </keywords>
-            <use>Dieses Template wird verwendet, um Informationen über den allgemeinen klinischen Zustand und über die Funktion der relevanten Organe (z.B. Leber, Herz) eines Patienten mit einer onkologischen Diagnose aufzuzeichnen. Es sollen folgende Daten zu dem Patient wie Größe, Körpergewicht, Karnofsky Index und Daten zu Schmerzen (Schmerzskala VAS) sowie Daten zur Organfunktion wie ALBI-Grad, Child-Pugh Score, ECOG Performance Status und New York Heart Association functional classification erfasst werden.</use>
+            <use>Dieses Template wird verwendet, um Informationen über den allgemeinen klinischen Zustand und über die Funktion der relevanten Organe (z.B. Leber, Herz) eines Patienten mit einer onkologischen Erkrankung aufzuzeichnen. Es werden Patientendaten wie Größe, Körpergewicht, Karnofsky Index und Daten zu Schmerzen (Schmerzskala VAS) sowie Daten zur Organfunktion wie ALBI-Grad, Child-Pugh Score, ECOG Performance Status und zur Herzufunktion (New York Heart Association functional classification) erfasst.</use>
             <misuse>Dieses Template soll nicht verwendet werden, um Therapien und Prozeduren, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen), radiologische Daten oder molekularpathologische Daten des Patienten aufzuzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
         </details>
         <other_details>
@@ -57,7 +57,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>0b01bd31bdfc51bee0274e69dd4ba482</value>
+                <value>65b84327532278ec87f838bde232c9ba</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -161,25 +161,6 @@
             </Rule>
             <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0025]"/>
         </Content>
-        <Content
-            archetype_id="openEHR-EHR-OBSERVATION.child_pugh_score.v0"
-            max="1" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule max="1" path="/data[at0001]/events[at0002]"/>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure.v1"
-            max="1" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule max="1" path="/data[at0001]/events[at0002]"/>
-        </Content>
-        <Content archetype_id="openEHR-EHR-OBSERVATION.ecog.v1" max="1"
-            path="/content" xsi:type="tem:OBSERVATION">
-            <Rule max="1" path="/data[at0001]/events[at0002]"/>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-OBSERVATION.karnofsky_index.v1"
-            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
-        <Content archetype_id="openEHR-EHR-OBSERVATION.albi_grade.v1"
-            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
         <Content archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
@@ -190,22 +171,39 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0006]/items[at0007]"/>
         </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.ecog.v1" max="1"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.karnofsky_index.v1"
+            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.child_pugh_score.v0"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure.v1"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0016]/items[at0017]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.albi_grade.v2"
+            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
         <Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1"
+                max="1" min="1"
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
-                max="1"
-                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
             </Items>
         </Context>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
@@ -221,34 +219,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">53E515B70943459BFA18F8802BE6DDA5</digest>
-    </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.height.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4EEDD6F370F6564F436D1933ED78638A</digest>
+        <digest id="MD5-CAM-1.0.1">C75BA8F0FF1D8D127E0E9469D06C9128</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">28F2580FAEB8D0C7799D0B536FC312A4</digest>
+        <digest id="MD5-CAM-1.0.1">B7CBE264803846DAA95A01EEF598BA3B</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.child_pugh_score.v0"
+        archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4D804BAC190B8D7B4357D4B98DDE344D</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">F17EAAFC478546D29320FFEF082FFF54</digest>
+        <digest id="MD5-CAM-1.0.1">B19F482B937653B8F6D0C39B6E9E273B</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.ecog.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -262,15 +248,21 @@
         <digest id="MD5-CAM-1.0.1">31E18593B7FDC294BA24311398392DA9</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.albi_grade.v1"
+        archetype_id="openEHR-EHR-OBSERVATION.child_pugh_score.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">1390A0A1D8A60DC51FFF0FF422BA3B9F</digest>
+        <digest id="MD5-CAM-1.0.1">4D804BAC190B8D7B4357D4B98DDE344D</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
+        archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">B19F482B937653B8F6D0C39B6E9E273B</digest>
+        <digest id="MD5-CAM-1.0.1">F17EAAFC478546D29320FFEF082FFF54</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.albi_grade.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E4B05FEFCE4D01518E9F235CCA944628</digest>
     </integrity_checks>
 </template>
