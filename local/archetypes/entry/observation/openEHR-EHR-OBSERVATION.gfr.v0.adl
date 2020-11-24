@@ -1,0 +1,147 @@
+﻿archetype (adl_version=1.4; uid=a5bd885a-bd52-46e0-8553-67d0bcf7ec44)
+	openEHR-EHR-OBSERVATION.gfr.v0
+
+concept
+	[at0000]	-- Glomerular Filtration Rate
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Samer Alkarkoukly">
+				["organisation"] = <"Uniklinik Köln">
+				["email"] = <"Mabbouda@uni-koeln.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Samer Alkarkoukly">
+		["organisation"] = <"Uniklinik Köln">
+		["email"] = <"Mabbouda@uni-koeln.de">
+		["date"] = <"2019-05-08">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation der glomeruläre Filtrationsrate (GFR) einer Person.">
+			use = <"Wird für die Dokumentation der glomeruläre Filtrationsrate (GFR) verwendet, die durch eine der verschiedenen Arten von Messungen geschätzt wurde, wie z.B. estimated-GFR (eGFR), Inulin Clearance, Iohexol Clearance, Radionuklide, Kreatinin Clearance.
+
+Es wird in der Einheit mL/min/1.73 m2 angegeben (Milliliter pro Minute pro 1,73 Quadratmeter)
+">
+			keywords = <"Kreatinin Clearance", "Niereninsuffizienz", "Chronisches Nierenversagen", "CKD", "Glomeruläre Filtrationsrate">
+			misuse = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the Glomerular Filtration Rate (GFR) of an individual.">
+			use = <"Use to record the Glomerular Filtration Rate (GFR) which has been estimated through any of the different types of measurements, such as: estimated GFR (eGFR), Inulin Clearance, Iohexol Clearance, Radioisotopes, Creatinine-Based Measurement of GFR ....etc.
+
+The unit of measurement is mL/min/1.73 m2 (milliliters per minute per 1.73 square meter)
+">
+			keywords = <"Creatinine clearance ", "Renal failure", "Chronic kidney disease", "CKD", "Glomerular filtration">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"1. Kaufman D, Knohl S. Physiology, Glomerular Filtration Rate (GFR) [Internet]. Ncbi.nlm.nih.gov. 2019 [cited 2019 May 8]. Available from: https://www.ncbi.nlm.nih.gov/books/NBK500032/
+
+2. Schwartz G, Work D. Measurement and Estimation of GFR in Children and Adolescents. Clinical Journal of the American Society of Nephrology [Internet]. 2009 [cited 2019 May 8];4(11):1832-1843. Available from: https://cjasn.asnjournals.org/content/4/11/1832">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"A6C227577442E93BB6E3D512FBADE57C">
+		["build_uid"] = <"348bbedf-c5f9-453f-9cbe-ed974b07ba98">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Glomerular Filtration Rate
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- GFR
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::126]>
+												list = <
+													["1"] = <
+														units = <"ml/min">
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Glomerular Filtration Rate">
+					description = <"Glomerular Filtration Rate (GFR) is the key measurement of renal function. It represents the flow of plasma from the glomerulus into Bowman’s space over a specified period of time. Changes in GFR are used to define and diagnose several pathologies.">
+					comment = <"GFR is is critical for diagnosing acute and chronic kidney impairment, intervening early to prevent end-stage renal failure, prescribing nephrotoxic drugs and drugs cleared by a failing kidney, and monitoring for side effects of medications.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"GFR">
+					description = <"The presented value of glomerular filtration rate.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Glomeruläre Filtrationsrate">
+					description = <"Glomeruläre Filtrationsrate (GFR) ist der wichtigsten Parameter zur Beurteilung der Nierenfunktion. Sie stellt den Plasmafluss vom Glomerulus in der Bowman-Kapsel über einen bestimmten Zeitraum dar. Änderungen in der GFR werden verwendet, um einige Pathologien zu definieren und zu diagnostizieren.">
+					comment = <"GFR ist entscheidend für die Diagnose einer akuten und chronischen Nierenfunktionsstörung, frühzeitig eingreifen um Nierenversagen im Endstadium zu verhindern, Verschreibung von nephrotoxischen Medikamenten und Medikamenten, die durch eine Nierensuffizienz abgebaut wurden, und Überwachung auf Nebenwirkungen von Medikamenten.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"GFR">
+					description = <"Der vorgelegte Wert der glomeruläre Filtrationsrate.">
+				>
+			>
+		>
+	>
