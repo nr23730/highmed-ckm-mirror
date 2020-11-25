@@ -1,182 +1,135 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="openEHR/v1/Template">
-    <id>39b06ef1-d5cd-4500-a78a-a1b4b39d1853</id>
-    <name>KDS_Laborauftrag</name>
-    <description>
-        <original_author>
-            <item>
-                <key>date</key>
-                <value>2020-09-17</value>
-            </item>
-            <item>
-                <key>name</key>
-                <value>test</value>
-            </item>
-        </original_author>
-        <lifecycle_state>unmanaged</lifecycle_state>
-        <details>
-            <purpose>Um eine Beratung, eine bestimmte Dienstleistung oder die Übertragung der Versorgung von einem Gesundheitsdienstleister oder einer Organisation über den Patienten anzufordern.</purpose>
-            <keywords>
-                <item>Überweisung</item>
-                <item>Anfrage</item>
-                <item>Anforderung</item>
-                <item>Auftrag</item>
-                <item>Leistung</item>
-            </keywords>
-            <use>Verwendung als Grundlage für eine Anfrage für eine Beratung, eine Dienstleistung oder Übertragung der Versorgung von einem Gesundheitsdienstleister oder einer Organisation über den Patienten. Dieses Dokument enthält in der Regel Details zum Anwendungsbereich und zur Dauer der Gültigkeit der Anfrage sowie relevante klinische Informationen zum Patienten. Die Anfragen können von einer einfachen Beratungsanfrage, Einholen von Empfehlungen für weitere Maßnahmen, der Beantragung einer bestimmten Prozedur oder eines diagnostischen Tests bis hin zur vollständigen Übertragung der Versorgungs und der klinischen Verantwortung an den empfangenden Gesundheitsdienstleister variieren.
-
-Beispiele umfassen, ohne darauf beschränkt zu sein, eine Anforderung für:
-- eine Beratung, Zweitmeinung oder Managementberatung durch einen Spezialisten;
-- ein diagnostischer Test;
-- häusliche Pflege durch Krankenschwestern;
-- Übergabe der Versorgung an eine Reha-Einrichtung;
-- Bewertung der Indikation zur Altenpflege;
-- Kontrolle der Medikamente durch einen Apotheker; und
-- Bereitstellung von Psychotherapie oder Ergotherapie.
-
-Anforderungen können gezielt (Identifizierung eines bestimmten Gesundheitsdienstleisters oder einer bestimmten Organisation zur Ausführung des Antrags) oder nicht zielgerichtet (Identifizierung nur der Art der gewünschten Leistung) erfolgen.</use>
-            <misuse>Darf nicht zur Darstellung des Dokuments verwendet werden, das im Rahmen einer einzelnen klinischen Begegnung oder einer einzelnen Visite aufgezeichnet wurde. Verwenden Sie dazu COMPOSITION.encounter.
-
-Darf nicht verwendet werden, um eine Zusammenfassung der Leistungsübertragung an eine andere Organisation oder einen anderen Anbieter bereitzustellen - Verwenden Sie COMPOSITION.transfer_summary für diesen Zweck.</misuse>
-        </details>
-        <other_details>
-            <item>
-                <key>licence</key>
-                <value/>
-            </item>
-            <item>
-                <key>custodian_organisation</key>
-                <value/>
-            </item>
-            <item>
-                <key>original_namespace</key>
-                <value/>
-            </item>
-            <item>
-                <key>original_publisher</key>
-                <value/>
-            </item>
-            <item>
-                <key>custodian_namespace</key>
-                <value/>
-            </item>
-            <item>
-                <key>MD5-CAM-1.0.1</key>
-                <value>63e13e1e00329d02f108b8cb591f70db</value>
-            </item>
-            <item>
-                <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>B8AD0C7EB492491CE6F7968C1AFFB40C</value>
-            </item>
-            <item>
-                <key>original_language</key>
-                <value>ISO_639-1::de</value>
-            </item>
-        </other_details>
-    </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.request.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content
-            archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1"
-            max="1" path="/content" xsi:type="tem:INSTRUCTION">
-            <Rule name="Art der Dienstleistung (Kategorie)" path="/activities[at0001]/description[at0009]/items[at0148]">
-                <constraint xsi:type="tem:textConstraint"/>
-            </Rule>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0135]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0062]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0064]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0152]"/>
-            <Rule max="1" path="/activities[at0001]/description[at0009]/items[at0065]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>proposal</includedValues>
-                    <includedValues>plan</includedValues>
-                    <includedValues>directive</includedValues>
-                    <includedValues>order</includedValues>
-                    <includedValues>original-order</includedValues>
-                    <includedValues>reflex-order</includedValues>
-                    <includedValues>filler-order</includedValues>
-                    <includedValues>instance-order</includedValues>
-                    <includedValues>option</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0068]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0040]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Date_Time</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0145]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0144]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0147]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0076]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0078]"/>
-            <Rule min="1" path="/protocol[at0008]/items[at0011]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>Identifier</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule path="/protocol[at0008]/items[at0127]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>draft</includedValues>
-                    <includedValues>active</includedValues>
-                    <includedValues>on-hold</includedValues>
-                    <includedValues>revoked</includedValues>
-                    <includedValues>completed</includedValues>
-                    <includedValues>entered-in-error</includedValues>
-                    <includedValues>unknown</includedValues>
-                </constraint>
-            </Rule>
-            <Items archetype_id="openEHR-EHR-CLUSTER.location.v1"
-                max="1" path="/protocol[at0008]/items[at0112]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0024]"/>
-                <Rule max="0" path="/items[at0025]"/>
-                <Rule max="0" path="/items[at0028]"/>
-                <Rule max="0" path="/items[at0027]"/>
-                <Rule max="0" path="/items[at0029]"/>
-                <Rule max="0" path="/items[at0034]"/>
-            </Items>
-        </Content>
-        <Context>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1"
-                path="/context/other_context[at0001]/items[at0042]" xsi:type="tem:CLUSTER">
-                <Rule min="1" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0006]"/>
-            </Items>
-        </Context>
-    </definition>
-    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.request.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">B8AD0C7EB492491CE6F7968C1AFFB40C</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">82BEDEC41C57E48CD072649ED8CA5EF5</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.location.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
-    </integrity_checks>
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>39b06ef1-d5cd-4500-a78a-a1b4b39d1853</id>
+  <name>KDS_Laborauftrag</name>
+  <description>
+    <original_author>
+      <item>
+        <key>date</key>
+        <value>2020-09-17</value>
+      </item>
+      <item>
+        <key>name</key>
+        <value>test</value>
+      </item>
+    </original_author>
+    <lifecycle_state>unmanaged</lifecycle_state>
+    <details>
+      <purpose>Um eine Laborleistung von einem Gesundheitsdienstleister oder einer Organisation für einen Patienten anzufordern.</purpose>
+      <keywords>
+        <item>Laborauftrag</item>
+        <item>Anfrage</item>
+        <item>Anforderung</item>
+        <item>Auftrag</item>
+        <item>Laborleistung</item>
+        <item>Laborauftrag</item>
+        <item>Laboranforderung </item>
+      </keywords>
+      <use>Verwendung als Grundlage für eine Anfrage für eine Labordienstleistung für einen Patienten.</use>
+      <misuse>Darf nicht zur Darstellung der Anforderung von anderen Dienstleistungen außer Laboruntersuchungen verwendet werden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>licence</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_organisation</key>
+        <value />
+      </item>
+      <item>
+        <key>original_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>original_publisher</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>MD5-CAM-1.0.1</key>
+        <value>63e13e1e00329d02f108b8cb591f70db</value>
+      </item>
+      <item>
+        <key>PARENT:MD5-CAM-1.0.1</key>
+        <value>B8AD0C7EB492491CE6F7968C1AFFB40C</value>
+      </item>
+      <item>
+        <key>original_language</key>
+        <value>ISO_639-1::de</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.request.v1" concept_name="Leistungsanforderung">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1" concept_name="Dienstleistung" max="1" path="/content">
+      <Rule path="/activities[at0001]" max="1" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0148]" name="Art der Dienstleistung (Kategorie)">
+        <constraint xsi:type="textConstraint">
+          <includedValues>laboratory</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0152]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0065]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>order</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0068]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0145]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0147]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0010]" min="1">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0008]/items[at0011]" min="1">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Identifier</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0008]/items[at0127]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>completed</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0008]/items[at0112]" name="Einsenderstandort">
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0042]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.request.v1">
+    <digest id="MD5-CAM-1.0.1">B8AD0C7EB492491CE6F7968C1AFFB40C</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1">
+    <digest id="MD5-CAM-1.0.1">82BEDEC41C57E48CD072649ED8CA5EF5</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
+  </integrity_checks>
 </template>
