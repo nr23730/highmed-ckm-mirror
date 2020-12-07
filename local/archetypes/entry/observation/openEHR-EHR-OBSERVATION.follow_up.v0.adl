@@ -1,0 +1,332 @@
+﻿archetype (adl_version=1.4; uid=ec643066-ff51-405e-8071-9335e0db9b29)
+	openEHR-EHR-OBSERVATION.follow_up.v0
+
+concept
+	[at0000]	-- Follow-Up
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Kim Sommer">
+				["organisation"] = <"Medizinische Hochschule Hannover (MHH)">
+				["application"] = <"Adl Designer">
+			>
+			other_details = <
+				["notes"] = <"Generated automatically by Adl Designer">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Kim Sommer">
+		["organisation"] = <"Medizinische Hochschule Hannover (MHH)">
+		["date"] = <"2019-11-21">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation eines Follow-Ups nach einer Intervention.">
+			use = <"Dieser Archetyp dient der Dokumentation einer Nachverfolgung eines Patienten nach einer Intervention. In diesem Archetyp werden Informationen zur Kontaktaufnahme zum Patienten dokumentiert. Das Ergebnis des Follow-Ups wird über die Einbindung von verschiedenen CLUSTER Archetypen dokumentiert (z.B. CLUSTER.hospitalization, CLUSTER.death_details).
+Mögliche Arten der Kontaktaufnahme sind Telefonate, die direkte Kommunikation (z.B. bei der Wiedervorstellung des Patienten im Krankenhaus) oder ein gedruckter/maschineller Brief (z.B. Arztbrief).
+Für den Fall, dass kein Kontakt mit dem Patienten aufgenommen werden kann, können auch andere Personen als Infomationsquelle angegeben werden, z.B. ein Angehöriger oder ein Arzt.">
+			keywords = <"Follow-Up", "Nachverfolgung", "Verlauf">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"For the representation of a follow-up after an intervention.">
+			use = <"This archetype is used to document a follow-up of a patient after an intervention. This archetype is used to document information on how contact is established with the patient. The result of the follow-up is documented by integrating various CLUSTER archetypes (e.g. CLUSTER.hospitalization, CLUSTER.death_details).
+Possible types of contact are telephone calls, direct communication (e.g. when the patient is presented in hospital again) or a printed/machine letter (e.g. doctor's letter).
+In case no contact can be established with the patient, other persons can be specified as a source of information, e.g. a relative or a doctor.">
+			keywords = <"Follow-Up", "Tracking", "Progress", "History">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+			other_details = <
+				["notes"] = <"Generated automatically by Adl Designer">
+			>
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"BF247439E23573FC784E40261326ED92">
+		["build_uid"] = <"008518c0-5e25-4929-95ac-167e13f45bce">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Follow-Up
+		provider matches {
+			PARTY_PROXY matches {*}
+		}
+		other_participations cardinality matches {0..*; unordered} matches {
+			PARTICIPATION occurrences matches {0..1} matches {
+				mode matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[openehr::
+							204,
+							216,
+							210]
+						}
+					}
+				}
+				function matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0022,    -- Patient
+							at0023,    -- Angehöriger
+							at0024,    -- Arzt
+							at0025]    -- Sonstiger
+						}
+					}
+				}
+			}
+		}
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Beliebiges Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0037] occurrences matches {0..1} matches {    -- Kontaktaufnahme erfolgreich?
+										value matches {
+											DV_BOOLEAN matches {*}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..*} matches {    -- Details zur Kommunikationsart
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..*} matches {    -- Details zum Teilnehmer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0044] occurrences matches {0..1} matches {    -- Tod
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0043] occurrences matches {0..1} matches {    -- Patient verstorben?
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {    -- Weitere Angaben zum Tod
+												include
+													archetype_id/value matches {/.*/}
+											}
+										}
+									}
+									CLUSTER[at0046] occurrences matches {0..*} matches {    -- Follow-Up Ergebnis
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0047] occurrences matches {0..1} matches {    -- Frage
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0048] occurrences matches {0..1} matches {*}    -- Antwort
+											allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {    -- Weitere Angaben
+												include
+													archetype_id/value matches {/.*/}
+											}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..*} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0050] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Follow-Up">
+					description = <"Zur Darstellung eines Follow-Ups nach einer Intervention.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Beliebiges Ereignis.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Patient">
+					description = <"Das Gespräch/Telefonat wurde mit dem Patienten selbst geführt.">
+				>
+				["at0023"] = <
+					text = <"Angehöriger">
+					description = <"Das Gespräch/Telefonat wurde mit einem Angehörigen des Patienten geführt.">
+				>
+				["at0024"] = <
+					text = <"Arzt">
+					description = <"Das Gespräch/Telefonat wurde mit dem Arzt des Patienten geführt.">
+				>
+				["at0025"] = <
+					text = <"Sonstiger">
+					description = <"Das Gespräch/Telefonat wurde mit einer anderen Person geführt.">
+				>
+				["at0037"] = <
+					text = <"Kontaktaufnahme erfolgreich?">
+					description = <"War die Kontaktaufnahme zu dem Patienten erfolgreich?">
+				>
+				["at0038"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Kommentar.">
+				>
+				["at0039"] = <
+					text = <"Details zur Kommunikationsart">
+					description = <"Mit diesem Element können zusätzliche Details zur Kommunikationsart erfasst werden, die nicht mit anderen Elementen abgebildet werden.">
+				>
+				["at0042"] = <
+					text = <"Details zum Teilnehmer">
+					description = <"Mit diesem Element können zusätzliche Details zum Gesprächsteilnehmer erfasst werden, die nicht mit anderen Elementen abgebildet werden.">
+				>
+				["at0043"] = <
+					text = <"Patient verstorben?">
+					description = <"Ist der Patient verstorben?">
+				>
+				["at0044"] = <
+					text = <"Tod">
+					description = <"In diesem Cluster soll dokumentiert werden, ob der Patient verstorben ist.">
+				>
+				["at0045"] = <
+					text = <"Weitere Angaben zum Tod">
+					description = <"In diesen Slot können weitere Cluster Archetypen eingefügt werden, um weitere Angaben zum Tod des Patienten zu dokumentieren.">
+				>
+				["at0046"] = <
+					text = <"Follow-Up Ergebnis">
+					description = <"In diesem Cluster sollen Ergebnisse, die im Rahmen des Follow-Ups erhoben werden, dokumentiert werden.">
+				>
+				["at0047"] = <
+					text = <"Frage">
+					description = <"Die Fragestellung, die im Rahmen des Follow-Ups beantwortet werden soll.">
+				>
+				["at0048"] = <
+					text = <"Antwort">
+					description = <"Die Antwort auf die im Rahmen des Follow-Ups zu beantwortende Fragestellung.">
+				>
+				["at0049"] = <
+					text = <"Weitere Angaben">
+					description = <"In diesen Slot können weitere Cluster Archetypen eingefügt werden, um zusätzliche Angaben zum Ergebnis des Follow-Ups zu dokumentieren.">
+				>
+				["at0050"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Follow-Up">
+					description = <"For the representation of a follow-up after an intervention.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Any event.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Patient">
+					description = <"The conversation/telephone call was conducted with the patient himself.">
+				>
+				["at0023"] = <
+					text = <"Relative">
+					description = <"The conversation/telephone call was conducted with a relative.">
+				>
+				["at0024"] = <
+					text = <"Doctor">
+					description = <"The conversation/telephone call was conducted with the patients' doctor.">
+				>
+				["at0025"] = <
+					text = <"Other">
+					description = <"The conversation/telephone call was conducted with another person.">
+				>
+				["at0037"] = <
+					text = <"Contact successful?">
+					description = <"Was the establishment of contact with the patient successful?">
+				>
+				["at0038"] = <
+					text = <"Comment">
+					description = <"Additional comment.">
+				>
+				["at0039"] = <
+					text = <"Details about the communication type">
+					description = <"This element can be used to capture additional details of the communication type that are not represented by other elements.">
+				>
+				["at0042"] = <
+					text = <"Details about the participant">
+					description = <"This element can be used to capture additional details about the participant that are not represented by other elements.">
+				>
+				["at0043"] = <
+					text = <"Patient has died?">
+					description = <"Has the patient died?">
+				>
+				["at0044"] = <
+					text = <"Death">
+					description = <"This cluster is to be used to document whether the patient has died. ">
+				>
+				["at0045"] = <
+					text = <"Further information about death">
+					description = <"Additional cluster archetypes can be inserted into this slot to document additional information about the patient's death.">
+				>
+				["at0046"] = <
+					text = <"Follow-Up Result">
+					description = <"In this cluster, results that are collected during the follow-up are to be documented.">
+				>
+				["at0047"] = <
+					text = <"Question">
+					description = <"The question to be answered in the follow-up. ">
+				>
+				["at0048"] = <
+					text = <"Response">
+					description = <"The answer to the question to be answered in the follow-up.">
+				>
+				["at0049"] = <
+					text = <"Further details">
+					description = <"Additional cluster archetypes can be inserted into this slot to document additional information on the result of the follow-up. ">
+				>
+				["at0050"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>

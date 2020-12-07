@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>09b78b75-7387-49ef-bf38-30f17b5908e0</id>
+  <name>GECCO_Entlassungsdaten</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name</key>
+        <value>Sarah Ballout</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>ballout.sarah@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>Organisation</key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation von Entlassungsdaten der Patienten im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>Entlassungsdaten</item>
+        <item>Art der Entlassung</item>
+        <item>Outcome bei der Entlassung</item>
+        <item>Entlassung</item>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>FoDaPl</item>
+        <item>CODEX</item>
+      </keywords>
+      <use>Für die Abbildung von Entlassungsdaten der Patienten für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+      <misuse>Nicht zur Repräsentation von Personendaten verwenden. Nicht für die Aufnahme des Patienten verwenden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Entlassungsdaten">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/content" name="Entlassungsart">
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" concept_name="Entlassungsdaten" max="1" path="/items" name="Entlassungsart">
+        <Rule path="/data[at0001]/items[at0040]" min="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
+            <includedValues>SNOMED-CT::32485007::Hospital admission (procedure)</includedValues>
+            <includedValues>SNOMED-CT::419099009::Dead (finding)</includedValues>
+            <includedValues>SNOMED-CT::371827001::Patient discharged alive (finding)</includedValues>
+            <includedValues>SNOMED-CT::3457005::Patient referral (procedure)</includedValues>
+            <includedValues>SNOMED-CT::306237005::Referral to palliative care service (procedure)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0038]" max="0" />
+        <Rule path="/data[at0001]/items[at0051]" max="0" />
+        <Rule path="/data[at0001]/items[at0058]" max="0" />
+        <Rule path="/data[at0001]/items[at0062]" max="0" />
+        <Rule path="/data[at0001]/items[at0033]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/content" name="Respiratorisches Outcome">
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.episode_institution.v0" concept_name="Episode of care - institution" max="1" path="/items" name="Respiratorisches Outcome">
+        <Rule path="/data[at0001]/items[at0004]" max="0" />
+        <Rule path="/data[at0001]/items[at0007]" max="0" />
+        <Rule path="/data[at0001]/items[at0002]" max="0" />
+        <Rule path="/data[at0001]/items[at0006]" max="1" name="Beatmung">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::410605003::Confirmed present (qualifier value)</includedValues>
+            <includedValues>SNOMED-CT::410594000::Definitely NOT present (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0003]" name="Beatmungsgerät">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::426854004::	High flow oxygen nasal cannula (physical object)</includedValues>
+            <includedValues>SNOMED-CT::26412008::Endotracheal tube, device (physical object)</includedValues>
+            <includedValues>SNOMED-CT::129121000::Tracheostomy tube, device (physical object)</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/content" name="Ergebnis Folgeabstrich">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" path="/items">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="SARS-CoV-2 test">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::260373001::Detected (qualifier value)</includedValues>
+            <includedValues>SNOMED-CT::260415000::Not detected (qualifier value)</includedValues>
+            <includedValues>SNOMED-CT::419984006::Inconclusive (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      </Item>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0004]" min="1" />
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1">
+    <digest id="MD5-CAM-1.0.1">8BD8D5F850A9DEE8A16075105D36FD32</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-SECTION.adhoc.v1">
+    <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0">
+    <digest id="MD5-CAM-1.0.1">FFF8C6A6D1CCF30F6FF5B70CB57F52B7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.episode_institution.v0">
+    <digest id="MD5-CAM-1.0.1">D6DF6F04B7B2183FB14AD8DCB6C566C4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
+  </integrity_checks>
+</template>

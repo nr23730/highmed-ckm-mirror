@@ -1,0 +1,328 @@
+﻿archetype (adl_version=1.4; uid=0e7b5fa7-5542-4c3e-8dde-f8579de0801b)
+	openEHR-EHR-OBSERVATION.instrumentelle_aktivitaeten.v0
+
+concept
+	[at0000]	-- Instrumentelle Aktivitäten
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-17">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Die Skala für instrumentelle Aktivitäten (IADL) nach Lawton und Brody wird zur Erfassung der Alltagskompentenz geriatrischer Patienten genutzt.">
+			use = <"Wird verwendet, um die Alltagskompetenz geriatrischer Patienten zu erfassen.">
+			keywords = <"geriatrisches Assessment", "IADL", "instrumentelle Aktivitäten", "Lawton", "Brody">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Lawton MP, Brody EM. Assessment of older people: self-maintaining and instrumental activities of daily living. Gerontologist 1969;9:179-186">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"B60F3711D8174135F6A7285C21E21EEF">
+		["build_uid"] = <"c10e7060-703c-4990-8df5-91df6dde5bbd">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Instrumentelle Aktivitäten
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Telefon
+										value matches {
+											0|[local::at0005], 	-- Benutzt Telefon aus eigener Initiative, wählt Nummern
+											1|[local::at0006], 	-- Wählt einige bekannte Nummern
+											2|[local::at0007], 	-- Nimmt ab, wählt nicht selbstständig
+											3|[local::at0008]  	-- Benutzt das Telefon überhaupt nicht
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Einkaufen
+										value matches {
+											0|[local::at0010], 	-- Kauft selbstständig die meisten benötigten Sachen ein
+											1|[local::at0011], 	-- Tätigt wenige Einkäufe
+											2|[local::at0012], 	-- Benötigt bei jedem Einkauf Begleitung
+											3|[local::at0013]  	-- Unfähig zum Einkaufen
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kochen
+										value matches {
+											0|[local::at0015], 	-- Plant und kocht erforderliche Mahlzeit
+											1|[local::at0016], 	-- Kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson
+											2|[local::at0017], 	-- Kocht selbstständig, hält aber benötigte Diät nicht ein
+											3|[local::at0018]  	-- Benötigt vorbereitete und servierte Mahlzeiten
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Haushalt
+										value matches {
+											0|[local::at0020], 	-- Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten
+											1|[local::at0021], 	-- Führt selbstständig kleine Hausarbeiten aus
+											2|[local::at0022], 	-- Führt selbst keine Hausarbeiten aus, kann aber Wohnung nicht rein halten
+											3|[local::at0023], 	-- Benötigt Hilfe in allen Haushaltsverrichtungen
+											4|[local::at0024]  	-- Nimmt überhaupt nicht teil an täglichen Verrichtungen im Haushalt
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Wäsche
+										value matches {
+											0|[local::at0026], 	-- Wäscht sämtliche eigene Wäsche
+											1|[local::at0027], 	-- Wäscht kleine Sachen
+											2|[local::at0028]  	-- Gesamte Wäsche muss auswärts versorgt werden
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Transportmittel
+										value matches {
+											0|[local::at0030], 	-- Benutzt unabhängig öffentliche Transportmittel, eigenes Auto
+											1|[local::at0031], 	-- Bestellt und benutzt selbstständig Taxi, jedoch keine öffentlichen Transportmittel
+											2|[local::at0032], 	-- Benutzt öffentliche Transportmittel in Begleitung
+											3|[local::at0033], 	-- Beschränkte Fahrten im Taxi oder Auto in Begleitung
+											4|[local::at0034]  	-- Reist überhaupt nicht
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Medikamente
+										value matches {
+											0|[local::at0036], 	-- Nimmt Medikamente in genauer Dosierung und zum korrekter Zeitpunkt eigenverantwortlich
+											1|[local::at0037], 	-- Nimmt vorbereitete Medikamente korrekt
+											2|[local::at0038]  	-- Kann korrekte Einnahme von Medikamenten nicht handhaben
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Geldhaushalt
+										value matches {
+											0|[local::at0041], 	-- Regelt finanzielle Geschäfte selbstständig (Budget, Schecks, Einzahlung, Gang zur Bank)
+											1|[local::at0042], 	-- Erledigt tägliche kleinere Ausgaben, benötigt aber HIlfe bei Einzahlung, Bankgeschäftern
+											2|[local::at0043]  	-- Ist nicht mehr fähig mit Geld umzugehen
+										}
+									}
+									ELEMENT[at0049] occurrences matches {0..1} matches {	-- Geschlecht
+										value matches {
+											0|[local::at0050], 	-- Weiblich
+											1|[local::at0051]  	-- Männlich
+										}
+									}
+									ELEMENT[at0048] occurrences matches {0..1} matches {	-- Gesamtpunktzahl
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..8|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Instrumentelle Aktivitäten">
+					description = <"Zur Erfassung der Alltagskompetenz geriatrischer Patienten.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Telefon">
+					description = <"Benutzung des Telefons.">
+				>
+				["at0005"] = <
+					text = <"Benutzt Telefon aus eigener Initiative, wählt Nummern">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Wählt einige bekannte Nummern">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Nimmt ab, wählt nicht selbstständig">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Benutzt das Telefon überhaupt nicht">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Einkaufen">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Kauft selbstständig die meisten benötigten Sachen ein">
+					description = <"@ internal @">
+				>
+				["at0011"] = <
+					text = <"Tätigt wenige Einkäufe">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Benötigt bei jedem Einkauf Begleitung">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Unfähig zum Einkaufen">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Kochen">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Plant und kocht erforderliche Mahlzeit">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson">
+					description = <"@ internal @">
+				>
+				["at0017"] = <
+					text = <"Kocht selbstständig, hält aber benötigte Diät nicht ein">
+					description = <"@ internal @">
+				>
+				["at0018"] = <
+					text = <"Benötigt vorbereitete und servierte Mahlzeiten">
+					description = <"@ internal @">
+				>
+				["at0019"] = <
+					text = <"Haushalt">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Führt selbstständig kleine Hausarbeiten aus">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Führt selbst keine Hausarbeiten aus, kann aber Wohnung nicht rein halten">
+					description = <"@ internal @">
+				>
+				["at0023"] = <
+					text = <"Benötigt Hilfe in allen Haushaltsverrichtungen">
+					description = <"@ internal @">
+				>
+				["at0024"] = <
+					text = <"Nimmt überhaupt nicht teil an täglichen Verrichtungen im Haushalt">
+					description = <"@ internal @">
+				>
+				["at0025"] = <
+					text = <"Wäsche">
+					description = <"Wie selbstständig kann sich um Wäsche gekümmert werden?">
+				>
+				["at0026"] = <
+					text = <"Wäscht sämtliche eigene Wäsche">
+					description = <"@ internal @">
+				>
+				["at0027"] = <
+					text = <"Wäscht kleine Sachen">
+					description = <"@ internal @">
+				>
+				["at0028"] = <
+					text = <"Gesamte Wäsche muss auswärts versorgt werden">
+					description = <"@ internal @">
+				>
+				["at0029"] = <
+					text = <"Transportmittel">
+					description = <"Welche Transportmittel werden genutzt?">
+				>
+				["at0030"] = <
+					text = <"Benutzt unabhängig öffentliche Transportmittel, eigenes Auto">
+					description = <"@ internal @">
+				>
+				["at0031"] = <
+					text = <"Bestellt und benutzt selbstständig Taxi, jedoch keine öffentlichen Transportmittel">
+					description = <"@ internal @">
+				>
+				["at0032"] = <
+					text = <"Benutzt öffentliche Transportmittel in Begleitung">
+					description = <"@ internal @">
+				>
+				["at0033"] = <
+					text = <"Beschränkte Fahrten im Taxi oder Auto in Begleitung">
+					description = <"@ internal @">
+				>
+				["at0034"] = <
+					text = <"Reist überhaupt nicht">
+					description = <"@ internal @">
+				>
+				["at0035"] = <
+					text = <"Medikamente">
+					description = <"Wie gut erfolgt die Medikamenteneinnahme selbstständig?">
+				>
+				["at0036"] = <
+					text = <"Nimmt Medikamente in genauer Dosierung und zum korrekter Zeitpunkt eigenverantwortlich">
+					description = <"@ internal @">
+				>
+				["at0037"] = <
+					text = <"Nimmt vorbereitete Medikamente korrekt">
+					description = <"@ internal @">
+				>
+				["at0038"] = <
+					text = <"Kann korrekte Einnahme von Medikamenten nicht handhaben">
+					description = <"@ internal @">
+				>
+				["at0040"] = <
+					text = <"Geldhaushalt">
+					description = <"Wie regelt der Betroffene seinen Geldhaushalt?">
+				>
+				["at0041"] = <
+					text = <"Regelt finanzielle Geschäfte selbstständig (Budget, Schecks, Einzahlung, Gang zur Bank)">
+					description = <"@ internal @">
+				>
+				["at0042"] = <
+					text = <"Erledigt tägliche kleinere Ausgaben, benötigt aber HIlfe bei Einzahlung, Bankgeschäftern">
+					description = <"@ internal @">
+				>
+				["at0043"] = <
+					text = <"Ist nicht mehr fähig mit Geld umzugehen">
+					description = <"@ internal @">
+				>
+				["at0048"] = <
+					text = <"Gesamtpunktzahl">
+					description = <"Gesamtpunktzahl, bei männlich: 5, bei weiblich: 8.">
+				>
+				["at0049"] = <
+					text = <"Geschlecht">
+					description = <"">
+				>
+				["at0050"] = <
+					text = <"Weiblich">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Männlich">
+					description = <"">
+				>
+			>
+		>
+	>

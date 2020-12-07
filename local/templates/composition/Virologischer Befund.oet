@@ -92,7 +92,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>81344b59e078c7c36e9b7a1fb2ac02bc</value>
+                <value>8bd6105996ea07dc03ebc7ae41fd3108</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -104,7 +104,15 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
         </other_details>
     </description>
-    <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+      <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]">
+        <items>
+            <item>
+                <key>118169006</key>
+                <value>Specimen source topography (attribute)</value>
+            </item>
+        </items>
+    </annotations>
+	<annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <items>
             <item>
                 <key>26436-6</key>
@@ -326,8 +334,12 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                 max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0029]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>SNOMED CT::257261003::Swab (specimen)</includedValues>
+                        <includedValues>SNOMED CT::119334006::Sputum specimen (specimen)</includedValues>
+                        <includedValues>SNOMED CT::119342007::Saliva specimen (specimen)</includedValues>
+                        <includedValues>SNOMED CT::410580001::Respiratory fluid specimen (specimen)</includedValues>
+                        <includedValues>SNOMED CT::258607008::Bronchoalveolar lavage fluid sample (specimen)</includedValues>
                     </constraint>
                 </Rule>
                 <Rule min="1" path="/items[at0001]"/>
@@ -362,10 +374,15 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                     archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
                     max="1" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule path="/items[at0001]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>SNOMED CT::58675001::Upper respiratory tract structure (body structure)</includedValues>
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED CT::367592002::Structure of posterior nasopharynx (body structure)</includedValues>
+                            <includedValues>SNOMED CT::12999009::Structure of posterior wall of oropharynx (body structure)</includedValues>
+                            <includedValues>SNOMED CT::700016008::Structure of internal part of mouth (body structure)</includedValues>
+                            <includedValues>SNOMED CT::44567001::Tracheal structure (body structure)</includedValues>
                             <includedValues>SNOMED CT::82094008::Lower respiratory tract structure (body structure)</includedValues>
-                            <includedValues>SNOMED CT::321667001::Respiratory tract structure (body structure)</includedValues>
+                            <includedValues>SNOMED CT::91724006::Tracheobronchial structure (body structure)</includedValues>
+                            <includedValues>SNOMED CT::955009::Bronchial structure (body structure)</includedValues>
+                            <includedValues>SNOMED CT::113253006::Pulmonary alveolar structure (body structure)</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0065]"/>
@@ -391,17 +408,17 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    concept_name="Laboranalyt-Resultat" min="1"
+                    concept_name="Laboranalyt-Ergebnis" min="1"
                     name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule min="1" name="Virus" path="/items[at0024]">
-                        <constraint xsi:type="tem:textConstraint">
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
                             <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
                             <includedValues>LOINC::94558-4::SARS-CoV-2 Ag</includedValues>
                             <includedValues>LOINC::94745-7::SARS-CoV-2 (COVID-19) RNA [Cycle Threshold #] in Respiratory specimen by NAA with probe detection</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="1" min="1" name="Nachweis" path="/items[at0001]">
-                        <constraint xsi:type="tem:textConstraint">
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
                             <includedValues>SNOMED Clinical Terms::260373001::Detected (qualifier value)</includedValues>
                             <includedValues>SNOMED Clinical Terms::260415000::Not detected (qualifier value)</includedValues>
                             <includedValues>SNOMED Clinical Terms::419984006::Inconclusive (qualifier value)</includedValues>
@@ -410,8 +427,14 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                     <Rule clone="true" max="1"
                         name="Quantitatives Ergebnis" path="/items[at0001]"/>
                     <Rule name="Interpretation" path="/items[at0004]"/>
+                    <Rule path="/items[at0028]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                            <includedTypes>Coded_text</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule min="1" path="/items[at0025]"/>
-                    <Rule min="1" path="/items[at0005]"/>
+                    <Rule max="1" min="1" path="/items[at0005]"/>
                     <Rule min="1" name="Zugehörige Laborprobe" path="/items[at0026]"/>
                     <Rule max="1" path="/items[at0003]"/>
                 </Items>
@@ -482,7 +505,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
         archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+        <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -505,7 +528,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
         archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
+        <digest id="MD5-CAM-1.0.1">1A81B7BE088FDB1B20E756C5494E8A22</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.location.v1"
         xmlns:tem="openEHR/v1/Template"
