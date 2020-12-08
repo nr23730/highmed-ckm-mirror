@@ -13,7 +13,7 @@
         <value>test</value>
       </item>
     </original_author>
-    <lifecycle_state>unmanaged</lifecycle_state>
+    <lifecycle_state>in_development</lifecycle_state>
     <details>
       <purpose>Um eine Laborleistung von einem Gesundheitsdienstleister oder einer Organisation für einen Patienten anzufordern.</purpose>
       <keywords>
@@ -51,7 +51,7 @@
       </item>
       <item>
         <key>MD5-CAM-1.0.1</key>
-        <value>63e13e1e00329d02f108b8cb591f70db</value>
+        <value>94982bea0e6c578131841ddaf38b1ad3</value>
       </item>
       <item>
         <key>PARENT:MD5-CAM-1.0.1</key>
@@ -61,14 +61,23 @@
         <key>original_language</key>
         <value>ISO_639-1::de</value>
       </item>
+      <item>
+        <key>original_language</key>
+        <value>ISO_639-1::de</value>
+      </item>
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.request.v1" concept_name="Leistungsanforderung">
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1" concept_name="Dienstleistung" max="1" path="/content">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1" concept_name="Dienstleistung" max="1" path="/content" name="Laborleistung">
       <Rule path="/activities[at0001]" max="1" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0148]" name="Art der Dienstleistung (Kategorie)">
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121]" name="Name der Laborleistung">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <termQueryId terminologyID="LOINC" terminologyLang="en-GB" queryName="(LOINC)" />
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0148]" default="http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory" name="Art der Laborleistung (Kategorie)">
         <constraint xsi:type="textConstraint">
-          <includedValues>laboratory</includedValues>
+          <includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
         </constraint>
       </Rule>
       <Rule path="/activities[at0001]/description[at0009]/items[at0135]" max="0" />
