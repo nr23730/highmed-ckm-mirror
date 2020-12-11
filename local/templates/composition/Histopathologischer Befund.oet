@@ -25,7 +25,13 @@
             <item>Katrin Tröltzsch, Heidelberg University Hospital, Germany</item>
         </other_contributors>
         <lifecycle_state>release_candidate</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Zur Darstellung von Ergebnissen einer Histopathologischen Untersuchung bei einem Krebspatienten.</purpose>
+            <keywords>
+                <item>Histopathologie; Grading; pTNM; Pathologie</item>
+            </keywords>
+            <use>Zur Darstellung von Ergebnissen einer Histopathologischen Untersuchung bei einem Krebspatienten.</use>
+        </details>
         <other_details>
             <item>
                 <key>notes</key>
@@ -67,9 +73,21 @@
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
         </other_details>
     </description>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0071]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.collector</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0070]">
         <items>
             <item>
                 <key>fhir_mapping</key>
@@ -101,11 +119,35 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0034]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.receivedTime</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0045]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.note</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0027]">
         <items>
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.quantity</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0007]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.method</value>
             </item>
         </items>
     </annotations>
@@ -159,7 +201,7 @@
             name="Histopathologischer Bericht" path="/content" xsi:type="tem:OBSERVATION">
             <Rule
                 default="Pathologisch-anatomische Begutachtung mit kritischer Stellungnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
-            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
+            <Rule max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
                     <includedTypes>Text</includedTypes>
@@ -250,12 +292,7 @@
                 <Rule max="0" path="/items[at0007]"/>
                 <Rule max="0" path="/items[at0079]"/>
                 <Rule max="0" path="/items[at0087]"/>
-                <Rule max="0" path="/items[at0015]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Date_Time</includedTypes>
-                        <includedTypes>Interval</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/items[at0015]"/>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0070]"/>
@@ -319,8 +356,7 @@
                     </constraint>
                 </Rule>
                 <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
+                <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
                     max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
                     <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
@@ -596,6 +632,10 @@
                     path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule name="Beschreibung des Stadium/Gruppe/Grades" path="/items[at0002]"/>
                 </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+                    path="/protocol[at0032]/items[at0071]" xsi:type="tem:CLUSTER">
+                    <Rule max="1" min="1" path="/items[at0001]"/>
+                </Items>
             </Item>
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
@@ -673,7 +713,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+        <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.anatomical_pathology_exam.v0"
@@ -715,11 +755,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.tumor_classification_icd_o.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">F7827EF1018D0CB94AF62ECD9E2A94EA</digest>
+        <digest id="MD5-CAM-1.0.1">2C7E496D1B1499B94ED9B4D4881AE5C0</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tnm.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -743,5 +782,10 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">6D422C85F9718516ADFD8A13A5514654</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">00E81173D3355F5FB8674F6132AECA33</digest>
     </integrity_checks>
 </template>
