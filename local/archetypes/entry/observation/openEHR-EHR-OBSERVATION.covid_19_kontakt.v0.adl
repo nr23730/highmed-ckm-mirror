@@ -1,0 +1,127 @@
+﻿archetype (adl_version=1.4; uid=919745a0-3493-407a-aa04-b65cda00d11d)
+	openEHR-EHR-OBSERVATION.covid_19_kontakt.v0
+
+concept
+	[at0000]	-- UMG_COVID-19 Kontakt
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Eva-Maria Rieß">
+		["organisation"] = <"University Medical Center Goettingen">
+		["email"] = <"eva-maria.riess@med.uni-goettingen.de">
+		["date"] = <"2020-04-06">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung eines Kontaktes zu Personen mit Coronainfektion.">
+			use = <"Mit diesem Archetypen sollen Details zum Kontakt zu Personen mit Coronainfektionen wie sie in der Coronanamnese der Patientendaten-App der Hippokrates IT GmbH
+dokumentiert werden.">
+			keywords = <"COVID-19", "SARS-CoV-2", "Coronavirus", "Corona", "Kontakt", "Kontaktperson">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Medical Data Model (https://medical-data-models.org) 
+Coronanamnese : DOI: 10.21961/mdm:40277
+
+Patientendaten-Appder Hippokrates IT GmbH:
+https://hippokrates-it.de/corona/index.html">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"B619E7542F55443B8849361D461E56FD">
+		["build_uid"] = <"8c1f5958-796d-4a66-b434-148886035c61">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- UMG_COVID-19 Kontakt
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kontakt zur COVID-19 Patient
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kontaktperson
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Kontakt Gesundheitseinrichtung
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Spätere Kontaktierung
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"UMG_COVID-19 Kontakt">
+					description = <"Zur Darstellung eines Kontaktes zu Personen mit Coronainfektion.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Kontakt zur COVID-19 Patient">
+					description = <"Hatten Sie in den letzten 14 Tagen Kontakt zu Personen mit Coronainfektion?">
+				>
+				["at0008"] = <
+					text = <"Kontaktperson">
+					description = <"Benennen Sie die Person mit Coronainfektion zu der Sie Kontakt hatten.">
+				>
+				["at0009"] = <
+					text = <"Kontakt Gesundheitseinrichtung">
+					description = <"Leben/Wohnen/Arbeiten Sie in einer Einrichtung des Gesundheitswesens (Pflegeeinrichtung/ Krankenhaus), in dem gehäuft Atemwegserkrankungen aufgetreten sind?">
+				>
+				["at0011"] = <
+					text = <"Spätere Kontaktierung">
+					description = <"Sind Sie mit einer Kontaktaufnahme durch den Arzt/die Klinik zu einem späteren Zeitpunkt einverstanden?">
+				>
+			>
+		>
+	>
