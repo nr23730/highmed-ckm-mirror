@@ -1,0 +1,163 @@
+﻿archetype (adl_version=1.4; uid=56edc4a2-b184-438f-b0da-cb5335bf4abe)
+	openEHR-EHR-OBSERVATION.albi_grade.v2
+
+concept
+	[at0000]	-- ALBI-Grad
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Eva-Maria Rieß">
+		["organisation"] = <"University Medical Center Goettingen">
+		["email"] = <"eva-maria.riess@med.uni-goettingen.de">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des ALBI-Grades von Patienten mit einem hepatozellulären Karzinom.">
+			use = <"Wird zur Darstellung des ALBI-Grades von Patienten mit einem hepatozellulären Karzinom verwendet.">
+			keywords = <"Leberfunktion", "HCC", "Überleben", "Überlebensrate", "Prognose", "hepatozelluläres Karzinom", "ALBI", "Albumin", "Billirubin", "Leberkarzinom", "ALBI-Score">
+			misuse = <"Nicht verwenden um Laborwerte zur Leberfunktion aufzuzeichnen. Verwenden Sie dafür einen speziellen Archetypen wie z.B. openEHR-EHR-OBSERVATION.laboratory_test_result.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"P. J. Johnson et al., ‘Assessment of Liver Function in Patients With Hepatocellular Carcinoma: A New Evidence-Based Approach—The ALBI Grade’, J. Clin. Oncol., vol. 33, no. 6, pp. 550–558, Feb. 2015.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"E4B05FEFCE4D01518E9F235CCA944628">
+		["build_uid"] = <"244c68a7-3173-43c8-91b3-f1cc4d62a4c1">
+		["revision"] = <"2.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- ALBI-Grad
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Beliebiges Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Serumalbumin
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"g/l">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Gesamtbilirubin
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"μmol/l">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Gesamtscore
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Grad
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008,    -- Grad 1
+													at0009,    -- Grad 2
+													at0010]    -- Grad 3
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0016] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"ALBI-Grad">
+					description = <"Instrument das verwendet wird, um die Überlebensprognose von Patienten mit hepatozellulären Karzinomen einzuschätzen.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Serumalbumin">
+					description = <"Serumalbumin in Gramm pro Liter.">
+				>
+				["at0005"] = <
+					text = <"Gesamtbilirubin">
+					description = <"Gesamtbilirubin in Mikromol pro Liter.">
+				>
+				["at0006"] = <
+					text = <"Grad">
+					description = <"Der mit Hilfe des Gesamtscore zugeteilte ALBI Grad.">
+				>
+				["at0008"] = <
+					text = <"Grad 1">
+					description = <"Der Gesamtscore ist kleiner oder gleich -2,6.">
+				>
+				["at0009"] = <
+					text = <"Grad 2">
+					description = <"Der Gesamtscore ist zwischen -2,6 und -1,39.">
+				>
+				["at0010"] = <
+					text = <"Grad 3">
+					description = <"Der Gesamtscore ist größer oder gleich -1,39.">
+				>
+				["at0015"] = <
+					text = <"Gesamtscore">
+					description = <"Der aus den Laborwerten berechnete Score.">
+				>
+				["at0016"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>

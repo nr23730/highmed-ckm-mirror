@@ -1,0 +1,574 @@
+﻿archetype (adl_version=1.4; uid=e329c901-d75a-477f-b0da-0522e9500da8)
+	openEHR-EHR-OBSERVATION.instrumental_activities_of_daily_living.v0
+
+concept
+	[at0000]	-- Instrumentelle Aktivitäten
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-10-27">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Die Skala für instrumentelle Aktivitäten (instrumental activities of daily living - IADL) nach Lawton und Brody wird zur Erfassung der Alltagskompentenz geriatrischer Patienten genutzt. IADL kann dabei unterstützen, Veränderungen der geistigen Leistungsfähigkeit anhand von Veränderungen der IADL festzustellen.">
+			use = <"Wird verwendet, um die Alltagskompetenz geriatrischer Patienten zu erfassen. Verwendung findet das Assessment vorrangig im klinischen Alltag, hierbei muss bedacht werden, dass die Art der Punktevergabe variieren kann und die Angabe der Punktevergabe hier verglichen werden muss.">
+			keywords = <"geriatrisches Assessment", "IADL", "instrumentelle Aktivitäten", "Lawton", "Brody">
+			misuse = <"Kann nicht verwendet werden, um Dokumentationen anderer geriatrischer Assessments, wie z.B. der Erfassung grundlegender/ physischer Aktivitäten, durchzuführen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Lawton MP, Brody EM. Assessment of older people: self-maintaining and instrumental activities of daily living. Gerontologist 1969;9:179-186">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"8C8FE5E62ED6B4C26C49712B4BB2901A">
+		["build_uid"] = <"c329a76b-f176-405a-b1e0-ab9b8df03034">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Instrumentelle Aktivitäten
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {8..*; unordered} matches {
+									CLUSTER[at0054] matches {	-- Telefon
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0055] occurrences matches {0..1} matches {	-- Benutzt Telefon aus eigener Initiative, wählt Nummern
+												value matches {1|[local::at0056]}		-- Ja
+											}
+											ELEMENT[at0058] occurrences matches {0..1} matches {	-- Wählt einige bekannte Nummern
+												value matches {1|[local::at0060]}		-- Ja
+											}
+											ELEMENT[at0061] occurrences matches {0..1} matches {	-- Nimmt ab, wählt nicht selbstständig
+												value matches {1|[local::at0063]}		-- Ja
+											}
+											ELEMENT[at0064] occurrences matches {0..1} matches {	-- Benutzt das Telefon überhaupt nicht
+												value matches {0|[local::at0065]}		-- Ja
+											}
+										}
+									}
+									CLUSTER[at0067] matches {	-- Einkaufen
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0074] occurrences matches {0..1} matches {	-- Kauft selbstständig die meisten benötigten Sachen ein
+												value matches {1|[local::at0112]}		-- Ja
+											}
+											ELEMENT[at0075] occurrences matches {0..1} matches {	-- Tätigt wenige Einkäufe
+												value matches {0|[local::at0114]}		-- Ja
+											}
+											ELEMENT[at0076] occurrences matches {0..1} matches {	-- Benötigt bei jedem Einkauf Begleitung
+												value matches {0|[local::at0116]}		-- Ja
+											}
+											ELEMENT[at0077] occurrences matches {0..1} matches {	-- Unfähig zum Einkaufen
+												value matches {0|[local::at0118]}		-- Ja
+											}
+										}
+									}
+									CLUSTER[at0068] matches {	-- Kochen
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0078] occurrences matches {0..1} matches {	-- Plant und kocht erforderliche Mahlzeit selbstständig
+												value matches {1|[local::at0104]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0079] occurrences matches {0..1} matches {	-- Kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson
+												value matches {0|[local::at0106]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0080] occurrences matches {0..1} matches {	-- Kocht selbstständig, hält aber benötigte Diät nicht ein
+												value matches {0|[local::at0108]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0081] occurrences matches {0..1} matches {	-- Benötigt vorbereitete und servierte Mahlzeiten
+												value matches {0|[local::at0110]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0069] matches {	-- Haushalt
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0082] occurrences matches {0..1} matches {	-- Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten
+												value matches {1|[local::at0121]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0085] occurrences matches {0..1} matches {	-- Führt selbstständig kleine Hausarbeiten aus
+												value matches {1|[local::at0123]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0084] occurrences matches {0..1} matches {	-- Benötigt Hilfe in allen Haushaltsverrichtungen
+												value matches {1|[local::at0125]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0083] occurrences matches {0..1} matches {	-- Nimmt überhaupt nicht teil an täglichen Verrichtungen im Haushalt
+												value matches {0|[local::at0126]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0070] matches {	-- Wäsche
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0088] occurrences matches {0..1} matches {	-- Wäscht sämtliche eigene Wäsche
+												value matches {1|[local::at0129]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0091] occurrences matches {0..1} matches {	-- Wäscht kleine Sachen
+												value matches {1|[local::at0131]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+											ELEMENT[at0090] occurrences matches {0..1} matches {	-- Gesamte Wäsche muss auswärts gewaschen werden
+												value matches {0|[local::at0132]}		-- Ja
+												null_flavour existence matches {0..1} matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[openehr::273]}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0071] matches {	-- Transportmittel
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0092] occurrences matches {0..1} matches {	-- Benutzt unäbhängig öffentliche Transportmittel, eigenes Auto
+												value matches {1|[local::at0136]}		-- Ja
+											}
+											ELEMENT[at0095] occurrences matches {0..1} matches {	-- Bestellt und benutzt selbstständig Taxi, jedoch keine öffentlichen Verkehrsmittel
+												value matches {1|[local::at0138]}		-- Ja
+											}
+											ELEMENT[at0094] occurrences matches {0..1} matches {	-- Benutzt öffentliche Transportmittel in Begleitung
+												value matches {1|[local::at0140]}		-- Ja
+											}
+											ELEMENT[at0093] occurrences matches {0..1} matches {	-- Beschränkte Fahrten im Taxi oder Auto in Begleitung
+												value matches {0|[local::at0141]}		-- Ja
+											}
+											ELEMENT[at0134] occurrences matches {0..1} matches {	-- Reist überhaupt nicht
+												value matches {0|[local::at0143]}		-- Ja
+											}
+										}
+									}
+									CLUSTER[at0072] occurrences matches {0..1} matches {	-- Medikamente
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0096] occurrences matches {0..1} matches {	-- Nimmt Medikamente in genauer Dosierung und zum korrekten Zeitpunkt eigenverantwortlich
+												value matches {1|[local::at0146]}		-- Ja
+											}
+											ELEMENT[at0098] occurrences matches {0..1} matches {	-- Nimmt vorbereitete Medikamente korrekt
+												value matches {0|[local::at0147]}		-- Ja
+											}
+											ELEMENT[at0099] occurrences matches {0..1} matches {	-- Kann korrekte Einnahme von Medikamenten nicht handhaben
+												value matches {0|[local::at0149]}		-- Ja
+											}
+										}
+									}
+									CLUSTER[at0073] matches {	-- Geldhaushalt
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0100] occurrences matches {0..1} matches {	-- Regelt finanzielle Geschäfte selbstständig (Budget, Schecks, Einzahlung, Gang zur Bank)
+												value matches {1|[local::at0152]}		-- Ja
+											}
+											ELEMENT[at0103] occurrences matches {0..1} matches {	-- Erledigt tägliche kleinere Ausgaben, benötigt aber Hilfe bei Einzahlung, Bankgeschäften
+												value matches {1|[local::at0154]}		-- Ja
+											}
+											ELEMENT[at0102] occurrences matches {0..1} matches {	-- Ist nicht mehr fähig mit Geld umzugehen
+												value matches {0|[local::at0155]}		-- Ja
+											}
+										}
+									}
+									ELEMENT[at0049] occurrences matches {0..1} matches {	-- Geschlecht
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0052, 	-- Weiblich
+													at0053]	-- Männlich
+												}
+											}
+										}
+										null_flavour existence matches {0..1} matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[openehr::
+													272, 
+													273, 
+													271, 
+													253]
+												}
+											}
+										}
+									}
+									ELEMENT[at0048] matches {	-- Gesamtpunktzahl
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..8|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Instrumentelle Aktivitäten">
+					description = <"Zur Erfassung der Alltagskompetenz geriatrischer Patienten.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0048"] = <
+					text = <"Gesamtpunktzahl">
+					description = <"Gesamtpunktzahl, bei männlich: 5, bei weiblich: 8.">
+				>
+				["at0049"] = <
+					text = <"Geschlecht">
+					description = <"Welches Geschlecht hat der/die Befragte?">
+				>
+				["at0052"] = <
+					text = <"Weiblich">
+					description = <"Weiblische Person.">
+				>
+				["at0053"] = <
+					text = <"Männlich">
+					description = <"Männliche Person.">
+				>
+				["at0054"] = <
+					text = <"Telefon">
+					description = <"Benutzung des Telefons.">
+				>
+				["at0055"] = <
+					text = <"Benutzt Telefon aus eigener Initiative, wählt Nummern">
+					description = <"Benutzt Telefon aus eigener Initiative, wählt Nummern.">
+				>
+				["at0056"] = <
+					text = <"Ja">
+					description = <"Das Telefon wird aus eigener Initiative benutzt und Nummern gewählt.">
+				>
+				["at0058"] = <
+					text = <"Wählt einige bekannte Nummern">
+					description = <"Wählt einige bekannte Nummern.">
+				>
+				["at0060"] = <
+					text = <"Ja">
+					description = <"Es werden einige bekannte Nummern gewählt.">
+				>
+				["at0061"] = <
+					text = <"Nimmt ab, wählt nicht selbstständig">
+					description = <"Nimmt ab, wählt nicht selbstständig.">
+				>
+				["at0063"] = <
+					text = <"Ja">
+					description = <"Der Anruf wird entgegengenommen, aber es wird nicht selbstständig gewählt.">
+				>
+				["at0064"] = <
+					text = <"Benutzt das Telefon überhaupt nicht">
+					description = <"Benutzt das Telefon überhaupt nicht.">
+				>
+				["at0065"] = <
+					text = <"Ja">
+					description = <"Das Telefon wird nicht genutzt.">
+				>
+				["at0067"] = <
+					text = <"Einkaufen">
+					description = <"Kann selbstständig eingekauft werden?">
+				>
+				["at0068"] = <
+					text = <"Kochen">
+					description = <"Ist ein selbstständiges zubereiten der Mahlzeiten möglich?">
+				>
+				["at0069"] = <
+					text = <"Haushalt">
+					description = <"Wie selbstständig kann der Haushalt instand gehalten werden?">
+				>
+				["at0070"] = <
+					text = <"Wäsche">
+					description = <"Wie selbstständig kann sich um Wäsche gekümmert werden?">
+				>
+				["at0071"] = <
+					text = <"Transportmittel">
+					description = <"Welche Transportmittel werden genutzt?">
+				>
+				["at0072"] = <
+					text = <"Medikamente">
+					description = <"Wie gut erfolgt die selbstständige Medikamenteneinnahme?">
+				>
+				["at0073"] = <
+					text = <"Geldhaushalt">
+					description = <"Können finanzielle Geschäfte selbstständig geregelt werden?">
+				>
+				["at0074"] = <
+					text = <"Kauft selbstständig die meisten benötigten Sachen ein">
+					description = <"Kauft selbstständig die meisten benötigten Sachen ein.">
+				>
+				["at0075"] = <
+					text = <"Tätigt wenige Einkäufe">
+					description = <"Tätigt wenige Einkäufe.">
+				>
+				["at0076"] = <
+					text = <"Benötigt bei jedem Einkauf Begleitung">
+					description = <"Benötigt bei jedem Einkauf Begleitung.">
+				>
+				["at0077"] = <
+					text = <"Unfähig zum Einkaufen">
+					description = <"Unfähig zum Einkaufen.">
+				>
+				["at0078"] = <
+					text = <"Plant und kocht erforderliche Mahlzeit selbstständig">
+					description = <"Plant und kocht erforderliche Mahlzeit selbstständig.">
+				>
+				["at0079"] = <
+					text = <"Kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson">
+					description = <"Kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson.">
+				>
+				["at0080"] = <
+					text = <"Kocht selbstständig, hält aber benötigte Diät nicht ein">
+					description = <"Kocht selbstständig, hält aber benötigte Diät nicht ein.">
+				>
+				["at0081"] = <
+					text = <"Benötigt vorbereitete und servierte Mahlzeiten">
+					description = <"Benötigt vorbereitete und servierte Mahlzeiten.">
+				>
+				["at0082"] = <
+					text = <"Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten">
+					description = <"Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten.">
+				>
+				["at0083"] = <
+					text = <"Nimmt überhaupt nicht teil an täglichen Verrichtungen im Haushalt">
+					description = <"Nimmt überhaupt nicht teil an täglichen Verrichtungen im Haushalt.">
+				>
+				["at0084"] = <
+					text = <"Benötigt Hilfe in allen Haushaltsverrichtungen">
+					description = <"Benötigt Hilfe in allen Haushaltsverrichtungen.">
+				>
+				["at0085"] = <
+					text = <"Führt selbstständig kleine Hausarbeiten aus">
+					description = <"Führt selbstständig kleine Hausarbeiten aus.">
+				>
+				["at0088"] = <
+					text = <"Wäscht sämtliche eigene Wäsche">
+					description = <"Wäscht sämtliche eigene Wäsche.">
+				>
+				["at0090"] = <
+					text = <"Gesamte Wäsche muss auswärts gewaschen werden">
+					description = <"Gesamte Wäsche muss auswärts gewaschen werden.">
+				>
+				["at0091"] = <
+					text = <"Wäscht kleine Sachen">
+					description = <"Wäscht kleine Sachen.">
+				>
+				["at0092"] = <
+					text = <"Benutzt unäbhängig öffentliche Transportmittel, eigenes Auto">
+					description = <"Benutzt unäbhängig öffentliche Transportmittel, eigenes Auto.">
+				>
+				["at0093"] = <
+					text = <"Beschränkte Fahrten im Taxi oder Auto in Begleitung">
+					description = <"Beschränkte Fahrten im Taxi oder Auto in Begleitung.">
+				>
+				["at0094"] = <
+					text = <"Benutzt öffentliche Transportmittel in Begleitung">
+					description = <"Benutzt öffentliche Transportmittel in Begleitung.">
+				>
+				["at0095"] = <
+					text = <"Bestellt und benutzt selbstständig Taxi, jedoch keine öffentlichen Verkehrsmittel">
+					description = <"Bestellt und benutzt selbstständig Taxi, jedoch keine öffentlichen Verkehrsmittel.">
+				>
+				["at0096"] = <
+					text = <"Nimmt Medikamente in genauer Dosierung und zum korrekten Zeitpunkt eigenverantwortlich">
+					description = <"Nimmt Medikamente in genauer Dosierung und zum korrekten Zeitpunkt eigenverantwortlich.">
+				>
+				["at0098"] = <
+					text = <"Nimmt vorbereitete Medikamente korrekt">
+					description = <"Nimmt vorbereitete Medikamente korrekt.">
+				>
+				["at0099"] = <
+					text = <"Kann korrekte Einnahme von Medikamenten nicht handhaben">
+					description = <"Kann korrekte Einnahme von Medikamenten nicht handhaben.">
+				>
+				["at0100"] = <
+					text = <"Regelt finanzielle Geschäfte selbstständig (Budget, Schecks, Einzahlung, Gang zur Bank)">
+					description = <"Regelt finanzielle Geschäfte selbstständig (Budget, Schecks, Einzahlung, Gang zur Bank).">
+				>
+				["at0102"] = <
+					text = <"Ist nicht mehr fähig mit Geld umzugehen">
+					description = <"Ist nicht mehr fähig mit Geld umzugehen.">
+				>
+				["at0103"] = <
+					text = <"Erledigt tägliche kleinere Ausgaben, benötigt aber Hilfe bei Einzahlung, Bankgeschäften">
+					description = <"Erledigt tägliche kleinere Ausgaben, benötigt aber Hilfe bei Einzahlung, Bankgeschäften.">
+				>
+				["at0104"] = <
+					text = <"Ja">
+					description = <"Ja, plant und kocht erforderliche Mahlzeit selbstständig.">
+				>
+				["at0106"] = <
+					text = <"Ja">
+					description = <"Ja, kocht erforderliche Mahlzeit nur nach Vorbereitung durch Drittperson.">
+				>
+				["at0108"] = <
+					text = <"Ja">
+					description = <"Ja, es wird selbstständig gekocht, aber Diät wird nicht eingehalten.">
+				>
+				["at0110"] = <
+					text = <"Ja">
+					description = <"Ja, es wird eine vorbereitete und servierte Mahlzeit benötigt.">
+				>
+				["at0112"] = <
+					text = <"Ja">
+					description = <"Es werden selbstständig die meisten benötigte Sachen eingekauft.">
+				>
+				["at0114"] = <
+					text = <"Ja">
+					description = <"Es werden wenige Einkäufe erledigt.">
+				>
+				["at0116"] = <
+					text = <"Ja">
+					description = <"Es wird bei jedem Einkauf Begleitung benötigt.">
+				>
+				["at0118"] = <
+					text = <"Ja">
+					description = <"Nicht fähig zum Einkaufen.">
+				>
+				["at0121"] = <
+					text = <"Ja">
+					description = <"Ja, der Haushalt wird instand gehalten.">
+				>
+				["at0123"] = <
+					text = <"Ja">
+					description = <"Es werden selbstständig kleine Hausarbeiten ausgeführt.">
+				>
+				["at0125"] = <
+					text = <"Ja">
+					description = <"Es wird Hilfe in allen Haushaltsverrichtungen benötigt.">
+				>
+				["at0126"] = <
+					text = <"Ja">
+					description = <"Es wird nicht an täglichen Verrichtungen im Haushalt teilgenommen.">
+				>
+				["at0129"] = <
+					text = <"Ja">
+					description = <"Es wird eigene Wäsche gewaschen.">
+				>
+				["at0131"] = <
+					text = <"Ja">
+					description = <"Es werden kleine Sachen gewaschen.">
+				>
+				["at0132"] = <
+					text = <"Ja">
+					description = <"Die gesamte Wäsche wird auswärts gewaschen.">
+				>
+				["at0134"] = <
+					text = <"Reist überhaupt nicht">
+					description = <"Reist überhaupt nicht.">
+				>
+				["at0136"] = <
+					text = <"Ja">
+					description = <"Es werden unabhängig öffentliche Verkehrsmittel genutzt oder ein eigenes Auto gefahren.">
+				>
+				["at0138"] = <
+					text = <"Ja">
+					description = <"Es wird selbstständig ein Taxi bestellt und benutzt, aber keine öffentlichen Verkehrsmittel genutzt.">
+				>
+				["at0140"] = <
+					text = <"Ja">
+					description = <"Es werden öffentliche Verkehrsmittel in Begleitung benutzt.">
+				>
+				["at0141"] = <
+					text = <"Ja">
+					description = <"Es werden beschränkte Fahrten im Taxi oder im Auto in Begleitung ausgeführt.">
+				>
+				["at0143"] = <
+					text = <"Ja">
+					description = <"Es wird nicht gereist.">
+				>
+				["at0146"] = <
+					text = <"Ja">
+					description = <"Es werden Medikamente in genauer Dosierung und zum korrekten Zeitpunkt eigenverantwortlich eingenommen.">
+				>
+				["at0147"] = <
+					text = <"Ja">
+					description = <"Medikamente werden korrekt eingenommen, wenn diese vorbereitet wurden.">
+				>
+				["at0149"] = <
+					text = <"Ja">
+					description = <"Die korrekte Einnahme von Medikamenten kann nicht mehr gehandhabt werden.">
+				>
+				["at0152"] = <
+					text = <"Ja">
+					description = <"Es werden finanzielle Geschäfte selbstständig geregelt.">
+				>
+				["at0154"] = <
+					text = <"Ja">
+					description = <"Es werden kleinere tägliche Ausgaben erledigt, aber Hilfe bei Einzahlung oder Bankgeschäften benötigt.">
+				>
+				["at0155"] = <
+					text = <"Ja">
+					description = <"Der Umgang mit Geld ist nicht mehr möglich.">
+				>
+			>
+		>
+	>
