@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>d36a833c-d5e1-45de-9bb6-6c92c556e03e</id>
+  <name>openEHR suspected COVID-19 risk assessment.v0</name>
+  <description>
+    <original_author>
+      <item>
+        <key>name</key>
+        <value>Ian McNicoll</value>
+      </item>
+      <item>
+        <key>organisation</key>
+        <value>freshEHR Clinical Informatics Ltd.</value>
+      </item>
+      <item>
+        <key>email</key>
+        <value>ian@freshehr.com</value>
+      </item>
+      <item>
+        <key>date</key>
+        <value>2020-02-27</value>
+      </item>
+    </original_author>
+    <lifecycle_state>release_candidate</lifecycle_state>
+    <details>
+      <purpose>To record the information required to evaluate the potential risk of Covid-19 infection, as part of professional screening or self-assessment. 
+
+This is based on 
+- The current NHS-111 UK self-assessment app at https://111.nhs.uk/covid-19
+- A similar risk assessment app developed for pre-hospital admission by DIPS.no
+- Public Health England COVID-19: investigation and initial clinical management of possible cases https://www.gov.uk/government/publications/wuhan-novel-coronavirus-initial-investigation-of-possible-cases
+
+The exact risk factors are subject to continual update as the disease progresses.
+
+Note that a critical part of the information, exposure locations, has been left open, so as to allow the list to be updated very regularly and in alignment with local or national policy.
+
+We have decided to leave in 'older' questions such as 'Exposure to birds in China' until such time that we get clear professional guidance that these are no longer necessary or useful.</purpose>
+      <keywords>
+        <item>covid-19, risk, screening, triage, coronavirus</item>
+      </keywords>
+      <use>To record the information required to evaluate the potential risk of Covid-19 infection, as part of professional screening or self-assessment. 
+
+This is based on 
+- The current NHS-111 UK self-assessment app at https://111.nhs.uk/covid-19 
+- A similar risk assessment app developed for pre-hospital admission by DIPS.no
+- Public Health England COVID-19: investigation and initial clinical management of possible cases https://www.gov.uk/government/publications/wuhan-novel-coronavirus-initial-investigation-of-possible-cases
+The exact risk factors are subject to continual update as the disease progresses.
+
+Note that a critical part of the information, exposure locations, has been left open, so as to allow the list to be updated very regularly and in alignment with local or national policy.
+
+</use>
+      <misuse>This assessment is not intended to act directly as part of any public health reporting documentation - further work is being undertaken to support this use-case.
+Please also be aware that this assessment dataset is likely to be a superset of the questions and criteria required in any single country or setting. 
+
+You should check the exact requirements for your country and clinical setting and adapt appropriately. For similar reasons we have not embedded any particular guidance or rules on how high / low risk should be estimated - you should follow local guidance.</misuse>
+      <copyright>openEHR Foundation</copyright>
+    </details>
+    <other_details>
+      <item>
+        <key>licence</key>
+        <value>This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.</value>
+      </item>
+      <item>
+        <key>custodian_organisation</key>
+        <value>openEHR Foundation</value>
+      </item>
+      <item>
+        <key>original_namespace</key>
+        <value>org.openehr</value>
+      </item>
+      <item>
+        <key>original_publisher</key>
+        <value>openEHR Foundation</value>
+      </item>
+      <item>
+        <key>custodian_namespace</key>
+        <value>org.openehr</value>
+      </item>
+      <item>
+        <key>MD5-CAM-1.0.1</key>
+        <value>72d4dcdf953e96abe0061cbdb0ca21fd</value>
+      </item>
+      <item>
+        <key>build_uid</key>
+        <value>7efc32bc-561b-4334-a918-cfed0e233ef2</value>
+      </item>
+      <item>
+        <key>PARENT:MD5-CAM-1.0.1</key>
+        <value>706E6DA39FA082EE75E0F0D4E4A87F25</value>
+      </item>
+      <item>
+        <key>sem_ver</key>
+        <value>0.1.5.0</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Kontakt" name="openEHR suspected COVID-19 risk assessment.v0">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.story.v1" concept_name="Geschichte/Historie" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0" concept_name="Screening-Fragebogen zur Symptomen/Krankheitsanzeichen" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Verdacht auf Krankheit durch schweren akuten respiratorischen Coronavirus 2 (Situation)</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" max="1" clone="true" name="Spezifisches Symptom/Krankheitsanzeichen #1" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v2" concept_name="Körpertemperatur" path="/content">
+      <Rule path="/data[at0002]/events[at0003]" max="1" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>[degF]</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0063]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0030]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0041]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0065]" max="0" />
+      <Rule path="/protocol[at0020]/items[at0021]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.travel_event.v0" concept_name="Reisefall" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Letzte Reise?" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0022]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]/items[at0016]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0010]/items[at0017]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0018]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/items[at0020]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.occupation_summary.v1" concept_name="Zusammenfassung der Beschäftigung" max="1" path="/content" name="Gesundheitsbezogener Beruf">
+      <Rule path="/data[at0001]/items[at0002]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0006]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0009]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_record.v1" concept_name="Beschäftigung" path="/data[at0001]/items[at0003]">
+        <Rule path="/items[at0016]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0013]" max="0" />
+        <Rule path="/items[at0019]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0014]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_cc.v0" concept_name="Organisation" max="1" path="/items[at0004]" name="Einrichtung">
+          <Rule path="/items[at0010]" max="0" />
+          <Rule path="/items[at0011]" max="0" />
+          <Rule path="/items[at0012]" name="Name der Einrichtung" />
+          <Rule path="/items[at0013]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address_cc.v0" concept_name="Adresse" path="/items[at0015]">
+            <Rule path="/items[at0001]" max="0" />
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0010]" max="0" />
+            <Rule path="/items[at0011]" max="0" />
+            <Rule path="/items[at0013]" max="0" />
+            <Rule path="/items[at0014]" max="0" />
+            <Rule path="/items[at0016]" max="0" />
+            <Rule path="/items[at0017]" max="0" />
+          </Items>
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.living_arrangement.v0" concept_name="Wohnsituation" max="1" path="/content" name="Haushalt">
+      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0006]" max="0" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0002]/items[at0012]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.dwelling.v0" concept_name="Wohnstätte" path="/data[at0001]/items[at0008]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0036]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0041]" max="0" />
+        <Rule path="/items[at0009]" max="0" />
+        <Rule path="/items[at0010]" max="0" />
+        <Rule path="/items[at0011]" max="0" />
+        <Rule path="/items[at0012]" max="0" />
+        <Rule path="/items[at0013]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0035]" max="0" />
+        <Rule path="/items[at0014]" max="0" />
+        <Rule path="/items[at0029]" max="0" />
+        <Rule path="/items[at0015]" max="0" />
+        <Rule path="/items[at0016]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0037]" max="0" />
+        <Rule path="/items[at0038]" max="0" />
+        <Rule path="/items[at0017]" max="0" />
+        <Rule path="/items[at0040]" max="0" />
+        <Rule path="/items[at0018]" max="0" />
+        <Rule path="/items[at0039]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0034]" max="0" />
+        <Rule path="/items[at0033]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0042]" max="0" />
+        <Rule path="/items[at0043]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.overcrowding_screening.v0" concept_name="Überprüfung der Überbelegung" path="/items[at0003]">
+          <Rule path="/items[at0001]" max="0" />
+          <Rule path="/items[at0002]" name="Anzahl der Personen, die in Ihrem Schlafzimmer schlafen" />
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.health_risk.v1" concept_name="Bewertung des Gesundheitsrisikos" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Exposition gegenüber schwerem akuten respiratorischen Syndrom Coronavirus 2 (Ereignis)</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0016]" max="1" name="Spezifischer Risikofaktor" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0013]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Kontakt mit bestätigtem COVID-19-Fall</includedValues>
+          <includedValues>Kontaktexposition basierend auf dem Standort</includedValues>
+          <includedValues>Kontakt mit Verdachtsfall/Lungenentzündungsfall</includedValues>
+          <includedValues>Kontakt mit einer schweren, unerklärlichen Atemwegserkrankung</includedValues>
+          <includedValues>Kontakt mit Vögeln in China</includedValues>
+          <includedValues>Kontakt mit einem bestätigten Fall von Vogelgrippe beim Menschen in China</includedValues>
+          <includedValues>Muss wegen einer Atemwegserkrankung stationär aufgenommen werden</includedValues>
+          <includedValues>Haushaltsmitglieder sind krank</includedValues>
+          <includedValues>Haushaltmitglieder mit Reiseexposition</includedValues>
+          <includedValues>Beschäftigte im Gesundheitswesen</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0029]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0028]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Spezifischer Risikofaktor']/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Andere Risikofaktoren" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Andere Risikofaktoren']/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Andere Risikofaktoren']/items[at0029]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Andere Risikofaktoren']/items[at0028]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Andere Risikofaktoren']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Andere Risikofaktoren']/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Geringes Risiko</includedValues>
+          <includedValues>Hohes Risiko</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0020]" max="0" />
+      <Rule path="/data[at0001]/items[at0023]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0015]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Verdacht auf Erkrankung durch schweren akuten respiratorischen Coronavirus 2 (Situation)</includedValues>
+          <includedValues>Exposition gegenüber dem schweren akuten respiratorischen Coronavirus 2 (Ereignis)</includedValues>
+          <includedValues>Erkankung verursacht durch schweren akuten respiratorischen Coronavirus 2 (Krankheit)</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/items[at0069]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v1" concept_name="Problem/Diagnose Attribut" path="/data[at0001]/items[at0046]" name="Status">
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0016</excludedValues>
+            <excludedValues>local::at0018</excludedValues>
+            <excludedValues>local::at0088</excludedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0060]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0083]" max="0" />
+        <Rule path="/items[at0089]" max="0" />
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0071]" max="0" />
+        <Rule path="/items[at0077]" max="0" />
+        <Rule path="/items[at0063]" max="0" />
+        <Rule path="/items[at0073]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1" concept_name="Dienstleistung" path="/content">
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Isolierung von Infektionskontakten</includedValues>
+          <includedValues>Kontaktverfolgung</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0148]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0062]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Verdacht auf Erkrankung durch schweren akuten respiratorischen Coronavirus 2 (Situation)</includedValues>
+          <includedValues>Exposition gegenüber dem schweren akuten respiratorischen Coronavirus 2 (Ereignis)</includedValues>
+          <includedValues>Erkankung verursacht durch schweren akuten respiratorischen Coronavirus 2 (Krankheit)</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0152]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0065]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0068]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0145]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0147]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0150]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0011]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0127]" max="0" />
+    </Content>
+    <Context />
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1">
+    <digest id="MD5-CAM-1.0.1">706E6DA39FA082EE75E0F0D4E4A87F25</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.story.v1">
+    <digest id="MD5-CAM-1.0.1">B1426B7A1E24FD3137AC7F890BEA616A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0">
+    <digest id="MD5-CAM-1.0.1">DB486A1103FFF766D829D463A91B1133</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v2">
+    <digest id="MD5-CAM-1.0.1">3E75EE9DA76390D8AAE80FA56B3DB934</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.travel_event.v0">
+    <digest id="MD5-CAM-1.0.1">BF3B71F721088E8616FE1059C739A840</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.occupation_summary.v1">
+    <digest id="MD5-CAM-1.0.1">37053661135B974855AAA356073EA23A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.occupation_record.v1">
+    <digest id="MD5-CAM-1.0.1">0F10CAEDCA004405C4BB896DAEC71583</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.organisation_cc.v0">
+    <digest id="MD5-CAM-1.0.1">22A9841216FAA7F96797338E932C7C08</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.address_cc.v0">
+    <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.living_arrangement.v0">
+    <digest id="MD5-CAM-1.0.1">EA033CA7F824FF93B1BDC035428928C4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.dwelling.v0">
+    <digest id="MD5-CAM-1.0.1">D1C2F8AAEFACB874D3E74B590853A304</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.overcrowding_screening.v0">
+    <digest id="MD5-CAM-1.0.1">A3321EF532003E87C3861FC66CCB4372</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.health_risk.v1">
+    <digest id="MD5-CAM-1.0.1">875F2A7197E9D7E5C020AF392BA491B4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
+    <digest id="MD5-CAM-1.0.1">1BA7DBDFBC67678A19B93822D9F3A6A7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v1">
+    <digest id="MD5-CAM-1.0.1">6467BBA9938EF3141C6611ED2714EE0B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1">
+    <digest id="MD5-CAM-1.0.1">82BEDEC41C57E48CD072649ED8CA5EF5</digest>
+  </integrity_checks>
+</template>

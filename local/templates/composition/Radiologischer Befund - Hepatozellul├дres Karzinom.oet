@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>386cb528-b43e-4168-8be8-4b0c341c04b1</id>
+    <name>Radiologischer Befund - Hepatozelluläres Karzinom</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2019-09-10</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Samer Abboud Alkarkoukly</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Uniklinikum Köln</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>mabbouda@uni-koeln.de</value>
+            </item>
+        </original_author>
+        <other_contributors>
+            <item>Aurelie Tomczak, Institute of Pathology, University Hospital Heidelberg</item>
+            <item>Nina Bougatf, University Hospital Heidelberg</item>
+            <item>Natalia Strauch, Medizinische Hochschule Hannover</item>
+            <item>Antje Wulff, Medizinische Hochschule Hannover</item>
+        </other_contributors>
+        <lifecycle_state>in_development</lifecycle_state>
+        <details>
+            <purpose>Wird verwendet, um radiologische Befunde von CT und MRT bei Patienten mit hepatozellulärem Karzinom zu berichten.</purpose>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value>This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.</value>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value>openEHR Foundation</value>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value>org.openehr</value>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value>openEHR Foundation</value>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value>org.openehr</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>1b222f34dd2c80d2f0839c9afc35f3a1</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>E3BC8668BB89A4BD43BF551931977A9D</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value>5b4193bc-2b9b-43fb-9506-42f061ab3728</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht"
+        name="Radiologischer Befund - Hepatozelluläres Karzinom"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>CT</includedValues>
+                    <includedValues>MRT</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+            <Rule name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Initialbefund</includedValues>
+                    <includedValues>nach Neoadjuvanz</includedValues>
+                    <includedValues>nach lokaler Therapie</includedValues>
+                    <includedValues>unter systemischer Therapie</includedValues>
+                    <includedValues>Verlaufskontrolle ohne Therapie</includedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Befundtext" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
+            <Rule name="Diagnostische Qualität" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Qualität ausreichend</includedValues>
+                    <includedValues>Qualität eingeschränkt</includedValues>
+                    <includedValues>nicht diagnostisch</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="1" name="Details zur Bildstudie (DICOM Studie)" path="/protocol[at0025]/items[at0027]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0028]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0029]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0031]"/>
+            <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0027]/items[at0033]"/>
+            <Rule name="Details zur Bildserie (DICOM Serie)" path="/protocol[at0025]/items[at0027]/items[at0034]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0037]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0038]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0040]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                concept_name="Ergebnis der Bildgebung" max="1"
+                name="Anzahl HCCs"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule min="1" name="Anzahl HCCs" path="/items[at0001]"/>
+                <Rule min="1" name="Anzahl HCCs" path="/items[at0001]/items[at0002]"/>
+                <Rule name="Anzahl HCC Kommentar" path="/items[at0001]/items[at0003]"/>
+                <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                <Rule max="0" path="/items[at0001]/items[at0011]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.physical_properties.v0"
+                concept_name="Physische Eigenschaften eines Objektes"
+                name="Größe"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule name="Größe des HCC" path="/items[at0042]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <includedUnits>cm</includedUnits>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0043]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0044]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0045]"/>
+                <Rule max="0" path="/items[at0047]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0046]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0020]">
+                    <constraint xsi:type="tem:quantityConstraint"/>
+                </Rule>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                concept_name="Ergebnis der Bildgebung"
+                name="Metastasierung"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule min="1" name="Metastasierung" path="/items[at0001]"/>
+                <Rule name="Metastasenidentität" path="/items[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>regionären Lymphknotenmetastasen vorhanden</includedValues>
+                        <includedValues>keine regionären Lymphknotenmetastasen</includedValues>
+                        <includedValues>regionären Lymphknotenmetastasen unklar</includedValues>
+                        <includedValues>Fernmetastasen vorhanden</includedValues>
+                        <includedValues>keine Fernmetastasen</includedValues>
+                        <includedValues>Fernmetastasen unklar</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" name="Vorhandensein von Metastasen" path="/items[at0001]/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>ja</includedValues>
+                        <includedValues>nein</includedValues>
+                        <includedValues>unklar</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                <Rule max="0" path="/items[at0001]/items[at0011]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+                    concept_name="Anatomische Lokalisation"
+                    name="Metastasierungsort"
+                    path="/items[at0001]/items[at0013]" xsi:type="tem:CLUSTER">
+                    <Rule name="Metastasierungsort" path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>PUL</includedValues>
+                            <includedValues>OSS</includedValues>
+                            <includedValues>HEP</includedValues>
+                            <includedValues>BRA</includedValues>
+                            <includedValues>LYM</includedValues>
+                            <includedValues>MAR</includedValues>
+                            <includedValues>PLE</includedValues>
+                            <includedValues>PER</includedValues>
+                            <includedValues>ADR</includedValues>
+                            <includedValues>KID</includedValues>
+                            <includedValues>SKI</includedValues>
+                            <includedValues>OTH</includedValues>
+                            <includedValues>NULL</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0065]"/>
+                    <Rule max="0" path="/items[at0002]"/>
+                    <Rule max="0" path="/items[at0064]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0055]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0023]"/>
+                </Items>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                concept_name="Ergebnis der Bildgebung" max="1" min="1"
+                name="Pfortaderthrombose"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
+                <Rule min="1" name="Pfortaderthrombose" path="/items[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Pfortaderthrombose vorhanden</includedValues>
+                        <includedValues>keine Pfortaderthrombose vorhanden</includedValues>
+                        <includedValues>Pfortaderthrombose unklar</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Pfortaderthrombose Kommentar" path="/items[at0001]/items[at0003]"/>
+                <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                <Rule max="0" path="/items[at0001]/items[at0011]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                concept_name="Ergebnis der Bildgebung" max="1"
+                name="Restaktivität"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
+                <Rule min="1" name="Restaktivität" path="/items[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Restaktivität vorhanden</includedValues>
+                        <includedValues>kein Restaktivität</includedValues>
+                        <includedValues>Restaktivität unklar</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Restaktivität Kommentar" path="/items[at0001]/items[at0003]"/>
+                <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                <Rule max="0" path="/items[at0001]/items[at0011]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.imaging_result_progress_evaluation.v1"
+                max="1"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0008]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <excludedValues>local::at0013</excludedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule default="Leber" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Leber</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0065]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                        <includedValues>Lebersegment 1</includedValues>
+                        <includedValues>Lebersegment 2</includedValues>
+                        <includedValues>Lebersegment 3</includedValues>
+                        <includedValues>Lebersegment 4</includedValues>
+                        <includedValues>Lebersegment 4a</includedValues>
+                        <includedValues>Lebersegment 4b</includedValues>
+                        <includedValues>Lebersegment 5</includedValues>
+                        <includedValues>Lebersegment 6</includedValues>
+                        <includedValues>Lebersegment 7</includedValues>
+                        <includedValues>Lebersegment 8</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" name="Angabe des/der Lebersegment(e)" path="/items[at0023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Lebersegment 1</includedValues>
+                        <includedValues>Lebersegment 2</includedValues>
+                        <includedValues>Lebersegment 3</includedValues>
+                        <includedValues>Lebersegment 4</includedValues>
+                        <includedValues>Lebersegment 5</includedValues>
+                        <includedValues>Lebersegment 6</includedValues>
+                        <includedValues>Lebersegment 7</includedValues>
+                        <includedValues>Lebersegment 8</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.lirads.v1"
+                concept_name="LI-RADS" max="1" name="Ansprechen LI-RADS"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule max="0" path="/items[at0027]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0031]"/>
+                <Rule max="0" path="/items[at0034]"/>
+                <Rule max="0" path="/items[at0037]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1"
+                concept_name="Therapieansprechen" max="1" name="mRECIST"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0008]"/>
+                <Rule path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>PR (partial response)</includedValues>
+                        <includedValues>SD (stable disease)</includedValues>
+                        <includedValues>PD (progressive disease)</includedValues>
+                        <includedValues>CR (Complete response)</includedValues>
+                        <includedValues>U (Beurteilung unmöglich)</includedValues>
+                        <includedValues>X  (Fehlende Angabe)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0034]"/>
+                <Rule max="0" path="/items[at0035]"/>
+                <Rule max="0" path="/items[at0033]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
+                max="1" path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0013]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule name="CT - Native Phase" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="CT - Spätarterielle Phase" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="CT - Venöse Phase" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="CT - Spätvenöse Phase" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 mit chemical Shift Imaging (in-opp-Phase /Dixon) axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 GRE fettsupprimiert nativ axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 GRE fettsupprimiert spätarteriell axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 GRE fettsupprimiert venös axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 GRE fettsupprimiert spätvenös axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - T1 GRE fettsupprimiert hepatobiliär axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="MRT - T2 axial" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="MRT - T2 koronar" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - Diffusionswichtung b=0-100 s/mm2" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true"
+                    name="MRT - Diffusionswichtung b=500-1000 s/mm2" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="Kontrastmittel" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>nativ</includedValues>
+                        <includedValues>extrazelluläres KM</includedValues>
+                        <includedValues>intrazelluläres KM</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+        </Content>
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Context>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>Registriert</includedValues>
+                <includedValues>Teilweise</includedValues>
+                <includedValues>Vorläufig</includedValues>
+                <includedValues>Final</includedValues>
+                <includedValues>Abgeändert</includedValues>
+                <includedValues>Korrigiert</includedValues>
+                <includedValues>Hinzugefügt</includedValues>
+                <includedValues>Abgebrochen</includedValues>
+                <includedValues>Irrtümlich eingegeben</includedValues>
+            </constraint>
+        </Rule>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">636D8356D589C61CAD7589B340C685AD</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">603A5F60C26B4415285A6F29EC8035A1</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.physical_properties.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DEBF6895CDB33B2D23938EA19BCD5EBA</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.imaging_result_progress_evaluation.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">37C57315B633A25C4371903AD5835162</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lirads.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B864221E5C1271EB8916EB2A821F94D6</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8E76F197B9C4C8137437A5F3467E03A1</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">70EED11E6F50DAAF132C16A972D9FF87</digest>
+    </integrity_checks>
+</template>

@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>061bbac9-a11e-4f8f-b670-9910fbc88961</id>
+  <name>Nephro_Impfstatus</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name</key>
+        <value>Nina Schewe</value>
+      </item>
+      <item>
+        <key>Organisation </key>
+        <value>Medizinische Hochschule Hannover</value>
+      </item>
+      <item>
+        <key>Email </key>
+        <value>schewe.nina@mh-hannover.de</value>
+      </item>
+    </original_author>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation des Impfstatus eines Patienten. In Anlehnung an das MIO "Impfpass" der KBV (mio.kbv.de. Impfpass [Internet]. Berlin: Kassenärztliche Bundesvereinigung [cited: 2020-06-16]. Available from: https://mio.kbv.de/display/IM1x0/IMPFPASS)</purpose>
+      <keywords>
+        <item>Impfpass</item>
+        <item>Impfstatus</item>
+        <item>Impfgeschichte</item>
+      </keywords>
+      <use>Zur Repräsentation des Impfstatus eines Patienten.</use>
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.vaccination_list.v0" concept_name="Vaccination list" name="Impfstatus">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Arzneimittelverwaltung" max="1" path="/content" name="Impfung">
+      <Rule path="/description[at0017]" hide_on_form="true" />
+      <Rule path="/description[at0017]/items[at0020]" name="Handelsname" />
+      <Rule path="/description[at0017]/items[at0132]" max="0" />
+      <Rule path="/description[at0017]/items[at0133]" max="0" />
+      <Rule path="/description[at0017]/items[at0043]" name="Datum der Impfung" />
+      <Rule path="/description[at0017]/items[at0154]" name="Datum der Folgeimpfung" />
+      <Rule path="/description[at0017]/items[at0155]" max="0" />
+      <Rule path="/description[at0017]/items[at0021]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]" max="0" />
+      <Rule path="/description[at0017]/items[at0033]" max="1" name="Hinweis">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Bei einer ungewöhnlichen Impfreaktion sollte die impfende ärztliche Person benachrichtigt werden. Die ärztlich tätige Person hat, wenn der Verdacht einer gesundheitlichen Schädigung besteht, die über das übliche Ausmaß einer Impfreaktion hinaus geht verpflichtet, den Verdacht dem zuständigen Gesundheitsamt namentlich zu melden (§ 6 Absatz 1 Nr 3 des lnfektionsschutzgesetzes • lfSG) Im Falle eines Impfschadens besteht unter den Voraussetzungen des § 60 Absatz 1 lfSG ein Anspruch auf Entschädigung in entsprechender Anwendung der Vorschriften des Bundesversorgungsgesetzes. Der Antrag ist bei der für die Durchführung des Bundesversorgungsgesetzes zuständigen Behörde (§ 64 Absatz 1 lfSG, i.d.R. 'Versorgungsamt') zu stellen. Weitere Auskünfte erteilt das zuständige Gesundheitsamt.</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0149]" max="0" />
+      <Rule path="/description[at0017]/items[at0025]" max="0" />
+      <Rule path="/description[at0017]/items[at0024]" name="Anmerkung" />
+      <Rule path="/protocol[at0030]" hide_on_form="true" />
+      <Rule path="/protocol[at0030]/items[at0103]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medication.v1" concept_name="Arzneimittel" max="1" path="/description[at0017]/items[at0104]" name="Impfstoff">
+        <Rule path="/items[at0132]" name="Impfstoff" />
+        <Rule path="/items[at0071]" max="0" />
+        <Rule path="/items[at0142]" max="0" />
+        <Rule path="/items[at0152]" max="0" />
+        <Rule path="/items[at0158]" max="0" />
+        <Rule path="/items[at0115]" max="0" />
+        <Rule path="/items[at0150]" max="1" name="Chargen-Nummer">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0139]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0148]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0127]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.details_vaccination_record.v0" concept_name="Details zum Impfpass" path="/description[at0017]/items[at0053]">
+        <Rule path="/items[at0001]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.immunisation_summary.v0" concept_name="Zusammenfassung des Immunstatus" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" max="1" name="Erkrankung, gegen die geimpft wurde" />
+      <Rule path="/data[at0001]/items[at0003]" name="Status" />
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]" max="0" />
+      <Rule path="/protocol[at0013]" hide_on_form="true" />
+      <Rule path="/protocol[at0013]/items[at0014]" max="0" />
+      <Rule path="/protocol[at0013]/items[at0015]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/content" name="Immunreaktion">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Art der Immunisation" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+      <Rule path="/protocol[at0004]" hide_on_form="true" />
+      <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+      <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0027]" max="0" />
+        <Rule path="/items[at0024]" name="untersuchter Antikörper" />
+        <Rule path="/items[at0001]" max="1" name="Immunität">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Immunität erreicht</includedValues>
+            <includedValues>Immunität nicht erreicht</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0003]" max="1" name="Ergänzende Angaben" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" max="1" path="/content" name="Impfrelevante Erkrankung">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Diagnosebezeichnung" />
+      <Rule path="/data[at0001]/items[at0009]" name="Klinisch relevanter Zeitraum (Lebensphase)">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Hohes Alter</includedValues>
+          <includedValues>Erwachsenenalter</includedValues>
+          <includedValues>Pubertät</includedValues>
+          <includedValues>Kindheit</includedValues>
+          <includedValues>Kleinkind</includedValues>
+          <includedValues>Säuglingsalter</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" name="Dokumentationsdatum" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/items[at0069]" name="Erläuterung" />
+      <Rule path="/protocol[at0032]" hide_on_form="true" />
+      <Rule path="/protocol[at0032]/items[at0070]" max="0" />
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0004]/items[at0005]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Rule path="/context/other_context[at0004]" hide_on_form="true" />
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.vaccination_list.v0">
+    <digest id="MD5-CAM-1.0.1">6D980D42A5C5D9F49A8C9B1500EC9282</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
+    <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.medication.v1">
+    <digest id="MD5-CAM-1.0.1">E0C69F83865D3910946385034A86310F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.medication.v1">
+    <digest id="MD5-CAM-1.0.1">2F8FAC73C32910334C637CF675BD3713</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.details_vaccination_record.v0">
+    <digest id="MD5-CAM-1.0.1">27B72E6D42F186FD4C09CA66B3F5E002</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.immunisation_summary.v0">
+    <digest id="MD5-CAM-1.0.1">52BFB1A8443DFED4930E4E0A264D4465</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
+    <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+  </integrity_checks>
+</template>
