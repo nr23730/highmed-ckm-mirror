@@ -14,7 +14,7 @@ wget -O templates.zip --content-disposition https://ckm.highmed.org/ckm/retrieve
 #download archetypes
 wget -O archetypes.zip --content-disposition https://ckm.highmed.org/ckm/retrieveResources?resourceType=archetype&format=ADL&state1=INITIAL&state2=DRAFT&state3=TEAMREVIEW&state4=REVIEWSUSPENDED&state5=PUBLISHED&state6=REASSESS_DRAFT&state7=REASSESS_TEAMREVIEW&state8=REASSESS_REVIEWSUSPENDED&getLatestPublishedVersion=true
 
-sleep 10
+sleep 30
 
 #unzip content
 unzip templates.zip -d local/templates/
