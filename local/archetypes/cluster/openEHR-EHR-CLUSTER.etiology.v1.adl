@@ -1,0 +1,243 @@
+﻿archetype (adl_version=1.4; uid=ea83aa36-5f41-42ec-92a1-c231ebeee214)
+	openEHR-EHR-CLUSTER.etiology.v1
+
+concept
+	[at0000]	-- Etiology
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Samer Alkarkoukly">
+				["organisation"] = <"UKK">
+				["email"] = <"Mabbouda@uni-koeln.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Samer Alkarkoukly">
+		["organisation"] = <"Uniklinik Köln">
+		["email"] = <"Mabbouda@uni-koeln.de">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung von Informationen über die Ursachen oder Gründe für das Entstehen (Ätiologie) eines spezifischen Problems/einer Diagnose, dessen/deren auslösenden Faktoren und Entwicklung (Pathogenese).">
+			use = <"Zur Darstellung von Informationen über die Ursachen eines Problems/einer Diagnose und dessen/deren auslösenden Faktoren und Entwicklung, die gewöhnlich im Prozess der Anamneseerhebung dokumentiert werden.
+Dieser Archetyp kann nur im Slot \"Spezifische Angaben\" des übergeordneten EVALUATION.problem_diagnosis Archetyps eingefügt werden.
+Dieser Archetyp soll nur Informationen beschreiben, welche von dem Kontext Problem/Diagnose abhängen und ihn erweitern.">
+			keywords = <"Ätiologie", "Genese", "Ursachen", "Krankheitsmechanismus", "Hintergrund der Krankheit", "Faktoren", "Krankheitsgrund", "Pathogenese", "Kausalität", "Entstehung">
+			misuse = <"Nicht für die Darstellung der Gründe einer Krankenhausaufnahme verwenden.
+Nicht für die Darstellung der direkten Ursachen eines Traumas oder eines Notfalls verwenden.
+Nicht für die Darstellung der Gründe für eine Behandlung einer Diagnose zu verwenden.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the underlying causes and etiology for a specific disease that the patient has.">
+			use = <"Use to record the underlying causes and etiology for a specific disease.
+To be used in Evaluation.Probleme_Diagnosis.">
+			keywords = <"Etiology", "Genesis", "Underlying causes", "Factors">
+			misuse = <"Not to be used to record the reasons of an admission in hospital.
+Not to be used to record the direct causes of a trauma or an emergency case. ">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Burrows, W., G. Scarpelli, D., H. Robbins, J. and L. Robbins, S. (2019). Human disease. [online] Encyclopedia Britannica. Available at: https://www.britannica.com/science/human-disease/Classifications-of-diseases [Accessed 21 Nov. 2019].">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"095B7B026ED1E03CA292CB90E8F0FC40">
+		["build_uid"] = <"38893387-a23e-43e9-93e4-87b0faf67259">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Etiology
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {1..*} matches {    -- The etiology of the disease
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0005,    -- *Arbeitsrisikofaktoren(en)
+							at0006,    -- *Biologisch(en)
+							at0007,    -- *Chemische Verletzung(en)
+							at0008,    -- *ernährungsrelevante Faktoren(en)
+							at0009,    -- *Genetische Herkunft(en)
+							at0010,    -- *Immunologische Herkunft(en)
+							at0011,    -- *Infektion(en)
+							at0012,    -- *Körperliche Verletzung(en)
+							at0013,    -- *Lebenswandel-bezogene Faktoren(en)
+							at0014,    -- *Metabolisch-endokriner Herkunft(en)
+							at0015,    -- *Neuropsychiatrische Herkunft(en)
+							at0016,    -- *Umweltexposition(en)
+							at0018]    -- *Sonstiges (de)
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0017] occurrences matches {0..*} matches {    -- *New element(en)
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Etiology">
+					description = <"The underlying causes and etiology for a specific disease or abnormal condition.">
+				>
+				["at0001"] = <
+					text = <"The etiology of the disease">
+					description = <"Identifying the etiology of the disease or the abnormal condition.">
+					comment = <"This could be another disease, an unhealthy behaviour, a gene, or any other root cause of the disease that the patient has.
+It is possible to repeat this element for a disease which has multiple causing factors.
+It is also preferable to code this element with a terminology database when possible.
+Examples of the inputs could be: alcoholism (for liver cirrhosis), diabetes (for chronic kidney disease), respiratory infection (for fever), or smoking (for lung cancer).">
+				>
+				["at0005"] = <
+					text = <"*Arbeitsrisikofaktoren(en)">
+					description = <"*z.B. Asbestexposition(en)">
+				>
+				["at0006"] = <
+					text = <"*Biologisch(en)">
+					description = <"*z.B. virale Infektion(en)">
+				>
+				["at0007"] = <
+					text = <"*Chemische Verletzung(en)">
+					description = <"*z. B. Poison, Medikament(en)">
+				>
+				["at0008"] = <
+					text = <"*ernährungsrelevante Faktoren(en)">
+					description = <"*z. B. Eisenmangel, kohlenhydratreiche Ernährung(en)">
+				>
+				["at0009"] = <
+					text = <"*Genetische Herkunft(en)">
+					description = <"**(en)">
+				>
+				["at0010"] = <
+					text = <"*Immunologische Herkunft(en)">
+					description = <"*z.B. systemische Lupus erythematodes, AIDS (als Grundursache für Kaposis Sarkom)(en)">
+				>
+				["at0011"] = <
+					text = <"*Infektion(en)">
+					description = <"*z:B. Hepatitis C(en)">
+				>
+				["at0012"] = <
+					text = <"*Körperliche Verletzung(en)">
+					description = <"*z.B. Kopftrauma, Hitzeverletzung, Strahlungsverletzung(en)">
+				>
+				["at0013"] = <
+					text = <"*Lebenswandel-bezogene Faktoren(en)">
+					description = <"*z. B. Rauchen, Alkoholismus(en)">
+				>
+				["at0014"] = <
+					text = <"*Metabolisch-endokriner Herkunft(en)">
+					description = <"*z. B. Akromegalie, Diabetes(en)">
+				>
+				["at0015"] = <
+					text = <"*Neuropsychiatrische Herkunft(en)">
+					description = <"*z. B. Alzheimer-Krankheit, Depression(en)">
+				>
+				["at0016"] = <
+					text = <"*Umweltexposition(en)">
+					description = <"*z.B. UV-Strahlung aussetzen, Feinstaub aussetzen(en)">
+				>
+				["at0017"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0018"] = <
+					text = <"*Sonstiges (de)">
+					description = <"*Sonstige Ursachen, die mit vorgegebenen Werten nicht dargestellt werden können (de)">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ätiopathogenese">
+					description = <"Die Ursachen, Gründe oder Erklärung für das Entstehen eines bestimmten Problems/einer Diagnose, dessen/deren auslösenden Faktoren und Entwicklung.">
+				>
+				["at0001"] = <
+					text = <"Ätiologie der Krankheit">
+					description = <"Identifizierung der Ursache der Krankheit oder des abnormalen Zustands.">
+					comment = <"Dies könnte eine andere Krankheit sein, ein ungesundes Verhalten, ein Gen oder eine andere Grundursache für die Krankheit, die der Patient hat.
+Es ist möglich, dieses Elements für eine Krankheit, die mehrere Ursachen hat, zu wiederholen.
+Wo dies möglich ist, ist die Kodierung dieses Elements über eine Terminologiedatenbank zu bevorzugen. 
+Beispiele für die Eingabe könnten sein: Alkoholismus (bei Leberzirrhose), Diabetes Mellitus (bei chronischer Nierenerkrankung), Atemwegsinfektion (bei Fieber) oder Rauchen (bei Lungenkrebs).">
+				>
+				["at0005"] = <
+					text = <"Arbeitsrisikofaktoren">
+					description = <"z.B. Asbestexposition">
+				>
+				["at0006"] = <
+					text = <"Biologisch">
+					description = <"z.B. Alter, Geschlecht">
+				>
+				["at0007"] = <
+					text = <"Chemische Verletzung">
+					description = <"z. B. Gift, Medikament">
+				>
+				["at0008"] = <
+					text = <"Ernährungsrelevante Faktoren">
+					description = <"z. B. Eisenmangel, kohlenhydratreiche Ernährung">
+				>
+				["at0009"] = <
+					text = <"Genetische Herkunft">
+					description = <"z. B Sichelzellenanämie">
+				>
+				["at0010"] = <
+					text = <"Immunologische Herkunft">
+					description = <"z.B. systemische Lupus erythematodes, AIDS (als Grundursache für Kaposis Sarkom)">
+				>
+				["at0011"] = <
+					text = <"Infektion">
+					description = <"z.B. Hepatitis C">
+				>
+				["at0012"] = <
+					text = <"Körperliche Verletzung">
+					description = <"z.B. Kopftrauma, Hitzeerschöpfung, Verletzung durch Strahlenbelastung">
+				>
+				["at0013"] = <
+					text = <"Lebenswandel-bezogene Faktoren">
+					description = <"z. B. Rauchen, Alkoholismus">
+				>
+				["at0014"] = <
+					text = <"Metabolisch-endokriner Herkunft">
+					description = <"z. B. Akromegalie, Diabetes">
+				>
+				["at0015"] = <
+					text = <"Neuropsychiatrische Herkunft">
+					description = <"z. B. Alzheimer-Krankheit, Depression">
+				>
+				["at0016"] = <
+					text = <"Umweltexposition">
+					description = <"z.B. UV-Strahlung aussetzen, Feinstaub Aussetzung">
+				>
+				["at0017"] = <
+					text = <"Beschreibung des Entstehens">
+					description = <"Weitere Beschreibung der Ursachen oder Gründe für das Entstehen (Ätiologie) eines spezifischen Problems/einer Diagnose.">
+					comment = <"z.B. Lokale Entzündungsreaktion mit Schädigung und Zerstörung der Leberzellen.">
+				>
+				["at0018"] = <
+					text = <"Sonstiges">
+					description = <"Sonstige Ursachen, die mit vorgegebenen Werten nicht dargestellt werden können">
+				>
+			>
+		>
+	>
