@@ -1,0 +1,182 @@
+﻿archetype (adl_version=1.4; uid=98d04294-7b14-4fd0-8a56-341fb2134909)
+	openEHR-EHR-OBSERVATION.timed_up_and_go.v0
+
+concept
+	[at0000]	-- Timed Up and Go
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-10-19">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Der Timed Up and Go Test ist ein Verfahren, dass zur Beurteilung des Körpergleichgewichts und der daraus resultierenden Gefahr eines Sturzes bei einer alltäglichen Bewegungsaufgabe dient. Der Test findet vorrangig bei alternden Menschen im Zusammenhang mit dem geriatrischen Assessment Anwendung. Bei diesem Test wird die Zeit gemessen, die benötigt wird, um von einem Stuhl aufzustehen, eine Strecke von 6 Metern zurückzulegen und wieder zurück zum Stuhl zu gehen und sich zu setzen. Die Zeit gibt darüber Aufschluss, ob eine Mobilitätseinschränkung im Alltag vorhanden ist.">
+			use = <"Der Archetyp wird verwendet, um den Timed Up and Go Test zu dokumentatieren und so die Mobilität und das Sturzrisiko eines Patienten in einer alltäglichen Bewegungsaufgabe zu erfassen.">
+			keywords = <"Timed Up and Go", "geriatrisches Assessment", "Sturzrisiko", "TUG">
+			misuse = <"Kann nicht verwendet werden, um Mobilitätstests, wie z.B. den Tinetti Test, HABAM oder DEMMI, zu erfassen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Podsiadlo D, Richardson S. The Timed „Up & Go“: a test of basic functional mobility for frail elderly persons. J Am Geriatr Soc 1991;39:142-148.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"C5E166D0BB40894904C4A7F91A464AB5">
+		["build_uid"] = <"1244d654-1c23-4887-bc73-ca684880a9d5">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Timed Up and Go
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; ordered} matches {
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Ausführungsdauer
+										value matches {
+											DV_DURATION matches {
+												value matches {PTS}
+											}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Bemerkungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0025] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0026] occurrences matches {0..*} matches {	-- Störfaktoren
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0014] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Shimmerzeit
+						value matches {
+							DV_TIME matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Durchführung möglich?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Benutzung einer Gehhilfe
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0022, 	-- Ja
+									at0023]	-- Nein
+								}
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Art der Gehhilfe
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Timed Up and Go">
+					description = <"Der Timed Up and Go Test ist ein Verfahren, dass zur Beurteilung des Körpergleichgewichts und der Gefahr eines Sturzes bei einer alltäglichen Bewegungsaufgabe dient.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"Ausführungsdauer">
+					description = <"Dauer, die der Patient für die Durchführung des Tests benötigt hat.">
+				>
+				["at0013"] = <
+					text = <"Bemerkungen">
+					description = <"Bemerkungen, die während des Test aufgefallen sind.">
+				>
+				["at0014"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0019"] = <
+					text = <"Shimmerzeit">
+					description = <"Anfangszeit des Tests, die gemäß des Beschleunigungssensors gemessen wurde.">
+				>
+				["at0020"] = <
+					text = <"Durchführung möglich?">
+					description = <"Ist die Durchführung des Tests möglich?">
+				>
+				["at0021"] = <
+					text = <"Benutzung einer Gehhilfe">
+					description = <"Hat der Patient eine Gehhilfe benutzt?">
+				>
+				["at0022"] = <
+					text = <"Ja">
+					description = <"Patient hat eine Gehhilfe benutzt.">
+				>
+				["at0023"] = <
+					text = <"Nein">
+					description = <"Patient hat keine Gehhilfe benutzt.">
+				>
+				["at0024"] = <
+					text = <"Art der Gehhilfe">
+					description = <"Welche Gehhilfe wurde benutzt?">
+				>
+				["at0025"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0026"] = <
+					text = <"Störfaktoren">
+					description = <"Notieren Sie alle Umstände, von denen Sie glauben, dass sie die Leistung des Patienten beeinträchtigt haben könnten.">
+					comment = <"Beispiele für Störfaktoren: \"Der Patient berichtet, dass er sich nicht gut fühlt\" oder \"Der Patient ist gestolpert, aber nicht gefallen\".">
+				>
+			>
+		>
+	>
