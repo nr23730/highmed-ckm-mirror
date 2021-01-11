@@ -1,0 +1,124 @@
+﻿archetype (adl_version=1.4; uid=35243628-e8c8-468b-a27d-e952e206e26f)
+	openEHR-EHR-CLUSTER.histology_grading.v1
+
+concept
+	[at0000]	-- Histologie Grading
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Katrin Tröltzsch">
+		["organisation"] = <"Heidelberg University Hospital">
+		["email"] = <"katrin.troeltzsch@med.uni-heidelberg.de">
+		["date"] = <"2019-04-02">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des histologischen Differenzierungsgrades der Tumorzellen. Das Grading beschreibt den Grad der histologischen Veränderung des Tumorgewebes.">
+			use = <"Dieser Archetyp soll verwendet werden, um den Differenzierungsgrad der Tumorzellen histologisch darzustellen. Es soll festgestellt werden, ob die Tumorzellen gut, mäßig, schlecht oder undifferenziert sind. Zudem wird bestimmt, ob niedriggradig maligne, mittelgradig maligne oder hochgradig maligne Tumorzellen vorliegen.  Dieser Archetyp kann in dem Slot \"Spezifische Details\" des übergeordneten Archetypen \"Problem/Diagnose\" (openEHR-EHR-EVALUATION.problem_diagnosis) eingebettet werden.">
+			keywords = <"Histologie", "Grading", "Differenzierungsgrad", "Tumorzellen", "Beurteilung">
+			misuse = <"Nicht geeignet zur Darstellung von histopathologischen Untersuchungsbefunden. Hier bitte den Archetyp openEHR-EHR-CLUSTER.anatomical_pathology_exam verwenden.">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Carina Lerch Heidelberg University Hospital", ...>
+	other_details = <
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Datenkatalog mit Merkmalsausprägungen nach ADT/GEKID Basisdatensatz 2.0.0 für Tumorzentren, Onkologische Schwerpunkte, Krankenhäuser und niedergelassene Ärzte
+http://www.krebsregister-bw.de/fileadmin/filemount/allgemein/download/Melder/DatenkatalogADTGEKID2.0.0_V4_Web.pdf; zuletzt aufgerufen: 24.07.2019
+">
+		["original_namespace"] = <"org.highmed">
+		["custodian_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["MD5-CAM-1.0.1"] = <"9E93C6915AC7A544EA07535EFBE64C3A">
+		["build_uid"] = <"5c05d3be-7cb3-4bcd-9d44-047b7c78687b">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Histologie Grading
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] matches {	-- Histologie Grading
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002, 	-- G1 (Gut differenziert)
+							at0003, 	-- G2 (Mäßig differenziert)
+							at0004, 	-- G3 (Schlecht differenziert)
+							at0005, 	-- G4 (Undifferenziert)
+							at0006, 	-- Nicht bestimmbar
+							at0007, 	-- Niedriggradig maligne (G1-G2)
+							at0008, 	-- Mittelgradig maligne (G2-G3)
+							at0009, 	-- Hochgradig maligne (G3-G4)
+							at0010, 	-- Unbekannt
+							at0011, 	-- Trifft nicht zu
+							at0012]	-- Borderline
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Histologie Grading">
+					description = <"Der Differenzierungsgrad der Tumorzellen wird histologisch beurteilt.">
+				>
+				["at0001"] = <
+					text = <"Histologie Grading">
+					description = <"Histologischer Differenzierungsgrad der Tumorzellen.">
+				>
+				["at0002"] = <
+					text = <"G1 (Gut differenziert)">
+					description = <"Die Tumorzellen sind histologisch gut differenziert.">
+				>
+				["at0003"] = <
+					text = <"G2 (Mäßig differenziert)">
+					description = <"Die Tumorzellen sind histologisch mäßig differenziert.">
+				>
+				["at0004"] = <
+					text = <"G3 (Schlecht differenziert)">
+					description = <"Die Tumorzellen sind histologisch schlecht differenziert.">
+				>
+				["at0005"] = <
+					text = <"G4 (Undifferenziert)">
+					description = <"Die Tumorzellen sind histologisch undifferenziert.">
+				>
+				["at0006"] = <
+					text = <"Nicht bestimmbar">
+					description = <"Der Differenzierungsgrad der Tumorzellen ist histologisch nicht bestimmbar.">
+				>
+				["at0007"] = <
+					text = <"Niedriggradig maligne (G1-G2)">
+					description = <"Die Tumorzellen sind histologisch niedriggradig bösartig differenziert.">
+				>
+				["at0008"] = <
+					text = <"Mittelgradig maligne (G2-G3)">
+					description = <"Die Tumorzellen sind histologisch mittelgradig bösartig differenziert.">
+				>
+				["at0009"] = <
+					text = <"Hochgradig maligne (G3-G4)">
+					description = <"Die Tumorzellen sind histologisch hochgradig bösartig differenziert.">
+				>
+				["at0010"] = <
+					text = <"Unbekannt">
+					description = <"Der histologische Differenzierungsgrad der Tumorzellen ist nicht bekannt.">
+				>
+				["at0011"] = <
+					text = <"Trifft nicht zu">
+					description = <"Der histologische Differenzierungsgrad der Tumorzellen trifft nicht zu, z.B. bei Gehirngewebe.">
+				>
+				["at0012"] = <
+					text = <"Borderline">
+					description = <"Grenzfall / Borderline (bei Ovarialtumoren).">
+				>
+			>
+		>
+	>
