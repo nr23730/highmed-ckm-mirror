@@ -29,6 +29,9 @@
         <item>Immunitätsstatus</item>
         <item>Infektion</item>
         <item>Transplantation</item>
+        <item>Hepatitis</item>
+        <item>HIV</item>
+        <item>Dialyse</item>
       </keywords>
       <use>Zur Repräsentation der klinischen Patientendaten (Vitalparameter, Diagnosen etc.)</use>
       <misuse />
@@ -100,8 +103,8 @@
           <Rule path="/items[at0001]" max="0" />
           <Rule path="/items[at0002]">
             <constraint xsi:type="textConstraint">
-              <includedValues>Grunderkrankung</includedValues>
               <includedValues>Komorbidität</includedValues>
+              <includedValues>Ursache der Nierenerkrankung</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0016]" max="0" />
@@ -109,13 +112,14 @@
         </Items>
       </Item>
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Immunitätsstatus EBV/CBV">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Immunitätsstatus">
       <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/items" name="EBV Immunitätsstatus">
         <Rule path="/data[at0001]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]" max="1" name="Laborabnahme" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
           <constraint xsi:type="textConstraint">
-            <includedValues>EBV Immunitätsstatus</includedValues>
+            <includedValues>SNOMED-CT::2425002::Epstein-Barr virus serologic test (procedure)</includedValues>
           </constraint>
         </Rule>
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
@@ -124,26 +128,34 @@
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
         <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="1" />
         <Rule path="/protocol[at0004]" hide_on_form="true" />
         <Rule path="/protocol[at0004]/items[at0068]" max="0" />
         <Rule path="/protocol[at0004]/items[at0094]" max="0" />
         <Rule path="/protocol[at0004]/items[at0111]" max="0" />
         <Rule path="/protocol[at0004]/items[at0121]" max="0" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
           <Rule path="/items[at0027]" max="0" />
-          <Rule path="/items[at0024]" name="Virus">
+          <Rule path="/items[at0024]">
             <constraint xsi:type="textConstraint">
-              <includedValues>EBV</includedValues>
+              <includedValues>LOINC::22298-4::Epstein Barr virus nuclear IgG Ab [Titer] in Serum</includedValues>
+              <includedValues>LOINC::12212-7::Epstein Barr virus nuclear IgG Ab [Titer] in Serum by Immunofluorescence</includedValues>
+              <includedValues>LOINC::20490-9::Epstein Barr virus capsid IgG Ab [Titer] in Serum</includedValues>
+              <includedValues>LOINC::5158-1::Epstein Barr virus capsid IgG Ab [Titer] in Serum by Immunofluorescence</includedValues>
+              <includedValues>LOINC::23971-5::Epstein Barr virus early IgG Ab [Titer] in Serum</includedValues>
+              <includedValues>LOINC::23995-4::Epstein Barr virus early IgG Ab [Titer] in Serum by Immunofluorescence</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0001]" max="1" name="Nachweis">
             <constraint xsi:type="textConstraint">
-              <includedValues>positiv</includedValues>
-              <includedValues>negativ</includedValues>
+              <includedValues>IgG positiv</includedValues>
+              <includedValues>IgG negativ</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
           <Rule path="/items[at0025]" max="0" />
           <Rule path="/items[at0005]" max="0" />
           <Rule path="/items[at0006]" max="0" />
@@ -156,7 +168,7 @@
         <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
           <constraint xsi:type="textConstraint">
-            <includedValues>CMV Immunitätsstatus</includedValues>
+            <includedValues>SNOMED-CT::30200007::Serologic test for cytomegalovirus (procedure)</includedValues>
           </constraint>
         </Rule>
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
@@ -165,27 +177,139 @@
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
         <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
         <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
-        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="1" />
         <Rule path="/protocol[at0004]" hide_on_form="true" />
         <Rule path="/protocol[at0004]/items[at0068]" max="0" />
         <Rule path="/protocol[at0004]/items[at0094]" max="0" />
         <Rule path="/protocol[at0004]/items[at0111]" max="0" />
         <Rule path="/protocol[at0004]/items[at0121]" max="0" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Resultat" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
           <Rule path="/items[at0027]" max="0" />
-          <Rule path="/items[at0024]" name="Virus">
+          <Rule path="/items[at0024]">
             <constraint xsi:type="textConstraint">
-              <includedValues>CMV</includedValues>
+              <includedValues>LOINC::22246-3::Cytomegalovirus IgG Ab [Titer] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::5125-0::Cytomegalovirus IgG Ab [Titer] in Serum or Plasma by Immunofluorescence</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0001]" max="1" name="Nachweis">
             <constraint xsi:type="textConstraint">
-              <includedValues>positiv</includedValues>
-              <includedValues>negativ</includedValues>
+              <includedValues>IgG positiv</includedValues>
+              <includedValues>IgG negativ</includedValues>
             </constraint>
           </Rule>
           <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0026]" max="0" />
+          <Rule path="/items[at0003]" max="0" />
+        </Items>
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/items" name="HIV Immunitätsstatus">
+        <Rule path="/data[at0001]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]" max="1" name="Laborabnahme" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::28804003::Measurement of Human immunodeficiency virus 1 antibody (procedure)</includedValues>
+            <includedValues>SNOMED-CT::27494001::Measurement of Human immunodeficiency virus 2 antibody (procedure)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="1" />
+        <Rule path="/protocol[at0004]" hide_on_form="true" />
+        <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::33807-9::HIV 2 IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::33806-1::HIV 2 IgG Ab [Presence] in Serum by Immunoblot</includedValues>
+              <includedValues>LOINC::16975-5::HIV 1 IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::40732-0::HIV 1 IgG Ab [Presence] in Serum by Immunoblot</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" max="1" name="Nachweis">
+            <constraint xsi:type="textConstraint">
+              <includedValues>IgG positiv</includedValues>
+              <includedValues>IgG negativ</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0026]" max="0" />
+          <Rule path="/items[at0003]" max="0" />
+        </Items>
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" path="/items" name="Hepatitis Immunitätsstatus">
+        <Rule path="/data[at0001]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]" max="1" name="Laborabnahme" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::697001::Hepatitis A virus antibody measurement (procedure)</includedValues>
+            <includedValues>SNOMED-CT::64411004::Hepatitis C antibody measurement (procedure)</includedValues>
+            <includedValues>SNOMED-CT::61082006::Hepatitis D antibody measurement (procedure)</includedValues>
+            <includedValues>SNOMED-CT::17092007::Hepatitis E antibody measurement (procedure)</includedValues>
+            <includedValues>SNOMED-CT::79172007::Hepatitis Be antibody measurement (procedure)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="1" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="1" />
+        <Rule path="/protocol[at0004]" hide_on_form="true" />
+        <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]" name="Virus">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::32018-4::Hepatitis A virus IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::40724-7::Hepatitis A virus IgG Ab [Presence] in Serum by Immunoassay</includedValues>
+              <includedValues>LOINC::35283-1::Hepatitis D virus IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::35273-2::Hepatitis D virus IgG Ab [Presence] in Serum by Immunoassay</includedValues>
+              <includedValues>LOINC::32685-0::Hepatitis B virus core IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::40725-4::Hepatitis B virus core IgG Ab [Presence] in Serum by Immunoassay</includedValues>
+              <includedValues>LOINC::16129-9::Hepatitis C virus IgG Ab [Presence] in Serum</includedValues>
+              <includedValues>LOINC::33462-3::Hepatitis C virus IgG Ab [Presence] in Serum by Immunoblot</includedValues>
+              <includedValues>LOINC::40726-2::Hepatitis C virus IgG Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::89359-4::Hepatitis C virus IgG Ab [Presence] in Serum, Plasma or Blood by Rapid immunoassay</includedValues>
+              <includedValues>LOINC::14211-7::Hepatitis E virus IgG Ab [Presence  in Serum</includedValues>
+              <includedValues>LOINC::49693-5::Hepatitis E virus IgG Ab [Presence] in Serum by Immunoassay</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" max="1" name="Nachweis">
+            <constraint xsi:type="textConstraint">
+              <includedValues>IgG positiv</includedValues>
+              <includedValues>IgG negativ</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
           <Rule path="/items[at0025]" max="0" />
           <Rule path="/items[at0005]" max="0" />
           <Rule path="/items[at0006]" max="0" />
@@ -194,12 +318,13 @@
         </Items>
       </Item>
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Infektion">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/items">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="aktuelle Infektionen">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" max="1" path="/items" name="Infektion">
         <Rule path="/data[at0001]" hide_on_form="true" />
         <Rule path="/data[at0001]/items[at0002]" name="Name der Infektion" />
         <Rule path="/data[at0001]/items[at0009]" max="0" />
         <Rule path="/data[at0001]/items[at0012]" max="0" />
+        <Rule path="/data[at0001]/items[at0077]" name="Datum/ Zeitpunkt des Auftretens/ der Infektion" />
         <Rule path="/data[at0001]/items[at0005]" max="0" />
         <Rule path="/data[at0001]/items[at0072]" max="0" />
         <Rule path="/data[at0001]/items[at0073]" max="0" />
@@ -223,11 +348,12 @@
         <Rule path="/description[at0001]" hide_on_form="true" />
         <Rule path="/description[at0001]/items[at0002]">
           <constraint xsi:type="textConstraint">
-            <includedValues>Transplantation</includedValues>
+            <includedValues>SNOMED-CT::70536003::Transplant of kidney (procedure)</includedValues>
           </constraint>
         </Rule>
         <Rule path="/description[at0001]/items[at0049]" max="0" />
-        <Rule path="/description[at0001]/items[at0065]">
+        <Rule path="/description[at0001]/items[at0070]" max="0" />
+        <Rule path="/description[at0001]/items[at0065]" max="1" name="Art der Transplantation">
           <constraint xsi:type="textConstraint">
             <includedValues>Lebendspende</includedValues>
             <includedValues>Todspende</includedValues>
@@ -253,14 +379,15 @@
         <Rule path="/description[at0001]" hide_on_form="true" />
         <Rule path="/description[at0001]/items[at0002]">
           <constraint xsi:type="textConstraint">
-            <includedValues>Dialyse</includedValues>
+            <includedValues>SNOMED-CT::265764009::Renal dialysis (procedure)</includedValues>
           </constraint>
         </Rule>
         <Rule path="/description[at0001]/items[at0049]" max="0" />
-        <Rule path="/description[at0001]/items[at0065]">
+        <Rule path="/description[at0001]/items[at0070]" max="0" />
+        <Rule path="/description[at0001]/items[at0065]" max="1" name="Methode der Dialyse">
           <constraint xsi:type="textConstraint">
-            <includedValues>Hämodialyse</includedValues>
-            <includedValues>Peritonealdialyse</includedValues>
+            <includedValues>SNOMED-CT::302497006::Hemodialysis (procedure)</includedValues>
+            <includedValues>SNOMED-CT::71192002::Peritoneal dialysis (procedure)</includedValues>
           </constraint>
         </Rule>
         <Rule path="/description[at0001]/items[at0058]" max="0" />
@@ -350,22 +477,6 @@
         <Rule path="/protocol[at0011]/items[at1010]" max="0" />
       </Item>
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Flüssigkeitshaushalt">
-      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.fluid_input.v1" concept_name="Flüssigkeitszufuhr" path="/items">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
-        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]" max="0" />
-        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]" max="0" />
-        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0035]">
-          <constraint xsi:type="quantityConstraint">
-            <excludedUnits>[foz_us]</excludedUnits>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0032]" max="0" />
-        <Rule path="/protocol[at0008]" hide_on_form="true" />
-        <Rule path="/protocol[at0008]/items[at0031]" max="0" />
-      </Item>
-    </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Klinische Untersuchung">
       <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Ergebnisse der körperlichen Untersuchung" max="1" path="/items" name="klinische Untersuchung">
         <Rule path="/data[at0001]" hide_on_form="true" />
@@ -411,13 +522,13 @@
     <digest id="MD5-CAM-1.0.1">500096BDF4379E94B1B7EA04175EE87D</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
-    <digest id="MD5-CAM-1.0.1">C73B6234DE67D5588E6486968624168B</digest>
+    <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
-    <digest id="MD5-CAM-1.0.1">535B50D8F5E64E67B41AEA0AA225DB16</digest>
+    <digest id="MD5-CAM-1.0.1">1A81B7BE088FDB1B20E756C5494E8A22</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.procedure.v1">
-    <digest id="MD5-CAM-1.0.1">CCA98FC01E850D302CF1E149938C4E54</digest>
+    <digest id="MD5-CAM-1.0.1">108CD01BE8E751B5AA89279E73962671</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2">
     <digest id="MD5-CAM-1.0.1">B7CBE264803846DAA95A01EEF598BA3B</digest>
@@ -430,9 +541,6 @@
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2">
     <digest id="MD5-CAM-1.0.1">170F2F8FCE46E22662FC61919622AE21</digest>
-  </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.fluid_input.v1">
-    <digest id="MD5-CAM-1.0.1">BA764C976130B917F30B881297B90D5A</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.exam.v1">
     <digest id="MD5-CAM-1.0.1">D52465DFC421ACD55710408C51A86CD3</digest>
