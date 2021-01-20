@@ -15,10 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Wird verwendet, um Defizite in der Mobilität und im Gleichgewicht zu erkennen und so die Einschränkung der Selbstständigkeit durch diese festzustellen.">
-			use = <"Dieser Archetyp wird verwendet, um einen Fragebogen darzustellen, der das Gleichgewicht, die Gehgeschwindigkeit und die Beinkraft dokumentiert. Ziel ist die Erkennung von Defiziten der Mobilität und des Gleichgewichts und die dadurch bedingten Einschränkungen in der Selbstständigkeit.">
+			purpose = <"Wird verwendet, um Defizite in der Mobilität und im Gleichgewicht zu erkennen und so die dadurch bedingte Einschränkung der Selbstständigkeit festzustellen.">
+			use = <"Dieser Archetyp wird verwendet, um die Short Physical Performance Battery abzubilden, die das Gleichgewicht, die Gehgeschwindigkeit und die Beinkraft dokumentiert. Ziel ist die Erkennung von Defiziten der Mobilität und des Gleichgewichts und die dadurch bedingten Einschränkungen in der Selbstständigkeit.">
 			keywords = <"SPPB", "Short Physical Performance Battery", "Guralnik", "Gleichgewicht", "Beinkraft", "geriatrisches Assessment", "Gehgeschwindigkeit", "Ganggeschwindigkeit">
-			misuse = <"Nicht zur Darstellung von Fragebögen, die andere Balancetests darstellen.">
+			misuse = <"Nicht zur Dokumentation von Daten, die andere Balancetests darstellen.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -31,8 +31,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E6AB530D9A93FC37213FC08A24495C7B">
-		["build_uid"] = <"009d1f0b-aba7-4c7e-9e6b-fa24869ef01f">
+		["MD5-CAM-1.0.1"] = <"DF1F7AACF6EB1355DEBA1F318FD6B3A3">
+		["build_uid"] = <"dbeb5fc6-200a-4a5f-a7f3-2318e70e3d72">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -62,7 +62,7 @@ definition
 											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Tandemstand
 												value matches {
 													0|[local::at0028], 	-- < 3 Sekunden
-													1|[local::at0030], 	-- 3 - 9 Sekunden
+													1|[local::at0030], 	-- 3 - 9,99 Sekunden
 													2|[local::at0029]  	-- 10 Sekunden
 												}
 											}
@@ -103,7 +103,7 @@ definition
 													1|[local::at0039], 	-- > 16,7 Sekunden
 													2|[local::at0040], 	-- 13,7 - 16,69 Sekunden
 													3|[local::at0041], 	-- 11,2 - 13,69 Sekunden
-													4|[local::at0042]  	-- < 11,16 Sekunden
+													4|[local::at0042]  	-- < 11,19 Sekunden
 												}
 											}
 										}
@@ -111,7 +111,7 @@ definition
 									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Gesamtpunktzahl
 										value matches {
 											DV_COUNT matches {
-												magnitude matches {|<=12|}
+												magnitude matches {|0..12|}
 											}
 										}
 									}
@@ -123,6 +123,16 @@ definition
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0043] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -215,12 +225,12 @@ ontology
 					description = <"Patient hat 10 Sekunden oder länger in dieser Position gestanden.">
 				>
 				["at0030"] = <
-					text = <"3 - 9 Sekunden">
+					text = <"3 - 9,99 Sekunden">
 					description = <"Der Patient hat zwischen 3 und 9 Sekunden in dieser Position gestanden.">
 				>
 				["at0031"] = <
 					text = <"Benötigte Zeit für 4m Gangstrecke">
-					description = <"Der Patient geht 4 m in seiner Alltagsgeschwindigkeit, hierbei sind Hilfsmittel erlaubt.">
+					description = <"Der Patient geht 4m in seiner Alltagsgeschwindigkeit, hierbei sind Hilfsmittel erlaubt.">
 				>
 				["at0032"] = <
 					text = <"< 4,82 Sekunden">
@@ -263,8 +273,16 @@ ontology
 					description = <"Der Patient hat zwischen 11,2 und 13,69 Sekunden benötigt.">
 				>
 				["at0042"] = <
-					text = <"< 11,16 Sekunden">
+					text = <"< 11,19 Sekunden">
 					description = <"Der Patient war schneller als 11,19 Sekunden.">
+				>
+				["at0043"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0045"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>

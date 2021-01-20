@@ -15,10 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Der Motilitätstest nach Tinetti (1986) wird verwendet, um die Motilität eines älteren Patienten und somit auch das Sturzrisiko zu erfassen.">
-			use = <"Dieser Archetyp wird verwendet, um einen Fragebogen darzustellen, der die Motilität eines älteren Patienten und somit auch das Sturzrisiko erfasst.">
+			purpose = <"Der Motilitätstest nach Tinetti (1986) wird verwendet, um die Motilität eines älteren Patienten und das damit assoziierte Sturzrisiko zu erfassen.">
+			use = <"Dieser Archetyp wird verwendet, um einen Fragebogen darzustellen, der die Motilität eines älteren Patienten und das damit assoziierte Sturzrisiko erfasst.">
 			keywords = <"Tinetti", "geriatrisches Assessment", "Sturzrisiko", "Sturz", "Motilitätstest">
-			misuse = <"Nicht zur Verwendung zur Dokumentation von anderen Sturzrisiko Tests, wie z. B. der Chair-Rising-Test oder Timed Up And Go.">
+			misuse = <"Dieser Archetyp darf nicht zur Dokumentation von anderen Sturzrisiko Tests, wie z. B. der Chair-Rising-Test oder Timed Up And Go verwendet werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -31,8 +31,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"EE02A43E777DBEEA5E32A6EC604E2F0D">
-		["build_uid"] = <"3301db9e-7cc0-439a-9cb1-1e55da1a265e">
+		["MD5-CAM-1.0.1"] = <"CC75D1D80382AFD0B767E950DFC009ED">
+		["build_uid"] = <"d3af764f-84c9-498c-bae4-084758f4c4ab">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -189,6 +189,16 @@ definition
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0086] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0087] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -474,7 +484,15 @@ ontology
 				>
 				["at0085"] = <
 					text = <"Gesamtpunktzahl">
-					description = <"Gesamtpunktzahl des Test, 0-9 Punkte, Sturzrisiko massiv erhöht, 10-14 Punkte, Sturzrisiko deutlich erhöht, 15-19 Punkte, Sturzrisiko mäßig erhöht, 20-27 Punkte, Sturzrisiko evtl. erhöht.">
+					description = <"Gesamtpunktzahl des Test, 0-9 Punkte: Sturzrisiko massiv erhöht, 10-14 Punkte: Sturzrisiko deutlich erhöht, 15-19 Punkte: Sturzrisiko mäßig erhöht, 20-27 Punkte: Sturzrisiko evtl. erhöht.">
+				>
+				["at0086"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0087"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>

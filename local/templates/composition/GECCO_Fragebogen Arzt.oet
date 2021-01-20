@@ -1,0 +1,1102 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>27a2ad88-752d-46fd-9c05-a19fbd2fbae6</id>
+  <name>GECCO_Fragebogen Arzt</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name </key>
+        <value>Sarah Ballout</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>ballout.sarah@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>Organisation </key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation der systematischen Sammlung von wissenschaftlichen Daten zu COVID-19 Patienten im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>FoDaPl</item>
+        <item>CODEX</item>
+        <item>Arzt Fragebogen </item>
+      </keywords>
+      <use>Für die Abbildung der systematischen Sammlung von wissenschaftlichen Daten zu COVID-19 Patienten im Rahmen des NUM-Projektes / GECCO-Datensatzes. Diese Daten werden ausschließlich von einem Arzt erhoben. Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stammen aus dem FHIR IG - https://simplifier.net/guide/GermanCoronaConsensusDataSet-ImplementationGuide/Home.</use>
+      <misuse>Nicht zur Repräsentation anderer Fragebögen verwenden. Bei Fragen die der Patient selbst beantworten kann, den Fragebogen GECCO_Patientenfragebogen verwenden. </misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Anamnese/ Risikofaktoren">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Impfstatus">
+        <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Arzneimittelverwaltung" max="1" min="1" path="/items" name="Impfung">
+          <Rule path="/description[at0017]/items[at0020]" name="Impfstoff" />
+          <Rule path="/description[at0017]/items[at0132]" max="0" />
+          <Rule path="/description[at0017]/items[at0133]" max="0" />
+          <Rule path="/description[at0017]/items[at0043]" max="0" />
+          <Rule path="/description[at0017]/items[at0154]" max="0" />
+          <Rule path="/description[at0017]/items[at0155]" max="0" />
+          <Rule path="/description[at0017]/items[at0021]" max="1" min="1" name="Impfung gegen" />
+          <Rule path="/description[at0017]/items[at0140]" max="0" />
+          <Rule path="/description[at0017]/items[at0033]" max="0" />
+          <Rule path="/description[at0017]/items[at0149]" max="0" />
+          <Rule path="/description[at0017]/items[at0025]" max="0" />
+          <Rule path="/description[at0017]/items[at0024]" max="0" />
+          <Rule path="/protocol[at0030]/items[at0103]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.dosage.v1" concept_name="Dosierung" max="1" min="1" path="/description[at0017]/items[at0131]" name="Verabreichte Dosen">
+            <Rule path="/items[at0144]" min="1" />
+            <Rule path="/items[at0145]" max="0" />
+            <Rule path="/items[at0135]" max="0" />
+            <Rule path="/items[at0178]" max="0" />
+            <Rule path="/items[at0134]" max="0" />
+            <Rule path="/items[at0102]" max="0" />
+            <Rule path="/items[at0176]" max="0" />
+            <Rule path="/items[at0177]" max="0" />
+          </Items>
+        </Item>
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" max="1" path="/items" name="Unbekannter Impfstatus">
+          <Rule path="/data[at0001]/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>anzic::no-immunization-info::No information about immunizations</includedValues>
+              <includedValues>anzic::-known-imunizations::No known immunizations</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0005]" max="0" />
+          <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Vitalparameter">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Atemfrequenz">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.respiration.v2" concept_name="Atemfrequenz" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0062]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0070]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0022]/items[at0065]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0022]/items[at0056]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Beatmungswerte">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.ventilator_vital_signs.v0" concept_name="Beobachtungen am Beatmungsgerät" path="/items">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.inspired_oxygen.v1" concept_name="Eingeatmeter Sauerstoff" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+            <Rule path="/items[at0051]" max="0" />
+            <Rule path="/items[at0052]" max="0" />
+            <Rule path="/items[at0053]" name="Inspiratorische Sauerstofffraktion" />
+            <Rule path="/items[at0057]" max="0" />
+            <Rule path="/items[at0054]" max="0" />
+          </Items>
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Befund der Blutgasanalyse">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::24338-6::Gas panel - Blood</includedValues>
+              <includedValues>LOINC::24336-0::Gas panel - Arterial blood</includedValues>
+              <includedValues>LOINC::24337-8::Gas panel - Capillary blood</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+          <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Kohlendioxidpartialdruck">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0024]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>LOINC::2019-8::Carbon dioxide [Partial pressure] in Arterial blood</includedValues>
+                <includedValues>LOINC::11557-6::Carbon dioxide [Partial pressure] in Blood</includedValues>
+                <includedValues>LOINC::2020-6::Carbon dioxide [Partial pressure] in Capillary blood</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]" max="1">
+              <constraint xsi:type="quantityConstraint">
+                <includedUnits>mm[Hg]</includedUnits>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0028]" max="0" />
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0005]" max="1">
+              <constraint xsi:type="textConstraint">
+                <includedValues>registriert</includedValues>
+                <includedValues>vorläufig</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>geändert</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0026]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Sauerstoffpartialdruck">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0024]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>LOINC::2703-7::Oxygen [Partial pressure] in Arterial blood</includedValues>
+                <includedValues>LOINC::11556-8::Oxygen [Partial pressure] in Blood</includedValues>
+                <includedValues>LOINC::2704-5::Oxygen [Partial pressure] in Capillary blood</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]">
+              <constraint xsi:type="quantityConstraint">
+                <includedUnits>mm[Hg]</includedUnits>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0028]" max="0" />
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0005]" max="1">
+              <constraint xsi:type="textConstraint">
+                <includedValues>registered</includedValues>
+                <includedValues>preliminary</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>amended</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0026]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="pH-Wert">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0024]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>LOINC::2753-2::pH of Serum or Plasma</includedValues>
+                <includedValues>LOINC::2746-6::pH of Venous blood</includedValues>
+                <includedValues>LOINC::2745-8::pH of Capillary blood</includedValues>
+                <includedValues>LOINC::2744-1::pH of Arterial blood</includedValues>
+                <includedValues>LOINC::19213-8::pH of Mixed venous blood</includedValues>
+                <includedValues>LOINC::11558-4::pH of Blood</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]">
+              <constraint xsi:type="quantityConstraint">
+                <includedUnits>[pH]</includedUnits>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0028]" max="0" />
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0005]" max="1">
+              <constraint xsi:type="textConstraint">
+                <includedValues>registered</includedValues>
+                <includedValues>preliminary</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>amended</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0026]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Sauerstoffsättigung">
+            <Rule path="/items[at0027]" max="0" />
+            <Rule path="/items[at0024]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>LOINC::2708-6::Oxygen saturation in Arterial blood</includedValues>
+                <includedValues>LOINC::20564-1::Oxygen saturation in Blood</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]" max="1">
+              <constraint xsi:type="quantityConstraint">
+                <includedUnits>%</includedUnits>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0028]" max="0" />
+            <Rule path="/items[at0025]" max="0" />
+            <Rule path="/items[at0005]" max="1">
+              <constraint xsi:type="textConstraint">
+                <includedValues>registered</includedValues>
+                <includedValues>preliminary</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>amended</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0026]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+          </Items>
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Blutdruck">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2" concept_name="Blutdruck" path="/items">
+          <Rule path="/data[at0001]/events[at0006]" max="1" />
+          <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1059]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at0008]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1052]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1043]" max="0" />
+          <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1005]" max="0" />
+          <Rule path="/data[at0001]/events[at1042]" max="0" />
+          <Rule path="/protocol[at0011]/items[at0013]" max="0" />
+          <Rule path="/protocol[at0011]/items[at0014]" max="0" />
+          <Rule path="/protocol[at0011]/items[at1035]" max="0" />
+          <Rule path="/protocol[at0011]/items[at1038]" max="0" />
+          <Rule path="/protocol[at0011]/items[at1054]" max="0" />
+          <Rule path="/protocol[at0011]/items[at1055]" max="0" />
+          <Rule path="/protocol[at0011]/items[at1010]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="SOFA">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0" concept_name="SOFA-Score" max="1" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Herzfrequenz">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" concept_name="Pulsfrequenz/Herzfrequenz" max="1" path="/items" name="Herzfrequenz">
+          <Rule path="/data[at0002]/events[at0003]" max="1" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1055]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1030]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]" max="0" />
+          <Rule path="/data[at0002]/events[at1036]" max="0" />
+          <Rule path="/protocol[at0010]/items[at1019]" max="0" />
+          <Rule path="/protocol[at0010]/items[at1037]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Koerpertemperatur">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v2" concept_name="Körpertemperatur" max="1" min="1" path="/items">
+          <Rule path="/data[at0002]/events[at0003]" max="1" min="1" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0063]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0030]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0041]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0065]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0066]" max="0" />
+          <Rule path="/protocol[at0020]/items[at0021]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Pulsoxymetrie">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1" concept_name="Pulsoxymetrie" max="1" min="1" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0045]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0046]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0014]/items[at0016]" max="0" />
+          <Rule path="/protocol[at0007]/items[at0009]" max="0" />
+          <Rule path="/protocol[at0007]/items[at0061]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Diagnosen">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" path="/items">
+        <Rule path="/data[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ICD::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I10.90::Essentielle Hypertonie, nicht näher bezeichnet : Ohne Angabe einer hypertensiven Krise</includedValues>
+            <includedValues>ICD::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I25.1::Atherosklerotische Herzkrankheit</includedValues>
+            <includedValues>ICD::I65.2::Verschluss und Stenose der A. carotis</includedValues>
+            <includedValues>ICD::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::K28.9::Ulcus pepticum jejuni : Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
+            <includedValues>ICD::Z94.1::Zustand nach Herztransplantation</includedValues>
+            <includedValues>ICD::Z94.2::Zustand nach Lungentransplantation</includedValues>
+            <includedValues>ICD::Z94.4::Zustand nach Lebertransplantation</includedValues>
+            <includedValues>ICD::Z94.0::Zustand nach Nierentransplantation</includedValues>
+            <includedValues>ICD::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
+            <includedValues>ICD::Z94.5::Zustand nach Hauttransplantation</includedValues>
+            <includedValues>ICD::Z94.7::Zustand nach Keratoplastik</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
+            <includedValues>ICD::Z94.6::Zustand nach Knochentransplantation</includedValues>
+            <includedValues>ICD::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
+            <includedValues>ICD::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
+            <includedValues>ICD::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
+            <includedValues>ICD::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
+            <includedValues>ICD::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
+            <includedValues>SNOMED-CT::840539006:: Disease caused by 2019 novel coronavirus (disorder)</includedValues>
+            <includedValues>SNOMED-CT::840544004:: Suspected disease caused by 2019 novel coronavirus (situation)</includedValues>
+            <includedValues>SNOMED-CT::882784691000119000:: Pneumonia caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+            <includedValues>SNOMED-CT::674814021000119106:: Acute respiratory distress syndrome caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+            <includedValues>SNOMED-CT::880529761000119102:: Lower respiratory infection caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+            <includedValues>SNOMED-CT::138389411000119105:: Acute bronchitis caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+            <includedValues>SNOMED-CT::866151004:: Lymphocytopenia associated with severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+            <includedValues>SNOMED-CT::866152006:: Thrombocytopenia associated with severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0009]" max="0" />
+        <Rule path="/data[at0001]/items[at0012]" max="0" />
+        <Rule path="/data[at0001]/items[at0003]" max="0" />
+        <Rule path="/data[at0001]/items[at0005]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Coded_text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0072]" max="0" />
+        <Rule path="/data[at0001]/items[at0073]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomische Lokalisation" max="1" path="/data[at0001]/items[at0039]" name="Körperstelle">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED CT::302509004::Entire heart (body structure)</includedValues>
+              <includedValues>SNOMED CT::181216001::Entire lung (body structure)</includedValues>
+              <includedValues>SNOMED CT::181268008::Entire liver (body structure)</includedValues>
+              <includedValues>SNOMED CT::181414000::Entire kidney (body structure)</includedValues>
+              <includedValues>SNOMED CT::181277001::Entire pancreas (body structure)</includedValues>
+              <includedValues>SNOMED CT::181250005::Entire small intestine (body structure)</includedValues>
+              <includedValues>SNOMED CT::181254001::Entire large intestine (body structure)</includedValues>
+              <includedValues>SNOMED CT::119181002::Skin part (body structure)</includedValues>
+              <includedValues>SNOMED CT::181162001::Entire cornea (body structure)</includedValues>
+              <includedValues>SNOMED CT::41845008::Ear ossicle structure (body structure)</includedValues>
+              <includedValues>SNOMED CT::181285005::Entire heart valve (body structure)</includedValues>
+              <includedValues>SNOMED CT::119206002::Blood vessel part (body structure)</includedValues>
+              <includedValues>SNOMED CT::8935007::Cerebral meninges structure (body structure)</includedValues>
+              <includedValues>SNOMED CT::3138006::Bone (tissue) structure (body structure)</includedValues>
+              <includedValues>SNOMED CT::309312004::Cartilage tissue (body structure)</includedValues>
+              <includedValues>SNOMED CT::13024002::Tendon structure (body structure)</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0065]" max="0" />
+          <Rule path="/items[at0064]" max="0" />
+          <Rule path="/items[at0055]" max="0" />
+          <Rule path="/items[at0023]" max="0" />
+        </Items>
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" path="/items" name="Ausgeschlossene Diagnose">
+        <Rule path="/data[at0001]/items[at0002]" min="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::410594000::Known absent (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ICD::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
+            <includedValues>ICD::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I25.1::Atherosklerotische Herzkrankheit</includedValues>
+            <includedValues>ICD::I65.2::Verschluss und Stenose der A. carotis</includedValues>
+            <includedValues>ICD::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
+            <includedValues>ICD::Z94.1::Zustand nach Herztransplantation</includedValues>
+            <includedValues>ICD::Z94.2::Zustand nach Lungentransplantation</includedValues>
+            <includedValues>ICD::Z94.4::Zustand nach Lebertransplantation</includedValues>
+            <includedValues>ICD::Z94.0::Zustand nach Nierentransplantation</includedValues>
+            <includedValues>ICD::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
+            <includedValues>ICD::Z94.5::Zustand nach Hauttransplantation</includedValues>
+            <includedValues>ICD::Z94.7::Zustand nach Keratoplastik</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
+            <includedValues>ICD::Z94.6::Zustand nach Knochentransplantation</includedValues>
+            <includedValues>ICD::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
+            <includedValues>ICD::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
+            <includedValues>ICD::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
+            <includedValues>ICD::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
+            <includedValues>ICD::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
+          </constraint>
+          <nameConstraint>
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0005</excludedValues>
+            <excludedValues>local::at0006</excludedValues>
+            <excludedValues>local::at0007</excludedValues>
+          </nameConstraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0012]" max="0" />
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" max="1" path="/items" name="Unbekannte Diagnose">
+        <Rule path="/data[at0001]/items[at0002]" name="Unbekannte Diagnose">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ICD::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
+            <includedValues>ICD::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I25.1::Atherosklerotische Herzkrankheit</includedValues>
+            <includedValues>ICD::I65.2::Verschluss und Stenose der A. carotis</includedValues>
+            <includedValues>ICD::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+            <includedValues>ICD::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
+            <includedValues>ICD::Z94.1::Zustand nach Herztransplantation</includedValues>
+            <includedValues>ICD::Z94.2::Zustand nach Lungentransplantation</includedValues>
+            <includedValues>ICD::Z94.4::Zustand nach Lebertransplantation</includedValues>
+            <includedValues>ICD::Z94.0::Zustand nach Nierentransplantation</includedValues>
+            <includedValues>ICD::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
+            <includedValues>ICD::Z94.5::Zustand nach Hauttransplantation</includedValues>
+            <includedValues>ICD::Z94.7::Zustand nach Keratoplastik</includedValues>
+            <includedValues>ICD::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+            <includedValues>ICD::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
+            <includedValues>ICD::Z94.6::Zustand nach Knochentransplantation</includedValues>
+            <includedValues>ICD::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
+            <includedValues>ICD::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
+            <includedValues>ICD::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
+            <includedValues>ICD::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
+            <includedValues>ICD::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
+            <includedValues>ICD::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
+            <includedValues>ICD::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0005]" max="1" min="1" name="Aussage über die fehlende Information">
+          <constraint xsi:type="textConstraint">
+            <includedValues>anzic::Unknown (qualifier value)::Unknown (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Laborwerte">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" min="1" path="/items">
+        <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Labortest-Kategorie">
+          <constraint xsi:type="textConstraint">
+            <includedValues>LOINC::26436-6::Laboratory studies (set)</includedValues>
+            <includedValues>LOINC::18767-4::Blood gas studies (set)</includedValues>
+            <includedValues>LOINC::18719-5::Chemistry studies (set)</includedValues>
+            <includedValues>LOINC::18723-7::Hematology studies (set)</includedValues>
+            <includedValues>LOINC::18720-3::Coagulation studies (set)</includedValues>
+            <includedValues>LOINC::18728-6::Toxicology studies (set)</includedValues>
+            <includedValues>LOINC::18725-2::Microbiology studies (set)</includedValues>
+            <includedValues>LOINC::56874-1::Serology and blood bank studies (set)</includedValues>
+            <includedValues>LOINC::18729-4::Urinalysis studies (set)</includedValues>
+            <includedValues>LOINC::56847-7::Calculated and derived values (set)</includedValues>
+            <includedValues>LOINC::56846-9::Cardiac biomarkers (set)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]/items[at0062]" min="1" name="Identifikation der Laboranforderung" />
+        <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen.v1" concept_name="Probe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]">
+          <Rule path="/items[at0029]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ABS::Abscess</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNE::Tissue, Acne</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNFLD::Fluid, Acne</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AIRS::Air Sample</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ALL::Allograft</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AMN::Amniotic fluid</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AMP::Amputation</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ANGI::Catheter Tip, Angio</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ARTC::Catheter Tip, Arterial</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ASERU::Serum, Acute</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ASP::Aspirate</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ATTE::Environment, Attest</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTOA::Environmental, Autoclave Ampule</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTOC::Environmental, Autoclave Capsule</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::AUTP::Autopsy</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BBL::Blood bag</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BCYST::Cyst, Baker's</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BDY::Whole body</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BIFL::Bile Fluid</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BITE::Bite</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLD::Whole blood</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDA::Blood arterial</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDCO::Cord blood</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLDV::Blood venous</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLEB::Bleb</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BLIST::Blister</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BOIL::Boil</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BON::Bone</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BONE::Bone</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BOWL::Bowel contents</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BPH::Basophils</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BPU::Blood product unit</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRN::Burn</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRSH::Brush</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRTH::Breath (use EXHLD)</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BRUS::Brushing</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BUB::Bubo</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BULLA::Bulla/Bullae</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::BX::Biopsy</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CALC::Calculus (=Stone)</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CARBU::Carbuncle</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CAT::Catheter</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CBITE::Bite, Cat</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CDM::Cardiac muscle</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CLIPP::Clippings</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CNJT::Conjunctiva</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CNL::Cannula</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::COL::Colostrum</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CONE::Biospy, Cone</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSCR::Scratch, Cat</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSERU::Serum, Convalescent</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSF::Cerebral spinal fluid</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSITE::Catheter Insertion Site</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSMY::Fluid, Cystostomy Tube</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CST::Fluid, Cyst</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CSVR::Blood, Cell Saver</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CTP::Catheter tip</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CUR::Curretage</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVM::Cervical Mucus</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVPS::Site, CVP</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CVPT::Catheter Tip, CVP</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CYN::Nodule, Cystic</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::CYST::Cyst</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::DBITE::Bite, Dog</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::DCS::Sputum, Deep Coug</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0088]" max="1" />
+          <Rule path="/items[at0079]" max="0" />
+          <Rule path="/items[at0087]" name="Körperstelle" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0067]" max="0" />
+          <Rule path="/items[at0080]" max="0" />
+          <Rule path="/items[at0042]" max="0" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" name="Pro Laboranalyt">
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0024]" min="1">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::48421-2::C reactive protein [Mass/volume] in Capillary blood</includedValues>
+              <includedValues>LOINC::71426-1::C reactive protein [Mass/volume] in Blood by High sensitivity method</includedValues>
+              <includedValues>LOINC::76486-0::C reactive protein [Moles/volume] in Serum or Plasma by High sensitivity method</includedValues>
+              <includedValues>LOINC::30522-7::C reactive protein [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+              <includedValues>LOINC::1988-5::C reactive protein [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::76485-2::C reactive protein [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::20567-4::Ferritin [Mass/volume] in Serum or Plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::86914-9::Ferritin goal [Mass/volume] Serum or Plasma</includedValues>
+              <includedValues>LOINC::14723-1::Ferritin [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::2276-4::Ferritin [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::24373-3::Ferritin [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::1971-1::Bilirubin.indirect [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::1975-2::Bilirubin.total [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::14631-6::Bilirubin.total [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::59828-4::Bilirubin.total [Mass/volume] in Venous blood</includedValues>
+              <includedValues>LOINC::59827-6::Bilirubin.total [Mass/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::42719-5::Bilirubin.total [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::48066-5::Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma</includedValues>
+              <includedValues>LOINC::48067-3::Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::55398-2::Short Fibrin D-dimer FEU and DDU panel - Platelet poor plasma</includedValues>
+              <includedValues>LOINC::71427-9::Fibrin D-dimer FEU [Mass/volume] in Blood by Immunoassay</includedValues>
+              <includedValues>LOINC::7799-0::Fibrin D-dimer [Units/volume] in Platelet poor plasma</includedValues>
+              <includedValues>LOINC::91556-1::Fibrin D-dimer DDU [Mass/volume] in Blood by Immunoassay</includedValues>
+              <includedValues>LOINC::38898-3::Fibrin D-dimer [Titer] in Platelet poor plasma</includedValues>
+              <includedValues>LOINC::3246-6::Fibrin D-dimer [Units/volume] in Platelet poor plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::48058-2::Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::2325-9::Gamma glutamyl transferase/Aspartate aminotransferase [Enzymatic activity ratio] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::2324-2::Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::1920-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::30239-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P</includedValues>
+              <includedValues>LOINC::88112-8::Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by No addition of P-5'-P</includedValues>
+              <includedValues>LOINC::2532-0::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::14805-6::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Pyruvate to lactate reaction</includedValues>
+              <includedValues>LOINC::14804-9::Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Lactate to pyruvate reaction</includedValues>
+              <includedValues>LOINC::14803-1::Lactate dehydrogenase [Enzymatic activity/volume] in Body fluid by Lactate to pyruvate reaction</includedValues>
+              <includedValues>LOINC::60017-1::Lactate dehydrogenase [Enzymatic activity/volume] in Body fluid by Pyruvate to lactate reaction</includedValues>
+              <includedValues>LOINC::49563-0::Troponin I.cardiac [Mass/volume] in Serum or Plasma by Detection limit &lt;= 0.01 ng/mL</includedValues>
+              <includedValues>LOINC::89579-7::Troponin I.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+              <includedValues>LOINC::67151-1::Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method</includedValues>
+              <includedValues>LOINC::6598-7::Troponin T.cardiac [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::6597-9::Troponin T.cardiac [Mass/volume] in Venous blood</includedValues>
+              <includedValues>LOINC::48425-3::Troponin T.cardiac [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::42757-5::Troponin I.cardiac [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::10839-9::Troponin I.cardiac [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::76769-9::Hemoglobin [Mass/volume] in Venous blood by Oximetry</includedValues>
+              <includedValues>LOINC::59260-0::Hemoglobin [Moles/volume] in Blood</includedValues>
+              <includedValues>LOINC::718-7::Hemoglobin [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::20509-6::Hemoglobin [Mass/volume] in Blood by calculation</includedValues>
+              <includedValues>LOINC::55782-7::Hemoglobin [Mass/volume] in Blood by Oximetry</includedValues>
+              <includedValues>LOINC::75928-2::Hemoglobin [Moles/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::14775-1::Hemoglobin [Mass/volume] in Arterial blood by Oximetry</includedValues>
+              <includedValues>LOINC::30313-1::Hemoglobin [Mass/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::30350-3::Hemoglobin [Mass/volume] in Venous blood</includedValues>
+              <includedValues>LOINC::30351-1::Hemoglobin [Mass/volume] in Mixed venous blood</includedValues>
+              <includedValues>LOINC::30352-9::Hemoglobin [Mass/volume] in Capillary blood</includedValues>
+              <includedValues>LOINC::76768-1::Hemoglobin [Mass/volume] in Mixed venous blood by Oximetry</includedValues>
+              <includedValues>LOINC::21232-4::Creatinine [Mass/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::38483-4::Creatinine [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::59826-8::Creatinine [Moles/volume] in Blood</includedValues>
+              <includedValues>LOINC::12190-5::Creatinine [Mass/volume] in Body fluid</includedValues>
+              <includedValues>LOINC::25386-4::Creatinine [Moles/volume] in Body fluid</includedValues>
+              <includedValues>LOINC::2160-0::Creatinine [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::14682-9::Creatinine [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::14118-4::Lactate [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::59032-3::Lactate [Mass/volume] in Blood</includedValues>
+              <includedValues>LOINC::32693-4::Lactate [Moles/volume] in Blood</includedValues>
+              <includedValues>LOINC::2520-5::Lactate [Moles/volume] in Cerebral spinal fluid</includedValues>
+              <includedValues>LOINC::19239-3::Lactate [Moles/volume] in Capillary blood</includedValues>
+              <includedValues>LOINC::19240-1::Lactate [Moles/volume] in Mixed venous blood</includedValues>
+              <includedValues>LOINC::2518-9::Lactate [Moles/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::2519-7::Lactate [Moles/volume] in Venous blood</includedValues>
+              <includedValues>LOINC::2524-7::Lactate [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::30242-2::Lactate [Mass/volume] in Arterial blood</includedValues>
+              <includedValues>LOINC::27941-4::Lactate [Mass/volume] in Cerebral spinal fluid</includedValues>
+              <includedValues>LOINC::49498-9::Leukocytes [#/volume] in Blood by Estimate</includedValues>
+              <includedValues>LOINC::6690-2::Leukocytes [#/volume] in Blood by Automated count</includedValues>
+              <includedValues>LOINC::804-5::Leukocytes [#/volume] in Blood by Manual count</includedValues>
+              <includedValues>LOINC::26464-8::Leukocytes [#/volume] in Blood</includedValues>
+              <includedValues>LOINC::732-8::Lymphocytes [#/volume] in Blood by Manual count</includedValues>
+              <includedValues>LOINC::731-0::Lymphocytes [#/volume] in Blood by Automated count</includedValues>
+              <includedValues>LOINC::30364-4::Lymphocytes [#/volume] in Blood by Flow cytometry (FC)</includedValues>
+              <includedValues>LOINC::26474-7::Lymphocytes [#/volume] in Blood</includedValues>
+              <includedValues>LOINC::753-4::Neutrophils [#/volume] in Blood by Manual count</includedValues>
+              <includedValues>LOINC::751-8::Neutrophils [#/volume] in Blood by Automated count</includedValues>
+              <includedValues>LOINC::26499-4::Neutrophils [#/volume] in Blood</includedValues>
+              <includedValues>LOINC::16631-4::aPTT in Blood by Coagulation 1:1 saline</includedValues>
+              <includedValues>LOINC::43734-3::aPTT in Platelet poor plasma by Coagulation 1:1 saline</includedValues>
+              <includedValues>LOINC::14979-9::aPTT in Platelet poor plasma by Coagulation assay</includedValues>
+              <includedValues>LOINC::3173-2::aPTT in Blood by Coagulation assay</includedValues>
+              <includedValues>LOINC::74775-8::Platelets [#/volume] in Platelet rich plasma by Automated count</includedValues>
+              <includedValues>LOINC::13056-7::Platelets [#/volume] in Plasma by Automated count</includedValues>
+              <includedValues>LOINC::26516-5::Platelets [#/volume] in Plasma</includedValues>
+              <includedValues>LOINC::74464-9::Platelets [#/volume] in Capillary blood by Manual count</includedValues>
+              <includedValues>LOINC::778-1::Platelets [#/volume] in Blood by Manual count</includedValues>
+              <includedValues>LOINC::49497-1::Platelets [#/volume] in Blood by Estimate</includedValues>
+              <includedValues>LOINC::777-3::Platelets [#/volume] in Blood by Automated count</includedValues>
+              <includedValues>LOINC::26515-7::Platelets [#/volume] in Blood</includedValues>
+              <includedValues>LOINC::6301-6::INR in Platelet poor plasma by Coagulation assay</includedValues>
+              <includedValues>LOINC::46418-0::INR in Capillary blood by Coagulation assay</includedValues>
+              <includedValues>LOINC::34714-6::INR in Blood by Coagulation assay</includedValues>
+              <includedValues>LOINC::76631-1::Albumin [Mass/volume] in Blood by Bromocresol purple (BCP) dye binding method</includedValues>
+              <includedValues>LOINC::62235-7::Albumin [Moles/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method</includedValues>
+              <includedValues>LOINC::62234-0::Albumin [Moles/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method</includedValues>
+              <includedValues>LOINC::61152-5::Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method</includedValues>
+              <includedValues>LOINC::61151-7::Albumin [Mass/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method</includedValues>
+              <includedValues>LOINC::2862-1::Albumin [Mass/volume] in Serum or Plasma by Electrophoresis</includedValues>
+              <includedValues>LOINC::1751-7::Albumin [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::54347-0::Albumin [Moles/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::3176-5::Antithrombin [Moles/volume] in Platelet poor plasma by Chromogenic method</includedValues>
+              <includedValues>LOINC::91120-6::Antithrombin in Platelet poor plasma by Chromo.no addition of heparin</includedValues>
+              <includedValues>LOINC::3174-0::Antithrombin [Units/volume] in Platelet poor plasma by Chromogenic method</includedValues>
+              <includedValues>LOINC::75241-0::Procalcitonin [Mass/volume] in Serum or Plasma by Immunoassay</includedValues>
+              <includedValues>LOINC::33959-8::Procalcitonin [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::44322-6::Interleukin 6 [Presence] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::26881-3::Interleukin 6 [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::49919-4::Interleukin 6 [Mass/volume] in Cerebral spinal fluid</includedValues>
+              <includedValues>LOINC::49732-1::Interleukin 6 [Mass/volume] in Body fluid</includedValues>
+              <includedValues>LOINC::33762-6::Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma</includedValues>
+              <includedValues>LOINC::16859-1::Fibrinogen [Presence] in Platelet poor plasma</includedValues>
+              <includedValues>LOINC::30902-1::Fibrinogen [Mass/volume] in Platelet poor plasma by Heat denaturation</includedValues>
+              <includedValues>LOINC::48664-7::Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived</includedValues>
+              <includedValues>LOINC::3255-7::Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" max="1" min="1">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Text</includedTypes>
+              <includedTypes>Quantity</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" name="Interpretation">
+            <constraint xsi:type="textConstraint">
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::CAR::Carrier</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::B::Better</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::D::Significant change down</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::U::Significant change up</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::W::Worse</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::&lt;::Off scale low</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation::&gt;::Off scale hig</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0028]" max="0" />
+          <Rule path="/items[at0025]" min="1" name="Zeitpunkt Validation" />
+          <Rule path="/items[at0005]" max="1" min="1" />
+          <Rule path="/items[at0026]" name="Probe ID" />
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Virologischer Befund ">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" min="1" path="/items" name="Befund">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::122442008::Detection of virus (procedure)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0068]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0094]/items[at0106]" max="1" name="Anforderung" />
+        <Rule path="/protocol[at0004]/items[at0094]/items[at0063]" min="1">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Identifier</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/protocol[at0004]/items[at0111]" max="0" />
+        <Rule path="/protocol[at0004]/items[at0121]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen.v1" concept_name="Probe" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]">
+          <Rule path="/items[at0029]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED CT::257261003::Swab (specimen)</includedValues>
+              <includedValues>SNOMED CT::119334006::Sputum specimen (specimen)</includedValues>
+              <includedValues>SNOMED CT::119342007::Saliva specimen (specimen)</includedValues>
+              <includedValues>SNOMED CT::410580001::Respiratory fluid specimen (specimen)</includedValues>
+              <includedValues>SNOMED CT::258607008::Bronchoalveolar lavage fluid sample (specimen)</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" min="1" />
+          <Rule path="/items[at0088]" max="1" />
+          <Rule path="/items[at0008]" max="0" />
+          <Rule path="/items[at0007]" max="0" />
+          <Rule path="/items[at0087]" max="0" />
+          <Rule path="/items[at0015]" min="1" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0067]" max="0" />
+          <Rule path="/items[at0080]" max="0" />
+          <Rule path="/items[at0003]" max="1" />
+          <Rule path="/items[at0042]" max="0" />
+          <Rule path="/items[at0041]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomische Lokalisation" max="1" path="/items[at0013]">
+            <Rule path="/items[at0001]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED CT::367592002::Structure of posterior nasopharynx (body structure)</includedValues>
+                <includedValues>SNOMED CT::12999009::Structure of posterior wall of oropharynx (body structure)</includedValues>
+                <includedValues>SNOMED CT::700016008::Structure of internal part of mouth (body structure)</includedValues>
+                <includedValues>SNOMED CT::44567001::Tracheal structure (body structure)</includedValues>
+                <includedValues>SNOMED CT::82094008::Lower respiratory tract structure (body structure)</includedValues>
+                <includedValues>SNOMED CT::91724006::Tracheobronchial structure (body structure)</includedValues>
+                <includedValues>SNOMED CT::955009::Bronchial structure (body structure)</includedValues>
+                <includedValues>SNOMED CT::113253006::Pulmonary alveolar structure (body structure)</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0065]" max="0" />
+            <Rule path="/items[at0002]" max="0" />
+            <Rule path="/items[at0064]" max="0" />
+            <Rule path="/items[at0055]" max="0" />
+            <Rule path="/items[at0023]" max="0" />
+          </Items>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Labortest-Panel" max="1" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" concept_name="Laboranalyt-Ergebnis" max="1" min="1" path="/items[at0013]" name="Pro Analyt">
+            <Rule path="/items[at0024]" min="1" name="Virusnachweistest">
+              <constraint xsi:type="textConstraint">
+                <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
+                <includedValues>LOINC::94558-4::SARS-CoV-2 Ag</includedValues>
+                <includedValues>LOINC::94745-7::SARS-CoV-2 (COVID-19) RNA [Cycle Threshold #] in Respiratory specimen by NAA with probe detection</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]" max="1" min="1" name="Nachweis">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED CT::260373001::Detected (qualifier value)</includedValues>
+                <includedValues>SNOMED CT::260415000::Not detected (qualifier value)</includedValues>
+                <includedValues>SNOMED CT::419984006::Inconclusive (qualifier value)</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" name="Interpretation" />
+            <Rule path="/items[at0028]" name="Quantitatives Ergebnis">
+              <constraint xsi:type="multipleConstraint">
+                <includedTypes>Quantity</includedTypes>
+                <includedTypes>Count</includedTypes>
+                <includedTypes>MultiMedia</includedTypes>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0025]" min="1" />
+            <Rule path="/items[at0026]" min="1" name="Zugehörige Laborprobe">
+              <constraint xsi:type="multipleConstraint">
+                <includedTypes>Identifier</includedTypes>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0003]" max="1" />
+          </Items>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0017]" name="Empfängerstandort">
+          <Rule path="/items[at0048]" min="1" />
+          <Rule path="/items[at0024]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0029]" max="0" />
+          <Rule path="/items[at0034]" max="0" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.location.v1" concept_name="Standort" max="1" path="/protocol[at0004]/items[at0094]/items[at0090]" name="Einsenderstandort">
+          <Rule path="/items[at0048]" min="1" />
+          <Rule path="/items[at0024]" max="0" />
+          <Rule path="/items[at0025]" max="0" />
+          <Rule path="/items[at0028]" max="0" />
+          <Rule path="/items[at0027]" max="0" />
+          <Rule path="/items[at0029]" max="0" />
+          <Rule path="/items[at0034]" max="0" />
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Bildgebung">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Radiologischer Befund">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result-dicom_series_metadata.v0" concept_name="Bildgebendes Untersuchungsergebnis" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004.1]" name="Name des Untersuchung">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::18748-4::Diagnostic imaging study</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED CT::373068000::Unspezifischer Befund</includedValues>
+              <includedValues>SNOMED CT::840539006::COVID-19-typischer Befund</includedValues>
+              <includedValues>SNOMED CT::17621005::Normalbefund</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0056]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]" max="0" />
+          <Rule path="/protocol[at0025]/items[at0049]" max="0" />
+          <Rule path="/protocol[at0025]/items[at0057]" max="0" />
+          <Rule path="/protocol[at0025]/items[at0027]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Studieneinschluss / Einschlusskriterien ">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Studienteilnahme">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gecco_study_participation.v0" concept_name="GECCO_Studienteilnahme" path="/items">
+          <Rule path="/data[at0001]/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED CT::373066001::Yes (qualifier value)</includedValues>
+              <includedValues>SNOMED CT::373067005::No (qualifier value)</includedValues>
+              <includedValues>SNOMED CT::261665006::Unknown (qualifier value)</includedValues>
+            </constraint>
+          </Rule>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.study_participation.v1" concept_name="Studienteilnahme" max="1" path="/data[at0001]/items[at0003]">
+            <Rule path="/items[at0001]" max="0" />
+            <Rule path="/items[at0018]" max="0" />
+            <Rule path="/items[at0005]" max="0" />
+            <Rule path="/items[at0016]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0014]" name="Bestätigte Covid-19-Diagnose als Hauptursache für Aufnahme in Studie">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED CT::373066001::Yes (qualifier value)</includedValues>
+                <includedValues>SNOMED CT::373067005::No (qualifier value)</includedValues>
+                <includedValues>SNOMED CT::261665006::Unknown (qualifier value)</includedValues>
+              </constraint>
+            </Rule>
+            <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.study_details.v1" concept_name="Studie/Prüfung" path="/items[at0002]">
+              <Rule path="/items[at0004]" max="0" />
+              <Rule path="/items[at0002]" max="0" />
+              <Rule path="/items[at0003]" max="0" />
+              <Rule path="/items[at0012]" max="0" />
+              <Rule path="/items[at0013]" max="0" />
+              <Rule path="/items[at0010]" max="0" />
+              <Rule path="/items[at0015]" max="0" />
+              <Rule path="/items[at0016]" max="0" />
+              <Rule path="/items[at0017]" max="0" />
+              <Rule path="/items[at0018]" max="0" />
+              <Rule path="/items[at0019]" max="0" />
+              <Rule path="/items[at0020]" max="0" />
+              <Rule path="/items[at0005]" max="0" />
+            </Items>
+          </Items>
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Therapie">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/items" name="Patient auf ICU">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.management_screening.v0" concept_name="Screening-Fragebogen zu Management/Behandlung" max="1" min="1" path="/items" name="Patient auf der Intensivstation">
+          <Rule path="/data[at0001]/events[at0002]" max="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Behandlung auf der Intensivstation</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]" min="1" name="Wird/Wurde die Aktivität durchgeführt?" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Context />
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">DE0723367AA22BB716CEC5342B21FF60</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-SECTION.adhoc.v1">
+    <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.medication.v1">
+    <digest id="MD5-CAM-1.0.1">E0C69F83865D3910946385034A86310F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.dosage.v1">
+    <digest id="MD5-CAM-1.0.1">CD1EACAF2A90BEE4DFD15DA9897B7049</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.absence.v2">
+    <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.respiration.v2">
+    <digest id="MD5-CAM-1.0.1">7CC874C49B06D0C3607301BA40C0C31C</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.ventilator_vital_signs.v0">
+    <digest id="MD5-CAM-1.0.1">31EFEC16D002EEA7D1049C29CE4C4B14</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.inspired_oxygen.v1">
+    <digest id="MD5-CAM-1.0.1">25BDD5DD6127C0C8244815485B7097D9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1">
+    <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1">
+    <digest id="MD5-CAM-1.0.1">1A81B7BE088FDB1B20E756C5494E8A22</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2">
+    <digest id="MD5-CAM-1.0.1">170F2F8FCE46E22662FC61919622AE21</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0">
+    <digest id="MD5-CAM-1.0.1">54E3B5D27B6C8AB494318F8FE8B1158D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.pulse.v2">
+    <digest id="MD5-CAM-1.0.1">CEC3C36E4EA4CA0958AE3C9088F4668E</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v2">
+    <digest id="MD5-CAM-1.0.1">2BD8B76C6E38FFBD3DD9D6A995A90976</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1">
+    <digest id="MD5-CAM-1.0.1">02D54A1F08B1D0D12BDEB8DFD499D214</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1">
+    <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
+    <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1">
+    <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.specimen.v1">
+    <digest id="MD5-CAM-1.0.1">387596AF709CE27D623064209E998D45</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0">
+    <digest id="MD5-CAM-1.0.1">16ACB1FB473C63B4BC99E2DDF970BED2</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.location.v1">
+    <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result-dicom_series_metadata.v0">
+    <digest id="MD5-CAM-1.0.1">A4E4AD7252E6B5B517F72C7E97FC1BB6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.gecco_study_participation.v0">
+    <digest id="MD5-CAM-1.0.1">E13A5DBA4584DB4617B6587DF889B6A7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.study_participation.v1">
+    <digest id="MD5-CAM-1.0.1">A1E749397595691665BCF829DA0B049C</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.study_details.v1">
+    <digest id="MD5-CAM-1.0.1">4244C5EC7B82DFE4829DD920989058F8</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.management_screening.v0">
+    <digest id="MD5-CAM-1.0.1">05E503214D10CE3F5276FD97F001CF52</digest>
+  </integrity_checks>
+</template>
