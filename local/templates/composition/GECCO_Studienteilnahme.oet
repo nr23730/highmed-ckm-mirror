@@ -20,7 +20,7 @@
         <other_contributors>
             <item>Antje Wulff</item>
         </other_contributors>
-        <lifecycle_state>Initial</lifecycle_state>
+        <lifecycle_state>published</lifecycle_state>
         <details>
             <purpose>Zur Repräsentation von Informationen, über die Teilnahme an einer klinischen Prüfung, Beobachtungs-, Register-, Diagnostik-, Therapiestudie oder an einem anderen medizinischen Forschungsvorhaben im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
@@ -87,11 +87,11 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>4b614545de896a63dd7ca0fc31f6b760</value>
+                <value>6d363db61d2440034fe4c34c462a143a</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>137DCA7D21FA274494054E1B81B67FC5</value>
+                <value>8BD8D5F850A9DEE8A16075105D36FD32</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -112,6 +112,8 @@
                     <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
                     <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
                     <includedValues>SNOMED Clinical Terms::261665006::Unknown (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::74964007::Other (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::385432009::Not applicable (qualifier value)</includedValues>
                 </constraint>
             </Rule>
             <Items
@@ -129,14 +131,26 @@
                         <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
                         <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
                         <includedValues>SNOMED Clinical Terms::261665006::Unknown (qualifier value)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::74964007::Other (qualifier value)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::385432009::Not applicable (qualifier value)</includedValues>
                     </constraint>
                 </Rule>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
                     max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0004]"/>
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>eCRF::03::Participation in interventional clinical trials</includedValues>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0002]"/>
                     <Rule max="0" path="/items[at0003]"/>
+                    <Rule path="/items[at0033]/items[at0035]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>eCRF::04::EudraCT Number‎</includedValues>
+                            <includedValues>eCRF::05::NCT number</includedValues>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0012]"/>
                     <Rule max="0" path="/items[at0013]"/>
                     <Rule max="0" path="/items[at0010]"/>
@@ -150,12 +164,17 @@
                 </Items>
             </Items>
         </Content>
+        <Rule path="/context/other_context[at0001]/items[at0005]">
+            <constraint limitToList="false" xsi:type="tem:textConstraint">
+                <includedValues>survey</includedValues>
+            </constraint>
+        </Rule>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
+        <digest id="MD5-CAM-1.0.1">8BD8D5F850A9DEE8A16075105D36FD32</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.gecco_study_participation.v0"
