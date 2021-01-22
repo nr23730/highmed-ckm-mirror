@@ -1,0 +1,813 @@
+<?xml version="1.0"?>
+<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+  <id>ad1bdeb4-f456-492a-be30-ca6c7ff763ff</id>
+  <name>GECCO_Fragebogen Patient</name>
+  <description>
+    <original_author>
+      <item>
+        <key>Name</key>
+        <value>Sarah Ballout</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>ballout.sarah@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>Organisation</key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+    </original_author>
+    <other_contributors>
+      <item>Antje Wulff</item>
+    </other_contributors>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Zur Repräsentation der systematischen Sammlung von wissenschaftlichen Daten zu COVID-19 Patienten im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
+      <keywords>
+        <item>GECCO</item>
+        <item>NUM</item>
+        <item>FoDaPl</item>
+        <item>CODEX</item>
+        <item>Patientenfragebogen</item>
+      </keywords>
+      <use>Für die Abbildung der systematischen Sammlung von wissenschaftlichen Daten zu COVID-19 Patienten im Rahmen des NUM-Projektes / GECCO-Datensatzes. Diese Daten werden ausschließlich von einem Patienten erhoben. Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stammen aus dem FHIR IG - https://simplifier.net/guide/GermanCoronaConsensusDataSet-ImplementationGuide/Home.</use>
+      <misuse>Nicht zur Repräsentation anderer Fragebögen verwenden. Bei Fragen die der Patient nicht selbst beantworten kann, den Fragebogen GECCO_Fragebogen Arzt verwenden.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Demographie">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Personendaten">
+        <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0" concept_name="Personendaten" max="1" path="/items">
+          <Rule path="/data[at0001]/items[at0008]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v0" concept_name="Personenname" path="/data[at0001]/items[at0026]" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0" concept_name="Daten zur Geburt" max="1" path="/data[at0001]/items[at0028]">
+            <Rule path="/items[at0002]" max="0" />
+            <Rule path="/items[at0003]" name="Kodierung für Mehrlingsgeburten" />
+            <Rule path="/items[at0004]" max="0" />
+            <Rule path="/items[at0005]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.death_details.v1" concept_name="Angaben zum Tod " max="1" path="/data[at0001]/items[at0024]/items[at0013]">
+            <Rule path="/items[at0002]" max="0" />
+            <Rule path="/items[at0003]" max="0" />
+            <Rule path="/items[at0006]" max="0" />
+            <Rule path="/items[at0004]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address_cc.v0" concept_name="Adresse" path="/data[at0001]/items[at0005]" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0" concept_name="Einzelheiten der Kommunikation" path="/data[at0001]/items[at0031]" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0" concept_name="Ethnischer Hintergrund" path="/data[at0001]/items[at0007]">
+            <Rule path="/items[at0002]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED CT::14045001::Caucasian</includedValues>
+                <includedValues>SNOMED CT::18167009::Black African</includedValues>
+                <includedValues>SNOMED CT::315280000::Asian</includedValues>
+                <includedValues>SNOMED CT::90027003::Arabs</includedValues>
+                <includedValues>LOINC::2135-2::Hispanic or Latino</includedValues>
+                <includedValues>SNOMED CT::186019001::Other ethnic, mixed origin</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0004]" max="0" />
+          </Items>
+        </Item>
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" path="/items">
+          <Rule path="/data[at0002]/items[at0022]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::female::Female</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::unknown::Unknown</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::other::Other</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0002]/items[at0026]" max="0" />
+          <Rule path="/data[at0002]/items[at0019]" name="Geschlecht bei der Geburt">
+            <constraint xsi:type="textConstraint">
+              <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::female::Female</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::unknown::Unknown</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::X::Unbestimmt</includedValues>
+              <includedValues>http://hl7.org/fhir/administrative-gender::D::Divers</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0002]/items[at0025]" max="0" />
+          <Rule path="/data[at0002]/items[at0001]" max="0" />
+          <Rule path="/data[at0002]/items[at0020]" max="0" />
+          <Rule path="/data[at0002]/items[at0014]" max="0" />
+          <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Körpergröße">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v2" concept_name="Größe/Länge" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]" max="0" />
+          <Rule path="/data[at0001]/events[at0021]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Körpergewicht">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" path="/items">
+          <Rule path="/data[at0002]/events[at0003]" max="1" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
+          <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
+          <Rule path="/data[at0002]/events[at0026]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/items" name="Schwangerschaftsstatus">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pregnancy_status.v0" concept_name="Schwangerschaftsstatus" max="1" min="1" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]" max="0" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Klinische Frailty-Skala">
+        <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1" concept_name="Klinische Frailty-Skala (CFS)" max="1" min="1" path="/items">
+          <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" min="1" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Risikofaktoren">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Raucherstatus">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" concept_name="Zusammenfassung Rauchverhalten" max="1" min="1" path="/items" name="Raucherstatus">
+          <Rule path="/data[at0001]/items[at0089]" max="0" />
+          <Rule path="/data[at0001]/items[at0043]" min="1" name="Rauchverhalten">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::LA18976-3::Ja</includedValues>
+              <includedValues>LOINC::LA18978-9::Nichtraucher</includedValues>
+              <includedValues>LOINC::LA15920-4::Ehemaliger Raucher</includedValues>
+              <includedValues>LOINC::LA18980-5::Unbekannt</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0015]" max="0" />
+          <Rule path="/data[at0001]/items[at0080]" max="0" />
+          <Rule path="/data[at0001]/items[at0029]" max="0" />
+          <Rule path="/data[at0001]/items[at0016]" max="0" />
+          <Rule path="/data[at0001]/items[at0093]" max="0" />
+          <Rule path="/data[at0001]/items[at0094]" max="0" />
+          <Rule path="/data[at0001]/items[at0074]" max="0" />
+          <Rule path="/data[at0001]/items[at0019]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0071]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0085]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0075]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0076]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0079]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0072]" max="0" />
+          <Rule path="/protocol[at0021]/items[at0022]" max="0" />
+        </Item>
+      </Item>
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Reise">
+        <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.travel_event.v0" concept_name="Reisefall" max="1" path="/items" name="Reisehistorie">
+          <Rule path="/data[at0001]/items[at0009]" max="0" />
+          <Rule path="/data[at0001]/items[at0022]" name="Reise angetreten?">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED-CT::373066001::Yes (qualifier value)</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0010]/items[at0011]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>urn:iso:std:iso:3166::AD::Andorra</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AE::United Arab Emirates</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AF::Afghanistan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AG::Antigua and Barbuda</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AI::Anguilla</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AL::Albania</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AM::Armenia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AO::Angola</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AQ::Antarctica</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AR::Argentina</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AS::American Samoa</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AT::Austria</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AU::Australia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AW::Aruba</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AX::Åland Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::AZ::Azerbaijan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BA::Bosnia and Herzegovina</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BB::Barbados</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BD::Bangladesh</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BE::Belgium</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BF::Burkina Faso</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BG::Bulgaria</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BH::Bahrain</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BI::Burundi</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BJ::Benin</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BL::Saint Barthélemy</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BM::Bermuda</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BN::Brunei Darussalam</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BO::Bolivia, Plurinational State of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BR::Brazil</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BS::Bahamas</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BT::Bhutan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BV::Bouvet Island</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BW::Botswana</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BY::Belarus</includedValues>
+              <includedValues>urn:iso:std:iso:3166::BZ::Belize</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CA::Canada</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CC::Cocos (Keeling) Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CD::Congo, the Democratic Republic of the</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CF::Central African Republic</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CG::Congo</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CH::Switzerland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CI::Côte d''Ivoire</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CK::Cook Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CL::Chile</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CM::Cameroon</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CN::China</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CO::Colombia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CR::Costa Rica</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CU::Cuba</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CV::Cabo Verde</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CW::Curaçao</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CX::Christmas Island</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CY::Cyprus</includedValues>
+              <includedValues>urn:iso:std:iso:3166::CZ::Czechia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DE::Germany</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DJ::Djibouti</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DK::Denmark</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DM::Dominica</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DO::Dominican Republic</includedValues>
+              <includedValues>urn:iso:std:iso:3166::DZ::Algeria</includedValues>
+              <includedValues>urn:iso:std:iso:3166::EC::Ecuador</includedValues>
+              <includedValues>urn:iso:std:iso:3166::EE::Estonia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::EG::Egypt</includedValues>
+              <includedValues>urn:iso:std:iso:3166::EH::Western Sahara</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ER::Eritrea</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ES::Spain</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ET::Ethiopia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FI::Finland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FJ::Fiji</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FK::Falkland Islands (Malvinas)</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FM::Micronesia, Federated States of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FO::Faroe Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::FR::France</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GA::Gabon</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GD::Grenada</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GE::Georgia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GF::French Guiana</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GG::Guernsey</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GH::Ghana</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GI::Gibraltar</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GL::Greenland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GM::Gambia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GN::Guinea</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GP::Guadeloupe</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GQ::Equatorial Guinea</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GR::Greece</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GS::South Georgia and the South Sandwich Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GT::Guatemala</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GU::Guam</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GW::Guinea-Bissau</includedValues>
+              <includedValues>urn:iso:std:iso:3166::GY::Guyana</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HK::Hong Kong</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HM::Heard Island and McDonald Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HN::Honduras</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HR::Croatia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HT::Haiti</includedValues>
+              <includedValues>urn:iso:std:iso:3166::HU::Hungary</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ID::Indonesia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IE::Ireland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IL::Israel</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IM::Isle of Man</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IN::India</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IO::British Indian Ocean Territory</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IQ::Iraq</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IR::Iran, Islamic Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IS::Iceland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::IT::Italy</includedValues>
+              <includedValues>urn:iso:std:iso:3166::JE::Jersey</includedValues>
+              <includedValues>urn:iso:std:iso:3166::JM::Jamaica</includedValues>
+              <includedValues>urn:iso:std:iso:3166::JO::Jordan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::JP::Japan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KE::Kenya</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KG::Kyrgyzstan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KH::Cambodia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KI::Kiribati</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KM::Comoros</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KN::Saint Kitts and Nevis</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KP::Korea, Democratic People''s Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KR::Korea, Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KW::Kuwait</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KY::Cayman Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::KZ::Kazakhstan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LA::Lao People''s Democratic Republic</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LB::Lebanon</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LC::Saint Lucia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LI::Liechtenstein</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LK::Sri Lanka</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LR::Liberia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LS::Lesotho</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LT::Lithuania</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LU::Luxembourg</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LV::Latvia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::LY::Libya</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MA::Morocco</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MC::Monaco</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MD::Moldova, Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ME::Montenegro</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MF::Saint Martin (French part)</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MG::Madagascar</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MH::Marshall Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MK::Macedonia, the former Yugoslav Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ML::Mali</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MM::Myanmar</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MN::Mongolia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MO::Macao</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MP::Northern Mariana Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MQ::Martinique</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MR::Mauritania</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MS::Montserrat</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MT::Malta</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MU::Mauritius</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MV::Maldives</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MW::Malawi</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MX::Mexico</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MY::Malaysia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::MZ::Mozambique</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NA::Namibia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NC::New Caledonia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NE::Niger</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NF::Norfolk Island</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NG::Nigeria</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NI::Nicaragua</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NL::Netherlands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NO::Norway</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NP::Nepal</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NR::Nauru</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NU::Niue</includedValues>
+              <includedValues>urn:iso:std:iso:3166::NZ::New Zealand</includedValues>
+              <includedValues>urn:iso:std:iso:3166::OM::Oman</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PA::Panama</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PE::Peru</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PF::French Polynesia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PG::Papua New Guinea</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PH::Philippines</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PK::Pakistan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PL::Poland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PM::Saint Pierre and Miquelon</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PN::Pitcairn</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PR::Puerto Rico</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PS::Palestine, State of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PT::Portugal</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PW::Palau</includedValues>
+              <includedValues>urn:iso:std:iso:3166::PY::Paraguay</includedValues>
+              <includedValues>urn:iso:std:iso:3166::QA::Qatar</includedValues>
+              <includedValues>urn:iso:std:iso:3166::RE::Réunion</includedValues>
+              <includedValues>urn:iso:std:iso:3166::RO::Romania</includedValues>
+              <includedValues>urn:iso:std:iso:3166::RS::Serbia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::RU::Russian Federation</includedValues>
+              <includedValues>urn:iso:std:iso:3166::RW::Rwanda</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SA::Saudi Arabia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SB::Solomon Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SC::Seychelles</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SD::Sudan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SE::Sweden</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SG::Singapore</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SI::Slovenia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SJ::Svalbard and Jan Mayen</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SK::Slovakia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SL::Sierra Leone</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SM::San Marino</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SN::Senegal</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SO::Somalia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SR::Suriname</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SS::South Sudan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ST::Sao Tome and Principe</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SV::El Salvador</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SX::Sint Maarten (Dutch part)</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SY::Syrian Arab Republic</includedValues>
+              <includedValues>urn:iso:std:iso:3166::SZ::Swaziland</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TC::Turks and Caicos Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TD::Chad</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TF::French Southern Territories</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TG::Togo</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TH::Thailand</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TJ::Tajikistan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TK::Tokelau</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TL::Timor-Leste</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TM::Turkmenistan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TN::Tunisia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TO::Tonga</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TR::Turkey</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TT::Trinidad and Tobago</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TV::Tuvalu</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TW::Taiwan, Province of China</includedValues>
+              <includedValues>urn:iso:std:iso:3166::TZ::Tanzania, United Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::UA::Ukraine</includedValues>
+              <includedValues>urn:iso:std:iso:3166::UG::Uganda</includedValues>
+              <includedValues>urn:iso:std:iso:3166::UM::United States Minor Outlying Islands</includedValues>
+              <includedValues>urn:iso:std:iso:3166::US::United States of America</includedValues>
+              <includedValues>urn:iso:std:iso:3166::UY::Uruguay</includedValues>
+              <includedValues>urn:iso:std:iso:3166::UZ::Uzbekistan</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VA::Holy See</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VC::Saint Vincent and the Grenadines</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VE::Venezuela, Bolivarian Republic of</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VG::Virgin Islands, British</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VI::Virgin Islands,</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VN::Viet Nam</includedValues>
+              <includedValues>urn:iso:std:iso:3166::VU::Vanuatu</includedValues>
+              <includedValues>urn:iso:std:iso:3166::WF::Wallis and Futuna</includedValues>
+              <includedValues>urn:iso:std:iso:3166::WS::Samoa</includedValues>
+              <includedValues>urn:iso:std:iso:3166::YE::Yemen</includedValues>
+              <includedValues>urn:iso:std:iso:3166::YT::Mayotte</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ZA::South Africa</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ZM::Zambia</includedValues>
+              <includedValues>urn:iso:std:iso:3166::ZW::Zimbabwe</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0010]/items[at0012]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-BW::Baden-Württemberg</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-BY::Bayern</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-BE::Berlin</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-BB::Brandenburg</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-HB::Bremen</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-HH::Hamburg</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-HE::Hessen</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-MV::Mecklenburg-Vorpommern</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-NI::Niedersachsen</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-NW::Nordrhein-Westfalen</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-RP::Rheinland-Pfalz</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-SL::Saarland</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-SN::Sachsen</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-ST::Sachsen-Anhalt</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-SH::Schleswig-Holstein</includedValues>
+              <includedValues>urn:iso:std:iso:3166-2:de::DE-TH::Thüringen</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0010]/items[at0031]" max="0" />
+          <Rule path="/data[at0001]/items[at0010]/items[at0016]" max="0" />
+          <Rule path="/data[at0001]/items[at0010]/items[at0017]" max="0" />
+          <Rule path="/data[at0001]/items[at0018]" max="0" />
+          <Rule path="/data[at0001]/items[at0019]" max="0" />
+          <Rule path="/data[at0001]/items[at0020]" max="0" />
+        </Item>
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" path="/items" name="Keine Reisehistorie">
+          <Rule path="/data[at0001]/items[at0002]" min="1">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED-CT::373067005::No (qualifier value)</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::8691-8::History of Travel</includedValues>
+            </constraint>
+            <nameConstraint>
+              <excludedValues>local::at0008</excludedValues>
+              <excludedValues>local::at0005</excludedValues>
+              <excludedValues>local::at0006</excludedValues>
+              <excludedValues>local::at0007</excludedValues>
+            </nameConstraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0012]" max="0" />
+        </Item>
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" max="1" path="/items" name="Unbekannte Reisehistorie">
+          <Rule path="/data[at0001]/items[at0002]" name="Fehlende Information">
+            <constraint xsi:type="textConstraint">
+              <includedValues>LOINC::8691-8::History of Travel</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0005]" max="1" name="Aussage über die fehlende Information">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Epidemiologische Faktoren">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/items" name="SARS-CoV-2 Exposition">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0" concept_name="Ermittlung der infektiösen Exposition" max="1" min="1" path="/items" name="SARS-CoV-2 Exposition">
+          <Rule path="/data[at0001]/items[at0002]" min="1">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SARS-CoV-2</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" name="Exposition vorhanden?">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED-CT::840546002::Exposure to severe acute respiratory syndrome coronavirus 2 (event)</includedValues>
+              <includedValues>SNOMED-CT::373067005::No (qualifier value)</includedValues>
+              <includedValues>http://terminology.hl7.org/CodeSystem/data-absent-reason::unknown::Unknown</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0005]/items[at0027]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0024]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0006]" min="1">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Kontakt zu COVID-19 erkrankter Person</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0005]/items[at0007]" max="1" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0018]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0008]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0009]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0020]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0021]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0011]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0012]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0025]" max="0" />
+          <Rule path="/data[at0001]/items[at0005]/items[at0004]" max="0" />
+          <Rule path="/data[at0001]/items[at0030]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" max="0" />
+        </Item>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Symptom ">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign.v0" concept_name="Symptom/Krankheitsanzeichen" max="1" path="/items" name="Vorliegendes Symptom">
+        <Rule path="/data[at0190]/events[at0191]" max="1" min="1" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
+            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
+            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
+            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
+            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
+            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
+            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
+            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
+            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
+            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
+            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
+            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
+            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
+            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
+            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
+            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
+            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
+            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
+            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
+            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
+            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
+            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
+            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
+            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
+            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
+            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
+            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
+            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
+            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
+            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
+            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
+            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
+            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
+            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
+            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
+            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
+            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
+            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
+            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
+            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0035]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0002]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0175]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0186]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0164]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0028]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0021]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED CT::255604002::Mild (qualifier value)</includedValues>
+            <includedValues>SNOMED CT::6736007::Moderate (severity modifier) (qualifier value)</includedValues>
+            <includedValues>SNOMED CT::24484000::Severe (severity modifier) (qualifier value)</includedValues>
+            <includedValues>SNOMED CT::442452003::Life threatening severity (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0026]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0189]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0180]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0003]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0018]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0165]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0155]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0037]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0057]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0031]" max="0" />
+        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0163]" max="0" />
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" path="/items" name="Ausgeschlossenes Symptom">
+        <Rule path="/data[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::410594000::Known absent (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
+            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
+            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
+            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
+            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
+            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
+            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
+            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
+            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
+            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
+            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
+            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
+            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
+            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
+            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
+            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
+            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
+            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
+            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
+            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
+            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
+            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
+            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
+            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
+            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
+            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
+            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
+            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
+            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
+            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
+            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
+            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
+            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
+            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
+            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
+            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
+            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
+            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
+            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
+            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
+          </constraint>
+          <nameConstraint>
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0005</excludedValues>
+            <excludedValues>local::at0006</excludedValues>
+            <excludedValues>local::at0007</excludedValues>
+          </nameConstraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0012]" max="0" />
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" max="1" path="/items" name="Unbekanntes Symptom">
+        <Rule path="/data[at0001]/items[at0002]" name="Unbekanntes Symptom">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
+            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
+            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
+            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
+            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
+            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
+            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
+            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
+            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
+            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
+            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
+            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
+            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
+            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
+            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
+            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
+            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
+            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
+            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
+            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
+            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
+            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
+            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
+            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
+            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
+            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
+            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
+            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
+            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
+            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
+            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
+            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
+            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
+            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
+            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
+            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
+            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
+            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
+            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
+            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0005]" max="1" name="Aussage über die fehlende Information">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+      </Item>
+    </Content>
+    <Context />
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">DE0723367AA22BB716CEC5342B21FF60</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-SECTION.adhoc.v1">
+    <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0">
+    <digest id="MD5-CAM-1.0.1">DDB0ABB0815AAFEC82BA2096C7882EE4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.person_name.v0">
+    <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0">
+    <digest id="MD5-CAM-1.0.1">FA9E215CB95BE6F50667A10DEB71F199</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.death_details.v1">
+    <digest id="MD5-CAM-1.0.1">412038B78AE9EBA86BF7F4A2BDDADE0A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.address_cc.v0">
+    <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0">
+    <digest id="MD5-CAM-1.0.1">7C5220D490285A2548A935D41CF43F83</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0">
+    <digest id="MD5-CAM-1.0.1">973D0B74D53ED502798CA1ACED1D09E7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.gender.v1">
+    <digest id="MD5-CAM-1.0.1">EF681A049575CDCED3F513DFE65343E9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.height.v2">
+    <digest id="MD5-CAM-1.0.1">C75BA8F0FF1D8D127E0E9469D06C9128</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2">
+    <digest id="MD5-CAM-1.0.1">B7CBE264803846DAA95A01EEF598BA3B</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.pregnancy_status.v0">
+    <digest id="MD5-CAM-1.0.1">68B5DA2CC86A687DF093F35CD4F75148</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.clinical_frailty_scale.v1">
+    <digest id="MD5-CAM-1.0.1">C5464637C93F73E369071B9AD3803C79</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1">
+    <digest id="MD5-CAM-1.0.1">D74EEFF295F045EF03F7BAF5F73D9796</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.travel_event.v0">
+    <digest id="MD5-CAM-1.0.1">D9708A9367D6EC77BBBDFAB845D636D0</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1">
+    <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.absence.v2">
+    <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0">
+    <digest id="MD5-CAM-1.0.1">365FF276F84E80453823135E933A8453</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign.v0">
+    <digest id="MD5-CAM-1.0.1">E55D399327269630FD86E87828DF5D24</digest>
+  </integrity_checks>
+</template>
