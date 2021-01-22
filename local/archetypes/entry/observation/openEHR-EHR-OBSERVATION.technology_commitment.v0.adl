@@ -15,11 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Wird verwendet, um die Technikbereitschaft und somit auch den Umgang mit neuen Technologien, insbesondere im höheren Alter, einschätzen zu können. Hierbei wird der Fokus auf die Einstellung bzw. das Erleben des Patienten mit modernen/r Technologien/Elektronik im Allgemeinen gelegt und Aussagen zu den Themen Technikakzeptanz, Technikkompetenzüberzeugungen und Technikkontrollüberzeugungen getroffen.">
-			use = <"Dieser Archetyp wird verwendet, um einen Fragebogen darzustellen, der die Technikbereitschaft dokumentiert und so den Umgang mit neuen Technologien, insbesondere im höheren Alter, einschätzen kann.">
+			purpose = <"Wird verwendet, um die Bereitschaft gegenüber Technik und den Umgang, auch im höheren Alter, zu erfassen. Der Fokus liegt auf der Einstellung bzw. dem Erleben der Patienten mit modernen Technologien und Elektronik im Allgemeinen. Darüber hinaus stehen die Themen Akzeptanz, Kompetenzüberzeugung und Kontrollüberzeugung von Technik im Fokus.">
+			use = <"Dieser Archetyp wird verwendet, um einen Fragebogen darzustellen, der die Technikbereitschaft dokumentiert und so den Umgang mit neuen Technologien, auch im höheren Alter, einzuschätzen hilft.">
 			keywords = <"Technikbereitschaft", "Technik im Alter", "Technik", "Neyer", "Felber", "Gebhardt">
-			misuse = <"Nicht zur Darstellung von Fragebögen, die nicht nach Neyer, Felber und Gebhardt validiert wurden.
-Nicht zur Darstellung des Fragebogens zur Technikaffinität TA-EG.
+			misuse = <"Nicht zur Darstellung des Fragebogens zur Technikaffinität TA-EG.
 Nicht zur Darstellung des Fragebogens zur Technikaffinität ATI.">
 			copyright = <"© HiGHmed">
 		>
@@ -33,8 +32,8 @@ Nicht zur Darstellung des Fragebogens zur Technikaffinität ATI.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"F036A58ADDA187F42A4746B2F4BFB6F8">
-		["build_uid"] = <"bff719b2-6a81-4e8d-8be1-9ecaf3d1f5bf">
+		["MD5-CAM-1.0.1"] = <"D86C05FDEB23BB27B2BFEE851F2962FB">
+		["build_uid"] = <"00822dd4-1c56-4ac9-aad5-f7d8d0161ae0">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -169,6 +168,16 @@ definition
 				}
 			}
 		}
+		protocol matches {
+			ITEM_TREE[at0079] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0080] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
 	}
 
 
@@ -178,7 +187,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Technikbereitschaft">
-					description = <"Zur Einschätzung der Bereitschaft zum Umgang mit neuen Technologien.">
+					description = <"Zur Einschätzung der Bereitschaft zum Umgang mit neuen Technologien, nach dem validierten Fragebogen von Neyer, Felber und Gebhardt.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -483,6 +492,14 @@ ontology
 				["at0078"] = <
 					text = <"Ergebnis">
 					description = <"Das Ergebnis des Tests, auch Teilauswertungen möglich.">
+				>
+				["at0079"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0080"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>

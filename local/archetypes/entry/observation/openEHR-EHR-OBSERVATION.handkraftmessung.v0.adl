@@ -15,10 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Wird verwendet, um bei geriatrischen Personen die Handkraft zu erfassen und so einen Rückschluss auf die Gesamtkörperkraft zu ziehen oder ggfs. ein Sturzrisiko frühzeitig festzustellen.">
-			use = <"Dieser Archetyp wird verwendet, um einen Dokumentationsbogen darzustellen, der die Handkraft bei geriatrischen Patienten dokumentiert und so einen Rückschluss auf die Gesamtkörperkraft zieht oder ggfs. ein Sturzrisiko frühzeitig feststellt.">
+			purpose = <"Wird verwendet, um die Handkraft von Patienten zu erfassen, z.B in der Geriatrie, um einen Rückschluss auf die Gesamtkörperkraft zu ziehen oder ggfs. ein Sturzrisiko frühzeitig festzustellen.">
+			use = <"Dieser Archetyp wird verwendet, um einen Dokumentationsbogen darzustellen, der die Handkraft bei Patienten dokumentiert und so einen Rückschluss auf die Gesamtkörperkraft zulässt oder hilft ein Sturzrisiko ggfs. frühzeitig festzustellen.">
 			keywords = <"Handkraftmessung", "Handkraft", "Philipps">
-			misuse = <"">
+			misuse = <"Nicht zur Darstellung der Kraftmessung anderer Körperstellen außer der Hand.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -31,8 +31,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E9DE294A9F7A96A1B6D292CDFFF32BEB">
-		["build_uid"] = <"e5eef831-f2d3-47d2-84df-d2bcd0cf3771">
+		["MD5-CAM-1.0.1"] = <"19B3F677ACFE982654CE4E4F49DB7C5C">
+		["build_uid"] = <"97298a79-9314-459d-9d9b-d48fb1c392c4">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -51,7 +51,8 @@ definition
 												defining_code matches {
 													[local::
 													at0027, 	-- Linke Hand
-													at0026]	-- Rechte Hand
+													at0026, 	-- Rechte Hand
+													at0038]	-- Unbekannt/ nicht vorhanden
 												}
 											}
 										}
@@ -89,6 +90,18 @@ definition
 											>
 										}
 									}
+									ELEMENT[at0039] occurrences matches {0..3} matches {	-- Messung
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::124]>
+												list = <
+													["1"] = <
+														units = <"kg">
+													>
+												>
+											>
+										}
+									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Bemerkungen
 										value matches {
 											DV_TEXT matches {*}
@@ -115,10 +128,9 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Gerät
-						value matches {
-							DV_TEXT matches {*}
-						}
+					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {	-- Gerät
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
 				}
 			}
@@ -152,7 +164,7 @@ ontology
 				>
 				["at0008"] = <
 					text = <"Messung">
-					description = <"Messung, die an einer Hand ausgeführt wird.">
+					description = <"Messung, die an einer Hand mittels Vigorimeter ausgeführt wird.">
 				>
 				["at0017"] = <
 					text = <"Bemerkungen">
@@ -188,7 +200,7 @@ ontology
 				>
 				["at0034"] = <
 					text = <"Stelle der Messung">
-					description = <"Köperstelle an der die Handkraftmessung durchgeführt wurde.">
+					description = <"Die Hand, an der die Handkraftmessung durchgeführt wurde.">
 				>
 				["at0035"] = <
 					text = <"Linke Hand">
@@ -198,7 +210,15 @@ ontology
 					text = <"Rechte Hand">
 					description = <"Die rechte Hand der Person.">
 				>
-				["at0037"] = <
+				["at0038"] = <
+					text = <"Unbekannt/ nicht vorhanden">
+					description = <"Die Person hat keine dominante Hand oder die dominante Hand ist unbekannt.">
+				>
+				["at0039"] = <
+					text = <"Messung">
+					description = <"Messung, die an einer Hand mittels Dynamometer ausgeführt wird.">
+				>
+				["at0041"] = <
 					text = <"Gerät">
 					description = <"Das Gerät, dass für die Messung verwendet wurde.">
 				>

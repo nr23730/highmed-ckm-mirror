@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=f4ddf5aa-12e6-4e40-ac2c-d00cdb4e3853)
-	openEHR-EHR-OBSERVATION.mini_nutritional_assessment.v0
+﻿archetype (adl_version=1.4; uid=cfa07568-d9d5-4164-87d9-d866db8a52fa)
+	openEHR-EHR-OBSERVATION.mini_nutritional_assessment.v1
 
 concept
 	[at0000]	-- Mini Nutritional Assessment
@@ -23,7 +23,7 @@ Nicht zur Darstellung des Fragebogens Mini Nutritional Assessment - Long Form (M
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -32,9 +32,9 @@ Nicht zur Darstellung des Fragebogens Mini Nutritional Assessment - Long Form (M
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"5C3F35FB03FC87B05B3226A202F5B39B">
-		["build_uid"] = <"865e2d93-2230-4006-9cc1-bdbaf90044c1">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"9405C8B6ABCF46A30E9EF5ACA4942105">
+		["build_uid"] = <"44dbac98-ca4a-44d6-ab5a-ffc3cafa4bc9">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -141,6 +141,16 @@ definition
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0050] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0052] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -307,6 +317,14 @@ ontology
 				["at0049"] = <
 					text = <"Mangelernährung">
 					description = <"0 - 7 Punkte.">
+				>
+				["at0050"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0052"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>
