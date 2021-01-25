@@ -1,0 +1,132 @@
+﻿archetype (adl_version=1.4; uid=0938366d-dacf-43b5-89f7-e21585320132)
+	openEHR-EHR-OBSERVATION.soziale_situation_nach_nikolaus.v0
+
+concept
+	[at0000]	-- Soziale Situation nach Nikolaus
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation der Sozialen Situation gemäß dem standardisierten Fragebogen nach Nikolaus et al. (1994).">
+			use = <"Wird zur standardisierten Erfassung der sozialen Situation eines erwachsenen Individuums gemäß Nikolaus et al. (1994) angewendet. Dieser Archetyp wurde entwickelt, um als Rahmen für die Erstellung der einzelnen Teile die diesen Fragebögen beinhalten zu dienen und die Gesamtpunktzahl, die sich aus den einzelnen Teilen ergeben, darzustellen.">
+			keywords = <"Soziale Situation", "Nikolaus", "geriatrische Assessments">
+			misuse = <"Nicht zur Verwendung anderer Berechnungen oder Zusammenfassungen, die nicht dem standardisierten Fragebogen nach Nikolaus et al. entsprechen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Nikolaus T, Specht-Leible N, Bach M, Oster P, Schlierf G (1994) Soziale Aspekte bei Diagnostik und Therapie hochbetagter Patienten. Erste Erfahrungen mit einem neu entwickelten Fragebogen im Rahmen des geriatrischen Assessment. Z Gerontol 27: 240-245">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"FF209963A5A3340F825E5EC5F153DA21">
+		["build_uid"] = <"9339c0ff-f9ed-407e-b37d-fc7a158744ad">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Soziale Situation nach Nikolaus
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Teil 1: Soziale Kontakte und Unterstützung
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.soziale_kontakte_und_unterstuetzung_nach_nikolaus(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+									allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Teil 2: Soziale Aktivitäten
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.soziale_aktivitaeten_nach_nikolaus(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+									allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Teil 3: Wohnsituation
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.wohnsituation_nach_nikolaus(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+									allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Teil 4: Ökonomische Verhältnisse
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.oekonomische_verhaeltnisse_nach_nikolaus(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gesamtpunktzahl
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Bemerkungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Soziale Situation nach Nikolaus">
+					description = <"Standardisierte Erfassung der sozialen Situation gemäß Nikolaus et al. (1994).">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardmäßiger, nicht näher beschriebener Zeitpunkt oder Intervall Ereignis welches in einem Template oder bei der Anwendung genauer definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Gesamtpunktzahl">
+					description = <"Ergibt sich aus den Teilergebnissen.">
+				>
+				["at0005"] = <
+					text = <"Bemerkungen">
+					description = <"Bemerkungen oder Anmerkungen, die während des Fragebogens aufgetreten sind.">
+				>
+				["at0011"] = <
+					text = <"Teil 1: Soziale Kontakte und Unterstützung">
+					description = <"Cluster für Soziale Kontakte und Unterstützung nach Nikolaus.">
+				>
+				["at0012"] = <
+					text = <"Teil 2: Soziale Aktivitäten">
+					description = <"Cluster für Soziale Aktivitäten nach Nikolaus.">
+				>
+				["at0013"] = <
+					text = <"Teil 3: Wohnsituation">
+					description = <"Cluster für die Wohnsituation nach Nikolaus.">
+				>
+				["at0014"] = <
+					text = <"Teil 4: Ökonomische Verhältnisse">
+					description = <"Cluster für die ökonomischen Verhältnisse nach Nikolaus.">
+				>
+			>
+		>
+	>
