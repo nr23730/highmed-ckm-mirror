@@ -1,0 +1,197 @@
+﻿archetype (adl_version=1.4; uid=3fb8ef1d-f429-4392-8dee-ed696c5f6b37)
+	openEHR-EHR-CLUSTER.oekonomische_verhaeltnisse_nach_nikolaus.v0
+
+concept
+	[at0000]	-- Ökonomische Verhältnisse nach Nikolaus
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung der ökonomischen Verhältnisse eines Individuums gemäß Nikolaus et al. (1994).">
+			use = <"Wird zur Darstellung des Fragebogens zu den ökonomischen Verhältnisse eines Individuums gemäß Nikolaus et al. (1994) verwendet.">
+			keywords = <"geriatrisches Assessment", "soziales Assessment", "ökonomische Verhältnisse", "Nikolaus">
+			misuse = <"Nicht zu benutzen um die ökonomischen Verhältnisse eines Erwachsenen im Allgemeinen zu erfassen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Nikolaus T, Specht-Leible N, Bach M, Oster P, Schlierf G (1994) Soziale Aspekte bei Diagnostik und Therapie hochbetagter Patienten. Erste Erfahrungen mit einem neu entwickelten Fragebogen im Rahmen des geriatrischen Assessment. Z Gerontol 27: 240-245">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"1D0B9A533CC96CC44258FBB2610D82BE">
+		["build_uid"] = <"6cc0103c-ea9b-4004-97d2-80c7292d7c4e">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Ökonomische Verhältnisse nach Nikolaus
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Monatliches Einkommen
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			CLUSTER[at0016] occurrences matches {0..1} matches {	-- Auskommen mit dem Einkommen
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Ja
+						value matches {1|[local::at0020]}		-- Ja
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Nein
+						value matches {0|[local::at0021]}		-- Ja
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Nur wenig
+						value matches {0|[local::at0022]}		-- Ja
+					}
+				}
+			}
+			CLUSTER[at0023] occurrences matches {0..1} matches {	-- Ersparnisse, Vermögen
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Ja, ausreichend
+						value matches {1|[local::at0027]}		-- Ja
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nein
+						value matches {0|[local::at0028]}		-- Ja
+					}
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Nur wenig
+						value matches {0|[local::at0029]}		-- Ja
+					}
+				}
+			}
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Aufzählung des Ersparnisse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0030] occurrences matches {0..1} matches {	-- Selbstständiges Regeln der Finanzen
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Ja
+						value matches {1|[local::at0034]}		-- Ja
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Nein
+						value matches {0|[local::at0033]}		-- Ja
+					}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Zwischensumme Ökonomische Verhältnisse
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..3|}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ökonomische Verhältnisse nach Nikolaus">
+					description = <"Erfassung der ökonomischen Verhältnisse eines Menschen gemäß Nikolaus et al. (1994).">
+				>
+				["at0001"] = <
+					text = <"Monatliches Einkommen">
+					description = <"Wie viel Geld steht Ihnen monatlich zur Verfügung?">
+				>
+				["at0011"] = <
+					text = <"Aufzählung des Ersparnisse">
+					description = <"Aufzählung der Ersparnisse.">
+				>
+				["at0015"] = <
+					text = <"Zwischensumme Ökonomische Verhältnisse">
+					description = <"Erreichte Punktzahl.">
+				>
+				["at0016"] = <
+					text = <"Auskommen mit dem Einkommen">
+					description = <"Kommen Sie mit Ihrem Geld gut über die Runden?">
+				>
+				["at0017"] = <
+					text = <"Ja">
+					description = <"Ja.">
+				>
+				["at0018"] = <
+					text = <"Nein">
+					description = <"Nein.">
+				>
+				["at0019"] = <
+					text = <"Nur wenig">
+					description = <"Nur wenig.">
+				>
+				["at0020"] = <
+					text = <"Ja">
+					description = <"Person kommt mit ihrem Einkommen gut über den Monat aus.">
+				>
+				["at0021"] = <
+					text = <"Ja">
+					description = <"Person kommt mit ihrem Einkommen nicht gut über den Monat.">
+				>
+				["at0022"] = <
+					text = <"Ja">
+					description = <"Person kommt mit dem Geld nur knapp über den Monat.">
+				>
+				["at0023"] = <
+					text = <"Ersparnisse, Vermögen">
+					description = <"Haben Sie Ersparnisse, Vermögen (eigenes Haus)?">
+				>
+				["at0024"] = <
+					text = <"Ja, ausreichend">
+					description = <"Ja, ausreichend.">
+				>
+				["at0025"] = <
+					text = <"Nein">
+					description = <"Nein.">
+				>
+				["at0026"] = <
+					text = <"Nur wenig">
+					description = <"Nur wenig.">
+				>
+				["at0027"] = <
+					text = <"Ja">
+					description = <"Person hat ausreichend Ersparnisse bzw. Vermögen.">
+				>
+				["at0028"] = <
+					text = <"Ja">
+					description = <"Person hat kein Erspartes oder Vermögen.">
+				>
+				["at0029"] = <
+					text = <"Ja">
+					description = <"Person hat nur wenig Erspartes oder Vermögen.">
+				>
+				["at0030"] = <
+					text = <"Selbstständiges Regeln der Finanzen">
+					description = <"Regeln Sie Ihre Finanzen selbst?">
+				>
+				["at0031"] = <
+					text = <"Ja">
+					description = <"Ja.">
+				>
+				["at0032"] = <
+					text = <"Nein">
+					description = <"Nein">
+				>
+				["at0033"] = <
+					text = <"Ja">
+					description = <"Person regelt Finanzen nicht selbstständig.">
+				>
+				["at0034"] = <
+					text = <"Ja">
+					description = <"Person regelt Finanzen selbstständig.">
+				>
+			>
+		>
+	>

@@ -118,7 +118,7 @@
             <Rule path="/items[at0004]" max="0" />
           </Items>
         </Item>
-        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" path="/items">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" max="1" path="/items">
           <Rule path="/data[at0002]/items[at0022]">
             <constraint xsi:type="textConstraint">
               <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
@@ -147,6 +147,11 @@
       <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Körpergröße">
         <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v2" concept_name="Größe/Länge" path="/items">
           <Rule path="/data[at0001]/events[at0002]" max="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+            <constraint xsi:type="quantityConstraint">
+              <excludedUnits>[in_i]</excludedUnits>
+            </constraint>
+          </Rule>
           <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" max="0" />
           <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]" max="0" />
           <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]" max="0" />
@@ -156,6 +161,12 @@
       <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Körpergewicht">
         <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" path="/items">
           <Rule path="/data[at0002]/events[at0003]" max="1" />
+          <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+            <constraint xsi:type="quantityConstraint">
+              <excludedUnits>[lb_av]</excludedUnits>
+              <excludedUnits>g</excludedUnits>
+            </constraint>
+          </Rule>
           <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
           <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
           <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
@@ -165,6 +176,11 @@
       <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/items" name="Schwangerschaftsstatus">
         <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pregnancy_status.v0" concept_name="Schwangerschaftsstatus" max="1" min="1" path="/items">
           <Rule path="/data[at0001]/events[at0002]" max="1" min="1" />
+          <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0024</excludedValues>
+            </constraint>
+          </Rule>
           <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]" max="0" />
           <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" max="0" />
         </Item>
@@ -518,234 +534,13 @@
               <includedValues>LOINC::8691-8::History of Travel</includedValues>
             </constraint>
           </Rule>
-          <Rule path="/data[at0001]/items[at0005]" max="1" name="Aussage über die fehlende Information">
+          <Rule path="/data[at0001]/items[at0005]" max="1" min="1" name="Aussage über die fehlende Information">
             <constraint xsi:type="textConstraint">
               <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
             </constraint>
           </Rule>
           <Rule path="/protocol[at0003]/items[at0004]" max="0" />
         </Item>
-      </Item>
-    </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Epidemiologische Faktoren">
-      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" min="1" path="/items" name="SARS-CoV-2 Exposition">
-        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0" concept_name="Ermittlung der infektiösen Exposition" max="1" min="1" path="/items" name="SARS-CoV-2 Exposition">
-          <Rule path="/data[at0001]/items[at0002]" min="1">
-            <constraint xsi:type="textConstraint">
-              <includedValues>SARS-CoV-2</includedValues>
-            </constraint>
-          </Rule>
-          <Rule path="/data[at0001]/items[at0003]" name="Exposition vorhanden?">
-            <constraint xsi:type="textConstraint">
-              <includedValues>SNOMED-CT::840546002::Exposure to severe acute respiratory syndrome coronavirus 2 (event)</includedValues>
-              <includedValues>SNOMED-CT::373067005::No (qualifier value)</includedValues>
-              <includedValues>http://terminology.hl7.org/CodeSystem/data-absent-reason::unknown::Unknown</includedValues>
-            </constraint>
-          </Rule>
-          <Rule path="/data[at0001]/items[at0005]/items[at0027]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0024]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0006]" min="1">
-            <constraint xsi:type="textConstraint">
-              <includedValues>Kontakt zu COVID-19 erkrankter Person</includedValues>
-            </constraint>
-          </Rule>
-          <Rule path="/data[at0001]/items[at0005]/items[at0007]" max="1" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0018]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0008]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0009]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0020]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0021]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0011]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0012]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0025]" max="0" />
-          <Rule path="/data[at0001]/items[at0005]/items[at0004]" max="0" />
-          <Rule path="/data[at0001]/items[at0030]" max="0" />
-          <Rule path="/data[at0001]/items[at0013]" max="0" />
-        </Item>
-      </Item>
-    </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Symptom ">
-      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign.v0" concept_name="Symptom/Krankheitsanzeichen" max="1" path="/items" name="Vorliegendes Symptom">
-        <Rule path="/data[at0190]/events[at0191]" max="1" min="1" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
-            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
-            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
-            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
-            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
-            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
-            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
-            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
-            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
-            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
-            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
-            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
-            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
-            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
-            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
-            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
-            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
-            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
-            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
-            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
-            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
-            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
-            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
-            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
-            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
-            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
-            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
-            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
-            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
-            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
-            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
-            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
-            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
-            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
-            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
-            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
-            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
-            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
-            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
-            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0035]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0002]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0175]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0186]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0164]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0028]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0021]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED CT::255604002::Mild (qualifier value)</includedValues>
-            <includedValues>SNOMED CT::6736007::Moderate (severity modifier) (qualifier value)</includedValues>
-            <includedValues>SNOMED CT::24484000::Severe (severity modifier) (qualifier value)</includedValues>
-            <includedValues>SNOMED CT::442452003::Life threatening severity (qualifier value)</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0026]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0189]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0180]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0003]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0018]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0165]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0155]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0037]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0057]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0031]" max="0" />
-        <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0163]" max="0" />
-      </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" path="/items" name="Ausgeschlossenes Symptom">
-        <Rule path="/data[at0001]/items[at0002]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED-CT::410594000::Known absent (qualifier value)</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
-            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
-            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
-            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
-            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
-            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
-            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
-            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
-            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
-            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
-            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
-            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
-            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
-            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
-            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
-            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
-            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
-            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
-            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
-            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
-            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
-            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
-            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
-            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
-            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
-            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
-            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
-            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
-            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
-            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
-            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
-            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
-            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
-            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
-            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
-            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
-            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
-            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
-            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
-            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
-          </constraint>
-          <nameConstraint>
-            <excludedValues>local::at0008</excludedValues>
-            <excludedValues>local::at0005</excludedValues>
-            <excludedValues>local::at0006</excludedValues>
-            <excludedValues>local::at0007</excludedValues>
-          </nameConstraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0012]" max="0" />
-      </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v2" concept_name="Fehlen von Informationen" max="1" path="/items" name="Unbekanntes Symptom">
-        <Rule path="/data[at0001]/items[at0002]" name="Unbekanntes Symptom">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED CT::21522001::Abdominal pain (finding)</includedValues>
-            <includedValues>SNOMED CT::84387000::Asymptomatic (finding)</includedValues>
-            <includedValues>SNOMED CT::131148009::Bleeding (finding)</includedValues>
-            <includedValues>SNOMED CT::29857009::Chest pain (finding)</includedValues>
-            <includedValues>SNOMED CT::43724002::Chill (finding)</includedValues>
-            <includedValues>SNOMED CT::9826008::Conjunctivitis (disorder)</includedValues>
-            <includedValues>SNOMED CT::49727002::Cough (finding)</includedValues>
-            <includedValues>SNOMED CT::62315008::Diarrhea (finding)</includedValues>
-            <includedValues>SNOMED CT::3006004::Disturbance of consciousness (finding)</includedValues>
-            <includedValues>SNOMED CT::267036007::Dyspnea (finding)</includedValues>
-            <includedValues>SNOMED CT::271807003::Eruption of skin (disorder)</includedValues>
-            <includedValues>SNOMED CT::84229001::Fatigue (finding)</includedValues>
-            <includedValues>SNOMED CT::103001002::Feeling feverish (finding)</includedValues>
-            <includedValues>SNOMED CT::386661006::Fever (finding)</includedValues>
-            <includedValues>SNOMED CT::25064002::Headache (finding)</includedValues>
-            <includedValues>SNOMED CT::66857006::Hemoptysis (finding)</includedValues>
-            <includedValues>SNOMED CT::248567008::Indrawing of ribs during respiration (finding)</includedValues>
-            <includedValues>SNOMED CT::57676002::Joint pain (finding)</includedValues>
-            <includedValues>SNOMED CT::79890006::Loss of appetite (finding)</includedValues>
-            <includedValues>SNOMED CT::44169009::Loss of sense of smell (finding)</includedValues>
-            <includedValues>SNOMED CT::36955009::Loss of taste (finding)</includedValues>
-            <includedValues>SNOMED CT::30746006::Lymphadenopathy (disorder)</includedValues>
-            <includedValues>SNOMED CT::367391008::Malaise (finding)</includedValues>
-            <includedValues>SNOMED CT::68962001::Muscle pain (finding)</includedValues>
-            <includedValues>SNOMED CT::68235000::Nasal congestion (finding)</includedValues>
-            <includedValues>SNOMED CT::64531003::Nasal discharge (finding)</includedValues>
-            <includedValues>SNOMED CT::422587007::Nausea (finding)</includedValues>
-            <includedValues>SNOMED CT::162397003::Pain in throat (finding)</includedValues>
-            <includedValues>SNOMED CT::38880002::Rigor (finding)</includedValues>
-            <includedValues>SNOMED CT::91175000::Seizure (finding)</includedValues>
-            <includedValues>SNOMED CT::46742003::Skin ulcer (disorder)</includedValues>
-            <includedValues>SNOMED CT::282145008::Unable to walk (finding)</includedValues>
-            <includedValues>SNOMED CT::422400008::Vomiting (disorder)</includedValues>
-            <includedValues>SNOMED CT::56018004::Wheezing (finding)</includedValues>
-            <includedValues>SNOMED CT::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
-            <includedValues>SNOMED CT::13791008::Asthenia (finding)</includedValues>
-            <includedValues>SNOMED CT::22253000::Pain (finding)</includedValues>
-            <includedValues>SNOMED CT::28743005::Productive cough (finding)</includedValues>
-            <includedValues>SNOMED CT::11833005::Dry cough (finding)</includedValues>
-            <includedValues>SNOMED CT::40917007::Clouded consciousness (finding)</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0005]" max="1" name="Aussage über die fehlende Information">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/protocol[at0003]/items[at0004]" max="0" />
       </Item>
     </Content>
     <Context />
@@ -803,11 +598,5 @@
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.absence.v2">
     <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
-  </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0">
-    <digest id="MD5-CAM-1.0.1">365FF276F84E80453823135E933A8453</digest>
-  </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign.v0">
-    <digest id="MD5-CAM-1.0.1">E55D399327269630FD86E87828DF5D24</digest>
   </integrity_checks>
 </template>
