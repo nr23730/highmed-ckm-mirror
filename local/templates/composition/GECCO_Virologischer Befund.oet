@@ -92,7 +92,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>77985321f6638e1de6bb6102461fa90c</value>
+                <value>3eee1a96970dd3130281ea33996614de</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -273,9 +273,19 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0004]/items[at0094]"/>
-            <Rule name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]"/>
-            <Rule min="1" path="/protocol[at0004]/items[at0094]/items[at0063]">
+            <Rule max="1" min="1" path="/protocol[at0004]/items[at0094]"/>
+            <Rule max="1" min="1" name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>LOINC::94504-8::SARS-CoV-2 (COVID-19) Ab panel - Serum or Plasma by Immunoassay</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0004]/items[at0094]/items[at0062]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Identifier</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0004]/items[at0094]/items[at0063]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Identifier</includedTypes>
                     <includedTypes>Text</includedTypes>
@@ -307,20 +317,20 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                             <includedValues>LOINC::94564-2::SARS-CoV-2 (COVID-19) IgM Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule max="1" min="1" name="Nachweis" path="/items[at0001]">
+                    <Rule max="1" name="Nachweis" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>SNOMED Clinical Terms::260373001::Detected (qualifier value)</includedValues>
                             <includedValues>SNOMED Clinical Terms::260415000::Not detected (qualifier value)</includedValues>
                             <includedValues>SNOMED Clinical Terms::419984006::Inconclusive (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule clone="true" name="Quantitatives Ergebnis" path="/items[at0001]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>MultiMedia</includedTypes>
+                    <Rule clone="true" max="1"
+                        name="Quantitatives Ergebnis" path="/items[at0001]">
+						 <constraint xsi:type="tem:multipleConstraint">
                             <includedTypes>Quantity</includedTypes>
-                            <includedTypes>Count</includedTypes>
+                         
                         </constraint>
-                    </Rule>
+						</Rule>
                     <Rule max="0" name="Interpretation" path="/items[at0004]"/>
                     <Rule min="1" path="/items[at0025]"/>
                     <Rule min="1" path="/items[at0005]">
@@ -342,9 +352,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
         </Content>
         <Rule name="Tree" path="/context/other_context[at0001]"/>
         <Rule min="1" path="/context/other_context[at0001]/items[at0005]">
-            <constraint xsi:type="tem:textConstraint">
-
-            </constraint>
+       
         </Rule>
     </definition>
     <view>
