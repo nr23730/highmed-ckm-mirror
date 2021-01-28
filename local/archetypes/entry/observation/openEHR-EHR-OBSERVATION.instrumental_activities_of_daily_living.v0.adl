@@ -31,8 +31,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"214E7D72724403865440ED1EA3A81E54">
-		["build_uid"] = <"54e8adc2-6e2c-432f-9c37-3158e25b834e">
+		["MD5-CAM-1.0.1"] = <"76BA3F3026AF9268F6A0FE51E7CE5C8E">
+		["build_uid"] = <"d315eb6e-fe14-48b6-872e-3a3302f2af81">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -77,7 +77,7 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0068] matches {	-- Kochen
+									CLUSTER[at0068] occurrences matches {0..1} matches {	-- Kochen
 										items cardinality matches {1; unordered} matches {
 											ELEMENT[at0078] occurrences matches {0..1} matches {	-- Plant und kocht erforderliche Mahlzeit selbstständig
 												value matches {1|[local::at0104]}		-- Ja
@@ -113,7 +113,7 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0069] matches {	-- Haushalt
+									CLUSTER[at0069] occurrences matches {0..1} matches {	-- Haushalt
 										items cardinality matches {1; unordered} matches {
 											ELEMENT[at0082] occurrences matches {0..1} matches {	-- Hält Haushalt instand oder benötigt zeitweise Hilfe bei schweren Arbeiten
 												value matches {1|[local::at0121]}		-- Ja
@@ -149,7 +149,7 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0070] matches {	-- Wäsche
+									CLUSTER[at0070] occurrences matches {0..1} matches {	-- Wäsche
 										items cardinality matches {1; unordered} matches {
 											ELEMENT[at0088] occurrences matches {0..1} matches {	-- Wäscht sämtliche eigene Wäsche
 												value matches {1|[local::at0129]}		-- Ja
@@ -222,33 +222,22 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0049] occurrences matches {0..1} matches {	-- Geschlecht
-										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0052, 	-- Weiblich
-													at0053]	-- Männlich
-												}
-											}
-										}
-										null_flavour existence matches {0..1} matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[openehr::
-													272, 
-													273, 
-													271, 
-													253]
-												}
-											}
-										}
-									}
 									ELEMENT[at0048] matches {	-- Gesamtpunktzahl
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|0..8|}
 											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0162] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0163] occurrences matches {0..1} matches {	-- Einflussfaktoren
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 								}
@@ -261,6 +250,17 @@ definition
 		protocol matches {
 			ITEM_TREE[at0156] matches {	-- Baum
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0159] occurrences matches {0..1} matches {	-- Geschlecht
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0160, 	-- Weiblich
+									at0161]	-- Männlich
+								}
+							}
+						}
+					}
 					allow_archetype CLUSTER[at0158] occurrences matches {0..*} matches {	-- Erweiterungen
 						include
 							archetype_id/value matches {/.*/}
@@ -294,18 +294,6 @@ ontology
 				["at0048"] = <
 					text = <"Gesamtpunktzahl">
 					description = <"Gesamtpunktzahl, bei männlich: 5, bei weiblich: 8.">
-				>
-				["at0049"] = <
-					text = <"Geschlecht">
-					description = <"Welches Geschlecht hat der/die Befragte?">
-				>
-				["at0052"] = <
-					text = <"Weiblich">
-					description = <"Weiblische Person.">
-				>
-				["at0053"] = <
-					text = <"Männlich">
-					description = <"Männliche Person.">
 				>
 				["at0054"] = <
 					text = <"Telefon">
@@ -586,6 +574,26 @@ ontology
 				["at0158"] = <
 					text = <"Erweiterungen">
 					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+				>
+				["at0159"] = <
+					text = <"Geschlecht">
+					description = <"Geschlecht der Person.">
+				>
+				["at0160"] = <
+					text = <"Weiblich">
+					description = <"Die Person ist weiblich.">
+				>
+				["at0161"] = <
+					text = <"Männlich">
+					description = <"Die Person ist männlich.">
+				>
+				["at0162"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0163"] = <
+					text = <"Einflussfaktoren">
+					description = <"Beschreibung aller Probleme oder Faktoren, die sich auf die Bewertung auswirken können.">
 				>
 			>
 		>
