@@ -1,0 +1,155 @@
+﻿archetype (adl_version=1.4; uid=dbbac037-1abf-487e-a896-2d0bfac1405c)
+	openEHR-EHR-OBSERVATION.schmerzerfassung.v0
+
+concept
+	[at0000]	-- Schmerzerfassung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Diese Befragung dient dazu, Schmerzen genau zu lokalisieren und die Stärke des Schmerzes zu erfassen, um so die Einschränkung durch den Schmerz bewerten zu können.">
+			use = <"Wird verwendet, um die Schmerzerfassung mithilfe der visuellen Analogskala zu bewerten und so die entstandene Einschränkung einschätzen zu können.">
+			keywords = <"Schmerz", "Schmerzerfassung", "VAS", "Analogskala">
+			misuse = <"Wird nicht verwendet, um die virtuelle Analogskala im einzelnen zu erfassen, hierfür folgenden Archetypen verwenden: 
+OBSERVATION.pain_scale.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7BF276E31FA43F585A4CCCEA6124D77D">
+		["build_uid"] = <"910f299a-ee38-4c2a-8b28-b4e39ce7e1b9">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Schmerzerfassung
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0004] occurrences matches {0..1} matches {	-- Schmerzlokalisaiton
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Schmerzen vorhanden
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {	-- Körperregion/Organsystem
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dauer/ Verlauf/ Qualität der Schmerzen
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Schmerzstärke
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..10|}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Bewegungseinschränkung durch die Schmerzen
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..10|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0012] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Schmerzerfassung">
+					description = <"Befragung, um Schmerzen zu erfassen und Einschränkungen durch diese zu erkennen.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardmäßiger, nicht näher beschriebener Zeitpunkt oder Intervall Ereignis welches in einem Template oder bei der Anwendung genauer definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Schmerzlokalisaiton">
+					description = <"Ermitteln der Schmerzlokalisation.">
+				>
+				["at0005"] = <
+					text = <"Schmerzen vorhanden">
+					description = <"Haben Sie Schmerzen und wenn ja, bei welchen Tätigkeiten (liegen, stehen, laufen)?">
+				>
+				["at0006"] = <
+					text = <"Körperregion/Organsystem">
+					description = <"Wo liegen die Schmerzen?">
+				>
+				["at0007"] = <
+					text = <"Dauer/ Verlauf/ Qualität der Schmerzen">
+					description = <"Wie lange haben Sie die Schmerzen schon?">
+				>
+				["at0010"] = <
+					text = <"Bewegungseinschränkung durch die Schmerzen">
+					description = <"Wie stark fühlen Sie sich durch die Schmerzen in Ihrer Bewegung eingeschränkt bei einer Skala von 0 bis 10, wobei 10 die stärkste Einschränkung darstellt?">
+				>
+				["at0011"] = <
+					text = <"Schmerzstärke">
+					description = <"Wie stark fühlt sich der Schmerz (z.B. Knie) an? Bewertung anhand der virtuellen Analogskala (VAS).">
+				>
+				["at0012"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+				>
+			>
+		>
+	>
