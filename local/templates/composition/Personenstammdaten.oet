@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>3424b4b1-e7a4-41f4-9099-b5952255bb61</id>
+    <name>Personenstammdaten</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2020-09-17</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Max Mustermann</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Uniklinikum Heidelberg</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>Max.Mustermann@med.uni-heildelberg.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details>
+            <purpose>Zu Forschungszwecken im Rahmen des 3LGM2IHE Projekts</purpose>
+            <keywords>
+                <item>Personendaten</item>
+                <item>Demographie</item>
+                <item>Patient</item>
+                <item>Proband</item>
+                <item>Identifikation</item>
+            </keywords>
+            <use>Zur Repräsentation von Angaben zu einer Person, die im Kontext einer Gesundheitseinrichtung oder Studie relevant sein können.</use>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value>3lgm2ihe</value>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>028f3127277a305e9c07b2e4a87439f0</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>25E0B4F0536C1425353404A9B6B454E2</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.personendaten.v0"
+        concept_name="Personendaten" name="Personenstammdaten"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0002]/items[at0022]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>HL7 FHIR::male::the patient identifies as male</includedValues>
+                    <includedValues>HL7 FHIR::female::the patient identifies as female</includedValues>
+                    <includedValues>HL7 FHIR::non-binary::the patient identifies with neither/both female and male</includedValues>
+                    <includedValues>HL7 FHIR::transgender-male::the patient identifies as transgender female-to-male</includedValues>
+                    <includedValues>HL7 FHIR::transgender-female::the patient identifies as transgender male-to-female</includedValues>
+                    <includedValues>HL7 FHIR::other::other gender identity</includedValues>
+                    <includedValues>HL7 FHIR::non-disclose::the patient does not wish to disclose his gender identity</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0002]/items[at0026]"/>
+            <Rule max="0" path="/data[at0002]/items[at0019]"/>
+            <Rule max="0" path="/data[at0002]/items[at0025]"/>
+            <Rule max="0" path="/data[at0002]/items[at0001]"/>
+            <Rule max="0" path="/data[at0002]/items[at0020]"/>
+            <Rule max="0" path="/data[at0002]/items[at0014]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule max="0" path="/data[at0001]/items[at0008]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
+                max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
+                <Rule name="Sterbedatum und Uhrzeit" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0004]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+                concept_name="Adresse" name="Adresse Straßenanschrift"
+                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule name="Straße" path="/items[at0010]"/>
+                <Rule name="Hausnummer" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+                concept_name="Adresse" name="Adresse Postfach"
+                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" name="Straße" path="/items[at0010]"/>
+                <Rule name="Postfachnummer" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0012]"/>
+                <Rule max="0" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0014]"/>
+                <Rule max="0" path="/items[at0015]"/>
+                <Rule max="0" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
+                max="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
+                <Rule path="/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0004]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
+                <Rule max="0" path="/items[at0005]"/>
+                <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+                    max="1" path="/items[at0006]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0006]"/>
+                    <Rule max="0" path="/items[at0010]"/>
+                    <Rule max="0" path="/items[at0011]"/>
+                    <Rule max="0" path="/items[at0013]"/>
+                    <Rule max="0" path="/items[at0014]"/>
+                    <Rule max="0" path="/items[at0015]"/>
+                    <Rule max="0" path="/items[at0016]"/>
+                    <Rule max="0" path="/items[at0017]"/>
+                </Items>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule name="Präfix" path="/items[at0002]/items[at0017]"/>
+                <Rule max="0" path="/items[at0002]/items[at0004]"/>
+                <Rule name="Zusatz Nachname" path="/items[at0002]/items[at0018]"/>
+                <Rule max="0" path="/items[at0014]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0"
+                max="1" path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER"/>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0"
+                max="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER"/>
+            <Items
+                archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0"
+                concept_name="Person Identifikator" max="1"
+                name="Personidentifikator"
+                path="/data[at0001]/items[at0007]" xsi:type="tem:CLUSTER"/>
+        </Content>
+        <Rule max="0" path="/context[at0002]/other_context[at0003]/items[at0004]"/>
+    </definition>
+    <integrity_checks
+        archetype_id="openEHR-EHR-COMPOSITION.personendaten.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">25E0B4F0536C1425353404A9B6B454E2</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">EF681A049575CDCED3F513DFE65343E9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FBB2C540ECD74F62A47989C5819DE009</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">412038B78AE9EBA86BF7F4A2BDDADE0A</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FA9E215CB95BE6F50667A10DEB71F199</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7C5220D490285A2548A935D41CF43F83</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">973D0B74D53ED502798CA1ACED1D09E7</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-DEMOGRAPHIC-CLUSTER.person_identifier.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C8352CC97A2F9BF24377E076AF524502</digest>
+    </integrity_checks>
+</template>
