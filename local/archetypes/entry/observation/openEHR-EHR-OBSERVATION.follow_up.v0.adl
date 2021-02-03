@@ -44,9 +44,6 @@ In case no contact can be established with the patient, other persons can be spe
 			keywords = <"Follow-Up", "Tracking", "Progress", "History">
 			misuse = <"">
 			copyright = <"© HiGHmed">
-			other_details = <
-				["notes"] = <"Generated automatically by Adl Designer">
-			>
 		>
 	>
 	lifecycle_state = <"in_development">
@@ -57,13 +54,13 @@ In case no contact can be established with the patient, other persons can be spe
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"BF247439E23573FC784E40261326ED92">
-		["build_uid"] = <"008518c0-5e25-4929-95ac-167e13f45bce">
+		["MD5-CAM-1.0.1"] = <"7CD4DEDAC5407B9A4B84336F715227C6">
+		["build_uid"] = <"a3b19a2d-70e8-48f5-a69c-d58cef8c2ecd">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- Follow-Up
+	OBSERVATION[at0000] matches {	-- Follow-Up
 		provider matches {
 			PARTY_PROXY matches {*}
 		}
@@ -73,8 +70,8 @@ definition
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[openehr::
-							204,
-							216,
+							204, 
+							216, 
 							210]
 						}
 					}
@@ -83,65 +80,69 @@ definition
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0022,    -- Patient
-							at0023,    -- Angehöriger
-							at0024,    -- Arzt
-							at0025]    -- Sonstiger
+							at0022, 	-- Patient
+							at0023, 	-- Relative
+							at0024, 	-- Doctor
+							at0025]	-- Other
 						}
 					}
 				}
 			}
 		}
 		data matches {
-			HISTORY[at0001] matches {    -- Event Series
+			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Beliebiges Ereignis
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {    -- Baum
+							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0037] occurrences matches {0..1} matches {    -- Kontaktaufnahme erfolgreich?
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Contact successful?
 										value matches {
-											DV_BOOLEAN matches {*}
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
 										}
 									}
-									ELEMENT[at0039] occurrences matches {0..*} matches {    -- Details zur Kommunikationsart
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0042] occurrences matches {0..*} matches {    -- Details zum Teilnehmer
+									ELEMENT[at0039] occurrences matches {0..*} matches {	-- Details about the communication type
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									CLUSTER[at0044] occurrences matches {0..1} matches {    -- Tod
+									ELEMENT[at0042] occurrences matches {0..*} matches {	-- Details about the participant
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0044] occurrences matches {0..1} matches {	-- Death
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0043] occurrences matches {0..1} matches {    -- Patient verstorben?
+											ELEMENT[at0043] occurrences matches {0..1} matches {	-- Patient has died?
 												value matches {
-													DV_BOOLEAN matches {*}
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
 												}
 											}
-											allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {    -- Weitere Angaben zum Tod
+											allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {	-- Further information about death
 												include
 													archetype_id/value matches {/.*/}
 											}
 										}
 									}
-									CLUSTER[at0046] occurrences matches {0..*} matches {    -- Follow-Up Ergebnis
+									CLUSTER[at0046] occurrences matches {0..*} matches {	-- Follow-Up question
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0047] occurrences matches {0..1} matches {    -- Frage
+											ELEMENT[at0048] occurrences matches {0..1} matches {*}
+											ELEMENT[at0047] occurrences matches {0..1} matches {	-- Comment
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0048] occurrences matches {0..1} matches {*}    -- Antwort
-											allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {    -- Weitere Angaben
+											allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {	-- Further details
 												include
 													archetype_id/value matches {/.*/}
 											}
 										}
 									}
-									ELEMENT[at0038] occurrences matches {0..*} matches {    -- Kommentar
+									ELEMENT[at0038] occurrences matches {0..*} matches {	-- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -154,7 +155,7 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0050] matches {*}    -- Item tree
+			ITEM_TREE[at0050] matches {*}
 		}
 	}
 
@@ -224,12 +225,13 @@ ontology
 					description = <"In diesen Slot können weitere Cluster Archetypen eingefügt werden, um weitere Angaben zum Tod des Patienten zu dokumentieren.">
 				>
 				["at0046"] = <
-					text = <"Follow-Up Ergebnis">
+					text = <"Follow-Up Frage">
 					description = <"In diesem Cluster sollen Ergebnisse, die im Rahmen des Follow-Ups erhoben werden, dokumentiert werden.">
+					comment = <"Der Name des Clusters ist die Fragestellung.">
 				>
 				["at0047"] = <
-					text = <"Frage">
-					description = <"Die Fragestellung, die im Rahmen des Follow-Ups beantwortet werden soll.">
+					text = <"Kommentar">
+					description = <"Ein Kommentar zur Antwort.">
 				>
 				["at0048"] = <
 					text = <"Antwort">
@@ -308,12 +310,13 @@ ontology
 					description = <"Additional cluster archetypes can be inserted into this slot to document additional information about the patient's death.">
 				>
 				["at0046"] = <
-					text = <"Follow-Up Result">
-					description = <"In this cluster, results that are collected during the follow-up are to be documented.">
+					text = <"Follow-Up question">
+					description = <"Within this cluster results of the follow-up should be documented.">
+					comment = <"The name of the cluster is the question.">
 				>
 				["at0047"] = <
-					text = <"Question">
-					description = <"The question to be answered in the follow-up. ">
+					text = <"Comment">
+					description = <"A comment on the answer.">
 				>
 				["at0048"] = <
 					text = <"Response">
