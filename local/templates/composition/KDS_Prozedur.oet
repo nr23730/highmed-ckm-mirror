@@ -32,8 +32,8 @@
                 <item>Therapie</item>
                 <item>Behandlung</item>
             </keywords>
-            <use>Zur Darstellung von Prozeduren zu verwenden. Für spezifische Anwendungsfälle mit weiteren Details (z.B. Operationen) wird empfohlen, ein eigenes Template unter Benutzung des Achetypes ACTION.procedure zu modellieren. Für das initiale Laden der im Rahmen der MI-Initiative abgestimmten Kerndatensatzelemente zu verwenden.</use>
-            <misuse>Nicht zur Darstellung umfangreicher Details über spezifische Prozeduren, wie z.B. bildgebende Verfahren oder Operationen. Bitte dazu eigene Templates unter Nutzung des Archeypes ACTION.procedure erstellen.</misuse>
+            <use>Zur Darstellung von Prozeduren zu verwenden. Für spezifische Anwendungsfälle mit weiteren Details (z.B. Operationen) wird empfohlen, ein eigenes Template unter Benutzung des Archetypes ACTION.procedure zu modellieren. Für das initiale Laden der im Rahmen der MI-Initiative abgestimmten Kerndatensatzelemente zu verwenden.</use>
+            <misuse>Nicht zur Darstellung umfangreicher Details über spezifische Prozeduren, wie z.B. bildgebende Verfahren oder Operationen. Bitte dazu eigene Templates unter Nutzung des Archetypes ACTION.procedure erstellen.</misuse>
         </details>
         <other_details>
             <item>
@@ -102,31 +102,31 @@
             </item>
         </other_details>
     </description>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0002]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0063]">
         <items>
             <item>
-                <key>ttp://fhir.de/ValueSet/dimdi/ops</key>
-                <value>OPS</value>
-            </item>
-            <item>
                 <key>http://snomed.info/sct</key>
-                <value>DescendentOf 71388002</value>
+                <value> IsA 442083009 </value>
             </item>
         </items>
     </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0063]">
         <items>
             <item>
-                <key>442083009</key>
-                <value> 	Anatomical or acquired body structure (body structure)</value>
+                <key>http://snomed.info/sct</key>
+                <value> IsA 442083009 </value>
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0002]">
         <items>
             <item>
+                <key>http://fhir.de/ValueSet/dimdi/ops</key>
+                <value>OPS</value>
+            </item>
+            <item>
                 <key>http://snomed.info/sct</key>
-                <value>SNOMED Clinical Terms</value>
+                <value>DescendentOf 71388002</value>
             </item>
         </items>
     </annotations>
@@ -138,14 +138,17 @@
             path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0034]"/>
             <Rule max="0" min="0" path="/ism_transition[at0035]"/>
-            <Rule path="/description[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint"/>
-            </Rule>
             <Rule name="Freitextbeschreibung" path="/description[at0001]/items[at0049]"/>
+            <Rule max="0" path="/description[at0001]/items[at0070]"/>
             <Rule max="0" path="/description[at0001]/items[at0065]"/>
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
-            <Rule path="/description[at0001]/items[at0063]">
-                <constraint xsi:type="tem:textConstraint"/>
+            <Rule name="Körperstelle" path="/description[at0001]/items[at0063]"/>
+            <Rule clone="true" name="Seitenlokalisation" path="/description[at0001]/items[at0063]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>ICD-10-GM::L::links</includedValues>
+                    <includedValues>ICD-10-GM::R::rechts</includedValues>
+                    <includedValues>ICD-10-GM::B::beiderseits</includedValues>
+                </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0048]"/>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
@@ -159,7 +162,7 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
-            <Rule path="/description[at0001]/items[at0067]">
+            <Rule name="Kategorie der Prozedur" path="/description[at0001]/items[at0067]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
                     <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
@@ -194,34 +197,11 @@
                     <includedTypes>Identifier</includedTypes>
                 </constraint>
             </Rule>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-                concept_name="Anatomische Lokalisation"
-                name="Details zur Körperstelle"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
-                <Rule max="0" path="/items[at0065]"/>
-                <Rule max="0" path="/items[at0064]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0055]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0023]"/>
-            </Items>
         </Content>
         <Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1" min="1"
+                max="1"
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule min="1" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
@@ -245,12 +225,6 @@
     <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">CCA98FC01E850D302CF1E149938C4E54</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
+        <digest id="MD5-CAM-1.0.1">108CD01BE8E751B5AA89279E73962671</digest>
     </integrity_checks>
 </template>
