@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<template xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="openEHR/v1/Template">
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>bf3c50c7-029c-47a2-97a6-eebfab607b48</id>
   <name>Anamnese</name>
   <description>
@@ -65,50 +65,98 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" max="1" path="/content">
-      <Rule path="/data[at0002]/items[at0022]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Weiblich</includedValues>
-          <includedValues>Männlich</includedValues>
-          <includedValues>Divers</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0002]/items[at0026]" max="0" />
-      <Rule path="/data[at0002]/items[at0019]" max="0" />
-      <Rule path="/data[at0002]/items[at0025]" max="0" />
-      <Rule path="/data[at0002]/items[at0001]" max="0" />
-      <Rule path="/data[at0002]/items[at0020]" max="0" />
-      <Rule path="/data[at0002]/items[at0014]" max="0" />
-      <Rule path="/protocol[at0003]/items[at0004]" max="0" />
-    </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v2" concept_name="Größe/Länge" max="1" path="/content">
-      <Rule path="/data[at0001]/events[at0002]" max="1" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Größe">
-        <constraint xsi:type="quantityConstraint">
-          <excludedUnits>[in_i]</excludedUnits>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" max="0" />
-      <Rule path="/data[at0001]/events[at0002]/state[at0013]" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]" max="0" />
-      <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]" max="0" />
-      <Rule path="/data[at0001]/events[at0021]" max="0" />
-      <Rule path="/protocol[at0007]" hide_on_form="true" />
-    </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" max="1" path="/content">
-      <Rule path="/data[at0002]/events[at0003]" max="1" />
-      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
-        <constraint xsi:type="quantityConstraint">
-          <excludedUnits>[lb_av]</excludedUnits>
-          <excludedUnits>g</excludedUnits>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
-      <Rule path="/data[at0002]/events[at0003]/state[at0008]" hide_on_form="true" />
-      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
-      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
-      <Rule path="/data[at0002]/events[at0026]" max="0" />
-      <Rule path="/protocol[at0015]" hide_on_form="true" />
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Körperliche Untersuchung und soziodemographische Angaben">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.gender.v1" concept_name="Geschlecht" max="1" path="/items">
+        <Rule path="/data[at0002]/items[at0022]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Weiblich</includedValues>
+            <includedValues>Männlich</includedValues>
+            <includedValues>Divers</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0002]/items[at0026]" max="0" />
+        <Rule path="/data[at0002]/items[at0019]" max="0" />
+        <Rule path="/data[at0002]/items[at0025]" max="0" />
+        <Rule path="/data[at0002]/items[at0001]" max="0" />
+        <Rule path="/data[at0002]/items[at0020]" max="0" />
+        <Rule path="/data[at0002]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0003]/items[at0004]" max="0" />
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v2" concept_name="Größe/Länge" max="1" path="/items">
+        <Rule path="/data[at0001]/events[at0002]" max="1" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Größe">
+          <constraint xsi:type="quantityConstraint">
+            <excludedUnits>[in_i]</excludedUnits>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0013]" hide_on_form="true" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]" max="0" />
+        <Rule path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]" max="0" />
+        <Rule path="/data[at0001]/events[at0021]" max="0" />
+        <Rule path="/protocol[at0007]" hide_on_form="true" />
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" concept_name="Körpergewicht" max="1" path="/items">
+        <Rule path="/data[at0002]/events[at0003]" max="1" />
+        <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+          <constraint xsi:type="quantityConstraint">
+            <excludedUnits>[lb_av]</excludedUnits>
+            <excludedUnits>g</excludedUnits>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
+        <Rule path="/data[at0002]/events[at0003]/state[at0008]" hide_on_form="true" />
+        <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
+        <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
+        <Rule path="/data[at0002]/events[at0026]" max="0" />
+        <Rule path="/protocol[at0015]" hide_on_form="true" />
+      </Item>
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0" concept_name="Personendaten" max="1" path="/items">
+        <Rule path="/data[at0001]/items[at0008]" max="0" />
+        <Rule path="/data[at0001]/items[at0024]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0" concept_name="Ethnischer Hintergrund" max="1" path="/data[at0001]/items[at0007]">
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Kaukasisch</includedValues>
+              <includedValues>Nicht kaukasisch</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" name="Hautfarbe">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Schwarze Hautfarbe</includedValues>
+              <includedValues>Keine schwarze Hautfarbe</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.health_risk.v1" concept_name="Bewertung des Gesundheitsrisikos" max="1" path="/items" name="Familiäre Disposition">
+        <Rule path="/data[at0001]/items[at0002]" hide_on_form="true" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0013]" hide_on_form="true" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0017]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0014]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0029]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0028]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0012]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]/items[at0030]" max="0" />
+        <Rule path="/data[at0001]/items[at0003]" max="0" />
+        <Rule path="/data[at0001]/items[at0020]" max="0" />
+        <Rule path="/data[at0001]/items[at0023]" max="0" />
+        <Rule path="/data[at0001]/items[at0004]" max="0" />
+        <Rule path="/data[at0001]/items[at0015]" max="0" />
+        <Rule path="/protocol[at0010]/items[at0024]" max="0" />
+        <Rule path="/protocol[at0010]/items[at0025]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.family_prevalence.v1" concept_name="Familienprävalenz" max="1" path="/data[at0001]/items[at0016]/items[at0027]" name="Familiäre Disposition von Myokardinfarkt oder Schlaganfall ">
+          <Rule path="/items[at0030]" name=" Familiäre Disposition bei Eltern, Geschwistern oder Kindern ">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Familiäre Disposition</includedValues>
+              <includedValues>Keine familiäre Disposition</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0055]" max="0" />
+          <Rule path="/items[at0056]" max="0" />
+          <Rule path="/items[at0031]" max="0" />
+        </Items>
+      </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Kardiovaskuläre Risikofaktoren">
       <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/items" name="Dyslipidämie">
@@ -241,7 +289,7 @@
         </Item>
       </Item>
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Rauchverhalten &amp; Alkoholkonsum">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" path="/content" name="Rauchverhalten und Alkoholkonsum">
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" concept_name="Zusammenfassung Rauchverhalten" max="1" path="/items">
         <Rule path="/data[at0001]/items[at0043]" max="0" />
         <Rule path="/data[at0001]/items[at0015]" max="0" />
@@ -738,8 +786,8 @@
               <includedValues>Interventionelle koronare Revaskularisation</includedValues>
             </constraint>
           </Rule>
-<Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0049]" max="0" />
+          <Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0065]" max="0" />
           <Rule path="/description[at0001]/items[at0058]" max="0" />
           <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -788,8 +836,9 @@
             <constraint xsi:type="textConstraint">
               <includedValues>Periphere Revaskularisation</includedValues>
             </constraint>
-          </Rule><Rule path="/description[at0001]/items[at0070]" max="0" />
+          </Rule>
           <Rule path="/description[at0001]/items[at0049]" max="0" />
+          <Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0065]" max="0" />
           <Rule path="/description[at0001]/items[at0058]" max="0" />
           <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -838,8 +887,9 @@
             <constraint xsi:type="textConstraint">
               <includedValues>Koronare Bypass-Operation</includedValues>
             </constraint>
-          </Rule><Rule path="/description[at0001]/items[at0070]" max="0" />
+          </Rule>
           <Rule path="/description[at0001]/items[at0049]" max="0" />
+          <Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0065]" max="0" />
           <Rule path="/description[at0001]/items[at0058]" max="0" />
           <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -888,8 +938,9 @@
             <constraint xsi:type="textConstraint">
               <includedValues>Sonstige Gefäß-Operation</includedValues>
             </constraint>
-          </Rule><Rule path="/description[at0001]/items[at0070]" max="0" />
+          </Rule>
           <Rule path="/description[at0001]/items[at0049]" max="0" />
+          <Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0065]" max="0" />
           <Rule path="/description[at0001]/items[at0058]" max="0" />
           <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -943,8 +994,8 @@
               <includedValues>katheterbasiert</includedValues>
               <includedValues>offen chirurgisch</includedValues>
             </constraint>
-          </Rule><Rule path="/description[at0001]/items[at0070]" max="0" />
-<Rule path="/description[at0001]/items[at0070]" max="0" />
+          </Rule>
+          <Rule path="/description[at0001]/items[at0070]" max="0" />
           <Rule path="/description[at0001]/items[at0065]" max="0" />
           <Rule path="/description[at0001]/items[at0058]" max="0" />
           <Rule path="/description[at0001]/items[at0063]" max="0" />
@@ -1727,31 +1778,6 @@
       </Item>
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.family_prevalence.v1" concept_name="Familienprävalenz" max="1" path="/context/other_context[at0001]/items[at0006]" name="Familiäre Disposition von Myokardinfarkt oder Schlaganfall ">
-        <Rule path="/items[at0030]" name=" Familiäre Disposition bei Eltern, Geschwistern oder Kindern ">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Familiäre Disposition</includedValues>
-            <includedValues>Keine familiäre Disposition</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0055]" max="0" />
-        <Rule path="/items[at0056]" max="0" />
-        <Rule path="/items[at0031]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0" concept_name="Ethnischer Hintergrund" max="1" path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0002]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Kaukasisch</includedValues>
-            <includedValues>Nicht kaukasisch</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0004]" name="Hautfarbe">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Schwarze Hautfarbe</includedValues>
-            <includedValues>Keine schwarze Hautfarbe</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0006]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
@@ -1760,47 +1786,47 @@
     </Context>
   </definition>
   <view>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.family_prevalence.v1]/items[at0030]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-CLUSTER.family_prevalence.v1]/items[at0030]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0]/items[at0002]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0]/items[at0002]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.gender.v1]/data[at0002]/items[at0022]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-EVALUATION.gender.v1]/data[at0002]/items[at0022]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.height.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-OBSERVATION.height.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten &amp; Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0089]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten und Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0089]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten &amp; Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0074]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten und Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0074]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten &amp; Alkoholkonsum']/items[openEHR-EHR-EVALUATION.alcohol_consumption_summary.v1]/data[at0001]/items[at0064]/items[at0023]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten und Alkoholkonsum']/items[openEHR-EHR-EVALUATION.alcohol_consumption_summary.v1]/data[at0001]/items[at0064]/items[at0023]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten &amp; Alkoholkonsum']/items[openEHR-EHR-EVALUATION.alcohol_consumption_summary.v1]/data[at0001]/items[at0019]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten und Alkoholkonsum']/items[openEHR-EHR-EVALUATION.alcohol_consumption_summary.v1]/data[at0001]/items[at0019]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
@@ -1890,7 +1916,7 @@
         <value>null_flavour</value>
       </items>
     </constraints>
-    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten &amp; Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0016]/null_flavour">
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Rauchverhalten und Alkoholkonsum']/items[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]/data[at0001]/items[at0016]/null_flavour">
       <items id="VisibleInView">
         <value>null_flavour</value>
       </items>
@@ -2010,7 +2036,43 @@
         <value>null_flavour</value>
       </items>
     </constraints>
-  </view>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-ADMIN_ENTRY.person_data.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0]/items[at0002]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-ADMIN_ENTRY.person_data.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0]/items[at0004]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/items[openEHR-EHR-EVALUATION.health_risk.v1]/data[at0001]/items[at0016]/items[openEHR-EHR-CLUSTER.family_prevalence.v1]/items[at0030]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/content[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/content[openEHR-EHR-OBSERVATION.height.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+    <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Körperliche Untersuchung und soziodemographische Angaben']/content[openEHR-EHR-EVALUATION.gender.v1]/data[at0002]/items[at0022]/null_flavour">
+      <items id="VisibleInView">
+        <value>null_flavour</value>
+      </items>
+    </constraints>
+     </view>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0">
+    <digest id="MD5-CAM-1.0.1">DDB0ABB0815AAFEC82BA2096C7882EE4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.health_risk.v1">
+    <digest id="MD5-CAM-1.0.1">23BF02C2A580CB46F49E6342FFF77789</digest>
+  </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
     <digest id="MD5-CAM-1.0.1">DE0723367AA22BB716CEC5342B21FF60</digest>
   </integrity_checks>
@@ -2066,6 +2128,6 @@
     <digest id="MD5-CAM-1.0.1">170F2F8FCE46E22662FC61919622AE21</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.pulse.v2">
-    <digest id="MD5-CAM-1.0.1">CEC3C36E4EA4CA0958AE3C9088F4668E</digest>
+    <digest id="MD5-CAM-1.0.1">367B17CB3B1709A6BDF8A32723647224</digest>
   </integrity_checks>
 </template>
