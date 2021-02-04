@@ -31,6 +31,12 @@
                 <item>Bestrahlung</item>
                 <item>Brachytherapie</item>
                 <item>Radioonkologie</item>
+                <item>Radio-/Chemotherapie</item>
+                <item>Strahlenbehandlung</item>
+                <item>Teletherapie</item>
+                <item>Radioonkologie</item>
+                <item>Radionuklidentherapie</item>
+                <item>Metabolische Therapie</item>
             </keywords>
             <use>Dieses Template wird verwendet, um Daten zu einer Strahlentherapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der Strahlentherapie wie Lokalisation der Bestrahlung, Beginn und Ende, Applikationsart, Strahlenart, Dosis, Fraktionen, Art der Bildgebung, Relation zur OP, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.</use>
             <misuse>Dieses Template soll nicht verwendet werden, um den Allgemeinzustand, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen) oder molekularpathologische Daten des Patienten zu verzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
@@ -62,7 +68,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>675f3bc037ede214bb1c920dec4d6f2c</value>
+                <value>ac3ad508c82334cadc1fd19e8a387105</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -135,14 +141,7 @@
             </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.relation_to_operation.v1"
-                max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0007</excludedValues>
-                        <excludedValues>local::at0009</excludedValues>
-                    </constraint>
-                </Rule>
-            </Items>
+                max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.response_to_treatment.v1"
                 max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
@@ -150,7 +149,7 @@
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ansprechen::PR::Partial response</includedValues>
-                        <includedValues>ansprechen::SD::Stabile disease</includedValues>
+                        <includedValues>ansprechen::SD::Stable disease</includedValues>
                         <includedValues>ansprechen::PD::Progressive disease</includedValues>
                         <includedValues>ansprechen::CR::Complete response</includedValues>
                         <includedValues>ansprechen::MR::Mixed response</includedValues>
@@ -230,7 +229,7 @@
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
                 path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule name="Toxizität" path="/items[at0001]"/>
+                <Rule name="Nebenwirkung" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0035]"/>
                 <Rule max="0" path="/items[at0151]"/>
                 <Rule max="0" path="/items[at0175]"/>
@@ -240,10 +239,13 @@
                 <Rule max="0" path="/items[at0028]"/>
                 <Rule path="/items[at0021]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ctcae::XX::Fehlende Angabe</includedValues>
-                        <includedValues>ctcae::0::keine</includedValues>
-                        <includedValues>ctcae::4::lebensbedrohlich</includedValues>
-                        <includedValues>ctcae::5::tödlich</includedValues>
+                        <includedValues>CTCAE::0::keine</includedValues>
+                        <includedValues>CTCAE::1::mild (1)</includedValues>
+                        <includedValues>CTCAE::2::moderat (2)</includedValues>
+                        <includedValues>CTCAE::3::schwerwiegend (3)</includedValues>
+                        <includedValues>CTCAE::4::lebensbedrohend (4)</includedValues>
+                        <includedValues>CTCAE::5::tödlich (5)</includedValues>
+                        <includedValues>CTCAE::X::Keine Angabe</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0026]">

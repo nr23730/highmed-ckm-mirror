@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>949c0c75-c812-4196-ad64-f57ec8468e15</id>
-    <name>SystemischeSonstige Therapie</name>
+    <name>Systemische Sonstige Therapie</name>
     <description>
         <original_author>
             <item>
@@ -27,8 +27,8 @@
             <keywords>
                 <item>Systemische Therapie; Sonstige Therapie; Therapieprotokoll; Chemotherapie; Hormontherapie; Immuntherapie; Knochenmarktransplantation; Wait and See; Active Surveillance; Zielgerichtete Substanzen; Medikamentöse Tumortherapie</item>
             </keywords>
-            <use>Dieses Template wird verwendet, um Daten zu einer systemischen oder sonstigen Therapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der systemischen Therapie wie Therapieart, Protokoll, Substanzen, Relation zur OP und Strahlentherapie, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.
-			</use>
+            <use>Dieses Template wird verwendet, um Daten zu einer systemischen oder sonstigen Therapie von Patienten mit einer onkologischen Diagnose zu verzeichnen. Es sollen folgende Daten zu der systemischen  bzw. sonstigen Therapie wie Therapieart, Protokoll, Substanzen, Relation zur OP und Strahlentherapie, Grund für das Ende der Therapie, Gesamtansprechen, Anmerkungen und Intention erfasst werden.
+</use>
             <misuse>Dieses Template soll nicht verwendet werden, um den Allgemeinzustand, Nebenerkrankungen und Medikationen, Laborparameter, pathologische Daten (pTNM, Residualstatus, Fernmetastasen oder weitere Klassifikationen), radiologische Daten oder molekularpathologische Daten des Patienten zu verzeichnen. Für diese Daten jeweils das eigene Template hierzu benutzen.</misuse>
         </details>
         <other_details>
@@ -58,7 +58,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>6551ea214bd8fca1f7b08b22321fe138</value>
+                <value>fc9fbb1bc8f76034131ac945d84aa625</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -87,12 +87,33 @@
                     <includedValues>local_terms::WS::Wait and see</includedValues>
                     <includedValues>local_terms::AS::Active Surveillance</includedValues>
                     <includedValues>local_terms::ZS::Zielgerichtete Substanzen</includedValues>
-                    <includedValues>local_terms::SO::Sonstiges</includedValues>
+                    <includedValues>local_terms::SO::Sonstige</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0049]"/>
             <Rule max="0" path="/description[at0001]/items[at0070]"/>
-            <Rule max="1" name="Protokoll" path="/description[at0001]/items[at0065]"/>
+            <Rule max="1" name="Protokoll" path="/description[at0001]/items[at0065]">
+                <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <includedValues>FLOT</includedValues>
+                    <includedValues>Folfiri</includedValues>
+                    <includedValues>Folfox</includedValues>
+                    <includedValues>Folfoxiri</includedValues>
+                    <includedValues>Folfirinox</includedValues>
+                    <includedValues>Gemcitabine + nab-Paclitaxel</includedValues>
+                    <includedValues>Gemcitabine + Cisplatin</includedValues>
+                    <includedValues>Gemcitabine</includedValues>
+                    <includedValues>Paclitaxel</includedValues>
+                    <includedValues>Xelox</includedValues>
+                    <includedValues>Xeliri</includedValues>
+                    <includedValues>Cisplatin + Etoposid</includedValues>
+                    <includedValues>Xeloda</includedValues>
+                    <includedValues>5-FU + FS</includedValues>
+                    <includedValues>mFolfiri</includedValues>
+                    <includedValues>mFolfox</includedValues>
+                    <includedValues>mFolfoxiri</includedValues>
+                    <includedValues>mFolfirinox</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="0" path="/description[at0001]/items[at0063]"/>
             <Rule max="1" name="Ende Grund" path="/description[at0001]/items[at0048]">
@@ -102,8 +123,8 @@
                     <includedValues>ende grund::AV::Patient verweigert weitere Therapie</includedValues>
                     <includedValues>ende grund::AR::Reguläres Ende mit Dosisreduktion</includedValues>
                     <includedValues>ende grund::AP::Abbruch wegen Progress</includedValues>
-                    <includedValues>ende grund::AX::Unbekannt</includedValues>
                     <includedValues>ende grund::AG::Abbruch aus sonstigen Gründen</includedValues>
+                    <includedValues>ende grund::AX::Unbekannt</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
@@ -141,14 +162,7 @@
             </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.relation_to_operation.v1"
-                max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0007</excludedValues>
-                        <excludedValues>local::at0009</excludedValues>
-                    </constraint>
-                </Rule>
-            </Items>
+                max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.relation_to_radiotherapy.v1"
                 max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
@@ -159,7 +173,7 @@
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ansprechen::PR::Partial response</includedValues>
-                        <includedValues>ansprechen::SD::Stabile disease</includedValues>
+                        <includedValues>ansprechen::SD::Stable disease</includedValues>
                         <includedValues>ansprechen::PD::Progressive disease</includedValues>
                         <includedValues>ansprechen::CR::Complete response</includedValues>
                         <includedValues>ansprechen::MR::Mixed response</includedValues>
@@ -184,10 +198,13 @@
                 <Rule max="0" path="/items[at0028]"/>
                 <Rule path="/items[at0021]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ctcae::XX::Fehlende Angabe</includedValues>
-                        <includedValues>ctcae::0::keine</includedValues>
-                        <includedValues>ctcae::4::lebensbedrohlich</includedValues>
-                        <includedValues>ctcae::5::tödlich</includedValues>
+                        <includedValues>CTCAE::0::keine</includedValues>
+                        <includedValues>CTCAE::1::mild (1)</includedValues>
+                        <includedValues>CTCAE::2::moderat (2)</includedValues>
+                        <includedValues>CTCAE::3::schwerwiegend (3)</includedValues>
+                        <includedValues>CTCAE::4::lebensbedrohend (4)</includedValues>
+                        <includedValues>CTCAE::5::tödlich (5)</includedValues>
+                        <includedValues>CTCAE::X::Keine Angabe</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0026]">
@@ -236,7 +253,7 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule name="Anzahl Zyklus" path="/items[at0172]">
+                <Rule name="Anzahl durchgeführter Zyklen" path="/items[at0172]">
                     <constraint xsi:type="tem:countConstraint">
                         <minMagnitude>1</minMagnitude>
                         <includesMaximum>false</includesMaximum>
@@ -248,6 +265,7 @@
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
             path="/content" xsi:type="tem:ACTION">
             <Rule name="Substanzname" path="/description[at0017]/items[at0020]"/>
+            <Rule max="0" path="/description[at0017]/items[at0156]"/>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
             <Rule max="0" path="/description[at0017]/items[at0133]"/>
             <Rule max="0" path="/description[at0017]/items[at0043]"/>
@@ -266,6 +284,11 @@
                         <minMagnitude>1</minMagnitude>
                         <includesMaximum>false</includesMaximum>
                         <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0145]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                        <includedValues>mg</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0135]">
@@ -303,6 +326,7 @@
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
                 path="/description[at0017]/items[at0053]" xsi:type="tem:CLUSTER">
+                <Rule name="Titel der Studie (Basket-Studie)" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
@@ -751,12 +775,12 @@
     <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">E0C69F83865D3910946385034A86310F</digest>
+        <digest id="MD5-CAM-1.0.1">349128D416894EE06EB3F7A776A289CA</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">CD1EACAF2A90BEE4DFD15DA9897B7049</digest>
+        <digest id="MD5-CAM-1.0.1">0979A8C3E209FB50DA782FE5768D387A</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
