@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>5625dd43-3ecb-4422-a28e-3ff60f77502d</id>
-    <name>Molekularpathologischer Befund</name>
+    <name>Molekulargenetischer Befund</name>
     <description>
         <original_author>
             <item>
@@ -68,7 +68,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>f5db33ea131c7ebaaf714b088c133135</value>
+                <value>2e5394ee1aae0cf0e252ce3e3d957d21</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -201,15 +201,23 @@
         </items>
     </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="Molekularpathologischer Befund"
+        concept_name="Bericht" name="Molekulargenetischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
             concept_name="Laborergebnis" max="1"
-            name="Molekularpathologische Begutachtung" path="/content" xsi:type="tem:OBSERVATION">
+            name="Molekulargenetische Begutachtung" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
-            <Rule default="Molekularpathologische Begutachtung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
+            <Rule default="Molekulargenetische Begutachtung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]"/>
+            <Rule name="Zusätzliche klinische Information" path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]"/>
             <Rule name="Testdiagnose / Ergebnis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]">
                 <constraint limitToList="false" xsi:type="tem:textConstraint">
                     <includedValues>keine/benigne Variante identifiziert</includedValues>
@@ -270,7 +278,12 @@
                 <Rule max="0" path="/items[at0007]"/>
                 <Rule max="0" path="/items[at0079]"/>
                 <Rule max="0" path="/items[at0087]"/>
-                <Rule max="0" path="/items[at0015]"/>
+                <Rule path="/items[at0015]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0070]"/>
@@ -345,7 +358,8 @@
                 <Rule
                     name="Proteinebene Nomenklatur Variante (Amino Acid Change)" path="/items[at0008]/items[at0012]"/>
                 <Rule name="Impact / Variantenklassifikation" path="/items[at0008]/items[at0052]/items[at0054]"/>
-                <Rule name="Gen-Name" path="/items[at0008]/items[at0019]/items[at0020]"/>
+                <Rule name="Gen-Name (HGNC)" path="/items[at0008]/items[at0019]/items[at0020]"/>
+                <Rule name="Full gene name" path="/items[at0008]/items[at0019]/items[at0021]"/>
                 <Rule name="Fusionstranskript-Name 1 (Part of fusion)" path="/items[at0008]/items[at0019]/items[at0057]"/>
                 <Rule
                     name="Pathogenitätsklasse/Variantenklassifikation (ACMG classification)" path="/items[at0008]/items[at0058]"/>
@@ -357,7 +371,8 @@
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0024]"/>
-                <Rule name="Lesetiefe an Variantenposition (Read depth)" path="/items[at0060]">
+                <Rule
+                    name="Lesetiefe an Variantenposition (Median read depth)" path="/items[at0060]">
                     <constraint xsi:type="tem:countConstraint">
                         <minMagnitude>0</minMagnitude>
                         <includesMaximum>false</includesMaximum>
@@ -432,7 +447,8 @@
                     <Rule name="Referenznukleotidsequenz (Ref)" path="/items[at0010]"/>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        max="1" path="/items[at0038]" xsi:type="tem:CLUSTER">
+                        concept_name="Reference sequence"
+                        name="Transkript Referenz" path="/items[at0038]" xsi:type="tem:CLUSTER">
                         <Rule max="0" path="/items[at0023]">
                             <constraint xsi:type="tem:multipleConstraint">
                                 <includedTypes>Coded_text</includedTypes>
@@ -453,19 +469,40 @@
                     </Rule>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        path="/items[at0004]" xsi:type="tem:CLUSTER"/>
+                        concept_name="Reference sequence"
+                        name="Transkript Referenz" path="/items[at0004]" xsi:type="tem:CLUSTER"/>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
                     path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    <Rule
+                        name="Breakpoint position (or closest approximation by exon border if no WGS data) 1" path="/items[at0003]"/>
+                    <Rule
+                        name="Breakpoint position (or closest approximation by exon border if no WGS data) 2" path="/items[at0004]"/>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                        concept_name="Reference sequence"
+                        name="Transkript Referenz 1"
                         path="/items[at0007]" xsi:type="tem:CLUSTER"/>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
                         concept_name="Reference sequence"
-                        name="Reference sequence (2)"
+                        name="Transkript Referenz 2"
                         path="/items[at0008]" xsi:type="tem:CLUSTER"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.knowledge_base_reference.v1"
+                    concept_name="Knowledge base reference"
+                    name="Data base variant identification"
+                    path="/items[at0102]" xsi:type="tem:CLUSTER">
+                    <Rule name="Source Name" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0006]"/>
+                    <Rule max="0" path="/items[at0008]"/>
+                    <Rule name="Identification" path="/items[at0005]"/>
+                    <Rule name="Indentification Version" path="/items[at0002]"/>
+                    <Rule max="0" path="/items[at0007]"/>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
                 </Items>
             </Items>
             <Items
@@ -536,7 +573,8 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
                     max="0" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
@@ -876,7 +914,13 @@
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
-        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
+        <Rule path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>Vorläufug</includedValues>
+                <includedValues>Final</includedValues>
+                <includedValues>Korrigiert</includedValues>
+            </constraint>
+        </Rule>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -946,6 +990,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">7852F2FDDC1F75361C4C6BA00A56FD7A</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.knowledge_base_reference.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A9C688D50345BD84C29794EFECD2B6FF</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
