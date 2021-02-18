@@ -25,7 +25,7 @@ Die mit diesem Archetyp dargestellte Information soll Kliniker dabei unterstütz
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"published">
+	lifecycle_state = <"in_development">
 	other_contributors = <"Natalia Strauch (MHH, HiGHmed)", "Christina Jäger-Schmidt (Universität Heidelberg, HiGHmed)", "Aurelie Tomczak (Universität Heidelberg, HiGHmed)">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -37,117 +37,122 @@ Die mit diesem Archetyp dargestellte Information soll Kliniker dabei unterstütz
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E1B9E9E2BAE3D348573B962C42255E91">
-		["build_uid"] = <"38dfdeb5-f2e6-4fb3-ae83-bfadde7c1caf">
-		["revision"] = <"1.0.0">
+		["MD5-CAM-1.0.1"] = <"32D133D888C18F6BE614E8B1322A70FA">
+		["build_uid"] = <"eda218e2-930d-49ef-a692-7af8b66fd309">
+		["revision"] = <"1.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Tumor_Diagnosesicherung
+	CLUSTER[at0000] matches {    -- Tumor_Diagnosesicherung
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0094] occurrences matches {0..1} matches {	-- Höchste Diagnosesicherheit
+			ELEMENT[at0094] occurrences matches {0..1} matches {    -- Höchste Diagnosesicherheit
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0095, 	-- Klinisch ohne tumorspezifische Diagnostik
-							at0096, 	-- Klinisch
-							at0097, 	-- Spezifische Tumormarker
-							at0098, 	-- Zytologisch
-							at0099, 	-- Histologie einer Metastase
-							at0100, 	-- Histologisch
-							at0101]	-- Unbekannt
+							at0095,    -- Klinisch ohne tumorspezifische Diagnostik
+							at0096,    -- Klinisch
+							at0097,    -- Spezifische Tumormarker
+							at0098,    -- Zytologisch
+							at0099,    -- Histologie einer Metastase
+							at0100,    -- Histologisch
+							at0101]    -- Unbekannt
 						}
 					}
 				}
 			}
-			CLUSTER[at0017] occurrences matches {0..1} matches {	-- Diagnosesicherung
+			CLUSTER[at0017] occurrences matches {0..1} matches {    -- Diagnosesicherung
 				items cardinality matches {1..*; unordered} matches {
-					CLUSTER[at0102] occurrences matches {0..3} matches {	-- Klinisch
+					CLUSTER[at0102] occurrences matches {0..3} matches {    -- Klinisch
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0103] occurrences matches {0..1} matches {	-- Klinisches Verfahren
+							ELEMENT[at0103] occurrences matches {0..1} matches {    -- Klinisches Verfahren
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
-											at0104, 	-- Direkte Visualisierung
-											at0105, 	-- Ausschließlich klinische Diagnose
-											at0106]	-- Palpation
+											at0104,    -- Direkte Visualisierung
+											at0105,    -- Ausschließlich klinische Diagnose
+											at0106]    -- Palpation
 										}
 									}
 								}
 							}
-							ELEMENT[at0107] occurrences matches {0..1} matches {	-- Zeitpunkt des Verfahrens
+							ELEMENT[at0107] occurrences matches {0..1} matches {    -- Zeitpunkt des Verfahrens
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
 						}
 					}
-					CLUSTER[at0108] occurrences matches {0..7} matches {	-- Bildgebung
+					CLUSTER[at0108] occurrences matches {0..7} matches {    -- Bildgebung
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0109] occurrences matches {0..1} matches {	-- Bildgebende Verfahren
+							ELEMENT[at0109] occurrences matches {0..1} matches {    -- Bildgebende Verfahren
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
-											at0110, 	-- MRT
-											at0111, 	-- CT
-											at0112, 	-- PET-CT
-											at0113, 	-- Sonografie
-											at0114, 	-- Nuklearmedizinische Bildgebung
-											at0115, 	-- Röntgendiagnostik
-											at0130]	-- Anderes bildgebendes Verfahren
+											at0110,    -- MRT
+											at0111,    -- CT
+											at0112,    -- PET-CT
+											at0113,    -- Sonografie
+											at0114,    -- Nuklearmedizinische Bildgebung
+											at0115,    -- Röntgendiagnostik
+											at0130]    -- Anderes bildgebendes Verfahren
 										}
 									}
 								}
 							}
-							ELEMENT[at0116] occurrences matches {0..1} matches {	-- Zeitpunkt des Verfahrens
+							ELEMENT[at0116] occurrences matches {0..1} matches {    -- Zeitpunkt des Verfahrens
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
 						}
 					}
-					CLUSTER[at0117] occurrences matches {0..6} matches {	-- Mikroskopisch
+					CLUSTER[at0117] occurrences matches {0..6} matches {    -- Mikroskopisch
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0118] occurrences matches {0..1} matches {	-- Mikroskopisches Verfahren
+							ELEMENT[at0118] occurrences matches {0..1} matches {    -- Mikroskopisches Verfahren
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
-											at0119, 	-- Histologisch
-											at0120, 	-- Zytologisch
-											at0121, 	-- Genetischer Test
-											at0122, 	-- Immunophänotypisierung
-											at0123, 	-- Mikroskopische Bestätigung mit unbekannter Methode
-											at0124]	-- Labortest oder Labormarker
+											at0119,    -- Histologisch
+											at0122,    -- Immunophänotypisierung
+											at0123,    -- Mikroskopische Bestätigung mit unbekannter Methode
+											at0124]    -- Labortest oder Labormarker
 										}
 									}
 								}
 							}
-							ELEMENT[at0127] occurrences matches {0..1} matches {	-- Zeitpunkt des Verfahrens
+							ELEMENT[at0127] occurrences matches {0..1} matches {    -- Zeitpunkt des Verfahrens
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
 						}
 					}
-					CLUSTER[at0125] occurrences matches {0..*} matches {	-- Sonstige Verfahren
+					CLUSTER[at0125] occurrences matches {0..*} matches {    -- Sonstige Verfahren
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0126] occurrences matches {0..1} matches {	-- Sonstiges Verfahren
+							ELEMENT[at0126] occurrences matches {0..1} matches {    -- Sonstiges Verfahren
 								value matches {
 									DV_TEXT matches {*}
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0131,    -- Genetischer Test
+											at0132]    -- Zytologisch
+										}
+									}
 								}
 							}
-							ELEMENT[at0128] occurrences matches {0..1} matches {	-- Zeitpunkt des Verfahrens
+							ELEMENT[at0128] occurrences matches {0..1} matches {    -- Zeitpunkt des Verfahrens
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
 						}
 					}
-					ELEMENT[at0129] occurrences matches {0..1} matches {	-- Kommentar
+					ELEMENT[at0129] occurrences matches {0..1} matches {    -- Kommentar
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -206,7 +211,7 @@ ontology
 				>
 				["at0102"] = <
 					text = <"Klinisch">
-					description = <"Es wurde weder ein mikroskopisches, noch ein bildgebendes Verfahren für die Diagnose genutzt.">
+					description = <"Die Diagnosesicherheit beruht auf einer klinischen Identifikation des Tumors.">
 				>
 				["at0103"] = <
 					text = <"Klinisches Verfahren">
@@ -276,14 +281,6 @@ ontology
 					text = <"Histologisch">
 					description = <"Histologische Bestätigung der Tumordiagnose. Gewebe wurde histologisch analysiert.">
 				>
-				["at0120"] = <
-					text = <"Zytologisch">
-					description = <"Zytologisch Bestätigung der Tumordiagnose. Zellen wurden in Flüssigkeit analysiert. Es wurde kein Gewebe mikroskopisch analysiert.">
-				>
-				["at0121"] = <
-					text = <"Genetischer Test">
-					description = <"Die Tumordiagnose wurde durch einen genetischen Test gesichert.">
-				>
 				["at0122"] = <
 					text = <"Immunophänotypisierung">
 					description = <"Die Tumordiagnose wurde durch eine Immunphänotypisierung gesichert.">
@@ -320,6 +317,14 @@ ontology
 				["at0130"] = <
 					text = <"Anderes bildgebendes Verfahren">
 					description = <"Anderes bildgebendes Verfahren, welches nicht in den vorherigen Elementen beschrieben wurde.">
+				>
+				["at0131"] = <
+					text = <"Genetischer Test">
+					description = <"Die Tumordiagnose wurde durch einen genetischen Test gesichert.">
+				>
+				["at0132"] = <
+					text = <"Zytologisch">
+					description = <"Zytologisch Bestätigung der Tumordiagnose. Zellen wurden in Flüssigkeit analysiert. Es wurde kein Gewebe mikroskopisch analysiert.">
 				>
 			>
 		>

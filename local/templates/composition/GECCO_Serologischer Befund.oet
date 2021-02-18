@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>fd9ff381-d2f6-4cc2-a06d-112ef198ee5a</id>
-    <name>GECCO_Virologischer Befund</name>
+    <id>4d27c9fb-e9e3-4260-aa99-a103e2fd8ed5</id>
+    <name>GECCO_Serologischer Befund</name>
     <description>
         <original_author>
             <item>
@@ -92,7 +92,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>7b62734ccf1d3374d650d86b8bcf5421</value>
+                <value>efc2cf7bc4041af052b0fc3851c11d73</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -242,22 +242,29 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="GECCO_Virologischer Befund"
+        concept_name="Registereintrag" name="GECCO_Serologischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
             concept_name="Laborergebnis" max="1" min="1" name="Befund"
             path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::122442008::Detection of virus (procedure)</includedValues>
+                    <includedValues>SNOMED CT::68793005::Serologic test (procedure)</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>registered</includedValues>
+                    <includedValues>preliminary</includedValues>
+                    <includedValues>final</includedValues>
+                    <includedValues>amended</includedValues>
+                    <includedValues>corrected</includedValues>
+                    <includedValues>cancelled</includedValues>
+                    <includedValues>entered-in-error</includedValues>
+                    <includedValues>unknown</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0075]"/>
@@ -273,8 +280,12 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0004]/items[at0094]"/>
-            <Rule max="1" min="1" name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]"/>
+            <Rule max="1" min="1" path="/protocol[at0004]/items[at0094]"/>
+            <Rule max="1" min="1" name="Anforderung" path="/protocol[at0004]/items[at0094]/items[at0106]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>LOINC::94504-8::SARS-CoV-2 (COVID-19) Ab panel - Serum or Plasma by Immunoassay</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/protocol[at0004]/items[at0094]/items[at0062]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Identifier</includedTypes>
@@ -300,9 +311,14 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule min="1" name="Virusnachweistest" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
-                            <includedValues>LOINC::94558-4::SARS-CoV-2 Ag</includedValues>
-                            <includedValues>LOINC::94745-7::SARS-CoV-2 (COVID-19) RNA [Cycle Threshold #] in Respiratory specimen by NAA with probe detection</includedValues>
+                            <includedValues>LOINC::94769-7::SARS-CoV-2 (COVID-19) Ab [Units/volume] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94762-2::SARS-CoV-2 (COVID-19) Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94720-0::SARS-CoV-2 (COVID-19) IgA Ab [Units/volume] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94562-6::SARS-CoV-2 (COVID-19) IgA Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94505-5::SARS-CoV-2 (COVID-19) IgG Ab [Units/volume] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94563-4::SARS-CoV-2 (COVID-19) IgG Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94506-3::SARS-CoV-2 (COVID-19) IgM Ab [Units/volume] in Serum or Plasma by Immunoassay</includedValues>
+                            <includedValues>LOINC::94564-2::SARS-CoV-2 (COVID-19) IgM Ab [Presence] in Serum or Plasma by Immunoassay</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="1" name="Nachweis" path="/items[at0001]">
