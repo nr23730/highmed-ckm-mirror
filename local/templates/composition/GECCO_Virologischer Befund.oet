@@ -92,7 +92,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>7b62734ccf1d3374d650d86b8bcf5421</value>
+                <value>c079d37c4c494384659aa7c93fb73eff</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -249,6 +249,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
             concept_name="Laborergebnis" max="1" min="1" name="Befund"
             path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED CT::122442008::Detection of virus (procedure)</includedValues>
@@ -295,14 +296,12 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    concept_name="Laboranalyt-Ergebnis" min="1"
+                    concept_name="Laboranalyt-Ergebnis" max="1" min="1"
                     name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule min="1" name="Virusnachweistest" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
-                            <includedValues>LOINC::94558-4::SARS-CoV-2 Ag</includedValues>
-                            <includedValues>LOINC::94745-7::SARS-CoV-2 (COVID-19) RNA [Cycle Threshold #] in Respiratory specimen by NAA with probe detection</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="1" name="Nachweis" path="/items[at0001]">
@@ -312,10 +311,10 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                             <includedValues>SNOMED Clinical Terms::419984006::Inconclusive (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule clone="true" max="1"
+                    <Rule clone="true" max="0"
                         name="Quantitatives Ergebnis" path="/items[at0001]"/>
                     <Rule max="0" name="Interpretation" path="/items[at0004]"/>
-                    <Rule min="1" path="/items[at0025]"/>
+                    <Rule max="0" path="/items[at0025]"/>
                     <Rule max="1" min="1" path="/items[at0005]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>registered</includedValues>
