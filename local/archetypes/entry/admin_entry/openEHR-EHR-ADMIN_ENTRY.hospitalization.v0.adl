@@ -31,48 +31,52 @@ Nicht zur Abbildung von Krankenhausaufenthalten mit Bedeutung für klinische Ver
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"777E79861481CFA3799F7B3953D8C0AD">
-		["build_uid"] = <"bbafaefc-d643-46c2-9ae7-2218aac3fd69">
+		["MD5-CAM-1.0.1"] = <"4EA959CABC892EC9D75CFEFFA69A2BC1">
+		["build_uid"] = <"fd05cbb6-df58-40bb-b3dc-0b40eaf4eb51">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Aufenthaltsdaten
+	ADMIN_ENTRY[at0000] matches {    -- Aufenthaltsdaten
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Baum
+			ITEM_TREE[at0001] matches {    -- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Art des Aufenthaltes
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Art des Aufenthaltes
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0010, 	-- Stationär
-									at0011, 	-- Ambulant
-									at0012]	-- Sonstige
+									at0010,    -- Stationär
+									at0011,    -- Ambulant
+									at0012]    -- Sonstige
 								}
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Beginn
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Beginn
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Ende
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Ende
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Grund des Aufenthaltes
+					ELEMENT[at0006] occurrences matches {0..1} matches {    -- Grund des Aufenthaltes
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0008] occurrences matches {0..1} matches {	-- Standort
+					allow_archetype CLUSTER[at0008] occurrences matches {0..1} matches {    -- Standort
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Kommentar
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {    -- Verantwortliche Organisationseinheit
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {    -- Kommentar
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -130,6 +134,10 @@ ontology
 				["at0012"] = <
 					text = <"Sonstige">
 					description = <"Sonstige">
+				>
+				["at0013"] = <
+					text = <"Verantwortliche Organisationseinheit">
+					description = <"Verantwortliche Organisationseinheit, z.B. die fachliche Organisationseinheit (Fachabteilung).">
 				>
 			>
 		>
