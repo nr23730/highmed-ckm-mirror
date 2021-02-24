@@ -190,6 +190,14 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0087]">
+        <items>
+            <item>
+                <key>SNOMED</key>
+                <value>IsA 442083009</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report-result.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]">
         <items>
             <item>
@@ -354,7 +362,7 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 concept_name="Probe" name="Probenmaterial"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0029]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ABS::Abscess</includedValues>
                         <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNE::Tissue, Acne</includedValues>
                         <includedValues>http://terminology.hl7.org/CodeSystem/v2-0487::ACNFLD::Fluid, Acne</includedValues>
@@ -673,11 +681,7 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 </Rule>
                 <Rule max="1" path="/items[at0088]"/>
                 <Rule max="0" path="/items[at0079]"/>
-                <Rule name="Körperstelle" path="/items[at0087]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <termQueryId terminologyID="//simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80147"/>
-                    </constraint>
-                </Rule>
+                <Rule name="Körperstelle" path="/items[at0087]"/>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0080]">
@@ -715,11 +719,7 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                 name="Pro Laboranalyt"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0027]"/>
-                <Rule min="1" path="/items[at0024]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <termQueryId terminologyID="//simplifier.net/packages/hl7.fhir.uv.ips/1.0.0/files/244220"/>
-                    </constraint>
-                </Rule>
+                <Rule min="1" path="/items[at0024]"/>
                 <Rule min="1" name="Messwert" path="/items[at0001]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Quantity</includedTypes>
@@ -776,7 +776,6 @@ Nicht zur Repräsentation von Informationen zum zugehörigen Laborauftrag.</misu
                         <includedTypes>Coded_text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule min="0" path="/items[at0025]"/>
                 <Rule max="1" min="1" path="/items[at0005]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>registered</includedValues>
