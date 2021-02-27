@@ -23,12 +23,14 @@
         </original_author>
         <lifecycle_state>Initial</lifecycle_state>
         <details>
-            <purpose>Zur Darstellung von Nebendiagnosen eines Patienten mit einer onkologischen Erkrankung im HiGHmed Projekt</purpose>
+            <purpose>Zur Repräsentation von Nebendiagnosen eines Patienten mit einer onkologischen Erkrankung im HiGHmed Projekt.</purpose>
             <keywords>
-                <item>Diagnose, Problemliste, ICD, Ätiopathogenese</item>
+                <item>Diagnose, Problemliste, ICD, Ätiopathogenese, Anamnese, Begleiterkrankungen, Nebenerkrankungen</item>
             </keywords>
-            <use>Dieses Template wird zur Repräsentation von Nebendiagnosen eines Patienten mit einer onkologischen Erkrankung aufzuzeichnen. Es werden relevante Nebenerkrankungen erfasst mit zusätzlichen Abgaben wie Diabetestyp, Hepatitistyp, Schweregrad einer HYHA, KHK oder PNP oder der Genese einer Lebererkrankung.</use>
-            <misuse>Nicht zur Repräsentation der Tumordiagnose des Patienten geeingnet. Für diese Daten bitte das Tumordiagnose Template benutzen.</misuse>
+            <use>Dieses Template wird verwendet, um Nebendiagnosen eines Patienten mit einer onkologischen Erkrankung aufzuzeichnen. Es werden relevante Nebenerkrankungen mit zusätzlichen spezifischen Angaben wie Diabetestyp, Ätiopathogenese oder Schweregrad einer Erkrankung erfasst.
+</use>
+            <misuse>Nicht zur Repräsentation der Tumordiagnose des Patienten geeignet. Für diese Daten bitte das "Tumordiagnose Bericht" Template benutzen.
+Nicht zur Repräsentation des MII Kerndatensatzes Moduls Diagnosen verwenden. Für diese Darstellung bitte das "KDS_Diagnose" Template verwenden.</misuse>
             <copyright>© HiGHmed</copyright>
         </details>
         <other_details>
@@ -86,7 +88,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>376e74020abd34acbd214250b272234e</value>
+                <value>1f1c25b32cf2e9cfc907ec57e09fd039</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -112,27 +114,33 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            max="1" path="/content" xsi:type="tem:EVALUATION">
+            min="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Relevante Nebenerkrankung (ICD-10)" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
                 </constraint>
             </Rule>
-            <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
-            <Rule max="0" path="/data[at0001]/items[at0012]">
+            <Rule name="Körperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
                 </constraint>
             </Rule>
+            <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>ICD-10-GM::B::beiderseits</includedValues>
+                    <includedValues>ICD-10-GM::L::links</includedValues>
+                    <includedValues>ICD-10-GM::R::rechts</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0"
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
-            <Rule min="1" name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
-            <Rule name="KHK/PNP Schweregrad" path="/data[at0001]/items[at0005]">
+            <Rule min="1" name="Diagnosedatum" path="/data[at0001]/items[at0003]"/>
+            <Rule name="Schweregrad der Nebenerkrankung" path="/data[at0001]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>1</includedValues>
-                    <includedValues>2</includedValues>
-                    <includedValues>3</includedValues>
-                    <includedValues>4</includedValues>
+                    <includedValues>Schweregrad::1::1</includedValues>
+                    <includedValues>Schweregrad::2::2</includedValues>
+                    <includedValues>Schweregrad::3::3</includedValues>
+                    <includedValues>Schweregrad::4::4</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
@@ -192,13 +200,16 @@
         <Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1"
+                max="1" min="1"
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -221,7 +232,7 @@
         archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">ED4D12B1642C61217E416A8C11EE848B</digest>
+        <digest id="MD5-CAM-1.0.1">5D0F5DCDC1EE023C17264AADA785B272</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.diabetes_typ.v1"
         xmlns:tem="openEHR/v1/Template"
