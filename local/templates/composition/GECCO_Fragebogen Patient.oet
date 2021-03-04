@@ -95,7 +95,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>94ed1b417d8e22dc10289985202999ca</value>
+                <value>ce0c2b10d6d23f1c367e5e5191465b87</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -185,7 +185,9 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
                 path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0"
-                path="/data[at0001]/items[at0031]" xsi:type="tem:CLUSTER"/>
+                path="/data[at0001]/items[at0031]" xsi:type="tem:CLUSTER">
+                <Rule max="1" path="/items[at0010]"/>
+            </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.ethnischer_hintergrund.v0"
                 path="/data[at0001]/items[at0007]" xsi:type="tem:CLUSTER">
@@ -220,20 +222,20 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             path="/content" xsi:type="tem:EVALUATION">
             <Rule path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::female::Female</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::unknown::Unknown</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::other::Other</includedValues>
+                    <includedValues>local_terms::male::Männlich</includedValues>
+                    <includedValues>local_terms::female::Weiblich</includedValues>
+                    <includedValues>local_terms::unknown::Unbekannt</includedValues>
+                    <includedValues>local_terms::other::Andere</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
             <Rule name="Geschlecht bei der Geburt" path="/data[at0002]/items[at0019]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::female::Female</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::unknown::Unknown</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::X::Unbestimmt</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::D::Divers</includedValues>
+                    <includedValues>local_terms::male::Männlich</includedValues>
+                    <includedValues>local_terms::female::Weiblich</includedValues>
+                    <includedValues>local_terms::unknown::Unbekannt</includedValues>
+                    <includedValues>local_terms::X::Unbestimmt</includedValues>
+                    <includedValues>local_terms::D::Divers</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0025]"/>
@@ -246,6 +248,18 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             concept_name="Größe/Länge" max="1" name="Körpergröße"
             path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>[in_i]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>cm</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
@@ -255,6 +269,19 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>g</excludedUnits>
+                    <excludedUnits>[lb_av]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
@@ -340,280 +367,280 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/data[at0001]/items[at0009]"/>
             <Rule name="Reise angetreten?" path="/data[at0001]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::373066001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/items[at0010]/items[at0011]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>urn:iso:std:iso:3166::AD::Andorra</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AE::United Arab Emirates</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AF::Afghanistan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AG::Antigua and Barbuda</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AI::Anguilla</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AL::Albania</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AM::Armenia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AO::Angola</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AQ::Antarctica</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AR::Argentina</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AS::American Samoa</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AT::Austria</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AU::Australia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AW::Aruba</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AX::Åland Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::AZ::Azerbaijan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BA::Bosnia and Herzegovina</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BB::Barbados</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BD::Bangladesh</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BE::Belgium</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BF::Burkina Faso</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BG::Bulgaria</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BH::Bahrain</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BI::Burundi</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BJ::Benin</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BL::Saint Barthélemy</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BM::Bermuda</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BN::Brunei Darussalam</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BO::Bolivia, Plurinational State of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BR::Brazil</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BS::Bahamas</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BT::Bhutan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BV::Bouvet Island</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BW::Botswana</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BY::Belarus</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::BZ::Belize</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CA::Canada</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CC::Cocos (Keeling) Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CD::Congo, the Democratic Republic of the</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CF::Central African Republic</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CG::Congo</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CH::Switzerland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CI::Côte d''Ivoire</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CK::Cook Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CL::Chile</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CM::Cameroon</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CN::China</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CO::Colombia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CR::Costa Rica</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CU::Cuba</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CV::Cabo Verde</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CW::Curaçao</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CX::Christmas Island</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CY::Cyprus</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::CZ::Czechia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DE::Germany</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DJ::Djibouti</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DK::Denmark</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DM::Dominica</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DO::Dominican Republic</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::DZ::Algeria</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::EC::Ecuador</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::EE::Estonia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::EG::Egypt</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::EH::Western Sahara</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ER::Eritrea</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ES::Spain</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ET::Ethiopia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FI::Finland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FJ::Fiji</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FK::Falkland Islands (Malvinas)</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FM::Micronesia, Federated States of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FO::Faroe Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::FR::France</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GA::Gabon</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GD::Grenada</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GE::Georgia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GF::French Guiana</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GG::Guernsey</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GH::Ghana</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GI::Gibraltar</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GL::Greenland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GM::Gambia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GN::Guinea</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GP::Guadeloupe</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GQ::Equatorial Guinea</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GR::Greece</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GS::South Georgia and the South Sandwich Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GT::Guatemala</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GU::Guam</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GW::Guinea-Bissau</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::GY::Guyana</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HK::Hong Kong</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HM::Heard Island and McDonald Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HN::Honduras</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HR::Croatia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HT::Haiti</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::HU::Hungary</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ID::Indonesia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IE::Ireland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IL::Israel</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IM::Isle of Man</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IN::India</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IO::British Indian Ocean Territory</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IQ::Iraq</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IR::Iran, Islamic Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IS::Iceland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::IT::Italy</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::JE::Jersey</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::JM::Jamaica</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::JO::Jordan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::JP::Japan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KE::Kenya</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KG::Kyrgyzstan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KH::Cambodia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KI::Kiribati</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KM::Comoros</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KN::Saint Kitts and Nevis</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KP::Korea, Democratic People''s Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KR::Korea, Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KW::Kuwait</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KY::Cayman Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::KZ::Kazakhstan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LA::Lao People''s Democratic Republic</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LB::Lebanon</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LC::Saint Lucia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LI::Liechtenstein</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LK::Sri Lanka</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LR::Liberia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LS::Lesotho</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LT::Lithuania</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LU::Luxembourg</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LV::Latvia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::LY::Libya</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MA::Morocco</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MC::Monaco</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MD::Moldova, Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ME::Montenegro</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MF::Saint Martin (French part)</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MG::Madagascar</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MH::Marshall Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MK::Macedonia, the former Yugoslav Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ML::Mali</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MM::Myanmar</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MN::Mongolia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MO::Macao</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MP::Northern Mariana Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MQ::Martinique</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MR::Mauritania</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MS::Montserrat</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MT::Malta</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MU::Mauritius</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MV::Maldives</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MW::Malawi</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MX::Mexico</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MY::Malaysia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::MZ::Mozambique</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NA::Namibia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NC::New Caledonia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NE::Niger</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NF::Norfolk Island</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NG::Nigeria</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NI::Nicaragua</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NL::Netherlands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NO::Norway</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NP::Nepal</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NR::Nauru</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NU::Niue</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::NZ::New Zealand</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::OM::Oman</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PA::Panama</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PE::Peru</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PF::French Polynesia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PG::Papua New Guinea</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PH::Philippines</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PK::Pakistan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PL::Poland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PM::Saint Pierre and Miquelon</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PN::Pitcairn</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PR::Puerto Rico</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PS::Palestine, State of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PT::Portugal</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PW::Palau</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::PY::Paraguay</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::QA::Qatar</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::RE::Réunion</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::RO::Romania</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::RS::Serbia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::RU::Russian Federation</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::RW::Rwanda</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SA::Saudi Arabia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SB::Solomon Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SC::Seychelles</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SD::Sudan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SE::Sweden</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SG::Singapore</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SI::Slovenia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SJ::Svalbard and Jan Mayen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SK::Slovakia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SL::Sierra Leone</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SM::San Marino</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SN::Senegal</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SO::Somalia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SR::Suriname</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SS::South Sudan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ST::Sao Tome and Principe</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SV::El Salvador</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SX::Sint Maarten (Dutch part)</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SY::Syrian Arab Republic</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::SZ::Swaziland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TC::Turks and Caicos Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TD::Chad</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TF::French Southern Territories</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TG::Togo</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TH::Thailand</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TJ::Tajikistan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TK::Tokelau</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TL::Timor-Leste</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TM::Turkmenistan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TN::Tunisia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TO::Tonga</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TR::Turkey</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TT::Trinidad and Tobago</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TV::Tuvalu</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TW::Taiwan, Province of China</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::TZ::Tanzania, United Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::UA::Ukraine</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::UG::Uganda</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::UM::United States Minor Outlying Islands</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::US::United States of America</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::UY::Uruguay</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::UZ::Uzbekistan</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VA::Holy See</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VC::Saint Vincent and the Grenadines</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VE::Venezuela, Bolivarian Republic of</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VG::Virgin Islands, British</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VI::Virgin Islands,</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VN::Viet Nam</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::VU::Vanuatu</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::WF::Wallis and Futuna</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::WS::Samoa</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::YE::Yemen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::YT::Mayotte</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ZA::South Africa</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ZM::Zambia</includedValues>
-                    <includedValues>urn:iso:std:iso:3166::ZW::Zimbabwe</includedValues>
+                    <includedValues>local_terms::AD::Andorra</includedValues>
+                    <includedValues>local_terms::AE::United Arab Emirates</includedValues>
+                    <includedValues>local_terms::AF::Afghanistan</includedValues>
+                    <includedValues>local_terms::AG::Antigua and Barbuda</includedValues>
+                    <includedValues>local_terms::AI::Anguilla</includedValues>
+                    <includedValues>local_terms::AL::Albania</includedValues>
+                    <includedValues>local_terms::AM::Armenia</includedValues>
+                    <includedValues>local_terms::AO::Angola</includedValues>
+                    <includedValues>local_terms::AQ::Antarctica</includedValues>
+                    <includedValues>local_terms::AR::Argentina</includedValues>
+                    <includedValues>local_terms::AS::American Samoa</includedValues>
+                    <includedValues>local_terms::AT::Austria</includedValues>
+                    <includedValues>local_terms::AU::Australia</includedValues>
+                    <includedValues>local_terms::AW::Aruba</includedValues>
+                    <includedValues>local_terms::AX::Åland Islands</includedValues>
+                    <includedValues>local_terms::AZ::Azerbaijan</includedValues>
+                    <includedValues>local_terms::BA::Bosnia and Herzegovina</includedValues>
+                    <includedValues>local_terms::BB::Barbados</includedValues>
+                    <includedValues>local_terms::BD::Bangladesh</includedValues>
+                    <includedValues>local_terms::BE::Belgium</includedValues>
+                    <includedValues>local_terms::BF::Burkina Faso</includedValues>
+                    <includedValues>local_terms::BG::Bulgaria</includedValues>
+                    <includedValues>local_terms::BH::Bahrain</includedValues>
+                    <includedValues>local_terms::BI::Burundi</includedValues>
+                    <includedValues>local_terms::BJ::Benin</includedValues>
+                    <includedValues>local_terms::BL::Saint Barthélemy</includedValues>
+                    <includedValues>local_terms::BM::Bermuda</includedValues>
+                    <includedValues>local_terms::BN::Brunei Darussalam</includedValues>
+                    <includedValues>local_terms::BO::Bolivia, Plurinational State of</includedValues>
+                    <includedValues>local_terms::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
+                    <includedValues>local_terms::BR::Brazil</includedValues>
+                    <includedValues>local_terms::BS::Bahamas</includedValues>
+                    <includedValues>local_terms::BT::Bhutan</includedValues>
+                    <includedValues>local_terms::BV::Bouvet Island</includedValues>
+                    <includedValues>local_terms::BW::Botswana</includedValues>
+                    <includedValues>local_terms::BY::Belarus</includedValues>
+                    <includedValues>local_terms::BZ::Belize</includedValues>
+                    <includedValues>local_terms::CA::Canada</includedValues>
+                    <includedValues>local_terms::CC::Cocos (Keeling) Islands</includedValues>
+                    <includedValues>local_terms::CD::Congo, the Democratic Republic of the</includedValues>
+                    <includedValues>local_terms::CF::Central African Republic</includedValues>
+                    <includedValues>local_terms::CG::Congo</includedValues>
+                    <includedValues>local_terms::CH::Switzerland</includedValues>
+                    <includedValues>local_terms::CI::Côte d''Ivoire</includedValues>
+                    <includedValues>local_terms::CK::Cook Islands</includedValues>
+                    <includedValues>local_terms::CL::Chile</includedValues>
+                    <includedValues>local_terms::CM::Cameroon</includedValues>
+                    <includedValues>local_terms::CN::China</includedValues>
+                    <includedValues>local_terms::CO::Colombia</includedValues>
+                    <includedValues>local_terms::CR::Costa Rica</includedValues>
+                    <includedValues>local_terms::CU::Cuba</includedValues>
+                    <includedValues>local_terms::CV::Cabo Verde</includedValues>
+                    <includedValues>local_terms::CW::Curaçao</includedValues>
+                    <includedValues>local_terms::CX::Christmas Island</includedValues>
+                    <includedValues>local_terms::CY::Cyprus</includedValues>
+                    <includedValues>local_terms::CZ::Czechia</includedValues>
+                    <includedValues>local_terms::DE::Germany</includedValues>
+                    <includedValues>local_terms::DJ::Djibouti</includedValues>
+                    <includedValues>local_terms::DK::Denmark</includedValues>
+                    <includedValues>local_terms::DM::Dominica</includedValues>
+                    <includedValues>local_terms::DO::Dominican Republic</includedValues>
+                    <includedValues>local_terms::DZ::Algeria</includedValues>
+                    <includedValues>local_terms::EC::Ecuador</includedValues>
+                    <includedValues>local_terms::EE::Estonia</includedValues>
+                    <includedValues>local_terms::EG::Egypt</includedValues>
+                    <includedValues>local_terms::EH::Western Sahara</includedValues>
+                    <includedValues>local_terms::ER::Eritrea</includedValues>
+                    <includedValues>local_terms::ES::Spain</includedValues>
+                    <includedValues>local_terms::ET::Ethiopia</includedValues>
+                    <includedValues>local_terms::FI::Finland</includedValues>
+                    <includedValues>local_terms::FJ::Fiji</includedValues>
+                    <includedValues>local_terms::FK::Falkland Islands (Malvinas)</includedValues>
+                    <includedValues>local_terms::FM::Micronesia, Federated States of</includedValues>
+                    <includedValues>local_terms::FO::Faroe Islands</includedValues>
+                    <includedValues>local_terms::FR::France</includedValues>
+                    <includedValues>local_terms::GA::Gabon</includedValues>
+                    <includedValues>local_terms::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
+                    <includedValues>local_terms::GD::Grenada</includedValues>
+                    <includedValues>local_terms::GE::Georgia</includedValues>
+                    <includedValues>local_terms::GF::French Guiana</includedValues>
+                    <includedValues>local_terms::GG::Guernsey</includedValues>
+                    <includedValues>local_terms::GH::Ghana</includedValues>
+                    <includedValues>local_terms::GI::Gibraltar</includedValues>
+                    <includedValues>local_terms::GL::Greenland</includedValues>
+                    <includedValues>local_terms::GM::Gambia</includedValues>
+                    <includedValues>local_terms::GN::Guinea</includedValues>
+                    <includedValues>local_terms::GP::Guadeloupe</includedValues>
+                    <includedValues>local_terms::GQ::Equatorial Guinea</includedValues>
+                    <includedValues>local_terms::GR::Greece</includedValues>
+                    <includedValues>local_terms::GS::South Georgia and the South Sandwich Islands</includedValues>
+                    <includedValues>local_terms::GT::Guatemala</includedValues>
+                    <includedValues>local_terms::GU::Guam</includedValues>
+                    <includedValues>local_terms::GW::Guinea-Bissau</includedValues>
+                    <includedValues>local_terms::GY::Guyana</includedValues>
+                    <includedValues>local_terms::HK::Hong Kong</includedValues>
+                    <includedValues>local_terms::HM::Heard Island and McDonald Islands</includedValues>
+                    <includedValues>local_terms::HN::Honduras</includedValues>
+                    <includedValues>local_terms::HR::Croatia</includedValues>
+                    <includedValues>local_terms::HT::Haiti</includedValues>
+                    <includedValues>local_terms::HU::Hungary</includedValues>
+                    <includedValues>local_terms::ID::Indonesia</includedValues>
+                    <includedValues>local_terms::IE::Ireland</includedValues>
+                    <includedValues>local_terms::IL::Israel</includedValues>
+                    <includedValues>local_terms::IM::Isle of Man</includedValues>
+                    <includedValues>local_terms::IN::India</includedValues>
+                    <includedValues>local_terms::IO::British Indian Ocean Territory</includedValues>
+                    <includedValues>local_terms::IQ::Iraq</includedValues>
+                    <includedValues>local_terms::IR::Iran, Islamic Republic of</includedValues>
+                    <includedValues>local_terms::IS::Iceland</includedValues>
+                    <includedValues>local_terms::IT::Italy</includedValues>
+                    <includedValues>local_terms::JE::Jersey</includedValues>
+                    <includedValues>local_terms::JM::Jamaica</includedValues>
+                    <includedValues>local_terms::JO::Jordan</includedValues>
+                    <includedValues>local_terms::JP::Japan</includedValues>
+                    <includedValues>local_terms::KE::Kenya</includedValues>
+                    <includedValues>local_terms::KG::Kyrgyzstan</includedValues>
+                    <includedValues>local_terms::KH::Cambodia</includedValues>
+                    <includedValues>local_terms::KI::Kiribati</includedValues>
+                    <includedValues>local_terms::KM::Comoros</includedValues>
+                    <includedValues>local_terms::KN::Saint Kitts and Nevis</includedValues>
+                    <includedValues>local_terms::KP::Korea, Democratic People''s Republic of</includedValues>
+                    <includedValues>local_terms::KR::Korea, Republic of</includedValues>
+                    <includedValues>local_terms::KW::Kuwait</includedValues>
+                    <includedValues>local_terms::KY::Cayman Islands</includedValues>
+                    <includedValues>local_terms::KZ::Kazakhstan</includedValues>
+                    <includedValues>local_terms::LA::Lao People''s Democratic Republic</includedValues>
+                    <includedValues>local_terms::LB::Lebanon</includedValues>
+                    <includedValues>local_terms::LC::Saint Lucia</includedValues>
+                    <includedValues>local_terms::LI::Liechtenstein</includedValues>
+                    <includedValues>local_terms::LK::Sri Lanka</includedValues>
+                    <includedValues>local_terms::LR::Liberia</includedValues>
+                    <includedValues>local_terms::LS::Lesotho</includedValues>
+                    <includedValues>local_terms::LT::Lithuania</includedValues>
+                    <includedValues>local_terms::LU::Luxembourg</includedValues>
+                    <includedValues>local_terms::LV::Latvia</includedValues>
+                    <includedValues>local_terms::LY::Libya</includedValues>
+                    <includedValues>local_terms::MA::Morocco</includedValues>
+                    <includedValues>local_terms::MC::Monaco</includedValues>
+                    <includedValues>local_terms::MD::Moldova, Republic of</includedValues>
+                    <includedValues>local_terms::ME::Montenegro</includedValues>
+                    <includedValues>local_terms::MF::Saint Martin (French part)</includedValues>
+                    <includedValues>local_terms::MG::Madagascar</includedValues>
+                    <includedValues>local_terms::MH::Marshall Islands</includedValues>
+                    <includedValues>local_terms::MK::Macedonia, the former Yugoslav Republic of</includedValues>
+                    <includedValues>local_terms::ML::Mali</includedValues>
+                    <includedValues>local_terms::MM::Myanmar</includedValues>
+                    <includedValues>local_terms::MN::Mongolia</includedValues>
+                    <includedValues>local_terms::MO::Macao</includedValues>
+                    <includedValues>local_terms::MP::Northern Mariana Islands</includedValues>
+                    <includedValues>local_terms::MQ::Martinique</includedValues>
+                    <includedValues>local_terms::MR::Mauritania</includedValues>
+                    <includedValues>local_terms::MS::Montserrat</includedValues>
+                    <includedValues>local_terms::MT::Malta</includedValues>
+                    <includedValues>local_terms::MU::Mauritius</includedValues>
+                    <includedValues>local_terms::MV::Maldives</includedValues>
+                    <includedValues>local_terms::MW::Malawi</includedValues>
+                    <includedValues>local_terms::MX::Mexico</includedValues>
+                    <includedValues>local_terms::MY::Malaysia</includedValues>
+                    <includedValues>local_terms::MZ::Mozambique</includedValues>
+                    <includedValues>local_terms::NA::Namibia</includedValues>
+                    <includedValues>local_terms::NC::New Caledonia</includedValues>
+                    <includedValues>local_terms::NE::Niger</includedValues>
+                    <includedValues>local_terms::NF::Norfolk Island</includedValues>
+                    <includedValues>local_terms::NG::Nigeria</includedValues>
+                    <includedValues>local_terms::NI::Nicaragua</includedValues>
+                    <includedValues>local_terms::NL::Netherlands</includedValues>
+                    <includedValues>local_terms::NO::Norway</includedValues>
+                    <includedValues>local_terms::NP::Nepal</includedValues>
+                    <includedValues>local_terms::NR::Nauru</includedValues>
+                    <includedValues>local_terms::NU::Niue</includedValues>
+                    <includedValues>local_terms::NZ::New Zealand</includedValues>
+                    <includedValues>local_terms::OM::Oman</includedValues>
+                    <includedValues>local_terms::PA::Panama</includedValues>
+                    <includedValues>local_terms::PE::Peru</includedValues>
+                    <includedValues>local_terms::PF::French Polynesia</includedValues>
+                    <includedValues>local_terms::PG::Papua New Guinea</includedValues>
+                    <includedValues>local_terms::PH::Philippines</includedValues>
+                    <includedValues>local_terms::PK::Pakistan</includedValues>
+                    <includedValues>local_terms::PL::Poland</includedValues>
+                    <includedValues>local_terms::PM::Saint Pierre and Miquelon</includedValues>
+                    <includedValues>local_terms::PN::Pitcairn</includedValues>
+                    <includedValues>local_terms::PR::Puerto Rico</includedValues>
+                    <includedValues>local_terms::PS::Palestine, State of</includedValues>
+                    <includedValues>local_terms::PT::Portugal</includedValues>
+                    <includedValues>local_terms::PW::Palau</includedValues>
+                    <includedValues>local_terms::PY::Paraguay</includedValues>
+                    <includedValues>local_terms::QA::Qatar</includedValues>
+                    <includedValues>local_terms::RE::Réunion</includedValues>
+                    <includedValues>local_terms::RO::Romania</includedValues>
+                    <includedValues>local_terms::RS::Serbia</includedValues>
+                    <includedValues>local_terms::RU::Russian Federation</includedValues>
+                    <includedValues>local_terms::RW::Rwanda</includedValues>
+                    <includedValues>local_terms::SA::Saudi Arabia</includedValues>
+                    <includedValues>local_terms::SB::Solomon Islands</includedValues>
+                    <includedValues>local_terms::SC::Seychelles</includedValues>
+                    <includedValues>local_terms::SD::Sudan</includedValues>
+                    <includedValues>local_terms::SE::Sweden</includedValues>
+                    <includedValues>local_terms::SG::Singapore</includedValues>
+                    <includedValues>local_terms::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
+                    <includedValues>local_terms::SI::Slovenia</includedValues>
+                    <includedValues>local_terms::SJ::Svalbard and Jan Mayen</includedValues>
+                    <includedValues>local_terms::SK::Slovakia</includedValues>
+                    <includedValues>local_terms::SL::Sierra Leone</includedValues>
+                    <includedValues>local_terms::SM::San Marino</includedValues>
+                    <includedValues>local_terms::SN::Senegal</includedValues>
+                    <includedValues>local_terms::SO::Somalia</includedValues>
+                    <includedValues>local_terms::SR::Suriname</includedValues>
+                    <includedValues>local_terms::SS::South Sudan</includedValues>
+                    <includedValues>local_terms::ST::Sao Tome and Principe</includedValues>
+                    <includedValues>local_terms::SV::El Salvador</includedValues>
+                    <includedValues>local_terms::SX::Sint Maarten (Dutch part)</includedValues>
+                    <includedValues>local_terms::SY::Syrian Arab Republic</includedValues>
+                    <includedValues>local_terms::SZ::Swaziland</includedValues>
+                    <includedValues>local_terms::TC::Turks and Caicos Islands</includedValues>
+                    <includedValues>local_terms::TD::Chad</includedValues>
+                    <includedValues>local_terms::TF::French Southern Territories</includedValues>
+                    <includedValues>local_terms::TG::Togo</includedValues>
+                    <includedValues>local_terms::TH::Thailand</includedValues>
+                    <includedValues>local_terms::TJ::Tajikistan</includedValues>
+                    <includedValues>local_terms::TK::Tokelau</includedValues>
+                    <includedValues>local_terms::TL::Timor-Leste</includedValues>
+                    <includedValues>local_terms::TM::Turkmenistan</includedValues>
+                    <includedValues>local_terms::TN::Tunisia</includedValues>
+                    <includedValues>local_terms::TO::Tonga</includedValues>
+                    <includedValues>local_terms::TR::Turkey</includedValues>
+                    <includedValues>local_terms::TT::Trinidad and Tobago</includedValues>
+                    <includedValues>local_terms::TV::Tuvalu</includedValues>
+                    <includedValues>local_terms::TW::Taiwan, Province of China</includedValues>
+                    <includedValues>local_terms::TZ::Tanzania, United Republic of</includedValues>
+                    <includedValues>local_terms::UA::Ukraine</includedValues>
+                    <includedValues>local_terms::UG::Uganda</includedValues>
+                    <includedValues>local_terms::UM::United States Minor Outlying Islands</includedValues>
+                    <includedValues>local_terms::US::United States of America</includedValues>
+                    <includedValues>local_terms::UY::Uruguay</includedValues>
+                    <includedValues>local_terms::UZ::Uzbekistan</includedValues>
+                    <includedValues>local_terms::VA::Holy See</includedValues>
+                    <includedValues>local_terms::VC::Saint Vincent and the Grenadines</includedValues>
+                    <includedValues>local_terms::VE::Venezuela, Bolivarian Republic of</includedValues>
+                    <includedValues>local_terms::VG::Virgin Islands, British</includedValues>
+                    <includedValues>local_terms::VI::Virgin Islands,</includedValues>
+                    <includedValues>local_terms::VN::Viet Nam</includedValues>
+                    <includedValues>local_terms::VU::Vanuatu</includedValues>
+                    <includedValues>local_terms::WF::Wallis and Futuna</includedValues>
+                    <includedValues>local_terms::WS::Samoa</includedValues>
+                    <includedValues>local_terms::YE::Yemen</includedValues>
+                    <includedValues>local_terms::YT::Mayotte</includedValues>
+                    <includedValues>local_terms::ZA::South Africa</includedValues>
+                    <includedValues>local_terms::ZM::Zambia</includedValues>
+                    <includedValues>local_terms::ZW::Zimbabwe</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/items[at0010]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-BW::Baden-Württemberg</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-BY::Bayern</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-BE::Berlin</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-BB::Brandenburg</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-HB::Bremen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-HH::Hamburg</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-HE::Hessen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-MV::Mecklenburg-Vorpommern</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-NI::Niedersachsen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-NW::Nordrhein-Westfalen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-RP::Rheinland-Pfalz</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-SL::Saarland</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-SN::Sachsen</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-ST::Sachsen-Anhalt</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-SH::Schleswig-Holstein</includedValues>
-                    <includedValues>urn:iso:std:iso:3166-2:de::DE-TH::Thüringen</includedValues>
+                    <includedValues>ISO::DE-BW::Baden-Württemberg</includedValues>
+                    <includedValues>ISO::DE-BY::Bayern</includedValues>
+                    <includedValues>ISO::DE-BE::Berlin</includedValues>
+                    <includedValues>ISO::DE-BB::Brandenburg</includedValues>
+                    <includedValues>ISO::DE-HB::Bremen</includedValues>
+                    <includedValues>ISO::DE-HH::Hamburg</includedValues>
+                    <includedValues>ISO::DE-HE::Hessen</includedValues>
+                    <includedValues>ISO::DE-MV::Mecklenburg-Vorpommern</includedValues>
+                    <includedValues>ISO::DE-NI::Niedersachsen</includedValues>
+                    <includedValues>ISO::DE-NW::Nordrhein-Westfalen</includedValues>
+                    <includedValues>ISO::DE-RP::Rheinland-Pfalz</includedValues>
+                    <includedValues>ISO::DE-SL::Saarland</includedValues>
+                    <includedValues>ISO::DE-SN::Sachsen</includedValues>
+                    <includedValues>ISO::DE-ST::Sachsen-Anhalt</includedValues>
+                    <includedValues>ISO::DE-SH::Schleswig-Holstein</includedValues>
+                    <includedValues>ISO::DE-TH::Thüringen</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0010]/items[at0031]"/>
@@ -629,12 +656,12 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             name="Keine Reisehistorie" path="/content" xsi:type="tem:EVALUATION">
             <Rule min="1" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::373067005::Nein</includedValues>
                 </constraint>
             </Rule>
             <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>LOINC::8691-8::History of Travel</includedValues>
+                    <includedValues>LOINC::8691-8::Reisehistorie</includedValues>
                 </constraint>
                 <nameConstraint>
                     <excludedValues>local::at0008</excludedValues>
@@ -650,13 +677,13 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             name="Unbekannte Reisehistorie" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Fehlende Information" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>LOINC::8691-8::History of Travel</includedValues>
+                    <includedValues>LOINC::8691-8::Reisehistorie</includedValues>
                 </constraint>
             </Rule>
             <Rule max="1" min="1"
                 name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::261665006::Unknown (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::261665006::Unbekannt</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
