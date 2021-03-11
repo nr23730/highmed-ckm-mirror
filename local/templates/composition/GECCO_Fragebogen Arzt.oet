@@ -123,6 +123,70 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'COVID-19 Therapie']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <items>
+            <item>
+                <key>fhir</key>
+                <value>medicationCodeableConcept</value>
+            </item>
+            <item>
+                <key>terminology1</key>
+                <value>http://fhir.de/CodeSystem/dimdi/atc</value>
+            </item>
+            <item>
+                <key>terminology2</key>
+                <value>http://snomed.info/sct</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'ACE-Hemmer']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <items>
+            <item>
+                <key>fhir</key>
+                <value>medicationCodeableConcept</value>
+            </item>
+            <item>
+                <key>terminology1</key>
+                <value>http://fhir.de/CodeSystem/dimdi/atc</value>
+            </item>
+            <item>
+                <key>terminology2</key>
+                <value>http://snomed.info/sct</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Immunglobuline']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <items>
+            <item>
+                <key>fhir</key>
+                <value>medicationCodeableConcept</value>
+            </item>
+            <item>
+                <key>terminology1</key>
+                <value>http://fhir.de/CodeSystem/dimdi/atc</value>
+            </item>
+            <item>
+                <key>terminology2</key>
+                <value>http://snomed.info/sct</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Antikoagulanzien']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <items>
+            <item>
+                <key>fhir</key>
+                <value>medicationCodeableConcept</value>
+            </item>
+            <item>
+                <key>terminology1</key>
+                <value>http://fhir.de/CodeSystem/dimdi/atc</value>
+            </item>
+            <item>
+                <key>terminology2</key>
+                <value>http://snomed.info/sct</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
@@ -157,6 +221,25 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
             concept_name="Problem/Diagnose" max="1"
             name="Vorliegende Diagnose" path="/content" xsi:type="tem:EVALUATION">
+            <Rule min="1" name="Kategorie" path="/data[at0001]/items[at0009]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED Clinical Terms::418112009::pulmonaryMedicine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::722414000::vascularMedicine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::408472002::hepatology</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394810000::rheumatoloty</includedValues>
+                    <includedValues>SNOMED Clinical Terms::408480009::immunology</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394807007::infectiousDiseases</includedValues>
+                    <includedValues>SNOMED Clinical Terms::408475000::Diabetic Medicine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394593009::Oncology</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394584008::Gastroenterology</includedValues>
+                    <includedValues>SNOMED Clinical Terms::788415003::Transplant medicine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::116223007::Complication (disorder)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394591006::Neurology</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394587001::Psychiatry</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394589003::Nephrology (qualifier value)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::404989005::Ventilation status (observable entity)</includedValues>
+                </constraint>
+            </Rule>
             <Rule path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
@@ -205,7 +288,6 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                     <includedValues>local_terms::444932008::Dependence on ventilator (finding)</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0009]"/>
             <Rule max="0" path="/data[at0001]/items[at0012]"/>
             <Rule max="0" path="/data[at0001]/items[at0003]"/>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
@@ -427,12 +509,17 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             concept_name="Bildgebendes Untersuchungsergebnis"
             name="Radiologischer Befund" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule name="Kategorie" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::18726-0::Radiology studies (set)</includedValues>
+                    <includedValues>local_terms::RAD::Radiology</includedValues>
+                </constraint>
+            </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>LOINC::18748-4::Diagnostic imaging study</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
@@ -462,6 +549,21 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0034]"/>
             <Rule max="0" min="0" path="/ism_transition[at0035]"/>
+            <Rule name="Kategorie" path="/description[at0001]/items[at0049]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
+                    <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
+                    <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
+                    <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
+                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
+                    <includedValues>SNOMED Clinical Terms::225287004::Procedures relating to positioning and support (procedure)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                </constraint>
+            </Rule>
             <Rule path="/description[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
@@ -480,7 +582,6 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                     <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0049]"/>
             <Rule max="0" path="/description[at0001]/items[at0065]"/>
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="1" path="/description[at0001]/items[at0063]">
@@ -623,7 +724,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             name="DNR-Anordnung" path="/content" xsi:type="tem:EVALUATION">
             <Rule min="1" path="/data[at0001]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://terminology.hl7.org/CodeSystem/consentcategorycodes::dnr::Do No Resusciate</includedValues>
+                    <includedValues>local_terms::dnr::Do No Resusciate</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0004]">
@@ -654,62 +755,354 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 </constraint>
             </Rule>
         </Content>
-        <Content
-            archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
-            concept_name="Medikationseintrag" max="1" min="1"
-            name="Medikation" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::768759001::Product containing steroid (product)</includedValues>
-                    <includedValues>SNOMED CT::413591007::Product containing atazanavir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::424096001::Product containing darunavir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::14728000::Product containing chloroquine (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::83490000::Product containing hydroxychloroquine (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::96138006::Product containing ivermectin (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::134573001::Product containing lopinavir and ritonavir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::78025001::Product containing ganciclovir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::386142008::Product containing oseltamivir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::870518005::Product containing remdesivir (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::35063004::Product containing ribavirin (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::444649004::Product containing tocilizumab (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::763522001::Product containing sarilumab (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::416587008::Product containing calcineurin inhibitor (product)</includedValues>
-                    <includedValues>SNOMED CT::416897008::Product containing tumor necrosis factor alpha inhibitor (product)</includedValues>
-                    <includedValues>SNOMED CT::430817009::Product containing interleukin 1 receptor antagonist (product)</includedValues>
-                    <includedValues>SNOMED CT::703779004::Product containing ruxolitinib (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::73133000::Product containing colchicine (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::768865007::Product containing interferon (product)</includedValues>
-                    <includedValues>SNOMED CT::88519001::Product containing calcifediol (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::764877006::Product containing zinc (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::41549009::Product containing angiotensin-converting enzyme inhibitor (product)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>URI</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
-            <Rule name="Grund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::421974008::Adjunct - intent (qualifier value)</includedValues>
-                    <includedValues>SNOMED CT::373846009::Adjuvant - intent (qualifier value)</includedValues>
-                    <includedValues>SNOMED CT::373808002::Curative - procedure intent (qualifier value)</includedValues>
-                    <includedValues>SNOMED CT::373847000::Neo-adjuvant - intent (qualifier value)</includedValues>
-                    <includedValues>SNOMED CT::360271000::Prophylaxis - procedure intent (qualifier value)</includedValues>
-                    <includedValues>SNOMED CT::399707004::Supportive - procedure intent (qualifier value)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1" name="Medikation"
+            path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Kategorie" path="/items" xsi:type="tem:EVALUATION">
+                <Rule name="Patientenart" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>HL7 FHIR::inpatient::Inpatient</includedValues>
+                        <includedValues>HL7 FHIR::outpatient::Outpatient</includedValues>
+                        <includedValues>HL7 FHIR::community::Community</includedValues>
+                        <includedValues>HL7 FHIR::patientspecified::Patient Specified</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0005]"/>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
+                concept_name="Medikationseintrag" max="1" min="1"
+                name="COVID-19 Therapie" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::768759001::Product containing steroid (product)</includedValues>
+                        <includedValues>SNOMED CT::413591007::Product containing atazanavir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::424096001::Product containing darunavir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::14728000::Product containing chloroquine (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::83490000::Product containing hydroxychloroquine (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::96138006::Product containing ivermectin (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::134573001::Product containing lopinavir and ritonavir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::78025001::Product containing ganciclovir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::386142008::Product containing oseltamivir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::870518005::Product containing remdesivir (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::35063004::Product containing ribavirin (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::444649004::Product containing tocilizumab (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::763522001::Product containing sarilumab (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::416587008::Product containing calcineurin inhibitor (product)</includedValues>
+                        <includedValues>SNOMED CT::416897008::Product containing tumor necrosis factor alpha inhibitor (product)</includedValues>
+                        <includedValues>SNOMED CT::430817009::Product containing interleukin 1 receptor antagonist (product)</includedValues>
+                        <includedValues>SNOMED CT::703779004::Product containing ruxolitinib (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::73133000::Product containing colchicine (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::768865007::Product containing interferon (product)</includedValues>
+                        <includedValues>SNOMED CT::88519001::Product containing calcifediol (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::764877006::Product containing zinc (medicinal product)</includedValues>
+                        <includedValues>SNOMED CT::41549009::Product containing angiotensin-converting enzyme inhibitor (product)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+                <Rule name="Grund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::421974008::Adjunct - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373846009::Adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373808002::Curative - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373847000::Neo-adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::360271000::Prophylaxis - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::399707004::Supportive - procedure intent (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.fhir_medicationstatus.v0"
+                    concept_name="FHIR_Medikamentenstatus" max="1"
+                    min="1" name="Status"
+                    path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER"/>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
+                concept_name="Medikationseintrag" max="1"
+                name="ACE-Hemmer" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>ATC::C09A::ACE-HEMMER, REIN</includedValues>
+                        <includedValues>ATC::C09AA::ACE-Hemmer, rein</includedValues>
+                        <includedValues>ATC::C09AA01::Captopril</includedValues>
+                        <includedValues>ATC::C09AA02::Enalapril</includedValues>
+                        <includedValues>ATC::C09AA03::Lisinopril</includedValues>
+                        <includedValues>ATC::C09AA04::Perindopril</includedValues>
+                        <includedValues>ATC::C09AA05::Ramipril</includedValues>
+                        <includedValues>ATC::C09AA06::Quinapril</includedValues>
+                        <includedValues>ATC::C09AA07::Benazepril</includedValues>
+                        <includedValues>ATC::C09AA08::Cilazapril</includedValues>
+                        <includedValues>ATC::C09AA09::Fosinopril</includedValues>
+                        <includedValues>ATC::C09AA10::Trandolapril</includedValues>
+                        <includedValues>ATC::C09AA11::Spirapril</includedValues>
+                        <includedValues>ATC::C09AA12::Delapril</includedValues>
+                        <includedValues>ATC::C09AA13::Moexipril</includedValues>
+                        <includedValues>ATC::C09AA14::Temocapril</includedValues>
+                        <includedValues>ATC::C09AA15::Zofenopril</includedValues>
+                        <includedValues>ATC::C09AA16::Imidapril</includedValues>
+                        <includedValues>ATC::C09B::ACE-HEMMER, KOMBINATIONEN</includedValues>
+                        <includedValues>ATC::C09BA::ACE-Hemmer und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA01::Captopril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA02::Enalapril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA03::Lisinopril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA04::Perindopril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA05::Ramipril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA06::Quinapril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA07::Benazepril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA08::Cilazapril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA09::Fosinopril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA12::Delapril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA13::Moexipril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA15::Zofenopril und Diuretika</includedValues>
+                        <includedValues>ATC::C09BA21::Captopril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA22::Enalapril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA23::Lisinopril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA25::Ramipril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA26::Quinapril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA27::Benazepril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA28::Cilazapril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA29::Fosinopril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA33::Moexipril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA35::Zofenopril und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BA54::Perindopril und Indapamid</includedValues>
+                        <includedValues>ATC::C09BA55::Ramipril und Piretanid</includedValues>
+                        <includedValues>ATC::C09BB::ACE-Hemmer und Calciumkanalblocker</includedValues>
+                        <includedValues>ATC::C09BB02::Enalapril und Lercanidipin</includedValues>
+                        <includedValues>ATC::C09BB03::Lisinopril und Amlodipin</includedValues>
+                        <includedValues>ATC::C09BB04::Perindopril und Amlodipin</includedValues>
+                        <includedValues>ATC::C09BB05::Ramipril und Felodipin</includedValues>
+                        <includedValues>ATC::C09BB06::Enalapril und Nitrendipin</includedValues>
+                        <includedValues>ATC::C09BB07::Ramipril und Amlodipin</includedValues>
+                        <includedValues>ATC::C09BB10::Trandolapril und Verapamil</includedValues>
+                        <includedValues>ATC::C09BB12::Delapril und Manidipin</includedValues>
+                        <includedValues>ATC::C09BX::ACE-Hemmer, andere Kombinationen</includedValues>
+                        <includedValues>ATC::C09BX01::Perindopril, Amlodipin und Indapamid</includedValues>
+                        <includedValues>ATC::C09BX02::Perindopril und Bisoprolol</includedValues>
+                        <includedValues>ATC::C09BX03::Ramipril, Amlodipin und Hydrochlorothiazid</includedValues>
+                        <includedValues>ATC::C09BX04::Perindopril, Bisoprolol und Amlodipin</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+                <Rule name="Grund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::421974008::Adjunct - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373846009::Adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373808002::Curative - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373847000::Neo-adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::360271000::Prophylaxis - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::399707004::Supportive - procedure intent (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.fhir_medicationstatus.v0"
+                    concept_name="FHIR_Medikamentenstatus" max="1"
+                    min="1" name="Status"
+                    path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER"/>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
+                concept_name="Medikationseintrag" max="1"
+                name="Immunglobuline" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>ATC::J06B::IMMUNGLOBULINE</includedValues>
+                        <includedValues>ATC::J06BA::Immunglobuline, normal human</includedValues>
+                        <includedValues>ATC::J06BA01::Immunglobuline, normal human, zur extravasalen Anwendung</includedValues>
+                        <includedValues>ATC::J06BA02::Immunglobuline, normal human, zur intravasalen Anwendung</includedValues>
+                        <includedValues>ATC::J06BB::Spezifische Immunglobuline</includedValues>
+                        <includedValues>ATC::J06BB01::Anti-D(rh)-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB02::Tetanus-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB03::Varicella/Zoster-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB04::Hepatitis-B-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB05::Tollwut-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB06::Röteln-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB07::Kuhpocken-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB08::Staphylococcus-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB09::Cytomegalievirus-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB10::Diphtherie-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB11::Hepatitis-A-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB12::FSME-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB13::Pertussis-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB14::Masern-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB15::Mumps-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB16::Palivizumab</includedValues>
+                        <includedValues>ATC::J06BB17::Motavizumab</includedValues>
+                        <includedValues>ATC::J06BB18::Raxibacumab</includedValues>
+                        <includedValues>ATC::J06BB19::Anthrax-Immunglobulin</includedValues>
+                        <includedValues>ATC::J06BB21::Bezlotoxumab</includedValues>
+                        <includedValues>ATC::J06BB22::Obiltoxaximab</includedValues>
+                        <includedValues>ATC::J06BB30::Kombinationen</includedValues>
+                        <includedValues>ATC::J06BC::Andere Immunglobuline</includedValues>
+                        <includedValues>ATC::J06BC01::Nebacumab</includedValues>
+                        <includedValues>ATC::J06BC10::Andere Immunglobuline</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+                <Rule name="Grund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::421974008::Adjunct - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373846009::Adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373808002::Curative - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373847000::Neo-adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::360271000::Prophylaxis - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::399707004::Supportive - procedure intent (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.fhir_medicationstatus.v0"
+                    concept_name="FHIR_Medikamentenstatus" max="1"
+                    min="1" name="Status"
+                    path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER"/>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
+                concept_name="Medikationseintrag" max="1"
+                name="Antikoagulanzien" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::B01AB::Heparingruppe</includedValues>
+                        <includedValues>SNOMED CT::B01AB01::Heparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB02::Antithrombin III, Antithrombin alfa</includedValues>
+                        <includedValues>SNOMED CT::B01AB04::Dalteparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB05::Enoxaparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB06::Nadroparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB07::Parnaparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB08::Reviparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB09::Danaparoid</includedValues>
+                        <includedValues>SNOMED CT::B01AB10::Tinzaparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB11::Sulodexid</includedValues>
+                        <includedValues>SNOMED CT::B01AB12::Bemiparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB13::Certoparin</includedValues>
+                        <includedValues>SNOMED CT::B01AB51::Heparin, Kombinationen</includedValues>
+                        <includedValues>SNOMED CT::B01AB63::Certoparin, Kombinationen</includedValues>
+                        <includedValues>SNOMED CT::B01AE03::Argatroban</includedValues>
+                        <includedValues>SNOMED CT::B01AC::Thrombozytenaggregationshemmer, exkl. Heparin</includedValues>
+                        <includedValues>SNOMED CT::B01AC01::Ditazol</includedValues>
+                        <includedValues>SNOMED CT::B01AC02::Cloricromen</includedValues>
+                        <includedValues>SNOMED CT::B01AC03::Picotamid</includedValues>
+                        <includedValues>SNOMED CT::B01AC04::Clopidogrel</includedValues>
+                        <includedValues>SNOMED CT::B01AC05::Ticlopidin</includedValues>
+                        <includedValues>SNOMED CT::B01AC06::Acetylsalicylsäure</includedValues>
+                        <includedValues>SNOMED CT::B01AC07::Dipyridamol</includedValues>
+                        <includedValues>SNOMED CT::B01AC08::Carbasalat calcium</includedValues>
+                        <includedValues>SNOMED CT::B01AC09::Epoprostenol</includedValues>
+                        <includedValues>SNOMED CT::B01AC10::Indobufen</includedValues>
+                        <includedValues>SNOMED CT::B01AC11::Iloprost</includedValues>
+                        <includedValues>SNOMED CT::B01AC12::Sulfinpyrazon</includedValues>
+                        <includedValues>SNOMED CT::B01AC13::Abciximab</includedValues>
+                        <includedValues>SNOMED CT::B01AC15::Aloxiprin</includedValues>
+                        <includedValues>SNOMED CT::B01AC16::Eptifibatid</includedValues>
+                        <includedValues>SNOMED CT::B01AC17::Tirofiban</includedValues>
+                        <includedValues>SNOMED CT::B01AC18::Triflusal</includedValues>
+                        <includedValues>SNOMED CT::B01AC19::Beraprost</includedValues>
+                        <includedValues>SNOMED CT::B01AC21::Treprostinil</includedValues>
+                        <includedValues>SNOMED CT::B01AC22::Prasugrel</includedValues>
+                        <includedValues>SNOMED CT::B01AC23::Cilostazol</includedValues>
+                        <includedValues>SNOMED CT::B01AC24::Ticagrelor</includedValues>
+                        <includedValues>SNOMED CT::B01AC25::Cangrelor</includedValues>
+                        <includedValues>SNOMED CT::B01AC26::Vorapaxar</includedValues>
+                        <includedValues>SNOMED CT::B01AC27::Selexipag</includedValues>
+                        <includedValues>SNOMED CT::B01AC30::Kombinationen</includedValues>
+                        <includedValues>SNOMED CT::B01AC34::Clopidogrel und Acetylsalicylsäure</includedValues>
+                        <includedValues>SNOMED CT::B01AC36::Dipyridamol und Acetylsalicylsäure</includedValues>
+                        <includedValues>SNOMED CT::B01AC56::Acetylsalicylsäure, Kombinationen mit Protonenpumpenhemmern</includedValues>
+                        <includedValues>SNOMED CT::B01AC86::Acetylsalicylsäure und Esomeprazol</includedValues>
+                        <includedValues>SNOMED CT::B01AA04::Phenprocoumon</includedValues>
+                        <includedValues>SNOMED CT::B01AF::Direkte Faktor-Xa-Inhibitoren</includedValues>
+                        <includedValues>SNOMED CT::B01AF01::Rivaroxaban</includedValues>
+                        <includedValues>SNOMED CT::B01AF02::Apixaban</includedValues>
+                        <includedValues>SNOMED CT::B01AF03::Edoxaban</includedValues>
+                        <includedValues>SNOMED CT::B01AF04::Betrixaban</includedValues>
+                        <includedValues>SNOMED CT::B01AE::Direkte Thrombininhibitoren</includedValues>
+                        <includedValues>SNOMED CT::B01AE01::Desirudin</includedValues>
+                        <includedValues>SNOMED CT::B01AE02::Lepirudin</includedValues>
+                        <includedValues>SNOMED CT::B01AE03::Argatroban</includedValues>
+                        <includedValues>SNOMED CT::B01AE04::Melagatran</includedValues>
+                        <includedValues>SNOMED CT::B01AE05::Ximelagatran</includedValues>
+                        <includedValues>SNOMED CT::B01AE06::Bivalirudin</includedValues>
+                        <includedValues>SNOMED CT::B01AE07::Dabigatranetexilat</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+                <Rule name="Grund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::421974008::Adjunct - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373846009::Adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373808002::Curative - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::373847000::Neo-adjuvant - intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::360271000::Prophylaxis - procedure intent (qualifier value)</includedValues>
+                        <includedValues>SNOMED CT::399707004::Supportive - procedure intent (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.fhir_medicationstatus.v0"
+                    concept_name="FHIR_Medikamentenstatus" max="1"
+                    min="1" name="Status"
+                    path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER"/>
+            </Item>
         </Content>
         <Content
             archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0"
@@ -839,11 +1232,22 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F20722F4EA7FA913A4E34BFAB6501B45</digest>
     </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+    </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">A8250CB0E84668C6B2873F43DC91DA26</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.fhir_medicationstatus.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">54609A3FB13AFCFB513EF34F8858908D</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0"
