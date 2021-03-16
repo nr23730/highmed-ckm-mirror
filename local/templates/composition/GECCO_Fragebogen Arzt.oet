@@ -95,7 +95,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>d56b4eb6cdc70f40334a05a3fc1e1665</value>
+                <value>93fe5dcf8bafc372115277f10cf47a0e</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -107,7 +107,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </other_details>
     </description>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Diagnose']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]">
         <items>
             <item>
                 <key>410605003</key>
@@ -123,7 +123,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'COVID-19 Therapie']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Medikamentöse Therapie']/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'COVID-19 Therapie']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
         <items>
             <item>
                 <key>fhir</key>
@@ -139,7 +139,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'ACE-Hemmer']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Medikamentöse Therapie']/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'ACE-Hemmer']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
         <items>
             <item>
                 <key>fhir</key>
@@ -155,7 +155,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Immunglobuline']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Medikamentöse Therapie']/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Immunglobuline']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
         <items>
             <item>
                 <key>fhir</key>
@@ -171,7 +171,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Antikoagulanzien']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Medikamentöse Therapie']/items[openEHR-EHR-OBSERVATION.medication_statement.v0, 'Antikoagulanzien']/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
         <items>
             <item>
                 <key>fhir</key>
@@ -191,7 +191,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
-            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
+            concept_name="Personendaten" max="1"
+            name="Personendaten des Patienten" path="/content" xsi:type="tem:ADMIN_ENTRY">
             <Rule max="0" path="/data[at0001]/items[at0008]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
                 max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
@@ -201,10 +202,15 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 <Rule max="0" path="/items[at0004]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                max="1" path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                concept_name="Personenname" max="1" name="Patientenname"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0006]"/>
                 <Rule max="0" path="/items[at0022]"/>
                 <Rule max="0" path="/items[at0001]"/>
+                <Rule name="Name" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0002]/items[at0017]"/>
+                <Rule max="0" path="/items[at0002]/items[at0018]"/>
+                <Rule max="0" path="/items[at0014]"/>
             </Items>
         </Content>
         <Content
@@ -217,97 +223,46 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
         </Content>
-        <Content
-            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            concept_name="Problem/Diagnose" max="1"
-            name="Vorliegende Diagnose" path="/content" xsi:type="tem:EVALUATION">
-            <Rule min="1" name="Kategorie" path="/data[at0001]/items[at0009]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::418112009::pulmonaryMedicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::722414000::vascularMedicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::408472002::hepatology</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394810000::rheumatoloty</includedValues>
-                    <includedValues>SNOMED Clinical Terms::408480009::immunology</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394807007::infectiousDiseases</includedValues>
-                    <includedValues>SNOMED Clinical Terms::408475000::Diabetic Medicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394593009::Oncology</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394584008::Gastroenterology</includedValues>
-                    <includedValues>SNOMED Clinical Terms::788415003::Transplant medicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::116223007::Complication (disorder)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394591006::Neurology</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394587001::Psychiatry</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394589003::Nephrology (qualifier value)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::404989005::Ventilation status (observable entity)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I10.90::Essentielle Hypertonie, nicht näher bezeichnet : Ohne Angabe einer hypertensiven Krise</includedValues>
-                    <includedValues>local_terms::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I25.1::Atherosklerotische Herzkrankheit</includedValues>
-                    <includedValues>local_terms::I65.2::Verschluss und Stenose der A. carotis</includedValues>
-                    <includedValues>local_terms::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::K28.9::Ulcus pepticum jejuni : Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
-                    <includedValues>local_terms::Z94.1::Zustand nach Herztransplantation</includedValues>
-                    <includedValues>local_terms::Z94.2::Zustand nach Lungentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.4::Zustand nach Lebertransplantation</includedValues>
-                    <includedValues>local_terms::Z94.0::Zustand nach Nierentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
-                    <includedValues>local_terms::Z94.5::Zustand nach Hauttransplantation</includedValues>
-                    <includedValues>local_terms::Z94.7::Zustand nach Keratoplastik</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
-                    <includedValues>local_terms::Z94.6::Zustand nach Knochentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
-                    <includedValues>local_terms::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
-                    <includedValues>local_terms::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
-                    <includedValues>local_terms::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
-                    <includedValues>local_terms::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::840539006::Disease caused by 2019 novel coronavirus (disorder)</includedValues>
-                    <includedValues>local_terms::840544004::Suspected disease caused by 2019 novel coronavirus (situation)</includedValues>
-                    <includedValues>local_terms::882784691000119000::Pneumonia caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::674814021000119106::Acute respiratory distress syndrome caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::880529761000119102::Lower respiratory infection caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::138389411000119105::Acute bronchitis caused by severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::866151004::Lymphocytopenia associated with severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::866152006::Thrombocytopenia associated with severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
-                    <includedValues>local_terms::444932008::Dependence on ventilator (finding)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0012]"/>
-            <Rule max="0" path="/data[at0001]/items[at0003]"/>
-            <Rule max="0" path="/data[at0001]/items[at0072]"/>
-            <Rule max="0" path="/data[at0001]/items[at0073]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-                concept_name="Anatomische Lokalisation"
-                name="Körperstelle" path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1" name="Diagnose"
+            path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                concept_name="Problem/Diagnose" max="1"
+                name="Vorliegende Diagnose" path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::195967001::Asthma (disorder)</includedValues>
+                        <includedValues>local_terms::13645005::Chronic obstructive lung disease (disorder)</includedValues>
+                        <includedValues>local_terms::51615001::Fibrosis of lung (disorder) Lungenfibrose</includedValues>
+                        <includedValues>local_terms::70995007::Pulmonary hypertension (disorder)</includedValues>
+                        <includedValues>local_terms::190966007::Extreme obesity with alveolar hypoventilation (disorder)</includedValues>
+                        <includedValues>local_terms::73430006::Sleep apnea (disorder)</includedValues>
+                        <includedValues>local_terms::78275009::Obstructive sleep apnea syndrome (disorder)</includedValues>
+                        <includedValues>local_terms::190905008::Cystic fibrosis (disorder) Cystische Fibrose</includedValues>
+                        <includedValues>local_terms::38341003::Hypertensive disorder, systemic arterial (disorder)</includedValues>
+                        <includedValues>local_terms::417662000:246090004=22298006::|History of clinical finding in subject (situation)|:|Associated finding (attribute)|=|Myocardial infarction (disorder)| Zustand nach Herzinfarkt</includedValues>
+                        <includedValues>local_terms::698247007::Cardiac arrhythmia (disorder) Herzrhythmusstörungen</includedValues>
+                        <includedValues>local_terms::84114007::Heart failure (disorder) Herzinsuffizienz</includedValues>
+                        <includedValues>local_terms::399957001::Peripheral arterial occlusive disease (disorder)</includedValues>
+                        <includedValues>local_terms::416940007:363589002=81266008::|Past history of procedure (situation)|:|Associated procedure (attribute)|=|Heart revascularization (procedure)|</includedValues>
+                        <includedValues>local_terms::53741008::Coronary arteriosclerosis (disorder)</includedValues>
+                        <includedValues>local_terms::64586002::Carotid artery stenosis (disorder)</includedValues>
+                        <includedValues>local_terms::197321007::Steatosis of liver (disorder)</includedValues>
+                        <includedValues>local_terms::19943007::Cirrhosis of liver (disorder)</includedValues>
+                        <includedValues>local_terms::10295004::Chronic viral hepatitis (disorder)</includedValues>
+                        <includedValues>local_terms::235890007::Autoimmune liver disease (disorder)</includedValues>
+                        <includedValues>local_terms::24526004::Inflammatory bowel disease (disorder)</includedValues>
+                        <includedValues>local_terms::69896004::Rheumatoid arthritis (disorder)</includedValues>
+                        <includedValues>local_terms::105969002::Disorder of connective tissue (disorder</includedValues>
+                        <includedValues>local_terms::31996006::Vasculitis (disorder)</includedValues>
+                        <includedValues>local_terms::36138009::Congenital immunodeficiency disease (disorder)</includedValues>
                         <includedValues>local_terms::302509004::Entire heart (body structure)</includedValues>
                         <includedValues>local_terms::181216001::Entire lung (body structure)</includedValues>
                         <includedValues>local_terms::181268008::Entire liver (body structure)</includedValues>
                         <includedValues>local_terms::181414000::Entire kidney (body structure)</includedValues>
                         <includedValues>local_terms::181277001::Entire pancreas (body structure)</includedValues>
+                        <includedValues>local_terms::113276009::Intestinal structure (body structure)</includedValues>
                         <includedValues>local_terms::181250005::Entire small intestine (body structure)</includedValues>
                         <includedValues>local_terms::181254001::Entire large intestine (body structure)</includedValues>
                         <includedValues>local_terms::119181002::Skin part (body structure)</includedValues>
@@ -319,129 +274,210 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                         <includedValues>local_terms::3138006::Bone (tissue) structure (body structure)</includedValues>
                         <includedValues>local_terms::309312004::Cartilage tissue (body structure)</includedValues>
                         <includedValues>local_terms::13024002::Tendon structure (body structure)</includedValues>
+                        <includedValues>local_terms::46635009::Diabetes mellitus type 1 (disorder)</includedValues>
+                        <includedValues>local_terms::44054006::Diabetes mellitus type 2 (disorder)</includedValues>
+                        <includedValues>local_terms::237599002::Insulin treated type 2 diabetes mellitus (disorder)</includedValues>
+                        <includedValues>local_terms::8801005::Secondary diabetes mellitus (disorder)</includedValues>
+                        <includedValues>local_terms::128283000::Chronic nervous system disorder (disorder)</includedValues>
+                        <includedValues>local_terms::74732009::Mental disorder (disorder)</includedValues>
+                        <includedValues>local_terms::197480006::Anxiety disorder (disorder)</includedValues>
+                        <includedValues>local_terms::35489007::Depressive disorder (disorder)</includedValues>
+                        <includedValues>local_terms::69322001::Psychotic disorder (disorder)</includedValues>
+                        <includedValues>local_terms::49049000::Parkinson's disease (disorder)</includedValues>
+                        <includedValues>local_terms::52448006::Dementia (disorder)</includedValues>
+                        <includedValues>local_terms::24700007::Multiple sclerosis (disorder)</includedValues>
+                        <includedValues>local_terms::257277002::Combined disorder of muscle AND peripheral nerve (disorder)</includedValues>
+                        <includedValues>local_terms::84757009::Epilepsy (disorder)</includedValues>
+                        <includedValues>local_terms::37796009::Migraine (disorder)</includedValues>
+                        <includedValues>local_terms::440140008::History of cerebrovascular accident with residual deficit (situation)</includedValues>
+                        <includedValues>local_terms::429993008::History of cerebrovascular accident without residual deficits (situation</includedValues>
+                        <includedValues>local_terms::714152005::Chronic kidney disease stage 5 on dialysis (disorder)</includedValues>
+                        <includedValues>local_terms::431855005::Chronic kidney disease stage 1 (disorder)</includedValues>
+                        <includedValues>local_terms::431856006::Chronic kidney disease stage 2 (disorder)</includedValues>
+                        <includedValues>local_terms::433144002::Chronic kidney disease stage 3 (disorder)</includedValues>
+                        <includedValues>local_terms::431857002::Chronic kidney disease stage 4 (disorder)</includedValues>
+                        <includedValues>local_terms::433146000::Chronic kidney disease stage 5 (disorder)</includedValues>
+                        <includedValues>local_terms::709044004::Chronic kidney disease (disorder)</includedValues>
+                        <includedValues>local_terms::86406008::Human immunodeficiency virus infection</includedValues>
+                        <includedValues>local_terms::363346000::Malignant neoplastic disease</includedValues>
+                        <includedValues>local_terms::40845000::Gastrointestinal ulcer</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0065]"/>
-                <Rule max="0" path="/items[at0064]">
+                <Rule max="0" name="Kategorie" path="/data[at0001]/items[at0009]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::418112009::pulmonaryMedicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::722414000::vascularMedicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::408472002::hepatology</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394810000::rheumatoloty</includedValues>
+                        <includedValues>SNOMED Clinical Terms::408480009::immunology</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394807007::infectiousDiseases</includedValues>
+                        <includedValues>SNOMED Clinical Terms::408475000::Diabetic Medicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394593009::Oncology</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394584008::Gastroenterology</includedValues>
+                        <includedValues>SNOMED Clinical Terms::788415003::Transplant medicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::116223007::Complication (disorder)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394591006::Neurology</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394587001::Psychiatry</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394589003::Nephrology (qualifier value)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::404989005::Ventilation status (observable entity)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0012]"/>
+                <Rule max="0" path="/data[at0001]/items[at0003]"/>
+                <Rule max="0" path="/data[at0001]/items[at0072]"/>
+                <Rule max="0" path="/data[at0001]/items[at0073]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0055]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
+                    concept_name="Anatomische Lokalisation" max="0"
+                    name="Körperstelle"
+                    path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>local_terms::302509004::Entire heart (body structure)</includedValues>
+                            <includedValues>local_terms::181216001::Entire lung (body structure)</includedValues>
+                            <includedValues>local_terms::181268008::Entire liver (body structure)</includedValues>
+                            <includedValues>local_terms::181414000::Entire kidney (body structure)</includedValues>
+                            <includedValues>local_terms::181277001::Entire pancreas (body structure)</includedValues>
+                            <includedValues>local_terms::181250005::Entire small intestine (body structure)</includedValues>
+                            <includedValues>local_terms::181254001::Entire large intestine (body structure)</includedValues>
+                            <includedValues>local_terms::119181002::Skin part (body structure)</includedValues>
+                            <includedValues>local_terms::181162001::Entire cornea (body structure)</includedValues>
+                            <includedValues>local_terms::41845008::Ear ossicle structure (body structure)</includedValues>
+                            <includedValues>local_terms::181285005::Entire heart valve (body structure)</includedValues>
+                            <includedValues>local_terms::119206002::Blood vessel part (body structure)</includedValues>
+                            <includedValues>local_terms::8935007::Cerebral meninges structure (body structure)</includedValues>
+                            <includedValues>local_terms::3138006::Bone (tissue) structure (body structure)</includedValues>
+                            <includedValues>local_terms::309312004::Cartilage tissue (body structure)</includedValues>
+                            <includedValues>local_terms::13024002::Tendon structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0065]"/>
+                    <Rule max="0" path="/items[at0064]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0055]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0023]"/>
+                </Items>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                concept_name="Ausschluss - spezifisch" max="1"
+                name="Ausgeschlossene Diagnose" path="/items" xsi:type="tem:EVALUATION">
+                <Rule min="1" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::410594000::Known absent (qualifier value)</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0023]"/>
-            </Items>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-            concept_name="Ausschluss - spezifisch" max="1"
-            name="Ausgeschlossene Diagnose" path="/content" xsi:type="tem:EVALUATION">
-            <Rule min="1" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::410594000::Known absent (qualifier value)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
-                    <includedValues>local_terms::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I25.1::Atherosklerotische Herzkrankheit</includedValues>
-                    <includedValues>local_terms::I65.2::Verschluss und Stenose der A. carotis</includedValues>
-                    <includedValues>local_terms::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
-                    <includedValues>local_terms::Z94.1::Zustand nach Herztransplantation</includedValues>
-                    <includedValues>local_terms::Z94.2::Zustand nach Lungentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.4::Zustand nach Lebertransplantation</includedValues>
-                    <includedValues>local_terms::Z94.0::Zustand nach Nierentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
-                    <includedValues>local_terms::Z94.5::Zustand nach Hauttransplantation</includedValues>
-                    <includedValues>local_terms::Z94.7::Zustand nach Keratoplastik</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
-                    <includedValues>local_terms::Z94.6::Zustand nach Knochentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
-                    <includedValues>local_terms::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
-                    <includedValues>local_terms::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
-                    <includedValues>local_terms::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
-                    <includedValues>local_terms::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
-                </constraint>
-                <nameConstraint>
-                    <excludedValues>local::at0008</excludedValues>
-                    <excludedValues>local::at0005</excludedValues>
-                    <excludedValues>local::at0006</excludedValues>
-                    <excludedValues>local::at0007</excludedValues>
-                </nameConstraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0012]"/>
-        </Content>
-        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-            concept_name="Fehlen von Informationen" max="1"
-            name="Unbekannte Diagnose" path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Unbekannte Diagnose" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
-                    <includedValues>local_terms::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I25.1::Atherosklerotische Herzkrankheit</includedValues>
-                    <includedValues>local_terms::I65.2::Verschluss und Stenose der A. carotis</includedValues>
-                    <includedValues>local_terms::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
-                    <includedValues>local_terms::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
-                    <includedValues>local_terms::Z94.1::Zustand nach Herztransplantation</includedValues>
-                    <includedValues>local_terms::Z94.2::Zustand nach Lungentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.4::Zustand nach Lebertransplantation</includedValues>
-                    <includedValues>local_terms::Z94.0::Zustand nach Nierentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
-                    <includedValues>local_terms::Z94.5::Zustand nach Hauttransplantation</includedValues>
-                    <includedValues>local_terms::Z94.7::Zustand nach Keratoplastik</includedValues>
-                    <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
-                    <includedValues>local_terms::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
-                    <includedValues>local_terms::Z94.6::Zustand nach Knochentransplantation</includedValues>
-                    <includedValues>local_terms::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
-                    <includedValues>local_terms::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
-                    <includedValues>local_terms::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
-                    <includedValues>local_terms::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
-                    <includedValues>local_terms::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
-                    <includedValues>local_terms::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
-                    <includedValues>local_terms::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="1" min="1"
-                name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::Unknown (qualifier value)::Unknown (qualifier value)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+                <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
+                        <includedValues>local_terms::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I25.1::Atherosklerotische Herzkrankheit</includedValues>
+                        <includedValues>local_terms::I65.2::Verschluss und Stenose der A. carotis</includedValues>
+                        <includedValues>local_terms::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
+                        <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+                        <includedValues>local_terms::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
+                        <includedValues>local_terms::Z94.1::Zustand nach Herztransplantation</includedValues>
+                        <includedValues>local_terms::Z94.2::Zustand nach Lungentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.4::Zustand nach Lebertransplantation</includedValues>
+                        <includedValues>local_terms::Z94.0::Zustand nach Nierentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
+                        <includedValues>local_terms::Z94.5::Zustand nach Hauttransplantation</includedValues>
+                        <includedValues>local_terms::Z94.7::Zustand nach Keratoplastik</includedValues>
+                        <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+                        <includedValues>local_terms::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
+                        <includedValues>local_terms::Z94.6::Zustand nach Knochentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
+                        <includedValues>local_terms::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
+                        <includedValues>local_terms::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
+                        <includedValues>local_terms::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
+                        <includedValues>local_terms::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
+                        <includedValues>local_terms::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
+                        <includedValues>local_terms::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0005</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0007</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Unbekannte Diagnose" path="/items" xsi:type="tem:EVALUATION">
+                <Rule name="Unbekannte Diagnose" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::I25.29::Alter Myokardinfarkt Nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I10.90::Essentielle Hypertonie, nicht näher bezeichnet :  Ohne Angabe einer hypertensiven Krise</includedValues>
+                        <includedValues>local_terms::I73.9::Periphere Gefäßkrankheit, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I49.9::Kardiale Arrhythmie, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I50.9::Herzinsuffizienz, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I25.1::Atherosklerotische Herzkrankheit</includedValues>
+                        <includedValues>local_terms::I65.2::Verschluss und Stenose der A. carotis</includedValues>
+                        <includedValues>local_terms::Z95.1::Vorhandensein eines aortokoronaren Bypasses</includedValues>
+                        <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+                        <includedValues>local_terms::B20::Infektiöse und parasitäre Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B21::Bösartige Neubildungen infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B22::Sonstige näher bezeichnete Krankheiten infolge HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::B24::Nicht näher bezeichnete HIV-Krankheit [Humane Immundefizienz-Viruskrankheit]</includedValues>
+                        <includedValues>local_terms::K28.9::Ulcus pepticum jejuni :  Weder als akut noch als chronisch bezeichnet, ohne Blutung oder Perforation</includedValues>
+                        <includedValues>local_terms::Z94.1::Zustand nach Herztransplantation</includedValues>
+                        <includedValues>local_terms::Z94.2::Zustand nach Lungentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.4::Zustand nach Lebertransplantation</includedValues>
+                        <includedValues>local_terms::Z94.0::Zustand nach Nierentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.88::Zustand nach sonstiger Organ- oder Gewebetransplantation Inkl.: Darm Pankreas</includedValues>
+                        <includedValues>local_terms::Z94.5::Zustand nach Hauttransplantation</includedValues>
+                        <includedValues>local_terms::Z94.7::Zustand nach Keratoplastik</includedValues>
+                        <includedValues>local_terms::Z95.5::Vorhandensein eines Implantates oder Transplantates nach koronarer Gefäßplastik</includedValues>
+                        <includedValues>local_terms::Z95.88::Vorhandensein von sonstigen kardialen oder vaskulären Implantaten oder Transplantaten</includedValues>
+                        <includedValues>local_terms::Z94.6::Zustand nach Knochentransplantation</includedValues>
+                        <includedValues>local_terms::Z94.9::Zustand nach Organ- oder Gewebetransplantation, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::Z94.80::Zustand nach hämatopoetischer Stammzelltransplantation ohne gegenwärtige Immunsuppression</includedValues>
+                        <includedValues>local_terms::Z94.81::Zustand nach hämatopoetischer Stammzelltransplantation mit gegenwärtiger Immunsuppression</includedValues>
+                        <includedValues>local_terms::Z94.3::Zustand nach Herz-Lungen-Transplantation</includedValues>
+                        <includedValues>local_terms::J18.9::Pneumonie, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::A41.9::Sepsis, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::I82.9::Embolie und Thrombose nicht näher bezeichneter Vene</includedValues>
+                        <includedValues>local_terms::I26.9::Lungenembolie ohne Angabe eines akuten Cor pulmonale</includedValues>
+                        <includedValues>local_terms::I64::Schlaganfall, nicht als Blutung oder Infarkt bezeichnet</includedValues>
+                        <includedValues>local_terms::I21.9::Akuter Myokardinfarkt, nicht näher bezeichnet</includedValues>
+                        <includedValues>local_terms::N17.9::Akutes Nierenversagen, nicht näher bezeichnet</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" min="1"
+                    name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::Unknown (qualifier value)::Unknown (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.gecco_study_participation.v0"
@@ -509,15 +545,15 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             concept_name="Bildgebendes Untersuchungsergebnis"
             name="Radiologischer Befund" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
-            <Rule name="Kategorie" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::18726-0::Radiology studies (set)</includedValues>
-                    <includedValues>local_terms::RAD::Radiology</includedValues>
-                </constraint>
-            </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>LOINC::18748-4::Diagnostic imaging study</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" name="Kategorie" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::18726-0::Radiology studies (set)</includedValues>
+                    <includedValues>local_terms::RAD::Radiology</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]"/>
@@ -545,184 +581,189 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 max="0"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER"/>
         </Content>
-        <Content archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
-            path="/content" xsi:type="tem:ACTION">
-            <Rule max="0" min="0" path="/ism_transition[at0034]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0035]"/>
-            <Rule name="Kategorie" path="/description[at0001]/items[at0049]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
-                    <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
-                    <includedValues>SNOMED Clinical Terms::225287004::Procedures relating to positioning and support (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule path="/description[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
-                    <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0065]"/>
-            <Rule max="0" path="/description[at0001]/items[at0058]"/>
-            <Rule max="1" path="/description[at0001]/items[at0063]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::39607008::Lung structure (body structure)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0048]"/>
-            <Rule max="0" path="/description[at0001]/items[at0069]"/>
-            <Rule max="0" path="/description[at0001]/items[at0006]"/>
-            <Rule max="0" path="/description[at0001]/items[at0066]"/>
-            <Rule max="0" path="/description[at0001]/items[at0060]"/>
-            <Rule max="0" path="/description[at0001]/items[at0061]">
-                <constraint xsi:type="tem:durationConstraint">
-                    <minMagnitude>PT0S</minMagnitude>
-                    <includesMaximum>false</includesMaximum>
-                    <includesMinimum>true</includesMinimum>
-                </constraint>
-            </Rule>
-            <Rule min="1" path="/description[at0001]/items[at0067]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
-                    <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
-                    <includedValues>SNOMED Clinical Terms::225287004::Procedures relating to positioning and support (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="1" name="Durchführungsabsicht" path="/description[at0001]/items[at0014]"/>
-            <Rule max="0" path="/protocol[at0053]/items[at0054]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>Identifier</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/protocol[at0053]/items[at0056]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>Identifier</includedTypes>
-                </constraint>
-            </Rule>
-            <Items archetype_id="openEHR-EHR-CLUSTER.device.v1" max="1"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1" name="Prozedur"
+            path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
+                path="/items" xsi:type="tem:ACTION">
+                <Rule max="0" min="0" path="/ism_transition[at0034]"/>
+                <Rule max="0" min="0" path="/ism_transition[at0035]"/>
+                <Rule path="/description[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>SNOMED Clinical Terms::129121000::Tracheostomy tube, device (physical object)</includedValues>
-                        <includedValues>SNOMED Clinical Terms::26412008::Endotracheal tube, device (physical object)</includedValues>
-                        <includedValues>SNOMED Clinical Terms::426854004::High flow oxygen nasal cannula (physical object)</includedValues>
-                        <includedValues>SNOMED Clinical Terms::26412008::Endotracheal tube, device (physical object)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
+                        <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0021]"/>
-                <Rule max="0" path="/items[at0004]"/>
-                <Rule max="0" path="/items[at0005]"/>
-                <Rule max="0" path="/items[at0020]"/>
-                <Rule max="0" path="/items[at0022]"/>
-                <Rule max="0" path="/items[at0023]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" path="/items[at0025]"/>
-                <Rule max="0" path="/items[at0007]"/>
-                <Rule max="0" path="/items[at0024]"/>
-                <Rule max="0" path="/items[at0008]"/>
-            </Items>
-        </Content>
-        <Content
-            archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-            concept_name="Ausschluss - spezifisch" max="1"
-            name="Nicht durchgeführte Prozedur" path="/content" xsi:type="tem:EVALUATION">
-            <Rule min="1" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>not done</includedValues>
-                </constraint>
-            </Rule>
-            <Rule name="Eingriff" path="/data[at0001]/items[at0003]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
-                    <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                </constraint>
-                <nameConstraint>
-                    <excludedValues>local::at0008</excludedValues>
-                    <excludedValues>local::at0005</excludedValues>
-                    <excludedValues>local::at0006</excludedValues>
-                    <excludedValues>local::at0004</excludedValues>
-                </nameConstraint>
-            </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0012]"/>
-        </Content>
-        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-            concept_name="Fehlen von Informationen" max="1"
-            name="Unbekannte Prozedur" path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Unbekannte Prozedur" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
-                    <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="1" min="1"
-                name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>unknown</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+                <Rule max="0" name="Kategorie" path="/description[at0001]/items[at0049]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
+                        <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
+                        <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
+                        <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
+                        <includedValues>SNOMED Clinical Terms::225287004::Procedures relating to positioning and support (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/description[at0001]/items[at0065]"/>
+                <Rule max="0" path="/description[at0001]/items[at0058]"/>
+                <Rule max="0" path="/description[at0001]/items[at0063]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::39607008::Lung structure (body structure)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/description[at0001]/items[at0048]"/>
+                <Rule max="0" path="/description[at0001]/items[at0069]"/>
+                <Rule max="0" path="/description[at0001]/items[at0006]"/>
+                <Rule max="0" path="/description[at0001]/items[at0066]"/>
+                <Rule max="0" path="/description[at0001]/items[at0060]"/>
+                <Rule max="0" path="/description[at0001]/items[at0061]">
+                    <constraint xsi:type="tem:durationConstraint">
+                        <minMagnitude>PT0S</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule min="1" path="/description[at0001]/items[at0067]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
+                        <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
+                        <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
+                        <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
+                        <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
+                        <includedValues>SNOMED Clinical Terms::225287004::Procedures relating to positioning and support (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" name="Durchführungsabsicht" path="/description[at0001]/items[at0014]"/>
+                <Rule max="0" path="/protocol[at0053]/items[at0054]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0053]/items[at0056]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
+                    max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED Clinical Terms::129121000::Tracheostomy tube, device (physical object)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::26412008::Endotracheal tube, device (physical object)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::426854004::High flow oxygen nasal cannula (physical object)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::26412008::Endotracheal tube, device (physical object)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0002]"/>
+                    <Rule max="0" path="/items[at0021]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                    <Rule max="0" path="/items[at0005]"/>
+                    <Rule max="0" path="/items[at0020]"/>
+                    <Rule max="0" path="/items[at0022]"/>
+                    <Rule max="0" path="/items[at0023]"/>
+                    <Rule max="0" path="/items[at0006]"/>
+                    <Rule max="0" path="/items[at0025]"/>
+                    <Rule max="0" path="/items[at0007]"/>
+                    <Rule max="0" path="/items[at0024]"/>
+                    <Rule max="0" path="/items[at0008]"/>
+                </Items>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                concept_name="Ausschluss - spezifisch" max="1"
+                name="Nicht durchgeführte Prozedur" path="/items" xsi:type="tem:EVALUATION">
+                <Rule min="1" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>not done</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Eingriff" path="/data[at0001]/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
+                        <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0005</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0004</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Unbekannte Prozedur" path="/items" xsi:type="tem:EVALUATION">
+                <Rule name="Unbekannte Prozedur" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED Clinical Terms::108241001::Dialysis procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::127788007::Apheresis (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::431182000::Placing subject in prone position (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::233573008::Extracorporeal membrane oxygenation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::40617009::Artificial respiration (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::168537006::Plain radiography</includedValues>
+                        <includedValues>SNOMED Clinical Terms::77477000::Computerized axial tomography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::16310003::Diagnostic ultrasonography (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::53950000::Respiratory therapy (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::428311008::Noninvasive ventilation (procedure)</includedValues>
+                        <includedValues>SNOMED Clinical Terms::371907003::Oxygen administration by nasal cannula (procedure)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" min="1"
+                    name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>unknown</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.advance_care_directive.v1"
             concept_name="Patientenverfügung" max="1" min="1"
             name="DNR-Anordnung" path="/content" xsi:type="tem:EVALUATION">
-            <Rule min="1" path="/data[at0001]/items[at0005]">
+            <Rule min="1"
+                name="Liegen Informationen zur DNR-Anordnung vor?" path="/data[at0001]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>local_terms::dnr::Do No Resusciate</includedValues>
                 </constraint>
@@ -733,7 +774,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-            <Rule min="1" path="/data[at0001]/items[at0006]">
+            <Rule min="1" name="Wurde der Patient Wiederbelebt?" path="/data[at0001]/items[at0006]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED Clinical Terms::304252001::For resuscitation (finding)</includedValues>
                     <includedValues>SNOMED Clinical Terms::304253006::Not for resuscitation (finding)</includedValues>
@@ -756,17 +797,14 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </Rule>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-            concept_name="Ad hoc Überschrift" max="1" name="Medikation"
-            path="/content" xsi:type="tem:SECTION">
+            concept_name="Ad hoc Überschrift"
+            name="Medikamentöse Therapie" path="/content" xsi:type="tem:SECTION">
             <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
                 concept_name="Fehlen von Informationen" max="1"
                 name="Kategorie" path="/items" xsi:type="tem:EVALUATION">
-                <Rule name="Patientenart" path="/data[at0001]/items[at0002]">
+                <Rule name="Stationärer Patient" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>HL7 FHIR::inpatient::Inpatient</includedValues>
-                        <includedValues>HL7 FHIR::outpatient::Outpatient</includedValues>
-                        <includedValues>HL7 FHIR::community::Community</includedValues>
-                        <includedValues>HL7 FHIR::patientspecified::Patient Specified</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0005]"/>
@@ -774,7 +812,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </Item>
             <Item
                 archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
-                concept_name="Medikationseintrag" max="1" min="1"
+                concept_name="Medikationseintrag" min="1"
                 name="COVID-19 Therapie" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
@@ -836,8 +874,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </Item>
             <Item
                 archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
-                concept_name="Medikationseintrag" max="1"
-                name="ACE-Hemmer" path="/items" xsi:type="tem:OBSERVATION">
+                concept_name="Medikationseintrag" name="ACE-Hemmer"
+                path="/items" xsi:type="tem:OBSERVATION">
                 <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ATC::C09A::ACE-HEMMER, REIN</includedValues>
@@ -934,8 +972,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </Item>
             <Item
                 archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
-                concept_name="Medikationseintrag" max="1"
-                name="Immunglobuline" path="/items" xsi:type="tem:OBSERVATION">
+                concept_name="Medikationseintrag" name="Immunglobuline"
+                path="/items" xsi:type="tem:OBSERVATION">
                 <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ATC::J06B::IMMUNGLOBULINE</includedValues>
@@ -1004,7 +1042,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </Item>
             <Item
                 archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
-                concept_name="Medikationseintrag" max="1"
+                concept_name="Medikationseintrag"
                 name="Antikoagulanzien" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
@@ -1109,12 +1147,12 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
             <Rule min="1" path="/data[at0001]/items[at0040]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
-                    <includedValues>SNOMED-CT::32485007::Hospital admission (procedure)</includedValues>
-                    <includedValues>SNOMED-CT::419099009::Dead (finding)</includedValues>
-                    <includedValues>SNOMED-CT::371827001::Patient discharged alive (finding)</includedValues>
-                    <includedValues>SNOMED-CT::3457005::Patient referral (procedure)</includedValues>
-                    <includedValues>SNOMED-CT::306237005::Referral to palliative care service (procedure)</includedValues>
+                    <includedValues>SNOMED-CT::261665006::Nicht bekannt</includedValues>
+                    <includedValues>SNOMED-CT::32485007::Krankenhauseinweisung</includedValues>
+                    <includedValues>SNOMED-CT::419099009::Tod</includedValues>
+                    <includedValues>SNOMED-CT::371827001::Lebend entlassen</includedValues>
+                    <includedValues>SNOMED-CT::3457005::Überweisung in eine andere Einrichtung</includedValues>
+                    <includedValues>SNOMED-CT::306237005::Palliative Entlassung</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0002]"/>
@@ -1162,6 +1200,11 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">8C8B4DF59B33292F4A5451FD4E04EA44</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
@@ -1231,11 +1274,6 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F20722F4EA7FA913A4E34BFAB6501B45</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
