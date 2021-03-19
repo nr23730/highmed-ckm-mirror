@@ -16,9 +16,9 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Wird verwendet, um die Handkraft von Patienten zu erfassen, z.B in der Geriatrie, um einen Rückschluss auf die Gesamtkörperkraft zu ziehen oder ggfs. ein Sturzrisiko frühzeitig festzustellen.">
-			use = <"Dieser Archetyp wird verwendet, um einen Dokumentationsbogen darzustellen, der die Handkraft bei Patienten dokumentiert und so einen Rückschluss auf die Gesamtkörperkraft zulässt oder hilft ein Sturzrisiko ggfs. frühzeitig festzustellen.">
+			use = <"Dieser Archetyp wird verwendet, um einen Dokumentationsbogen darzustellen, der die Handkraft bei Patienten dokumentiert und so, z.B. in der Geriatrie, einen Rückschluss auf die Gesamtkörperkraft zulässt oder hilft ein Sturzrisiko ggfs. frühzeitig festzustellen.">
 			keywords = <"Handkraftmessung", "Handkraft", "Philipps">
-			misuse = <"Nicht zur Darstellung der Kraftmessung anderer Körperstellen außer der Hand.">
+			misuse = <"Nicht zur Darstellung der Kraftmessung anderer Regionen des Körpers, außer der Hand.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -31,51 +31,49 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"657AA31EFB754E80B1157C4AC5AF5FAD">
-		["build_uid"] = <"4c2c3f11-aae8-49eb-a1bc-ed01f2b45811">
+		["MD5-CAM-1.0.1"] = <"EB29F574B95FE8931077C70BBB724B5F">
+		["build_uid"] = <"3af9c55e-9003-4bce-a1d0-8388d7da9b05">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Handkraftmessung
+	OBSERVATION[at0000] matches {    -- Handkraftmessung
 		data matches {
-			HISTORY[at0001] matches {	-- Event Series
+			HISTORY[at0001] matches {    -- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Jedes Ereignis
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Baum
+							ITEM_TREE[at0003] matches {    -- Baum
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dominante Hand
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Dominante Hand
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0027, 	-- Linke Hand
-													at0026, 	-- Rechte Hand
-													at0038]	-- Unbekannt/ nicht vorhanden
+													at0027,    -- Linke Hand
+													at0026,    -- Rechte Hand
+													at0038]    -- Beidhändig/Unbekannt
 												}
 											}
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Paretische Hand
+									ELEMENT[at0019] occurrences matches {0..1} matches {    -- Paretische Hand
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											DV_BOOLEAN matches {*}
 										}
 									}
-									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Wenn ja, welche
+									ELEMENT[at0023] occurrences matches {0..1} matches {    -- Wenn ja, welche
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0028, 	-- Linke Hand
-													at0029]	-- Rechte Hand
+													at0028,    -- Linke Hand
+													at0029]    -- Rechte Hand
 												}
 											}
 										}
 									}
-									ELEMENT[at0008] occurrences matches {0..3} matches {	-- Messung
+									ELEMENT[at0008] occurrences matches {0..3} matches {    -- Messung
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::125]>
@@ -86,23 +84,14 @@ definition
 													["2"] = <
 														units = <"kPa">
 													>
-												>
-											>
-										}
-									}
-									ELEMENT[at0039] occurrences matches {0..3} matches {	-- Messung
-										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::124]>
-												list = <
-													["1"] = <
+													["3"] = <
 														units = <"kg">
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Bemerkungen
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Bemerkungen
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -115,24 +104,24 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0031] matches {	-- Baum
+			ITEM_TREE[at0031] matches {    -- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Stelle der Messung
+					ELEMENT[at0034] occurrences matches {0..1} matches {    -- Stelle der Messung
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0035, 	-- Linke Hand
-									at0036]	-- Rechte Hand
+									at0035,    -- Linke Hand
+									at0036]    -- Rechte Hand
 								}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {	-- Gerät
+					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {    -- Gerät
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0042] occurrences matches {0..*} matches {	-- Erweiterungen
+					allow_archetype CLUSTER[at0042] occurrences matches {0..*} matches {    -- Erweiterungen
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -168,7 +157,7 @@ ontology
 				>
 				["at0008"] = <
 					text = <"Messung">
-					description = <"Messung, die an einer Hand mittels Vigorimeter ausgeführt wird.">
+					description = <"Messung, die an einer Hand mittels Vigorimeter/Dynamometer ausgeführt wird.">
 				>
 				["at0017"] = <
 					text = <"Bemerkungen">
@@ -215,12 +204,8 @@ ontology
 					description = <"Die rechte Hand der Person.">
 				>
 				["at0038"] = <
-					text = <"Unbekannt/ nicht vorhanden">
+					text = <"Beidhändig/Unbekannt">
 					description = <"Die Person hat keine dominante Hand oder die dominante Hand ist unbekannt.">
-				>
-				["at0039"] = <
-					text = <"Messung">
-					description = <"Messung, die an einer Hand mittels Dynamometer ausgeführt wird.">
 				>
 				["at0041"] = <
 					text = <"Gerät">
