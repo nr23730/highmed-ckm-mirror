@@ -1,0 +1,202 @@
+﻿archetype (adl_version=1.4; uid=bf7ec090-23a3-4daf-a0ad-9c64a9a48209)
+	openEHR-EHR-CLUSTER.sos_part2_akt_nikolaus.v0
+
+concept
+	[at0000]	-- Soziale Aktivitäten nach Nikolaus (Akt)
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des 2. Teils des Gesamtfragebogens zur Sozialen Situation (SoS) über die sozialen Aktivitäten und die Zufriedenheit dieser bei vor allem älteren Menschen nach Nikolaus et al. (1994).">
+			use = <"Wird zur Darstellung des Fragebogens zu sozialen Aktivitäten und die Zufriedenheit dieser bei vor allem älteren Menschen nach Nikolaus et al. (1994) verwendet.
+
+Dieser Archetyp wurde zur Verwendung innerhalb des OBSERVATION Archetyps \"Soziale Situation nach Nikolaus\" und zusammen mit anderen SoS-Fragebogen-Archetypen entwickelt, die nur einen bestimmten Teil des Fragebogens als Zwischenergebnis darstellen können.
+
+Darf nur im Kontext des Fragebogens nach Nikolaus et al. (1994) verwendet werden.">
+			keywords = <"Geriatrisches Assessment", "Soziales Assessment", "Soziale Aktivitäten", "Nikolaus", "Soziale Situation">
+			misuse = <"Darf nicht im Kontext anderer Fragebögen als nach Nikolaus et al. (1994) verwendet werden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Nikolaus T, Specht-Leible N, Bach M, Oster P, Schlierf G (1994) Soziale Aspekte bei Diagnostik und Therapie hochbetagter Patienten. Erste Erfahrungen mit einem neu entwickelten Fragebogen im Rahmen des geriatrischen Assessment. Z Gerontol 27: 240-245">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"90CB01E7E62EBD1079E64FF8243267EF">
+		["build_uid"] = <"e3ab0b1f-e1c0-402b-9a0f-e71111d7b5e3">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Soziale Aktivitäten nach Nikolaus (Akt)
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0080] occurrences matches {0..1} matches {    -- Beruf
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0060] occurrences matches {0..1} matches {    -- Hobbies
+				value matches {
+					0|[local::at0065],
+					1|[local::at0066]
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Aufzählung der Hobbies und/oder Interessen
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0061] occurrences matches {0..1} matches {    -- Haustiere
+				value matches {
+					1|[local::at0067],
+					0|[local::at0068]
+				}
+			}
+			ELEMENT[at0062] occurrences matches {0..1} matches {    -- Verlassen der Wohnung
+				value matches {
+					1|[local::at0069],
+					1|[local::at0070],
+					0|[local::at0071],
+					0|[local::at0072]
+				}
+			}
+			ELEMENT[at0063] occurrences matches {0..1} matches {    -- Entwickeln der Interessen
+				value matches {
+					1|[local::at0073],
+					1|[local::at0074],
+					0|[local::at0075],
+					0|[local::at0076]
+				}
+			}
+			ELEMENT[at0064] occurrences matches {0..1} matches {    -- Zufriedenheit
+				value matches {
+					1|[local::at0077],
+					0|[local::at0078],
+					0|[local::at0079]
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {    -- Zwischensumme Aktivitäten
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..5|}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Soziale Aktivitäten nach Nikolaus (Akt)">
+					description = <"Erfassung der sozialen Aktivitäten bei vor allem älteren Menschen als Teil 2 des Fragebogens zur Sozialen Situation (SoS) nach Nikolaus et al. (1994).">
+				>
+				["at0006"] = <
+					text = <"Aufzählung der Hobbies und/oder Interessen">
+					description = <"Welche Hobbies oder Interessen (z.B. Handarbeit, handwerkl. Tätigkeiten, Musizieren, Gartenarbeit, Briefmarken o.ä. sammeln) haben Sie, die Sie noch regelmäßig betreiben?">
+				>
+				["at0024"] = <
+					text = <"Zwischensumme Aktivitäten">
+					description = <"Erreichte Punktzahl.">
+				>
+				["at0060"] = <
+					text = <"Hobbies">
+					description = <"Sind Hobbies oder Interessen vorhanden?">
+				>
+				["at0061"] = <
+					text = <"Haustiere">
+					description = <"Haben Sie ein Haustier?">
+				>
+				["at0062"] = <
+					text = <"Verlassen der Wohnung">
+					description = <"Wie oft verlassen Sie Ihre Wohnung?">
+				>
+				["at0063"] = <
+					text = <"Entwickeln der Interessen">
+					description = <"Wie haben sich in letzter Zeit Ihre Interessen entwickelt?">
+				>
+				["at0064"] = <
+					text = <"Zufriedenheit">
+					description = <"Sind Sie mit Ihrem Zustand zufrieden?">
+				>
+				["at0065"] = <
+					text = <"Keine Hobbies/Interessen vorhanden">
+					description = <"Person hat keine Hobbies oder Interessen.">
+				>
+				["at0066"] = <
+					text = <"Hobbies/Interessen vorhanden">
+					description = <"Person hat Hobbies und/oder Interessen.">
+				>
+				["at0067"] = <
+					text = <"Ja">
+					description = <"Person hat ein Haustier.">
+				>
+				["at0068"] = <
+					text = <"Nein">
+					description = <"Person hat kein Haustier.">
+				>
+				["at0069"] = <
+					text = <"Täglich">
+					description = <"Person verlässt die Wohnung täglich.">
+				>
+				["at0070"] = <
+					text = <"Mindestens ein- bis zweimal in der Woche">
+					description = <"Person verlässt die Wohnung mindestens ein- bis zweimal in der Woche.">
+				>
+				["at0071"] = <
+					text = <"Seltener als einmal pro Woche">
+					description = <"Person verlässt die Wohnung seltener als einmal pro Woche.">
+				>
+				["at0072"] = <
+					text = <"(fast) Nie">
+					description = <"Person verlässt die Wohnung fast nie.">
+				>
+				["at0073"] = <
+					text = <"Habe noch neue Pläne und Interessen">
+					description = <"Person hat noch neue Pläne und Interessen.">
+				>
+				["at0074"] = <
+					text = <"Unverändert">
+					description = <"Person hat gleiche Interessen und Pläne wie sonst auch.">
+				>
+				["at0075"] = <
+					text = <"Habe einige Interessen aufgeben müssen">
+					description = <"Person musste einige Interessen aufgeben.">
+				>
+				["at0076"] = <
+					text = <"Habe (fast) alle Interessen verloren">
+					description = <"Person hat (fast) alle Interessen verloren.">
+				>
+				["at0077"] = <
+					text = <"Voll und ganz, fühle mich nicht beeinträchtigt">
+					description = <"Person ist voll und ganz zufrieden und fühlt sich nicht beeinträchtigt.">
+				>
+				["at0078"] = <
+					text = <"Fühle mich schon eingeschränkt, muss zufrieden sein">
+					description = <"Person fühlt sich eingeschränkt und gezwungen, zufrieden zu sein.">
+				>
+				["at0079"] = <
+					text = <"Nein, bin durch Alter/Krankheit stark behindert">
+					description = <"Person fühlt sich durch Alter/Krankheit stark eingeschränkt.">
+				>
+				["at0080"] = <
+					text = <"Beruf">
+					description = <"Welchen Beruf haben Sie ausgeübt?">
+				>
+			>
+		>
+	>

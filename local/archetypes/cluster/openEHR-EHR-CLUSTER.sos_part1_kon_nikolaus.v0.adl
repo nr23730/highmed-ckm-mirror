@@ -1,0 +1,221 @@
+﻿archetype (adl_version=1.4; uid=7663136b-3252-4abc-9649-d88627ec11a2)
+	openEHR-EHR-CLUSTER.sos_part1_kon_nikolaus.v0
+
+concept
+	[at0000]	-- Soziale Kontakte und Unterstützung nach Nikolaus (Kon)
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-09-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des 1. Teil des Gesamtfragebogens zur Sozialen Situation (SoS) über Soziale Kontakte und Unterstützung bei vor allem älteren Menschen nach Nikolaus et al. (1994).">
+			use = <"Wird zur Darstellung des Fragebogens zu sozialen Kontakten und Unterstützung bei vor allem älteren Menschen nach Nikolaus et al. (1994) verwendet.
+
+Dieser Archetyp wurde zur Verwendung innerhalb des OBSERVATION Archetyps \"Soziale Situation nach Nikolaus\" und zusammen mit anderen SoS-Fragebogen-Archetypen entwickelt, die nur einen bestimmten Teil des Fragebogens als Zwischenergebnis darstellen können.
+
+Darf nur im Kontext des Fragebogens nach Nikolaus et al. (1994) verwendet werden.">
+			keywords = <"geriatrisches Assessment", "soziales Assessment", "soziale Kontakte", "soziale Unterstützung", "Nikolaus", "Soziale Situation">
+			misuse = <"Darf nicht im Kontext anderer Fragebögen als nach Nikolaus et al. (1994) verwendet werden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Nikolaus T, Specht-Leible N, Bach M, Oster P, Schlierf G (1994) Soziale Aspekte bei Diagnostik und Therapie hochbetagter Patienten. Erste Erfahrungen mit einem neu entwickelten Fragebogen im Rahmen des geriatrischen Assessment. Z Gerontol 27: 240-245">
+		["custodian_namespace"] = <"org.HiGHmed">
+		["MD5-CAM-1.0.1"] = <"F126D462B7D526B7EA885F40B00EA7DA">
+		["build_uid"] = <"0597584e-89d0-4b64-897d-8cf4594ad745">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Soziale Kontakte und Unterstützung nach Nikolaus (Kon)
+		items cardinality matches {1..1; unordered} matches {
+			ELEMENT[at0074] occurrences matches {0..1} matches {    -- Wohngemeinschaft
+				value matches {
+					1|[local::at0080],
+					0|[local::at0081],
+					1|[local::at0082],
+					0|[local::at0083]
+				}
+			}
+			ELEMENT[at0075] occurrences matches {0..1} matches {    -- Helfer vorhanden
+				value matches {
+					0|[local::at0084],
+					1|[local::at0085]
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- Aufzählung der regelmäßig helfenden Person(en)
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0076] occurrences matches {0..1} matches {    -- Häufigkeit der Besuche
+				value matches {
+					1|[local::at0086],
+					1|[local::at0087],
+					0|[local::at0088],
+					0|[local::at0089]
+				}
+			}
+			ELEMENT[at0077] occurrences matches {0..1} matches {    -- Helfer Verhältnis
+				value matches {
+					1|[local::at0090],
+					0|[local::at0091]
+				}
+			}
+			ELEMENT[at0078] occurrences matches {0..1} matches {    -- Kontaktaufnahme
+				value matches {
+					1|[local::at0092],
+					1|[local::at0093],
+					0|[local::at0094],
+					0|[local::at0095]
+				}
+			}
+			ELEMENT[at0079] occurrences matches {0..1} matches {    -- Zufriedenheit
+				value matches {
+					1|[local::at0096],
+					0|[local::at0097],
+					0|[local::at0098]
+				}
+			}
+			ELEMENT[at0029] occurrences matches {0..1} matches {    -- Zwischensumme Kontakte und Unterstützung
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..6|}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Soziale Kontakte und Unterstützung nach Nikolaus (Kon)">
+					description = <"Erfassung der sozialen Kontakte und der Unterstützung bei vor allem älteren Menschen als Teil 1 des Fragebogens zur Sozialen Situation (SoS) nach Nikolaus et al. (1994).">
+				>
+				["at0008"] = <
+					text = <"Aufzählung der regelmäßig helfenden Person(en)">
+					description = <"Aufzählung der regelmäßig helfenden Person(en).">
+				>
+				["at0029"] = <
+					text = <"Zwischensumme Kontakte und Unterstützung">
+					description = <"Erreichte Punktzahl.">
+				>
+				["at0074"] = <
+					text = <"Wohngemeinschaft">
+					description = <"Wie leben Sie?">
+				>
+				["at0075"] = <
+					text = <"Helfer vorhanden">
+					description = <"Haben Sie Personen (auch professionelle Helfer), auf die sie sich verlassen und die Ihnen zu Hause regelmäßig helfen können?">
+				>
+				["at0076"] = <
+					text = <"Häufigkeit der Besuche">
+					description = <"Wie oft sehen Sie diese Person(en)?">
+				>
+				["at0077"] = <
+					text = <"Helfer Verhältnis">
+					description = <"Wie ist Ihr Verhältnis zu o.g. Person(en)?">
+				>
+				["at0078"] = <
+					text = <"Kontaktaufnahme">
+					description = <"Wie haben sich in letzter Zeit Ihre Kontakte entwickelt?">
+				>
+				["at0079"] = <
+					text = <"Zufriedenheit">
+					description = <"Sind Sie mit diesem Zustand zufrieden?">
+				>
+				["at0080"] = <
+					text = <"Schon lange allein">
+					description = <"Person lebt schon lange allein.">
+				>
+				["at0081"] = <
+					text = <"Seit kurzem allein (< 1 Jahr)">
+					description = <"Person lebt seit kurzem allein (weniger als 1 Jahr).">
+				>
+				["at0082"] = <
+					text = <"Bei Familienangehörigen oder mit rüstigem Partner">
+					description = <"Person lebt bei Familienangehörigen oder mit rüstigem Partner.">
+				>
+				["at0083"] = <
+					text = <"Mit Lebenspartner, der selbst Hilfe braucht">
+					description = <"Person lebt mit Lebenspartner, der selbst Hilfe braucht.">
+				>
+				["at0084"] = <
+					text = <"Keine Bezugsperson(en) vorhanden">
+					description = <"Die Person hat keine Bezugsperson(en), an die sie sich wenden kann.">
+				>
+				["at0085"] = <
+					text = <"Bezugsperson(en) vorhanden">
+					description = <"Person hat Bezugsperson(en).">
+				>
+				["at0086"] = <
+					text = <"Mehrmals täglich/ jeden Tag">
+					description = <"Person wird mehrmals täglich/ jeden Tag von Bezugsperson(en) besucht.">
+				>
+				["at0087"] = <
+					text = <"Einmal in der Woche">
+					description = <"Person wird einmal in der Woche von Bezugsperson(en) besucht.">
+				>
+				["at0088"] = <
+					text = <"Selten (ein- bis zweimal im Monat)">
+					description = <"Person wird selten besucht.">
+				>
+				["at0089"] = <
+					text = <"(fast) Nie">
+					description = <"Person wird fast nie von Bezugsperson(en) besucht.">
+				>
+				["at0090"] = <
+					text = <"Beziehung harmonisch und vertrauensvoll">
+					description = <"Die Beziehung des Helfers und der Person ist harmonisch und vertrauensvoll.">
+				>
+				["at0091"] = <
+					text = <"Beziehung teilweise konfliktbeladen und gespannt">
+					description = <"Die Beziehung des Helfers und der Person ist teilweise konfliktbeladen und gespannt.">
+				>
+				["at0092"] = <
+					text = <"Habe neue Bekannte gewonnen">
+					description = <"Person hat neue Bekannte gewonnen.">
+				>
+				["at0093"] = <
+					text = <"Keine Veränderung">
+					description = <"Keine Veränderung in Bezug auf die Zunahme oder Abnahme von Bekannten.">
+				>
+				["at0094"] = <
+					text = <"Einige Kontakte habe ich aufgeben müssen">
+					description = <"Person musste einige Kontakte aufgeben.">
+				>
+				["at0095"] = <
+					text = <"Habe nahezu alle Kontakte verloren (z.B. Lebenspartner verstorben)">
+					description = <"Person hat nahezu alle wichtigen Kontakte verloren.">
+				>
+				["at0096"] = <
+					text = <"Fühle mich rundum gut versorgt">
+					description = <"Die Person fühlt sich rundum gut versorgt.">
+				>
+				["at0097"] = <
+					text = <"Es geht so, man muss zufrieden sein">
+					description = <"Die Person fühlt sich gezwungen, zufrieden zu sein.">
+				>
+				["at0098"] = <
+					text = <"Fühle mich einsam und im Stich gelassen">
+					description = <"Person fühlt sich einsam und im Stich gelassen.">
+				>
+			>
+		>
+	>
