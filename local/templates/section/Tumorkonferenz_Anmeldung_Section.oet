@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>c7b9d839-8c23-427b-b84a-c027c621be93</id>
-    <name>Tumorkonferenz_Section_v2</name>
+    <name>Tumorkonferenz_Anmeldung_Section</name>
     <description>
         <original_author>
             <item>
@@ -50,7 +50,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>3cae37ffd891e800fabb2725b811ad87</value>
+                <value>39c2df059a8211b39b0914cc571e2461</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -81,9 +81,15 @@
                     <includedValues>Tumorkonferenzart::praeth::prätherapeutisch</includedValues>
                     <includedValues>Tumorkonferenzart::postop::postoperativ</includedValues>
                     <includedValues>Tumorkonferenzart::postth::posttherapeutisch</includedValues>
+                    <includedValues>Tumorkonferenzart::Sonstiges::Sonstiges</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0135]"/>
+            <Rule path="/activities[at0001]/description[at0009]/items[at0135]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="1" name="Fragestellung" path="/activities[at0001]/description[at0009]/items[at0062]">
                 <constraint limitToList="false" xsi:type="tem:textConstraint">
                     <includedValues>Therapierelevanz des Panelbefundes</includedValues>
@@ -132,11 +138,11 @@
                 concept_name="Location" max="1"
                 name="Vorstellende Klinik"
                 path="/activities[at0001]/description[at0009]/items[at0132]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0040]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Fachabteilung</includedValues>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/items[at0024]"/>
+                <Rule max="0" path="/items[at0025]"/>
+                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0029]"/>
+                <Rule max="0" path="/items[at0034]"/>
                 <Rule name="Fachabteilungsname" path="/items[at0046]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>§301 SGB V::0100::Innere Medizin</includedValues>
@@ -288,12 +294,6 @@
                         <includedValues>§301 SGB V::3758::Weaningeinheit</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0048]"/>
-                <Rule max="0" path="/items[at0024]"/>
-                <Rule max="0" path="/items[at0025]"/>
-                <Rule max="0" path="/items[at0028]"/>
-                <Rule max="0" path="/items[at0029]"/>
-                <Rule max="0" path="/items[at0034]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
                     concept_name="Person name" max="1"
                     name="Vorstellender Arzt" path="/items[at0047]" xsi:type="tem:CLUSTER">
@@ -305,6 +305,7 @@
                             <includedValues>Dr. med.</includedValues>
                             <includedValues>Prof. Dr. med.</includedValues>
                             <includedValues>PD Dr. med.</includedValues>
+                            <includedValues>Dipl.-Med.</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0002]/items[at0018]"/>
@@ -349,6 +350,7 @@
                         <includedValues>Dr. med.</includedValues>
                         <includedValues>Prof. Dr. med.</includedValues>
                         <includedValues>PD Dr. med.</includedValues>
+                        <includedValues>Dipl.-Med.</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0002]/items[at0018]"/>
@@ -365,12 +367,12 @@
         archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">82BEDEC41C57E48CD072649ED8CA5EF5</digest>
+        <digest id="MD5-CAM-1.0.1">FD3D4859A234737CBF31A0D59D7AE51B</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.location.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">40B9297A554992A52D82807F4F1EF25D</digest>
+        <digest id="MD5-CAM-1.0.1">3FBD58B31B73C316C3052541F6BA58C0</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
         xmlns:tem="openEHR/v1/Template"

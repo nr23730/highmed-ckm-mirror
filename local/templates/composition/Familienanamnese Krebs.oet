@@ -34,7 +34,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>69c3615c8547165cafbfc3614eb2087c</value>
+                <value>eaf4a8d81f605c43c9192123851fe71e</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -50,15 +50,25 @@
         concept_name="Bericht" name="Familienanamnese Krebs"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Keine Informationen über Krebserkrankungen in der Familie</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="1" path="/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
             max="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule path="/data[at0001]/items[at0002]">
+            <Rule max="0" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Keine bekannte Vorgeschichte über ...</includedValues>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/items[at0003]">
+            <Rule name="Familiäre Krankengeschichte" path="/data[at0001]/items[at0003]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Krebserkrankungen</includedValues>
                 </constraint>
@@ -181,6 +191,11 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
