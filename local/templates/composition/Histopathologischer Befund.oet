@@ -59,11 +59,11 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>7aa0e0a3c038749d44a41271225c8c62</value>
+                <value>6357c34e3ff79f71c21447a58a8befcb</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>E3BC8668BB89A4BD43BF551931977A9D</value>
+                <value>641B268BE8805CEB8DC21AB82C53AB3F</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -159,22 +159,6 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0034]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.receivedTime</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0007]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.collection.method</value>
-            </item>
-        </items>
-    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0070]">
         <items>
             <item>
@@ -183,11 +167,27 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0034]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.receivedTime</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0045]">
         <items>
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.note</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0007]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.method</value>
             </item>
         </items>
     </annotations>
@@ -292,7 +292,12 @@
                 <Rule max="0" path="/items[at0007]"/>
                 <Rule max="0" path="/items[at0079]"/>
                 <Rule max="0" path="/items[at0087]"/>
-                <Rule max="0" path="/items[at0015]"/>
+                <Rule max="0" path="/items[at0015]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" path="/items[at0070]"/>
@@ -611,6 +616,34 @@
                             <includedValues>Unbekannt</includedValues>
                         </constraint>
                     </Rule>
+                    <Rule path="/items[at0031.1]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>0</includedValues>
+                            <includedValues>0a</includedValues>
+                            <includedValues>0is</includedValues>
+                            <includedValues>I</includedValues>
+                            <includedValues>IA</includedValues>
+                            <includedValues>IA1</includedValues>
+                            <includedValues>IA2</includedValues>
+                            <includedValues>IA3</includedValues>
+                            <includedValues>IB</includedValues>
+                            <includedValues>IS</includedValues>
+                            <includedValues>II</includedValues>
+                            <includedValues>IIA</includedValues>
+                            <includedValues>IIB</includedValues>
+                            <includedValues>IIC</includedValues>
+                            <includedValues>III</includedValues>
+                            <includedValues>IIIA</includedValues>
+                            <includedValues>IIIB</includedValues>
+                            <includedValues>IIIC</includedValues>
+                            <includedValues>IIID</includedValues>
+                            <includedValues>IV</includedValues>
+                            <includedValues>IVA</includedValues>
+                            <includedValues>IVB</includedValues>
+                            <includedValues>IVC</includedValues>
+                            <includedValues>kein Stadium ermittelbar</includedValues>
+                        </constraint>
+                    </Rule>
                     <Rule default="Auflage 8" path="/items[at0032]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Auflage 8</includedValues>
@@ -625,7 +658,7 @@
                     </Rule>
                 </Items>
                 <Items
-                    archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
+                    archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v2"
                     max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
@@ -641,11 +674,12 @@
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose" name="Fernmetastase"
                 path="/items[at0001]" xsi:type="tem:EVALUATION">
-                <Rule default="Fernmetastase(n)" name="Fernmetastase" path="/data[at0001]/items[at0002]">
+                <Rule
+                    default="local_terms::19408000::Keine Fernmetastasen"
+                    name="Fernmetastase" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Fernmetastase(n)</includedValues>
-                        <includedValues>Keine Fernmetastase</includedValues>
-                        <includedValues>Unbekannt</includedValues>
+                        <includedValues>local_terms::19408000::Keine Fernmetastasen</includedValues>
+                        <includedValues>local_terms::399409002::Fernmetastase</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
@@ -683,6 +717,16 @@
                     </constraint>
                 </Rule>
             </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                max="1" path="/items[at0001]" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Fernmetastasen</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0005]"/>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
         </Content>
         <Context>
             <Items
@@ -701,7 +745,7 @@
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
+        <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
@@ -713,7 +757,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
+        <digest id="MD5-CAM-1.0.1">6FF739561BD390420231096ACAD27FC3</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.anatomical_pathology_exam.v0"
@@ -742,7 +786,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">03CCDF7BDB564478867E6002950FB7C3</digest>
+        <digest id="MD5-CAM-1.0.1">0A48CEA5CFCABE46203C50BDC1AA6760</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -769,13 +813,13 @@
         archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">5D2C997BC3ED4A0F8700D73050FE8DAB</digest>
+        <digest id="MD5-CAM-1.0.1">D5BC5C645975EFCAE96A7231F81479ED</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v1"
+        archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">E1B9E9E2BAE3D348573B962C42255E91</digest>
+        <digest id="MD5-CAM-1.0.1">48321195FE7D6B9F29B9E22580A28F59</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
@@ -787,5 +831,10 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">00E81173D3355F5FB8674F6132AECA33</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
     </integrity_checks>
 </template>
