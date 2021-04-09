@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=bf7ec090-23a3-4daf-a0ad-9c64a9a48209)
-	openEHR-EHR-CLUSTER.sos_part2_akt_nikolaus.v0
+﻿archetype (adl_version=1.4; uid=afc7290c-6767-4a11-a733-9adb29afe911)
+	openEHR-EHR-CLUSTER.sos_part2_akt_nikolaus.v1
 
 concept
 	[at0000]	-- Soziale Aktivitäten nach Nikolaus (Akt)
@@ -26,22 +26,22 @@ Darf nur im Kontext des Fragebogens nach Nikolaus et al. (1994) verwendet werden
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"HiGHmed">
 		["references"] = <"Nikolaus T, Specht-Leible N, Bach M, Oster P, Schlierf G (1994) Soziale Aspekte bei Diagnostik und Therapie hochbetagter Patienten. Erste Erfahrungen mit einem neu entwickelten Fragebogen im Rahmen des geriatrischen Assessment. Z Gerontol 27: 240-245">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"90CB01E7E62EBD1079E64FF8243267EF">
-		["build_uid"] = <"e3ab0b1f-e1c0-402b-9a0f-e71111d7b5e3">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"EBD6FCD07F2D0BF4DD2A8D99729A6167">
+		["build_uid"] = <"3398e4b1-775c-4d74-89cd-ade852f1d238">
+		["revision"] = <"1.0.0">
 	>
 
 definition
 	CLUSTER[at0000] matches {    -- Soziale Aktivitäten nach Nikolaus (Akt)
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0080] occurrences matches {0..1} matches {    -- Beruf
+			ELEMENT[at0080] occurrences matches {0..*} matches {    -- Beruf
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -52,7 +52,7 @@ definition
 					1|[local::at0066]
 				}
 			}
-			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Aufzählung der Hobbies und/oder Interessen
+			ELEMENT[at0006] occurrences matches {0..*} matches {    -- Aufzählung der Hobbies und/oder Interessen
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -107,7 +107,7 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Aufzählung der Hobbies und/oder Interessen">
-					description = <"Welche Hobbies oder Interessen (z.B. Handarbeit, handwerkl. Tätigkeiten, Musizieren, Gartenarbeit, Briefmarken o.ä. sammeln) haben Sie, die Sie noch regelmäßig betreiben?">
+					description = <"Welche Hobbies oder Interessen (z.B. Handarbeit, handwerkl. Tätigkeiten, Musizieren, Gartenarbeit, Briefmarken oder ähnliches sammeln) haben Sie, die Sie noch regelmäßig betreiben?">
 				>
 				["at0024"] = <
 					text = <"Zwischensumme Aktivitäten">
@@ -143,7 +143,7 @@ ontology
 				>
 				["at0067"] = <
 					text = <"Ja">
-					description = <"Person hat ein Haustier.">
+					description = <"Person hat mindestens ein Haustier.">
 				>
 				["at0068"] = <
 					text = <"Nein">
@@ -196,6 +196,7 @@ ontology
 				["at0080"] = <
 					text = <"Beruf">
 					description = <"Welchen Beruf haben Sie ausgeübt?">
+					comment = <"Dieses Datenelement kann mehrfach vorkommen, um mehr als eine Angabe von Beruf zu ermöglichen. Wenn möglich, wird die Codierung mit einer Terminologie oder vorkodierten Begriffen, bevorzugt.">
 				>
 			>
 		>
