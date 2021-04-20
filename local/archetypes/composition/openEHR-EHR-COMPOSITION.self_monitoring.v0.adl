@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4; uid=f6d503ab-43cb-41b9-a465-dc95fc328dfd)
+﻿archetype (adl_version=1.4; uid=1d6fde17-c20f-4296-be5b-5bee9b805694)
 	openEHR-EHR-COMPOSITION.self_monitoring.v0
 
 concept
@@ -9,9 +9,9 @@ language
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			author = <
-				["name"] = <"Aljoscha Kindermann">
-				["organisation"] = <"University Hospital Heidelberg">
-				["email"] = <"aljoscha.kindermann@med.uni-heidelberg.de">
+				["name"] = <"Natalia Strauch">
+				["organisation"] = <"Medizinische Hochschule Hannover">
+				["email"] = <"Strauch.Natalia@mh-hannover.de">
 			>
 		>
 	>
@@ -25,9 +25,9 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Repräsentation von Messungen und Beobachtungen, die von der Person, die Gegenstand der Aufzeichnung ist, oder ihren Betreuern durchgeführt werden.">
-			use = <"Zur Verwendung durch die Patienten, um Informationen, die sie gesammelt haben, in die Krankenakte zu übertragen.">
-			keywords = <"Hausüberwachung", "Patienteneingabe", "Self Reporting">
+			purpose = <"Zur Repräsentation von Messungen und Beobachtungen der Person, die als Subjekt der Patientenakte ist, oder ihren Betreuern.">
+			use = <"Zur Verwendung durch den Patienten, um die von ihm gesammelten Informationen in die Gesundheitsakte aufzunehmen.">
+			keywords = <"Home-Überwachung", "Patienteneingabe", "Self Reporting">
 			misuse = <"">
 		>
 		["en"] = <
@@ -36,40 +36,47 @@ description
 			use = <"For use by the clients of the health service to commit information they have collected to the health record.">
 			keywords = <"home monitoring", "patient entered", "self reporting">
 			misuse = <"">
-			copyright = <"© openEHR Foundation, HiGHmed">
+			copyright = <"© openEHR Foundation">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: <Add reference to original resource here>">
+		["custodian_organisation"] = <"openEHR Foundation">
 		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"BE6703111625895423C2D6A31DE8E723">
-		["build_uid"] = <"f6d8f7bb-0680-47b5-bc11-9212b7ab0c41">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"1C84C8769BB0D98F98BADEB6DE3EDE75">
+		["build_uid"] = <"4e1c4465-ca96-4d2b-8132-dd8ca054e15d">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	COMPOSITION[at0000] matches {	-- Self monitoring
+	COMPOSITION[at0000] matches {    -- Self monitoring
 		category matches {
 			DV_CODED_TEXT matches {
-				defining_code matches {[openehr::433]}
+				defining_code matches {
+					[openehr::433]
+				}
 			}
 		}
 		context matches {
 			EVENT_CONTEXT matches {
 				other_context matches {
-					ITEM_TREE[at0001] matches {*}
+					ITEM_TREE[at0001] matches {    -- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {    -- Extension
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
 				}
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -77,11 +84,16 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Self monitoring">
-					description = <"A composition to record a person monitoring particular parameters">
+					description = <"A composition to record a person self-monitoring particular parameters.">
 				>
 				["at0001"] = <
 					text = <"Tree">
 					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
+					comment = <"For example: Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
 				>
 			>
 		>
@@ -89,11 +101,16 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Selbstüberwachung">
-					description = <"Ein Composition Archetyp zur Aufzeichnung von Parametern die durch eine Person aufgezeichnet werden.">
+					description = <"Ein COMPOSITION-Archetyp zur Repräsentation von Parametern, die durch eine Person selbstüberwacht wurden.">
 				>
 				["at0001"] = <
 					text = <"Tree">
 					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 			>
 		>
