@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=ea8ef490-9020-4540-99aa-e7d98f007222)
-	openEHR-EHR-OBSERVATION.handkraftmessung.v0
+﻿archetype (adl_version=1.4; uid=62d573e1-4994-47d0-b889-09ddf38e6aac)
+	openEHR-EHR-OBSERVATION.handkraftmessung.v1
 
 concept
 	[at0000]	-- Handkraftmessung
@@ -22,7 +22,7 @@ description
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -31,9 +31,9 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"EB29F574B95FE8931077C70BBB724B5F">
-		["build_uid"] = <"3af9c55e-9003-4bce-a1d0-8388d7da9b05">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"A1C32A417ED84A08688D70036AA42293">
+		["build_uid"] = <"7ec14b9a-e338-48a5-8c1b-189578d5c6f6">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -52,7 +52,8 @@ definition
 													[local::
 													at0027,    -- Linke Hand
 													at0026,    -- Rechte Hand
-													at0038]    -- Beidhändig/Unbekannt
+													at0038,    -- Beidhändig
+													at0043]    -- Unbekannt
 												}
 											}
 										}
@@ -62,13 +63,14 @@ definition
 											DV_BOOLEAN matches {*}
 										}
 									}
-									ELEMENT[at0023] occurrences matches {0..1} matches {    -- Wenn ja, welche
+									ELEMENT[at0023] occurrences matches {0..1} matches {    -- Identifizierung paretischer Hand
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
 													at0028,    -- Linke Hand
-													at0029]    -- Rechte Hand
+													at0029,    -- Rechte Hand
+													at0044]    -- Beidhändig
 												}
 											}
 										}
@@ -168,7 +170,7 @@ ontology
 					description = <"Gibt es eine paretische Hand?">
 				>
 				["at0023"] = <
-					text = <"Wenn ja, welche">
+					text = <"Identifizierung paretischer Hand">
 					description = <"Wenn eine paretische Hand vorhanden ist, welche ist es?">
 				>
 				["at0026"] = <
@@ -204,16 +206,24 @@ ontology
 					description = <"Die rechte Hand der Person.">
 				>
 				["at0038"] = <
-					text = <"Beidhändig/Unbekannt">
-					description = <"Die Person hat keine dominante Hand oder die dominante Hand ist unbekannt.">
+					text = <"Beidhändig">
+					description = <"Die Person hat keine dominante Hand.">
 				>
 				["at0041"] = <
 					text = <"Gerät">
-					description = <"Das Gerät, dass für die Messung verwendet wurde.">
+					description = <"Das Gerät, das für die Messung verwendet wurde.">
 				>
 				["at0042"] = <
 					text = <"Erweiterungen">
 					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+				>
+				["at0043"] = <
+					text = <"Unbekannt">
+					description = <"Die dominante Hand ist unbekannt.">
+				>
+				["at0044"] = <
+					text = <"Beidhändig">
+					description = <"Beide Hände der Person weisen eine Parese auf.">
 				>
 			>
 		>
