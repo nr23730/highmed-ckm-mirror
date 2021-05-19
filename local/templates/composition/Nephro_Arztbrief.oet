@@ -19,7 +19,7 @@
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Repräsentation von Entlassungsbriefen eines Patienten.</purpose>
+      <purpose>Zur Repräsentation von Arztbriefen eines Patienten im Rahmen des NephroDigital-Projektes.</purpose>
       <keywords>
         <item>Entlassungsbrief</item>
         <item>Arztbrief</item>
@@ -27,7 +27,7 @@
         <item>Befundbericht</item>
       </keywords>
       <use>Für die Abbildung von Arztbriefen.</use>
-      <misuse />
+      <misuse>Nicht zur Abbildung von strukturierten Entlassdaten verwenden. Dieses Template dient ausschließlich der Dokumentation von unsktrukturierten Entlassbefunden (Arztbriefe).</misuse>
     </details>
     <other_details>
       <item>
@@ -80,20 +80,30 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="Entlassungsbriefe">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1" concept_name="Ergebnisbericht" name="Arztbrief">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinische Synopsis" max="1" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/protocol[at0003]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.media_file.v0" concept_name="Mediendatei" max="1" path="/protocol[at0003]/items[at0004]">
+        <Rule path="/items[at0010]" max="0" />
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>MultiMedia</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Date_Time</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0007]" max="0" />
+      </Items>
+    </Content>
     <Context>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" concept_name="Fallidentifikation" max="1" path="/context/other_context[at0001]/items[at0006]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0006]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0" concept_name="Multimedia-Ressource" path="/context/other_context[at0001]/items[at0006]">
-        <Rule path="/items[at0008]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0009]" max="0" />
-        <Rule path="/items[at0004]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
-        <Rule path="/items[at0007]" max="0" />
       </Items>
       <Rule path="/context/other_context[at0001]" hide_on_form="true" />
       <Rule path="/context/other_context[at0001]/items[at0002]" max="0" />
@@ -102,12 +112,15 @@
     </Context>
   </definition>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report-result.v1">
-    <digest id="MD5-CAM-1.0.1">075C04692C7FEB6DDCC2C90FBE5C9098</digest>
+    <digest id="MD5-CAM-1.0.1">2A64B8463AA11FF22EA7977CDF0E9959</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0">
-    <digest id="MD5-CAM-1.0.1">ECD60CB5C43EE9DB9341CB7512FCF7AE</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1">
+    <digest id="MD5-CAM-1.0.1">1C27320A9B0499317426B81E69A5862D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.media_file.v0">
+    <digest id="MD5-CAM-1.0.1">01E3F12FED20C87CE6567C26D848ED9C</digest>
   </integrity_checks>
 </template>
