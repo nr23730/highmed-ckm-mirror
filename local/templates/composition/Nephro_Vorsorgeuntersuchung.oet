@@ -19,7 +19,7 @@
     </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Darstellung der Ergebnisse von Vorsorgeuntersuchungen eines Patienten.</purpose>
+      <purpose>Zur Darstellung der Ergebnisse von Vorsorgeuntersuchungen eines Patienten im Rahmen des NephroDigital-Projektes.</purpose>
       <keywords>
         <item>Vorsorge</item>
         <item>Untersuchung</item>
@@ -83,6 +83,7 @@
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Vorsorgeuntersuchung">
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Ergebnisse der körperlichen Untersuchung" max="1" path="/content" name="Ergebnisse der Vorsorgeuntersuchung">
       <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Datum der letzten Vorsorge" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Art der Vorsorgeuntersuchung" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
@@ -91,14 +92,18 @@
       <Rule path="/data[at0001]/events[at0002]/state[at0009]/items[at0008]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/state[at0009]/items[at0013]" max="0" />
       <Rule path="/protocol[at0007]" hide_on_form="true" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0" concept_name="Multimedia-Ressource" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Befund">
-        <Rule path="/items[at0005]" max="0" />
-        <Rule path="/items[at0001]" name="PDF" />
-        <Rule path="/items[at0008]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0009]" max="0" />
-        <Rule path="/items[at0004]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.media_file.v0" concept_name="Mediendatei" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <Rule path="/items[at0010]" max="0" />
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>MultiMedia</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Date_Time</includedTypes>
+          </constraint>
+        </Rule>
         <Rule path="/items[at0007]" max="0" />
       </Items>
     </Content>
@@ -122,15 +127,15 @@
     </constraints>
   </view>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
-    <digest id="MD5-CAM-1.0.1">DE0723367AA22BB716CEC5342B21FF60</digest>
+    <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.case_identification.v0">
     <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
   </integrity_checks>
   <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.exam.v1">
-    <digest id="MD5-CAM-1.0.1">D52465DFC421ACD55710408C51A86CD3</digest>
+    <digest id="MD5-CAM-1.0.1">EE14278FF1F40843114E3AD7FEA0D73B</digest>
   </integrity_checks>
-  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.multimedia.v0">
-    <digest id="MD5-CAM-1.0.1">ECD60CB5C43EE9DB9341CB7512FCF7AE</digest>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.media_file.v0">
+    <digest id="MD5-CAM-1.0.1">01E3F12FED20C87CE6567C26D848ED9C</digest>
   </integrity_checks>
 </template>
