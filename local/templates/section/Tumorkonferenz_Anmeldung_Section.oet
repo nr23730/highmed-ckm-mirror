@@ -22,7 +22,15 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+       <details>
+            <purpose>Zur Repräsentation der Daten, die zur Anmeldung eines Patienten mit einer onkologischen Diagnose zu einer Tumorkonferenz vorliegen. </purpose>
+            <keywords>
+                <item>Tumorkonferenz; Tumorboard; Organtumorboard; Molekulares Tumorboard</item>
+            </keywords>
+            <use>Dieses Template wird verwendet, um Daten zu einer Tumorkonferenz von einem Patienten mit einer onkologischen Diagnose aufzuzeichnen. Es sollen Daten zu der Tumorkonferenz erfasst werden die zur Anmeldung zur Konferenz vorliegen d.h. das Datum und Typ der Tumorkonferenz, die Fragestellung, sowie die erforderlichen Ärzte und den vorstellenden Arzt.
+</use>
+            <misuse>Dieses Template soll nicht verwendet werden, um das Ergebnis oder die Vorbereitungen einer Tumorkonferenz aufzuzeichnen. Für diese Daten jeweils das eigene Template benutzen.</misuse>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -57,6 +65,14 @@
                 <value>8FE80F3E80C594AAF99D3BA540A53D73</value>
             </item>
             <item>
+                <key>sem_ver</key>
+                <value>4.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
                 <key>original_language</key>
                 <value>ISO_639-1::en</value>
             </item>
@@ -84,23 +100,20 @@
                     <includedValues>Tumorkonferenzart::Sonstiges::Sonstiges</includedValues>
                 </constraint>
             </Rule>
-            <Rule path="/activities[at0001]/description[at0009]/items[at0135]">
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0135]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Ja</includedValues>
                     <includedValues>Nein</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="1" name="Zentrale Fragestellung" path="/activities[at0001]/description[at0009]/items[at0062]">
-                <constraint limitToList="false" xsi:type="tem:textConstraint">
-                    <includedValues>Therapierelevanz des Panelbefundes</includedValues>
-                </constraint>
-            </Rule>
+            <Rule max="1" name="Fragestellung" path="/activities[at0001]/description[at0009]/items[at0062]"/>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0064]"/>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0152]"/>
-            <Rule max="1" name="Zweitmeinung (Optional)" path="/activities[at0001]/description[at0009]/items[at0065]">
+			 <Rule max="1" name="Liegt bereits eine Empfehlung durch ein (Organ)-Tumorboard vor?" path="/activities[at0001]/description[at0009]/items[at0076]"/>
+            <Rule max="1" name="Zweitmeinung (optional)" path="/activities[at0001]/description[at0009]/items[at0065]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Ja</includedValues>
-                    <includedValues>Nein</includedValues>
+                    <includedValues>Zweitmeinung - Ja</includedValues>
+                    <includedValues>Zweitmeinung - Nein</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0068]">
@@ -117,9 +130,13 @@
             </Rule>
             <Rule name="Tumorkonferenz Startdatum" path="/activities[at0001]/description[at0009]/items[at0145]"/>
             <Rule max="0" name="Tumorkonferenz Enddatum" path="/activities[at0001]/description[at0009]/items[at0144]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0147]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0076]"/>
-            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0078]"/>
+            <Rule max="0"  path="/activities[at0001]/description[at0009]/items[at0147]"/>
+            <Rule name="Primärfall (optional)" path="/activities[at0001]/description[at0009]/items[at0078]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Primärfall - Ja</includedValues>
+                    <includedValues>Primärfall - Nein</includedValues>
+                </constraint>
+            </Rule>
             <Rule name="Anmerkungen" path="/activities[at0001]/description[at0009]/items[at0150]"/>
             <Rule max="0" path="/protocol[at0008]/items[at0010]">
                 <constraint xsi:type="tem:multipleConstraint">
@@ -312,11 +329,28 @@
                     <Rule max="0" path="/items[at0014]"/>
                 </Items>
             </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+                concept_name="Person name" max="1"
+                name="Anmeldender Arzt"
+                path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule path="/items[at0002]/items[at0017]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                        <includedValues>Dr. med.</includedValues>
+                        <includedValues>Prof. Dr. med.</includedValues>
+                        <includedValues>PD Dr. med.</includedValues>
+                        <includedValues>Dipl.-Med.</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0002]/items[at0018]"/>
+                <Rule max="0" path="/items[at0014]"/>
+            </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
-                concept_name="Professional role"
-                name="Erforderliche Fachdisziplinen"
-                path="/activities[at0001]/description[at0009]/items[at0132]" xsi:type="tem:CLUSTER">
+				name="Erforderliche Fachdisziplinen"
+                path="/protocol[at0008]/items[at0128]" xsi:type="tem:CLUSTER">
                 <Rule name="Fachdisziplinen" path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>(Translationale) Onkologie</includedValues>
@@ -338,23 +372,13 @@
                     </constraint>
                 </Rule>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                concept_name="Person name" max="1"
-                name="Anmeldender Arzt"
-                path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1"  path="/protocol[at0008]/items[at0112]" xsi:type="tem:CLUSTER">
+				<Rule name="Laufende Fallnummer" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" path="/items[at0022]"/>
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule path="/items[at0002]/items[at0017]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
-                        <includedValues>Dr. med.</includedValues>
-                        <includedValues>Prof. Dr. med.</includedValues>
-                        <includedValues>PD Dr. med.</includedValues>
-                        <includedValues>Dipl.-Med.</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                <Rule max="0" path="/items[at0014]"/>
             </Items>
         </Item>
     </definition>
@@ -384,5 +408,11 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D6072DBF64A0C64FC42C372AD0B10AB2</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
 </template>
