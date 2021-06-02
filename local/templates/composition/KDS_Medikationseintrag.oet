@@ -15,8 +15,8 @@
             <keywords>
                 <item>Medikation; Medikamentöse Behandlung; Arzneiliste; Medikamentenverordnung; Arzneiverordnung; Medikamentenanwendung; Arzneimittel; Medikamentenanamnese; Medikationsliste; Medikamentenliste; Arzneimittelverordnung; Medikationseintrag, Medikamentenplan, Medikationseintrag, Kerndatensatz, Medication Statement</item>
             </keywords>
-            <use>Zur Repräsentation der Anwendung von Medikamenten, die für eine Person verordnet oder durch die Person angewendet werden.  Es kann sich dabei über die aktuelle Anwendung, die frühere oder die geplante Anwendung handeln. 
-Dat Template hat eher den Charakter eines Medikationsplans. Es ist nicht klar, ob der Patient diese Arzneimittel tatsächlich eingenommen hat oder diese verabreicht wurden.
+            <use>Zur Repräsentation der Anwendung von Medikamenten, die für eine Person verordnet oder durch die Person angewendet werden.  Es kann sich dabei um eine aktuelle, frühere oder geplante Anwendung handeln. 
+Das Template hat eher den Charakter eines Medikationsplans. Es ist nicht klar, ob der Patient diese Arzneimittel tatsächlich eingenommen hat oder diese verabreicht wurden.
 Wenn ein Fallbezug oder eine Verbindung zu anderen Compositions (z.B. Prozeduren, Diagnose-Templates) hergestellt werden soll, bitte die LINK class aus dem Referenzmodell nutzen.</use>
             <misuse>Nicht zur Repräsentation spezifischer Medikamententherapie oder Medikamentenklassen, die weitere Angaben erfordern (z. B. Protokoll bei Chemotherapie). Dafür bitte eigene Templates anlegen.
 
@@ -77,11 +77,19 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>9957F9F29D4F061376D8166513286D90</value>
+                <value>006E9F209FD9F3691A5B9EFF0BAC3B5B</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>5.0.3</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
             </item>
             <item>
                 <key>original_language</key>
@@ -510,10 +518,10 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     path="/items[at0138]" xsi:type="tem:CLUSTER">
                     <Rule name="Wirkstoff-Name" path="/items[at0132]"/>
                     <Rule max="0" path="/items[at0071]"/>
-                    <Rule name="Aktiv/Allgemein" path="/items[at0142]">
+                    <Rule name="Wirkstofftyp" path="/items[at0142]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Active</includedValues>
-                            <includedValues>Common</includedValues>
+                            <includedValues>Inactive</includedValues>
                         </constraint>
                     </Rule>
                     <Rule name="Wirkstoffmenge" path="/items[at0152]"/>
@@ -540,9 +548,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     </Rule>
                     <Rule name="Einheit Nenner" path="/items[at0152]/items[at0005]"/>
                     <Rule max="0" path="/items[at0158]"/>
-                    <Rule name="Wirkstoff (Konzentration)" path="/items[at0115]">
-                        <constraint xsi:type="tem:quantityConstraint"/>
-                    </Rule>
+                    <Rule max="0" path="/items[at0115]"/>
                     <Rule max="0" path="/items[at0151]"/>
                     <Rule max="0" path="/items[at0150]">
                         <constraint xsi:type="tem:multipleConstraint">
@@ -583,9 +589,17 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
                         concept_name="Arzneimittelgruppe" min="1"
-                        name="Wirkstoff-Code" path="/items[at0141]" xsi:type="tem:CLUSTER">
-                        <Rule min="1"
-                            name="Wirkstoff-Code (allgemein, aktiv)" path="/items[at0001]"/>
+                        name="Wirkstoff-Code (ASK, SNOMED CT, UNII, CAS)"
+                        path="/items[at0141]" xsi:type="tem:CLUSTER">
+                        <Rule min="1" name="Wirkstoff-Code" path="/items[at0001]"/>
+                        <Rule path="/items[at0004]/items[at0002]">
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
+                                <includedValues>ASK</includedValues>
+                                <includedValues>UNII</includedValues>
+                                <includedValues>CAS</includedValues>
+                                <includedValues>SNOMED CT</includedValues>
+                            </constraint>
+                        </Rule>
                         <Rule max="0" path="/items[at0004]/items[at0010]"/>
                         <Rule max="0" path="/items[at0007]"/>
                     </Items>
@@ -593,6 +607,15 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                 <Items archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
                     path="/items[at0141]" xsi:type="tem:CLUSTER">
                     <Rule name="Arzneimittel-Code" path="/items[at0001]"/>
+                    <Rule path="/items[at0004]/items[at0002]">
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
+                            <includedValues>RxNorm</includedValues>
+                            <includedValues>SNOMED CT</includedValues>
+                            <includedValues>IDMP</includedValues>
+                            <includedValues>PZN</includedValues>
+                            <includedValues>ATC</includedValues>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0004]/items[at0010]"/>
                     <Rule max="0" path="/items[at0007]"/>
                 </Items>
@@ -763,13 +786,14 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                 name="Status" path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER">
                 <Rule name="Status Grund" path="/items[at0014]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v0"
-                concept_name="Einrichtung" max="1"
+            <Items archetype_id="openEHR-EHR-CLUSTER.organisation_cc.v0"
+                concept_name="Organisation" max="1"
                 name="Autor/Informant des Eintrags"
                 path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule name="Name der Organisation" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0010]"/>
                 <Rule max="0" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0005]"/>
+                <Rule min="1" path="/items[at0012]"/>
+                <Rule max="0" path="/items[at0013]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.entry_category.v0"
                 max="1" path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER">
@@ -782,7 +806,9 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                 </Rule>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.identifier_fhir.v0"
-                path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER"/>
+                path="/protocol[at0004]/items[at0005]" xsi:type="tem:CLUSTER">
+                <Rule name="Externer identifier" path="/items[at0001]"/>
+            </Items>
         </Content>
         <Context>
             <Items
@@ -811,7 +837,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
         archetype_id="openEHR-EHR-COMPOSITION.medication_list.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">9957F9F29D4F061376D8166513286D90</digest>
+        <digest id="MD5-CAM-1.0.1">006E9F209FD9F3691A5B9EFF0BAC3B5B</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
@@ -857,10 +883,11 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">E432168822D930A76C3AEF3409020141</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.organisation.v0"
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.organisation_cc.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">205EF4F78CEBF8D851B406A89632FD93</digest>
+        <digest id="MD5-CAM-1.0.1">22A9841216FAA7F96797338E932C7C08</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.entry_category.v0"
