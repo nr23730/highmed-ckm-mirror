@@ -58,7 +58,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>ac64242ac072a97f74af97c85818430b</value>
+                <value>819e8ac4c4a2fe22989eef94cce4ec23</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -66,7 +66,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.1</value>
+                <value>4.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -102,16 +102,73 @@
             <Rule max="0" path="/description[at0001]/items[at0070]"/>
             <Rule max="1" name="Protokoll" path="/description[at0001]/items[at0065]">
                 <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <includedValues>ABVD</includedValues>
+                    <includedValues>AC</includedValues>
+                    <includedValues>AIO</includedValues>
+                    <includedValues>AIO-Irinotecan</includedValues>
+                    <includedValues>BEACOPP basis</includedValues>
+                    <includedValues>BEACOPP eskaliert</includedValues>
+                    <includedValues>BOLD</includedValues>
+                    <includedValues>CapeOx</includedValues>
+                    <includedValues>CarboTax</includedValues>
+                    <includedValues>CEV</includedValues>
+                    <includedValues>CHOEP</includedValues>
+                    <includedValues>CHOP</includedValues>
+                    <includedValues>COPP</includedValues>
+                    <includedValues>CV</includedValues>
+                    <includedValues>DA</includedValues>
+                    <includedValues>DAC</includedValues>
+                    <includedValues>DC (Doce/Carbo)</includedValues>
+                    <includedValues>DC (Doce/Cyclo)</includedValues>
+                    <includedValues>Dexa-BEAM</includedValues>
+                    <includedValues>DHAP</includedValues>
+                    <includedValues>DVP</includedValues>
+                    <includedValues>EC</includedValues>
+                    <includedValues>EC-D</includedValues>
+                    <includedValues>ECF</includedValues>
+                    <includedValues>EC-P</includedValues>
+                    <includedValues>EOX</includedValues>
+                    <includedValues>FAC</includedValues>
+                    <includedValues>FC</includedValues>
+                    <includedValues>FEC</includedValues>
+                    <includedValues>FEC-Doc</includedValues>
+                    <includedValues>FLAG-Ida</includedValues>
+                    <includedValues>FLO</includedValues>
                     <includedValues>FLOT</includedValues>
-                    <includedValues>Folfiri</includedValues>
+                    <includedValues>FOLFIRI</includedValues>
+                    <includedValues>FOLFOX4</includedValues>
+                    <includedValues>FOLFOXIRI</includedValues>
+                    <includedValues>Gem-Carbo</includedValues>
+                    <includedValues>Gem-Cis</includedValues>
+                    <includedValues>GemTreo</includedValues>
+                    <includedValues>GOP</includedValues>
+                    <includedValues>ICE</includedValues>
+                    <includedValues>MAMAC</includedValues>
+                    <includedValues>MAV</includedValues>
+                    <includedValues>M-Cavi</includedValues>
+                    <includedValues>M-VAC</includedValues>
+                    <includedValues>PC</includedValues>
+                    <includedValues>PCV</includedValues>
+                    <includedValues>PE</includedValues>
+                    <includedValues>PEB</includedValues>
+                    <includedValues>PEI</includedValues>
+                    <includedValues>PLF</includedValues>
+                    <includedValues>PVBI</includedValues>
+                    <includedValues>R-CHOP</includedValues>
+                    <includedValues>S-HAI</includedValues>
+                    <includedValues>S-HAM</includedValues>
+                    <includedValues>TAC</includedValues>
+                    <includedValues>DAC</includedValues>
+                    <includedValues>TIP</includedValues>
+                    <includedValues>TPF</includedValues>
+                    <includedValues>XELOX</includedValues>
+                    <includedValues>XP</includedValues>
                     <includedValues>Folfox</includedValues>
-                    <includedValues>Folfoxiri</includedValues>
                     <includedValues>Folfirinox</includedValues>
                     <includedValues>Gemcitabine + nab-Paclitaxel</includedValues>
                     <includedValues>Gemcitabine + Cisplatin</includedValues>
                     <includedValues>Gemcitabine</includedValues>
                     <includedValues>Paclitaxel</includedValues>
-                    <includedValues>Xelox</includedValues>
                     <includedValues>Xeliri</includedValues>
                     <includedValues>Cisplatin + Etoposid</includedValues>
                     <includedValues>Xeloda</includedValues>
@@ -271,7 +328,12 @@
         </Content>
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
             path="/content" xsi:type="tem:ACTION">
-            <Rule name="Substanzname" path="/description[at0017]/items[at0020]"/>
+            <Rule name="Substanzname (ATC-Code)" path="/description[at0017]/items[at0020]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/pharmacological-therapy-atc" terminologyID="Pharmacological Therapy ATC"/>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/description[at0017]/items[at0156]"/>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
             <Rule max="0" path="/description[at0017]/items[at0133]"/>
@@ -296,6 +358,9 @@
                 <Rule path="/items[at0145]">
                     <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>mg</includedValues>
+                        <includedValues>µg</includedValues>
+                        <includedValues>g</includedValues>
+                        <includedValues>mmol</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0135]">
@@ -330,24 +395,6 @@
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0177]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
-                path="/description[at0017]/items[at0053]" xsi:type="tem:CLUSTER">
-                <Rule name="Titel der Studie (Basket-Studie)" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0004]"/>
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0033]"/>
-                <Rule max="0" path="/items[at0012]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0010]"/>
-                <Rule max="0" path="/items[at0015]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-                <Rule max="0" path="/items[at0018]"/>
-                <Rule max="0" path="/items[at0019]"/>
-                <Rule max="0" path="/items[at0020]"/>
-                <Rule max="0" path="/items[at0005]"/>
             </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
@@ -833,12 +880,6 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">0979A8C3E209FB50DA782FE5768D387A</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4244C5EC7B82DFE4829DD920989058F8</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
