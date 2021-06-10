@@ -1,0 +1,105 @@
+﻿archetype (adl_version=1.4; uid=276044e6-a147-4812-a8e1-267112756034)
+	openEHR-EHR-OBSERVATION.altersangaben.v0
+
+concept
+	[at0000]	-- Altersangaben
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Caroline Bönisch">
+		["organisation"] = <"University Medical Center Göttingen ">
+		["email"] = <"Caroline.Boenisch@med.uni-goettingen.de">
+		["date"] = <"2019-12-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dient zur Abbildung des Alters mit Jahresanteil und Tagesanteil. ">
+			use = <"Zu nutzen um das Alter eines Patienten in Jahres- und Tagesanteil darzustellen. ">
+			misuse = <"Nicht zu verwenden um das Alter anders darzustellen. ">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"6DF4AF28FDD1AD6ED83B2B766F8710FE">
+		["build_uid"] = <"f17b9a17-b921-4f54-bcc6-2d54eae92bbe">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Altersangaben
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..180} matches {	-- Alter Jahresanteil
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..365} matches {	-- Alter Tagesanteil
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Berechnungsdatum
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Altersangaben">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Alter Jahresanteil">
+					description = <"Der Jahresanteil des Alters des Patienten.">
+				>
+				["at0005"] = <
+					text = <"Alter Tagesanteil">
+					description = <"Der Tagesanteil des Alters des Patienten. ">
+				>
+				["at0006"] = <
+					text = <"Berechnungsdatum">
+					description = <"Datum, von dem ausgehend der Altersanteil in Tagen berechnet wird. ">
+				>
+			>
+		>
+	>

@@ -1,0 +1,331 @@
+﻿archetype (adl_version=1.4; uid=cfa07568-d9d5-4164-87d9-d866db8a52fa)
+	openEHR-EHR-OBSERVATION.mini_nutritional_assessment.v1
+
+concept
+	[at0000]	-- Mini Nutritional Assessment
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-10-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Die Befragung wird genutzt, um den Ernährungsstatus eines geriatrischen Patienten zu erheben. Diese Befragung zielt insbesondere auf die Unter- und Mangelernährung ab.">
+			use = <"Wird verwendet, um einen Fragebogen darzustellen, der den Ernährungsstatus eines geriatrischen Patienten nach der kurzen Form des MNA® erfasst.">
+			keywords = <"geriatrisches Assessment", "Mini Nutritional Assessment", "MNA", "Ernährungsstatus", "Ernährungssituation">
+			misuse = <"Nicht zur Darstellung des Ernährungsstatus bei jüngeren Erwachsenen oder Kindern.
+Nicht zur Darstellung des Fragebogens Mini Nutritional Assessment - Long Form (MNA®-LF).">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Guigoz Y, Vellas BJ, Garry PJ. Mini Nutritional Assessment: A practical assessment tool for grading the nutritional state of elderly patients. Facts and research in gerontology (Supplement on Nutrition and Aging #2: 15-59). New York: Springer Publishing Co., 1994.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"9405C8B6ABCF46A30E9EF5ACA4942105">
+		["build_uid"] = <"44dbac98-ca4a-44d6-ab5a-ffc3cafa4bc9">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Mini Nutritional Assessment
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0043] occurrences matches {0..1} matches {	-- Gewicht
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::124]>
+												list = <
+													["1"] = <
+														units = <"kg">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Größe
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"cm">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Nahrungsaufnahme
+										value matches {
+											0|[local::at0009], 	-- Starke Abnahme der Nahrungsaufnahme
+											1|[local::at0010], 	-- Leichte Abnahme der Nahrungsaufnahme
+											2|[local::at0011]  	-- Keine Abnahme der Nahrungsaufnahme
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Gewichtsverlust
+										value matches {
+											0|[local::at0014], 	-- Gewichtsverlust > 3 kg
+											1|[local::at0015], 	-- Nicht bekannt
+											2|[local::at0016], 	-- Gewichtsverlust zwischen 1 und 3 kg
+											3|[local::at0017]  	-- Kein Gewichtsverlust
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Mobilität
+										value matches {
+											0|[local::at0019], 	-- Bettlägerig oder in einem Stuhl mobilisiert
+											1|[local::at0020], 	-- In der Lage, sich in der Wohnung zu bewegen
+											2|[local::at0021]  	-- Verlässt die Wohnung
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Krankheit oder Stress
+										value matches {
+											0|[local::at0024], 	-- Ja
+											2|[local::at0025]  	-- Nein
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Neuropsychologische Probleme
+										value matches {
+											0|[local::at0027], 	-- Schwere Demenz oder Depression
+											1|[local::at0028], 	-- Leichte Demenz
+											2|[local::at0029]  	-- Keine psychologischen Probleme
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- BMI
+										value matches {
+											0|[local::at0032], 	-- BMI < 19
+											1|[local::at0033], 	-- 19 <= BMI < 21
+											2|[local::at0034], 	-- 21< = BMI <23
+											3|[local::at0045]  	-- BMI >= 23
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Wadenumfang
+										value matches {
+											0|[local::at0036], 	-- WU < 31 cm
+											3|[local::at0037]  	-- WU >= 31 cm
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Gesamtpunkzahl
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..14|}
+											}
+										}
+									}
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- Ergebnis des Screenings
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0047, 	-- Normaler Ernährungszustand
+													at0048, 	-- Risiko für Mangelernährung
+													at0049]	-- Mangelernährung
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0050] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0052] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Mini Nutritional Assessment">
+					description = <"Dient der Erfassung der Ernährungssituation/ des Ernährungsstatus bei geriatrischen Patienten.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Nahrungsaufnahme">
+					description = <"A Hat der Patient während der letzten 3 Monate wegen Appetitlosigkeit, Verdauungsproblemen, Schwierigkeiten beim Kauen oder Schlucken weniger gegessen?">
+				>
+				["at0009"] = <
+					text = <"Starke Abnahme der Nahrungsaufnahme">
+					description = <"Patient isst viel weniger als üblich.">
+				>
+				["at0010"] = <
+					text = <"Leichte Abnahme der Nahrungsaufnahme">
+					description = <"Patient isst etwas weniger als üblich.">
+				>
+				["at0011"] = <
+					text = <"Keine Abnahme der Nahrungsaufnahme">
+					description = <"Keine Änderung der Nahrungsaufnahme.">
+				>
+				["at0013"] = <
+					text = <"Gewichtsverlust">
+					description = <"B Gewichtsverlust in den letzten 3 Monaten.">
+				>
+				["at0014"] = <
+					text = <"Gewichtsverlust > 3 kg">
+					description = <"Mehr als 3 kg verloren.">
+				>
+				["at0015"] = <
+					text = <"Nicht bekannt">
+					description = <"Gewichtverlust ist nicht bekannt.">
+				>
+				["at0016"] = <
+					text = <"Gewichtsverlust zwischen 1 und 3 kg">
+					description = <"Patient hat zwischen 1 und 3 kg abgenommen.">
+				>
+				["at0017"] = <
+					text = <"Kein Gewichtsverlust">
+					description = <"Keinen Gewichtsverlust oder Gewichtszunahme.">
+				>
+				["at0018"] = <
+					text = <"Mobilität">
+					description = <"C Wie ist die Mobilität des Patienten?">
+				>
+				["at0019"] = <
+					text = <"Bettlägerig oder in einem Stuhl mobilisiert">
+					description = <"Patient ist bettlägerig oder in einem Stuhl.">
+				>
+				["at0020"] = <
+					text = <"In der Lage, sich in der Wohnung zu bewegen">
+					description = <"Patient ist in der Lage sich innerhalb der Wohnung zu bewegen.">
+				>
+				["at0021"] = <
+					text = <"Verlässt die Wohnung">
+					description = <"Patient verlässt die Wohnung.">
+				>
+				["at0023"] = <
+					text = <"Krankheit oder Stress">
+					description = <"D Akute Krankheit oder psychischer Stress während der letzten 3 Monate?">
+				>
+				["at0024"] = <
+					text = <"Ja">
+					description = <"Ja, psychischer Stress oder akute Krankheit während der letzten 3 Monate bekannt.">
+				>
+				["at0025"] = <
+					text = <"Nein">
+					description = <"Keine akute Krankheit oder psychischer Stress in den letzten 3 Monaten bekannt.">
+				>
+				["at0026"] = <
+					text = <"Neuropsychologische Probleme">
+					description = <"E Welche neuropsychologischen Probleme hat der Patient?">
+				>
+				["at0027"] = <
+					text = <"Schwere Demenz oder Depression">
+					description = <"Schwere Demenz oder Depression bekannt.">
+				>
+				["at0028"] = <
+					text = <"Leichte Demenz">
+					description = <"Leichte Demenz bekannt.">
+				>
+				["at0029"] = <
+					text = <"Keine psychologischen Probleme">
+					description = <"Keine psychologischen Probleme bekannt.">
+				>
+				["at0031"] = <
+					text = <"BMI">
+					description = <"F1 Body Mass Index: Körpergewicht (kg) / Körpergröße²(m²).">
+				>
+				["at0032"] = <
+					text = <"BMI < 19">
+					description = <"BMI kleiner als 19.">
+				>
+				["at0033"] = <
+					text = <"19 <= BMI < 21">
+					description = <"BMI zwischen 19 und 21.">
+				>
+				["at0034"] = <
+					text = <"21< = BMI <23">
+					description = <"BMI zwischen 21 und 23.">
+				>
+				["at0035"] = <
+					text = <"Wadenumfang">
+					description = <"F2 Wadenumfang (WU in cm).">
+				>
+				["at0036"] = <
+					text = <"WU < 31 cm">
+					description = <"Wadenumfang ist kleiner als 31 cm.">
+				>
+				["at0037"] = <
+					text = <"WU >= 31 cm">
+					description = <"Wadenumfang ist größer oder gleich 31 cm.">
+				>
+				["at0042"] = <
+					text = <"Gesamtpunkzahl">
+					description = <"Errechnete Gesamtpunktzahl.">
+				>
+				["at0043"] = <
+					text = <"Gewicht">
+					description = <"Wie viel kg wiegt der Patient?">
+				>
+				["at0044"] = <
+					text = <"Größe">
+					description = <"Wie groß ist der Patient (in cm)?">
+				>
+				["at0045"] = <
+					text = <"BMI >= 23">
+					description = <"BMI größer oder gleich 23.">
+				>
+				["at0046"] = <
+					text = <"Ergebnis des Screenings">
+					description = <"Ergebnis, das sich aus der Gesamtpunktzahl ergibt.">
+				>
+				["at0047"] = <
+					text = <"Normaler Ernährungszustand">
+					description = <"12-14 Punkte.">
+				>
+				["at0048"] = <
+					text = <"Risiko für Mangelernährung">
+					description = <"8 - 11 Punkte.">
+				>
+				["at0049"] = <
+					text = <"Mangelernährung">
+					description = <"0 - 7 Punkte.">
+				>
+				["at0050"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0052"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+				>
+			>
+		>
+	>

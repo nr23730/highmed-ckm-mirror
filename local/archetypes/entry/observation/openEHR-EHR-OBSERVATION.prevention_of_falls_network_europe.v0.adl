@@ -1,0 +1,181 @@
+﻿archetype (adl_version=1.4; uid=7282bbaf-d95b-43de-9b71-5db53b18097d)
+	openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0
+
+concept
+	[at0000]	-- Prevention of Falls Network Europe (ProFaNE)
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2021-04-28">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Abfrage eines Sturzgeschehens bei Senioren.">
+			use = <"Dieser Archetyp wird zur Darstellung eines Fragebogens verwendet, der die Abfrage des Sturzrisikos bei Senioren ermittelt.">
+			keywords = <"Sturzrisiko", "Profane">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"http://www.profane.eu.org">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"81807C3B0B1BDCD8769E7328C4570CB1">
+		["build_uid"] = <"f32358d0-ecee-4d88-9ae0-083ec5b25752">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Prevention of Falls Network Europe (ProFaNE)
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Baum
+								items cardinality matches {1..*; ordered} matches {
+									ELEMENT[at0024] occurrences matches {0..1} matches {    -- Sturz
+										value matches {
+											0|[local::at0025],
+											1|[local::at0026]
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Häufigkeit des Sturzes
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Zeit des Sturzes
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {    -- Verletzung erlitten
+										value matches {
+											0|[local::at0028],
+											1|[local::at0029]
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {    -- Bruch
+										value matches {
+											0|[local::at0031],
+											1|[local::at0032]
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Lokalisation des Bruches
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..*} matches {    -- Weitere Verletzungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {    -- Bemerkungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prevention of Falls Network Europe (ProFaNE)">
+					description = <"Abfrage eines Sturzgeschehens bei Senioren.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Häufigkeit des Sturzes">
+					description = <"Wie häufig ist das seit meinem letzten Besuch passiert?">
+				>
+				["at0010"] = <
+					text = <"Zeit des Sturzes">
+					description = <"Wann sind Sie genau gestürzt?">
+				>
+				["at0017"] = <
+					text = <"Lokalisation des Bruches">
+					description = <"Was genau?">
+				>
+				["at0021"] = <
+					text = <"Weitere Verletzungen">
+					description = <"Haben Sie andere Verletzungen erlitten? Wenn ja, welche?">
+				>
+				["at0024"] = <
+					text = <"Sturz">
+					description = <"Sind Sie seit meinem letzten Besuch gestürzt, ausgerutscht oder gestolpert, sodass Sie auf dem Boden zu liegen gekommen sind?">
+				>
+				["at0025"] = <
+					text = <"Nein">
+					description = <"Die Person ist nicht gestürzt seit dem letzten Besuch.">
+				>
+				["at0026"] = <
+					text = <"Ja">
+					description = <"Die Person ist seit dem letzten Besuch gestürzt.">
+				>
+				["at0027"] = <
+					text = <"Verletzung erlitten">
+					description = <"Haben Sie sich bei einem der Stürze verletzt?">
+				>
+				["at0028"] = <
+					text = <"Nein">
+					description = <"Die Person hat sich bei dem Sturz nicht verletzt.">
+				>
+				["at0029"] = <
+					text = <"Ja">
+					description = <"Die Person hat sich bei dem Sturz verletzt.">
+				>
+				["at0030"] = <
+					text = <"Bruch">
+					description = <"Haben Sie sich etwas gebrochen?">
+				>
+				["at0031"] = <
+					text = <"Nein">
+					description = <"Die Person hat sich dabei nichts gebrochen.">
+				>
+				["at0032"] = <
+					text = <"Ja">
+					description = <"Die Person hat sich dabei etwas gebrochen.">
+				>
+				["at0033"] = <
+					text = <"Bemerkungen">
+					description = <"Weitere Bemerkungen, die währenddessen aufgetreten sind.">
+				>
+			>
+		>
+	>

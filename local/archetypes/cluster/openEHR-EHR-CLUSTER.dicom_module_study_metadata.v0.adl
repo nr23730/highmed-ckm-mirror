@@ -1,0 +1,146 @@
+﻿archetype (adl_version=1.4; uid=7a4bdaa2-e1f8-4934-b16f-bce21e70a86f)
+	openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0
+
+concept
+	[at0000]	-- DICOM module study metadata
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Christian Haux">
+		["organisation"] = <"DKFZ Heidelberg">
+		["email"] = <"c.haux@dkfz-heidelberg.de">
+		["date"] = <"2020-07-20">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To represent metadata about radiological images that are stored in the DICOM format directly available in openEHR for querying.">
+			use = <"Use to make DICOM metadata searchable directly in openEHR. Use to extend the openEHR-EHR-COMPOSITION.report archteype in the \"other context\" extension with additional metadata referring to the DICOM module study. odule image.">
+			keywords = <"Imaging, Radiology, DICOM", ...>
+			misuse = <"Not to be used as a standalone archetype. It is intended that this archetype is integrated in the \"other context\" extension of the openEHR-EHR-COMPOSITION.report archteype.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"NEMA PS3 / ISO 12052, Digital Imaging and Communications in Medicine (DICOM) Standard, National Electrical Manufacturers Association, Rosslyn, VA, USA (available free at http://medical.nema.org/)">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7ADB900984ED495546D0766FC7316B22">
+		["build_uid"] = <"527638ad-fa78-4b25-b861-6c2605c8ac2b">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- DICOM module study metadata
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0011] occurrences matches {0..1} matches {    -- DICOM SOP class UID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0012] occurrences matches {0..1} matches {    -- DICOM SOP instance UID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0013] occurrences matches {0..1} matches {    -- DICOM study instance UID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {    -- DICOM study description
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {    -- DICOM modality in study
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0016] occurrences matches {0..1} matches {    -- DICOM study date and time
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0017] occurrences matches {0..1} matches {    -- DICOM images in study
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {    -- DICOM accession number
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0019] occurrences matches {0..1} matches {    -- DICOM referring physician
+				value matches {
+					DV_TEXT matches {*}
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {    -- Extension
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"DICOM module study metadata">
+					description = <"DICOM compliant representation of metadata referring to the module study of DICOM.">
+				>
+				["at0011"] = <
+					text = <"DICOM SOP class UID">
+					description = <"Referes to DICOM Tag (0008,0016).">
+				>
+				["at0012"] = <
+					text = <"DICOM SOP instance UID">
+					description = <"Referes to DICOM Tag (0008,0018).">
+				>
+				["at0013"] = <
+					text = <"DICOM study instance UID">
+					description = <"Referes to DICOM Tag (0020,000D).">
+				>
+				["at0014"] = <
+					text = <"DICOM study description">
+					description = <"Referes to DICOM Tag (0008,1030).">
+				>
+				["at0015"] = <
+					text = <"DICOM modality in study">
+					description = <"Referes to DICOM Tag (0008,1030).">
+				>
+				["at0016"] = <
+					text = <"DICOM study date and time">
+					description = <"Referes to DICOM Tags (0008,0020) and (0008,0030).">
+				>
+				["at0017"] = <
+					text = <"DICOM images in study">
+					description = <"Images in a DICOM study.">
+				>
+				["at0018"] = <
+					text = <"DICOM accession number">
+					description = <"Referes to DICOM Tag (0008,0050).">
+				>
+				["at0019"] = <
+					text = <"DICOM referring physician">
+					description = <"Referes to DICOM Tag (0008,0090).">
+				>
+				["at0020"] = <
+					text = <"Extension">
+					description = <"To extend the archetype with further DICOM specific tags.">
+				>
+			>
+		>
+	>
