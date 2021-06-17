@@ -103,6 +103,10 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
                 <value>64fed64e-1163-44ce-bcb9-472bd3f6ea82</value>
             </item>
             <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
@@ -117,19 +121,21 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
             min="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Relevante Nebenerkrankung (ICD-10)" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
+                    <termQueryId
+                        queryName="CodeSystem/dimdi/icd-10-gm/null" terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
                 </constraint>
             </Rule>
             <Rule name="K√∂rperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
+                    <termQueryId
+                        queryName="fhir/valueset-body-site.html/null" terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
                 </constraint>
             </Rule>
             <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ICD-10-GM::B::beiderseits</includedValues>
-                    <includedValues>ICD-10-GM::L::links</includedValues>
-                    <includedValues>ICD-10-GM::R::rechts</includedValues>
+                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::B::beiderseits</includedValues>
+                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::L::links</includedValues>
+                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0"
@@ -143,14 +149,12 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
                     <includedValues>Schweregrad::4::4</includedValues>
                 </constraint>
             </Rule>
-									<Rule path="/data[at0001]/items[at0005]">
-			<constraint xsi:type="tem:textConstraint">
-				<excludedValues>local::at0047</excludedValues>
-				<excludedValues>local::at0048</excludedValues>
-				<excludedValues>local::at0049</excludedValues>					
-			</constraint>
+            <Rule clone="true" name="Schweregrad" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
             </Rule>
-            <Rule clone="true" name="Schweregrad" path="/data[at0001]/items[at0005]"/>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
             <Rule max="0"
                 name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
