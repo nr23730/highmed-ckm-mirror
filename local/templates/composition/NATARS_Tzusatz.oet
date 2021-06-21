@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>cc9cfa64-a83f-4e36-959d-ad0281689b1a</id>
+    <name>NATARS_Tzusatz</name>
+    <description>
+        <original_author>
+            <item>
+                <key>name</key>
+                <value>Bianca Frenzel</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Medizinische Hochschule Hannover - Peter L. Reichertz Institut für Medizinische Informatik</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>frenzel.bianca@mh-hannover.de</value>
+            </item>
+            <item>
+                <key>date</key>
+                <value>2021-06-09</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>2.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>7e85973515ebf3077e4c5d37841dc60e</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>641B268BE8805CEB8DC21AB82C53AB3F</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht" name="NATARS_Tzusatz"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0"
+            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1"
+            name="Schmerzerfassung" path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.questionnaire_entry.v0"
+                concept_name="Fragebogeneintrag" max="1"
+                name="Schmerzlokalisation" path="/items" xsi:type="tem:OBSERVATION">
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+                    concept_name="Fragebogen Element" max="1"
+                    name="Schmerzen vorhanden"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0002]"/>
+                    <Rule name="Haben Sie Schmerzen?" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+                    concept_name="Fragebogen Element" max="1"
+                    name="Lokalisation der Schmerzen"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0002]"/>
+                    <Rule name="Körperregion/Organsystem" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+                    concept_name="Fragebogen Element" max="1"
+                    name="Dauer und Verlauf der Schmerzen"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0002]"/>
+                    <Rule
+                        name="Wie lange haben Sie die Schmerzen schon?" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                </Items>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc Überschrift" max="1"
+                name="Schmerzstärke" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
+                    concept_name="Schmerzskala (VAS)" max="1"
+                    name="Schmerzstärke - VAS" path="/items" xsi:type="tem:OBSERVATION">
+                    <Rule name="VAS-Wert" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <maxMagnitude>10</maxMagnitude>
+                            <minMagnitude>0</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/data[at0001]/events[at0002]/state[at0006]/items[at0007]"/>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc Überschrift" max="1"
+                name="Bewegungseinschränkung durch die Schmerzen"
+                path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
+                    concept_name="Schmerzskala (VAS)" max="1"
+                    name="Bewegungseinschränkung" path="/items" xsi:type="tem:OBSERVATION">
+                    <Rule name="VAS-Wert" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <maxMagnitude>10</maxMagnitude>
+                            <minMagnitude>0</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/data[at0001]/events[at0002]/state[at0006]/items[at0007]"/>
+                </Item>
+            </Item>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]"/>
+            <Rule name="Bemerkungen" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0011]"/>
+        </Content>
+        <Rule name="Assessment Block" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8AD3806009622A973F7373B2E3D84CDC</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.questionnaire_entry.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">F1FF32A6AEFB1B8E6BBD635C4BD4DA49</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">877221AC8A8A03CE9E2C16C79B2D29B1</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B19F482B937653B8F6D0C39B6E9E273B</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E6E1FB050659D261B841146D96F4DFB0</digest>
+    </integrity_checks>
+</template>
