@@ -22,7 +22,16 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Das Template dient zum Erfassen der Daten aus dem NATARS-Projekt und wird hier für die Darstellung der Fragebögen zum Thema Sturzgeschehen, Schmerzerfassung und BMI verwendet.</purpose>
+            <keywords>
+                <item>NATARS</item>
+                <item>Sturzgeschehen</item>
+                <item>ProFaNE</item>
+                <item>Schmerzerfassung</item>
+                <item>BMI</item>
+            </keywords>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -46,7 +55,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.0.0</value>
+                <value>7.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -54,7 +63,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>7e85973515ebf3077e4c5d37841dc60e</value>
+                <value>22a6c56fc6d0a10da43ebf1f917c6dca</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -72,7 +81,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0"
-            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+            concept_name="Fragebogen zur Erfassung eines Sturzgeschehens nach ProFaNE"
+            max="1" name="Sturzgeschehen nach ProFaNE" path="/content" xsi:type="tem:OBSERVATION"/>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
             concept_name="Ad hoc Überschrift" max="1"
             name="Schmerzerfassung" path="/content" xsi:type="tem:SECTION">
@@ -86,17 +96,17 @@
                     name="Schmerzen vorhanden"
                     path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0002]"/>
-                    <Rule name="Haben Sie Schmerzen?" path="/items[at0001]"/>
+                    <Rule name="Schmerzen vorhanden" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0004]"/>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
-                    concept_name="Fragebogen Element" max="1"
+                    concept_name="Fragebogen Element"
                     name="Lokalisation der Schmerzen"
                     path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0002]"/>
-                    <Rule name="Körperregion/Organsystem" path="/items[at0001]"/>
+                    <Rule name="Körperregion oder Organsystem" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0004]"/>
                 </Items>
@@ -106,8 +116,7 @@
                     name="Dauer und Verlauf der Schmerzen"
                     path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0002]"/>
-                    <Rule
-                        name="Wie lange haben Sie die Schmerzen schon?" path="/items[at0001]"/>
+                    <Rule name="Dauer der Schmerzen" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0004]"/>
                 </Items>
@@ -119,6 +128,7 @@
                     archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
                     concept_name="Schmerzskala (VAS)" max="1"
                     name="Schmerzstärke - VAS" path="/items" xsi:type="tem:OBSERVATION">
+                    <Rule max="1" path="/data[at0001]/events[at0002]"/>
                     <Rule name="VAS-Wert" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                         <constraint xsi:type="tem:countConstraint">
                             <maxMagnitude>10</maxMagnitude>
@@ -138,6 +148,7 @@
                     archetype_id="openEHR-EHR-OBSERVATION.pain_scale.v1"
                     concept_name="Schmerzskala (VAS)" max="1"
                     name="Bewegungseinschränkung" path="/items" xsi:type="tem:OBSERVATION">
+                    <Rule max="1" path="/data[at0001]/events[at0002]"/>
                     <Rule name="VAS-Wert" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                         <constraint xsi:type="tem:countConstraint">
                             <maxMagnitude>10</maxMagnitude>
@@ -153,13 +164,140 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>[lb_av]/[in_i]2</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg/m2</unit>
+                        <maxMagnitude>50.0</maxMagnitude>
+                        <minMagnitude>10.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]"/>
             <Rule name="Bemerkungen" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0011]"/>
+            <Rule max="0" path="/protocol[at0005]/items[at0010]"/>
         </Content>
-        <Rule name="Assessment Block" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule min="1" name="Assessment Block" path="/context/other_context[at0001]/items[at0002]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>T0a</includedValues>
+                <includedValues>T0b</includedValues>
+                <includedValues>T0+1</includedValues>
+                <includedValues>T0+2</includedValues>
+                <includedValues>T0+3</includedValues>
+                <includedValues>T0+4</includedValues>
+                <includedValues>T1</includedValues>
+                <includedValues>T1+1</includedValues>
+                <includedValues>T1+2</includedValues>
+                <includedValues>T1+3</includedValues>
+                <includedValues>T1+4</includedValues>
+                <includedValues>T2</includedValues>
+                <includedValues>T2+1</includedValues>
+                <includedValues>T2+2</includedValues>
+                <includedValues>T2+3</includedValues>
+                <includedValues>T2+4</includedValues>
+                <includedValues>T3a</includedValues>
+                <includedValues>T3b</includedValues>
+            </constraint>
+        </Rule>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0034]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0009]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0010]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0038]/items[at0035]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0038]/items[at0036]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0038]/items[at0017]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0038]/items[at0039]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0038]/items[at0021]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.questionnaire_entry.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.questionnaire_item.v0, 'Schmerzen vorhanden']/items[at0001]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.questionnaire_entry.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.questionnaire_item.v0, 'Lokalisation der Schmerzen']/items[at0001]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.questionnaire_entry.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.questionnaire_item.v0, 'Dauer und Verlauf der Schmerzen']/items[at0001]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-SECTION.adhoc.v1, 'Schmerzstärke']/items[openEHR-EHR-OBSERVATION.pain_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-SECTION.adhoc.v1, 'Schmerzstärke']/items[openEHR-EHR-OBSERVATION.pain_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-SECTION.adhoc.v1, 'Bewegungseinschränkung durch die Schmerzen']/items[openEHR-EHR-OBSERVATION.pain_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-SECTION.adhoc.v1, 'Bewegungseinschränkung durch die Schmerzen']/items[openEHR-EHR-OBSERVATION.pain_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0012]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/protocol[at0005]/items[at0006]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+    </view>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
