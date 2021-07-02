@@ -68,11 +68,15 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>210f5f60fb6e29729febe777dc975a72</value>
+                <value>42bee9fbe6144845c5b75a876cda0030</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>2.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -109,14 +113,6 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.sourceSite</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.accessionIdentifier</value>
             </item>
         </items>
     </annotations>
@@ -200,6 +196,14 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.accessionIdentifier</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="Molekulargenetischer Befund"
         xmlns:tem="openEHR/v1/Template"
@@ -209,7 +213,8 @@
             concept_name="Laborergebnis" max="1"
             name="Molekulargenetische Begutachtung" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
-            <Rule default="Molekulargenetische Begutachtung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
+            <Rule default="Molekulargenetische Begutachtung"
+                name="Analyseart" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
@@ -226,12 +231,6 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0112]/items[at0113]"/>
-            <Rule name="Analyse-ID / Laborinterne Kennzeichnung" path="/protocol[at0004]/items[at0068]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Identifier</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
             <Rule max="0" path="/protocol[at0004]/items[at0111]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0121]">
                 <constraint xsi:type="tem:multipleConstraint">
@@ -323,126 +322,123 @@
                 </Items>
             </Items>
             <Items
-                archetype_id="openEHR-EHR-CLUSTER.general_sequencing_result_parameter.v0"
-                max="1"
+                archetype_id="openEHR-EHR-CLUSTER.sequencing_result.v0"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule path="/items[at0004]">
-                    <constraint xsi:type="tem:quantityConstraint"/>
-                </Rule>
-                <Rule path="/items[at0005]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <includedUnits>%</includedUnits>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0009]"/>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.genomic_variant_result.v1"
-                max="1"
-                path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
-                <Rule
-                    name="Variant / Genomposition aus vcf-File nach HGVS (g.*)" path="/items[at0101]"/>
-                <Rule name="cDNA Nomenklatur Variante (DNA change)" path="/items[at0008]/items[at0011]"/>
-                <Rule
-                    name="Proteinebene Nomenklatur Variante (Amino Acid Change)" path="/items[at0008]/items[at0012]"/>
-                <Rule name="Impact / Variantenklassifikation" path="/items[at0008]/items[at0052]/items[at0054]"/>
-                <Rule name="Gen-Name (HGNC)" path="/items[at0008]/items[at0019]/items[at0020]"/>
-                <Rule name="Full gene name" path="/items[at0008]/items[at0019]/items[at0021]"/>
-                <Rule name="Fusionstranskript-Name 1 (Part of fusion)" path="/items[at0008]/items[at0019]/items[at0057]"/>
-                <Rule
-                    name="Pathogenitätsklasse/Variantenklassifikation (ACMG classification)" path="/items[at0008]/items[at0058]"/>
-                <Rule name="Fusionstranskript-Name 2 (Fusion exon)" path="/items[at0008]/items[at0059]">
-                    <constraint xsi:type="tem:countConstraint">
-                        <minMagnitude>0</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>false</includesMinimum>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0024]"/>
-                <Rule
-                    name="Lesetiefe an Variantenposition (Median read depth)" path="/items[at0060]">
-                    <constraint xsi:type="tem:countConstraint">
-                        <minMagnitude>0</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </constraint>
-                </Rule>
-                <Rule name="Allelfrequenz (Allele frequency)" path="/items[at0047]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <unitMagnitude>
-                            <unit>1</unit>
-                            <maxMagnitude>1.0</maxMagnitude>
-                            <minMagnitude>0.0</minMagnitude>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.general_sequencing_result_parameter.v0"
+                    max="1" path="/items[at0012]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0001]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0004]">
+                        <constraint xsi:type="tem:quantityConstraint"/>
+                    </Rule>
+                    <Rule path="/items[at0005]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <includedUnits>%</includedUnits>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0009]"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
+                    max="1" path="/items[at0011]" xsi:type="tem:CLUSTER">
+                    <Rule
+                        name="Sequenzierungstechnologie / Analysetechnologie" path="/items[at0001]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0020]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <maxMagnitude>100</maxMagnitude>
+                            <minMagnitude>0</minMagnitude>
                             <includesMaximum>true</includesMaximum>
                             <includesMinimum>true</includesMinimum>
-                        </unitMagnitude>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0070]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Identifier</includedTypes>
-                        <includedTypes>URI</includedTypes>
-                    </constraint>
-                </Rule>
-                <Items archetype_id="openEHR-EHR-CLUSTER.citation.v0"
-                    path="/items[at0008]/items[at0052]/items[at0053]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0001]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Parsable</includedTypes>
-                            <includedTypes>MultiMedia</includedTypes>
                         </constraint>
                     </Rule>
+                    <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
+                        path="/items[at0036]" xsi:type="tem:CLUSTER">
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0002]"/>
+                        <Rule max="0" path="/items[at0021]"/>
+                        <Rule max="0" path="/items[at0005]"/>
+                        <Rule max="0" path="/items[at0020]"/>
+                        <Rule max="0" path="/items[at0023]"/>
+                        <Rule max="0" path="/items[at0006]"/>
+                        <Rule max="0" path="/items[at0007]"/>
+                        <Rule max="0" path="/items[at0024]"/>
+                    </Items>
                 </Items>
                 <Items
-                    archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                    max="1" min="1" path="/items[at0008]/items[at0009]" xsi:type="tem:CLUSTER">
-                    <Rule name="Referenztranskript (Accession number)" path="/items[at0020]"/>
-                    <Rule max="0" path="/items[at0021]"/>
-                    <Rule max="0" path="/items[at0023]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
-                            <includedTypes>Text</includedTypes>
-                        </constraint>
-                    </Rule>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                    max="1" min="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                    <Rule default="GRCh37/hg19"
-                        name="Reference Genome Accession" path="/items[at0020]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
-                            <includedValues>GRCh37/hg19</includedValues>
-                            <includedValues>GRCh38/hg38</includedValues>
-                            <includedValues>NCBI36/hg18</includedValues>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0021]"/>
-                    <Rule max="0" path="/items[at0023]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
-                            <includedTypes>Text</includedTypes>
-                        </constraint>
-                    </Rule>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.simple_variant.v0"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER">
+                    archetype_id="openEHR-EHR-CLUSTER.genomic_variant_result.v1"
+                    path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule
-                        name="Startposition der Variante / Genomposition (aus vcf-File)" path="/items[at0003]"/>
+                        name="Variant / Genomposition aus vcf-File nach HGVS (g.*)" path="/items[at0101]"/>
+                    <Rule name="cDNA Nomenklatur Variante (DNA change)" path="/items[at0008]/items[at0011]"/>
                     <Rule
-                        name="Endposition der Variant / Genomposition (aus vcf-File)" path="/items[at0004]"/>
-                    <Rule name="Alternative Nukleotidsequenz (Alt)" path="/items[at0009]"/>
-                    <Rule name="Referenznukleotidsequenz (Ref)" path="/items[at0010]"/>
+                        name="Proteinebene Nomenklatur Variante (Amino Acid Change)" path="/items[at0008]/items[at0012]"/>
+                    <Rule name="Impact / Variantenklassifikation" path="/items[at0008]/items[at0052]/items[at0054]"/>
+                    <Rule name="Gen-Name (HGNC)" path="/items[at0008]/items[at0019]/items[at0020]"/>
+                    <Rule name="Full gene name" path="/items[at0008]/items[at0019]/items[at0021]"/>
+                    <Rule
+                        name="Fusionstranskript-Name 1 (Part of fusion)" path="/items[at0008]/items[at0019]/items[at0057]"/>
+                    <Rule
+                        name="Pathogenitätsklasse/Variantenklassifikation (ACMG classification)" path="/items[at0008]/items[at0058]"/>
+                    <Rule name="Fusionstranskript-Name 2 (Fusion exon)" path="/items[at0008]/items[at0059]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <minMagnitude>0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>false</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0024]"/>
+                    <Rule
+                        name="Lesetiefe an Variantenposition (Median read depth)" path="/items[at0060]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <minMagnitude>0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Allelfrequenz (Allele frequency)" path="/items[at0047]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <maxMagnitude>1.0</maxMagnitude>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0070]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Identifier</includedTypes>
+                            <includedTypes>URI</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.citation.v0"
+                        path="/items[at0008]/items[at0052]/items[at0053]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Parsable</includedTypes>
+                                <includedTypes>MultiMedia</includedTypes>
+                            </constraint>
+                        </Rule>
+                    </Items>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        concept_name="Reference sequence"
-                        name="Transkript Referenz" path="/items[at0038]" xsi:type="tem:CLUSTER">
+                        max="1" min="1"
+                        path="/items[at0008]/items[at0009]" xsi:type="tem:CLUSTER">
+                        <Rule
+                            name="Referenztranskript (Accession number)" path="/items[at0020]"/>
+                        <Rule max="0" path="/items[at0021]"/>
                         <Rule max="0" path="/items[at0023]">
                             <constraint xsi:type="tem:multipleConstraint">
                                 <includedTypes>Coded_text</includedTypes>
@@ -450,84 +446,95 @@
                             </constraint>
                         </Rule>
                     </Items>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.genomic_copy_number_variant.v1"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER">
-                    <Rule name="Allelzahl (Total copy number)" path="/items[at0003]">
-                        <constraint xsi:type="tem:countConstraint">
-                            <minMagnitude>0</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        concept_name="Reference sequence"
-                        name="Transkript Referenz" path="/items[at0004]" xsi:type="tem:CLUSTER"/>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
-                    path="/items[at0045]" xsi:type="tem:CLUSTER">
-                    <Rule
-                        name="Breakpoint position (or closest approximation by exon border if no WGS data) 1" path="/items[at0003]"/>
-                    <Rule
-                        name="Breakpoint position (or closest approximation by exon border if no WGS data) 2" path="/items[at0004]"/>
+                        max="1" min="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule default="GRCh37/hg19"
+                            name="Reference Genome Accession" path="/items[at0020]">
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
+                                <includedValues>GRCh37/hg19</includedValues>
+                                <includedValues>GRCh38/hg38</includedValues>
+                                <includedValues>NCBI36/hg18</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0021]"/>
+                        <Rule max="0" path="/items[at0023]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Coded_text</includedTypes>
+                                <includedTypes>Text</includedTypes>
+                            </constraint>
+                        </Rule>
+                    </Items>
                     <Items
-                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        concept_name="Reference sequence"
-                        name="Transkript Referenz 1"
-                        path="/items[at0007]" xsi:type="tem:CLUSTER"/>
+                        archetype_id="openEHR-EHR-CLUSTER.simple_variant.v0"
+                        path="/items[at0045]" xsi:type="tem:CLUSTER">
+                        <Rule
+                            name="Startposition der Variante / Genomposition (aus vcf-File)" path="/items[at0003]"/>
+                        <Rule
+                            name="Endposition der Variant / Genomposition (aus vcf-File)" path="/items[at0004]"/>
+                        <Rule name="Alternative Nukleotidsequenz (Alt)" path="/items[at0009]"/>
+                        <Rule name="Referenznukleotidsequenz (Ref)" path="/items[at0010]"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                            concept_name="Reference sequence"
+                            name="Transkript Referenz"
+                            path="/items[at0038]" xsi:type="tem:CLUSTER">
+                            <Rule max="0" path="/items[at0023]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                        </Items>
+                    </Items>
                     <Items
-                        archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
-                        concept_name="Reference sequence"
-                        name="Transkript Referenz 2"
-                        path="/items[at0008]" xsi:type="tem:CLUSTER"/>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.knowledge_base_reference.v1"
-                    concept_name="Knowledge base reference"
-                    name="Data base variant identification"
-                    path="/items[at0102]" xsi:type="tem:CLUSTER">
-                    <Rule name="Source Name" path="/items[at0001]"/>
-                    <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0008]"/>
-                    <Rule name="Identification" path="/items[at0005]"/>
-                    <Rule name="Indentification Version" path="/items[at0002]"/>
-                    <Rule max="0" path="/items[at0007]"/>
-                    <Rule max="0" path="/items[at0003]"/>
-                    <Rule max="0" path="/items[at0004]"/>
-                </Items>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
-                path="/protocol[at0004]/items[at0110]" xsi:type="tem:CLUSTER">
-                <Rule
-                    name="Sequenzierungstechnologie / Analysetechnologie" path="/items[at0001]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0020]">
-                    <constraint xsi:type="tem:countConstraint">
-                        <maxMagnitude>100</maxMagnitude>
-                        <minMagnitude>0</minMagnitude>
-                        <includesMaximum>true</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </constraint>
-                </Rule>
-                <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
-                    path="/items[at0036]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0003]"/>
-                    <Rule max="0" path="/items[at0002]"/>
-                    <Rule max="0" path="/items[at0021]"/>
-                    <Rule max="0" path="/items[at0005]"/>
-                    <Rule max="0" path="/items[at0020]"/>
-                    <Rule max="0" path="/items[at0023]"/>
-                    <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0007]"/>
-                    <Rule max="0" path="/items[at0024]"/>
+                        archetype_id="openEHR-EHR-CLUSTER.genomic_copy_number_variant.v1"
+                        path="/items[at0045]" xsi:type="tem:CLUSTER">
+                        <Rule name="Allelzahl (Total copy number)" path="/items[at0003]">
+                            <constraint xsi:type="tem:countConstraint">
+                                <minMagnitude>0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </constraint>
+                        </Rule>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                            concept_name="Reference sequence"
+                            name="Transkript Referenz"
+                            path="/items[at0004]" xsi:type="tem:CLUSTER"/>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
+                        path="/items[at0045]" xsi:type="tem:CLUSTER">
+                        <Rule
+                            name="Breakpoint position (or closest approximation by exon border if no WGS data) 1" path="/items[at0003]"/>
+                        <Rule
+                            name="Breakpoint position (or closest approximation by exon border if no WGS data) 2" path="/items[at0004]"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                            concept_name="Reference sequence"
+                            name="Transkript Referenz 1"
+                            path="/items[at0007]" xsi:type="tem:CLUSTER"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
+                            concept_name="Reference sequence"
+                            name="Transkript Referenz 2"
+                            path="/items[at0008]" xsi:type="tem:CLUSTER"/>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.knowledge_base_reference.v1"
+                        concept_name="Knowledge base reference"
+                        name="Data base variant identification"
+                        path="/items[at0102]" xsi:type="tem:CLUSTER">
+                        <Rule name="Source Name" path="/items[at0001]"/>
+                        <Rule max="0" path="/items[at0006]"/>
+                        <Rule max="0" path="/items[at0008]"/>
+                        <Rule name="Identification" path="/items[at0005]"/>
+                        <Rule name="Indentification Version" path="/items[at0002]"/>
+                        <Rule max="0" path="/items[at0007]"/>
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0004]"/>
+                    </Items>
                 </Items>
             </Items>
         </Content>
@@ -984,16 +991,33 @@
         <digest id="MD5-CAM-1.0.1">C90F6FADFEB1D1C3AE7A8B590EF3C854</digest>
     </integrity_checks>
     <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.sequencing_result.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7025479020B99CF114B76842F451E286</digest>
+    </integrity_checks>
+    <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.general_sequencing_result_parameter.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">AF9BD2E4FECF1B4371FFCD923B858414</digest>
+        <digest id="MD5-CAM-1.0.1">0C5AFCBE5B26D8D71026AF6226A2D618</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FA86A1F28EA961251F7468664F689314</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.device.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">EEC8640C1336806D602A1BC344D4F733</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.genomic_variant_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">9CB6417606E20C7C74F6F82C9B4BD25E</digest>
+        <digest id="MD5-CAM-1.0.1">8D6BEB38EDABF7F358821E8EA5B84DB9</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.citation.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -1004,7 +1028,7 @@
         archetype_id="openEHR-EHR-CLUSTER.reference_sequence.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">0FEE7932E7A0DF467E6CE05B0BE6608D</digest>
+        <digest id="MD5-CAM-1.0.1">A435C094BF5B5FE9FD6F95D477E4A4AB</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.simple_variant.v0"
@@ -1016,7 +1040,7 @@
         archetype_id="openEHR-EHR-CLUSTER.genomic_copy_number_variant.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">81D9081AD9AFCDFD0D4F0620423C7D50</digest>
+        <digest id="MD5-CAM-1.0.1">64EB00E947278B1CCCF2AEDCDE34309C</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.translocation_variant.v0"
@@ -1028,23 +1052,12 @@
         archetype_id="openEHR-EHR-CLUSTER.knowledge_base_reference.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">A9C688D50345BD84C29794EFECD2B6FF</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.sequencing_assay.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FA86A1F28EA961251F7468664F689314</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.device.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">7B3250A35327F1C72AE3B877C8A8626D</digest>
+        <digest id="MD5-CAM-1.0.1">F575F2A1D95C3F61355D0B99753647AD</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">EA7C3BB3920E871925B9DBA1468AA645</digest>
+        <digest id="MD5-CAM-1.0.1">8367D4F2CF2BA5BE59DC4442FD28C085</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
@@ -1072,7 +1085,7 @@
         archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">48321195FE7D6B9F29B9E22580A28F59</digest>
+        <digest id="MD5-CAM-1.0.1">16D003D88AC3C5E2ED76BFB9FC2E5093</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"

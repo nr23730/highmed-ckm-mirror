@@ -49,32 +49,27 @@ This archetype is meant to be used in the \"Test result\" SLOT of the Laboratory
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"3C7B0F005F82C7B06E38931E37BFA058">
-		["build_uid"] = <"f177014a-8698-4063-97cf-1e6b38329ecd">
+		["MD5-CAM-1.0.1"] = <"0C5AFCBE5B26D8D71026AF6226A2D618">
+		["build_uid"] = <"6e61ceb8-f1fb-4939-a482-d9b30a632ba7">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Allgemeine Sequenzierungsergebnisparameter
+	CLUSTER[at0000] matches {    -- General sequencing result parameter
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Analyse-ID/Laborinterne Kennzeichnung
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Sequenzierter Gewebetyp
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Sequenced tissue type
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0002, 	-- Normales Gewebe
-							at0003]	-- Tumorgewebe
+							at0002,    -- Normal tissue
+							at0003]    -- Tumor tissue
 						}
 					}
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tumorzellgehalt (pathologisch / histologisch)
+			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Tumor cell content (pathologic/histologic)
 				value matches {
 					C_DV_QUANTITY <
 						property = <[openehr::380]>
@@ -87,7 +82,7 @@ definition
 					DV_PROPORTION matches {*}
 				}
 			}
-			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tumorzellgehalt (bioinformatisch)
+			ELEMENT[at0005] occurrences matches {0..1} matches {    -- Tumor cell content (bioinformatic)
 				value matches {
 					DV_PROPORTION matches {*}
 					C_DV_QUANTITY <
@@ -100,35 +95,35 @@ definition
 					>
 				}
 			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Mikrosatelliteninstabilität (MSI)
+			ELEMENT[at0007] occurrences matches {0..1} matches {    -- Microsatellite instability (MSI)
 				value matches {
 					DV_COUNT matches {
 						magnitude matches {|0..2|}
 					}
 				}
 			}
-			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Tumormutationsbelastung (TMB) pro Mb
+			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Tumor Mutational Burden (TMB) per Mb
 				value matches {
 					DV_COUNT matches {*}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- BRCAness
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- BRCAness
 				value matches {
 					DV_COUNT matches {
 						magnitude matches {|0..1|}
 					}
 				}
 			}
-			CLUSTER[at0009] occurrences matches {0..*} matches {	-- Weiterer Ergebnisparameter
+			CLUSTER[at0009] occurrences matches {0..*} matches {    -- Further result parameter
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Parametername
+					ELEMENT[at0010] occurrences matches {0..1} matches {    -- Parameter name
 						value matches {
 							DV_TEXT matches {*}
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {*}
-					ELEMENT[at0012] occurrences matches {0..1} matches {*}
+					ELEMENT[at0011] occurrences matches {0..1} matches {*}    -- Parameter value
+					ELEMENT[at0012] occurrences matches {0..1} matches {*}    -- Qualitative parameter interpretation
 				}
 			}
 		}
@@ -191,10 +186,6 @@ ontology
 					text = <"Qualitative parameter interpretation">
 					description = <"*">
 				>
-				["at0014"] = <
-					text = <"*Neues Element(en)">
-					description = <"**(en)">
-				>
 			>
 		>
 		["de"] = <
@@ -250,11 +241,6 @@ ontology
 				["at0012"] = <
 					text = <"Qualitative parameter interpretation">
 					description = <"*">
-				>
-				["at0014"] = <
-					text = <"Analyse-ID/Laborinterne Kennzeichnung">
-					description = <"Eine lokale Kennzeichnung, die vom empfangenden Laborinformationssystem (LIS) vergeben wird, um den Testvorgang zu verfolgen.">
-					comment = <"Diese Kennung ist eine vom LIS vergebene interne Trackingnummer und ist nicht als Bezeichnung für den Test gedacht.">
 				>
 			>
 		>
