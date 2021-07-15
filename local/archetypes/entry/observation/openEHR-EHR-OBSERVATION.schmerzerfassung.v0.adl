@@ -15,10 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Diese Befragung dient dazu, Schmerzen genau zu lokalisieren und die Stärke des Schmerzes zu erfassen, um so die Einschränkung durch den Schmerz bewerten zu können.">
-			use = <"Dieser Archetyp wird verwendet, um die Schmerzerfassung zu dokumentieren und so die entstandene Einschränkung einschätzen zu können.">
-			keywords = <"Schmerz", "Schmerzerfassung", "VAS", "Analogskala">
-			misuse = <"Wird nicht verwendet, um die virtuelle Analogskala im einzelnen zu erfassen, hierfür bitte den folgenden Archetypen verwenden: 
+			purpose = <"Diese Befragung dient dazu, Schmerzen zu lokalisieren, sowie die Stärke des Schmerzes und die Bewegungseinschränkung durch Schmerzen zu erfassen.">
+			use = <"Dieser Archetyp wird verwendet, um subjektiv empfundene Schmerzen und Bewegungseinschränkungen durch die Schmerzen mithilfe der visuellen Analogskala zu erfassen und ggf. im Verlauf intraindividuell zu bewerten.">
+			keywords = <"Schmerz", "Schmerzerfassung", "VAS", "Analogskala", "Bewegungseinschränkung">
+			misuse = <"Wird nicht verwendet, um die virtuelle Analogskala ausschließlich zu erfassen, hierfür bitte den folgenden Archetypen verwenden: 
 OBSERVATION.pain_scale.">
 			copyright = <"© HiGHmed">
 		>
@@ -31,8 +31,8 @@ OBSERVATION.pain_scale.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"523F33614C4CCE4108A70086559E8CA1">
-		["build_uid"] = <"81564342-7f09-40a3-8485-093509ee9aac">
+		["MD5-CAM-1.0.1"] = <"E9FCCDDDC63EE9C772EC6F08819D4651">
+		["build_uid"] = <"beb7ec3f-5477-4e18-bbdf-444e21902697">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -58,31 +58,46 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0019] occurrences matches {0..1} matches {    -- Schmerzerfassung
+									ELEMENT[at0020] occurrences matches {0..1} matches {    -- Bemerkungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0019] occurrences matches {0..*} matches {    -- Schmerzerfassung
 										items cardinality matches {1..*; unordered} matches {
-											allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {    -- Körperregion/Organsystem
+											allow_archetype CLUSTER[at0018] occurrences matches {0..1} matches {    -- Lokalisation
 												include
 													archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location\.v1/}
 											}
-											ELEMENT[at0007] occurrences matches {0..*} matches {    -- Dauer/ Verlauf/ Qualität der Schmerzen
+											ELEMENT[at0007] occurrences matches {0..1} matches {    -- Schmerzbeschreibung
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0011] occurrences matches {0..1} matches {    -- Schmerzstärke
-												value matches {
-													DV_COUNT matches {
-														magnitude matches {|0..10|}
-													}
-												}
-											}
-											ELEMENT[at0010] occurrences matches {0..*} matches {    -- Bewegungseinschränkung durch die Schmerzen
-												value matches {
-													DV_COUNT matches {
-														magnitude matches {|0..10|}
-													}
-												}
-											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Schmerzstärke
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"1">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Bewegungseinschränkung
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"1">
+													>
+												>
+											>
 										}
 									}
 								}
@@ -111,7 +126,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Schmerzerfassung">
-					description = <"Befragung, um Schmerzen zu erfassen und Einschränkungen durch diese zu erkennen.">
+					description = <"Befragung, um Schmerzen und Bewegungseinschränkungen durch Schmerzen zu erfassen.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -127,14 +142,14 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Schmerzen vorhanden">
-					description = <"Haben Sie Schmerzen und wenn ja, bei welchen Tätigkeiten (liegen, stehen, laufen)?">
+					description = <"Haben Sie Schmerzen?">
 				>
 				["at0007"] = <
-					text = <"Dauer/ Verlauf/ Qualität der Schmerzen">
+					text = <"Schmerzbeschreibung">
 					description = <"Wie lange haben Sie die Schmerzen schon?">
 				>
 				["at0010"] = <
-					text = <"Bewegungseinschränkung durch die Schmerzen">
+					text = <"Bewegungseinschränkung">
 					description = <"Wie stark fühlen Sie sich durch die Schmerzen in Ihrer Bewegung eingeschränkt bei einer Skala von 0 bis 10, wobei 10 die stärkste Einschränkung darstellt?">
 				>
 				["at0011"] = <
@@ -166,12 +181,16 @@ ontology
 					description = <"Patient hat nur bei Belastung Schmerzen.">
 				>
 				["at0018"] = <
-					text = <"Körperregion/Organsystem">
+					text = <"Lokalisation">
 					description = <"Wo haben Sie die Schmerzen?">
 				>
 				["at0019"] = <
 					text = <"Schmerzerfassung">
 					description = <"">
+				>
+				["at0020"] = <
+					text = <"Bemerkungen">
+					description = <"Zusätzliche Informationen, die während der Erfassung des Fragebogens aufgefallen sind.">
 				>
 			>
 		>
