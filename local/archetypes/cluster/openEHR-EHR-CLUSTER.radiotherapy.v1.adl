@@ -27,18 +27,18 @@ description
 			language = <[ISO_639-1::de]>
 			purpose = <"Dieser Archetyp dient dazu, die detaillierten Angaben der Bestrahlung von Krebspatienten aus kurativen oder palliativen Gründen darzustellen.">
 			use = <"Zur Darstellung detaillierter Angaben zur Bestrahlung eines Zielgebietes mit einer bestimmten Dosis. Dieser Archetyp wurde für die Verwendung als Details zur Prozedur innerhalb des Archetyps \"Prozedur\" bestimmt, um spezifische Details einer Radiotherapie-Prozedur darzustellen.">
-			keywords = <"Strahlentherapie", "Bestrahlung", "Radiotherapie", "Strahlenbehandlung", "Strahlung", "Zielgebiet", "Strahlendosis", "Gray", "Brachytherapie", "Teletherapie", "Radioonkologie", "Nuklearmedizin", "Radionuklidentherapie", "Metabolische Therapie">
-			misuse = <"Nicht zur Darstellung von Informationen über die erforderlichen Aktivitäten zum Ausführen einer Radiotherapie-Prozedur bestimmt. Verwenden Sie dafür den ACTION.Archetypen \"Prozedur\".
+			keywords = <"Strahlentherapie", "Bestrahlung", "Radiotherapie", "Strahlenbehandlung", "Strahlung", "Zielgebiet", "Strahlendosis", "Gray", "Brachytherapie", "Teletherapie", "Radioonkologie", "Nuklearmedizin", "Radionuklidentherapie", "Metabolische Therapie", "Zielvolumen">
+			misuse = <"Nicht zur Darstellung von Informationen über die erforderlichen Aktivitäten zum Ausführen einer Radiotherapie-Prozedur bestimmt. Verwenden Sie dafür den ACTION.Archetyp \"Prozedur\".
 
 Nicht zur Darstellung einer Strahlenexposition, als Gesamtheit aller Umwelteinflüsse, denen ein Mensch, ausgesetzt werden kann.">
 			copyright = <"© HiGhmed">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"This archetype is used to represent the detailed information about radiotherapy of cancer patients for curative or palliative reasons.">
-			use = <"To represent detailed information about the radiotherapy of a target area with a specific dose. This archetype is designated to be used as details for a procedure within the \"Procedure\" archetype, aiming to represent specific details of a radiotherapy process.">
-			keywords = <"Irradiation therapy", "Radiation", "Radiotherapy", "Treatment with radiation", "Target area", "Radiation dose", "Gray", "Brachytherapy", "Teletherapy", "Radio-oncology", "Nuclear Medicine", "Radionuclide therapy", "Metabolic therapy">
-			misuse = <"Not to be used to represent information about the activities required to perform a radiotherapy procedure. Use the ACTION.archetype \"Procedure\" for this purpose.
+			purpose = <"To record the details of a radiotherapy of a cancer patient for curative or palliative reasons.">
+			use = <"To record information about the radiotherapy of a target region with a specific dose. This archetype is designed to represent specific details of a radiotherapy process. This archetype should be used in the 'Procedure detail' SLOT in the ACTION.procedure archetype.">
+			keywords = <"Irradiation therapy", "Radiation", "Radiotherapy", "Treatment with radiation", "Target area", "Radiation dose", "Gray", "Brachytherapy", "Teletherapy", "Radio-oncology", "Nuclear Medicine", "Radionuclide therapy", "Metabolic therapy", "Radiation Therapy", "Irradiation", "Target region">
+			misuse = <"Not to be used to represent information about the activities required to perform a radiotherapy procedure. Use the ACTION.archetype 'Procedure' for this purpose.
 
 
 Not to be used to represent radiation exposure as the entirety of all environmental factors to which a person may be exposed.">
@@ -61,73 +61,73 @@ http://www.tumorzentren.de">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"A27B61619059999CBBD89DAF90328E54">
-		["build_uid"] = <"1c884ba7-88f3-4f6c-95a7-3b546066810c">
+		["MD5-CAM-1.0.1"] = <"A77777985FF52F6C62D1E26152194DF8">
+		["build_uid"] = <"ecb0783e-eb50-4342-bad4-c1226c8d6d36">
 		["revision"] = <"1.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Bestrahlung
+	CLUSTER[at0000] matches {	-- Irradiation
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Zielgebiet
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Target region
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Details zum Zielgebiet
+			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Target region details
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location\.v1/}
 			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beginn
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Start
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Ende
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- End
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0047] occurrences matches {0..1} matches {	-- Therapiemethode
+			ELEMENT[at0047] occurrences matches {0..1} matches {	-- Treatment method
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0048, 	-- Teletherapie
-							at0049, 	-- Brachytherapie
-							at0050, 	-- Metabolische Therapie
-							at0051]	-- Sonstige Therapie
+							at0048, 	-- Teletherapy
+							at0049, 	-- Brachytherapy
+							at0050, 	-- Metabolic therapy
+							at0051]	-- Other therapy
 						}
 					}
 				}
 			}
-			ELEMENT[at0005] occurrences matches {0..*} matches {	-- Applikationsart
+			ELEMENT[at0005] occurrences matches {0..*} matches {	-- Application type
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..*} matches {	-- Strahlenart
+			ELEMENT[at0027] occurrences matches {0..*} matches {	-- Type of radiation
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0032, 	-- Photonen (ɣ)
-							at0033, 	-- Elektronen (e−)
-							at0041, 	-- Neutronen (n)
-							at0034, 	-- Protonen (p+)
-							at0042, 	-- Heliumionen
-							at0035, 	-- Kohlenstoffionen
-							at0036, 	-- Alpha-Strahlen (α)
-							at0043, 	-- Beta-Strahlen (β)
-							at0044]	-- Gamma-Strahlen (γ)
+							at0032, 	-- Photons (ɣ)
+							at0033, 	-- Electrons (e-)
+							at0041, 	-- Neutrons (n)
+							at0034, 	-- Protons (p+)
+							at0042, 	-- Helium ions
+							at0035, 	-- Carbon ions
+							at0036, 	-- Alpha rays (α)
+							at0043, 	-- Beta rays (β)
+							at0044]	-- Gamma rays (γ)
 						}
 					}
 					DV_TEXT matches {*}
 				}
 			}
-			CLUSTER[at0006] occurrences matches {0..1} matches {	-- Einzeldosis
+			CLUSTER[at0006] occurrences matches {0..1} matches {	-- Single dose
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dosis (ED)
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dose (ED)
 						value matches {
 							C_DV_QUANTITY <
 								property = <[openehr::380]>
@@ -140,24 +140,25 @@ definition
 							>
 						}
 					}
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Einheit (ED)
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Unit (ED)
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
 									at0009, 	-- Gy
-									at0010, 	-- GBq
 									at0045, 	-- GyE
-									at0052]	-- MBq
+									at0010, 	-- GBq
+									at0052, 	-- MBq
+									at0054]	-- kBq
 								}
 							}
 						}
 					}
 				}
 			}
-			CLUSTER[at0011] occurrences matches {0..1} matches {	-- Gesamtdosis
+			CLUSTER[at0011] occurrences matches {0..1} matches {	-- Total dose
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dosis (SD)
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dose (SD)
 						value matches {
 							C_DV_QUANTITY <
 								property = <[openehr::380]>
@@ -170,55 +171,56 @@ definition
 							>
 						}
 					}
-					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Einheit (SD)
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Unit (SD)
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
 									at0022, 	-- Gy
-									at0023, 	-- GBq
 									at0046, 	-- GyE
-									at0053]	-- MBq
+									at0023, 	-- GBq
+									at0053, 	-- MBq
+									at0055]	-- kBq
 								}
 							}
 						}
 					}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Anzahl Fraktionen
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Number of dose fractions
 				value matches {
 					DV_COUNT matches {*}
 				}
 			}
-			CLUSTER[at0015] occurrences matches {0..1} matches {	-- Fraktion
+			CLUSTER[at0015] occurrences matches {0..1} matches {	-- Fraction
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Folgenummer der Fraktion
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Sequence number of the fraction
 						value matches {
 							DV_COUNT matches {*}
 						}
 					}
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Datum
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Date
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kommentar
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Comment
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 				}
 			}
-			allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Bildgebung/Bestrahlungsplanung
+			allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Imaging/radiation planning
 				include
-					archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia\.v0/}
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.media_file(-[a-zA-Z0-9_]+)*\.v1/}
 			}
-			ELEMENT[at0025] occurrences matches {0..*} matches {	-- Toxizität
+			ELEMENT[at0025] occurrences matches {0..*} matches {	-- Toxicity
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Spezifische Details
+			allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Specific details
 				include
 					archetype_id/value matches {/.*/}
 			}
@@ -237,11 +239,11 @@ ontology
 				["at0001"] = <
 					text = <"Zielgebiet">
 					description = <"Das Zielgebiet, das bestrahlt wurde, z. B. Pankreas.">
-					comment = <"Die Kodierung des Zielgebietes ist über eine Terminologie zu bevorzugen. Verwenden Sie dieses Datenelement, um vorab präkoordinierte anatomische Lokalisationen zu erfassen. Wenn die Anforderungen an die Erfassung des Zielgebietes zur Laufzeit der Anwendung bestimmt werden oder komplexere Modellierungen wie z. B. relative Lage erforderlich sind, dann verwenden Sie in diesem Archetyp den CLUSTER.anatomical_location oder CLUSTER.relative_location innerhalb des SLOT 'Zielgebietdetails'.">
+					comment = <"Die Kodierung des Zielgebietes ist über eine Terminologie zu bevorzugen. Verwenden Sie dieses Datenelement, um vorab präkoordinierte anatomische Lokalisationen zu erfassen. Wenn die Anforderungen an die Erfassung des Zielgebietes zur Laufzeit der Anwendung bestimmt werden oder komplexere Modellierungen wie z. B. relative Lage erforderlich sind, dann verwenden Sie in diesem Archetyp den CLUSTER.anatomical_location oder CLUSTER.relative_location innerhalb des SLOT \"Details zum Zielgebiet\".">
 				>
 				["at0002"] = <
 					text = <"Details zum Zielgebiet">
-					description = <"Spezifische strukturierte Angaben zum Zielgebiet, das bestrahlt wurde.">
+					description = <"Spezifische strukturierte Angaben zum Zielgebiet oder Zielvolumen, das bestrahlt wurde.">
 					comment = <"Verwenden Sie diesen Slot, um die Archetypen CLUSTER.anatomical_location oder CLUSTER.anatomical_location_relative einzufügen, wenn die Anforderungen für die Darstellung des Zielgebietes zur Laufzeit der Anwendung bestimmt werden oder komplexere Modellierungen wie z. B. relative Positionen erforderlich sind. Wenn die anatomische Lage über präkoordinierte Kodes im Feld \"Zielgebiet\" enthalten ist, kann die Verwendung dieses Slots überflüssig sein.">
 				>
 				["at0003"] = <
@@ -394,7 +396,7 @@ ontology
 				>
 				["at0048"] = <
 					text = <"Teletherapie">
-					description = <"Perkutanen Strahlentherapie (perkutan – durch die Haut hindurch).">
+					description = <"Perkutane Strahlentherapie (perkutan – durch die Haut hindurch).">
 				>
 				["at0049"] = <
 					text = <"Brachytherapie">
@@ -406,7 +408,7 @@ ontology
 				>
 				["at0051"] = <
 					text = <"Sonstige Therapie">
-					description = <"Andere Therapien z.B. Stereotaxie oder kombinierte Thrapie.">
+					description = <"Andere Therapien z.B. Stereotaxie oder kombinierte Therapie.">
 				>
 				["at0052"] = <
 					text = <"MBq">
@@ -416,50 +418,59 @@ ontology
 					text = <"MBq">
 					description = <"Radioaktivität in SI-Einheit Megabecquerel.">
 				>
+				["at0054"] = <
+					text = <"kBq">
+					description = <"Radioaktivität in SI-Einheit Kilobecquerel.">
+				>
+				["at0055"] = <
+					text = <"kBq">
+					description = <"Radioaktivität in SI-Einheit Kilobecquerel.">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Radiation">
-					description = <"Detailed information about the radiation in radiotherapy.">
+					text = <"Irradiation">
+					description = <"Detailed information about the irradiation in radiotherapy.">
 				>
 				["at0001"] = <
-					text = <"Target area">
-					description = <"The target area that was irradiated, e.g. pancreas.">
-					comment = <"The terminology encoding of the target area is preferred. Use this data element to record the pre-identified anatomical locations. If it's required to document the targeted area during the time of application, or more complicated modelling is required, such as relative location, then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the SLOT 'Target Area Details' in this archetype.">
+					text = <"Target region">
+					description = <"The target region that was irradiated, e.g. pancreas.">
+					comment = <"The terminology encoding of the target region is preferred. Use this data element to record the pre-identified anatomical location. If it's required to document the targeted region during the time of application, or more complicated modelling is required, such as relative location, then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the SLOT 'Target region details' in this archetype.">
 				>
 				["at0002"] = <
-					text = <"Details of target area">
-					description = <"Specific structured information on the target area that was irradiated.">
-					comment = <"Use this slot to insert CLUSTER.anatomical_location or CLUSTER.anatomical_location_relative archetypes if it's required to document the target area during the time of application, or when more complicated modelling, such as relative positions, is needed. If the anatomical location is included in the \"target area\" field via pre-existing codes, the use of this slot might be redundant.">
+					text = <"Target region details">
+					description = <"Specific structured information on the target region that was irradiated.">
+					comment = <"Use this slot to insert CLUSTER.anatomical_location or CLUSTER.anatomical_location_relative archetypes if it's required to document the target region during the time of application, or when more complicated modelling, such as relative positions, is needed. If the anatomical location is included in the 'target region' field via pre-existing codes, the use of this slot might be redundant.">
 				>
 				["at0003"] = <
 					text = <"Start">
-					description = <"The date, on which the radiotherapy of the target area was started.">
+					description = <"The date, on which the radiotherapy of the target region was started.">
 				>
 				["at0004"] = <
 					text = <"End">
-					description = <"The date, on which the radiotherapy of the target area was ended.">
+					description = <"The date, on which the radiotherapy of the target region was ended.">
 				>
 				["at0005"] = <
 					text = <"Application type">
-					description = <"Irradiation technique, as a further classification of the therapy method.">
-					comment = <"The techniques of irradiation are diverse. Coding with one terminology is preferred when possible.">
+					description = <"Irradiation technique, as a further classification of the treatment method.">
+					comment = <"The techniques of irradiation are diverse. If possible, encoding with a
+terminology is preferred.">
 				>
 				["at0006"] = <
 					text = <"Single dose">
-					description = <"The single dose, with which the target area was irradiated. The dose refers to the prescribed isodose (equal energy or ion dose on a line or area).">
+					description = <"The single dose used to irradiated the target region. The dose refers to the prescribed isodose (equal energy or ion dose on a line or area).">
 				>
 				["at0007"] = <
 					text = <"Dose (ED)">
 					description = <"The value of the single dose.">
-					comment = <"Example: When specifying radiation dose 3.0 Gy, the value is \"3.0\".">
+					comment = <"Example: When specifying radiation dose 3.0 Gy, the value is '3.0'.">
 				>
 				["at0008"] = <
 					text = <"Unit (ED)">
-					description = <"The unit in which the single dose was given.">
-					comment = <"The individual dose in radiation therapy is usually recorded in grays (Gy) and less frequently in gigabequerels (GBq). For a radiation dose of \"3.0 Gy\", the unit for the dose is \"Gy\". For a radiation dose of \"2.6 GBq\", the unit for the dose is \"GBq\".">
+					description = <"The unit in which the single dose was specified.">
+					comment = <"The individual dose in radiation therapy is usually recorded in grays (Gy) and less frequently in gigabequerels (GBq). For a radiation dose of '3.0 Gy', the unit for the dose is 'Gy'. For a radiation dose of '2.6 GBq', the unit for the dose is 'GBq'.">
 				>
 				["at0009"] = <
 					text = <"Gy">
@@ -471,18 +482,20 @@ ontology
 				>
 				["at0011"] = <
 					text = <"Total dose">
-					description = <"The total dose with which the target area was irradiated.">
+					description = <"The total dose used to irradiate the
+target region.">
 					comment = <"The total dose is composed of several individual doses (fractions). For example: 30.0 Gy can be administered in 10 fractions of 3.0 Gy each.">
 				>
 				["at0012"] = <
 					text = <"Dose (SD)">
 					description = <"The value of the total dose.">
-					comment = <"Example: When indicating radiation dose of 30.0 Gy, the value is \"30.0\".">
+					comment = <"Example: When indicating radiation dose of 30.0 Gy, the value is '30.0'.">
 				>
 				["at0013"] = <
 					text = <"Unit (SD)">
-					description = <"The unit in which the total dose was given.">
-					comment = <"The individual dose in radiation therapy is usually recorded in grays (Gy) and less frequently in gigabequerels (GBq). For a radiation dose of \"30.0 Gy\", the unit for the dose is \"Gy\". For a radiation dose of \"26.0 GBq\", the unit for the dose is \"GBq\".">
+					description = <"The unit in which the total dose was
+specified.">
+					comment = <"The individual dose in radiation therapy is usually recorded in grays (Gy) and less frequently in gigabequerels (GBq). For a radiation dose of '30.0 Gy', the unit for the dose is 'Gy'. For a radiation dose of '26.0 GBq', the unit for the dose is 'GBq'.">
 				>
 				["at0014"] = <
 					text = <"Number of dose fractions">
@@ -490,7 +503,7 @@ ontology
 				>
 				["at0015"] = <
 					text = <"Fraction">
-					description = <"Details on the individual dose fractions.">
+					description = <"Details on the individual fractions.">
 					comment = <"For better tolerability, the radiation is usually divided into many small individual doses, these are called fractions.">
 				>
 				["at0016"] = <
@@ -499,7 +512,8 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Date">
-					description = <"The date on which the fraction was given.">
+					description = <"The date on which the fraction was
+applied.">
 					comment = <"The individual irradiation (fraction) usually takes place on a separate day or several individual irradiations can take place on one day (hyper-fractionated irradiation).">
 				>
 				["at0018"] = <
@@ -508,8 +522,8 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Specific details">
-					description = <"Specific structured information on the irradiation of the target area.">
-					comment = <"For example, specific detailed information on an application technique, such as boost irradiation for teletherapy or brachytherapy; or radiation type and/or quality and other specific information of a target area irradiation.">
+					description = <"Specific structured information on the irradiation of the target region.">
+					comment = <"For example, specific detailed information on an application technique, such as boost irradiation for teletherapy or brachytherapy; or radiation type and/or quality and other specific information of a target region irradiation.">
 				>
 				["at0022"] = <
 					text = <"Gy">
@@ -521,13 +535,14 @@ ontology
 				>
 				["at0024"] = <
 					text = <"Imaging/radiation planning">
-					description = <"Structured information on imaging and/or radiation planning.">
+					description = <"Structured information about the
+imaging and/or radiation plan.">
 					comment = <"A radiation plan is an image data-set with 100 -120 three-dimensional images.">
 				>
 				["at0025"] = <
 					text = <"Toxicity">
-					description = <"Clinical symptoms and / or signs observed as side effects, or considered related to the irradiation of the target area.">
-					comment = <"Toxicity can be expressed in the single word, phrase or in a short description. For example: Nausea, isolated skin redness. \"No side effects\" may also be appropriate if no toxic effect was observed during and after irradiation. \"Toxicity\" should be coded with terminology if possible. Common terminologies include the CTCAE, MedDRA codes, in addition to SNOMED-CT and ICD10.">
+					description = <"Clinical symptoms and/or signs observed as side effects, or considered related to the irradiation of the target region.">
+					comment = <"Toxicity can be expressed in the single word, phrase or in a short description. For example: Nausea, isolated skin redness. 'No side effects' may also be appropriate if no toxic effect was observed during and after irradiation. 'Toxicity' should be encoded with a terminology if possible. Common terminologies include the CTCAE, MedDRA codes, in addition to SNOMED-CT and ICD10.">
 				>
 				["at0027"] = <
 					text = <"Type of radiation">
@@ -579,8 +594,8 @@ ontology
 					description = <"The unit of the biological effective dose in Gray equivalent (no SI unit).">
 				>
 				["at0047"] = <
-					text = <"Therapeutic method">
-					description = <"Designation of the technical procedure. Depending on how the radiation penetrates the body, different methods of irradiation are distinguished.">
+					text = <"Treatment method">
+					description = <"Description of the technical procedure. Depending on how the radiation penetrates the body, different methods of irradiation are distinguished.">
 				>
 				["at0048"] = <
 					text = <"Teletherapy">
@@ -588,7 +603,7 @@ ontology
 				>
 				["at0049"] = <
 					text = <"Brachytherapy">
-					description = <"Radiotherapy within, or in the close surroundings of the area to be irradiated in the body.">
+					description = <"Radiotherapy within, or in the close surroundings of the region to be irradiated in the body.">
 				>
 				["at0050"] = <
 					text = <"Metabolic therapy">
@@ -596,7 +611,7 @@ ontology
 				>
 				["at0051"] = <
 					text = <"Other therapy">
-					description = <"Other therapies e.g. Stereotactic surgery or combined therapy.">
+					description = <"Other therapies e.g. Stereotactic radiosurgery or combined therapy.">
 				>
 				["at0052"] = <
 					text = <"MBq">
@@ -605,6 +620,14 @@ ontology
 				["at0053"] = <
 					text = <"MBq">
 					description = <"Radioactivity in SI unit megabecquerel.">
+				>
+				["at0054"] = <
+					text = <"kBq">
+					description = <"Radioactivity in SI unit kilobecquerel.">
+				>
+				["at0055"] = <
+					text = <"kBq">
+					description = <"Radioactivity in SI unit kilobecquerel.">
 				>
 			>
 		>
