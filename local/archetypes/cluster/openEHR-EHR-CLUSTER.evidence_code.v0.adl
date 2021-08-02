@@ -1,0 +1,186 @@
+﻿archetype (adl_version=1.4; uid=e8f61cc5-b903-483f-b1a9-90720277ffc0)
+	openEHR-EHR-CLUSTER.evidence_code.v0
+
+concept
+	[at0000]	-- Evidenz Kodierung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Simon Schumacher">
+		["organisation"] = <"HiGHmed">
+		["email"] = <"sschuma9@uni-koeln.de">
+		["date"] = <"2021-07-23">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dieser Archetyp dient der Dokumentation einer Evidenz Kodierung im Rahmen der Bewertung von einer oder mehreren genetischen Varianten.">
+			use = <"Dieser Archetyp dient ausschließlich zur Klassifikation von Evidenzen im Rahmen einer Bewertung einer Sequenzierung von genetischem Material eines Tumors oder anderen Gewebes. Dieser Archetyp soll in den Slot Evidenz Kodierung des Archetypen openEHR-EHR-CLUSTER.evidence_classification.v0 oder in den Slot Evidenz Kodierung des Archetypen openEHR-EHR-EVALUATION.tumorboard_recommendation.v0 eingesetzt werden.">
+			keywords = <"Evidenz, Kodierung, Variante, Bewertung, Onkologie", ...>
+			misuse = <"Dieser Archetyp soll nicht zur Klassifizierung von anderen Erkrankungen eingesetzt werden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Natalia Strauch", "Aurelie Tomczak", "Christina Jäger-Schmidt">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+https://sozialministerium.baden-wuerttemberg.de/fileadmin/redaktion/m-sm/intern/downloads/Downloads_Krankenh%C3%A4user/Fachplanung_ZPM_28-03-2019.pdf
+https://www.jmdjournal.org/article/S1525-1578(16)30223-9/fulltext
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4544753/
+https://www.pharmgkb.org/page/clinAnnLevels">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"C3AC648E730D20088BE1EB6DF32CDDA5">
+		["build_uid"] = <"4db410e9-b3a3-496e-9c36-80d928993e71">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Evidenz Kodierung
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0001] occurrences matches {0..1} matches {    -- Evidenz Code
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {    -- Evidenz Codesystem
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003,    -- ACMG
+									at0004,    -- AMP
+									at0005,    -- CAP
+									at0006,    -- ENIGMA
+									at0007,    -- InSiGHT
+									at0008,    -- HiGHmed
+									at0009,    -- ZPM
+									at0010]    -- CPIC
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Version
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					CLUSTER[at0012] occurrences matches {0..1} matches {    -- Evidenzlevel
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0013] occurrences matches {0..1} matches {    -- Evidenzlevel
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..*} matches {    -- Zusatzverweise
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0015,    -- Is
+											at0016,    -- Iv
+											at0017,    -- Z
+											at0018]    -- R
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evidenz Kodierung">
+					description = <"Dieser Archetyp dient der Dokumentation einer Evidenz Kodierung im Rahmen der Bewertung von einer oder mehreren genetischen Varianten.
+">
+				>
+				["at0001"] = <
+					text = <"Evidenz Code">
+					description = <"Der Evidenz Code, der zur Bewertung der Variante(n) benutzt wurde.">
+				>
+				["at0002"] = <
+					text = <"Evidenz Codesystem">
+					description = <"Das Codierungssystem, das benutzt wurde, um die Variante(n) zu bewerten.">
+				>
+				["at0003"] = <
+					text = <"ACMG">
+					description = <"American College of Medical Genetics.">
+				>
+				["at0004"] = <
+					text = <"AMP">
+					description = <"Association for Molecular Pathology.">
+				>
+				["at0005"] = <
+					text = <"CAP">
+					description = <"College of American Pathologists.">
+				>
+				["at0006"] = <
+					text = <"ENIGMA">
+					description = <"Evidence-based Network for the Interpretation of Germline Mutant Alleles.">
+				>
+				["at0007"] = <
+					text = <"InSiGHT">
+					description = <"International Society for Gastrointestinal Hereditary Tumours.">
+				>
+				["at0008"] = <
+					text = <"HiGHmed">
+					description = <"HiGHmed Consortium Germany.">
+				>
+				["at0009"] = <
+					text = <"ZPM">
+					description = <"Zentren für Personalisierte Medizin.">
+				>
+				["at0010"] = <
+					text = <"CPIC">
+					description = <"Clinical Pharmacogenetics Implementation Consortium.">
+				>
+				["at0011"] = <
+					text = <"Version">
+					description = <"Die Version des Codierungssystems, das benutzt wurde, um die Variante(n) zu bewerten.">
+				>
+				["at0012"] = <
+					text = <"Evidenzlevel">
+					description = <"Das Level der Gewissheit, auf welchem die Variantenbewertung basiert. Das Level der Gewissheit beruht hauptsächlich auf dem Grad der Forschung. Der Grad der Forschung kann je nach benutztem Evidenz Codesystem in verschiedene Kategorien kategoriesiert werden. Eine geringes Level an Gewissheit würde zum Beispiel \"nur biologische Rationalität\" als Begründung für die Bewertung haben. Eine hohes Level an Gewissheit wäre zum Beispiel das Vorhandensein einer Studie, die die positive Wirkung eines Medikaments auf einen Tumor, bei dem die zu bewertenden Variante identifiziert wurde, bereits gezeigt hat.">
+					comment = <"Das Evidenzlevel und somit das Level der Gewissheit, kann durch verschiedene Codierungssysteme repräsentiert werden. 
+Nur Freitext Angabe möglich, da die Nomenklatur der Evidenzlevel stark vom Evidenz Codesystem abhängt.">
+				>
+				["at0013"] = <
+					text = <"Evidenzlevel">
+					description = <"Das Level der Gewissheit, auf welchem die Variantenbewertung basiert. Das Level der Gewissheit beruht hauptsächlich auf dem Grad der Forschung. Der Grad der Forschung kann je nach benutztem Evidenz Codesystem in verschiedene Kategorien kategoriesiert werden. Eine geringes Level an Gewissheit würde zum Beispiel \"nur biologische Rationalität\" als Begründung für die Bewertung haben. Eine hohes Level an Gewissheit wäre zum Beispiel das Vorhandensein einer Studie, die die positive Wirkung eines Medikaments auf einen Tumor, bei dem die zu bewertenden Variante identifiziert wurde, bereits gezeigt hat.">
+					comment = <"Das Evidenzlevel und somit das Level der Gewissheit, kann durch verschiedene Codierungssysteme repräsentiert werden.
+Nur Freitext Angabe möglich, da die Nomenklatur der Evidenzlevel stark vom Evidenz Codesystem abhängt.">
+				>
+				["at0014"] = <
+					text = <"Zusatzverweise">
+					description = <"Die Zusatzverweise geben weitere Informationen über das Evidenzlevel an. Es können mehrere Zusatzverweise angegeben werden.">
+				>
+				["at0015"] = <
+					text = <"Is">
+					description = <"in situ Daten aus Untersuchungen an Patientenmaterial (z.B. IHC, FISH) unterstützen den Evidenzgrad. Die unterstützende Methode kann in Klammern zusätzlich angegeben werden, z.B. Evidenzgrad 3 is (IHC).">
+				>
+				["at0016"] = <
+					text = <"Iv">
+					description = <"in vitro Daten/ in vivo-Modelle (z.B. PDX-Modelle) derselben Tumorentität unterstützen den Evidenzgrad. Die unterstützende Methode kann in Klammern angegeben werden, z.B. Evidenzgrad 2 iv (PDX).">
+				>
+				["at0017"] = <
+					text = <"Z">
+					description = <"Zusatzverweis für Zulassungsstatus (Z= EMA-Zulassung liegt vor; Z(FDA)= nur FDA-Zulassung vorhanden).">
+				>
+				["at0018"] = <
+					text = <"R">
+					description = <"Verweis, dass es sich hierbei um einen Resistenzmarker für eine bestimmte Therapie handelt.">
+				>
+			>
+		>
+	>
