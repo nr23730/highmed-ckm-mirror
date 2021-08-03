@@ -1,0 +1,326 @@
+﻿archetype (adl_version=1.4; uid=4762b51a-6a3d-42bf-8dad-b7c475a2a09c)
+	openEHR-EHR-CLUSTER.evidence_classification.v0
+
+concept
+	[at0000]	-- Evidenzgraduierung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Simon Schumacher">
+		["organisation"] = <"HiGHmed">
+		["email"] = <"sschuma9@uni-koeln.de">
+		["date"] = <"2021-07-07">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dieser Archetyp dient der Dokumentation einer klinischen Bewertung einer oder mehrerer genetischer Varianten. Die Bewertung kann nur im Kontext einer Sequenzierung von genetischem Material eines Tumors oder anderem Gewebe erfolgen.">
+			use = <"Dieser Archetyp soll ausschließlich im Rahmen einer klinischen Bewertung einer oder mehrerer genetischer Varianten verwendet werden. Dieser Archetyp soll in den Slot Evidenzgraduierung des Archetypen openEHR-EHR-EVALUATION.clinical_variant_assesment.v0 eingesetzt werden.">
+			keywords = <"Evidenzgraduierung, Bewertung, Variante, Mutation, Sequenzierung, Substanz, Empfehlung", ...>
+			misuse = <"Dieser Archetyp soll nicht zur Bewertung von anderen Erkrankungen eingesetzt werden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Natalia Strauch", "Aurelie Tomczak", "Christina Jäger-Schmidt">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://sozialministerium.baden-wuerttemberg.de/fileadmin/redaktion/m-sm/intern/downloads/Downloads_Krankenh%C3%A4user/Fachplanung_ZPM_28-03-2019.pdf
+https://www.jmdjournal.org/article/S1525-1578(16)30223-9/fulltext
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4544753/
+https://www.pharmgkb.org/page/clinAnnLevels">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"6618FA4FEB9D37524ECBA351B8764D9A">
+		["build_uid"] = <"3ef5b636-0681-4a6e-a026-adfd95cfaee1">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Evidenzgraduierung
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0041] occurrences matches {0..1} matches {    -- Therapieansatz
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0042] occurrences matches {0..*} matches {    -- Substanz
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0043] occurrences matches {0..1} matches {    -- Effekt der Variation auf die Wirksamkeit der Wirkstoffe
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0044,    -- Resistent
+									at0045,    -- Reagierend
+									at0046,    -- Vermutlich Resistent
+									at0047,    -- Vermutlich Reagierend
+									at0048,    -- Unbekannte Signifikanz
+									at0049,    -- Günstig
+									at0050,    -- Vermutlich Günstig
+									at0051]    -- Vermutlich nicht reagierend
+								}
+							}
+						}
+						name matches {
+							DV_CODED_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0066] occurrences matches {0..*} matches {    -- Quellenbeschreibung
+						items cardinality matches {1..*; unordered} matches {
+							allow_archetype CLUSTER[at0081] occurrences matches {0..*} matches {    -- Quelle
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.knowledge_base_reference\.v1|openEHR-EHR-CLUSTER\.citation\.v0/}
+								exclude
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0063] occurrences matches {0..1} matches {    -- Quellenbeschreibung
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0054] occurrences matches {0..1} matches {    -- Therapieansatz wird durch Variante unterstützt/nicht unterstützt
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0067] occurrences matches {0..1} matches {    -- Evidenz der Quelle
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.evidence_code\.v0/}
+								exclude
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0064] occurrences matches {0..1} matches {    -- Höchste Evidenz
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.evidence_code\.v0/}
+				exclude
+					archetype_id/value matches {/.*/}
+			}
+			CLUSTER[at0059] occurrences matches {0..*} matches {    -- Genetische Variation
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0060] occurrences matches {0..1} matches {    -- Genname
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0080] occurrences matches {0..1} matches {    -- Gensymbol
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0040] occurrences matches {0..1} matches {    -- Variantenbezeichnung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0055] occurrences matches {0..1} matches {    -- Funktionale Auswirkung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0074] occurrences matches {0..1} matches {    -- Klinische Signifikanz
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0075,    -- Pathogen
+									at0076,    -- Wahrscheinlich pathogen
+									at0077,    -- Unklare Signifikanz
+									at0078,    -- Wahrscheinlich nicht-pathogen
+									at0079]    -- Nicht-pathogen
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0056] occurrences matches {0..*} matches {    -- Zellulärer Mechanismus
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0065] occurrences matches {0..1} matches {    -- Kommentar zur Evidenzgraduierung
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	terminologies_available = <"LOINC", ...>
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evidenzgraduierung">
+					description = <"Dieser Archetyp dient der Dokumentation einer klinischen Bewertung von einer oder mehreren genetischen Varianten.">
+					comment = <"Die Bewertung einer oder mehrerer genetischer Varianten mithilfe von standardisierten Skalierungen.">
+				>
+				["at0040"] = <
+					text = <"Variantenbezeichnung">
+					description = <"Ein Verweis auf die Variante, die bewertet werden soll. Die Variante sollte immer nach der HGVS Nomenklatur annotiert werden. Die Variante sollte auf Proteinebene angegeben werden. Ist eine Region betroffen, die nicht für ein Protein kodiert, so ist die Variante auf DNA Ebene anzugeben.">
+					comment = <"Zum Beispiel: 
+Protein Nomenklatur: p.G388A oder Gly388Arg
+DNA Nomenklatur: c.5249C>T
+">
+				>
+				["at0041"] = <
+					text = <"Therapieansatz">
+					description = <"Die Therapie die empfohlen wird, um den Tumor mit den/der identifizierten Variante(n) zu behandeln.">
+				>
+				["at0042"] = <
+					text = <"Substanz">
+					description = <"Die Substanz(en) die empfohlen werden, um den Tumor mit den/der identifizierten Variante(n) zu behandeln. Es wird empfohlen sich bei der Annotation an bekannte Wirkstoffdatenbanken zu halten (z.B. ATC). ">
+					comment = <"Eine Kombination aus mehreren Substanzen ist möglich.">
+				>
+				["at0043"] = <
+					text = <"Effekt der Variation auf die Wirksamkeit der Wirkstoffe">
+					description = <"Die prognostizierte Fähigkeit des Wirkstoffes an die beabsichtige Stelle des Ziel Moleküls zu binden, um den gewünschten Effekt zu erzielen. Ein Wert der zeigen soll, ob der Wirkstoff den gewünschten Effekt erzielen wird oder nicht.">
+				>
+				["at0044"] = <
+					text = <"Resistent">
+					description = <"Das Zielmolekül zeigt keine Veränderungen nach Verabreichung des Wirkstoffes.">
+				>
+				["at0045"] = <
+					text = <"Reagierend">
+					description = <"Der Wirkstoff reagiert mit dem Zielmolekül.">
+				>
+				["at0046"] = <
+					text = <"Vermutlich Resistent">
+					description = <"Das Zielmolekül zeigt wahrscheinlich keine Veränderungen nach Verabreichung des Wirkstoffes.">
+				>
+				["at0047"] = <
+					text = <"Vermutlich Reagierend">
+					description = <"Der Wirkstoff reagiert wahrscheinlich mit dem Zielmolekül.">
+				>
+				["at0048"] = <
+					text = <"Unbekannte Signifikanz">
+					description = <"Es ist unklar, ob die Bindung des Wirkstoffes an das Zielmolekül den gewünschten Effekt erzielt.">
+				>
+				["at0049"] = <
+					text = <"Günstig">
+					description = <"Die Bindung des Wirkstoffes erzielt den gewünschten Effekt.">
+				>
+				["at0050"] = <
+					text = <"Vermutlich Günstig">
+					description = <"Die Bindung des Wirkstoffes erzielt wahrscheinlich den gewünschten Effekt.">
+				>
+				["at0051"] = <
+					text = <"Vermutlich nicht reagierend">
+					description = <"Der Wirkstoff reagiert wahrscheinlich nicht mit dem Zielmolekül.">
+				>
+				["at0054"] = <
+					text = <"Therapieansatz wird durch Variante unterstützt/nicht unterstützt">
+					description = <"Eine Angabe dazu, ob der vorgeschlagene Therapieansatz durch die Variante(n) unterstützt wird oder nicht.">
+				>
+				["at0055"] = <
+					text = <"Funktionale Auswirkung">
+					description = <"Die erwartete Auswirkung der Variante auf die Expression des betroffenen Gens. Wird in der Regel mit nur einem Wort beschrieben. Dies kann zum Beispiel \"aktivierend\" oder \"inaktivierend\" sein. ">
+					comment = <"Diese Information ist oft wichtig für die Entscheidung über die Medikation und sollte deswegen möglichst immer angegeben werden.">
+				>
+				["at0056"] = <
+					text = <"Zellulärer Mechanismus">
+					description = <"Eine kurze Beschreibung des biologischen Mechanismus, der auf zellulärer Ebene durch die Variante(n) beeinflusst wird.">
+					comment = <"Zum Beispiel:
+Inhibition des AKT-mTOR Signalweges.">
+				>
+				["at0059"] = <
+					text = <"Genetische Variation">
+					description = <"Beschreibung der genetischen Variation, auf welche sich die Evidenzgraduierung bezieht. Sollte sich die Evidenzgraduierung auf mehrerer genetische Varianten (auch innerhalb des selben Gens) beziehen, muss jede Variation einzeln festgehalten werden.">
+					comment = <"Die Variante kann aus dem molekularpathologischen Bericht, oder aber auch aus einer externen Datenbank stammen. ">
+				>
+				["at0060"] = <
+					text = <"Genname">
+					description = <"Der vollständige, vom HGNC genehmigte Genname. Es soll der Genname angegeben werden, in welchem die Variation gefunden wurde.">
+					comment = <"Zum Beispiel: Chromodomain helicase DNA binding protein 5">
+				>
+				["at0063"] = <
+					text = <"Quellenbeschreibung">
+					description = <"Die Beschreibung der Quelle, auf welcher die Evidenzgraduierung im Bezug zur Substanz beruht.  ">
+				>
+				["at0064"] = <
+					text = <"Höchste Evidenz">
+					description = <"Die höchste Evidenz zwischen den verschiedenen Therapieansätzen.">
+				>
+				["at0065"] = <
+					text = <"Kommentar zur Evidenzgraduierung">
+					description = <"Ein Kommentar oder eine Begründung, warum oder warum nicht ein Tumor mir einer bestimmten Variation oder Variationen mit einer gegebenen Therapie behandelt werden soll. ">
+				>
+				["at0066"] = <
+					text = <"Quellenbeschreibung">
+					description = <"Die Beschreibung der Quelle, welche Informationen über den Thereapieansatz enthält.">
+					comment = <"Es können mehrere Quellen zu einem Therapieansatz mit unterschiedlichen Evidenzen angegeben werden.">
+				>
+				["at0067"] = <
+					text = <"Evidenz der Quelle">
+					description = <"Die Evidenz der zugrunde liegenden Quelle.">
+				>
+				["at0074"] = <
+					text = <"Klinische Signifikanz">
+					description = <"Die klinische Bedeutung gemäß den Empfehlungen der ACMG.">
+					comment = <"Zum Beispiel \"Pathogen\" oder \"Nicht-pathogen\"">
+				>
+				["at0075"] = <
+					text = <"Pathogen">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"Wahrscheinlich pathogen">
+					description = <"">
+				>
+				["at0077"] = <
+					text = <"Unklare Signifikanz">
+					description = <"">
+				>
+				["at0078"] = <
+					text = <"Wahrscheinlich nicht-pathogen">
+					description = <"">
+				>
+				["at0079"] = <
+					text = <"Nicht-pathogen">
+					description = <"">
+				>
+				["at0080"] = <
+					text = <"Gensymbol">
+					description = <"Das offizielle, vom HGNC genehmigte Gensymbol, welches eine Kurzform des Gennamens ist.">
+					comment = <"Zum Beispiel: CHD5">
+				>
+				["at0081"] = <
+					text = <"Quelle">
+					description = <"Die Quelle, auf welcher die Evidenzgraduierung im Bezug zur Substanz beruht.  ">
+					comment = <"Dieser SLOT ist beschränkt auf die Archetypen openEHR-EHR-CLUSTER.Knowledge_base.v0 und openEHR-EHR-CLUSTER.citation.v0.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["LOINC"] = <
+			items = <
+				["at0075"] = <[LOINC(2.65)::LA6668-3]>
+				["at0076"] = <[LOINC(2.65)::LA26332-9]>
+				["at0077"] = <[LOINC(2.65)::LA26333-7]>
+				["at0078"] = <[LOINC(2.65)::LA26334-5]>
+				["at0079"] = <[LOINC(2.65)::LA6675-8]>
+				["at0074"] = <[LOINC(2.65)::53037-8]>
+				["at0043"] = <[LOINC(2.58)::51961-1]>
+				["at0044"] = <[LOINC(2.58)::LA6676-6]>
+				["at0045"] = <[LOINC(2.58)::LA6677-4]>
+				["at0046"] = <[LOINC(2.58)::LA9660-7]>
+				["at0047"] = <[LOINC(2.58)::LA9661-5]>
+				["at0048"] = <[LOINC(2.58)::LA6682-4]>
+				["at0049"] = <[LOINC(2.58)::LA6675-8]>
+				["at0050"] = <[LOINC(2.58)::LA6674-1]>
+				["at0051"] = <[LOINC(2.58)::LA9662-3]>
+			>
+		>
+	>
