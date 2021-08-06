@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=7282bbaf-d95b-43de-9b71-5db53b18097d)
-	openEHR-EHR-OBSERVATION.prevention_of_falls_network_europe.v0
+﻿archetype (adl_version=1.4; uid=c3cb60bd-f700-468a-82d4-3896f29746df)
+	openEHR-EHR-OBSERVATION.fall_event.v1
 
 concept
-	[at0000]	-- Fragebogen zur Erfassung eines Sturzgeschehens nach ProFaNE
+	[at0000]	-- Abfrage Sturzgeschehen ProFaNE
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -16,13 +16,13 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Darstellung eines Fragebogens zur Erfassung des Sturzgeschehens bei Senioren nach ProFaNE.">
-			use = <"Dieser Archetyp wird zur Darstellung eines Fragebogens verwendet, der das Sturzgeschehens und dessen Folgen bei Senioren erfasst.">
+			use = <"Dieser Archetyp wird zur Darstellung eines Fragebogens verwendet, der das Sturzgeschehen und dessen Folgen bei Senioren erfasst.">
 			keywords = <"Sturzrisiko", "ProFaNE">
 			misuse = <"">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -31,13 +31,13 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"8AD3806009622A973F7373B2E3D84CDC">
-		["build_uid"] = <"c3fcc334-d3c3-4142-a028-f41fb5b45732">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"BAA7939AEE528AC0AA9CD48702E7A405">
+		["build_uid"] = <"0776758e-6c64-4f37-a6d3-0bb5d561d53a">
+		["revision"] = <"1.0.0">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- Fragebogen zur Erfassung eines Sturzgeschehens nach ProFaNE
+	OBSERVATION[at0000] matches {    -- Abfrage Sturzgeschehen ProFaNE
 		data matches {
 			HISTORY[at0001] matches {    -- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -57,19 +57,19 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0010] occurrences matches {0..*} matches {    -- Sturzzeitpunkt
-										value matches {
-											DV_DATE_TIME matches {*}
-										}
-									}
 									CLUSTER[at0038] occurrences matches {0..1} matches {    -- Verletzung
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0035] occurrences matches {0..1} matches {    -- Verletzung erlitten
+											ELEMENT[at0010] occurrences matches {0..1} matches {    -- Sturzzeitpunkt
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0035] matches {    -- Verletzung erlitten
 												value matches {
 													DV_BOOLEAN matches {*}
 												}
 											}
-											ELEMENT[at0036] occurrences matches {0..1} matches {    -- Bruch
+											ELEMENT[at0036] matches {    -- Bruch
 												value matches {
 													DV_BOOLEAN matches {*}
 												}
@@ -104,7 +104,14 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0037] matches {*}    -- Item tree
+			ITEM_TREE[at0037] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0040] occurrences matches {0..*} matches {    -- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
 		}
 	}
 
@@ -114,7 +121,7 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Fragebogen zur Erfassung eines Sturzgeschehens nach ProFaNE">
+					text = <"Abfrage Sturzgeschehen ProFaNE">
 					description = <"Abfrage eines Sturzgeschehens bei Senioren nach Prevention of Falls Network Europe (ProFaNE).">
 				>
 				["at0001"] = <
@@ -172,6 +179,10 @@ ontology
 				["at0039"] = <
 					text = <"Weitere Verletzungen">
 					description = <"Sie haben weitere Verletzungen erlitten.">
+				>
+				["at0040"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>
