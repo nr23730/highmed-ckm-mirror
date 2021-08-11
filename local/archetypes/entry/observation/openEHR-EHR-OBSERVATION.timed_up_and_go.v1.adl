@@ -31,28 +31,28 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"7BDCEBFFD011A13F85EA88FFE17297F4">
-		["build_uid"] = <"1976b925-95bf-462a-acfa-7a69bd013c34">
-		["revision"] = <"1.0.0">
+		["MD5-CAM-1.0.1"] = <"427C2F491676D0858CB73522A3C82921">
+		["build_uid"] = <"3aa03abf-e730-461b-a759-0b6fcb616cfc">
+		["revision"] = <"1.1.0">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Timed Up and Go
+	OBSERVATION[at0000] matches {    -- Timed Up and Go
 		data matches {
-			HISTORY[at0001] matches {	-- Event Series
+			HISTORY[at0001] matches {    -- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Jedes Ereignis
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Baum
+							ITEM_TREE[at0003] matches {    -- Baum
 								items cardinality matches {0..*; ordered} matches {
-									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Ausführungsdauer
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Ausführungsdauer
 										value matches {
 											DV_DURATION matches {
 												value matches {PTS}
 											}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Bemerkungen
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Bemerkungen
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -61,9 +61,9 @@ definition
 							}
 						}
 						state matches {
-							ITEM_TREE[at0025] matches {	-- Baum
+							ITEM_TREE[at0025] matches {    -- Baum
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0026] occurrences matches {0..*} matches {	-- Störfaktoren
+									ELEMENT[at0026] occurrences matches {0..*} matches {    -- Störfaktoren
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -76,35 +76,37 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0014] matches {	-- Baum
+			ITEM_TREE[at0014] matches {    -- Baum
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Uhrzeit Testbeginn
+					ELEMENT[at0019] occurrences matches {0..1} matches {    -- Uhrzeit Testbeginn
 						value matches {
 							DV_TIME matches {*}
 						}
 					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Durchführung möglich
+					ELEMENT[at0020] occurrences matches {0..1} matches {    -- Durchführung möglich
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
+							DV_BOOLEAN matches {*}
 						}
 					}
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Benutzung einer Gehhilfe
+					ELEMENT[at0021] occurrences matches {0..1} matches {    -- Benutzung einer Gehhilfe
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0022, 	-- Ja
-									at0023]	-- Nein
+									at0022,    -- Ja
+									at0023]    -- Nein
 								}
 							}
 						}
 					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Art der Gehhilfe
+					ELEMENT[at0024] occurrences matches {0..1} matches {    -- Art der Gehhilfe
 						value matches {
 							DV_TEXT matches {*}
 						}
+					}
+					allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {    -- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -176,6 +178,10 @@ ontology
 					text = <"Störfaktoren">
 					description = <"Notieren Sie alle Umstände, von denen Sie glauben, dass sie die Leistung des Patienten beeinträchtigt haben könnten.">
 					comment = <"Beispiele für Störfaktoren: \"Der Patient berichtet, dass er sich nicht gut fühlt\" oder \"Der Patient ist gestolpert, aber nicht gefallen\".">
+				>
+				["at0027"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
 				>
 			>
 		>
