@@ -74,7 +74,7 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>6.0.0</value>
+                <value>7.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -322,39 +322,24 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
                         <includedValues>§301 SGB V::3758::Weaningeinheit</includedValues>
                     </constraint>
                 </Rule>
-                <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                    concept_name="Person name" max="1"
-                    name="Vorstellender Arzt" path="/items[at0047]" xsi:type="tem:CLUSTER">
+                <Items archetype_id="openEHR-EHR-CLUSTER.person.v0"
+                    name="Vorstellender Arzt" max="1" path="/items[at0047]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
                     <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0022]"/>
-                    <Rule path="/items[at0002]/items[at0017]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Dr. med.</includedValues>
-                            <includedValues>Prof. Dr. med.</includedValues>
-                            <includedValues>PD Dr. med.</includedValues>
-                            <includedValues>Dipl.-Med.</includedValues>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                    <Rule max="0" path="/items[at0014]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>Dr. med.</includedValues>
+                                <includedValues>Prof. Dr. med.</includedValues>
+                                <includedValues>PD Dr. med.</includedValues>
+                                <includedValues>Dipl.-Med.</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
                 </Items>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                concept_name="Person name" max="1"
-                name="Anmeldender Arzt"
-                path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" path="/items[at0022]"/>
-                <Rule path="/items[at0002]/items[at0017]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
-                        <includedValues>Dr. med.</includedValues>
-                        <includedValues>Prof. Dr. med.</includedValues>
-                        <includedValues>PD Dr. med.</includedValues>
-                        <includedValues>Dipl.-Med.</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                <Rule max="0" path="/items[at0014]"/>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
@@ -390,6 +375,24 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person.v0" max="1"
+                name="Anmeldender Arzt" path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                    max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>Dr. med.</includedValues>
+                            <includedValues>Prof. Dr. med.</includedValues>
+                            <includedValues>PD Dr. med.</includedValues>
+                            <includedValues>Dipl.-Med.</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+            </Items>
         </Item>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
@@ -408,10 +411,16 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">3FBD58B31B73C316C3052541F6BA58C0</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
+        <digest id="MD5-CAM-1.0.1">88A81FA5B94E7CB0774CA09EA8AA31B2</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">066301809D037DD2E77CDED537D3B0A3</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
