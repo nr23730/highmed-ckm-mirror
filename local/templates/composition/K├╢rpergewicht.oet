@@ -34,12 +34,21 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation des Körpergewichtes im Rahmen des NUM-Projektes / GECCO-Datensatzes.</purpose>
+            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
             <keywords>
-                <item>GECCO; NUM; Körpergewicht</item>
+                <item>COVID-19</item>
+                <item>GECCO</item>
+                <item>SARS-CoV-2</item>
+                <item>Coronavirus</item>
+                <item>Virus</item>
+                <item>Research purposes</item>
+                <item>Registry</item>
+                <item>Registry entry</item>
             </keywords>
-            <use>Für die Abbildung des Körpergewicht-Wertes für die Speicherung im Rahmen des NUM-Projektes / GECCO-Datensatzes.</use>
-            <misuse>Nicht zur Repräsentation zur Berechnung des Body Mass Index verwenden.</misuse>
+            <use>Use to represent research data from the GECCO datasets. &#xd;
+&#xd;
+For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
+</use>
         </details>
         <other_details>
             <item>
@@ -92,21 +101,32 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>0f2a82ed8c9dce3016165a93d36c3609</value>
+                <value>1e55f3ccf017006f3afd42b90cc3a8de</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>137DCA7D21FA274494054E1B81B67FC5</value>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
+            <item>
+                <key>sem_ver</key>
+                <value>2.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::en</value>
+            </item>
         </other_details>
     </description>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="Körpergewicht"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
@@ -114,11 +134,23 @@
             <Rule max="1" path="/data[at0002]/events[at0003]"/>
             <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
                 <constraint xsi:type="tem:quantityConstraint">
-                    <excludedUnits>g</excludedUnits>
-                    <excludedUnits>[lb_av]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>g</unit>
+                        <maxMagnitude>1000000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
                     <unitMagnitude>
                         <unit>kg</unit>
                         <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                    <unitMagnitude>
+                        <unit>[lb_av]</unit>
+                        <maxMagnitude>2000.0</maxMagnitude>
                         <minMagnitude>0.0</minMagnitude>
                         <includesMaximum>true</includesMaximum>
                         <includesMinimum>true</includesMinimum>
@@ -129,7 +161,7 @@
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
             <Rule max="0" path="/data[at0002]/events[at0026]"/>
-            <Rule clone="true" name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
+            <Rule name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
             <Rule path="/data[at0002]/events[at0026]/data[at0001]/items[at0004]">
                 <constraint xsi:type="tem:quantityConstraint">
                     <excludedUnits>g</excludedUnits>
@@ -144,16 +176,36 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/events[at0026]/data[at0001]/items[at0024]"/>
-            <Rule clone="true" name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
+            <Rule clone="true" name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
+            <Rule clone="true" name="Weight" path="/data[at0002]/events[at0026]/data[at0001]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>g</excludedUnits>
+                    <excludedUnits>[lb_av]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="0" name="Comment" path="/data[at0002]/events[at0026]/data[at0001]/items[at0024]"/>
+            <Rule name="state structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
             <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0009]"/>
             <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0025]"/>
+            <Rule clone="true" name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
+            <Rule clone="true" max="0" name="State of dress" path="/data[at0002]/events[at0026]/state[at0008]/items[at0009]"/>
+            <Rule clone="true" max="0" name="Confounding factors" path="/data[at0002]/events[at0026]/state[at0008]/items[at0025]"/>
         </Content>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
