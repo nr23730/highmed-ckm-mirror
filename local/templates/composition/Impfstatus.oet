@@ -22,18 +22,21 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation des Impfstatus im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
             <keywords>
-                <item>Impfung</item>
-                <item>Impfungen</item>
-                <item>Impfstoff</item>
-                <item>Vakzine</item>
+                <item>COVID-19</item>
                 <item>GECCO</item>
-                <item>NUM</item>
-                <item>FoDaPl</item>
+                <item>SARS-CoV-2</item>
+                <item>Coronavirus</item>
+                <item>Virus</item>
+                <item>Research purposes</item>
+                <item>Registry</item>
+                <item>Registry entry</item>
             </keywords>
-            <use>Für die Abbildung des Impfstatus für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
-            <misuse>Nicht zur Repräsentation über die Art der Verabreichungswege der Medikationen verwenden.</misuse>
+            <use>Use to represent research data from the GECCO datasets. &#xd;
+&#xd;
+For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
+</use>
         </details>
         <other_details>
             <item>
@@ -86,11 +89,11 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>0614c60bee7c7f6ee408f7122e7408c2</value>
+                <value>a26db1eff7dda39286d884b6a2f5c642</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>8BD8D5F850A9DEE8A16075105D36FD32</value>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -98,7 +101,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>4.0.0</value>
+                <value>5.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -106,7 +109,7 @@
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::de</value>
+                <value>ISO_639-1::en</value>
             </item>
         </other_details>
     </description>
@@ -128,11 +131,10 @@
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="Impfstatus"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
-            concept_name="Arzneimittelverwaltung" min="1" name="Impfung"
+            concept_name="Medication management" min="1" name="Impfung"
             path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0109]"/>
             <Rule max="0" min="0" path="/ism_transition[at0145]"/>
@@ -150,12 +152,16 @@
             <Rule max="0" min="0" path="/ism_transition[at0041]"/>
             <Rule max="0" min="0" path="/ism_transition[at0005]"/>
             <Rule max="0" min="0" path="/ism_transition[at0006]"/>
+            <Rule name="not-done" path="/ism_transition[at0018]"/>
             <Rule max="0" min="0" path="/ism_transition[at0044]"/>
             <Rule max="0" min="0" path="/ism_transition[at0008]"/>
             <Rule max="0" min="0" path="/ism_transition[at0009]"/>
             <Rule max="0" min="0" path="/ism_transition[at0011]"/>
+            <Rule name="stopped" path="/ism_transition[at0015]"/>
             <Rule max="0" min="0" path="/ism_transition[at0039]"/>
+            <Rule name="entered-in error" path="/ism_transition[at0151]"/>
             <Rule max="0" min="0" path="/ism_transition[at0007]"/>
+            <Rule name="completed" path="/ism_transition[at0152]"/>
             <Rule min="1" name="Impfstoff" path="/description[at0017]/items[at0020]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED CT::421245007::Diphtheria + pertussis + tetanus vaccine (product)</includedValues>
@@ -507,8 +513,7 @@
             <Rule max="0" path="/description[at0017]/items[at0024]"/>
             <Rule max="0" path="/protocol[at0030]/items[at0103]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v1"
-                concept_name="Dosierung" max="1"
-                name="Verabreichte Dosen"
+                concept_name="Dosage" max="1" name="Verabreichte Dosen"
                 path="/description[at0017]/items[at0131]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0164]">
                     <constraint xsi:type="tem:countConstraint">
@@ -563,7 +568,7 @@
             </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-            concept_name="Fehlen von Informationen" max="1"
+            concept_name="Absence of information" max="1"
             name="Unbekannter Impfstatus" path="/content" xsi:type="tem:EVALUATION">
             <Rule path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
@@ -574,8 +579,7 @@
             <Rule max="0" name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]"/>
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
-        <Rule max="0" path="/context/other_context[at0001]/items[at0004]"/>
-        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <view>
         <constraints path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-ACTION.medication.v1]/description[at0017]/items[at0020]/null_flavour">
@@ -588,7 +592,7 @@
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8BD8D5F850A9DEE8A16075105D36FD32</digest>
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1"
         xmlns:tem="openEHR/v1/Template"

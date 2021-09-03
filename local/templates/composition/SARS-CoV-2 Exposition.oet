@@ -22,16 +22,21 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation von Kontaktpatienten die mit erkankten COVID-19 Personen in Kontakt kamen im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
+            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
             <keywords>
-                <item>Kontaktperson</item>
                 <item>COVID-19</item>
                 <item>GECCO</item>
-                <item>NUM</item>
-                <item>FoDaPl</item>
+                <item>SARS-CoV-2</item>
+                <item>Coronavirus</item>
+                <item>Virus</item>
+                <item>Research purposes</item>
+                <item>Registry</item>
+                <item>Registry entry</item>
             </keywords>
-            <use>Für die Abbildung der/die PatientIn in den letzten 14 Tagen vor Beginn seiner/ihrer Beschwerden wissentlich Kontakt mit einer wahrscheinlich oder nachgewiesenermaßen an COVID-19 erkrankten Person hatten für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
-            <misuse>Nicht zur Repräsentation von anderen Kontaktdaten einer Person verwenden.</misuse>
+            <use>Use to represent research data from the GECCO datasets. &#xd;
+&#xd;
+For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
+</use>
         </details>
         <other_details>
             <item>
@@ -84,45 +89,44 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>929a45a7c03bd536331e87a3a66656e9</value>
+                <value>1143279f27070488ec043db4324b02de</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>137DCA7D21FA274494054E1B81B67FC5</value>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
             <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
                 <key>original_language</key>
-                <value>ISO_639-1::de</value>
+                <value>ISO_639-1::en</value>
             </item>
         </other_details>
     </description>
-    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]">
-        <items>
-            <item>
-                <key>LOINC</key>
-                <value>88636-6</value>
-            </item>
-        </items>
-    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="SARS-CoV-2 Exposition"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0"
-            concept_name="Ermittlung der infektiösen Exposition" max="1"
-            min="1" name="SARS-CoV-2 Exposition" path="/content" xsi:type="tem:EVALUATION">
+            concept_name="Infectious exposure investigation" max="1"
+            min="1" name="Kontaktperson" path="/content" xsi:type="tem:EVALUATION">
             <Rule min="1" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SARS-CoV-2</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Exposition vorhanden?" path="/data[at0001]/items[at0003]">
+            <Rule path="/data[at0001]/items[at0003]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED-CT::840546002::Exposure to severe acute respiratory syndrome coronavirus 2 (event)</includedValues>
                     <includedValues>SNOMED-CT::373067005::No (qualifier value)</includedValues>
@@ -130,12 +134,6 @@
                 </constraint>
             </Rule>
             <Rule max="1" min="1" path="/data[at0001]/items[at0005]"/>
-            <Rule min="1" path="/data[at0001]/items[at0005]/items[at0006]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Kontakt zu COVID-19 erkrankter Person</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="1" path="/data[at0001]/items[at0005]/items[at0007]"/>
             <Rule max="0" path="/data[at0001]/items[at0005]/items[at0027]"/>
             <Rule max="0"
                 name="Kontakt mit an COVID-19 erkrankter Person?" path="/data[at0001]/items[at0005]/items[at0024]">
@@ -145,6 +143,12 @@
                     <includedValues>http://terminology.hl7.org/CodeSystem/data-absent-reason::unknown::Unknown</includedValues>
                 </constraint>
             </Rule>
+            <Rule min="1" path="/data[at0001]/items[at0005]/items[at0006]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Kontakt zu COVID-19 erkrankter Person</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="1" path="/data[at0001]/items[at0005]/items[at0007]"/>
             <Rule max="0" path="/data[at0001]/items[at0005]/items[at0018]"/>
             <Rule max="0" path="/data[at0001]/items[at0005]/items[at0008]"/>
             <Rule max="0" path="/data[at0001]/items[at0005]/items[at0009]"/>
@@ -168,12 +172,13 @@
             <Rule max="0" path="/data[at0001]/items[at0013]"/>
         </Content>
         <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">137DCA7D21FA274494054E1B81B67FC5</digest>
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0"
