@@ -26,20 +26,21 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Das Template dient dazu einen virologischen PCR- oder Antigentest-Befund strukturiert abzubilden. </purpose>
+            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
             <keywords>
-                <item>Virologischer Befund</item>
-                <item>PCR</item>
-                <item>Antigen</item>
+                <item>COVID-19</item>
+                <item>GECCO</item>
                 <item>SARS-CoV-2</item>
-                <item>Corona</item>
+                <item>Coronavirus</item>
                 <item>Virus</item>
-                <item>Befund</item>
-                <item>Nachweis</item>
+                <item>Research purposes</item>
+                <item>Registry</item>
+                <item>Registry entry</item>
             </keywords>
-            <use>Für die Abbildung eines virologischen Befundes als PCR- oder Antigentest.</use>
-            <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.
-Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
+            <use>Use to represent research data from the GECCO datasets. &#xd;
+&#xd;
+For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
+</use>
         </details>
         <other_details>
             <item>
@@ -92,19 +93,27 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>c079d37c4c494384659aa7c93fb73eff</value>
+                <value>c728447ec05176c37706e0dfd3c670fb</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>8BD8D5F850A9DEE8A16075105D36FD32</value>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
             <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
                 <key>original_language</key>
-                <value>ISO_639-1::de</value>
+                <value>ISO_639-1::en</value>
             </item>
         </other_details>
     </description>
@@ -242,17 +251,16 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="GECCO_Virologischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            concept_name="Laborergebnis" max="1" min="1" name="Befund"
-            path="/content" xsi:type="tem:OBSERVATION">
+            concept_name="Laboratory test result" max="1" min="1"
+            name="Befund" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://snomed.info/sct::122442008::Detection of virus (procedure)</includedValues>
+                    <includedValues>SNOMED CT::122442008::Detection of virus (procedure)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
@@ -296,19 +304,19 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    concept_name="Laboranalyt-Ergebnis" max="1" min="1"
-                    name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
+                    concept_name="Laboratory analyte result" max="1"
+                    min="1" name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule min="1" name="Virusnachweistest" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>http://loinc.org::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
+                            <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="1" name="Nachweis" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>http://snomed.info/sct::260373001::Detected (qualifier value)</includedValues>
-                            <includedValues>http://snomed.info/sct::260415000::Not detected (qualifier value)</includedValues>
-                            <includedValues>http://snomed.info/sct::419984006::Inconclusive (qualifier value)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::260373001::Detected (qualifier value)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::260415000::Not detected (qualifier value)</includedValues>
+                            <includedValues>SNOMED Clinical Terms::419984006::Inconclusive (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
                     <Rule clone="true" max="0"
@@ -338,13 +346,12 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
                 </Items>
             </Items>
         </Content>
-        <Rule name="Tree" path="/context/other_context[at0001]"/>
-        <Rule max="1" min="1" name="Kategorie" path="/context/other_context[at0001]/items[at0005]">
+        <Rule max="1" min="1" name="Category" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
             </constraint>
         </Rule>
-        <Rule clone="true" min="1" name="Kategorie (LOINC)" path="/context/other_context[at0001]/items[at0005]">
+        <Rule clone="true" min="1" name="Category" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>http://loinc.org::26436-6::Laboratory studies (set)</includedValues>
             </constraint>
@@ -366,7 +373,7 @@ Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8BD8D5F850A9DEE8A16075105D36FD32</digest>
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"

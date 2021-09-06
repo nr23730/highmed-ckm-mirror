@@ -26,14 +26,21 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>Das Template dient dazu einen serologischen Befund strukturiert abzubilden. </purpose>
+            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
             <keywords>
-                <item>Serologischer Befund; Antibodies; Antikörper</item>
+                <item>COVID-19</item>
+                <item>GECCO</item>
+                <item>SARS-CoV-2</item>
+                <item>Coronavirus</item>
+                <item>Virus</item>
+                <item>Research purposes</item>
+                <item>Registry</item>
+                <item>Registry entry</item>
             </keywords>
-            <use>Für die Abbildung eines serologischen Befundes.</use>
-            <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.
-Nicht zur Repräsentation von mikrobiologischen Befunden.
-Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misuse>
+            <use>Use to represent research data from the GECCO datasets. &#xd;
+&#xd;
+For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
+</use>
         </details>
         <other_details>
             <item>
@@ -86,19 +93,27 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>ce8fe1711575bef21b7ef507e0299634</value>
+                <value>a7bc102367f73488045adbc7dbfe298b</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>8BD8D5F850A9DEE8A16075105D36FD32</value>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
             <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
                 <key>original_language</key>
-                <value>ISO_639-1::de</value>
+                <value>ISO_639-1::en</value>
             </item>
         </other_details>
     </description>
@@ -236,12 +251,12 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="GECCO_Serologischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            concept_name="Laborergebnis" name="Befund" path="/content" xsi:type="tem:OBSERVATION">
+            concept_name="Laboratory test result" max="1" min="1"
+            name="Befund" path="/content" xsi:type="tem:OBSERVATION">
             <Rule min="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
@@ -299,8 +314,8 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    concept_name="Laboranalyt-Ergebnis" max="1" min="1"
-                    name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
+                    concept_name="Laboratory analyte result" max="1"
+                    min="1" name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule min="1" name="Virusnachweistest" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
@@ -348,15 +363,14 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
                 </Items>
             </Items>
         </Content>
-        <Rule name="Tree" path="/context/other_context[at0001]"/>
-        <Rule name="Kategorie" path="/context/other_context[at0001]/items[at0005]">
+        <Rule name="Category" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
             </constraint>
         </Rule>
-        <Rule clone="true" min="1" name="Kategorie (LOINC)" path="/context/other_context[at0001]/items[at0005]">
+        <Rule clone="true" min="1" name="Category" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
-                <includedValues>http://loinc.org::26436-6::Laboratory studies (set)</includedValues>
+                <includedValues>LOINC::26436-6::Laboratory studies (set)</includedValues>
             </constraint>
         </Rule>
     </definition>
@@ -376,13 +390,13 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8BD8D5F850A9DEE8A16075105D36FD32</digest>
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4694A2E191E014CC4D0AC9B43628F6ED</digest>
+        <digest id="MD5-CAM-1.0.1">6FF739561BD390420231096ACAD27FC3</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0"
@@ -394,6 +408,6 @@ Nicht zur Repräsentation von virologischen Befunden (PCR, Antigen, ...).</misus
         archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">967D00C9F1E461171847529D4FDA100A</digest>
+        <digest id="MD5-CAM-1.0.1">E28EA9DF04A9E77EB5A1E3E63A0E78D6</digest>
     </integrity_checks>
 </template>
