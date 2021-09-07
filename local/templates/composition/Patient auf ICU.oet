@@ -22,21 +22,16 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
+            <purpose>Zur Repräsentation, ob Patienten auf der Intensivstation behandelt werden/wurden; im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
-                <item>COVID-19</item>
+                <item>Patient in ICU</item>
+                <item>Intensivstation</item>
                 <item>GECCO</item>
-                <item>SARS-CoV-2</item>
-                <item>Coronavirus</item>
-                <item>Virus</item>
-                <item>Research purposes</item>
-                <item>Registry</item>
-                <item>Registry entry</item>
+                <item>NUM</item>
+                <item>FoDaPl</item>
             </keywords>
-            <use>Use to represent research data from the GECCO datasets. &#xd;
-&#xd;
-For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
-</use>
+            <use>Für die Abbildung der Information, ob Patienten auf der Intensivstation behandelt werden/wurden; für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+            <misuse>Nicht zur Repräsentation für einen spezifischen Krankenhausaufenthalt (mit Zeitangaben) eines Patienten verwenden. Bitte den ADMIN_ENTRY.hospitalization nutzen oder das Template Patientensaufenthalt.</misuse>
         </details>
         <other_details>
             <item>
@@ -89,7 +84,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>961a265547fc2eddb38a035067785719</value>
+                <value>b55516cf9986949c3c9fc6b7564fb002</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -105,17 +100,27 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-OBSERVATION.management_screening.v0]">
+        <items>
+            <item>
+                <key>95420-6</key>
+                <value>Whether the patient was admitted to intensive care unit (ICU) for condition of interest</value>
+            </item>
+        </items>
+    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag"
+        name="Patient auf der Intensivstation"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.management_screening.v0"
-            concept_name="Management/treatment screening questionnaire"
+            concept_name="Screening-Fragebogen zu Management/Behandlung"
             max="1" min="1" name="Patient auf der Intensivstation"
             path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
@@ -127,7 +132,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
                     <includedValues>Behandlung auf der Intensivstation</includedValues>
                 </constraint>
             </Rule>
-            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]">
+            <Rule min="1" name="Wird/Wurde die Aktivität durchgeführt?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED Clinical Terms::373066001::Yes (qualifier value)</includedValues>
                     <includedValues>SNOMED Clinical Terms::373067005::No (qualifier value)</includedValues>
@@ -142,6 +147,13 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
         <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-OBSERVATION.management_screening.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+    </view>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
         xmlns:tem="openEHR/v1/Template"

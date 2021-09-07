@@ -22,21 +22,16 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
+            <purpose>Zur Repräsentation von Kontaktpatienten die mit erkankten COVID-19 Personen in Kontakt kamen im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
+                <item>Kontaktperson</item>
                 <item>COVID-19</item>
                 <item>GECCO</item>
-                <item>SARS-CoV-2</item>
-                <item>Coronavirus</item>
-                <item>Virus</item>
-                <item>Research purposes</item>
-                <item>Registry</item>
-                <item>Registry entry</item>
+                <item>NUM</item>
+                <item>FoDaPl</item>
             </keywords>
-            <use>Use to represent research data from the GECCO datasets. &#xd;
-&#xd;
-For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
-</use>
+            <use>Für die Abbildung der/die PatientIn in den letzten 14 Tagen vor Beginn seiner/ihrer Beschwerden wissentlich Kontakt mit einer wahrscheinlich oder nachgewiesenermaßen an COVID-19 erkrankten Person hatten für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+            <misuse>Nicht zur Repräsentation von anderen Kontaktdaten einer Person verwenden.</misuse>
         </details>
         <other_details>
             <item>
@@ -89,7 +84,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>1143279f27070488ec043db4324b02de</value>
+                <value>96be9619717d4891e860653e08496f60</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -109,24 +104,33 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]">
+        <items>
+            <item>
+                <key>LOINC</key>
+                <value>88636-6</value>
+            </item>
+        </items>
+    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag" name="SARS-CoV-2 Exposition"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-EVALUATION.infectious_exposure.v0"
-            concept_name="Infectious exposure investigation" max="1"
-            min="1" name="Kontaktperson" path="/content" xsi:type="tem:EVALUATION">
+            concept_name="Ermittlung der infektiösen Exposition" max="1"
+            min="1" name="SARS-CoV-2 Exposition" path="/content" xsi:type="tem:EVALUATION">
             <Rule min="1" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SARS-CoV-2</includedValues>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/items[at0003]">
+            <Rule name="Exposition vorhanden?" path="/data[at0001]/items[at0003]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED-CT::840546002::Exposure to severe acute respiratory syndrome coronavirus 2 (event)</includedValues>
                     <includedValues>SNOMED-CT::373067005::No (qualifier value)</includedValues>

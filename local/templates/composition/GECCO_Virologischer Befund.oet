@@ -26,21 +26,20 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
+            <purpose>Das Template dient dazu einen virologischen PCR- oder Antigentest-Befund strukturiert abzubilden. </purpose>
             <keywords>
-                <item>COVID-19</item>
-                <item>GECCO</item>
+                <item>Virologischer Befund</item>
+                <item>PCR</item>
+                <item>Antigen</item>
                 <item>SARS-CoV-2</item>
-                <item>Coronavirus</item>
+                <item>Corona</item>
                 <item>Virus</item>
-                <item>Research purposes</item>
-                <item>Registry</item>
-                <item>Registry entry</item>
+                <item>Befund</item>
+                <item>Nachweis</item>
             </keywords>
-            <use>Use to represent research data from the GECCO datasets. &#xd;
-&#xd;
-For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
-</use>
+            <use>Für die Abbildung eines virologischen Befundes als PCR- oder Antigentest.</use>
+            <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.
+Nicht zur Repräsentation von mikrobiologischen Befunden.</misuse>
         </details>
         <other_details>
             <item>
@@ -93,7 +92,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>c728447ec05176c37706e0dfd3c670fb</value>
+                <value>1208049320777db8b0c739c18360f14b</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -113,7 +112,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
@@ -251,12 +250,13 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
     </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag" name="GECCO_Virologischer Befund"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            concept_name="Laboratory test result" max="1" min="1"
-            name="Befund" path="/content" xsi:type="tem:OBSERVATION">
+            concept_name="Laborergebnis" max="1" min="1" name="Befund"
+            path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
@@ -304,8 +304,8 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    concept_name="Laboratory analyte result" max="1"
-                    min="1" name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
+                    concept_name="Laboranalyt-Ergebnis" max="1" min="1"
+                    name="Pro Analyt" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule min="1" name="Virusnachweistest" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
@@ -346,12 +346,13 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
                 </Items>
             </Items>
         </Content>
-        <Rule max="1" min="1" name="Category" path="/context/other_context[at0001]/items[at0005]">
+        <Rule name="Tree" path="/context/other_context[at0001]"/>
+        <Rule max="1" min="1" name="Kategorie" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
             </constraint>
         </Rule>
-        <Rule clone="true" min="1" name="Category" path="/context/other_context[at0001]/items[at0005]">
+        <Rule clone="true" min="1" name="Kategorie (LOINC)" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>http://loinc.org::26436-6::Laboratory studies (set)</includedValues>
             </constraint>

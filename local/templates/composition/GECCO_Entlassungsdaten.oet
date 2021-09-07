@@ -22,21 +22,19 @@
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
         <details>
-            <purpose>To represent a register entry, which provides a structured collection of information from COVID-19 personal data.</purpose>
+            <purpose>Zur Repräsentation von Entlassungsdaten der Patienten im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes.</purpose>
             <keywords>
-                <item>COVID-19</item>
+                <item>Entlassungsdaten</item>
+                <item>Art der Entlassung</item>
+                <item>Outcome bei der Entlassung</item>
+                <item>Entlassung</item>
                 <item>GECCO</item>
-                <item>SARS-CoV-2</item>
-                <item>Coronavirus</item>
-                <item>Virus</item>
-                <item>Research purposes</item>
-                <item>Registry</item>
-                <item>Registry entry</item>
+                <item>NUM</item>
+                <item>FoDaPl</item>
+                <item>CODEX</item>
             </keywords>
-            <use>Use to represent research data from the GECCO datasets. &#xd;
-&#xd;
-For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/78899&#xd;
-</use>
+            <use>Für die Abbildung von Entlassungsdaten der Patienten für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+            <misuse>Nicht zur Repräsentation von Personendaten verwenden. Nicht für die Aufnahme des Patienten verwenden.</misuse>
         </details>
         <other_details>
             <item>
@@ -89,7 +87,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>888857f1b703c2a4e09e46485f7f2443</value>
+                <value>ccf06e9334307789253bd0cad5c9c2df</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -97,7 +95,7 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>1.0.0</value>
+                <value>2.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -105,26 +103,39 @@ For the status Value Set-&gt; https://simplifier.net/packages/hl7.fhir.r4.core/4
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.registereintrag.v1]/content[openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0]">
+        <items>
+            <item>
+                <key>444932008</key>
+                <value>Dependence on ventilator (finding)</value>
+            </item>
+            <item>
+                <key>55128-3</key>
+                <value>Discharge disposition</value>
+            </item>
+        </items>
+    </annotations>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag" name="Entlassungsdaten"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0"
-            concept_name="Discharge summary" max="1"
+            concept_name="Entlassungsdaten" max="1"
             name="Entlassungsart" path="/content" xsi:type="tem:ADMIN_ENTRY">
             <Rule min="1" path="/data[at0001]/items[at0040]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED-CT::261665006::Unknown (qualifier value)</includedValues>
-                    <includedValues>SNOMED-CT::32485007::Hospital admission (procedure)</includedValues>
-                    <includedValues>SNOMED-CT::419099009::Dead (finding)</includedValues>
-                    <includedValues>SNOMED-CT::371827001::Patient discharged alive (finding)</includedValues>
-                    <includedValues>SNOMED-CT::3457005::Patient referral (procedure)</includedValues>
-                    <includedValues>SNOMED-CT::306237005::Referral to palliative care service (procedure)</includedValues>
+                    <includedValues>SNOMED CT::261665006::Nicht bekannt</includedValues>
+                    <includedValues>SNOMED CT::32485007::Krankenhauseinweisung</includedValues>
+                    <includedValues>SNOMED CT::419099009::Tod</includedValues>
+                    <includedValues>SNOMED CT::371827001::Lebend entlassen</includedValues>
+                    <includedValues>SNOMED CT::3457005::Überweisung in eine andere Einrichtung</includedValues>
+                    <includedValues>SNOMED CT::306237005::Palliative Entlassung</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0002]"/>
