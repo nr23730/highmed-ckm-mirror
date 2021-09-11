@@ -26,15 +26,14 @@
         </other_contributors>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Zur Identifizierung und Risikoadjustierung von Personen in der Rolle als Patient oder Proband einer Studie.</purpose>
+            <purpose>Zur Identifizierung und Risikoadjustierung von Personen in der Rolle als Patient.</purpose>
             <keywords>
                 <item>Personendaten</item>
                 <item>Demographie</item>
                 <item>Patient</item>
-                <item>Proband</item>
                 <item>Identifikation</item>
             </keywords>
-            <use>Zur Repräsentation von Angaben zu einer Person, die im Kontext einer Gesundheitseinrichtung oder Studie relevant sein können.</use>
+            <use>Zur Repräsentation von Demografischen Daten und anderen administrativen Informationen zu einer Person, die im Kontext einer Gesundheitseinrichtung relevant sein können.</use>
         </details>
         <other_details>
             <item>
@@ -59,7 +58,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>32efb62de67b3e478d92f99ab1a80c19</value>
+                <value>48540683e8e5da3f75b8c205afe09917</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -68,6 +67,14 @@
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>6.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
             </item>
             <item>
                 <key>original_language</key>
@@ -80,8 +87,8 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
-            path="/content" xsi:type="tem:EVALUATION">
-            <Rule path="/data[at0002]/items[at0022]">
+            min="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule min="1" path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81193::male::male</includedValues>
                     <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81193::female::female</includedValues>
@@ -98,8 +105,13 @@
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
-            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
-            <Rule max="0" path="/data[at0001]/items[at0008]"/>
+            path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule max="0" path="/data[at0001]/items[at0008]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
                 max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
@@ -110,117 +122,130 @@
             <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
                 concept_name="Adresse" name="Adresse Straßenanschrift"
                 path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" name="Straße" path="/items[at0010]"/>
-                <Rule max="1" name="Straße" path="/items[at0011]"/>
-                <Rule clone="true" max="1" name="Hausnummer" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
-                concept_name="Adresse" name="Adresse Postfach"
-                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" name="Straße" path="/items[at0010]"/>
-                <Rule max="1" name="Postfachnummer" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-                path="/data[at0001]/items[at0007]" xsi:type="tem:CLUSTER">
-                <Rule name="Bezeichnung der Studie" path="/items[at0001]"/>
-                <Rule path="/items[at0005]">
+                <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::candidate::Candidate</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::eligible::Eligible</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::follow-up::Follow-up</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::ineligible::Ineligible</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::not-registered::Not Registered</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::off-study::Off-study</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::on-study::On-study</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::on-study-intervention::On-study-intervention</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::on-study-observation::On-study-observation</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::pending-on-study::Pending on-study</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::potential-candidate::Potential Candidate</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::screening::Screening</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80451/~overview::withdrawn::Withdrawn</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::home::Home</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::work::Work</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::temp::Temporary</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::old::Old / Incorrect</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::billing::Billing</includedValues>
                     </constraint>
                 </Rule>
-                <Rule min="1" name="Studien-Identifier" path="/items[at0016]"/>
-                <Rule min="1" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0014]"/>
+                <Rule min="1" path="/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://hl7.org/fhir/address-type::postal::Postal</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-type::physical::Physical</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-type::both::Postal &amp; Physical</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" name="Straße" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Hausnummer" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Adresszusatz" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Gemeindeschluessel" path="/items[at0011]"/>
+                <Rule min="1" path="/items[at0012]"/>
+                <Rule min="1" path="/items[at0014]"/>
+                <Rule min="1" path="/items[at0015]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
-                max="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
-                <Rule max="0" path="/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
-                <Rule max="0" path="/items[at0004]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
+                max="1" min="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0005]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+                concept_name="Personenname" min="1" name="Name"
                 path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0006]">
+                <Rule
+                    default="http://hl7.org/fhir/name-use::official::Official"
+                    min="1" path="/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0008</excludedValues>
-                        <excludedValues>local::at0009</excludedValues>
-                        <excludedValues>local::at0010</excludedValues>
-                        <excludedValues>local::at0011</excludedValues>
-                        <excludedValues>local::at0019</excludedValues>
-                        <excludedValues>local::at0021</excludedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::usual::Usual</includedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::official::Official</includedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::temp::Temp</includedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::nickname::Nickname</includedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::anonymous::Anonymous</includedValues>
+                        <includedValues>http://hl7.org/fhir/name-use::old::Old</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0022]"/>
                 <Rule min="1" path="/items[at0002]"/>
                 <Rule name="Präfix" path="/items[at0002]/items[at0017]"/>
+                <Rule name="Namenszusatz" path="/items[at0002]/items[at0018]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+                concept_name="Personenname" max="1" name="Geburtsname"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                <Rule
+                    default="http://hl7.org/fhir/name-use::maiden::Name changed for Marriage"
+                    min="1" path="/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://hl7.org/fhir/name-use::maiden::Name changed for Marriage</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule name="Präfix" path="/items[at0002]/items[at0017]"/>
                 <Rule max="0" path="/items[at0002]/items[at0004]"/>
-                <Rule name="Zusatz Nachname" path="/items[at0002]/items[at0018]"/>
-                <Rule max="0" path="/items[at0014]"/>
+                <Rule name="Namenszusatz" path="/items[at0002]/items[at0018]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+                concept_name="Adresse" max="1" name="Adresse Postfach"
+                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://hl7.org/fhir/address-use::home::Home</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::work::Work</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::temp::Temporary</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::old::Old / Incorrect</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-use::billing::Billing</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule
+                    default="http://hl7.org/fhir/address-type::postal::Postal"
+                    min="1" path="/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://hl7.org/fhir/address-type::postal::Postal</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-type::physical::Physical</includedValues>
+                        <includedValues>http://hl7.org/fhir/address-type::both::Postal &amp; Physical</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" name="Straße" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Hausnummer" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Adresszusatz" path="/items[at0011]"/>
+                <Rule clone="true" max="1" name="Gemeindeschluessel" path="/items[at0011]"/>
+                <Rule min="1" path="/items[at0012]"/>
+                <Rule min="1" path="/items[at0014]"/>
+                <Rule min="1" path="/items[at0015]">
+                    <constraint xsi:type="tem:textConstraint"/>
+                </Rule>
             </Items>
         </Content>
         <Content
             archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
-            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
-            <Rule min="1" path="/data[at0001]/items[at0006]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Boolean</includedTypes>
-                    <includedTypes>Identifier</includedTypes>
-                    <includedTypes>MultiMedia</includedTypes>
-                    <includedTypes>Quantity</includedTypes>
-                    <includedTypes>Count</includedTypes>
-                    <includedTypes>Date_Time</includedTypes>
-                    <includedTypes>Date</includedTypes>
-                    <includedTypes>Time</includedTypes>
-                    <includedTypes>Duration</includedTypes>
-                    <includedTypes>Ordinal</includedTypes>
-                    <includedTypes>Proportion</includedTypes>
-                    <includedTypes>URI</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Parsable</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>URI</includedTypes>
+            path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule min="1" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::GKV::Gesetzliche Krankenversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::PKV::Private Krankenversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::ZANR::Zahnarztnummer</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::KZVA::KZVAbrechnungsnummer</includedValues>
                 </constraint>
             </Rule>
+            <Rule min="1" path="/data[at0001]/items[at0006]"/>
+            <Rule min="1" path="/data[at0001]/items[at0010]"/>
         </Content>
-        <Rule max="0" path="/context/other_context[at0003]/items[at0004]"/>
     </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.personendaten.v0]/content[openEHR-EHR-ADMIN_ENTRY.person_data.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.person_birth_data_iso.v0]/items[at0001]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+    </view>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.personendaten.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -230,7 +255,7 @@
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">EF681A049575CDCED3F513DFE65343E9</digest>
+        <digest id="MD5-CAM-1.0.1">111A027E41E44BD9B3C9C014DB55D3FF</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
@@ -248,12 +273,6 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">A1E749397595691665BCF829DA0B049C</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
