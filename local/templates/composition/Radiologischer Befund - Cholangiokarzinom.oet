@@ -33,7 +33,7 @@
             <keywords>
                 <item>Radiologischer Befund</item>
                 <item>Report</item>
-                <item>Pankreaskarzinom</item>
+                <item>Cholangiokarzinom</item>
                 <item>HiGHmed</item>
                 <item>UseCase Onkologie</item>
                 <item>Tumorbildgebung</item>
@@ -45,7 +45,7 @@
                 <item>CT</item>
                 <item>MRT</item>
             </keywords>
-            <use>Wird verwendet, um radiologische Befunde von CT und MRT bei Patienten mit Pankreaskarzinom zu berichten.</use>
+            <use>Wird verwendet, um radiologische Befunde von CT und MRT bei Patienten mit Cholangiokarzinom zu berichten.</use>
             <misuse>Nicht zur Repräsentation der klinischen Veränderungen einer Krankheit verwenden.</misuse>
         </details>
         <other_details>
@@ -71,7 +71,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>9fe3b79c66bd2d4f2cb97d56434c41c4</value>
+                <value>ff968485a688a84686f7f2a048328416</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -87,7 +87,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>11.0.1</value>
+                <value>12.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -765,7 +765,7 @@
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
-            <Rule name="Zeitpunkt der Bildgebung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
             <Rule name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0061]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Initialbefund</includedValues>
@@ -801,9 +801,9 @@
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0027]"/>
-            <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0031]"/>
-            <Rule name="DICOM Studienkennzeichen" path="/protocol[at0025]/items[at0036]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0033]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0031]"/>
+            <Rule max="0" name="DICOM Studienkennzeichen" path="/protocol[at0025]/items[at0036]"/>
+            <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0033]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0049]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0062]"/>
             <Rule max="0" path="/protocol[at0025]/items[at0064]"/>
@@ -1269,6 +1269,42 @@
                 </Rule>
                 <Rule max="0" path="/items[at0015]"/>
             </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
+                path="/protocol[at0025]/items[at0046]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule name="DICOM series instance UID (Serien Kennung)" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0006]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>MultiMedia</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Count</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Date</includedTypes>
+                        <includedTypes>Time</includedTypes>
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Ordinal</includedTypes>
+                        <includedTypes>Scale</includedTypes>
+                        <includedTypes>Proportion</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Parsable</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
             concept_name="Problemliste" max="1"
@@ -1689,6 +1725,26 @@
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0012]"/>
+                <Rule
+                    name="DICOM study instance UID (Studienkennzeichen)" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0014]"/>
+                <Rule max="0" path="/items[at0015]"/>
+                <Rule name="Zeitpunkt der Bildgebung" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+                <Rule max="0" path="/items[at0018]"/>
+                <Rule max="0" path="/items[at0019]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
         </Context>
         <Rule path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
@@ -1708,6 +1764,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">42CC6E70E9D553E54A5AB1C125E3CB8F</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
@@ -1738,6 +1800,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">70EED11E6F50DAAF132C16A972D9FF87</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">0922E67FDE328CED700434433DFE6B3A</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"

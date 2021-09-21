@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>c79d4626-0610-422d-af93-3760992ccb49</id>
-    <name>Radiologischer Befund - Pankreaskarzinom, Cholangiokarzinom</name>
+    <name>Radiologischer Befund - Pankreaskarzinom</name>
     <description>
         <original_author>
             <item>
@@ -34,7 +34,6 @@
                 <item>Radiologischer Befund</item>
                 <item>Report</item>
                 <item>Pankreaskarzinom</item>
-                <item>Cholangiokarzinom</item>
                 <item>HiGHmed</item>
                 <item>UseCase Onkologie</item>
                 <item>Tumorbildgebung</item>
@@ -45,10 +44,8 @@
                 <item>Bildgebende Diagnostik</item>
                 <item>CT</item>
                 <item>MRT</item>
-                <item>cholangiozelluläres Karzinom</item>
-                <item>CCC</item>
             </keywords>
-            <use>Wird verwendet, um radiologische Befunde von CT und MRT bei Patienten mit Pankreaskarzinom oder Cholangiokarzinom zu berichten.</use>
+            <use>Wird verwendet, um radiologische Befunde von CT und MRT bei Patienten mit Pankreaskarzinom zu berichten.</use>
             <misuse>Nicht zur Repräsentation der klinischen Veränderungen einer Krankheit verwenden.</misuse>
         </details>
         <other_details>
@@ -74,7 +71,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>a09ab3b3686b9846e3534dd84a1d5339</value>
+                <value>0c189da45d9ceccfdeba08e21bffbbdf</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -90,7 +87,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>5.0.0</value>
+                <value>12.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -748,16 +745,16 @@
     </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht"
-        name="Radiologischer Befund - Pankreaskarzinom, Cholangiokarzinom"
+        name="Radiologischer Befund - Pankreaskarzinom"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
-            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+            <Rule default="Pankreasuntersuchung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Terminologie?</includedValues>
+                    <includedValues>Pankreasuntersuchung</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
@@ -766,16 +763,10 @@
                     <includedValues>MR</includedValues>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Abdomen -  Pankreas</includedValues>
-                    <includedValues>Abdomen -  Gallengang</includedValues>
-                    <includedValues>Abdomen - Oberbauch</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0055]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
-            <Rule name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]">
+            <Rule name="Behandlungssituation" path="/data[at0001]/events[at0002]/data[at0003]/items[at0061]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Initialbefund</includedValues>
                     <includedValues>Nach Neoadjuvanz</includedValues>
@@ -784,6 +775,7 @@
                     <includedValues>Verlaufskontrolle ohne Therapie</includedValues>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]"/>
             <Rule name="Befundtext" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]"/>
             <Rule name="Verlaufsbeurteilung Gesamtbefund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0056]">
                 <constraint xsi:type="tem:textConstraint">
@@ -795,57 +787,37 @@
                     <includedValues>Nicht zutreffend (Initialbefund)</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Schlussfolgerung/Beurteilung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0049]"/>
-            <Rule name="Diagnostische Qualität" path="/protocol[at0025]/items[at0057]">
+            <Rule name="Diagnostische Qualität" path="/data[at0001]/events[at0002]/data[at0003]/items[at0063]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Qualität ausreichend</includedValues>
                     <includedValues>Qualität eingeschränkt</includedValues>
                     <includedValues>nicht diagnostisch</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="1" name="Details zur Bildstudie (DICOM Studie)" path="/protocol[at0025]/items[at0027]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0028]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0029]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0031]"/>
-            <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0027]/items[at0033]"/>
-            <Rule name="Details zur Bildserie (DICOM Serie)" path="/protocol[at0025]/items[at0027]/items[at0034]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0035]"/>
-            <Rule max="0" name="Phase / Gewichtung" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0037]">
-                <constraint limitToList="false" xsi:type="tem:textConstraint">
-                    <includedValues>Native Phase</includedValues>
-                    <includedValues>Spätarterielle Phase</includedValues>
-                    <includedValues>Venöse Phase</includedValues>
-                    <includedValues>Spätvenöse Phase</includedValues>
-                    <includedValues>T1 mit chemical Shift Imaging (in-opp-Phase /Dixon)</includedValues>
-                    <includedValues>T1 GRE fettsupprimiert nativ axial</includedValues>
-                    <includedValues>T1 GRE fettsupprimiert spätarteriell axial</includedValues>
-                    <includedValues>T1 GRE fettsupprimiert venös axial</includedValues>
-                    <includedValues>T1 GRE fettsupprimiert spätvenös axial</includedValues>
-                    <includedValues>T1 GRE fettsupprimiert hepatobiliär axial</includedValues>
-                    <includedValues>T2 axial</includedValues>
-                    <includedValues>T2 koronar</includedValues>
-                    <includedValues>Diffusionswichtung b=0-100 s/mm2</includedValues>
-                    <includedValues>Diffusionswichtung b=500-1000 s/mm2</includedValues>
-                </constraint>
-            </Rule>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0038]"/>
-            <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0034]/items[at0040]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0027]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0031]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0036]"/>
+            <Rule name="Maßnahmen-ID" path="/protocol[at0025]/items[at0033]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0049]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0062]"/>
+            <Rule max="0" path="/protocol[at0025]/items[at0064]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
-                concept_name="Bildgebender Befund" name="Primärtumor"
+                concept_name="Bildgebender Befund" max="1"
+                name="Primärtumor"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0024]">
+                <Rule default="Primärtumor" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Primärtumor</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0033]"/>
-                <Rule max="1" path="/items[at0001]"/>
+                <Rule max="1" name="Primärtumor vorhanden?" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0028]"/>
                 <Rule max="0" path="/items[at0029]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -858,23 +830,15 @@
                     archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
                     concept_name="Anatomische Lokalisation" max="1"
                     name="Tumorlokalisation" path="/items[at0034]" xsi:type="tem:CLUSTER">
-                    <Rule name="Organ" path="/items[at0001]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Pankreas</includedValues>
-                            <includedValues>Gallengang</includedValues>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Tumorlokalisation" path="/items[at0065]">
+                    <Rule name="Tumorlokalisation" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Pankreaskopf</includedValues>
                             <includedValues>Proc. uncinatus</includedValues>
                             <includedValues>Pankreaskorpus</includedValues>
                             <includedValues>Pankreasschwanz</includedValues>
-                            <includedValues>CC - Intrahepatisch (mit Angabe des/der Lebersegment(e))</includedValues>
-                            <includedValues>CC - Perihilär</includedValues>
-                            <includedValues>CC - Distal</includedValues>
                         </constraint>
                     </Rule>
+                    <Rule max="0" path="/items[at0065]"/>
                     <Rule max="0" path="/items[at0002]"/>
                     <Rule max="0" path="/items[at0064]">
                         <constraint xsi:type="tem:multipleConstraint">
@@ -888,34 +852,13 @@
                             <includedTypes>Text</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule name="Angabe des/der Lebersegment(e) (für CC)" path="/items[at0023]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
-                            <includedValues>nicht anwendbar</includedValues>
-                            <includedValues>Lebersegment 1</includedValues>
-                            <includedValues>Lebersegment 2</includedValues>
-                            <includedValues>Lebersegment 3</includedValues>
-                            <includedValues>Lebersegment 4</includedValues>
-                            <includedValues>Lebersegment 4a</includedValues>
-                            <includedValues>Lebersegment 4b</includedValues>
-                            <includedValues>Lebersegment 4a/b</includedValues>
-                            <includedValues>Lebersegment 5</includedValues>
-                            <includedValues>Lebersegment 6</includedValues>
-                            <includedValues>Lebersegment 7</includedValues>
-                            <includedValues>Lebersegment 8</includedValues>
-                            <includedValues>Lebersegmente 2/3</includedValues>
-                            <includedValues>Lebersegmente 7/6</includedValues>
-                            <includedValues>Lebersegmente 8/5</includedValues>
-                            <includedValues>Lebersegmente 2/4a</includedValues>
-                            <includedValues>Lebersegmente 3/4b</includedValues>
-                        </constraint>
-                    </Rule>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
                     concept_name="Bildgebender Befund" max="1"
                     name="Gefäßkontakt TC (truncus coeliacus)"
                     path="/items[at0014]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0024]">
+                    <Rule default="Gefäßkontakt TC (truncus coeliacus)" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Gefäßkontakt TC (truncus coeliacus)</includedValues>
                         </constraint>
@@ -926,7 +869,7 @@
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>local_terms::1::Kein Kontakt</includedValues>
                             <includedValues>local_terms::2::Kontakt ≤ 180°</includedValues>
-                            <includedValues>local_terms::3::Kontakt &gt; 180° (Angabe nur bei perihilären oder distalen Cholangiokarzinomen oder Pankreas-CA)</includedValues>
+                            <includedValues>local_terms::3::Kontakt &gt; 180°</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0029]">
@@ -942,7 +885,7 @@
                     concept_name="Bildgebender Befund" max="1"
                     name="Gefäßkontakt LA (Leberarterie)"
                     path="/items[at0014]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0024]">
+                    <Rule default="Gefäßkontakt LA (Leberarterie)" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Gefäßkontakt LA (Leberarterie)</includedValues>
                         </constraint>
@@ -953,7 +896,7 @@
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>local_terms::1::Kein Kontakt</includedValues>
                             <includedValues>local_terms::2::Kontakt ≤ 180°</includedValues>
-                            <includedValues>local_terms::3::Kontakt &gt; 180° (Angabe nur bei perihilären oder distalen Cholangiokarzinomen oder Pankreas-CA)</includedValues>
+                            <includedValues>local_terms::3::Kontakt &gt; 180°</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0029]">
@@ -969,7 +912,8 @@
                     concept_name="Bildgebender Befund" max="1"
                     name="Gefäßkontakt AMS (Arteria mesenterica superior)"
                     path="/items[at0014]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0024]">
+                    <Rule
+                        default="Gefäßkontakt AMS (Arteria mesenterica superior)" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Gefäßkontakt AMS (Arteria mesenterica superior)</includedValues>
                         </constraint>
@@ -981,7 +925,7 @@
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>local_terms::1::Kein Kontakt</includedValues>
                             <includedValues>local_terms::2::Kontakt ≤ 180°</includedValues>
-                            <includedValues>local_terms::3::Kontakt &gt; 180° (Angabe nur bei perihilären oder distalen Cholangiokarzinomen oder Pankreas-CA)</includedValues>
+                            <includedValues>local_terms::3::Kontakt &gt; 180°</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0029]">
@@ -997,7 +941,8 @@
                     concept_name="Bildgebender Befund" max="1"
                     name="Gefäßkontakt VMS (Vena mesenterica superia)"
                     path="/items[at0014]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0024]">
+                    <Rule
+                        default="Gefäßkontakt VMS (Vena mesenterica superia)" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Gefäßkontakt VMS (Vena mesenterica superia)</includedValues>
                         </constraint>
@@ -1009,7 +954,7 @@
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>local_terms::1::Kein Kontakt</includedValues>
                             <includedValues>local_terms::2::Kontakt ≤ 180°</includedValues>
-                            <includedValues>local_terms::3::Kontakt &gt; 180° (Angabe nur bei perihilären oder distalen Cholangiokarzinomen oder Pankreas-CA)</includedValues>
+                            <includedValues>local_terms::3::Kontakt &gt; 180°</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0029]">
@@ -1025,7 +970,7 @@
                     concept_name="Bildgebender Befund" max="1"
                     name="Gefäßkontakt PA (inkl. PA-Thrombose)"
                     path="/items[at0014]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0024]">
+                    <Rule default="Gefäßkontakt PA (inkl. PA-Thrombose)" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Gefäßkontakt PA (inkl. PA-Thrombose)</includedValues>
                         </constraint>
@@ -1036,7 +981,7 @@
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>local_terms::1::Kein Kontakt</includedValues>
                             <includedValues>local_terms::2::Kontakt ≤ 180°</includedValues>
-                            <includedValues>local_terms::3::Kontakt &gt; 180° (Angabe nur bei perihilären oder distalen Cholangiokarzinomen oder Pankreas-CA)</includedValues>
+                            <includedValues>local_terms::3::Kontakt &gt; 180°</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0029]">
@@ -1052,7 +997,7 @@
                 concept_name="Bildgebender Befund" max="1"
                 name="Pfortaderthrombose"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0024]">
+                <Rule default="Pfortaderthrombose" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Pfortaderthrombose</includedValues>
                     </constraint>
@@ -1093,7 +1038,7 @@
                 concept_name="Bildgebender Befund" max="1"
                 name="Lokalrezediv"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0024]">
+                <Rule default="Lokalrezediv" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Lokalrezediv</includedValues>
                     </constraint>
@@ -1113,7 +1058,7 @@
                 concept_name="Bildgebender Befund" max="1"
                 name="Fernmetastasen"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0024]">
+                <Rule default="Fernmetastasen" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Fernmetastasen</includedValues>
                     </constraint>
@@ -1170,9 +1115,29 @@
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
                 concept_name="Bildgebendes Verfahren" max="1"
+                name="Kontrastmittel"
+                path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
+                <Rule default="Kontrastmittel" max="1"
+                    name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Kontrastmittel</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" name="KM Angewendete Parameter" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>nativ</includedValues>
+                        <includedValues>extrazelluläres KM</includedValues>
+                        <includedValues>intrazelluläres KM</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="KM Kommentar" path="/items[at0015]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
+                concept_name="Bildgebendes Verfahren" max="1"
                 name="CT Bildgebendes Verfahren"
                 path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule max="1"
+                <Rule default="CT" max="1"
                     name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>CT</includedValues>
@@ -1207,29 +1172,9 @@
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
                 concept_name="Bildgebendes Verfahren" max="1"
-                name="Kontrastmittel"
-                path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule default="Kontrastmittel" max="1"
-                    name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Kontrastmittel</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="1" name="KM Angewendete Parameter" path="/items[at0014]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>nativ</includedValues>
-                        <includedValues>extrazelluläres KM</includedValues>
-                        <includedValues>intrazelluläres KM</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule name="KM Kommentar" path="/items[at0015]"/>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
-                concept_name="Bildgebendes Verfahren" max="1"
                 name="MR Verfahren"
                 path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule max="1"
+                <Rule default="MR" max="1"
                     name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>MR</includedValues>
@@ -1305,6 +1250,42 @@
                 </Rule>
                 <Rule max="0" path="/items[at0015]"/>
             </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
+                path="/protocol[at0025]/items[at0046]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule name="DICOM series instance UID (Serien Kennung)" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0006]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>MultiMedia</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Count</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Date</includedTypes>
+                        <includedTypes>Time</includedTypes>
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Ordinal</includedTypes>
+                        <includedTypes>Scale</includedTypes>
+                        <includedTypes>Proportion</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Parsable</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
             concept_name="Problemliste" max="1"
@@ -1325,6 +1306,7 @@
                         <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
                 <Rule max="0" name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
                 <Rule max="0" path="/data[at0001]/items[at0003]"/>
                 <Rule max="0" path="/data[at0001]/items[at0005]">
@@ -1724,6 +1706,26 @@
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0012]"/>
+                <Rule
+                    name="DICOM study instance UID (Studienkennzeichen)" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0014]"/>
+                <Rule max="0" path="/items[at0015]"/>
+                <Rule name="Zeitpunkt der Bildgebung" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+                <Rule max="0" path="/items[at0018]"/>
+                <Rule max="0" path="/items[at0019]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
         </Context>
         <Rule path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
@@ -1745,10 +1747,16 @@
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
     <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">42CC6E70E9D553E54A5AB1C125E3CB8F</digest>
+    </integrity_checks>
+    <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">847AC71CC14B84C9B8301B05BB371A38</digest>
+        <digest id="MD5-CAM-1.0.1">782580C6189339D6E702D47D2B58B0B1</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
@@ -1774,6 +1782,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">70EED11E6F50DAAF132C16A972D9FF87</digest>
     </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">0922E67FDE328CED700434433DFE6B3A</digest>
+    </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
@@ -1783,7 +1797,7 @@
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+        <digest id="MD5-CAM-1.0.1">86372236E61A02A1C3905BA9033C255F</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
         xmlns:tem="openEHR/v1/Template"
