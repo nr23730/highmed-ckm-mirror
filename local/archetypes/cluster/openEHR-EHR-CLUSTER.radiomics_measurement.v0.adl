@@ -16,7 +16,7 @@ description
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the results of a radiomics measurement. This contains information about the radiomics measurements used, the extracted radiomics features as well as their values. Additional metadata are recored for the radiomics pipeline.">
-			use = <"Use to record the representation of a radiomic feature and its measurement.">
+			use = <"Use to record the representation of a radiomic feature and its measurement. The archetype is intended to be used in the \"content\" slot of an openEHR-EHR-COMPOSITION.report.v1 archetype.">
 			keywords = <"Radiology, Imaging, Derived imaging, Diagnosis, Imaging diagnostics, Quantitative Imaging, Radiology", ...>
 			misuse = <"Not to be used to describe features in radiological images created by interpretation by human experts.">
 			copyright = <"© HiGHmed">
@@ -27,12 +27,12 @@ description
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"NEMA PS3 / ISO 12052, Digital Imaging and Communications in Medicine (DICOM) Standard, National Electrical Manufacturers Association, Rosslyn, VA, USA (available free at http://medical.nema.org/)">
+		["references"] = <"">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"71C6E3B89B3808ADD20F51E1D88D81E6">
-		["build_uid"] = <"fac5beca-4236-4025-9aa7-e6ee0a212ab7">
+		["MD5-CAM-1.0.1"] = <"ECDF7FDF9E7E41BBE315FDED99D882B8">
+		["build_uid"] = <"31632d46-c2b5-4dd6-8768-04f88ba538a9">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -59,29 +59,9 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			CLUSTER[at0001] occurrences matches {0..1} matches {    -- Measurement method
-				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Measurement method UID
-						value matches {
-							DV_IDENTIFIER matches {*}
-						}
-					}
-					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Name
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0040] occurrences matches {0..1} matches {    -- Organization
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0041] occurrences matches {0..1} matches {    -- Version
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-				}
+			allow_archetype CLUSTER[at0051] occurrences matches {0..*} matches {    -- Measurement method
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_measurement_method\.v0/}
 			}
 			CLUSTER[at0003] occurrences matches {0..*} matches {    -- Feature
 				items cardinality matches {1..*; unordered} matches {
@@ -90,39 +70,14 @@ definition
 							DV_IDENTIFIER matches {*}
 						}
 					}
-					ELEMENT[at0042] occurrences matches {0..1} matches {    -- Value
+					ELEMENT[at0042] occurrences matches {0..1} matches {    -- Feature value
 						value matches {
 							DV_COUNT matches {*}
 						}
 					}
-					CLUSTER[at0004] occurrences matches {0..1} matches {    -- Feature type
-						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0035] occurrences matches {0..1} matches {    -- Feature type UID
-								value matches {
-									DV_IDENTIFIER matches {*}
-								}
-							}
-							ELEMENT[at0043] occurrences matches {0..1} matches {    -- Unit
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0044] occurrences matches {0..1} matches {    -- Version
-								value matches {
-									DV_COUNT matches {*}
-								}
-							}
-							ELEMENT[at0045] occurrences matches {0..1} matches {    -- Name
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0020] occurrences matches {0..1} matches {    -- Type
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-						}
+					allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {    -- Feature type
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_feature_type\.v0/}
 					}
 					CLUSTER[at0006] occurrences matches {0..*} matches {    -- Feature parameter
 						items cardinality matches {1..*; unordered} matches {
@@ -131,29 +86,14 @@ definition
 									DV_IDENTIFIER matches {*}
 								}
 							}
-							ELEMENT[at0046] occurrences matches {0..1} matches {    -- Value
+							ELEMENT[at0046] occurrences matches {0..1} matches {    -- Feature parameter value
 								value matches {
 									DV_COUNT matches {*}
 								}
 							}
-							CLUSTER[at0007] occurrences matches {0..1} matches {    -- Feature parameter type
-								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0022] occurrences matches {0..1} matches {    -- Feature parameter type UID
-										value matches {
-											DV_IDENTIFIER matches {*}
-										}
-									}
-									ELEMENT[at0047] occurrences matches {0..1} matches {    -- Name
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0048] occurrences matches {0..1} matches {    -- Description
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-								}
+							allow_archetype CLUSTER[at0050] occurrences matches {0..*} matches {    -- Feature parameter type
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_feature_parameter_type\.v0/}
 							}
 						}
 					}
@@ -169,27 +109,15 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Radiomics measurement">
-					description = <"A radiomics measurement consists of the radiomics measurement itself and a radiomics feature that represents the result of the radiomics measurement. The radiomics measurement contains the information on which radiological image and segmentation it was created. It also contains information about the date and time when the measurement was performed and which parameters were used. A radiomics measurement can be assigned to a class.">
-				>
-				["at0001"] = <
-					text = <"Measurement method">
-					description = <"The Method used to extract a feature from a location on an image.">
+					description = <"A radiomics measurement consists of the radiomics measurement itself and a radiomics feature that represents the result of the radiomics measurement. The radiomics measurement contains the information on which radiological image and segmentation it was created. It also contains information about the date and time when the measurement was performed and which parameters were used. A radiomics measure can be classified with a feature type (e.g. morphologic features).">
 				>
 				["at0003"] = <
 					text = <"Feature">
 					description = <"The value(s) extracted by a measurement.">
 				>
-				["at0004"] = <
-					text = <"Feature type">
-					description = <"Specification of a feature entity in terms of name, unit and version of the feature specification.">
-				>
 				["at0006"] = <
 					text = <"Feature parameter">
-					description = <"Optional. Some feature can be parametrized. This is encoded here.">
-				>
-				["at0007"] = <
-					text = <"Feature parameter type">
-					description = <"Name and description of possible feature parameters.">
+					description = <"Some feature can be parametrized. This is encoded here.">
 				>
 				["at0009"] = <
 					text = <"Measurement UID">
@@ -203,75 +131,39 @@ ontology
 					text = <"Pipeline UID">
 					description = <"Reference to a radiomics pipeline and thus document the pre-processing steps (e.g. resampling, normalization, etc.).">
 				>
-				["at0013"] = <
-					text = <"Name">
-					description = <"Name of the measurement method.">
-				>
-				["at0020"] = <
-					text = <"Type">
-					description = <"Type of the feature type.">
-				>
-				["at0022"] = <
-					text = <"Feature parameter type UID">
-					description = <"Identifier of the feature parameter type.">
-				>
 				["at0025"] = <
 					text = <"Parameter">
 					description = <"String that specifies the parametrization of the execution used to calculate the current measurement.
 
 So this are e.g. all argument to (re) execute the same analysis of the referenced method for this particular measurement.">
 				>
-				["at0026"] = <
-					text = <"Measurement method UID">
-					description = <"Identifier for the measurement method.">
-				>
 				["at0029"] = <
 					text = <"Feature UID">
 					description = <"Identifer of the feature.">
-				>
-				["at0035"] = <
-					text = <"Feature type UID">
-					description = <"Identifier of the feature type.">
 				>
 				["at0037"] = <
 					text = <"Feature parameter UID">
 					description = <"Identifier of the feature type.">
 				>
-				["at0040"] = <
-					text = <"Organization">
-					description = <"Organization of the measurement method.">
-				>
-				["at0041"] = <
-					text = <"Version">
-					description = <"Version of the measurement method.">
-				>
 				["at0042"] = <
-					text = <"Value">
-					description = <"Value of the measurement.">
-				>
-				["at0043"] = <
-					text = <"Unit">
-					description = <"Unit of the feature type.">
-				>
-				["at0044"] = <
-					text = <"Version">
-					description = <"Version of the feature type.">
-				>
-				["at0045"] = <
-					text = <"Name">
-					description = <"Name of the feature type.">
+					text = <"Feature value">
+					description = <"Feature value extracted by the measurement.">
 				>
 				["at0046"] = <
-					text = <"Value">
+					text = <"Feature parameter value">
 					description = <"Value of the feature parameter.">
 				>
-				["at0047"] = <
-					text = <"Name">
-					description = <"Name of the feature parameter type.">
+				["at0049"] = <
+					text = <"Feature type">
+					description = <"">
 				>
-				["at0048"] = <
-					text = <"Description">
-					description = <"Narrative description of the feature parameter type.">
+				["at0050"] = <
+					text = <"Feature parameter type">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Measurement method">
+					description = <"">
 				>
 			>
 		>
