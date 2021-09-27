@@ -248,18 +248,28 @@
                     </Rule>
                 </Items>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
-                concept_name="Symptom/Krankheitsanzeichen" max="1"
+             <Items archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
+                concept_name="Symptom/Krankheitsanzeichen"
                 name="Nebenwirkungen"
                 path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0035]"/>
                 <Rule max="0" path="/items[at0151]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0175]"/>
                 <Rule max="0" path="/items[at0186]"/>
-                <Rule max="0" path="/items[at0152]"/>
+                <Rule max="0" path="/items[at0152]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0164]"/>
-                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0028]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0021]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -281,7 +291,13 @@
                 <Rule max="0" path="/items[at0180]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0018]"/>
-                <Rule max="0" path="/items[at0165]"/>
+                <Rule max="0" path="/items[at0165]">
+                    <nameConstraint>
+                        <includedValues>local::at0167</includedValues>
+                        <includedValues>local::at0168</includedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule max="0" path="/items[at0190]"/>
                 <Rule max="0" path="/items[at0155]"/>
                 <Rule max="0" path="/items[at0037]"/>
                 <Rule max="0" path="/items[at0161]"/>
@@ -307,7 +323,7 @@
                 name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
                 <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
                 <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
-                <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Links (L)</includedValues>
                         <includedValues>Rechts (R)</includedValues>
@@ -317,6 +333,7 @@
                         <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
                 <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
                 <Rule max="0" path="/data[at0001]/items[at0003]"/>
                 <Rule max="0" path="/data[at0001]/items[at0005]">
@@ -390,7 +407,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.radiotherapy.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">A27B61619059999CBBD89DAF90328E54</digest>
+        <digest id="MD5-CAM-1.0.1">A77777985FF52F6C62D1E26152194DF8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
@@ -401,7 +418,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">992D12C3AF99DEDDBD95FA1E47674412</digest>
+        <digest id="MD5-CAM-1.0.1">CA8101FC4DD8D2A4851F7194CACF2829</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.ctcae.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -417,7 +434,7 @@
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+        <digest id="MD5-CAM-1.0.1">86372236E61A02A1C3905BA9033C255F</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
         xmlns:tem="openEHR/v1/Template"
