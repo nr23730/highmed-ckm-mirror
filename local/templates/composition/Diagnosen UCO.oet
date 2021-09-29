@@ -88,7 +88,7 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>4cc12b4abad377e90b375a02f6f8a5c3</value>
+                <value>990746a019928fadc4e02f23d3b3bf96</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -104,7 +104,7 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>1.0.0</value>
+                <value>6.1.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -122,13 +122,13 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
             <Rule name="Relevante Nebenerkrankung (ICD-10)" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId
-                        queryName="CodeSystem/dimdi/icd-10-gm/null" terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
+                        queryName="CodeSystem/dimdi/icd-10-gm/CodeSystem/dimdi/icd-10-gm/CodeSystem/dimdi/icd-10-gm/CodeSystem/dimdi/icd-10-gm/null" terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
                 </constraint>
             </Rule>
             <Rule name="K√∂rperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId
-                        queryName="fhir/valueset-body-site.html/null" terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
+                        queryName="fhir/valueset-body-site.html/fhir/valueset-body-site.html/fhir/valueset-body-site.html/fhir/valueset-body-site.html/null" terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
                 </constraint>
             </Rule>
             <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
@@ -138,6 +138,7 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
                     <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
             <Rule max="0"
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
             <Rule min="1" name="Diagnosedatum" path="/data[at0001]/items[at0003]"/>
@@ -149,12 +150,13 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
                     <includedValues>Schweregrad::4::4</includedValues>
                 </constraint>
             </Rule>
-            <Rule clone="true" name="Schweregrad" path="/data[at0001]/items[at0005]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
+			<Rule path="/data[at0001]/items[at0005]">
+			<constraint xsi:type="tem:textConstraint">
+				<excludedValues>local::at0047</excludedValues>
+				<excludedValues>local::at0048</excludedValues>
+				<excludedValues>local::at0049</excludedValues>
+			</constraint>
+			</Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
             <Rule max="0"
                 name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
@@ -168,30 +170,13 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
             </Rule>
             <Rule name="Anmerkungen" path="/data[at0001]/items[at0069]"/>
             <Rule name="Letztes Dokumentationsdatum" path="/protocol[at0032]/items[at0070]"/>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-                max="0" path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
-                <Rule name="K√∂rperstelle" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0065]"/>
-                <Rule name="Seitenlokalisation" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0064]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0055]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0023]"/>
-            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.diabetes_typ.v1"
-                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+                concept_name="Diabetes Typ" max="1"
+                name="Falls Diabetes" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.etiology.v1"
-                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                concept_name="√Ñtiopathogenese" max="1"
+                name="Falls Lebererkrankung"
+                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                 <Rule name="Genese der chronischen Lebererkrankung" path="/items[at0001]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -238,13 +223,7 @@ Nicht zur Repr√§sentation des MII Kerndatensatzes Moduls Diagnosen verwenden. F√
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">62823A86BC1C2B02574125E21F5DECCB</digest>
+        <digest id="MD5-CAM-1.0.1">86372236E61A02A1C3905BA9033C255F</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.diabetes_typ.v1"
         xmlns:tem="openEHR/v1/Template"

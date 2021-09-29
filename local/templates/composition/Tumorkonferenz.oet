@@ -50,7 +50,7 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>375f193240eecda7fd5a73afaa98c43f</value>
+                <value>4363da02145fd24d45ec525f35c13a97</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -58,7 +58,7 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.1.0</value>
+                <value>3.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -90,7 +90,7 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
                     </constraint>
                 </Rule>
                 <Rule name="Typ der Tumorkonferenz" path="/activities[at0001]/description[at0009]/items[at0148]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>Tumorkonferenzart::praeth::prätherapeutisch</includedValues>
                         <includedValues>Tumorkonferenzart::postop::postoperativ</includedValues>
                         <includedValues>Tumorkonferenzart::postth::posttherapeutisch</includedValues>
@@ -309,40 +309,37 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
                             <includedValues>§301 SGB V::3758::Weaningeinheit</includedValues>
                         </constraint>
                     </Rule>
-                    <Items
-                        archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                        concept_name="Person name" max="1"
+                    <Items archetype_id="openEHR-EHR-CLUSTER.person.v0"
+                        concept_name="Person" max="1"
                         name="Vorstellender Arzt" path="/items[at0047]" xsi:type="tem:CLUSTER">
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0004]"/>
                         <Rule max="0" path="/items[at0006]"/>
-                        <Rule max="0" path="/items[at0022]"/>
-                        <Rule path="/items[at0002]/items[at0017]">
-                            <constraint xsi:type="tem:textConstraint">
-                                <includedValues>Dr. med.</includedValues>
-                                <includedValues>Prof. Dr. med.</includedValues>
-                                <includedValues>PD Dr. med.</includedValues>
-                                <includedValues>Dipl.-Med.</includedValues>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                        <Rule max="0" path="/items[at0014]"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                            max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                            <Rule path="/items[at0001]">
+                                <constraint xsi:type="tem:textConstraint">
+                                    <includedValues>Dr. med.</includedValues>
+                                    <includedValues>Prof. Dr. med.</includedValues>
+                                    <includedValues>PD Dr. med.</includedValues>
+                                    <includedValues>Dipl.-Med.</includedValues>
+                                </constraint>
+                                <nameConstraint>
+                                    <includedValues>local::at0002</includedValues>
+                                    <includedValues>local::at0003</includedValues>
+                                    <includedValues>local::at0004</includedValues>
+                                    <includedValues>local::at0005</includedValues>
+                                    <includedValues>local::at0006</includedValues>
+                                    <includedValues>local::at0007</includedValues>
+                                    <includedValues>local::at0008</includedValues>
+                                    <includedValues>local::at0009</includedValues>
+                                    <includedValues>local::at0010</includedValues>
+                                </nameConstraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0004]"/>
+                        </Items>
                     </Items>
-                </Items>
-                <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                    concept_name="Person name" max="1"
-                    name="Anmeldender Arzt"
-                    path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0022]"/>
-                    <Rule path="/items[at0002]/items[at0017]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
-                            <includedValues>Dr. med.</includedValues>
-                            <includedValues>Prof. Dr. med.</includedValues>
-                            <includedValues>PD Dr. med.</includedValues>
-                            <includedValues>Dipl.-Med.</includedValues>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                    <Rule max="0" path="/items[at0014]"/>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
@@ -378,6 +375,38 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0006]"/>
                 </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.person.v0"
+                    concept_name="Person" max="1"
+                    name="Anmeldender Arzt"
+                    path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                    <Rule max="0" path="/items[at0006]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>Dr. med.</includedValues>
+                                <includedValues>Prof. Dr. med.</includedValues>
+                                <includedValues>PD Dr. med.</includedValues>
+                                <includedValues>Dipl.-Med.</includedValues>
+                            </constraint>
+                            <nameConstraint>
+                                <includedValues>local::at0002</includedValues>
+                                <includedValues>local::at0003</includedValues>
+                                <includedValues>local::at0004</includedValues>
+                                <includedValues>local::at0005</includedValues>
+                                <includedValues>local::at0006</includedValues>
+                                <includedValues>local::at0007</includedValues>
+                                <includedValues>local::at0008</includedValues>
+                                <includedValues>local::at0009</includedValues>
+                                <includedValues>local::at0010</includedValues>
+                            </nameConstraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0004]"/>
+                    </Items>
+                </Items>
             </Item>
         </Content>
     </definition>
@@ -402,10 +431,16 @@ Es sollen Daten zu der Tumorkonferenz erfasst werden d.h. das Tumorkonferenz Dat
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">3FBD58B31B73C316C3052541F6BA58C0</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
+        <digest id="MD5-CAM-1.0.1">366C6616AB120C2E1891A5830480F4DF</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">698690EA720399E823D62A6B9FA763A8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
