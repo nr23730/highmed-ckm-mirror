@@ -23,7 +23,8 @@
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Das Template dient zum Erfassen der Daten des NATARS-Projekts und wird hier für die Erfassung verschiedener Tests und Fragebögen zu Beginn des Projekts (Tag 2 Anfangsassessment) und nach drei Monaten (Tag 2 Abschlussassessment) verwendet. Dabei werden die Ergebnisse der Fragebögen zum Barthel Index, Instrumentelle Aktivtäten, Geriatric Depression Scale und Mini Nutritional Assessment erfasst und die Testergebnisse zum Mini Mental Status Test, Uhrentest nach Shulman, Timed Up and Go, Motilitätstest nach Tinetti und der Short Physical Performance Battery dokumentiert.</purpose>
+            <purpose>Das Template dient zum Erfassen der Daten des NATARS-Projekts und wird hier für die Erfassung verschiedener Tests und Fragebögen zu Beginn des Projekts (Tag 2 Anfangsassessment) und nach drei Monaten (Tag 2 Abschlussassessment) verwendet. Dabei werden die Ergebnisse der Fragebögen zum Barthel Index, Instrumentelle Aktivtäten, Geriatric Depression Scale und Mini Nutritional Assessment erfasst und die Testergebnisse zum Mini Mental Status Test, Uhrentest nach Shulman, Timed Up and Go, Motilitätstest nach Tinetti und der Short Physical Performance Battery dokumentiert.
+Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl als auch die Angabe des Geschlechts nicht aufgeführt, sowie das Gewicht und die Größe bei dem MNA weggelassen. Zudem wurde bei der SPPB der Tandem Test nicht durchgeführt, aufgrund von Hüftproblemen bei den Probanden.</purpose>
             <keywords>
                 <item>NATARS</item>
                 <item>Barthel Index</item>
@@ -60,7 +61,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>7.0.0</value>
+                <value>10.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -68,7 +69,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>ba0ddc4d5c6ef102da8ae03c8a498756</value>
+                <value>6ff91b5938629d169630017d3d6a2136</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -105,6 +106,14 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.instrumental_activities_of_daily_living.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0048]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>8</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0162]/items[at0163]"/>
             <Rule max="0" path="/protocol[at0156]/items[at0159]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
@@ -124,6 +133,46 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.mini_mental_state_examination.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/items[at0139]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>10</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]/items[at0140]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>3</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]/items[at0141]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>5</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]/items[at0142]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>3</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]/items[at0143]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>9</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
                 max="1" path="/protocol[at0108]/items[at0138]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0002]">
@@ -259,20 +308,7 @@
         </Content>
         <Rule name="Assessment Block" path="/context/other_context[at0001]/items[at0002]">
             <constraint xsi:type="tem:textConstraint">
-                <includedValues>local_terms::T0a::Anfangsassessment Tag 1</includedValues>
                 <includedValues>local_terms::T0b::Anfangsassessment Tag 2</includedValues>
-                <includedValues>local_terms::T0+1::1 Woche nach Anfangsassessment</includedValues>
-                <includedValues>local_terms::T0+2::2 Wochen nach Anfangsassessment</includedValues>
-                <includedValues>local_terms::T0+3::3 Wochen nach Anfangsassessment</includedValues>
-                <includedValues>local_terms::T1::Assessment nach 1 Monat</includedValues>
-                <includedValues>local_terms::T1+1::1 Woche nach 1 Monatsassessment</includedValues>
-                <includedValues>local_terms::T1+2::2 Wochen nach 1 Monatsassessment</includedValues>
-                <includedValues>local_terms::T1+3::3 Wochen nach 1 Monatsassessment</includedValues>
-                <includedValues>local_terms::T2::Assessment nach 2 Monaten</includedValues>
-                <includedValues>local_terms::T2+1::1 Woche nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T2+2::2 Wochen nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T2+3::3 Wochen nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T3a::Abschlussassessment Tag 1</includedValues>
                 <includedValues>local_terms::T3b::Abschlussassessment Tag 2</includedValues>
             </constraint>
         </Rule>
@@ -1001,7 +1037,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.instrumental_activities_of_daily_living.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">5792CDCECB852BF9E1FE954240141FC2</digest>
+        <digest id="MD5-CAM-1.0.1">91A86E77129335C30FD37784D87A85A0</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.mini_mental_state_examination.v1"
@@ -1025,7 +1061,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">23AFBC62CD93092973D42AE9C4E8DB1E</digest>
+        <digest id="MD5-CAM-1.0.1">5D68EBEABF46D013892FCB0846775EB8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.geriatric_depression_scale.v1"
@@ -1037,7 +1073,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.mini_nutritional_assessment.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FE7826E5171F3956136CE6D18FEDB874</digest>
+        <digest id="MD5-CAM-1.0.1">D88826F3BCA70A7DC4302B54ABFBAFF7</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.short_physical_performance_battery.v1"

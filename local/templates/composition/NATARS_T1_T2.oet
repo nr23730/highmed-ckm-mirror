@@ -23,7 +23,8 @@
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Das Template dient zum Erfassen der Daten des NATARS-Projekts und wird hier für die Erfassung verschiedener Tests und Fragebögen nach jeweils einem Monat und zwei Monaten im Projekt verwendet. Dabei werden die Ergebnisse der Fragebögen zum Thema Sturzgeschehen, Schmerzerfassung, Falls Efficacy Scale, Barthel Index und Instrumentelle Aktivitäten erfasst und die Testergebnisse zur Handkraft, der Timed Up and Go Test, Motilitätstest nach Tinetti und der Short Physical Performance Battery und der BMI dokumentiert.</purpose>
+            <purpose>Das Template dient zum Erfassen der Daten des NATARS-Projekts und wird hier für die Erfassung verschiedener Tests und Fragebögen nach jeweils einem Monat und zwei Monaten im Projekt verwendet. Dabei werden die Ergebnisse der Fragebögen zum Thema Sturzgeschehen, Schmerzerfassung, Falls Efficacy Scale, Barthel Index und Instrumentelle Aktivitäten erfasst und die Testergebnisse zur Handkraft, der Timed Up and Go Test, Motilitätstest nach Tinetti und der Short Physical Performance Battery und der BMI dokumentiert.
+Bei einigen Tests gibt es Abänderungen vom originalen Fragebogen die beachtet werden müssen. Die Angabe der Gesamtpunktzahl bei der IADL wird aufgrund datenschutztechnischer Gründe nicht aufgeführt. Der Tandemstand Test der SPPB wurde aufgrund von Hüftproblemen der Probanden nicht durchgeführt.</purpose>
             <keywords>
                 <item>NATARS</item>
                 <item>ProFaNE</item>
@@ -62,7 +63,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>20.0.0</value>
+                <value>26.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -70,7 +71,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>1a832a5926cf2c86873cc1156b209588</value>
+                <value>a7048afff5d97f405822b2e6de15b773</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -109,16 +110,20 @@
             <Rule name="Bemerkungen" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
             <Rule name="Schmerzen vorhanden" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::Ja::Schmerzen sind vorhanden.</includedValues>
-                    <includedValues>local_terms::Nein::Es sind keine Schmerzen vorhanden.</includedValues>
-                    <includedValues>local_terms::Gelegentlich::Es sind gelegentlich Schmerzen vorhanden.</includedValues>
-                    <includedValues>local_terms::Bei Belastung::Es sind Schmerzen bei Belastungen vorhanden.</includedValues>
+                    <includedValues>Schmerzen vorhanden</includedValues>
+                    <includedValues>Nicht vorhanden</includedValues>
+                    <includedValues>Bei Belastung</includedValues>
+                    <includedValues>Gelegentlich</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]"/>
             <Rule name="Schmerzerfassung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]"/>
-            <Rule default="Schmerz" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"/>
+            <Rule default="Schmerz" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Schmerz</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
@@ -130,15 +135,29 @@
             <Items archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
                 max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0026]" xsi:type="tem:CLUSTER">
-                <Rule default="Schmerz" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0035]"/>
+                <Rule default="Schmerz" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schmerz</includedValues>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0151]"/>
                 <Rule name="Dauer der Schmerzen" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0175]"/>
                 <Rule max="0" path="/items[at0186]"/>
-                <Rule max="0" path="/items[at0152]"/>
+                <Rule max="0" path="/items[at0152]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0164]"/>
-                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0028]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0021]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -171,7 +190,13 @@
                 <Rule max="0" path="/items[at0180]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0018]"/>
-                <Rule max="0" path="/items[at0165]"/>
+                <Rule max="0" path="/items[at0165]">
+                    <nameConstraint>
+                        <includedValues>local::at0167</includedValues>
+                        <includedValues>local::at0168</includedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule max="0" path="/items[at0190]"/>
                 <Rule max="0" path="/items[at0155]"/>
                 <Rule max="0" path="/items[at0037]"/>
                 <Rule max="0" path="/items[at0161]"/>
@@ -240,19 +265,7 @@
                 concept_name="Handkraftmessung" max="1"
                 name="Handkraftmessung linke Hand" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
-                <Rule name="1. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <excludedUnits>kg</excludedUnits>
-                        <excludedUnits>kPa</excludedUnits>
-                    </constraint>
-                </Rule>
-                <Rule clone="true" name="2. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <excludedUnits>kg</excludedUnits>
-                        <excludedUnits>kPa</excludedUnits>
-                    </constraint>
-                </Rule>
-                <Rule clone="true" name="3. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+                <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
                     <constraint xsi:type="tem:quantityConstraint">
                         <excludedUnits>kg</excludedUnits>
                         <excludedUnits>kPa</excludedUnits>
@@ -274,6 +287,7 @@
                 </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
                     max="1" path="/protocol[at0031]/items[at0041]" xsi:type="tem:CLUSTER">
+                    <Rule default="Vigorimeter" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0002]"/>
                     <Rule max="0" path="/items[at0021]"/>
@@ -296,19 +310,7 @@
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
-                <Rule name="1. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <excludedUnits>kg</excludedUnits>
-                        <excludedUnits>kPa</excludedUnits>
-                    </constraint>
-                </Rule>
-                <Rule clone="true" name="2. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <excludedUnits>kg</excludedUnits>
-                        <excludedUnits>kPa</excludedUnits>
-                    </constraint>
-                </Rule>
-                <Rule clone="true" name="3. Messung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+                <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
                     <constraint xsi:type="tem:quantityConstraint">
                         <excludedUnits>kg</excludedUnits>
                         <excludedUnits>kPa</excludedUnits>
@@ -320,18 +322,13 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:quantityConstraint">
-                    <unitMagnitude>
-                        <unit>[lb_av]/[in_i]2</unit>
-                        <maxMagnitude>1000.0</maxMagnitude>
-                        <minMagnitude>0.0</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </unitMagnitude>
+                    <excludedUnits>[lb_av]/[in_i]2</excludedUnits>
                     <unitMagnitude>
                         <unit>kg/m2</unit>
-                        <maxMagnitude>1000.0</maxMagnitude>
+                        <maxMagnitude>100.0</maxMagnitude>
                         <minMagnitude>0.0</minMagnitude>
                         <includesMaximum>false</includesMaximum>
                         <includesMinimum>true</includesMinimum>
@@ -421,6 +418,14 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.instrumental_activities_of_daily_living.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0048]">
+                <constraint xsi:type="tem:countConstraint">
+                    <maxMagnitude>8</maxMagnitude>
+                    <minMagnitude>0</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0162]/items[at0163]"/>
             <Rule max="0" path="/protocol[at0156]/items[at0159]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
@@ -458,21 +463,8 @@
         </Content>
         <Rule name="Assessment Block" path="/context/other_context[at0001]/items[at0002]">
             <constraint xsi:type="tem:textConstraint">
-                <includedValues>local_terms::T0a::Anfangsassessment Tag 1</includedValues>
-                <includedValues>local_terms::T0b::Anfangsassessment Tag 2</includedValues>
-                <includedValues>local_terms::T0+1::1 Woche nach Anfangsassessment</includedValues>
-                <includedValues>local_terms::T0+2::2 Wochen nach Anfangsassessment</includedValues>
-                <includedValues>local_terms::T0+3::3 Wochen nach Anfangsassessment</includedValues>
                 <includedValues>local_terms::T1::Assessment nach 1 Monat</includedValues>
-                <includedValues>local_terms::T1+1::1 Woche nach 1 Monatsassessment</includedValues>
-                <includedValues>local_terms::T1+2::2 Wochen nach 1 Monatsassessment</includedValues>
-                <includedValues>local_terms::T1+3::3 Wochen nach 1 Monatsassessment</includedValues>
                 <includedValues>local_terms::T2::Assessment nach 2 Monaten</includedValues>
-                <includedValues>local_terms::T2+1::1 Woche nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T2+2::2 Wochen nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T2+3::3 Wochen nach 2 Monatsassessment</includedValues>
-                <includedValues>local_terms::T3a::Abschlussassessment Tag 1</includedValues>
-                <includedValues>local_terms::T3b::Abschlussassessment Tag 2</includedValues>
             </constraint>
         </Rule>
         <Rule name="Bemerkungen" path="/context/other_context[at0001]/items[at0005]"/>
@@ -713,17 +705,7 @@
                 <value>null_flavour</value>
             </items>
         </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung linke Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '1. Messung']/null_flavour">
-            <items id="VisibleInView">
-                <value>null_flavour</value>
-            </items>
-        </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung linke Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '2. Messung']/null_flavour">
-            <items id="VisibleInView">
-                <value>null_flavour</value>
-            </items>
-        </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung linke Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '3. Messung']/null_flavour">
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung linke Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>
@@ -738,17 +720,7 @@
                 <value>null_flavour</value>
             </items>
         </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung rechte Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '1. Messung']/null_flavour">
-            <items id="VisibleInView">
-                <value>null_flavour</value>
-            </items>
-        </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung rechte Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '2. Messung']/null_flavour">
-            <items id="VisibleInView">
-                <value>null_flavour</value>
-            </items>
-        </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung rechte Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008, '3. Messung']/null_flavour">
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.handkraftmessung.v1, 'Handkraftmessung rechte Hand']/data[at0001]/events[at0002]/data[at0003]/items[at0008]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>
@@ -1118,7 +1090,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.fall_event.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">BAA7939AEE528AC0AA9CD48702E7A405</digest>
+        <digest id="MD5-CAM-1.0.1">B5F14014F75B9016CD4BA4F527E04542</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
@@ -1130,12 +1102,12 @@
         archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">9C0AF2A864E4092136688283176FAC26</digest>
+        <digest id="MD5-CAM-1.0.1">DEDABDE49692549487A46BFD6C987939</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">992D12C3AF99DEDDBD95FA1E47674412</digest>
+        <digest id="MD5-CAM-1.0.1">CA8101FC4DD8D2A4851F7194CACF2829</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
@@ -1180,7 +1152,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">23AFBC62CD93092973D42AE9C4E8DB1E</digest>
+        <digest id="MD5-CAM-1.0.1">5D68EBEABF46D013892FCB0846775EB8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.barthel_index_hamburger_manual.v1"
@@ -1192,7 +1164,7 @@
         archetype_id="openEHR-EHR-OBSERVATION.instrumental_activities_of_daily_living.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">5792CDCECB852BF9E1FE954240141FC2</digest>
+        <digest id="MD5-CAM-1.0.1">91A86E77129335C30FD37784D87A85A0</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.short_physical_performance_battery.v1"
