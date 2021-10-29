@@ -147,6 +147,7 @@
                     <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
                 </constraint>
             </Rule>
+			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
 			 <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>ICD-10-GM::A::Ausgeschlossene Diagnose</includedValues>
@@ -154,7 +155,7 @@
                     <includedValues>ICD-10-GM::V::Verdachtsdiagnose</includedValues>
                     <includedValues>ICD-10-GM::Z::Zustand nach der betreffenden Diagnose</includedValues>
                 </constraint>
-            </Rule>
+            </Rule>	
 			<Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
 			<excludedValues>local::at0074</excludedValues>
@@ -181,8 +182,7 @@
 		</Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
             <Rule
-                name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
-           
+                name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>    
             <Rule name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
             <Rule name="Letztes Dokumentationsdatum" path="/protocol[at0032]/items[at0070]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.entry_category.v0"
@@ -214,15 +214,19 @@
                         <includedValues>SNOMED CT::255407002::Neonatal (qualifier value)</includedValues>
                         <includedValues>SNOMED CT::271872005::Old age (qualifier value)</includedValues>
                     </constraint>
-                </Rule>
-            </Items>
+                </Rule>            
+			</Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v1"
                 concept_name="Problem/Diagnose Attribut" max="1"
                 name="Klinischer Status"
                 path="/data[at0001]/items[at0046]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0004]"/>
-                <Rule max="0" path="/items[at0060]"/>
+				
+				<Rule max="0" path="/items[at0098]"/>
+				<Rule max="0" path="/items[at0102]"/>
+                
+				<Rule max="0" path="/items[at0060]"/>
                 <Rule name="Klinischer Status" path="/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>HL7 FHIR::active::Active</includedValues>
@@ -274,7 +278,8 @@
                     <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
                 </constraint>
             </Rule>
-            <Rule
+			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
+			<Rule
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
             <Rule min="1" name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
             <Rule path="/data[at0001]/items[at0005]">
@@ -292,6 +297,7 @@
 			</constraint>
 		</Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
+		
             <Rule
                 name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
             <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
@@ -349,6 +355,10 @@
                 path="/data[at0001]/items[at0046]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0060]"/>
+				
+			<Rule max="0" path="/items[at0098]"/>
+			<Rule max="0" path="/items[at0102]"/>
+		
                 <Rule name="Klinischer Status" path="/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>HL7 FHIR::active::Active</includedValues>
@@ -394,7 +404,12 @@
                 concept_name="Problem/Diagnose Attribut" max="1"
                 name="Diagnostische Kategorie"
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0004]"/>
+            
+				<Rule max="0" path="/items[at0098]"/>
+				<Rule max="0" path="/items[at0102]"/>
+				<Rule max="0" path="/items[at0078]"/>		
+			
+				<Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0060]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0083]"/>
@@ -428,7 +443,7 @@
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4BF04E7D09B866397CA12BAFED2BC216</digest>
+        <digest id="MD5-CAM-1.0.1">86372236E61A02A1C3905BA9033C255F</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lebensphase.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -439,7 +454,7 @@
         archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">BAD3204B096D7EEFACE93341D360231F</digest>
+        <digest id="MD5-CAM-1.0.1">D1662AD27A4C70E12528D7CF2AA78BDB</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.entry_category.v0"
