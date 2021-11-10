@@ -61,7 +61,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>10.0.0</value>
+                <value>15.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -69,7 +69,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>6ff91b5938629d169630017d3d6a2136</value>
+                <value>67d5c6f439261c3fff1562324fff2b4f</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -88,6 +88,14 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.barthel_index_hamburger_manual.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0053]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::0-30 Punkte::Weitgehend pflegeabhängig.</includedValues>
+                    <includedValues>local_terms::35-80 Punkte::Hilfsbedürftig.</includedValues>
+                    <includedValues>local_terms::85-95 Punkte::Punktuell Hilfsbedürftig.</includedValues>
+                    <includedValues>local_terms::100 Punkte::Zustand kompletter Selbstständigkeit.</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0050]/items[at0051]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
                 max="1" path="/protocol[at0048]/items[at0049]" xsi:type="tem:CLUSTER">
@@ -173,6 +181,13 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0144]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::24 - 30 Punkte::Keine oder leichte kognitive Funktionseinschränkung.</includedValues>
+                    <includedValues>local_terms::17-23 Punkte::Mittlere kognitive Funktionseinschränkung.</includedValues>
+                    <includedValues>local_terms::0 - 16 Punkte::Schwere kognitive Funktionseinschränkung.</includedValues>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
                 max="1" path="/protocol[at0108]/items[at0138]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0002]">
@@ -207,6 +222,14 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.timed_up_and_go.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::&lt;= 10 Sekunden::Alltagsmobilität uneingeschränkt.</includedValues>
+                    <includedValues>local_terms::11 - 19 Sekunden::Geringe Mobilitätseinschränkung</includedValues>
+                    <includedValues>local_terms::20 - 29 Sekunden::Abklärungsbedürftige, funktionell relevanten Mobilitätseinschränkung.</includedValues>
+                    <includedValues>local_terms::&gt;= 30 Sekunden::Ausgeprägte Mobilitätseinschränkung.</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0025]/items[at0026]"/>
             <Rule path="/protocol[at0014]/items[at0024]">
                 <constraint xsi:type="tem:textConstraint">
@@ -251,6 +274,12 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.geriatric_depression_scale.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0068]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::0-5 Punkte::Unauffällig.</includedValues>
+                    <includedValues>local_terms::ab 6 Punkten::Depressive Störung wahrscheinlich.</includedValues>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
                 max="1" path="/protocol[at0064]/items[at0066]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0002]">
@@ -294,6 +323,38 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
                 max="1" path="/protocol[at0043]/items[at0045]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::keine Angabe::Es wurde kein Grund zum Nichtdurchführen des Tests angegeben.</includedValues>
+                        <includedValues>local_terms::Patient verstorben::Der Patient ist verstorben.</includedValues>
+                        <includedValues>local_terms::Patient lehnt Test ab::Patient lehnt Test aus persönlichen Gründen ab.</includedValues>
+                        <includedValues>local_terms::Patient kann Test nicht durchführen::Patient kann Test aufgrund von Schmerzen/Verletzung/Kraftmangel nicht durchführen.</includedValues>
+                        <includedValues>local_terms::Studienmonitor hat Test nicht durchgeführt::Studienmonitor/Study Nurse führt den Test zum Wohle des Patienten nicht durch.</includedValues>
+                        <includedValues>local_terms::Patient nicht verfügbar::Patient ist aufgrund von Krankenhausaufenthalt, Urlaub o.a. nicht verfügbar.</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>[lb_av]/[in_i]2</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg/m2</unit>
+                        <maxMagnitude>100.0</maxMagnitude>
+                        <minMagnitude>10.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0011]"/>
+            <Rule max="0" path="/protocol[at0005]/items[at0010]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
+                max="1" path="/protocol[at0005]/items[at0015]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>local_terms::keine Angabe::Es wurde kein Grund zum Nichtdurchführen des Tests angegeben.</includedValues>
@@ -376,6 +437,11 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
             </items>
         </constraints>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.barthel_index_hamburger_manual.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0047]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.barthel_index_hamburger_manual.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0053]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>
@@ -631,6 +697,11 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
             </items>
         </constraints>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.mini_mental_state_examination.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0043]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.mini_mental_state_examination.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0144]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>
@@ -1005,6 +1076,31 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
                 <value>null_flavour</value>
             </items>
         </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/protocol[at0005]/items[openEHR-EHR-CLUSTER.exclusion_exam.v1]/items[at0001]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/protocol[at0005]/items[openEHR-EHR-CLUSTER.exclusion_exam.v1]/items[at0002]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0012]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_mass_index.v2]/protocol[at0005]/items[at0006]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[at0002]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
@@ -1025,7 +1121,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         archetype_id="openEHR-EHR-OBSERVATION.barthel_index_hamburger_manual.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4C82B547691EB1F9B889E2F5BBAA034F</digest>
+        <digest id="MD5-CAM-1.0.1">24A1AA09D77CDD88475F2CEC5F3ACFF3</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.exclusion_exam.v1"
@@ -1043,7 +1139,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         archetype_id="openEHR-EHR-OBSERVATION.mini_mental_state_examination.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">9B89A18A387C08284BB823A4C4E8F749</digest>
+        <digest id="MD5-CAM-1.0.1">C6D403056226A205D055D26292C1214D</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.clock_drawing_test_shulman.v1"
@@ -1055,7 +1151,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         archetype_id="openEHR-EHR-OBSERVATION.timed_up_and_go.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">427C2F491676D0858CB73522A3C82921</digest>
+        <digest id="MD5-CAM-1.0.1">2DC2A14B15FFEF71C756916E5CDB5841</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
@@ -1067,7 +1163,7 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         archetype_id="openEHR-EHR-OBSERVATION.geriatric_depression_scale.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">30D9A110F3976822EE305F46CB31A78F</digest>
+        <digest id="MD5-CAM-1.0.1">773846A0C1A3CB9D775F38FBFA5CF4FE</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.mini_nutritional_assessment.v1"
@@ -1080,5 +1176,11 @@ Aufgrund datenschutztechnischer Gründe wird bei der IADL die Gesamtpunktzahl al
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">20334DA2EB7578DC8FE8BF0C415EE1B2</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E6E1FB050659D261B841146D96F4DFB0</digest>
     </integrity_checks>
 </template>
