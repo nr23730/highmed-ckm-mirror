@@ -103,7 +103,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>8.0.0</value>
+                <value>9.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -113,8 +113,64 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.age.v0]">
+        <items>
+            <item>
+                <key>424144002</key>
+                <value>Current chronological age (observable entity)</value>
+            </item>
+            <item>
+                <key>30525-0</key>
+                <value>Age</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.height.v2]">
+        <items>
+            <item>
+                <key>50373000</key>
+                <value>Body height measure (observable entity)</value>
+            </item>
+            <item>
+                <key>8302-2</key>
+                <value>Body height</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.body_weight.v2]">
+        <items>
+            <item>
+                <key>27113001</key>
+                <value>Body weight (observable entity)</value>
+            </item>
+            <item>
+                <key>29463-7</key>
+                <value>Body weight</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.pregnancy_status.v0]">
+        <items>
+            <item>
+                <key>82810-3</key>
+                <value>Pregnancy status</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1]">
+        <items>
+            <item>
+                <key>72166-2</key>
+                <value>Tobacco smoking status</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Reiseaktivität 14 Tage vor Beginn der Symptome']/items[openEHR-EHR-ADMIN_ENTRY.travel_event.v0]">
         <items>
             <item>
@@ -167,6 +223,18 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.symptom_sign.v0]">
+        <items>
+            <item>
+                <key>410605003</key>
+                <value>Confirmed present (qualifier value)</value>
+            </item>
+            <item>
+                <key>75325-1</key>
+                <value>Symptom</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.medication.v1]/description[at0017]/items[at0020]">
         <items>
             <item>
@@ -197,7 +265,6 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 <Rule max="0" path="/items[at0001]"/>
                 <Rule name="Name" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0002]/items[at0018]"/>
-                <Rule max="0" path="/items[at0014]"/>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
@@ -213,17 +280,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 </Rule>
                 <Rule max="0" path="/items[at0005]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
-                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule name="Adresse" path="/items[at0010]"/>
-                <Rule max="1" name="Straßenname" path="/items[at0011]"/>
-                <Rule clone="true" max="1" name="Hausnummer" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.address.v0"
+                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0"
                 max="0" path="/data[at0001]/items[at0031]" xsi:type="tem:CLUSTER">
                 <Rule max="0" name="Telekommunikationskontakt" path="/items[at0010]"/>
@@ -246,12 +304,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 path="/data[at0001]/items[at0007]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>SNOMED Clinical Terms::14045001::Kaukasisch</includedValues>
-                        <includedValues>SNOMED Clinical Terms::18167009::Afrikanisch</includedValues>
-                        <includedValues>SNOMED Clinical Terms::315280000::Asiatisch</includedValues>
-                        <includedValues>SNOMED Clinical Terms::90027003::Arabisch</includedValues>
-                        <includedValues>SNOMED Clinical Terms::2135-2::Latein-Amerikanisch</includedValues>
-                        <includedValues>SNOMED Clinical Terms::186019001::gemischte ethnische Zugehörigkeit</includedValues>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/ethnic-groups" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0004]"/>
@@ -284,11 +338,8 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
             <Rule name="Geschlecht bei der Geburt" path="/data[at0002]/items[at0019]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::male::Männlich</includedValues>
-                    <includedValues>local_terms::female::Weiblich</includedValues>
-                    <includedValues>local_terms::X::Unbestimmt</includedValues>
-                    <includedValues>local_terms::D::Divers</includedValues>
-                    <includedValues>local_terms::unknown::Unbekannt</includedValues>
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/birth-sex" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0025]"/>
@@ -317,8 +368,21 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
             <Rule max="0" path="/data[at0001]/events[at0021]"/>
-            <Rule clone="true" name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
-            <Rule clone="true" name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
+            <Rule path="/data[at0001]/events[at0021]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>[in_i]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>cm</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0021]/data[at0003]/items[at0018]"/>
+            <Rule max="0" path="/data[at0001]/events[at0021]/state[at0013]/items[at0014]"/>
+            <Rule max="0" path="/data[at0001]/events[at0021]/state[at0013]/items[at0019]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
@@ -340,8 +404,22 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
             <Rule max="0" path="/data[at0002]/events[at0026]"/>
-            <Rule clone="true" name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
-            <Rule clone="true" name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
+            <Rule path="/data[at0002]/events[at0026]/data[at0001]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>g</excludedUnits>
+                    <excludedUnits>[lb_av]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0002]/events[at0026]/data[at0001]/items[at0024]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0009]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0025]"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.pregnancy_status.v0"
@@ -365,12 +443,10 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             concept_name="Zusammenfassung Rauchverhalten" max="1"
             min="1" name="Raucherstatus" path="/content" xsi:type="tem:EVALUATION">
             <Rule max="0" path="/data[at0001]/items[at0089]"/>
-            <Rule min="1" name="Rauchverhalten" path="/data[at0001]/items[at0043]">
+            <Rule name="Rauchverhalten" path="/data[at0001]/items[at0043]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>LOINC::LA18976-3::Ja</includedValues>
-                    <includedValues>LOINC::LA18978-9::Nichtraucher</includedValues>
-                    <includedValues>LOINC::LA15920-4::Ehemaliger Raucher</includedValues>
-                    <includedValues>LOINC::LA18980-5::Unbekannt</includedValues>
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/smoking-status" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0015]"/>
@@ -432,275 +508,14 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                 </Rule>
                 <Rule path="/data[at0001]/items[at0010]/items[at0011]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>local_terms::AD::Andorra</includedValues>
-                        <includedValues>local_terms::AE::United Arab Emirates</includedValues>
-                        <includedValues>local_terms::AF::Afghanistan</includedValues>
-                        <includedValues>local_terms::AG::Antigua and Barbuda</includedValues>
-                        <includedValues>local_terms::AI::Anguilla</includedValues>
-                        <includedValues>local_terms::AL::Albania</includedValues>
-                        <includedValues>local_terms::AM::Armenia</includedValues>
-                        <includedValues>local_terms::AO::Angola</includedValues>
-                        <includedValues>local_terms::AQ::Antarctica</includedValues>
-                        <includedValues>local_terms::AR::Argentina</includedValues>
-                        <includedValues>local_terms::AS::American Samoa</includedValues>
-                        <includedValues>local_terms::AT::Austria</includedValues>
-                        <includedValues>local_terms::AU::Australia</includedValues>
-                        <includedValues>local_terms::AW::Aruba</includedValues>
-                        <includedValues>local_terms::AX::Åland Islands</includedValues>
-                        <includedValues>local_terms::AZ::Azerbaijan</includedValues>
-                        <includedValues>local_terms::BA::Bosnia and Herzegovina</includedValues>
-                        <includedValues>local_terms::BB::Barbados</includedValues>
-                        <includedValues>local_terms::BD::Bangladesh</includedValues>
-                        <includedValues>local_terms::BE::Belgium</includedValues>
-                        <includedValues>local_terms::BF::Burkina Faso</includedValues>
-                        <includedValues>local_terms::BG::Bulgaria</includedValues>
-                        <includedValues>local_terms::BH::Bahrain</includedValues>
-                        <includedValues>local_terms::BI::Burundi</includedValues>
-                        <includedValues>local_terms::BJ::Benin</includedValues>
-                        <includedValues>local_terms::BL::Saint Barthélemy</includedValues>
-                        <includedValues>local_terms::BM::Bermuda</includedValues>
-                        <includedValues>local_terms::BN::Brunei Darussalam</includedValues>
-                        <includedValues>local_terms::BO::Bolivia, Plurinational State of</includedValues>
-                        <includedValues>local_terms::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
-                        <includedValues>local_terms::BR::Brazil</includedValues>
-                        <includedValues>local_terms::BS::Bahamas</includedValues>
-                        <includedValues>local_terms::BT::Bhutan</includedValues>
-                        <includedValues>local_terms::BV::Bouvet Island</includedValues>
-                        <includedValues>local_terms::BW::Botswana</includedValues>
-                        <includedValues>local_terms::BY::Belarus</includedValues>
-                        <includedValues>local_terms::BZ::Belize</includedValues>
-                        <includedValues>local_terms::CA::Canada</includedValues>
-                        <includedValues>local_terms::CC::Cocos (Keeling) Islands</includedValues>
-                        <includedValues>local_terms::CD::Congo, the Democratic Republic of the</includedValues>
-                        <includedValues>local_terms::CF::Central African Republic</includedValues>
-                        <includedValues>local_terms::CG::Congo</includedValues>
-                        <includedValues>local_terms::CH::Switzerland</includedValues>
-                        <includedValues>local_terms::CI::Côte d''Ivoire</includedValues>
-                        <includedValues>local_terms::CK::Cook Islands</includedValues>
-                        <includedValues>local_terms::CL::Chile</includedValues>
-                        <includedValues>local_terms::CM::Cameroon</includedValues>
-                        <includedValues>local_terms::CN::China</includedValues>
-                        <includedValues>local_terms::CO::Colombia</includedValues>
-                        <includedValues>local_terms::CR::Costa Rica</includedValues>
-                        <includedValues>local_terms::CU::Cuba</includedValues>
-                        <includedValues>local_terms::CV::Cabo Verde</includedValues>
-                        <includedValues>local_terms::CW::Curaçao</includedValues>
-                        <includedValues>local_terms::CX::Christmas Island</includedValues>
-                        <includedValues>local_terms::CY::Cyprus</includedValues>
-                        <includedValues>local_terms::CZ::Czechia</includedValues>
-                        <includedValues>local_terms::DE::Germany</includedValues>
-                        <includedValues>local_terms::DJ::Djibouti</includedValues>
-                        <includedValues>local_terms::DK::Denmark</includedValues>
-                        <includedValues>local_terms::DM::Dominica</includedValues>
-                        <includedValues>local_terms::DO::Dominican Republic</includedValues>
-                        <includedValues>local_terms::DZ::Algeria</includedValues>
-                        <includedValues>local_terms::EC::Ecuador</includedValues>
-                        <includedValues>local_terms::EE::Estonia</includedValues>
-                        <includedValues>local_terms::EG::Egypt</includedValues>
-                        <includedValues>local_terms::EH::Western Sahara</includedValues>
-                        <includedValues>local_terms::ER::Eritrea</includedValues>
-                        <includedValues>local_terms::ES::Spain</includedValues>
-                        <includedValues>local_terms::ET::Ethiopia</includedValues>
-                        <includedValues>local_terms::FI::Finland</includedValues>
-                        <includedValues>local_terms::FJ::Fiji</includedValues>
-                        <includedValues>local_terms::FK::Falkland Islands (Malvinas)</includedValues>
-                        <includedValues>local_terms::FM::Micronesia, Federated States of</includedValues>
-                        <includedValues>local_terms::FO::Faroe Islands</includedValues>
-                        <includedValues>local_terms::FR::France</includedValues>
-                        <includedValues>local_terms::GA::Gabon</includedValues>
-                        <includedValues>local_terms::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
-                        <includedValues>local_terms::GD::Grenada</includedValues>
-                        <includedValues>local_terms::GE::Georgia</includedValues>
-                        <includedValues>local_terms::GF::French Guiana</includedValues>
-                        <includedValues>local_terms::GG::Guernsey</includedValues>
-                        <includedValues>local_terms::GH::Ghana</includedValues>
-                        <includedValues>local_terms::GI::Gibraltar</includedValues>
-                        <includedValues>local_terms::GL::Greenland</includedValues>
-                        <includedValues>local_terms::GM::Gambia</includedValues>
-                        <includedValues>local_terms::GN::Guinea</includedValues>
-                        <includedValues>local_terms::GP::Guadeloupe</includedValues>
-                        <includedValues>local_terms::GQ::Equatorial Guinea</includedValues>
-                        <includedValues>local_terms::GR::Greece</includedValues>
-                        <includedValues>local_terms::GS::South Georgia and the South Sandwich Islands</includedValues>
-                        <includedValues>local_terms::GT::Guatemala</includedValues>
-                        <includedValues>local_terms::GU::Guam</includedValues>
-                        <includedValues>local_terms::GW::Guinea-Bissau</includedValues>
-                        <includedValues>local_terms::GY::Guyana</includedValues>
-                        <includedValues>local_terms::HK::Hong Kong</includedValues>
-                        <includedValues>local_terms::HM::Heard Island and McDonald Islands</includedValues>
-                        <includedValues>local_terms::HN::Honduras</includedValues>
-                        <includedValues>local_terms::HR::Croatia</includedValues>
-                        <includedValues>local_terms::HT::Haiti</includedValues>
-                        <includedValues>local_terms::HU::Hungary</includedValues>
-                        <includedValues>local_terms::ID::Indonesia</includedValues>
-                        <includedValues>local_terms::IE::Ireland</includedValues>
-                        <includedValues>local_terms::IL::Israel</includedValues>
-                        <includedValues>local_terms::IM::Isle of Man</includedValues>
-                        <includedValues>local_terms::IN::India</includedValues>
-                        <includedValues>local_terms::IO::British Indian Ocean Territory</includedValues>
-                        <includedValues>local_terms::IQ::Iraq</includedValues>
-                        <includedValues>local_terms::IR::Iran, Islamic Republic of</includedValues>
-                        <includedValues>local_terms::IS::Iceland</includedValues>
-                        <includedValues>local_terms::IT::Italy</includedValues>
-                        <includedValues>local_terms::JE::Jersey</includedValues>
-                        <includedValues>local_terms::JM::Jamaica</includedValues>
-                        <includedValues>local_terms::JO::Jordan</includedValues>
-                        <includedValues>local_terms::JP::Japan</includedValues>
-                        <includedValues>local_terms::KE::Kenya</includedValues>
-                        <includedValues>local_terms::KG::Kyrgyzstan</includedValues>
-                        <includedValues>local_terms::KH::Cambodia</includedValues>
-                        <includedValues>local_terms::KI::Kiribati</includedValues>
-                        <includedValues>local_terms::KM::Comoros</includedValues>
-                        <includedValues>local_terms::KN::Saint Kitts and Nevis</includedValues>
-                        <includedValues>local_terms::KP::Korea, Democratic People''s Republic of</includedValues>
-                        <includedValues>local_terms::KR::Korea, Republic of</includedValues>
-                        <includedValues>local_terms::KW::Kuwait</includedValues>
-                        <includedValues>local_terms::KY::Cayman Islands</includedValues>
-                        <includedValues>local_terms::KZ::Kazakhstan</includedValues>
-                        <includedValues>local_terms::LA::Lao People''s Democratic Republic</includedValues>
-                        <includedValues>local_terms::LB::Lebanon</includedValues>
-                        <includedValues>local_terms::LC::Saint Lucia</includedValues>
-                        <includedValues>local_terms::LI::Liechtenstein</includedValues>
-                        <includedValues>local_terms::LK::Sri Lanka</includedValues>
-                        <includedValues>local_terms::LR::Liberia</includedValues>
-                        <includedValues>local_terms::LS::Lesotho</includedValues>
-                        <includedValues>local_terms::LT::Lithuania</includedValues>
-                        <includedValues>local_terms::LU::Luxembourg</includedValues>
-                        <includedValues>local_terms::LV::Latvia</includedValues>
-                        <includedValues>local_terms::LY::Libya</includedValues>
-                        <includedValues>local_terms::MA::Morocco</includedValues>
-                        <includedValues>local_terms::MC::Monaco</includedValues>
-                        <includedValues>local_terms::MD::Moldova, Republic of</includedValues>
-                        <includedValues>local_terms::ME::Montenegro</includedValues>
-                        <includedValues>local_terms::MF::Saint Martin (French part)</includedValues>
-                        <includedValues>local_terms::MG::Madagascar</includedValues>
-                        <includedValues>local_terms::MH::Marshall Islands</includedValues>
-                        <includedValues>local_terms::MK::Macedonia, the former Yugoslav Republic of</includedValues>
-                        <includedValues>local_terms::ML::Mali</includedValues>
-                        <includedValues>local_terms::MM::Myanmar</includedValues>
-                        <includedValues>local_terms::MN::Mongolia</includedValues>
-                        <includedValues>local_terms::MO::Macao</includedValues>
-                        <includedValues>local_terms::MP::Northern Mariana Islands</includedValues>
-                        <includedValues>local_terms::MQ::Martinique</includedValues>
-                        <includedValues>local_terms::MR::Mauritania</includedValues>
-                        <includedValues>local_terms::MS::Montserrat</includedValues>
-                        <includedValues>local_terms::MT::Malta</includedValues>
-                        <includedValues>local_terms::MU::Mauritius</includedValues>
-                        <includedValues>local_terms::MV::Maldives</includedValues>
-                        <includedValues>local_terms::MW::Malawi</includedValues>
-                        <includedValues>local_terms::MX::Mexico</includedValues>
-                        <includedValues>local_terms::MY::Malaysia</includedValues>
-                        <includedValues>local_terms::MZ::Mozambique</includedValues>
-                        <includedValues>local_terms::NA::Namibia</includedValues>
-                        <includedValues>local_terms::NC::New Caledonia</includedValues>
-                        <includedValues>local_terms::NE::Niger</includedValues>
-                        <includedValues>local_terms::NF::Norfolk Island</includedValues>
-                        <includedValues>local_terms::NG::Nigeria</includedValues>
-                        <includedValues>local_terms::NI::Nicaragua</includedValues>
-                        <includedValues>local_terms::NL::Netherlands</includedValues>
-                        <includedValues>local_terms::NO::Norway</includedValues>
-                        <includedValues>local_terms::NP::Nepal</includedValues>
-                        <includedValues>local_terms::NR::Nauru</includedValues>
-                        <includedValues>local_terms::NU::Niue</includedValues>
-                        <includedValues>local_terms::NZ::New Zealand</includedValues>
-                        <includedValues>local_terms::OM::Oman</includedValues>
-                        <includedValues>local_terms::PA::Panama</includedValues>
-                        <includedValues>local_terms::PE::Peru</includedValues>
-                        <includedValues>local_terms::PF::French Polynesia</includedValues>
-                        <includedValues>local_terms::PG::Papua New Guinea</includedValues>
-                        <includedValues>local_terms::PH::Philippines</includedValues>
-                        <includedValues>local_terms::PK::Pakistan</includedValues>
-                        <includedValues>local_terms::PL::Poland</includedValues>
-                        <includedValues>local_terms::PM::Saint Pierre and Miquelon</includedValues>
-                        <includedValues>local_terms::PN::Pitcairn</includedValues>
-                        <includedValues>local_terms::PR::Puerto Rico</includedValues>
-                        <includedValues>local_terms::PS::Palestine, State of</includedValues>
-                        <includedValues>local_terms::PT::Portugal</includedValues>
-                        <includedValues>local_terms::PW::Palau</includedValues>
-                        <includedValues>local_terms::PY::Paraguay</includedValues>
-                        <includedValues>local_terms::QA::Qatar</includedValues>
-                        <includedValues>local_terms::RE::Réunion</includedValues>
-                        <includedValues>local_terms::RO::Romania</includedValues>
-                        <includedValues>local_terms::RS::Serbia</includedValues>
-                        <includedValues>local_terms::RU::Russian Federation</includedValues>
-                        <includedValues>local_terms::RW::Rwanda</includedValues>
-                        <includedValues>local_terms::SA::Saudi Arabia</includedValues>
-                        <includedValues>local_terms::SB::Solomon Islands</includedValues>
-                        <includedValues>local_terms::SC::Seychelles</includedValues>
-                        <includedValues>local_terms::SD::Sudan</includedValues>
-                        <includedValues>local_terms::SE::Sweden</includedValues>
-                        <includedValues>local_terms::SG::Singapore</includedValues>
-                        <includedValues>local_terms::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
-                        <includedValues>local_terms::SI::Slovenia</includedValues>
-                        <includedValues>local_terms::SJ::Svalbard and Jan Mayen</includedValues>
-                        <includedValues>local_terms::SK::Slovakia</includedValues>
-                        <includedValues>local_terms::SL::Sierra Leone</includedValues>
-                        <includedValues>local_terms::SM::San Marino</includedValues>
-                        <includedValues>local_terms::SN::Senegal</includedValues>
-                        <includedValues>local_terms::SO::Somalia</includedValues>
-                        <includedValues>local_terms::SR::Suriname</includedValues>
-                        <includedValues>local_terms::SS::South Sudan</includedValues>
-                        <includedValues>local_terms::ST::Sao Tome and Principe</includedValues>
-                        <includedValues>local_terms::SV::El Salvador</includedValues>
-                        <includedValues>local_terms::SX::Sint Maarten (Dutch part)</includedValues>
-                        <includedValues>local_terms::SY::Syrian Arab Republic</includedValues>
-                        <includedValues>local_terms::SZ::Swaziland</includedValues>
-                        <includedValues>local_terms::TC::Turks and Caicos Islands</includedValues>
-                        <includedValues>local_terms::TD::Chad</includedValues>
-                        <includedValues>local_terms::TF::French Southern Territories</includedValues>
-                        <includedValues>local_terms::TG::Togo</includedValues>
-                        <includedValues>local_terms::TH::Thailand</includedValues>
-                        <includedValues>local_terms::TJ::Tajikistan</includedValues>
-                        <includedValues>local_terms::TK::Tokelau</includedValues>
-                        <includedValues>local_terms::TL::Timor-Leste</includedValues>
-                        <includedValues>local_terms::TM::Turkmenistan</includedValues>
-                        <includedValues>local_terms::TN::Tunisia</includedValues>
-                        <includedValues>local_terms::TO::Tonga</includedValues>
-                        <includedValues>local_terms::TR::Turkey</includedValues>
-                        <includedValues>local_terms::TT::Trinidad and Tobago</includedValues>
-                        <includedValues>local_terms::TV::Tuvalu</includedValues>
-                        <includedValues>local_terms::TW::Taiwan, Province of China</includedValues>
-                        <includedValues>local_terms::TZ::Tanzania, United Republic of</includedValues>
-                        <includedValues>local_terms::UA::Ukraine</includedValues>
-                        <includedValues>local_terms::UG::Uganda</includedValues>
-                        <includedValues>local_terms::UM::United States Minor Outlying Islands</includedValues>
-                        <includedValues>local_terms::US::United States of America</includedValues>
-                        <includedValues>local_terms::UY::Uruguay</includedValues>
-                        <includedValues>local_terms::UZ::Uzbekistan</includedValues>
-                        <includedValues>local_terms::VA::Holy See</includedValues>
-                        <includedValues>local_terms::VC::Saint Vincent and the Grenadines</includedValues>
-                        <includedValues>local_terms::VE::Venezuela, Bolivarian Republic of</includedValues>
-                        <includedValues>local_terms::VG::Virgin Islands, British</includedValues>
-                        <includedValues>local_terms::VI::Virgin Islands,</includedValues>
-                        <includedValues>local_terms::VN::Viet Nam</includedValues>
-                        <includedValues>local_terms::VU::Vanuatu</includedValues>
-                        <includedValues>local_terms::WF::Wallis and Futuna</includedValues>
-                        <includedValues>local_terms::WS::Samoa</includedValues>
-                        <includedValues>local_terms::YE::Yemen</includedValues>
-                        <includedValues>local_terms::YT::Mayotte</includedValues>
-                        <includedValues>local_terms::ZA::South Africa</includedValues>
-                        <includedValues>local_terms::ZM::Zambia</includedValues>
-                        <includedValues>local_terms::ZW::Zimbabwe</includedValues>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
                 <Rule path="/data[at0001]/items[at0010]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ISO::DE-BW::Baden-Württemberg</includedValues>
-                        <includedValues>ISO::DE-BY::Bayern</includedValues>
-                        <includedValues>ISO::DE-BE::Berlin</includedValues>
-                        <includedValues>ISO::DE-BB::Brandenburg</includedValues>
-                        <includedValues>ISO::DE-HB::Bremen</includedValues>
-                        <includedValues>ISO::DE-HH::Hamburg</includedValues>
-                        <includedValues>ISO::DE-HE::Hessen</includedValues>
-                        <includedValues>ISO::DE-MV::Mecklenburg-Vorpommern</includedValues>
-                        <includedValues>ISO::DE-NI::Niedersachsen</includedValues>
-                        <includedValues>ISO::DE-NW::Nordrhein-Westfalen</includedValues>
-                        <includedValues>ISO::DE-RP::Rheinland-Pfalz</includedValues>
-                        <includedValues>ISO::DE-SL::Saarland</includedValues>
-                        <includedValues>ISO::DE-SN::Sachsen</includedValues>
-                        <includedValues>ISO::DE-ST::Sachsen-Anhalt</includedValues>
-                        <includedValues>ISO::DE-SH::Schleswig-Holstein</includedValues>
-                        <includedValues>ISO::DE-TH::Thüringen</includedValues>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0010]/items[at0031]"/>
@@ -765,62 +580,60 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="1" min="1" path="/data[at0190]/events[at0191]"/>
             <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0001]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::21522001::Bauchschmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::84387000::Asymptomatisch</includedValues>
-                    <includedValues>SNOMED Clinical Terms::131148009::Blutung</includedValues>
-                    <includedValues>SNOMED Clinical Terms::29857009::Brustschmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::43724002::Schüttelfrost</includedValues>
-                    <includedValues>SNOMED Clinical Terms::9826008::Konjunktivitis</includedValues>
-                    <includedValues>SNOMED Clinical Terms::49727002::Husten</includedValues>
-                    <includedValues>SNOMED Clinical Terms::62315008::Durchfall</includedValues>
-                    <includedValues>SNOMED Clinical Terms::3006004::Bewusstseinsstörung</includedValues>
-                    <includedValues>SNOMED Clinical Terms::267036007::Atemnot</includedValues>
-                    <includedValues>SNOMED Clinical Terms::271807003::Hautausschlag</includedValues>
-                    <includedValues>SNOMED Clinical Terms::84229001::Müdigkeit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::103001002::Fieberigkeit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::386661006::Fieber</includedValues>
-                    <includedValues>SNOMED Clinical Terms::25064002::Kopfschmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::66857006::Bluthusten</includedValues>
-                    <includedValues>SNOMED Clinical Terms::248567008::Hauteinziehungen des Brustkorbs bei der Einatmung</includedValues>
-                    <includedValues>SNOMED Clinical Terms::57676002::Gelenkschmerz</includedValues>
-                    <includedValues>SNOMED Clinical Terms::79890006::Appetitverlust</includedValues>
-                    <includedValues>SNOMED Clinical Terms::44169009::Geruchverlust</includedValues>
-                    <includedValues>SNOMED Clinical Terms::36955009::Geschmackverlust</includedValues>
-                    <includedValues>SNOMED Clinical Terms::30746006::Lymphadenopathie</includedValues>
-                    <includedValues>SNOMED Clinical Terms::367391008::Unwohlsein</includedValues>
-                    <includedValues>SNOMED Clinical Terms::68962001::Muskelschmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::68235000::Verstopfte Nase</includedValues>
-                    <includedValues>SNOMED Clinical Terms::64531003::Laufende Nase</includedValues>
-                    <includedValues>SNOMED Clinical Terms::422587007::Übelkeit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::162397003::Halsschmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::38880002::Starre</includedValues>
-                    <includedValues>SNOMED Clinical Terms::91175000::Krampfanfall</includedValues>
-                    <includedValues>SNOMED Clinical Terms::46742003::Hautgeschwüre</includedValues>
-                    <includedValues>SNOMED Clinical Terms::282145008::Unfähig zu gehen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::422400008::Erbrechen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::56018004::Keuchen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::426000000::Fieber über 38° Celsius</includedValues>
-                    <includedValues>SNOMED Clinical Terms::13791008::Schwächegefühl</includedValues>
-                    <includedValues>SNOMED Clinical Terms::22253000::Schmerzen</includedValues>
-                    <includedValues>SNOMED Clinical Terms::28743005::Produktiver Husten</includedValues>
-                    <includedValues>SNOMED Clinical Terms::11833005::Trockener Husten</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40917007::Bewusstseinstrübung</includedValues>
+                    <includedValues>http://snomed.info/sct::21522001::Abdominal pain (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::84387000::Asymptomatic (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::131148009::Bleeding (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::29857009::Chest pain (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::43724002::Chill (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::9826008::Conjunctivitis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::49727002::Cough (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::62315008::Diarrhea (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::3006004::Disturbance of consciousness (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::267036007::Dyspnea (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::271807003::Eruption of skin (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::84229001::Fatigue (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::103001002::Feeling feverish (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::386661006::Fever (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::25064002::Headache (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::66857006::Hemoptysis (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::248567008::Indrawing of ribs during respiration (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::57676002::Joint pain (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::79890006::Loss of appetite (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::44169009::Loss of sense of smell (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::36955009::Loss of taste (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::30746006::Lymphadenopathy (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::367391008::Malaise (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::68962001::Muscle pain (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::68235000::Nasal congestion (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::64531003::Nasal discharge (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::422587007::Nausea (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::162397003::Pain in throat (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::38880002::Rigor (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::91175000::Seizure (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::46742003::Skin ulcer (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::282145008::Unable to walk (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::422400008::Vomiting (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::56018004::Wheezing (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::426000000::Fever greater than 100.4 Fahrenheit / 38° Celsius (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::13791008::Asthenia (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::22253000::Pain (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::28743005::Productive cough (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::11833005::Dry cough (finding)</includedValues>
+                    <includedValues>http://snomed.info/sct::40917007::Clouded consciousness (finding)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0035]"/>
-            <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0151]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0002]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0175]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0186]"/>
-            <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0152]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0164]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0028]"/>
             <Rule path="/data[at0190]/events[at0191]/data[at0192]/items[at0021]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::255604002::Mild</includedValues>
-                    <includedValues>SNOMED Clinical Terms::6736007::Mäßig</includedValues>
-                    <includedValues>SNOMED Clinical Terms::24484000::Stark</includedValues>
-                    <includedValues>SNOMED Clinical Terms::442452003::Lebensbedrohlicher Schweregrad</includedValues>
+                    <includedValues>http://snomed.info/sct::255604002::Mild (qualifier value)</includedValues>
+                    <includedValues>http://snomed.info/sct::6736007::Moderate (severity modifier) (qualifier value)</includedValues>
+                    <includedValues>http://snomed.info/sct::24484000::Severe (severity modifier) (qualifier value)</includedValues>
+                    <includedValues>http://snomed.info/sct::442452003::Life threatening severity (qualifier value)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0026]">
@@ -841,7 +654,6 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0165]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0155]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0037]"/>
-            <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0161]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0057]"/>
             <Rule max="0" path="/data[at0190]/events[at0191]/data[at0192]/items[at0031]">
                 <constraint xsi:type="tem:countConstraint">
@@ -968,7 +780,7 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
-            concept_name="Arzneimittelverwaltung" name="Impfung"
+            concept_name="Arzneimittelverwaltung" min="1" name="Impfung"
             path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0109]"/>
             <Rule max="0" min="0" path="/ism_transition[at0145]"/>
@@ -994,246 +806,62 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" min="0" path="/ism_transition[at0007]"/>
             <Rule name="Impfstoff" path="/description[at0017]/items[at0020]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::421245007::Diphtheria + pertussis + tetanus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002::Vaccine product (product)</includedValues>
-                    <includedValues>SNOMED CT::37146000::Typhus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::407746005::Varicella-zoster live attenuated vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:127489000=412300006::Vaccine product (product): Has active ingredient (attribute) = Rubella and mumps vaccine (substance)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=428126001}{127489000=412374001}{127489000=396433007}{127489000=412375000}{127489000=396424005}{127489000=768365004}{127489000=768366003}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) } { Has active ingredient (attribute) = Meningococcus group A vaccine (substance) } { Has active ingredient (attribute) = Meningococcus group C vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::427542001::Diphtheria + tetanus + pertussis + poliomyelitis + recombinant hepatitis B virus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=428126001}{127489000=412374001}{127489000=396433007}{127489000=412375000}{127489000=396424005}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::333707007::Hepatitis A+typhoid vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::426842004::Diphtheria + tetanus + pertussis + poliomyelitis + recombinant hepatitis B virus + recombinant haemophilus influenzae type B vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::426971004::Haemophilus influenzae Type b + recombinant hepatitis B virus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=428126001}{127489000=396424005}{127489000=412375000}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Hepatitis B virus vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::414004005::Diphtheria + tetanus + pertussis + poliomyelitis + haemophilus influenzae b vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::426081003::Diphtheria + tetanus + pertussis + recombinant hepatitis B virus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=412374001}{127489000=396436004}::Vaccine product (product): { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Live Poliovirus vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=428126001}{127489000=396438003}{127489000=412375000}::Vaccine product (product): { Has active ingredient (attribute) = Diphtheria vaccine (substance) } { Has active ingredient (attribute) = Rubella vaccine (substance) } { Has active ingredient (attribute) = Tetanus vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::414005006::Diphtheria + tetanus + pertussis + poliomyelitis vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::414006007::Diphtheria + tetanus + poliomyelitis vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::419550004::Measles + mumps + rubella + varicella vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=396427003}{127489000=396438003}::Vaccine product (product): { Has active ingredient (attribute) = Measles vaccine (substance) } { Has active ingredient (attribute) = Rubella vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::61153008::Measles, mumps and rubella vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::785865001::Measles and mumps vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::333702001::Hepatitis A+B vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::350327004::Diphtheria + tetanus vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::78785900:{127489000=398730001}{127489000=412374001}::Vaccine product (product): { Has active ingredient (attribute) = Pneumococcal vaccine (substance) } { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::423912009::Haemophilus influenzae type b + Meningococcal group C vaccine (product)</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=412374001}{127489000=396433007}{127489000=396411005}::Vaccine product (product): { Has active ingredient (attribute) = Haemophilus influenzae type b vaccine (substance) } { Has active ingredient (attribute) = Pertussis vaccine (substance) } { Has active ingredient (attribute) = Toxoid (substance) }</includedValues>
-                    <includedValues>SNOMED CT::787859002:{127489000=396422009}{127489000=396441007}::Vaccine product (product): { Has active ingredient (attribute) = Cholera vaccine (substance) } { Has active ingredient (attribute) = Typhoid vaccine (substance) }</includedValues>
-                    <includedValues>SNOMED CT::333697005::Japanese B encephalitis vaccine</includedValues>
-                    <includedValues>SNOMED CT::333699008::Tick-borne encephalitis vaccine</includedValues>
-                    <includedValues>SNOMED CT::90043005::Mumps live virus vaccine</includedValues>
-                    <includedValues>SNOMED CT::111164008::Poliovirus vaccine</includedValues>
-                    <includedValues>SNOMED CT::116077000::Rotavirus vaccine</includedValues>
-                    <includedValues>SNOMED CT::333606008::Rabies vaccine</includedValues>
-                    <includedValues>SNOMED CT::407737004::Varicella-zoster vaccine</includedValues>
-                    <includedValues>SNOMED CT::33234009::Smallpox vaccine</includedValues>
-                    <includedValues>SNOMED CT::424519000::Human papillomavirus vaccine</includedValues>
-                    <includedValues>SNOMED CT::56844000::Yellow fever vaccine</includedValues>
-                    <includedValues>SNOMED CT::386013003::Rubella vaccine</includedValues>
-                    <includedValues>SNOMED CT::386012008::Measles vaccine</includedValues>
-                    <includedValues>SNOMED CT::14745005::Hepatitis A virus vaccine</includedValues>
-                    <includedValues>SNOMED CT::34689006::Hepatitis B virus vaccine</includedValues>
-                    <includedValues>SNOMED CT::46233009::Influenza virus vaccine</includedValues>
-                    <includedValues>SNOMED CT::89428009::Typhoid vaccine</includedValues>
-                    <includedValues>SNOMED CT::420538001::Tuberculosos vaccine</includedValues>
-                    <includedValues>SNOMED CT::333621002::Tetanus vaccine</includedValues>
-                    <includedValues>SNOMED CT::333598008::Pneumococcal vaccine</includedValues>
-                    <includedValues>SNOMED CT::11866009::Plague vaccine</includedValues>
-                    <includedValues>SNOMED CT::61602008::Pertussis vaccine</includedValues>
-                    <includedValues>SNOMED CT::423531006::Meningococcus vaccine</includedValues>
-                    <includedValues>SNOMED CT::333680004::Haemophilus influenzae Type b vaccine</includedValues>
-                    <includedValues>SNOMED CT::428214002::Diphtheria vaccine</includedValues>
-                    <includedValues>SNOMED CT::35736007::Cholera vaccine</includedValues>
-                    <includedValues>SNOMED CT::7230005::Brucella vaccine</includedValues>
-                    <includedValues>SNOMED CT::333521006::Anthrax vaccine</includedValues>
-                    <includedValues>SNOMED CT::714569001::Product containing normal immunoglobulin human (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::786224004::Product containing human anti-D immunoglobulin (medicinal product)|</includedValues>
-                    <includedValues>SNOMED CT::384706007::Product containing tetanus antitoxin (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::62294009::Product containing Varicella-zoster virus antibody (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::9542007::Product containing Hepatitis B surface antigen immunoglobulin (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::80834004::Product containing rabies human immune globulin (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::9778000::Product containing Cytomegalovirus antibody (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::108725001::Product containing palivizumab (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::763703008::Product containing bezlotoxumab (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::J07AR::Typhus (exanthematicus)-Impfstoff</includedValues>
-                    <includedValues>SNOMED CT::J07AR01::Typhus exanthematicus, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AC::Milzbrand-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AC01::Anthrax-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AD::Brucellose-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AD01::Brucella-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AE::Cholera-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AE01::Cholera, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AE02::Cholera, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07AE51::Cholera, Kombinationen mit Typhus-Impfstoff, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AF::Diphtherie-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AF01::Diphtherie-Toxoid</includedValues>
-                    <includedValues>SNOMED CT::J07AG::Haemophilus influenzae B-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AG01::Haemophilus influenzae B, gereinigtes Antigen konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AG51::Haemophilus influenzae B, Kombinationen mit Toxoiden</includedValues>
-                    <includedValues>SNOMED CT::J07AG52::Haemophilus influenzae B, Kombinationen mit Pertussis und Toxoiden</includedValues>
-                    <includedValues>SNOMED CT::J07AG53::Haemophilus influenzae B, Kombinationen mit Meningokokken C, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AH::Meningokokken-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AH01::Meningokokken A, gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AH02::Andere Meningokokken monovalent, gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AH03::Meningokokken bivalent (A, C), gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AH04::Meningokokken tetravalent (A, C, Y, W-135), gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AH05::Andere Meningokokken polyvalent, gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AH06::Meningokokken B, äußere Vesikelmembran-Impfstoff</includedValues>
-                    <includedValues>SNOMED CT::J07AH07::Meningokokken C, gereinigtes Polysaccharid-Antigen, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AH08::Meningokokken tetravalent (A, C, Y, W-135), gereinigtes Polysaccharid-Antigen, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AH09::Meningokokken B, Multikomponenten-Impfstoff</includedValues>
-                    <includedValues>SNOMED CT::J07AH10::Meningokokken A, gereinigtes Polysaccharid-Antigen, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AJ::Pertussis-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AJ01::Pertussis, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AJ02::Pertussis, gereinigtes Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AJ51::Pertussis, inaktiviert, ganze Zelle, Kombinationen mit Toxoiden</includedValues>
-                    <includedValues>SNOMED CT::J07AJ52::Pertussis, gereinigtes Antigen, Kombinationen mit Toxoiden</includedValues>
-                    <includedValues>SNOMED CT::J07AK::Pest-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AK01::Pest, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AL::Pneumokokken-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AL01::Pneumokokken, gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AL02::Pneumokokken, gereinigtes Polysaccharid-Antigen, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AL52::Pneumokokken, gereinigtes Polysaccharid-Antigen und Haemophilus influenzae B, konjugiert</includedValues>
-                    <includedValues>SNOMED CT::J07AM::Tetanus-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AM01::Tetanus-Toxoid</includedValues>
-                    <includedValues>SNOMED CT::J07AM51::Tetanus-Toxoid, Kombinationen mit Diphtherie-Toxoid</includedValues>
-                    <includedValues>SNOMED CT::J07AM52::Tetanus-Toxoid, Kombinationen mit Tetanus-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J07AN::Tuberkulose-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AN01::Tuberkulose, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07AP::Typhus-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07AP01::Typhus, oral, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07AP02::Typhus, inaktiviert, ganze Zelle</includedValues>
-                    <includedValues>SNOMED CT::J07AP03::Typhus, gereinigtes Polysaccharid-Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07AP10::Typhus, Kombinationen mit Paratyphustypen</includedValues>
-                    <includedValues>SNOMED CT::J07BA::Encephalitis-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BA01::FSME, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BA02::Encephalitis, japanische, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BA03::Encephalitis, japanische, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BB::Influenza-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BB01::Influenza, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BB02::Influenza, inaktiviert, Spaltvirus oder Oberflächenantigen</includedValues>
-                    <includedValues>SNOMED CT::J07BB03::Influenza, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BC::Hepatitis-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BC01::Hepatitis B, gereinigtes Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07BC02::Hepatitis A, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BC03::Hepatitis A, gereinigtes Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07BC20::Kombinationen</includedValues>
-                    <includedValues>SNOMED CT::J07BD::Masern-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BD01::Masern, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BD51::Masern, Kombinationen mit Mumps, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BD52::Masern, Kombinationen mit Mumps und Röteln, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BD53::Masern, Kombinationen mit Röteln, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BD54::Masern, Kombinationen mit Mumps, Röteln und Varicella, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BE::Mumps-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BE01::Mumps, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BF::Poliomyelitis-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BF01::Poliomyelitis, oral, monovalent, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BF02::Poliomyelitis, oral, trivalent, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BF03::Poliomyelitis, trivalent, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BF04::Poliomyelitis, oral, bivalent, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BG::Tollwut-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BG01::Tollwut, inaktiviert, ganzes Virus</includedValues>
-                    <includedValues>SNOMED CT::J07BH::Rotavirus-Diarrhoe-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BH01::Rotavirus, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BH02::Rotavirus, pentavalent, lebend, Reassortanten</includedValues>
-                    <includedValues>SNOMED CT::J07BJ::Röteln-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BJ01::Röteln, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BJ51::Röteln, Kombinationen mit Mumps, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BK::Varicella Zoster Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BK01::Varicella, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BK02::Zoster Virus, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BK03::Zoster Virus, gereinigtes Antigen</includedValues>
-                    <includedValues>SNOMED CT::J07BL::Gelbfieber-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BL01::Gelbfieber, lebend abgeschwächt</includedValues>
-                    <includedValues>SNOMED CT::J07BM::Papillomvirus-Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BM01::Humaner-Papillomvirus-Impfstoff (Typen 6,11,16,18)</includedValues>
-                    <includedValues>SNOMED CT::J07BM02::Humaner-Papillomvirus-Impfstoff (Typen 16,18)</includedValues>
-                    <includedValues>SNOMED CT::J07BM03::Humaner-Papillomvirus-Impfstoff (Typen 6,11,16,18,31,33,45,52,58)</includedValues>
-                    <includedValues>SNOMED CT::J07BX::Andere virale Impfstoffe</includedValues>
-                    <includedValues>SNOMED CT::J07BX01::Pocken-Impfstoff, lebend, modifiziert</includedValues>
-                    <includedValues>SNOMED CT::J07CA::Bakterielle und virale Impfstoffe, kombiniert</includedValues>
-                    <includedValues>SNOMED CT::J07CA01::Diphtherie-Poliomyelitis-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA02::Diphtherie-Pertussis-Poliomyelitis-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA03::Diphtherie-Röteln-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA04::Haemophilus influenzae B und Poliomyelitis</includedValues>
-                    <includedValues>SNOMED CT::J07CA05::Diphtherie-Hepatitis B-Pertussis-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA06::Diphtherie-Haemophilus influenzae B-Pertussis-Poliomyelitis-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA07::Diphtherie-Hepatitis B-Tetanus</includedValues>
-                    <includedValues>SNOMED CT::J07CA08::Haemophilus influenzae B und Hepatitis B</includedValues>
-                    <includedValues>SNOMED CT::J07CA09::Diphtherie-Haemophilus influenzae B-Pertussis-Poliomyelitis-Tetanus-Hepatitis B</includedValues>
-                    <includedValues>SNOMED CT::J07CA10::Typhus-Hepatitis A</includedValues>
-                    <includedValues>SNOMED CT::J07CA11::Diphtherie-Haemophilus influenzae B-Pertussis-Tetanus-Hepatitis B</includedValues>
-                    <includedValues>SNOMED CT::J07CA12::Diphtherie-Pertussis-Poliomyelitis-Tetanus-Hepatitis B</includedValues>
-                    <includedValues>SNOMED CT::J07CA13::Diphtherie-Haemophilus influenzae B-Pertussis-Tetanus-Hepatitis B-Meningokokken A + C</includedValues>
-                    <includedValues>SNOMED CT::J06BA::Immunglobuline, normal human</includedValues>
-                    <includedValues>SNOMED CT::J06BA01::Immunglobuline, normal human, zur extravasalen Anwendung</includedValues>
-                    <includedValues>SNOMED CT::J06BA02::Immunglobuline, normal human, zur intravasalen Anwendung</includedValues>
-                    <includedValues>SNOMED CT::J06BB::Spezifische Immunglobuline</includedValues>
-                    <includedValues>SNOMED CT::J06BB01::Anti-D(rh)-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB02::Tetanus-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB03::Varicella/Zoster-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB04::Hepatitis-B-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB05::Tollwut-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB09::Cytomegalievirus-Immunglobulin</includedValues>
-                    <includedValues>SNOMED CT::J06BB16::Palivizumab</includedValues>
-                    <includedValues>SNOMED CT::J06BB21::Bezlotoxumab</includedValues>
-                    <includedValues>SNOMED CT::1119305005::Vaccine product containing only Severe acute respiratory syndrome coronavirus 2 antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::1119349007::Vaccine product containing only Severe acute respiratory syndrome coronavirus 2 messenger ribonucleic acid (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836503005::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::2221000221107::Vaccine product containing only live attenuated Human alphaherpesvirus 3 antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836376002::Vaccine product containing Mumps orthorubulavirus and Rubella virus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871729003+836380007+601000221108+863911006+836374004+871871008::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product) + Vaccine product containing only Neisseria meningitidis serogroup A and C antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871892008::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Hepatitis B virus and Human poliovirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871729003+836380007+601000221108+863911006+836374004::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836501007::Vaccine product containing Hepatitis A virus and Salmonella enterica subspecies enterica serovar Typhi antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871896006::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Haemophilus influenzae type B and Hepatitis B virus and Human poliovirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::865946000::Vaccine product containing Haemophilus influenzae type B and Hepatitis B virus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871729003+836374004+863911006::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::838279002::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Haemophilus influenzae type B and Human poliovirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871917002::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Hepatitis B virus (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836380007+1031000221108::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Human poliovirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871729003+836388000+863911006::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Rubella virus antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836508001::Vaccine product containing Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Human poliovirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836505003::Vaccine product containing Clostridium tetani and Corynebacterium diphtheriae and Human poliovirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::838280004::Vaccine product containing Human alphaherpesvirus 3 and Measles morbillivirus and Mumps orthorubulavirus and Rubella virus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836382004+836388000::Vaccine product containing Measles morbillivirus antigen (medicinal product) + Vaccine product containing Rubella virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836494009::Vaccine product containing Measles morbillivirus and Mumps orthorubulavirus and Rubella virus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836499004::Vaccine product containing Measles morbillivirus and Mumps orthorubulavirus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836493003::Vaccine product containing Hepatitis A and Hepatitis B virus antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836502000::Vaccine product containing Clostridium tetani and Corynebacterium diphtheriae antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836398006+836380007::Vaccine product containing Streptococcus pneumoniae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836500008::Vaccine product containing only Haemophilus influenzae type B and Neisseria meningitidis serogroup C antigens (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836380007+601000221108::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836383009+836390004::Vaccine product containing Vibrio cholerae antigen (medicinal product) + Vaccine product containing Salmonella enterica subspecies enterica serovar Typhi antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836378001::Vaccine product containing Japanese encephalitis virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836403007::Vaccine product containing Tick-borne encephalitis virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::871738001::Vaccine product containing only live attenuated Mumps orthorubulavirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::1031000221108::Vaccine product containing Human poliovirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836387005::Vaccine product containing Rotavirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836393002::Vaccine product containing Rabies lyssavirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836495005::Vaccine product containing Human alphaherpesvirus 3 antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836389008::Vaccine product containing Vaccinia virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836379009::Vaccine product containing Human papillomavirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836385002::Vaccine product containing Yellow fever virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836388000::Vaccine product containing Rubella virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836382004::Vaccine product containing Measles morbillivirus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836375003::Vaccine product containing Hepatitis A virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836374004::Vaccine product containing Hepatitis B virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836377006::Vaccine product containing Influenza virus antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836390004::Vaccine product containing Salmonella enterica subspecies enterica serovar Typhi antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836402002::Vaccine product containing live attenuated Mycobacterium bovis antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::863911006::Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836398006::Vaccine product containing Streptococcus pneumoniae antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::840549009::Vaccine product containing Yersinia pestis antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::601000221108::Vaccine product containing Bordetella pertussis antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836401009::Vaccine product containing Neisseria meningitidis antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836380007::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836381006::Vaccine product containing Corynebacterium diphtheriae antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836383009::Vaccine product containing Vibrio cholerae antigen (medicinal product)</includedValues>
-                    <includedValues>SNOMED CT::836384003::Vaccine product containing Bacillus anthracis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::1119305005::Vaccine product containing only Severe acute respiratory syndrome coronavirus 2 antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::1119349007::Vaccine product containing only Severe acute respiratory syndrome coronavirus 2 messenger ribonucleic acid (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871875004::Vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::787859002::Vaccine product (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::37146000::Typhus vaccine (product)</includedValues>
+                    <includedValues>http://snomed.info/sct::2221000221107::Vaccine product containing only live attenuated Human alphaherpesvirus 3 antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871891001::Vaccine product containing only acellular Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Hepatitis B virus and inactivated whole Human poliovirus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871804001::Vaccine product containing only Hepatitis A virus and Salmonella enterica subspecies enterica serovar Typhi antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871895005::Vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Haemophilus influenzae type B and Hepatitis B virus and Human poliovirus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871806004::Vaccine product containing only Haemophilus influenzae type B and Hepatitis B virus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871887006::Vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Haemophilus influenzae type B and Human poliovirus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871878002::Vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Human poliovirus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871837004::Vaccine product containing only Clostridium tetani and Corynebacterium diphtheriae and Human poliovirus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871908002::Vaccine product containing only Human alphaherpesvirus 3 and Measles morbillivirus and Mumps orthorubulavirus and Rubella virus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836382004+836388000::Vaccine product containing Measles morbillivirus antigen (medicinal product) + Vaccine product containing Rubella virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871831003::Vaccine product containing only Measles morbillivirus and Mumps orthorubulavirus and Rubella virus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871803007::Vaccine product containing only Hepatitis A and Hepatitis B virus antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871826000::Vaccine product containing only Clostridium tetani and Corynebacterium diphtheriae antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836500008::Vaccine product containing only Haemophilus influenzae type B and Neisseria meningitidis serogroup C antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836383009+836390004::Vaccine product containing Vibrio cholerae antigen (medicinal product) + Vaccine product containing Salmonella enterica subspecies enterica serovar Typhi antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836378001::Vaccine product containing Japanese encephalitis virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836403007::Vaccine product containing Tick-borne encephalitis virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::871738001::Vaccine product containing only live attenuated Mumps orthorubulavirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::1031000221108::Vaccine product containing Human poliovirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836387005::Vaccine product containing Rotavirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836393002::Vaccine product containing Rabies lyssavirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836495005::Vaccine product containing Human alphaherpesvirus 3 antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836389008::Vaccine product containing Vaccinia virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836379009::Vaccine product containing Human papillomavirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836385002::Vaccine product containing Yellow fever virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836388000::Vaccine product containing Rubella virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836382004::Vaccine product containing Measles morbillivirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836375003::Vaccine product containing Hepatitis A virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836374004::Vaccine product containing Hepatitis B virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836377006::Vaccine product containing Influenza virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836390004::Vaccine product containing Salmonella enterica subspecies enterica serovar Typhi antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836402002::Vaccine product containing live attenuated Mycobacterium bovis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::863911006::Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836398006::Vaccine product containing Streptococcus pneumoniae antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::840549009::Vaccine product containing Yersinia pestis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::601000221108::Vaccine product containing Bordetella pertussis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836401009::Vaccine product containing Neisseria meningitidis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836380007::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836381006::Vaccine product containing Corynebacterium diphtheriae antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836383009::Vaccine product containing Vibrio cholerae antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836384003::Vaccine product containing Bacillus anthracis antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836374004+863911006+871729003::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836388000+836498007::Vaccine product containing Mumps orthorubulavirus antigen (medicinal product) + Vaccine product containing Rubella virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::1031000221108+836380007::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Human poliovirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836388000+863911006+871729003::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Rubella virus antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::601000221108+836374004+836380007+863911006+871729003::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::601000221108+836374004+836380007+863911006+871729003+871871008::Vaccine product containing only Corynebacterium diphtheriae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product) + Vaccine product containing Clostridium tetani antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product) + Vaccine product containing only Neisseria meningitidis serogroup A and C antigens (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::601000221108+836374004+836381006+863911006::Vaccine product containing Clostridium tetani antigen (medicinal product) + Vaccine product containing Hepatitis B virus antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product) + Vaccine product containing Corynebacterium diphtheriae antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836380007+836398006::Vaccine product containing Streptococcus pneumoniae antigen (medicinal product) + Vaccine product containing Haemophilus influenzae type B antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::836382004+836498007::Vaccine product containing Mumps orthorubulavirus antigen (medicinal product) + Vaccine product containing Measles morbillivirus antigen (medicinal product)</includedValues>
+                    <includedValues>http://snomed.info/sct::601000221108+836380007::Vaccine product containing Haemophilus influenzae type B antigen (medicinal product) + Vaccine product containing Bordetella pertussis antigen (medicinal product)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
@@ -1241,44 +869,44 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
             <Rule max="0" path="/description[at0017]/items[at0043]"/>
             <Rule max="0" path="/description[at0017]/items[at0154]"/>
             <Rule max="0" path="/description[at0017]/items[at0155]"/>
-            <Rule max="1" name="Impfung gegen" path="/description[at0017]/items[at0021]">
+            <Rule name="Impfung gegen" path="/description[at0017]/items[at0021]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::840539006::Erkrankung durch Coronavirus 2 des schweren akuten respiratorischen Syndroms (Störung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40733004::Infektionskrankheit (Störung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16901001::Mitteleuropäische Enzephalitis (Störung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::64572001::Seuche (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::307333004::Rhesus-Isoimmunisierung durch Anti-D (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::39111003::Läusetyphus (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::28944009::Cytomegalovirus-Infektion (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::55735004::Respiratorische Synzytialvirus-Infektion (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::186431008::Clostridioides-difficile-Infektion (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::67924001::Pocken</includedValues>
-                    <includedValues>SNOMED Clinical Terms::240532009::Humane Papilomavirus-Infektion (Erkrankung)</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16541001::Gelbfieber</includedValues>
-                    <includedValues>SNOMED Clinical Terms::4740000::Herpes Zoster</includedValues>
-                    <includedValues>SNOMED Clinical Terms::38907003::Windpocken</includedValues>
-                    <includedValues>SNOMED Clinical Terms::36653000::Röteln</includedValues>
-                    <includedValues>SNOMED Clinical Terms::14168008::Tollwut</includedValues>
-                    <includedValues>SNOMED Clinical Terms::398102009::Akute Poliomyelitis</includedValues>
-                    <includedValues>SNOMED Clinical Terms::36989005::Mumps</includedValues>
-                    <includedValues>SNOMED Clinical Terms::14189004::Masern</includedValues>
-                    <includedValues>SNOMED Clinical Terms::40468003::Virale Hepatitis, Typ A</includedValues>
-                    <includedValues>SNOMED Clinical Terms::66071002::Virale Hepatitis, Typ B</includedValues>
-                    <includedValues>SNOMED Clinical Terms::6142004::Grippe</includedValues>
-                    <includedValues>SNOMED Clinical Terms::52947006::Japanische Enzephalitis-Viruserkrankung</includedValues>
-                    <includedValues>SNOMED Clinical Terms::18624000::Durch Rotavirus verursachte Krankheit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::4834000::Thyphusfieber</includedValues>
-                    <includedValues>SNOMED Clinical Terms::56717001::Tuberkulose</includedValues>
-                    <includedValues>SNOMED Clinical Terms::76902006::Tetanus</includedValues>
-                    <includedValues>SNOMED Clinical Terms::16814004::Pneumokokken-Infektionskrankheit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::58750007::Pest</includedValues>
-                    <includedValues>SNOMED Clinical Terms::27836007::Keuchhusten</includedValues>
-                    <includedValues>SNOMED Clinical Terms::23511006::Meningokokken-Infektionskrankheit</includedValues>
-                    <includedValues>SNOMED Clinical Terms::709410003::Haemophilus influenzae Typ b-Infektion</includedValues>
-                    <includedValues>SNOMED Clinical Terms::397430003::Diphtherie, verursacht durch Corynebacterium diphtheriae</includedValues>
-                    <includedValues>SNOMED Clinical Terms::63650001::Cholera</includedValues>
-                    <includedValues>SNOMED Clinical Terms::75702008::Brucellose</includedValues>
-                    <includedValues>SNOMED Clinical Terms::409498004::Milzbrand</includedValues>
+                    <includedValues>http://snomed.info/sct::840539006::Disease caused by Severe acute respiratory syndrome coronavirus 2 (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::67924001::Smallpox (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::240532009::Human papillomavirus infection (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::16541001::Yellow fever (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::4740000::Herpes zoster (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::38907003::Varicella (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::36653000::Rubella (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::18624000::Disease caused by Rotavirus (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::14168008::Rabies (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::398102009::Acute poliomyelitis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::36989005::Mumps (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::14189004::Measles (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::40468003::Viral hepatitis, type A (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::66071002::Viral hepatitis type B (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::6142004::Influenza (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::52947006::Japanese encephalitis virus disease (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::16901001::Central European encephalitis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::4834000::Typhoid fever (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::56717001::Tuberculosis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::76902006::Tetanus (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::16814004::Pneumococcal infectious disease (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::58750007::Plague (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::27836007::Pertussis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::23511006::Meningococcal infectious disease (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::709410003::Haemophilus influenzae type b infection (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::397430003::Diphtheria caused by Corynebacterium diphtheriae (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::63650001::Cholera (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::75702008::Brucellosis (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::409498004::Anthrax (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::39111003::Louse-borne typhus (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::28944009::Cytomegalovirus infection (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::55735004::Respiratory syncytial virus infection (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::186431008::Clostridioides difficile infection (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::307333004::Rhesus isoimmunization due to anti-D (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::64572001::Disease (disorder)</includedValues>
+                    <includedValues>http://snomed.info/sct::40733004::Infectious disease (disorder)</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0017]/items[at0140]"/>
@@ -1323,13 +951,29 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0176]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Interval</includedTypes>
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <unitMagnitude>
+                            <unit>1</unit>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0177]"/>
             </Items>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            concept_name="Fehlen von Informationen" max="1"
+            name="Unbekannter Impfstatus" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips::no-immunization-info::No information about immunizations</includedValues>
+                    <includedValues>http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips::no-known-immunizations::No known immunizations</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
         <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
@@ -1363,10 +1007,10 @@ Die Anforderungen, die bei der Erstellung dieses Template verwendet wurden, stam
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FA9E215CB95BE6F50667A10DEB71F199</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
+        <digest id="MD5-CAM-1.0.1">8C2C056384179DB2FC5B1660934B5B12</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.telecom_details.v0"
