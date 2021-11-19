@@ -71,11 +71,11 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>0c189da45d9ceccfdeba08e21bffbbdf</value>
+                <value>c18583cec8ab1cab1d5db22d15f90a98</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>641B268BE8805CEB8DC21AB82C53AB3F</value>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -87,7 +87,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>12.0.0</value>
+                <value>14.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -791,7 +791,7 @@
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Qualität ausreichend</includedValues>
                     <includedValues>Qualität eingeschränkt</includedValues>
-                    <includedValues>nicht diagnostisch</includedValues>
+                    <includedValues>Nicht diagnostisch</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]"/>
@@ -1078,21 +1078,20 @@
                     concept_name="Anatomische Lokalisation"
                     name="Metastasierungsort" path="/items[at0034]" xsi:type="tem:CLUSTER">
                     <Rule name="Metastasierungsort" path="/items[at0001]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
-                            <includedValues>PUL</includedValues>
-                            <includedValues>OSS</includedValues>
-                            <includedValues>HEP</includedValues>
-                            <includedValues>BRA</includedValues>
-                            <includedValues>LYM</includedValues>
-                            <includedValues>MAR</includedValues>
-                            <includedValues>PLE</includedValues>
-                            <includedValues>PER</includedValues>
-                            <includedValues>ADR</includedValues>
-                            <includedValues>KID</includedValues>
-                            <includedValues>SKI</includedValues>
-                            <includedValues>OTH</includedValues>
-                            <includedValues>NULL</includedValues>
-                            <includedValues>GEN</includedValues>
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>local_terms::PUL::Lunge (PUL)</includedValues>
+                            <includedValues>local_terms::OSS::Knochen (OSS)</includedValues>
+                            <includedValues>local_terms::HEP::Leber (HEP)</includedValues>
+                            <includedValues>local_terms::BRA::Hirn (BRA)</includedValues>
+                            <includedValues>local_terms::LYM::Lymphknoten (LYM)</includedValues>
+                            <includedValues>local_terms::MAR::Knochenmark (MAR)</includedValues>
+                            <includedValues>local_terms::PLE::Pleura (PLE)</includedValues>
+                            <includedValues>local_terms::PER::Peritoneum (PER)</includedValues>
+                            <includedValues>local_terms::ADR::Nebenniere (ADR)</includedValues>
+                            <includedValues>local_terms::KID::Nieren (KID)</includedValues>
+                            <includedValues>local_terms::SKI::Haut (SKI)</includedValues>
+                            <includedValues>local_terms::OTH::Andere Organe (OTH)</includedValues>
+                            <includedValues>local_terms::GEN::Generalisierte Metastasierung (GEN)</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0065]"/>
@@ -1111,26 +1110,6 @@
                     </Rule>
                     <Rule max="0" path="/items[at0023]"/>
                 </Items>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
-                concept_name="Bildgebendes Verfahren" max="1"
-                name="Kontrastmittel"
-                path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
-                <Rule default="Kontrastmittel" max="1"
-                    name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Kontrastmittel</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="1" name="KM Angewendete Parameter" path="/items[at0014]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>nativ</includedValues>
-                        <includedValues>extrazelluläres KM</includedValues>
-                        <includedValues>intrazelluläres KM</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule name="KM Kommentar" path="/items[at0015]"/>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
@@ -1251,6 +1230,26 @@
                 <Rule max="0" path="/items[at0015]"/>
             </Items>
             <Items
+                archetype_id="openEHR-EHR-CLUSTER.imaging_technique.v1"
+                concept_name="Bildgebendes Verfahren" max="1"
+                name="Kontrastmittel"
+                path="/protocol[at0025]/items[at0041]" xsi:type="tem:CLUSTER">
+                <Rule default="Kontrastmittel" max="1"
+                    name="Bezeichnung des technischen Verfahrens" path="/items[at0013]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Kontrastmittel</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" name="KM Angewendete Parameter" path="/items[at0014]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Nativ</includedValues>
+                        <includedValues>Extrazelluläres KM</includedValues>
+                        <includedValues>Intrazelluläres KM</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="KM Kommentar" path="/items[at0015]"/>
+            </Items>
+            <Items
                 archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
                 path="/protocol[at0025]/items[at0046]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0001]"/>
@@ -1296,7 +1295,7 @@
                 name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
                 <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
                 <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
-                <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Links (L)</includedValues>
                         <includedValues>Rechts (R)</includedValues>
@@ -1738,7 +1737,7 @@
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
@@ -1750,7 +1749,7 @@
         archetype_id="openEHR-EHR-CLUSTER.dicom_module_study_metadata.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">42CC6E70E9D553E54A5AB1C125E3CB8F</digest>
+        <digest id="MD5-CAM-1.0.1">681DDE721468381A980E9C6EC2C34979</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
@@ -1786,7 +1785,7 @@
         archetype_id="openEHR-EHR-CLUSTER.dicom_module_series_metadata.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">0922E67FDE328CED700434433DFE6B3A</digest>
+        <digest id="MD5-CAM-1.0.1">B4B0494B446E4FAB9B8423B2F625CB7D</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
