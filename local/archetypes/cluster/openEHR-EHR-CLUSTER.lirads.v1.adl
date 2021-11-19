@@ -27,7 +27,7 @@ description
 			purpose = <"Zur Darstellung der standardisierten Befundung und Datenerfassung von Bildgebungen mit CT, MRT oder Ultraschall der Leber hinsichtlich des Risikos eines hepatozellulären Karzinoms (HCC) bei Risikopatienten.">
 			use = <"Dieser Archetyp soll verwendet werden, um die standardisierte Befundung und Datensammlung bei der CT-, MRT-Bildgebung sowohl Ultraschall für das hepatozelluläre Karzinom (HCC) nach LI-RADS darzustellen. LI-RADS wird spezifische bildgebende Merkmale der fraglichen Läsion nutzen, um den Malignitätsgrad zu ermitteln, neue Fakten im Verlauf der Beobachtung zu erfassen und die Behandlung zu evaluieren.
 
-Dieser Cluster kann in dem Slot \"Ergebnis der Bildgebung\" des übergeordneten Archetypen \"Bildgebendes Untersuchungsergebnis\" (openEHR-EHR-OBSERVATION.imaging_exam_result) und auch in den Archetypen, die eine HCC Diagnose darstellen (z.B. EVALUATION.problem/diagnose)  eingebettet werden.
+Dieser Cluster kann in dem Slot \"Bildgebende Befunde strukturiert\" des übergeordneten Archetyps \"Bildgebendes Untersuchungsergebnis\" (OBSERVATION.imaging_exam_result) oder im Slot \"Strukturierte Angaben\" des Clusters CLUSTER.imaging_finding und auch in den Archetypen, die eine HCC Diagnose darstellen (z.B. EVALUATION.problem/diagnose)  eingebettet werden.
 ">
 			keywords = <"LI-RADS", "CT", "MRT", "HCC", "Leberbildgebung", "Ultraschall", "CEUS", "hepatozelluläres Karzinom", "American College of Radiology", "ACR", "Diagnostische Interventionelle Radiologie", "Leberläsionen", "Klassifizierung", "Diagnostik", "Therapieansprechen", "Befundungsalgorithmus", "Behandlungsevaluation", "Enhancement">
 			misuse = <"Nicht zur Dokumentation bei Patienten ohne Risikofaktoren für die Entwicklung eines hepatozellulären Karzinoms oder bei Patienten unter 18 Jahren verwenden.
@@ -70,74 +70,74 @@ Not to be used for the documentation of lesions in any other body organ.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"B864221E5C1271EB8916EB2A821F94D6">
-		["build_uid"] = <"90576e2b-f1df-405e-9c52-1b464853234a">
-		["revision"] = <"1.0.0">
+		["MD5-CAM-1.0.1"] = <"5AF3C53769110F0128045F130C66B80E">
+		["build_uid"] = <"b13dffce-4848-48c7-a7ea-c56dedcde695">
+		["revision"] = <"1.0.1">
 	>
 
 definition
-	CLUSTER[at0000] matches {    -- LI-RADS
+	CLUSTER[at0000] matches {	-- LI-RADS
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0003] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- LI-RADS Algorithmus
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0004,    -- *Ultraschall LI-RADS®(en)
-							at0005,    -- *CEUS LI-RADS®(en)
-							at0006,    -- *CT/MRT Diagnostisches LI-RADS®(en)
-							at0007]    -- *CT/MRT Therapieansprechen LI-RADS®(en)
+							at0004, 	-- Ultraschall LI-RADS
+							at0005, 	-- CEUS LI-RADS
+							at0006, 	-- CT/MRT Diagnostisches LI-RADS
+							at0007]	-- CT/MRT Therapieansprechen LI-RADS
 						}
 					}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- LI-RADS Version
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0009] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Diagnostische Katgorie
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0010,    -- *LR-NC(en)
-							at0011,    -- *LR-TIV(en)
-							at0012,    -- *LR-1(en)
-							at0013,    -- *LR-2(en)
-							at0014,    -- *LR-3(en)
-							at0015,    -- *LR-4(en)
-							at0016,    -- *LR-5(en)
-							at0017]    -- *LR-M(en)
+							at0010, 	-- LR-NC
+							at0011, 	-- LR-TIV
+							at0012, 	-- LR-1
+							at0013, 	-- LR-2
+							at0014, 	-- LR-3
+							at0015, 	-- LR-4
+							at0016, 	-- LR-5
+							at0017]	-- LR-M
 						}
 					}
 				}
 			}
-			ELEMENT[at0018] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kategorie Therapieansprechen
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0019,    -- *LR-TR Nicht beurteilbar(en)
-							at0020,    -- *LR-TR Avital(en)
-							at0021,    -- *LR-TR nicht eindeutig(en)
-							at0022]    -- *LR-TR vital(en)
+							at0019, 	-- LR-TR Nicht beurteilbar
+							at0020, 	-- LR-TR Avital
+							at0021, 	-- LR-TR Nicht eindeutig
+							at0022]	-- LR-TR Vital
 						}
 					}
 				}
 			}
-			ELEMENT[at0023] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Arterielle Hypervaskularisation (APHE)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0025,    -- *Kein APHE(en)
-							at0026]    -- *APHE (kein rim-Zeichen)(en)
+							at0025, 	-- Kein APHE
+							at0026]	-- APHE (Kein rim-Zeichen)
 						}
 					}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Größe der Observation
 				value matches {
 					C_DV_QUANTITY <
 						property = <[openehr::122]>
@@ -147,58 +147,58 @@ definition
 							>
 						>
 					>
-					DV_CODED_TEXT matches {*}
+					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0028] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Anreichernde “Kapsel”
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0029,    -- *ja(en)
-							at0030,    -- *nein(en)
-							at0053]    -- *Unbestimmt (de)
+							at0029, 	-- Ja
+							at0030, 	-- Nein
+							at0053]	-- Unbestimmt
 						}
 					}
 				}
 			}
-			ELEMENT[at0031] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0031] occurrences matches {0..1} matches {	-- "Washout” (nicht peripher)
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0032,    -- *ja(en)
-							at0033,    -- *nein(en)
-							at0054]    -- *Unbestimmt (de)
+							at0032, 	-- Ja
+							at0033, 	-- Nein
+							at0054]	-- Unbestimmt
 						}
 					}
 				}
 			}
-			ELEMENT[at0034] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Schwellenwachstum
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0035,    -- *ja(en)
-							at0036,    -- *nein(en)
-							at0055]    -- *Unbestimmt (de)
+							at0035, 	-- Ja
+							at0036, 	-- Nein
+							at0055]	-- Unbestimmt
 						}
 					}
 				}
 			}
-			ELEMENT[at0037] occurrences matches {0..1} matches {    -- *New element(en)
+			ELEMENT[at0037] occurrences matches {0..1} matches {	-- Gefäße Beteiligung
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0038,    -- *ja(en)
-							at0039,    -- *nein(en)
-							at0056]    -- *Unbestimmt (de)
+							at0038, 	-- Ja
+							at0039, 	-- Nein
+							at0056]	-- Unbestimmt
 						}
 					}
 				}
 			}
-			ELEMENT[at0040] occurrences matches {0..1} matches {    -- DV_TEXT
+			ELEMENT[at0040] occurrences matches {0..1} matches {	-- Kommentar
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -369,7 +369,7 @@ ontology
 				>
 				["at0054"] = <
 					text = <"*Unbestimmt (de)">
-					description = <"">
+					description = <"*">
 				>
 				["at0055"] = <
 					text = <"*Unbestimmt (de)">
@@ -377,7 +377,7 @@ ontology
 				>
 				["at0056"] = <
 					text = <"*Unbestimmt (de)">
-					description = <"">
+					description = <"*">
 				>
 			>
 		>
@@ -460,11 +460,11 @@ ontology
 					description = <"Behandelt, wahrscheinlich oder definitiv avital">
 				>
 				["at0021"] = <
-					text = <"LR-TR nicht eindeutig">
+					text = <"LR-TR Nicht eindeutig">
 					description = <"Behandelt, nicht eindeutig vital">
 				>
 				["at0022"] = <
-					text = <"LR-TR vital">
+					text = <"LR-TR Vital">
 					description = <"Behandelt, wahrscheinlich oder definitiv vital">
 				>
 				["at0023"] = <
