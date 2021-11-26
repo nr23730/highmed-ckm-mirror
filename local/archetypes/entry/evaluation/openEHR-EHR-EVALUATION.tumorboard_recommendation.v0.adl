@@ -39,8 +39,8 @@ Als Schlussfolgerungen, die im Rahmen einer Tumorboard Beratung getroffen werden
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"5FB22D6BDDB1446539223C3D0FD4F5B0">
-		["build_uid"] = <"a3efc5a5-7964-4e2f-8210-8ef24de2b91c">
+		["MD5-CAM-1.0.1"] = <"42F467DF68EE065256FCA0FD3E403CE5">
+		["build_uid"] = <"0cb32848-c0d8-404c-bd68-e250f50c574a">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -57,7 +57,13 @@ definition
 					}
 					CLUSTER[at0011] occurrences matches {1..*} matches {    -- Details zur Tumorboard Empfehlung
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0002] matches {    -- Empfehlung
+							ELEMENT[at0002] matches {    -- Empfehlung Kategorie
+								value matches {
+									DV_TEXT matches {*}
+									DV_CODED_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0052] occurrences matches {0..1} matches {    -- Beschreibung der Empfehlung
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -67,29 +73,9 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0034] occurrences matches {0..1} matches {    -- Evidenzlevel
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0035,    -- m1A
-											at0036,    -- m1B
-											at0037,    -- m1C
-											at0038,    -- m2A
-											at0039,    -- m2B
-											at0040,    -- m2C
-											at0041,    -- m3
-											at0042,    -- m4
-											at0043]    -- R
-										}
-									}
-								}
-							}
-							allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {    -- Literaturreferenz
+							allow_archetype CLUSTER[at0051] occurrences matches {0..*} matches {    -- Evidenzgraduierung
 								include
-									archetype_id/value matches {/.*/}
-								exclude
-									archetype_id/value matches {/openEHR-EHR-CLUSTER\.knowledge_base_reference\.v1/}
+									archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.evidence_classification\.v0/}
 							}
 							ELEMENT[at0014] occurrences matches {0..1} matches {    -- Priorität
 								value matches {
@@ -166,8 +152,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Empfehlung">
-					description = <"Beschreibung der Empfehlung.">
+					text = <"Empfehlung Kategorie">
+					description = <"Empfehlung des Tumorboards">
 					comment = <"Kann bei Bedarf mit einer Terminologie kodiert werden.">
 				>
 				["at0003"] = <
@@ -198,6 +184,7 @@ ontology
 				["at0011"] = <
 					text = <"Details zur Tumorboard Empfehlung">
 					description = <"Details zur Empfehlung.">
+					comment = <"Strukturierte Angaben zu jeder einzelnen Empfehlung.">
 				>
 				["at0014"] = <
 					text = <"Priorität">
@@ -237,53 +224,17 @@ ontology
 					description = <"Angabe, ob dem Patienten eine Nachsorge empfohlen wird.
 ">
 				>
-				["at0033"] = <
-					text = <"Literaturreferenz">
-					description = <"Angabe der verwendeten Literatur, auf der das Evidenzlevel basiert.">
-				>
-				["at0034"] = <
-					text = <"Evidenzlevel">
-					description = <"Beschreibung der Evidenz der Empfehlung.">
-				>
-				["at0035"] = <
-					text = <"m1A">
-					description = <"In der gleichen Tumorentität wurde der prädiktive Wert des Biomarkers oder die klinische Wirksamkeit in einer biomarker-stratifizierten Kohorte einer adäquat gepowerten prospektiven Studie oder Metaanalyse gezeigt.">
-				>
-				["at0036"] = <
-					text = <"m1B">
-					description = <"In der gleichen Tumorentität wurde der prädiktive Wert des Biomarkers oder die klinische Wirksamkeit in einer retrospektiven Kohorte oder Fall-Kontroll-Studie gezeigt.">
-				>
-				["at0037"] = <
-					text = <"m1C">
-					description = <"In der gleichen Tumorentität wurde beim Vorliegen des Biomarkers eine klinische Wirksamkeit in einem oder mehreren Fallberichten gezeigt.">
-				>
-				["at0038"] = <
-					text = <"m2A">
-					description = <"In einer anderen Tumorentität wurde der prädiktive Wert des Biomarkers oder die klinische Wirksamkeit in einer biomarker-stratifizierten Kohorte einer adäquat gepowerten prospektiven Studie oder Metaanalyse gezeigt.">
-				>
-				["at0039"] = <
-					text = <"m2B">
-					description = <"In einer anderen Tumorentität wurde der prädiktive Wert des Biomarkers oder die klinische Wirksamkeit in einer retrospektiven Kohorte oder Fall-Kontroll-Studie gezeigt.">
-				>
-				["at0040"] = <
-					text = <"m2C">
-					description = <"In einer anderen Tumorentität wurde beim Vorliegen des Biomarkers eine klinische Wirksamkeit in einem oder mehreren Fallberichten gezeigt.">
-				>
-				["at0041"] = <
-					text = <"m3">
-					description = <"Präklinische Daten (in-vitro-/in-vivo-Modelle, funktionelle Untersuchungen) zeigen eine Assoziation des Biomarkers mit der Wirksamkeit der Medikation, welche durch eine wissenschaftliche Rationale gestützt wird.">
-				>
-				["at0042"] = <
-					text = <"m4">
-					description = <"Eine wissenschaftliche, biologische Rationale legt eine Assoziation des Biomarkers mit der Wirksamkeit der Medikation nahe, welche bisher nicht durch (prä)klinische Daten gestützt wird.">
-				>
-				["at0043"] = <
-					text = <"R">
-					description = <"Evidenz für Therapieresistenz">
-				>
 				["at0044"] = <
 					text = <"Kommentar">
-					description = <"Kommentarfeld zum Tumorboard Empfehlung.">
+					description = <"Kommentarfeld zur Tumorboard Empfehlung.">
+				>
+				["at0051"] = <
+					text = <"Evidenzgraduierung">
+					description = <"Details zur Festlegung der Empfehlungsstärke.">
+				>
+				["at0052"] = <
+					text = <"Beschreibung der Empfehlung">
+					description = <"Detaillierte Beschreibung der Empfehlung.">
 				>
 			>
 		>
