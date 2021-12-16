@@ -1,0 +1,73 @@
+﻿archetype (adl_version=1.4; uid=a4518b7f-4648-4525-a487-c6c14c14b9e3)
+	openEHR-EHR-COMPOSITION.standort.v0
+
+concept
+	[at0000]	-- Standort
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Max Fechner">
+		["email"] = <"max.fechner@gmail.com">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"In OpenEHR notwendige Klammer für die Konzepte Standort und Zeitraum.">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"06CBD179C99C2CA6AF71D985B7CB0CA5">
+		["build_uid"] = <"d03d6b13-ca91-4758-8b7c-550590fa7a43">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Standort
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		content cardinality matches {2..*; unordered} matches {
+			allow_archetype ADMIN_ENTRY[at0001] matches {	-- Zeitraum
+				include
+					archetype_id/value matches {/.*/}
+			}
+			allow_archetype ADMIN_ENTRY[at0002] matches {	-- Standort
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Standort">
+					description = <"Zeitspanne eines Patienten an einem Standort im Krankenhaus.">
+				>
+				["at0001"] = <
+					text = <"Zeitraum">
+					description = <"Slot für den Archetypen Zeitraum.">
+				>
+				["at0002"] = <
+					text = <"Standort">
+					description = <"Slot für den Archetypen Standort.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,91 @@
+﻿archetype (adl_version=1.4; uid=7b5cf632-8c56-4ce3-af42-e672a8d5a768)
+	openEHR-EHR-CLUSTER.quality_of_process.v1
+
+concept
+	[at0000]	-- Qualitätsbewertung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Erik Tute">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung einer Qualitätsbewertung und/oder von Qualitätskriterien einer Untersuchung, eines Vorgangs oder eines Ergebnisses.">
+			use = <"Zur Darstellung der Qualitätsbewertung und/oder von Qualitätskriterien einer Untersuchung, eines Vorgangs oder eines Ergebnisses. Zum Beispiel zur Darstellung der Qualität einer radiologischen Bildgebung verwenden.">
+			keywords = <"Qualität", "Qualitätskriterien", "Qualitätslevel", "Vorgang", "Untersuchung", "Prozess", "Qualitätsstufe", "Qualitätsbewertung", "Qualitätsmessung">
+			misuse = <" Nicht zur Darstellung von Qualitätsmerkmalen von eingesetzten medizinischen Produkten, Messgeräten oder Messmethoden verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Ramona Wellmann", "Simon Schumacher">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"53E807748A76F97223FAE8E9BDC72F96">
+		["build_uid"] = <"d49ea7da-565a-41f9-b291-8b2d314dbac0">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Qualitätsbewertung
+		items cardinality matches {2..2; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Bezeichnung
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Bewertung
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {    -- Qualitätskriterien
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Qualitätsbewertung">
+					description = <"Ein generischer Archetyp zur Dokumentation der Qualitätsbewertung einer Untersuchung, eines Vorgangs oder eines Ergebnisses.  ">
+				>
+				["at0001"] = <
+					text = <"Bezeichnung">
+					description = <"Name des Vorgangs, der Untersuchung oder des Ergebnisses, deren Qualität bewertet wurde.">
+					comment = <"Dies könnte zum Beispiel eine bildgebende Untersuchung sein.">
+				>
+				["at0002"] = <
+					text = <"Bewertung">
+					description = <"Bewertung der Qualität der Untersuchung, des Vorgangs oder des Ergebnisses.">
+				>
+				["at0003"] = <
+					text = <"Qualitätskriterien">
+					description = <"Kriterien für die Bewertung der Qualität.">
+					comment = <"Hier können einzelne Eigenschaften, deren Erfüllung bei einer qualitativ hochwertigen Untersuchung, eines Vorgangs oder eines Ergebnisses erwartet werden, aufgelistet oder die Standards oder Normen benannt werden, die die Qualitätskriterien definieren. Zum Beispiel \"Leitlinie der Bundesärztekammer zur Qualitätssicherung in der Röntgendiagnostik, November 2007\".">
+				>
+				["at0004"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Beschreibung zu der Bewertung, die nicht in anderen Elementen dargestellt werden kann. ">
+					comment = <"Zum Beispiel Gründe, warum die Qualität schlecht bewertet wurde.">
+				>
+			>
+		>
+	>

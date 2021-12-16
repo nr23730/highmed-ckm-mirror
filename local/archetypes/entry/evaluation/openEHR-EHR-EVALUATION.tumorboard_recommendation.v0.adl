@@ -1,0 +1,241 @@
+﻿archetype (adl_version=1.4; uid=59911e14-fefd-4f2b-8e2b-4828b3c260ec)
+	openEHR-EHR-EVALUATION.tumorboard_recommendation.v0
+
+concept
+	[at0000]	-- Tumorboard Empfehlung
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2021-01-15">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der Empfehlung, der Beratung oder des Vorschlags, welche/r vom Tumorboard zu einem bestimmten Zeitpunkt ausgesprochen wurde.
+
+">
+			use = <"Zur Darstellung einer oder mehreren Tumorbard Empfehlung/en, welche durch einen oder mehrere Kliniker zu einem bestimmten Zeitpunkt erstellt wurden.
+Der Kliniker soll bei der Aufzeichnung einer oder mehreren Empfehlung/en für einen bestimmten Patienten zu einem bestimmten Zeitpunkt unterstützt werden.
+Als Schlussfolgerungen, die im Rahmen einer Tumorboard Beratung getroffen werden.
+
+
+
+
+">
+			keywords = <"Beratung", "Empfehlung", "Vorschlag", "Tumorboard", "Tumorkonferenz", "Ergebnis">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7BA618FB2459C036B9284529C3F23D16">
+		["build_uid"] = <"3a8bd3d2-ad87-469b-be39-5357e3c0aac7">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Tumorboard Empfehlung
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0009] occurrences matches {0..1} matches {    -- Fragestellung an das Tumorboard
+						value matches {
+							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0011] occurrences matches {1..*} matches {    -- Details zur Tumorboard Empfehlung
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0002] occurrences matches {0..1} matches {    -- Empfehlung Kategorie
+								value matches {
+									DV_TEXT matches {*}
+									DV_CODED_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0052] occurrences matches {0..1} matches {    -- Beschreibung der Empfehlung
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0003] occurrences matches {0..*} matches {    -- Begründung
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0051] occurrences matches {0..*} matches {    -- Evidenzgraduierung
+								include
+									archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.evidence_classification\.v0/}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {    -- Priorität
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {    -- Leitlinien-basierte Empfehlung
+								value matches {
+									DV_BOOLEAN matches {*}
+								}
+							}
+							ELEMENT[at0021] occurrences matches {0..1} matches {    -- Grund für Abweichung von Leitlinie
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Vorstellung in der Humangenetik
+						value matches {
+							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0015,    -- notwendig
+									at0016,    -- empfehlenswert
+									at0017,    -- nicht notwendig
+									at0018]    -- nicht zutreffend
+								}
+							}
+						}
+					}
+					ELEMENT[at0030] occurrences matches {0..1} matches {    -- Wiedervorstellung
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {    -- Nachsorge
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					ELEMENT[at0044] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tumorboard Empfehlung">
+					description = <"Eine Empfehlung, Beratung oder ein Vorschlag des Tumorboards für die klinische Versorgung eines Krebspatienten.">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Empfehlung Kategorie">
+					description = <"Empfehlung des Tumorboards">
+					comment = <"Kann bei Bedarf mit einer Terminologie kodiert werden.">
+				>
+				["at0003"] = <
+					text = <"Begründung">
+					description = <"Begründung für die Empfehlung.">
+				>
+				["at0005"] = <
+					text = <"Vorstellung in der Humangenetik">
+					description = <"Angabe, ob eine Vorstellung in der Humangenetik empfohlen wird.">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.
+
+">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR- oder CIMI-Modelle.
+">
+				>
+				["at0009"] = <
+					text = <"Fragestellung an das Tumorboard">
+					description = <"Die zentrale Fragestellung an das Tumorboard, die mit einem Vorschlag einer Empfehlung beantwortet werden soll. ">
+					comment = <"Kann bei Bedarf mit einer Terminologie kodiert werden.">
+				>
+				["at0011"] = <
+					text = <"Details zur Tumorboard Empfehlung">
+					description = <"Details zur Empfehlung.">
+					comment = <"Strukturierte Angaben zu jeder einzelnen Empfehlung von Therapieoptionen.">
+				>
+				["at0014"] = <
+					text = <"Priorität">
+					description = <"Priorität für die Empfehlung.">
+				>
+				["at0015"] = <
+					text = <"notwendig">
+					description = <"notwendig">
+				>
+				["at0016"] = <
+					text = <"empfehlenswert">
+					description = <"empfehlenswert">
+				>
+				["at0017"] = <
+					text = <"nicht notwendig">
+					description = <"nicht notwendig">
+				>
+				["at0018"] = <
+					text = <"nicht zutreffend">
+					description = <"nicht zutreffend">
+				>
+				["at0020"] = <
+					text = <"Leitlinien-basierte Empfehlung">
+					description = <"Angabe, ob die Empfehlung auf einer Leitlinie basiert.">
+				>
+				["at0021"] = <
+					text = <"Grund für Abweichung von Leitlinie">
+					description = <"Beschreibung, weshalb die Empfehlung abweichend von der Leitlinie empfohlen wird. ">
+					comment = <"Dieses Element wird normalerweise nur aufgezeichnet, wenn die Empfehlung keine Leitlinien-basierte Empfehlung ist.">
+				>
+				["at0030"] = <
+					text = <"Wiedervorstellung">
+					description = <"Zusätzliche Empfehlung, ob der Patient wiederholt dem Tumorboard vorgestellen werden soll.">
+				>
+				["at0031"] = <
+					text = <"Nachsorge">
+					description = <"Angabe, ob dem Patienten eine Nachsorge empfohlen wird.
+">
+				>
+				["at0044"] = <
+					text = <"Kommentar">
+					description = <"Kommentarfeld zur Tumorboard Empfehlung.">
+				>
+				["at0051"] = <
+					text = <"Evidenzgraduierung">
+					description = <"Details zur Festlegung der Empfehlungsstärke.">
+				>
+				["at0052"] = <
+					text = <"Beschreibung der Empfehlung">
+					description = <"Detaillierte Beschreibung der Empfehlung.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,165 @@
+﻿archetype (adl_version=1.4; uid=5ee5af2d-bee5-421e-bf41-3ca8f729a188)
+	openEHR-EHR-OBSERVATION.clock_drawing_test_shulman.v1
+
+concept
+	[at0000]	-- Uhrentest nach Shulman
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Bianca Frenzel">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"Frenzel.Bianca@mh-hannover.de">
+		["date"] = <"2020-10-12">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des Uhrentests nach Shulman von 1993, der als Instrument verwendet wird, um ein Schnell-Screening zur ersten diagnostischen Abklärung dementieller Erkrankungen durchzuführen.">
+			use = <"Der Archetyp wird verwendet, um ein Ergebnis des Uhrentests nach Shulman darzustellen.">
+			keywords = <"Uhrentest", "Clock Drawing", "Shulman", "geriatrisches Assessment">
+			misuse = <"Kann nicht genutzt werden, um andere Uhrentests (wie z.B. Sunderland oder Watson) zu erfassen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Shulman, K. I., Gold, D. P., Cohen, C. A., & Zucchero, C. A. (1993). Clock-drawing and dementia in the community: A longitudinal study. International Journal of Geriatric Psychiatry, 8(6), 487–496.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"85CDB73150787535DE06E9312A0B3200">
+		["build_uid"] = <"65509556-e5f3-4296-a989-ad2088b99534">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Uhrentest nach Shulman
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0005] matches {	-- Punktzahl
+										value matches {
+											1|[local::at0006], 	-- Perfekt
+											2|[local::at0007], 	-- Leichte visuell-räumliche Fehler
+											3|[local::at0008], 	-- Fehlerhafte Uhrzeit bei erhaltener visuell-räumlicher Darstellung der Uhr
+											4|[local::at0009], 	-- Mittelgradige visuell-räumliche Desorganisation, so dass ein korrektes Einzeichnen der Uhrzeit unmöglich wird
+											5|[local::at0010], 	-- Schwergradige visuell-räumliche Desorganisation
+											6|[local::at0011]  	-- Keine Darstellung einer Uhr
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Bild des Uhrentests
+										value matches {
+											DV_MULTIMEDIA matches {
+												media_type matches {
+													[openEHR::
+													425, 
+													426, 
+													427, 
+													428, 
+													429, 
+													518]
+												}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Bemerkungen
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0014] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Erweiterungen
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Uhrentest nach Shulman">
+					description = <"Der Uhrentest untersucht die Gedächtnisleistung und visuo-konstruktive Fähigkeiten, um so Rückschlüsse auf eventuelle demenzielle Veränderungen zu ziehen.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Punktzahl">
+					description = <"Gesamtpunktzahl, die der Patient erhalten hat.">
+				>
+				["at0006"] = <
+					text = <"Perfekt">
+					description = <"Ziffern 1-12 sind richtig eingezeichnet, zwei Zeiger, die die richtige Uhrzeit anzeigen.">
+				>
+				["at0007"] = <
+					text = <"Leichte visuell-räumliche Fehler">
+					description = <"Abstände zwischen den Zahlen sind nicht gleichmäßig, Ziffern liegen außerhalb des Kreises.">
+				>
+				["at0008"] = <
+					text = <"Fehlerhafte Uhrzeit bei erhaltener visuell-räumlicher Darstellung der Uhr">
+					description = <"Nur ein Zeiger, \"10 nach 11\" als Text hingeschrieben, keine Uhrzeit eingezeichnet.">
+				>
+				["at0009"] = <
+					text = <"Mittelgradige visuell-räumliche Desorganisation, so dass ein korrektes Einzeichnen der Uhrzeit unmöglich wird">
+					description = <"Unregelmäßige Zwischenräume, Ziffern vergessen, Rechts-Links-Umkehr.">
+				>
+				["at0010"] = <
+					text = <"Schwergradige visuell-räumliche Desorganisation">
+					description = <"Wie in 4 beschrieben, nur stärkere Ausprägung.">
+				>
+				["at0011"] = <
+					text = <"Keine Darstellung einer Uhr">
+					description = <"Keine entfernte Ähnlichkeit mit der Uhr.">
+				>
+				["at0012"] = <
+					text = <"Bemerkungen">
+					description = <"Bemerkungen, die während des Tests gemacht wurden.">
+				>
+				["at0013"] = <
+					text = <"Bild des Uhrentests">
+					description = <"Bild des durchgeführten Tests.">
+				>
+				["at0014"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0015"] = <
+					text = <"Erweiterungen">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+					comment = <"Zum Beispiel: Lokale Informationsanforderungen oder zusätzliche Metadaten.">
+				>
+			>
+		>
+	>
