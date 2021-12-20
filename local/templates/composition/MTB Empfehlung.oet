@@ -14,7 +14,15 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Zur Repräsentation von Daten zu einer oder mehrerer molekularen Tumorboard Empfehlungen eines Krebspatienten im HiGHmed Projekt.</purpose>
+            <keywords>
+                <item>Molekulare Tumorboard Empfehlung; MTB Empfehlung; Empfehlung molekulares Tumorboard; Molekulare Tumorkonferenz Empfehlung; Behandlungsempfehlung</item>
+            </keywords>
+            <use>Dieses Template wird verwendet, um ein oder mehrere Empfehlung, die in einem molekularen Tumorboard zu einem Patienten diskutiert wurden, zu verzeichnen. 
+</use>
+            <misuse>Dieses Template soll nicht verwendet werden, um Daten zu einer Anmeldung eines Patienten zu einem molekularen Tumorboard zu verzeichnen. Für diese Daten sind jeweils andere Templates zu benutzen.</misuse>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -38,7 +46,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>8193a3e2e532c0c2da43aee35427f785</value>
+                <value>269eb9b89352a722afde0e5dd6ec3407</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -50,7 +58,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>8.1.0</value>
+                <value>15.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -66,10 +74,17 @@
         concept_name="Bericht" name="MTB Empfehlung"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-EVALUATION.recommendation.v1"
-            max="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule default="Therapievorschlag" min="1" path="/data[at0001]/items[at0006]"/>
+        <Content archetype_id="openEHR-EHR-EVALUATION.recommendation.v2"
+            concept_name="Empfehlung" max="1"
+            name="Empfehlung behandelnder Arzt" path="/content" xsi:type="tem:EVALUATION">
+            <Rule default="Therapievorschlag " min="1" path="/data[at0001]/items[at0006]"/>
             <Rule name="Vorschlag behandelnder Arzt" path="/data[at0001]/items[at0002]"/>
+            <Rule max="0" path="/protocol[at0004]/items[at0007]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.story.v1"
+            concept_name="Geschichte/Historie" max="1"
+            name="Krankheitsverlauf" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule name="Chronologischer Krankheitsverlauf" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.tumorboard_recommendation.v0"
@@ -278,21 +293,36 @@
                 </Rule>
                 <Items archetype_id="openEHR-EHR-CLUSTER.address.v0"
                     concept_name="Adresse" max="1"
-                    name="Teilnehmender Standort" path="/items[at0047]" xsi:type="tem:CLUSTER"/>
-                <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                    concept_name="Personenname"
-                    name="Teilnehmender Arzt" path="/items[at0047]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0022]"/>
+                    name="Teilnehmender Standort" path="/items[at0047]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
-                    <Rule path="/items[at0002]/items[at0017]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Dr. med.</includedValues>
-                            <includedValues>Prof. Dr. med.</includedValues>
-                            <includedValues>PD Dr. med.</includedValues>
+                    <Rule max="0" path="/items[at0005]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0002]/items[at0018]"/>
+                </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.person.v0"
+                    concept_name="Person" name="Teilnehmender Arzt"
+                    path="/items[at0047]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                    <Rule max="0" path="/items[at0006]"/>
+                    <Rule max="0" path="/items[at0019]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>Dr. med.</includedValues>
+                                <includedValues>Prof. Dr. med.</includedValues>
+                                <includedValues>PD Dr. med.</includedValues>
+                                <includedValues>Dipl.-Med.</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0004]"/>
+                        <Rule max="0" path="/items[at0006]"/>
+                    </Items>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
@@ -563,6 +593,7 @@
                         <Rule max="0" path="/items[at0003]"/>
                         <Rule max="0" path="/items[at0004]"/>
                         <Rule max="0" path="/items[at0006]"/>
+                        <Rule max="0" path="/items[at0019]"/>
                         <Items
                             archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
                             max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
@@ -573,19 +604,9 @@
                                     <includedValues>PD Dr. med.</includedValues>
                                     <includedValues>Dipl.-Med.</includedValues>
                                 </constraint>
-                                <nameConstraint>
-                                    <includedValues>local::at0002</includedValues>
-                                    <includedValues>local::at0003</includedValues>
-                                    <includedValues>local::at0004</includedValues>
-                                    <includedValues>local::at0005</includedValues>
-                                    <includedValues>local::at0006</includedValues>
-                                    <includedValues>local::at0007</includedValues>
-                                    <includedValues>local::at0008</includedValues>
-                                    <includedValues>local::at0009</includedValues>
-                                    <includedValues>local::at0010</includedValues>
-                                </nameConstraint>
                             </Rule>
                             <Rule max="0" path="/items[at0004]"/>
+                            <Rule max="0" path="/items[at0006]"/>
                         </Items>
                     </Items>
                 </Items>
@@ -630,6 +651,7 @@
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0004]"/>
                     <Rule max="0" path="/items[at0006]"/>
+                    <Rule max="0" path="/items[at0019]"/>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
                         max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
@@ -640,19 +662,9 @@
                                 <includedValues>PD Dr. med.</includedValues>
                                 <includedValues>Dipl.-Med.</includedValues>
                             </constraint>
-                            <nameConstraint>
-                                <includedValues>local::at0002</includedValues>
-                                <includedValues>local::at0003</includedValues>
-                                <includedValues>local::at0004</includedValues>
-                                <includedValues>local::at0005</includedValues>
-                                <includedValues>local::at0006</includedValues>
-                                <includedValues>local::at0007</includedValues>
-                                <includedValues>local::at0008</includedValues>
-                                <includedValues>local::at0009</includedValues>
-                                <includedValues>local::at0010</includedValues>
-                            </nameConstraint>
                         </Rule>
                         <Rule max="0" path="/items[at0004]"/>
+                        <Rule max="0" path="/items[at0006]"/>
                     </Items>
                 </Items>
             </Item>
@@ -664,10 +676,15 @@
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.recommendation.v1"
+        archetype_id="openEHR-EHR-EVALUATION.recommendation.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">735B060CA735A6C3D8AB6D3F7E50A4AB</digest>
+        <digest id="MD5-CAM-1.0.1">C008C595817E7F522DD4FF7488466DB1</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.story.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">3A1B4D8A5FDB61199F2DA05400462F93</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.tumorboard_recommendation.v0"
@@ -708,16 +725,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">26D7CB755C36F413FAC76B4A0BE7F507</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
+        <digest id="MD5-CAM-1.0.1">366C6616AB120C2E1891A5830480F4DF</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">698690EA720399E823D62A6B9FA763A8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D6072DBF64A0C64FC42C372AD0B10AB2</digest>
+        <digest id="MD5-CAM-1.0.1">B84D0961F3E68F2EAA3E2CE71DCD2FF9</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -729,17 +752,6 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FD3D4859A234737CBF31A0D59D7AE51B</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">366C6616AB120C2E1891A5830480F4DF</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">698690EA720399E823D62A6B9FA763A8</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
