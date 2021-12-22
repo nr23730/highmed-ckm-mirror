@@ -131,38 +131,26 @@
            name="Primärcode" min="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule name="Körperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::B::beiderseits</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::L::links</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
+					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
 			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
 			 <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ICD-10-GM::A::Ausgeschlossene Diagnose</includedValues>
-                    <includedValues>ICD-10-GM::G::Gesicherte Diagnose</includedValues>
-                    <includedValues>ICD-10-GM::V::Verdachtsdiagnose</includedValues>
-                    <includedValues>ICD-10-GM::Z::Zustand nach der betreffenden Diagnose</includedValues>
+                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_DIAGNOSESICHERHEIT" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>	
-			<Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
-                <constraint xsi:type="tem:textConstraint">
-			<excludedValues>local::at0074</excludedValues>
-			<excludedValues>local::at0075</excludedValues>
-			<excludedValues>local::at0076</excludedValues>
-                </constraint>
-            </Rule>
             <Rule
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
             <Rule min="1" name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
@@ -261,21 +249,19 @@
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
            name="Sekundärcode" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
+                <constraint xsi:type="tem:textConstraint">					
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
                 </constraint>
             </Rule>
             <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule name="Körperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
-                </constraint>
+                    <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
+				</constraint>
             </Rule>
             <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::B::beiderseits</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::L::links</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
+                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
 			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
@@ -302,17 +288,7 @@
                 name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>
             <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ICD-10-GM::A::Ausgeschlossene Diagnose</includedValues>
-                    <includedValues>ICD-10-GM::G::Gesicherte Diagnose</includedValues>
-                    <includedValues>ICD-10-GM::V::Verdachtsdiagnose</includedValues>
-                    <includedValues>ICD-10-GM::Z::Zustand nach der betreffenden Diagnose</includedValues>
-                </constraint>
-            </Rule>
-			<Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
-                <constraint xsi:type="tem:textConstraint">
-			<excludedValues>local::at0074</excludedValues>
-			<excludedValues>local::at0075</excludedValues>
-			<excludedValues>local::at0076</excludedValues>
+                   <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_DIAGNOSESICHERHEIT" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
@@ -431,7 +407,7 @@
      <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
