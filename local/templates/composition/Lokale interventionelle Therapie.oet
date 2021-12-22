@@ -57,7 +57,7 @@
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>641B268BE8805CEB8DC21AB82C53AB3F</value>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -77,6 +77,42 @@
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0001]">
+        <items>
+            <item>
+                <key>hl7v2_mapping</key>
+                <value>OBX.2, OBX.5, OBX.6, OBX.7, OBX.8</value>
+            </item>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Observation.value[x]</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0003]">
+        <items>
+            <item>
+                <key>hl7v2_mapping</key>
+                <value>NTE.3</value>
+            </item>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Observation.note</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0024]">
+        <items>
+            <item>
+                <key>hl7v2_mapping</key>
+                <value>OBX.3</value>
+            </item>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Observation.code</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="Lokale interventionelle Therapie"
         xmlns:tem="openEHR/v1/Template"
@@ -206,10 +242,7 @@
                 <Rule max="0" path="/items[at0009]"/>
                 <Rule max="0" path="/items[at0023]"/>
                 <Rule max="0" path="/items[at0027]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Coded_text</includedTypes>
-                    </constraint>
+                    <constraint xsi:type="tem:quantityConstraint"/>
                 </Rule>
                 <Rule max="0" path="/items[at0028]"/>
                 <Rule max="0" path="/items[at0031]"/>
@@ -224,17 +257,11 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0175]"/>
                 <Rule max="0" path="/items[at0186]"/>
-                <Rule max="0" path="/items[at0152]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Date_Time</includedTypes>
-                        <includedTypes>Interval</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/items[at0152]"/>
                 <Rule max="0" path="/items[at0164]"/>
                 <Rule max="0" path="/items[at0028]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Duration</includedTypes>
-                        <includedTypes>Interval</includedTypes>
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
@@ -295,12 +322,15 @@
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0018]"/>
             <Rule max="0" path="/description[at0001]/items[at0019]"/>
+            <Rule name="Kommentar Bildgebung" path="/description[at0001]/items[at0020]"/>
             <Rule max="0" path="/protocol[at0015]/items[at0016]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.lesions_details.v1"
                 max="1" path="/description[at0001]/items[at0021]" xsi:type="tem:CLUSTER"/>
-            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
+                concept_name="Bildgebender Befund"
+                name="Ergebnis der Bildgebung"
                 path="/description[at0001]/items[at0021]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]/items[at0002]">
+                <Rule name="Ergebnis" path="/items[at0024]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Ablationsausmaß: 100% + Sicherheitsabstand</includedValues>
                         <includedValues>Ablationsausmaß: 100% ohne Sicherheitsabstand</includedValues>
@@ -312,9 +342,10 @@
                         <includedValues>Unbekannt</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0001]/items[at0003]"/>
-                <Rule max="0" path="/items[at0001]/items[at0004]"/>
-                <Rule max="0" path="/items[at0001]/items[at0011]"/>
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0028]"/>
+                <Rule max="0" path="/items[at0033]"/>
+                <Rule max="0" path="/items[at0003]"/>
             </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
@@ -383,7 +414,7 @@
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">641B268BE8805CEB8DC21AB82C53AB3F</digest>
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
@@ -405,7 +436,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lirads.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">B864221E5C1271EB8916EB2A821F94D6</digest>
+        <digest id="MD5-CAM-1.0.1">5AF3C53769110F0128045F130C66B80E</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -429,10 +460,10 @@
         <digest id="MD5-CAM-1.0.1">746970F358BA4F1DB0D790406A9E4DE1</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+        archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">603A5F60C26B4415285A6F29EC8035A1</digest>
+        <digest id="MD5-CAM-1.0.1">0F9CA038049D647A294F5CE1F6A3C38C</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
