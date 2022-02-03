@@ -19,9 +19,8 @@
             <keywords>
                 <item>Molekulare Tumorboard Empfehlung; MTB Empfehlung; Empfehlung molekulares Tumorboard; Molekulare Tumorkonferenz Empfehlung; Behandlungsempfehlung</item>
             </keywords>
-            <use>Dieses Template wird verwendet, um ein oder mehrere Empfehlung, die in einem molekularen Tumorboard zu einem Patienten diskutiert wurden, zu verzeichnen. 
-</use>
-            <misuse>Dieses Template soll nicht verwendet werden, um Daten zu einer Anmeldung eines Patienten zu einem molekularen Tumorboard zu verzeichnen. Für diese Daten sind jeweils andere Templates zu benutzen.</misuse>
+            <use>Dieses Template wird verwendet, um eine oder mehrere Empfehlungen, die in einem molekularen Tumorboard zu einem Patienten diskutiert wurden, zu verzeichnen. </use>
+            <misuse>Dieses Template soll nicht verwendet werden, um Daten zu einer Anmeldung eines Patienten zu einem molekularen Tumorboard zu verzeichnen. Für diese Daten ist das Template  Tumorkonferenz_Anmeldung_Section oder Tumorkonferenz zu benutzen.</misuse>
         </details>
         <other_details>
             <item>
@@ -46,7 +45,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>269eb9b89352a722afde0e5dd6ec3407</value>
+                <value>6ee6994175f2e7873dc97c85a9a0e3a5</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -58,7 +57,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>15.0.0</value>
+                <value>29.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -116,7 +115,20 @@
             </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0"
-                max="1" path="/data[at0001]/items[at0011]/items[at0051]" xsi:type="tem:CLUSTER">
+                max="1" min="1"
+                path="/data[at0001]/items[at0011]/items[at0053]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0041]/items[at0066]/items[at0054]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Referenz, welcher den Therapieansazt unterstützt</includedValues>
+                        <includedValues>Referenz, welcher den Therapieansazt nicht unterstützt</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0059]/items[at0083]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Befund, welcher den Therapieansatz unterstützt</includedValues>
+                        <includedValues>Befund, welcher den Therapieansatz nicht unterstützt</includedValues>
+                    </constraint>
+                </Rule>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.evidence_code.v0"
                     max="1"
@@ -131,6 +143,9 @@
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.evidence_code.v0"
                     max="1" path="/items[at0064]" xsi:type="tem:CLUSTER"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.available_clinical_trials.v0"
+                    max="1" path="/items[at0085]" xsi:type="tem:CLUSTER"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.location.v1"
                 concept_name="Standort" name="Teilnehmende Klinik"
@@ -352,6 +367,22 @@
                 </Items>
             </Items>
         </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.procedure_screening.v0"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]"/>
+            <Rule default="Keimbahnuntersuchung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0037]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0025]"/>
+        </Content>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
             concept_name="Ad hoc Überschrift" max="1"
             name="Tumorkonferenz_Anmeldung_Section" path="/content" xsi:type="tem:SECTION">
@@ -368,7 +399,7 @@
                     </constraint>
                 </Rule>
                 <Rule name="Typ der Tumorkonferenz" path="/activities[at0001]/description[at0009]/items[at0148]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <constraint xsi:type="tem:textConstraint">
                         <includedValues>Tumorkonferenzart::praeth::prätherapeutisch</includedValues>
                         <includedValues>Tumorkonferenzart::postop::postoperativ</includedValues>
                         <includedValues>Tumorkonferenzart::postth::posttherapeutisch</includedValues>
@@ -690,13 +721,13 @@
         archetype_id="openEHR-EHR-EVALUATION.tumorboard_recommendation.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">7BA618FB2459C036B9284529C3F23D16</digest>
+        <digest id="MD5-CAM-1.0.1">5E79DA00F7CCEB9E135E4BC1EDF229E9</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">E5E35AFB6706A8C079881A9607A5342B</digest>
+        <digest id="MD5-CAM-1.0.1">A62E1D03D61F037BF9A7278E2F2269B4</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.evidence_code.v0"
@@ -714,6 +745,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F575F2A1D95C3F61355D0B99753647AD</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.available_clinical_trials.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">3466544073894D5018FF7B5DBAF7DA83</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.location.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -741,6 +778,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">B84D0961F3E68F2EAA3E2CE71DCD2FF9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.procedure_screening.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2A9361F2C7F62F3CEB58E3A1C0694965</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
         xmlns:tem="openEHR/v1/Template"
