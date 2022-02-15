@@ -137,17 +137,24 @@
         <Content archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
             path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0034]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0035]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0035]"/>		
+			<Rule name="Name der Prozedur" path="/description[at0001]/items[at0002]">
+				<constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/ops" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
             <Rule name="Freitextbeschreibung" path="/description[at0001]/items[at0049]"/>
             <Rule max="0" path="/description[at0001]/items[at0070]"/>
             <Rule max="0" path="/description[at0001]/items[at0065]"/>
-            <Rule max="0" path="/description[at0001]/items[at0058]"/>
-            <Rule name="Körperstelle" path="/description[at0001]/items[at0063]"/>
-            <Rule clone="true" name="Seitenlokalisation" path="/description[at0001]/items[at0063]">
+            <Rule max="0" path="/description[at0001]/items[at0058]"/>		
+			 <Rule name="Körperstelle" path="/description[at0001]/items[at0063]">
+				<constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>	
+			<Rule clone="true" name="Seitenlokalisation" path="/description[at0001]/items[at0063]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::L::links</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::B::beiderseits</includedValues>
+					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0048]"/>
@@ -163,28 +170,15 @@
                 </constraint>
             </Rule>
             <Rule name="Kategorie der Prozedur" path="/description[at0001]/items[at0067]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::103693007::Diagnostic procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::363679005::Imaging</includedValues>
-                    <includedValues>SNOMED Clinical Terms::387713003::Surgical procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::18629005::Administration of medicine</includedValues>
-                    <includedValues>SNOMED Clinical Terms::277132007::Therapeutic procedure</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394841004::Other category</includedValues>
+				<constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-category-sct" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
-            </Rule>
+            </Rule>			   
             <Rule name="Durchführungsabsicht" path="/description[at0001]/items[at0014]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED Clinical Terms::262202000::Therapeutic</includedValues>
-                    <includedValues>SNOMED Clinical Terms::363676003::Palliative intent</includedValues>
-                    <includedValues>SNOMED Clinical Terms::261004008::Diagnostic intent</includedValues>
-                    <includedValues>SNOMED Clinical Terms::264931009::Symptomatic</includedValues>
-                    <includedValues>SNOMED Clinical Terms::255231005::Revision - value</includedValues>
-                    <includedValues>SNOMED Clinical Terms::255302009::Complicated</includedValues>
-                    <includedValues>SNOMED Clinical Terms::129428001::Preventive intent</includedValues>
-                    <includedValues>SNOMED Clinical Terms::394602003::Rehabilitation - speciality</includedValues>
-                    <includedValues>SNOMED Clinical Terms::74964007::Other</includedValues>
+               <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-intend" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
-            </Rule>
+            </Rule>			
             <Rule max="0" path="/protocol[at0053]/items[at0054]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Text</includedTypes>
