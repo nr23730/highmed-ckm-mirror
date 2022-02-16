@@ -112,10 +112,7 @@
             min="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule min="1" path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://hl7.org/fhir/administrative-gender::male::Male</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::female::Female</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::other::Other</includedValues>
-                    <includedValues>http://hl7.org/fhir/administrative-gender::unknown::Unknown</includedValues>
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/administrative-gender" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
@@ -123,8 +120,13 @@
             <Rule max="0" path="/data[at0002]/items[at0025]"/>
             <Rule max="0" path="/data[at0002]/items[at0001]"/>
             <Rule max="0" path="/data[at0002]/items[at0020]"/>
-            <Rule max="0" path="/data[at0002]/items[at0027]"/>
-            <Rule max="0" path="/data[at0002]/items[at0014]"/>
+            <Rule max="0" path="/data[at0002]/items[at0027]"/>		
+            <Rule max="1" path="/data[at0002]/items[at0014]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://fhir.de/ValueSet/gender-other-de::D::divers</includedValues>
+                    <includedValues>http://fhir.de/ValueSet/gender-other-de::X::unbestimmt</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
@@ -135,8 +137,8 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule path="/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
-                        <termQueryId queryName="null" terminologyID="ICD10"/>
-                    </constraint>
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>   
                 </Rule>
                 <Rule max="0" path="/items[at0006]"/>
                 <Rule max="0" path="/items[at0004]"/>
@@ -144,311 +146,28 @@
             <Items archetype_id="openEHR-EHR-CLUSTER.address.v0"
                 concept_name="Adresse" name="Strassenanschrift"
                 path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::postal::Postal</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::physical::Physical</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::both::Postal &amp; Physical</includedValues>
-                    </constraint>
-                </Rule>
 				<Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0002</excludedValues>
-						<excludedValues>local::at0003</excludedValues>
-						<excludedValues>local::at0004</excludedValues>
+                    <constraint xsi:type="tem:textConstraint">	
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-type-de-basis" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
-                <Rule path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/address-use::home::Zuhause</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::work::Arbeit</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::temp::Vorrübergehend</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::old::Alt / Inkorrekt</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::billing::Abrechnungsadresse</includedValues>
+                 <Rule path="/items[at0005]">
+					<constraint xsi:type="tem:textConstraint">	
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
-				<Rule path="/items[at0005]">
-					<constraint xsi:type="tem:textConstraint">
-						<excludedValues>local::at0006</excludedValues>
-						<excludedValues>local::at0007</excludedValues>
-						<excludedValues>local::at0008</excludedValues>
-					</constraint>
-				</Rule>	
                 <Rule max="1" min="1" path="/items[at0015]"/>
                 <Rule max="0" path="/items[at0016]"/>
                 <Rule name="Bundesland" path="/items[at0017]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BW::Baden-Württemberg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BY::Bayern</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BE::Berlin</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BB::Brandenburg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HB::Bremen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HH::Hamburg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HE::Hessen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-MV::Mecklenburg-Vorpommern</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-NI::Niedersachsen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-NW::Nordrhein-Westfalen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-RP::Rheinland-Pfalz</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SL::Saarland</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SN::Sachsen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-ST::Sachsen-Anhalt</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SH::Schleswig-Holstein</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-TH::Thüringen</includedValues>
-                    </constraint>
+                   <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Rule min="1" path="/items[at0018]"/>
                 <Rule min="1" path="/items[at0019]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AD::Andorra</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AE::United Arab Emirates</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AF::Afghanistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AG::Antigua and Barbuda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AI::Anguilla</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AL::Albania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AM::Armenia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AO::Angola</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AQ::Antarctica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AR::Argentina</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AS::American Samoa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AT::Austria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AU::Australia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AW::Aruba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AX::Åland Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AZ::Azerbaijan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BA::Bosnia and Herzegovina</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BB::Barbados</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BD::Bangladesh</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BE::Belgium</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BF::Burkina Faso</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BG::Bulgaria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BH::Bahrain</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BI::Burundi</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BJ::Benin</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BL::Saint Barthélemy</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BM::Bermuda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BN::Brunei Darussalam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BO::Bolivia, Plurinational State of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BR::Brazil</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BS::Bahamas</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BT::Bhutan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BV::Bouvet Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BW::Botswana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BY::Belarus</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BZ::Belize</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CA::Canada</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CC::Cocos (Keeling) Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CD::Congo, the Democratic Republic of the</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CF::Central African Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CG::Congo</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CH::Switzerland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CI::Côte d''Ivoire</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CK::Cook Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CL::Chile</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CM::Cameroon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CN::China</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CO::Colombia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CR::Costa Rica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CU::Cuba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CV::Cabo Verde</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CW::Curaçao</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CX::Christmas Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CY::Cyprus</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CZ::Czechia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DE::Germany</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DJ::Djibouti</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DK::Denmark</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DM::Dominica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DO::Dominican Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DZ::Algeria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EC::Ecuador</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EE::Estonia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EG::Egypt</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EH::Western Sahara</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ER::Eritrea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ES::Spain</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ET::Ethiopia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FI::Finland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FJ::Fiji</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FK::Falkland Islands (Malvinas)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FM::Micronesia, Federated States of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FO::Faroe Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FR::France</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GA::Gabon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GD::Grenada</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GE::Georgia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GF::French Guiana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GG::Guernsey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GH::Ghana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GI::Gibraltar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GL::Greenland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GM::Gambia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GN::Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GP::Guadeloupe</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GQ::Equatorial Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GR::Greece</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GS::South Georgia and the South Sandwich Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GT::Guatemala</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GU::Guam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GW::Guinea-Bissau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GY::Guyana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HK::Hong Kong</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HM::Heard Island and McDonald Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HN::Honduras</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HR::Croatia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HT::Haiti</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HU::Hungary</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ID::Indonesia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IE::Ireland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IL::Israel</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IM::Isle of Man</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IN::India</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IO::British Indian Ocean Territory</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IQ::Iraq</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IR::Iran, Islamic Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IS::Iceland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IT::Italy</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JE::Jersey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JM::Jamaica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JO::Jordan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JP::Japan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KE::Kenya</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KG::Kyrgyzstan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KH::Cambodia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KI::Kiribati</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KM::Comoros</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KN::Saint Kitts and Nevis</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KP::Korea, Democratic People''s Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KR::Korea, Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KW::Kuwait</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KY::Cayman Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KZ::Kazakhstan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LA::Lao People''s Democratic Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LB::Lebanon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LC::Saint Lucia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LI::Liechtenstein</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LK::Sri Lanka</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LR::Liberia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LS::Lesotho</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LT::Lithuania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LU::Luxembourg</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LV::Latvia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LY::Libya</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MA::Morocco</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MC::Monaco</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MD::Moldova, Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ME::Montenegro</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MF::Saint Martin (French part)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MG::Madagascar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MH::Marshall Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MK::Macedonia, the former Yugoslav Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ML::Mali</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MM::Myanmar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MN::Mongolia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MO::Macao</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MP::Northern Mariana Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MQ::Martinique</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MR::Mauritania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MS::Montserrat</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MT::Malta</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MU::Mauritius</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MV::Maldives</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MW::Malawi</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MX::Mexico</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MY::Malaysia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MZ::Mozambique</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NA::Namibia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NC::New Caledonia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NE::Niger</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NF::Norfolk Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NG::Nigeria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NI::Nicaragua</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NL::Netherlands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NO::Norway</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NP::Nepal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NR::Nauru</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NU::Niue</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NZ::New Zealand</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::OM::Oman</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PA::Panama</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PE::Peru</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PF::French Polynesia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PG::Papua New Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PH::Philippines</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PK::Pakistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PL::Poland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PM::Saint Pierre and Miquelon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PN::Pitcairn</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PR::Puerto Rico</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PS::Palestine, State of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PT::Portugal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PW::Palau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PY::Paraguay</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::QA::Qatar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RE::Réunion</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RO::Romania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RS::Serbia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RU::Russian Federation</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RW::Rwanda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SA::Saudi Arabia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SB::Solomon Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SC::Seychelles</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SD::Sudan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SE::Sweden</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SG::Singapore</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SI::Slovenia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SJ::Svalbard and Jan Mayen</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SK::Slovakia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SL::Sierra Leone</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SM::San Marino</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SN::Senegal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SO::Somalia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SR::Suriname</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SS::South Sudan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ST::Sao Tome and Principe</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SV::El Salvador</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SX::Sint Maarten (Dutch part)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SY::Syrian Arab Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SZ::Swaziland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TC::Turks and Caicos Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TD::Chad</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TF::French Southern Territories</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TG::Togo</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TH::Thailand</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TJ::Tajikistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TK::Tokelau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TL::Timor-Leste</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TM::Turkmenistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TN::Tunisia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TO::Tonga</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TR::Turkey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TT::Trinidad and Tobago</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TV::Tuvalu</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TW::Taiwan, Province of China</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TZ::Tanzania, United Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UA::Ukraine</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UG::Uganda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UM::United States Minor Outlying Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::US::United States of America</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UY::Uruguay</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UZ::Uzbekistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VA::Holy See</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VC::Saint Vincent and the Grenadines</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VE::Venezuela, Bolivarian Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VG::Virgin Islands, British</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VI::Virgin Islands,</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VN::Viet Nam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VU::Vanuatu</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::WF::Wallis and Futuna</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::WS::Samoa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::YE::Yemen</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::YT::Mayotte</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZA::South Africa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZM::Zambia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZW::Zimbabwe</includedValues>
-                    </constraint>
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0020]"/>
                 <Rule max="0" name="Stadt- oder Ortsteil" path="/items[at0023]"/>
@@ -498,15 +217,9 @@
                 </Rule>
                 <Rule name="Sprache der Kommunikation" path="/items[at0006]/items[at0018]"/>
                 <Rule name="Namensart" path="/items[at0019]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/name-use::usual::usual</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::official::official</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::temp::temp</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::nickname::nickname</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::anonymous::anonymous</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::old::old</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::maiden::Name changed for Marriage</includedValues>
-                    </constraint>
+                   <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
@@ -522,310 +235,27 @@
                 concept_name="Adresse" name="Postfach"
                 path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::postal::Postal</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::physical::Physical</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/address-type::both::Postal &amp; Physical</includedValues>
-                    </constraint>
-                </Rule>
-				<Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0002</excludedValues>
-						<excludedValues>local::at0003</excludedValues>
-						<excludedValues>local::at0004</excludedValues>
-                    </constraint>
-                </Rule>
-			    <Rule path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/address-use::home::Zuhause</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::work::Arbeit</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::temp::Vorrübergehend</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::old::Alt / Inkorrekt</includedValues>
-                        <includedValues>http://hl7.org/fhir/address-use::billing::Abrechnungsadresse</includedValues>
+                    <constraint xsi:type="tem:textConstraint">	
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-type-de-basis" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
 				<Rule path="/items[at0005]">
-					<constraint xsi:type="tem:textConstraint">
-						<excludedValues>local::at0006</excludedValues>
-						<excludedValues>local::at0007</excludedValues>
-						<excludedValues>local::at0008</excludedValues>
-					</constraint>
-				</Rule>	  
+					<constraint xsi:type="tem:textConstraint">	
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
+                    </constraint>
+                </Rule>
                 <Rule max="1" min="1" path="/items[at0015]"/>
                 <Rule max="0" path="/items[at0016]"/>
                 <Rule name="Bundesland" path="/items[at0017]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BW::Baden-Württemberg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BY::Bayern</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BE::Berlin</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-BB::Brandenburg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HB::Bremen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HH::Hamburg</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-HE::Hessen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-MV::Mecklenburg-Vorpommern</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-NI::Niedersachsen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-NW::Nordrhein-Westfalen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-RP::Rheinland-Pfalz</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SL::Saarland</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SN::Sachsen</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-ST::Sachsen-Anhalt</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-SH::Schleswig-Holstein</includedValues>
-                        <includedValues>http://fhir.de/ValueSet/iso/bundeslaender::DE-TH::Thüringen</includedValues>
-                    </constraint>
+                   <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
-                <Rule min="1" path="/items[at0018]"/>
+				<Rule min="1" path="/items[at0018]"/>
                 <Rule min="1" path="/items[at0019]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AD::Andorra</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AE::United Arab Emirates</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AF::Afghanistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AG::Antigua and Barbuda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AI::Anguilla</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AL::Albania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AM::Armenia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AO::Angola</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AQ::Antarctica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AR::Argentina</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AS::American Samoa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AT::Austria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AU::Australia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AW::Aruba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AX::Åland Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::AZ::Azerbaijan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BA::Bosnia and Herzegovina</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BB::Barbados</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BD::Bangladesh</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BE::Belgium</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BF::Burkina Faso</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BG::Bulgaria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BH::Bahrain</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BI::Burundi</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BJ::Benin</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BL::Saint Barthélemy</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BM::Bermuda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BN::Brunei Darussalam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BO::Bolivia, Plurinational State of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BQ::Bonaire, Sint Eustatius and Saba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BR::Brazil</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BS::Bahamas</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BT::Bhutan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BV::Bouvet Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BW::Botswana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BY::Belarus</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::BZ::Belize</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CA::Canada</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CC::Cocos (Keeling) Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CD::Congo, the Democratic Republic of the</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CF::Central African Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CG::Congo</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CH::Switzerland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CI::Côte d''Ivoire</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CK::Cook Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CL::Chile</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CM::Cameroon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CN::China</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CO::Colombia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CR::Costa Rica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CU::Cuba</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CV::Cabo Verde</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CW::Curaçao</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CX::Christmas Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CY::Cyprus</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::CZ::Czechia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DE::Germany</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DJ::Djibouti</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DK::Denmark</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DM::Dominica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DO::Dominican Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::DZ::Algeria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EC::Ecuador</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EE::Estonia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EG::Egypt</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::EH::Western Sahara</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ER::Eritrea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ES::Spain</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ET::Ethiopia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FI::Finland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FJ::Fiji</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FK::Falkland Islands (Malvinas)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FM::Micronesia, Federated States of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FO::Faroe Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::FR::France</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GA::Gabon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GB::United Kingdom of Great Britain and Northern Ireland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GD::Grenada</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GE::Georgia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GF::French Guiana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GG::Guernsey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GH::Ghana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GI::Gibraltar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GL::Greenland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GM::Gambia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GN::Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GP::Guadeloupe</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GQ::Equatorial Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GR::Greece</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GS::South Georgia and the South Sandwich Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GT::Guatemala</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GU::Guam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GW::Guinea-Bissau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::GY::Guyana</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HK::Hong Kong</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HM::Heard Island and McDonald Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HN::Honduras</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HR::Croatia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HT::Haiti</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::HU::Hungary</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ID::Indonesia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IE::Ireland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IL::Israel</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IM::Isle of Man</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IN::India</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IO::British Indian Ocean Territory</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IQ::Iraq</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IR::Iran, Islamic Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IS::Iceland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::IT::Italy</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JE::Jersey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JM::Jamaica</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JO::Jordan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::JP::Japan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KE::Kenya</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KG::Kyrgyzstan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KH::Cambodia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KI::Kiribati</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KM::Comoros</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KN::Saint Kitts and Nevis</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KP::Korea, Democratic People''s Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KR::Korea, Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KW::Kuwait</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KY::Cayman Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::KZ::Kazakhstan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LA::Lao People''s Democratic Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LB::Lebanon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LC::Saint Lucia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LI::Liechtenstein</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LK::Sri Lanka</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LR::Liberia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LS::Lesotho</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LT::Lithuania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LU::Luxembourg</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LV::Latvia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::LY::Libya</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MA::Morocco</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MC::Monaco</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MD::Moldova, Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ME::Montenegro</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MF::Saint Martin (French part)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MG::Madagascar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MH::Marshall Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MK::Macedonia, the former Yugoslav Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ML::Mali</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MM::Myanmar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MN::Mongolia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MO::Macao</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MP::Northern Mariana Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MQ::Martinique</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MR::Mauritania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MS::Montserrat</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MT::Malta</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MU::Mauritius</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MV::Maldives</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MW::Malawi</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MX::Mexico</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MY::Malaysia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::MZ::Mozambique</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NA::Namibia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NC::New Caledonia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NE::Niger</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NF::Norfolk Island</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NG::Nigeria</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NI::Nicaragua</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NL::Netherlands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NO::Norway</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NP::Nepal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NR::Nauru</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NU::Niue</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::NZ::New Zealand</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::OM::Oman</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PA::Panama</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PE::Peru</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PF::French Polynesia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PG::Papua New Guinea</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PH::Philippines</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PK::Pakistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PL::Poland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PM::Saint Pierre and Miquelon</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PN::Pitcairn</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PR::Puerto Rico</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PS::Palestine, State of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PT::Portugal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PW::Palau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::PY::Paraguay</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::QA::Qatar</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RE::Réunion</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RO::Romania</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RS::Serbia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RU::Russian Federation</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::RW::Rwanda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SA::Saudi Arabia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SB::Solomon Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SC::Seychelles</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SD::Sudan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SE::Sweden</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SG::Singapore</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SH::Saint Helena, Ascension and Tristan da Cunha</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SI::Slovenia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SJ::Svalbard and Jan Mayen</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SK::Slovakia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SL::Sierra Leone</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SM::San Marino</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SN::Senegal</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SO::Somalia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SR::Suriname</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SS::South Sudan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ST::Sao Tome and Principe</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SV::El Salvador</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SX::Sint Maarten (Dutch part)</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SY::Syrian Arab Republic</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::SZ::Swaziland</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TC::Turks and Caicos Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TD::Chad</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TF::French Southern Territories</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TG::Togo</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TH::Thailand</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TJ::Tajikistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TK::Tokelau</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TL::Timor-Leste</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TM::Turkmenistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TN::Tunisia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TO::Tonga</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TR::Turkey</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TT::Trinidad and Tobago</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TV::Tuvalu</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TW::Taiwan, Province of China</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::TZ::Tanzania, United Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UA::Ukraine</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UG::Uganda</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UM::United States Minor Outlying Islands</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::US::United States of America</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UY::Uruguay</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::UZ::Uzbekistan</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VA::Holy See</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VC::Saint Vincent and the Grenadines</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VE::Venezuela, Bolivarian Republic of</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VG::Virgin Islands, British</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VI::Virgin Islands,</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VN::Viet Nam</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::VU::Vanuatu</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::WF::Wallis and Futuna</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::WS::Samoa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::YE::Yemen</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::YT::Mayotte</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZA::South Africa</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZM::Zambia</includedValues>
-                        <includedValues>https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79837::ZW::Zimbabwe</includedValues>
-                    </constraint>
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0020]"/>
                 <Rule max="0" path="/items[at0023]"/>
@@ -854,15 +284,9 @@
                 <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0006]"/>
                 <Rule name="Namensart" path="/items[at0019]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/name-use::usual::usual</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::official::official</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::temp::temp</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::nickname::nickname</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::anonymous::anonymous</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::old::old</includedValues>
-                        <includedValues>http://hl7.org/fhir/name-use::maiden::Name changed for Marriage</includedValues>
-                    </constraint>
+                   <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
@@ -881,15 +305,9 @@
                 path="/data[at0001]/items[at0031]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule name="Rolle (Relationship)" path="/items[at0004]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::C::Ansprechpartner in Notfällen</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::E::Arbeitgeber</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::F::Bundesbehörde</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::I::Versicherung</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::N::Kontaktperson</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::S::Landesbehörde</includedValues>
-                        <includedValues>http://hl7.org/fhir/ValueSet/patient-contactrelationship::U::unbekannt</includedValues>
-                    </constraint>
+                   <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/patient-contactrelationship" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
                 </Rule>
                 <Rule name="Kommunikation zu der Kontaktperson" path="/items[at0006]"/>
                 <Rule path="/items[at0006]/items[at0007]">
@@ -944,15 +362,9 @@
             concept_name="Fortschrittbericht" max="1" name="Vitalstatus"
             path="/content" xsi:type="tem:OBSERVATION">
             <Rule name="Vitalstatus" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::L::Patient lebt</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::T::Patient verstorben</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::A::unbekannt, Patient nicht mehr auffindbar (lost to follow-up)</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::N::unbekannt, Betreuung/Nachsorge nicht mehr nötig</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::B::unbekannt, Patient ist anderenorts in Betreuung</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::V::unbekannt, Patient verweigert weitere Betreuung</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::X::unbekannt</includedValues>
-                </constraint>
+                 <constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus" terminologyID="//fhir.hl7.org/"/>
+					</constraint>
             </Rule>
         </Content>
     </definition>
