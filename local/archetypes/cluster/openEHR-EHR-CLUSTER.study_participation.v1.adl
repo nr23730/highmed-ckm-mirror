@@ -32,12 +32,13 @@ Dieser Archetyp wurde für die allgemeine Verwendung in anderen Archetypen entwi
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"This archetype is designed to present information about a patient's participation in a clinical trial, observational study, registry study, diagnostic study, therapeutic study, or other medical research project in the role of a study patient or subject in a structured manner.">
-			use = <"To represent information about participation in a clinical trial, observational, registry, diagnostic, therapeutic study, or other medical research project.
+			purpose = <"To record details about a patient's participation in a clinical trial, observational study, registry study, diagnostic study, therapeutic study, or other medical research project in the role of a study patient or subject in a structured manner.">
+			use = <"To record details about participation in a clinical trial, observational, registry, diagnostic, therapeutic study, or other medical research project.
 
-This archetype is designed for general use in other archetypes that describe characteristics of a person, for example DEMOGRAPHIC-PERSON.person-patient, or it can be added to archetypes that need to detail participation in a study, such as in \"Details\" in the ACTION.informed_consent archetype.">
-			keywords = <"Study participation", "Recruitment", "Randomization", "Screening", "Study therapy", "Study patient", "Intervention", "Patient consent", "Study", "Clinical trial", "Research", "Study treatment", "Study medication", "Proband", "Cohort study", "Observational study", "Study inclusion", "Study enrollment", "Clinical study", "Registry study">
+This archetype is designed for general use within archetypes that describe characteristics of a person, for example DEMOGRAPHIC-PERSON.person-patient, or it can be added to archetypes that need to detail participation in a study, such as in \"Details\" in the ACTION.informed_consent archetype.">
+			keywords = <"participation", "recruitment", "randomization", "screening", "therapy", "test person", "trial subject", "intervention", "consent", "study", "clinical trial", "research", "treatment", "medication", "cohort study", "observational study", "inclusion", "enrollment", "clinical study", "registry study", "informed", "investigation", "participant">
 			misuse = <"">
+			copyright = <"© openEHR Foundation">
 		>
 	>
 	lifecycle_state = <"published">
@@ -50,65 +51,65 @@ This archetype is designed for general use in other archetypes that describe cha
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"ECDC9B6AD38AF8F2DA7DBF38C2E5C487">
-		["build_uid"] = <"c2b51df7-9112-44df-be19-08957e56ccbd">
-		["revision"] = <"1.0.1">
+		["MD5-CAM-1.0.1"] = <"3C9078D449CDD6DEE13D49B93DB8EED2">
+		["build_uid"] = <"2515bf61-ca0c-48ce-abd2-937a82134759">
+		["revision"] = <"1.0.2">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Studienteilnahme
+	CLUSTER[at0000] matches {    -- Studienteilnahme
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Name der Studie
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Name der Studie
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Studie
+			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {    -- Studie
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.study_details(-[a-zA-Z0-9_]+)*\.v0/}
 			}
-			ELEMENT[at0018] occurrences matches {0..*} matches {	-- Rechtsgrundlage
+			ELEMENT[at0018] occurrences matches {0..*} matches {    -- Rechtsgrundlage
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Status
+			ELEMENT[at0005] occurrences matches {0..1} matches {    -- Status
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0006, 	-- Informiert
-							at0007, 	-- Eingewilligt
-							at0008, 	-- Screening-Phase
-							at0009, 	-- Eingeschlossen
-							at0010, 	-- Widerrufen
-							at0011, 	-- Abgebrochen/Ausgeschlossen
-							at0017, 	-- Follow-Up
-							at0012]	-- Abgeschlossen
+							at0006,    -- Informiert
+							at0007,    -- Eingewilligt
+							at0008,    -- Screening-Phase
+							at0009,    -- Eingeschlossen
+							at0010,    -- Widerrufen
+							at0011,    -- Abgebrochen/Ausgeschlossen
+							at0017,    -- Follow-Up
+							at0012]    -- Abgeschlossen
 						}
 					}
 				}
 			}
-			ELEMENT[at0016] occurrences matches {0..1} matches {	-- Identifikation
+			ELEMENT[at0016] occurrences matches {0..1} matches {    -- Identifikation
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beginn der Teilnahme
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Beginn der Teilnahme
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Ende der Teilnahme
+			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Ende der Teilnahme
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Studienzentrum
+			allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {    -- Studienzentrum
 				include
 					archetype_id/value matches {/.*/}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kommentar
+			ELEMENT[at0014] occurrences matches {0..1} matches {    -- Kommentar
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -207,7 +208,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Study participation">
-					description = <"Detailed information about participation in a clinical trial, observational study, registry study, diagnostic study, therapeutic study, or other medical research project in the role of a study patient or subject.">
+					description = <"Details about participation in a clinical trial, observational study, registry study, diagnostic study, therapeutic study, or other medical research project in the role of a study patient or subject.">
 				>
 				["at0001"] = <
 					text = <"Study name">
@@ -222,12 +223,12 @@ ontology
 				["at0003"] = <
 					text = <"Start of participation">
 					description = <"Date when the patient was enrolled in the study.">
-					comment = <"The date field may be left blank if the participation status is set to Informed or Consented.">
+					comment = <"The date field may be left blank if the participation status is set to 'Informed' or 'Consented'.">
 				>
 				["at0004"] = <
 					text = <"End of participation">
 					description = <"Date when the patient completed the study.">
-					comment = <"The date field can be left blank if the participation status is set to \"Informed\", \"Consented\", \"Screening Phase\", \"Included\" or \"Follow-up\".">
+					comment = <"The date field can be left blank if the participation status is set to 'Informed', 'Consented', 'Screening Phase', 'Included' or 'Follow-up'.">
 				>
 				["at0005"] = <
 					text = <"Status">
@@ -252,7 +253,7 @@ ontology
 				>
 				["at0010"] = <
 					text = <"Revoked">
-					description = <"Patient withdrew consent after already being enrolled.">
+					description = <"Patient has withdrawn consent after already being enrolled.">
 				>
 				["at0011"] = <
 					text = <"Cancelled/Excluded">
@@ -260,21 +261,21 @@ ontology
 				>
 				["at0012"] = <
 					text = <"Completed">
-					description = <"The patient has terminated his/her participation in a regular manner.">
+					description = <"The patient has ended his/her participation in a regular manner.">
 				>
 				["at0014"] = <
 					text = <"Comment">
 					description = <"Additional information about study participation.">
 				>
 				["at0015"] = <
-					text = <"Study Center">
+					text = <"Study site">
 					description = <"Details of the study center responsible for the patient.">
 					comment = <"For example: Facility name, address, investigator name, contact details, and other details. Demographic archetypes can be inserted here. ">
 				>
 				["at0016"] = <
 					text = <"Identification">
 					description = <"The name or identifier of the patient in the study.">
-					comment = <"A unique identifier of the patient in the study, usually called a patient/proband number or patient ID/proband ID.">
+					comment = <"A unique identifier of the patient in the study, usually called a usually called a Patient/Subject number or Patient ID/Subject ID.">
 				>
 				["at0017"] = <
 					text = <"Follow-up">
@@ -283,7 +284,7 @@ ontology
 				["at0018"] = <
 					text = <"Legal basis">
 					description = <"Legal framework or rules for participation.">
-					comment = <"For patient safety, research involving human subjects may only be conducted if numerous laws and guidelines are followed. Laws and guidelines according to which participation in the study is regulated can be named here, e.g. the German Medicines Act (AMG) and the GCP regulation in the case of a clinical drug study conducted in Germany.">
+					comment = <"For patient safety, research involving human subjects may only be conducted if numerous laws and guidelines are followed. Laws and guidelines according to which participation in the study is regulated can be named here, e.g. the German Medicinal Products Act (AMG) and the GCP regulation in the case of a clinical drug study conducted in Germany.">
 				>
 			>
 		>
