@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>d22c8e09-c6a7-4ecb-8c5d-d6426e3d995f</id>
+    <name>UCC_Fall</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2022-03-01</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Kim Sommer</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Medizinische Hochschule Hannover</value>
+            </item>
+        </original_author>
+        <lifecycle_state>in_development</lifecycle_state>
+        <details>
+            <purpose>Das Template UCC_Fall dient im HiGHmed Use Case Kardiologie der Dokumentation des Typs des Aufenthaltes des Patienten (stationär, ambulant, teilstationär, usw.). </purpose>
+            <keywords>
+                <item>Use Case Kardiologie, UCC, Kardio, Fall, stationär, ambulant</item>
+            </keywords>
+            <use>Für die Abbildung stationärer, ambulanter, teilstationärer, usw. Aufenthalte eines Patienten im Use Case Kardiologie.</use>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>4.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value>55900b8c-c19f-43c5-b8b7-2774397a328c</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>3066bdb50e5d3ead53b4bbbeda434dfb</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht" name="UCC_Fall"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.hospitalization.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0006]"/>
+				<Rule path="/items[at0007]">
+                    <constraint xsi:type="tem:textConstraint">
+					    <includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::I::stationär</includedValues>
+                        <includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::O::ambulant</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::E::Notfall</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::P::Voraufnahme</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::R::Wiederholungspatient</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::TS::teilstationäre Behandlung</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::V::vorstationär</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::NS::nachstationär</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::TK::tagesklinische Behandlung</includedValues>
+						<includedValues>http://www.hl7.eu/HL7v2x/v25de/hl7v25detab0004::VS::vollstationäre Behandlung</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0007]">
+                    <constraint xsi:type="tem:textConstraint">
+					    <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0008</excludedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0012]"/>
+            </Items>
+        </Context>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.hospitalization.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">9FFE74C18D706649A5A3E239E69D232D</digest>
+    </integrity_checks>
+</template>
