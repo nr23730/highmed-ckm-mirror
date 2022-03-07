@@ -34,7 +34,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>37.1.0</value>
+                <value>46.0.1</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -42,7 +42,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>44c483d9b527f3a6844392c2b629379c</value>
+                <value>4d275abe08ba244b65735d4e05bdec08</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -134,18 +134,6 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]">
-        <items>
-            <item>
-                <key>hl7v2_mapping</key>
-                <value>OBX.3</value>
-            </item>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Observation.code</value>
-            </item>
-        </items>
-    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0005]">
         <items>
             <item>
@@ -194,6 +182,18 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]">
+        <items>
+            <item>
+                <key>hl7v2_mapping</key>
+                <value>OBX.3</value>
+            </item>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Observation.code</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Report" name="Projekt_01"
         xmlns:tem="openEHR/v1/Template"
@@ -231,7 +231,7 @@
             <Rule max="0" min="0" path="/ism_transition[at0041]"/>
             <Rule path="/description[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::18027006::Transplantation of liver (procedure)</includedValues>
+                    <includedValues>SNOMED CT::18027006::Transplantation of liver</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0049]"/>
@@ -272,7 +272,7 @@
             name="COVID-19 Disease" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Diagnosis name" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::840539006::COVID-19</includedValues>
+                    <includedValues>SNOMED CT::840539006::Disease caused by severe acute respiratory syndrome coronavirus 2</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0009]"/>
@@ -413,11 +413,11 @@
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
-            concept_name="Medication management" name="Vaccination"
-            path="/content" xsi:type="tem:ACTION">
-            <Rule path="/description[at0017]/items[at0020]">
+            concept_name="Medication management"
+            name="COVID-19 Vaccination" path="/content" xsi:type="tem:ACTION">
+            <Rule name="Vaccination name" path="/description[at0017]/items[at0020]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SNOMED CT::840534001::SARS-CoV-2 vaccination</includedValues>
+                    <includedValues>SNOMED CT::1156257007::Administration of vaccine product against severe acute respiratory syndrome coronavirus 2</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0017]/items[at0156]"/>
@@ -477,6 +477,19 @@
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
             path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>SNOMED CT::45293001::Immunoglobulin G measurement</includedValues>
+                    <includedValues>SNOMED CT::31651002::Immunoglobulin A measurement</includedValues>
+                    <includedValues>SNOMED CT::45764000::Immunoglobulin M measurement</includedValues>
+                    <includedValues>SNOMED CT::34608000::Alanine aminotransferase measurement</includedValues>
+                    <includedValues>SNOMED CT::45896001::Aspartate aminotransferase measurement</includedValues>
+                    <includedValues>SNOMED CT::88810008::Alkaline phosphatase measurement</includedValues>
+                    <includedValues>SNOMED CT::69480007::Gamma glutamyl transferase measurement</includedValues>
+                    <includedValues>SNOMED CT::359986008::Bilirubin, total measurement</includedValues>
+                    <includedValues>SNOMED CT::55235003::C-reactive protein measurement</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0073]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Coded_text</includedTypes>
@@ -570,6 +583,19 @@
                 max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0027]"/>
+                <Rule path="/items[at0024]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>SNOMED CT::29246005::Immunoglobulin G</includedValues>
+                        <includedValues>SNOMED CT::46046006::Immunoglobulin A</includedValues>
+                        <includedValues>SNOMED CT::74889000::Immunoglobulin M</includedValues>
+                        <includedValues>SNOMED CT::56935002::Alanine aminotransferase</includedValues>
+                        <includedValues>SNOMED CT::26091008::Aspartate aminotransferase</includedValues>
+                        <includedValues>SNOMED CT::57056007::Alkaline phosphatase</includedValues>
+                        <includedValues>SNOMED CT::60153001::Gamma-glutamyltransferase</includedValues>
+                        <includedValues>SNOMED CT::79706000::Bilirubin</includedValues>
+                        <includedValues>SNOMED CT::61425002::C reactive protein</includedValues>
+                    </constraint>
+                </Rule>
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Boolean</includedTypes>
@@ -660,12 +686,12 @@
                 <Rule name="Time of recording" path="/items[at0006]"/>
                 <Rule path="/items[at0006]/items[at0005]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>local_terms::Vor COVID-19 Erkrankung::Vor COVID-19 Erkrankung</includedValues>
-                        <includedValues>local_terms::Nach COVID-19 Erkrankung::Nach COVID-19 Erkrankung</includedValues>
-                        <includedValues>local_terms::Ende der Quarantäne::Ende der Quarantäne</includedValues>
-                        <includedValues>local_terms::Nach COVID-19 Impfung::Nach COVID-19 Impfung</includedValues>
-                        <includedValues>local_terms::3 Monate nach COVID-19 Erkrankung::3 Monate nach COVID-19 Erkrankung</includedValues>
-                        <includedValues>local_terms::6 Monate nach COVID-19 Erkrankung::6 Monate nach COVID-19 Erkrankung</includedValues>
+                        <includedValues>local_terms::Before COVID-19 disease::Before COVID-19 disease</includedValues>
+                        <includedValues>local_terms::After COVID-19 disease::After COVID-19 disease</includedValues>
+                        <includedValues>local_terms::End of quarantine::End of quarantine</includedValues>
+                        <includedValues>local_terms::After COVID-19 vaccination::After COVID-19 vaccination</includedValues>
+                        <includedValues>local_terms::3 months after COVID-19 disease::3 months after COVID-19 disease</includedValues>
+                        <includedValues>local_terms::6 months after COVID-19 disease::6 months after COVID-19 disease</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0010]"/>
@@ -676,7 +702,7 @@
                 path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>COFONI_terms::1::Projekt 1</includedValues>
+                        <includedValues>local_terms::1::Projekt 1</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0018]"/>
