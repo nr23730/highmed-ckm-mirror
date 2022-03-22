@@ -68,7 +68,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>d89db87ee56996a3bad1c00f8242a916</value>
+                <value>a18ac2e5f196683110143d3ef33e04c1</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -76,7 +76,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.0.0</value>
+                <value>4.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -113,14 +113,6 @@
             <item>
                 <key>fhir_mapping</key>
                 <value>Specimen.collection.sourceSite</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.accessionIdentifier</value>
             </item>
         </items>
     </annotations>
@@ -204,6 +196,14 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.accessionIdentifier</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="Molekulargenetischer Befund"
         xmlns:tem="openEHR/v1/Template"
@@ -272,6 +272,7 @@
                         <includedValues>Liquor</includedValues>
                     </constraint>
                 </Rule>
+                <Rule name="Laborprobenidentifikator (Blocknummer)" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0088]"/>
                 <Rule max="0" path="/items[at0008]"/>
                 <Rule max="0" path="/items[at0007]"/>
@@ -287,7 +288,6 @@
                         <includesMinimum>true</includesMinimum>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0042]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -359,6 +359,13 @@
                             <minMagnitude>0</minMagnitude>
                             <includesMaximum>true</includesMaximum>
                             <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Kommentar zur Qualität der Analyse" path="/items[at0037]">
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
+                            <includedValues>Gute Qualität</includedValues>
+                            <includedValues>Eingeschränkte Qualität</includedValues>
+                            <includedValues>Kommentar</includedValues>
                         </constraint>
                     </Rule>
                     <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
