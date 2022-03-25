@@ -73,7 +73,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>7d0e558ed0e0dfeb2768baa5812657f5</value>
+                <value>72d53e2020bd26266ec2b5afa22497db</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -85,7 +85,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>6.0.0</value>
+                <value>9.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -207,7 +207,155 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
             <Rule name="Hinweis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
-            <Items archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+            <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v2"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0144]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0135]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule name="Dosierung Freitext" path="/items[at0178]"/>
+                <Rule max="0" path="/items[at0134]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0102]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0176]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
+                    concept_name="Zeitablauf - täglich"
+                    name="Tägliche Dosierung" path="/items[at0037]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0003]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1/s</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/d</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/h</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/min</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Periode" path="/items[at0014]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="1" name="Zeitpunkt" path="/items[at0004]"/>
+                    <Rule max="0" path="/items[at0023]"/>
+                    <Rule max="0" path="/items[at0025]"/>
+                    <Rule name="Ereignis" path="/items[at0039]/items[at0026]"/>
+                    <Rule name="Offset" path="/items[at0039]/items[at0040]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0035]"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1"
+                    concept_name="Zeitablauf - nicht täglich"
+                    name="Nicht tägliche Dosierung"
+                    path="/items[at0037]" xsi:type="tem:CLUSTER">
+                    <Rule name="Periode" path="/items[at0002]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PYMWD</pattern>
+                            <minMagnitude>P0D</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>false</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0014]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1/a</unit>
+                                <maxMagnitude>366.0</maxMagnitude>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/wk</unit>
+                                <maxMagnitude>7.0</maxMagnitude>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/mo</unit>
+                                <maxMagnitude>31.0</maxMagnitude>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="1" name="Zeitpunkt" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <maxMagnitude>31</maxMagnitude>
+                            <minMagnitude>1</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Ereignis" path="/items[at0006]/items[at0005]"/>
+                    <Rule name="Offset" path="/items[at0006]/items[at0009]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PYMWD</pattern>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0010]"/>
+                </Items>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.medication.v2"
                 max="1" min="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" xsi:type="tem:CLUSTER">
                 <Rule name="Arzneimittel-Name" path="/items[at0132]"/>
@@ -470,10 +618,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0152]"/>
-                <Rule max="0" path="/items[at0158]"/>
-                <Rule name="Wirkstärke (Konzentration)" path="/items[at0115]">
-                    <constraint xsi:type="tem:quantityConstraint"/>
-                </Rule>
+                <Rule name="Wirkstärke (Konzentration)" path="/items[at0115]"/>
                 <Rule max="0" path="/items[at0151]"/>
                 <Rule max="0" path="/items[at0150]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -482,28 +627,8 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0139]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <unitMagnitude>
-                            <unit>1</unit>
-                            <minMagnitude>0.0</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </unitMagnitude>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0008]"/>
-                <Rule max="0" path="/items[at0148]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <unitMagnitude>
-                            <unit>1</unit>
-                            <minMagnitude>0.0</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </unitMagnitude>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0139]"/>
+                <Rule max="0" path="/items[at0148]"/>
                 <Rule max="0" path="/items[at0127]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Coded_text</includedTypes>
@@ -511,44 +636,36 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     </constraint>
                 </Rule>
                 <Rule name="Rezeptur Freitextzeile" path="/items[at0133]"/>
-                <Items archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+                <Items archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
+                    path="/items[at0141]" xsi:type="tem:CLUSTER">
+                    <Rule name="Arzneimittel-Code" path="/items[at0001]"/>
+                    <Rule path="/items[at0004]/items[at0002]">
+                        <constraint limitToList="false" xsi:type="tem:textConstraint">
+                            <includedValues>RxNorm</includedValues>
+                            <includedValues>SNOMED CT</includedValues>
+                            <includedValues>IDMP</includedValues>
+                            <includedValues>PZN</includedValues>
+                            <includedValues>ATC</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0004]/items[at0010]"/>
+                    <Rule max="0" path="/items[at0007]"/>
+                </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.medication.v2"
                     concept_name="Arzneimittel" name="Wirkstoff"
                     path="/items[at0138]" xsi:type="tem:CLUSTER">
                     <Rule name="Wirkstoff-Name" path="/items[at0132]"/>
                     <Rule max="0" path="/items[at0071]"/>
-                    <Rule name="Wirkstofftyp" path="/items[at0142]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Active</includedValues>
-                            <includedValues>Inactive</includedValues>
+                    <Rule max="0" path="/items[at0142]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
                         </constraint>
                     </Rule>
                     <Rule name="Wirkstoffmenge" path="/items[at0152]"/>
-                    <Rule name="Zähler" path="/items[at0152]/items[at0153]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Einheit Zähler" path="/items[at0152]/items[at0004]"/>
-                    <Rule name="Nenner" path="/items[at0152]/items[at0157]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Einheit Nenner" path="/items[at0152]/items[at0005]"/>
-                    <Rule max="0" path="/items[at0158]"/>
-                    <Rule max="0" path="/items[at0115]">
-                        <constraint xsi:type="tem:quantityConstraint"/>
-                    </Rule>
+                    <Rule name="Zähler" path="/items[at0152]/items[at0153]"/>
+                    <Rule name="Nenner" path="/items[at0152]/items[at0157]"/>
+                    <Rule max="0" path="/items[at0115]"/>
                     <Rule max="0" path="/items[at0151]"/>
                     <Rule max="0" path="/items[at0150]">
                         <constraint xsi:type="tem:multipleConstraint">
@@ -557,32 +674,11 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0003]"/>
-                    <Rule max="0" path="/items[at0139]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0008]"/>
-                    <Rule max="0" path="/items[at0148]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0007]"/>
-                    <Rule max="0" path="/items[at0127]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
-                            <includedTypes>Text</includedTypes>
+                    <Rule max="0" path="/items[at0139]"/>
+                    <Rule max="0" path="/items[at0148]"/>
+                    <Rule name="IsActive (Wirkstoff)" path="/items[at0127]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <excludedValues>local::at0084</excludedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0133]"/>
@@ -603,191 +699,6 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <Rule max="0" path="/items[at0004]/items[at0010]"/>
                         <Rule max="0" path="/items[at0007]"/>
                     </Items>
-                </Items>
-                <Items archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
-                    path="/items[at0141]" xsi:type="tem:CLUSTER">
-                    <Rule name="Arzneimittel-Code" path="/items[at0001]"/>
-                    <Rule path="/items[at0004]/items[at0002]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
-                            <includedValues>RxNorm</includedValues>
-                            <includedValues>SNOMED CT</includedValues>
-                            <includedValues>IDMP</includedValues>
-                            <includedValues>PZN</includedValues>
-                            <includedValues>ATC</includedValues>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0004]/items[at0010]"/>
-                    <Rule max="0" path="/items[at0007]"/>
-                </Items>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v1"
-                path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" xsi:type="tem:CLUSTER">
-                <Rule name="Dosis" path="/items[at0144]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <unitMagnitude>
-                            <unit>1</unit>
-                            <minMagnitude>0.0</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </unitMagnitude>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0145]"/>
-                <Rule max="0" path="/items[at0135]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Text</includedTypes>
-                        <includedTypes>Quantity</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule name="Dosierung Freitext" path="/items[at0178]"/>
-                <Rule max="0" path="/items[at0134]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0102]">
-                    <constraint xsi:type="tem:durationConstraint">
-                        <pattern>PDTHMS</pattern>
-                        <minMagnitude>PT0H</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0176]">
-                    <constraint xsi:type="tem:quantityConstraint">
-                        <unitMagnitude>
-                            <unit>1</unit>
-                            <minMagnitude>0.0</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </unitMagnitude>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0177]"/>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
-                    concept_name="Zeitablauf - täglich"
-                    name="Tägliche Dosierung" path="/items[at0037]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0003]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1/s</unit>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>1/d</unit>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>1/h</unit>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>1/min</unit>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Periode" path="/items[at0014]">
-                        <constraint xsi:type="tem:durationConstraint">
-                            <pattern>PTHMS</pattern>
-                            <maxMagnitude>PT24H</maxMagnitude>
-                            <minMagnitude>PT0H</minMagnitude>
-                            <includesMaximum>true</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule max="1" name="Zeitpunkt" path="/items[at0004]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Time</includedTypes>
-                            <includedTypes>Interval</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0023]"/>
-                    <Rule max="0" path="/items[at0025]"/>
-                    <Rule name="Ereignis" path="/items[at0039]/items[at0026]"/>
-                    <Rule name="Offset" path="/items[at0039]/items[at0040]">
-                        <constraint xsi:type="tem:durationConstraint">
-                            <pattern>PTHMS</pattern>
-                            <maxMagnitude>PT24H</maxMagnitude>
-                            <minMagnitude>PT0H</minMagnitude>
-                            <includesMaximum>true</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0035]"/>
-                </Items>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1"
-                    concept_name="Zeitablauf - nicht täglich"
-                    name="Nicht tägliche Dosierung"
-                    path="/items[at0037]" xsi:type="tem:CLUSTER">
-                    <Rule name="Periode" path="/items[at0002]">
-                        <constraint xsi:type="tem:durationConstraint">
-                            <pattern>PYMWD</pattern>
-                            <minMagnitude>P0D</minMagnitude>
-                            <includesMaximum>false</includesMaximum>
-                            <includesMinimum>false</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0014]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1/a</unit>
-                                <maxMagnitude>366.0</maxMagnitude>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>true</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>1/wk</unit>
-                                <maxMagnitude>7.0</maxMagnitude>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>true</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>1/mo</unit>
-                                <maxMagnitude>31.0</maxMagnitude>
-                                <minMagnitude>1.0</minMagnitude>
-                                <includesMaximum>true</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule max="1" name="Zeitpunkt" path="/items[at0001]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Date</includedTypes>
-                            <includedTypes>Interval</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0003]"/>
-                    <Rule max="0" path="/items[at0004]">
-                        <constraint xsi:type="tem:countConstraint">
-                            <maxMagnitude>31</maxMagnitude>
-                            <minMagnitude>1</minMagnitude>
-                            <includesMaximum>true</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule name="Ereignis" path="/items[at0006]/items[at0005]"/>
-                    <Rule name="Offset" path="/items[at0006]/items[at0009]">
-                        <constraint xsi:type="tem:durationConstraint">
-                            <pattern>PYMWD</pattern>
-                            <includesMaximum>true</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0010]"/>
                 </Items>
             </Items>
             <Items
@@ -861,20 +772,10 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">E84B94E646936168729DC2F2F6FE34F9</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v2"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">2AC0A5FC5AAC3D72188CB7118467A627</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">014E566E2D6FA001BE95EAA621A78F3A</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">15B1D4C3F6B3ACBEE8FA7C9EE67CD32A</digest>
+        <digest id="MD5-CAM-1.0.1">926B8773E3FBB271F2820D4198B4F63E</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -886,6 +787,16 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">47B10A6B5F4FD1E21ED98352AE29F6AD</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">89BA41E6CD217F7E2639D05A6B02465C</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">014E566E2D6FA001BE95EAA621A78F3A</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.medication_status_fhir.v0"
@@ -903,7 +814,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
         archetype_id="openEHR-EHR-CLUSTER.entry_category.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">28574E8FEF4B798CC196C475635E36C3</digest>
+        <digest id="MD5-CAM-1.0.1">07559D9AA6F76784AE95ADE028603EC0</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.identifier_fhir.v0"
