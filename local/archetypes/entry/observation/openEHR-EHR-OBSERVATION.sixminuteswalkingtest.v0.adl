@@ -1,0 +1,324 @@
+﻿archetype (adl_version=1.4; uid=b12d13f2-b185-439a-acc1-ed26293c2099)
+	openEHR-EHR-OBSERVATION.sixminuteswalkingtest.v0
+
+concept
+	[at0000]	-- 6MWT
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Mareike Joseph">
+		["organisation"] = <"Peter L. Reichertz Institute for Medical Informatics of TU BS and Hannover Medical School">
+		["email"] = <"joseph.mareike@mh-hannover.de">
+		["date"] = <"2022-04-04">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"The 6 Minute Walk Test is a sub-maximal exercise test used to assess aerobic capacity and endurance. The distance covered over a time of 6 minutes is used as the outcome by which to compare changes in performance capacity.">
+			use = <"The 6MWT can be used in patients of any age group with a wide range of diagnoses. It assesses the functional capacity of the individual and provides valuable information about all systems during physical activity, including the pulmonary and cardiovascular systems, blood circulation, neuromuscular units, body metabolism, and peripheral circulation, and is designed to be completed with additional measurements during the test.">
+			keywords = <"6MWT", "six minutes", "walking", "test", "aerobic capacity", "endurance">
+			misuse = <"Absolute contraindications for the 6MWT include the following: unstable angina during the previous month and myocardial infarction during the previous month. Relative contraindications include a resting heart rate of more than 120, a systolic
+blood pressure of more than 180 mm Hg, and a diastolic blood pressure of more than 100 mm Hg. Patients with any of these findings should be referred to the physician ordering or supervising the test for individual clinical assessment and a decision about the conduct of the test. The results from a resting electrocardiogram done during the previous 6 months should also be reviewed before testing. Stable exertional angina is not an absolute contraindication for a 6MWT, but patients with these symptoms should perform the test after using their antiangina medication, and rescue nitrate medication should be readily available.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"ATS statement: guidelines for the six-minute walk test. American journal of respiratory and critical care 
+medicine, 2002. 166(1): p. 111-7">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"57EE94D99148362E564F38748E083DA0">
+		["build_uid"] = <"ddced261-69d8-45da-a59c-dffe051ee3fe">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] occurrences matches {0..1} matches {    -- 6MWT
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Distance
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"m">
+														magnitude = <|>=0.0|>
+													>
+													["2"] = <
+														units = <"[ft_i]">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {    -- Duration
+										value matches {
+											DV_DURATION matches {
+												value matches {|>=PT0S|}
+											}
+										}
+									}
+									ELEMENT[at0037] occurrences matches {0..1} matches {    -- Heart rate
+										value matches {
+											DV_QUANTITY matches {*}
+										}
+									}
+									ELEMENT[at0055] occurrences matches {0..1} matches {    -- Dyspnea
+										value matches {
+											0.0|[local::at0056],
+											0.5|[local::at0057],
+											1.0|[local::at0058],
+											2.0|[local::at0059],
+											3.0|[local::at0060],
+											4.0|[local::at0061],
+											5.0|[local::at0062],
+											7.0|[local::at0063],
+											10.0|[local::at0064]
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {    -- Fatigue
+										value matches {
+											0.0|[local::at0041],
+											0.5|[local::at0042],
+											1.0|[local::at0043],
+											2.0|[local::at0044],
+											3.0|[local::at0045],
+											4.0|[local::at0046],
+											5.0|[local::at0047],
+											7.0|[local::at0048],
+											10.0|[local::at0049]
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {    -- SpO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|>=0.0|>
+													>
+												>
+											>
+										}
+									}
+									allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {    -- Extension
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0033] occurrences matches {0..*} matches {*}    -- Extension
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0009] occurrences matches {0..1} matches {    -- Has stopped
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {    -- Supplemental oxygen used
+						value matches {
+							DV_BOOLEAN matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0071] occurrences matches {0..*} matches {    -- Inspired oxygen
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.inspired_oxygen\.v1/}
+					}
+					allow_archetype CLUSTER[at0072] occurrences matches {0..*} matches {    -- Device
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"6MWT">
+					description = <"To record the performance of the 6MWT (six minutes walking test) of a proband.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Has stopped">
+					description = <"To record if a patient completed the test as intended or if he stopped or paused before 6 minutes.">
+				>
+				["at0010"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the test, not captured in other fields.">
+				>
+				["at0013"] = <
+					text = <"Distance">
+					description = <"Distance a patient walked within the documented time duration. 
+If the patient could not finish the test, the distance until he finished the test will be documented with the corresponing maximum duration the patient walked.">
+				>
+				["at0015"] = <
+					text = <"Supplemental oxygen used">
+					description = <"To record if a patient needed aids to complete the exam.">
+				>
+				["at0025"] = <
+					text = <"Duration">
+					description = <"To describe the duration since test start when the distance or additional items are collected, e.g. a heart rate measurement after 3 minutes.">
+				>
+				["at0032"] = <
+					text = <"Extension">
+					description = <"To record additional data (e.g. symptoms) that was noticable during the test.">
+				>
+				["at0033"] = <
+					text = <"Extension">
+					description = <"To log additional data (e.g. symptoms) that was noticable during the test.">
+				>
+				["at0036"] = <
+					text = <"Extension">
+					description = <"To record personal information (e.g. age, height, weight, blood pressure, medication taken before the test, footwear ...) or any other environment information.">
+				>
+				["at0037"] = <
+					text = <"Heart rate">
+					description = <"Optional measurement of the heart rate e.g. at the beginning or at the end of the test.">
+				>
+				["at0038"] = <
+					text = <"SpO2">
+					description = <"Optional measurement of the SPO2 at the beginning or at the end of the test.">
+				>
+				["at0040"] = <
+					text = <"Fatigue">
+					description = <"To record the patients estimation on his overall fatigue with the borg scale.">
+					comment = <"This Borg scale should be printed on heavy paper (11 inches high and perhaps laminated) in 20-point type size. At the beginning of the 6-minute exercise, show the scale to the patient and ask the patient this: “Please grade your level of shortness of breath using this scale.” Then ask this: “Please grade your level of fatigue using this scale.”
+At the end of the exercise, remind the patient of the breathing number that they chose before the exercise and ask the patient to grade their breathing level again. Then ask the patient to grade their level of fatigue, after reminding them of their grade before the exercise.">
+				>
+				["at0041"] = <
+					text = <"Nothing at all">
+					description = <"Nothing at all.">
+				>
+				["at0042"] = <
+					text = <"Very, very slight (just noticeable)">
+					description = <"Very, very slight (just noticeable).">
+				>
+				["at0043"] = <
+					text = <"Very slight">
+					description = <"Very slight.">
+				>
+				["at0044"] = <
+					text = <"Slight (light)">
+					description = <"Slight (light).">
+				>
+				["at0045"] = <
+					text = <"Moderate">
+					description = <"Moderate.">
+				>
+				["at0046"] = <
+					text = <"Somewhat severe">
+					description = <"Somewhat severe.">
+				>
+				["at0047"] = <
+					text = <"Severe (heavy)">
+					description = <"Severe (heavy).">
+				>
+				["at0048"] = <
+					text = <"Very severe">
+					description = <"Very severe.">
+				>
+				["at0049"] = <
+					text = <"Very, very severe (maximal)">
+					description = <"Very, very severe (maximal).">
+				>
+				["at0055"] = <
+					text = <"Dyspnea">
+					description = <"To record the patients estimation on his dyspnea with the BORG scale.">
+					comment = <"This Borg scale should be printed on heavy paper (11 inches high and perhaps laminated) in 20-point type size. At the beginning of the 6-minute exercise, show the scale to the patient and ask the patient this: “Please grade your level of shortness of breath using this scale.” Then ask this: “Please grade your level of fatigue using this scale.”
+At the end of the exercise, remind the patient of the breathing number that they chose before the exercise and ask the patient to grade their breathing level again. Then ask the patient to grade their level of fatigue, after reminding them of their grade before the exercise.">
+				>
+				["at0056"] = <
+					text = <"Nothing at all">
+					description = <"Nothing at all.">
+				>
+				["at0057"] = <
+					text = <"Very, very slight (just noticeable)">
+					description = <"Very, very slight (just noticeable).">
+				>
+				["at0058"] = <
+					text = <"Very slight">
+					description = <"Very slight.">
+				>
+				["at0059"] = <
+					text = <"Slight (light)">
+					description = <"Slight (light).">
+				>
+				["at0060"] = <
+					text = <"Moderate">
+					description = <"Moderate.">
+				>
+				["at0061"] = <
+					text = <"Somewhat severe">
+					description = <"Somewhat severe.">
+				>
+				["at0062"] = <
+					text = <"Severe (heavy)">
+					description = <"Severe (heavy).">
+				>
+				["at0063"] = <
+					text = <"Very severe">
+					description = <"Very severe.">
+				>
+				["at0064"] = <
+					text = <"Very, very severe (maximal)">
+					description = <"Very, very severe (maximal).">
+				>
+				["at0071"] = <
+					text = <"Inspired oxygen">
+					description = <"To record how much oxygen a patient needed.">
+				>
+				["at0072"] = <
+					text = <"Device">
+					description = <"To record details about the oxygen delivery device.">
+				>
+			>
+		>
+	>
