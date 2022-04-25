@@ -15,29 +15,28 @@ description
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"The FAS is a 10-item scale evaluating symptoms of chronic fatigue. In contrast to other similar measures (e.g., the Multidimensional Fatigue Inventory Chap. 57), the FAS treats fatigue as a uni-dimensional construct and does not separate its measurement into different factors. However, in order to ensure that the scale would evaluate all aspects of fatigue, developers chose items to represent both physical and mental symptoms.">
+			purpose = <"The FAS is a 10-item scale evaluating symptoms of chronic fatigue. In contrast to other similar measures (e.g., the Multidimensional Fatigue Inventory Chap. 57), the FAS treats fatigue as an uni-dimensional construct and does not separate its measurement into different factors. However, in order to ensure that the scale would evaluate all aspects of fatigue, developers chose items to represent both physical and mental symptoms.">
 			use = <"The FAS is a self-report, paper-and-pencil measure requiring approximately 2 min for administration. The response scale is a 5-point scale (1 ¼ never to 5 ¼ always). Scores on the FAS can range from 10 to 50.">
-			keywords = <"Fatigue", "Assessment", "Scale">
+			keywords = <"Fatigue", "Assessment", "Scale", "fatigue measure", "FAS", "physical", "mental">
 			misuse = <"">
-			copyright = <"© HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
 		["references"] = <"Michielsen, H. J., De Vries, J., Van Heck, G. L., Van de Vijver, F. J. R., & Sijtsma, K. (2004). Examination of the dimensionality of fatigue: The construction of the Fatigue Assessment Scale (FAS). European Journal of Psychological Assessment, 20, 39–48.">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"C0089FC35793CAEF80BB97341D81BE26">
-		["build_uid"] = <"0a13791e-d565-43a2-8165-757b74164e85">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"17C06ED0CDD718333D7E0115C87E041C">
+		["build_uid"] = <"6229ecbf-9195-4c7c-8304-1328046bde88">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- Fatigue Assessment Scale (FAS)
+	OBSERVATION[at0000] occurrences matches {0..1} matches {    -- Fatigue Assessment Scale (FAS)
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -152,6 +151,11 @@ definition
 		protocol matches {
 			ITEM_TREE[at0064] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0112] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 					allow_archetype CLUSTER[at0110] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
@@ -437,12 +441,16 @@ ontology
 				>
 				["at0110"] = <
 					text = <"Extension">
-					description = <"">
+					description = <"To record further information (e.g. of the person, ..) that is not  captured in other fields.">
 				>
 				["at0111"] = <
 					text = <"Score">
 					description = <"An answer to each question has to be given, even if the person does not have any complaints at the moment. Scores on questions 4 (Energy) and 10 (Concentration) should be recoded (1=5, 2=4, 3=3, 4=2, 5=1). Subsequently, the total FAS score can be calculated by summing the scores on all questions (the recoded scores for question 4 and 10). The minimal score is 10 the maximal score is 50.">
 					comment = <"Based on large representative samples of the Dutch population, the cut-off score of the FAS is 21, i.e. scores of ≥22 are considered to represent substantial fatigue. A change in the FAS score of four points is considered to be clinically relevant (minimal clinically important different) [ de Kleijn WP, De Vries J, Wijnen PA, et al. Minimal (clinically) important differences for the Fatigue Assessment Scale in sarcoidosis. Respir Med 2011; 105: 1388–1395]. ">
+				>
+				["at0112"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the test, not captured in other fields.">
 				>
 			>
 		>
