@@ -1,0 +1,142 @@
+﻿archetype (adl_version=1.4; uid=7e9eb52f-1a0c-4546-8a67-7c5ca14306ca)
+	openEHR-EHR-OBSERVATION.modified_medical_research_council_dyspnea_scale.v0
+
+concept
+	[at0000]	-- Modified Medical Research Council (mMRC) Dyspnea Scale
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["date"] = <"2022-04-19">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the expression of dyspnea the Modified Medical Research Council (mMRC) Dyspnea Scale is a simple and valid method. It can be used to categorize patients with chronic obstructive pulmonary disease (COPD) in terms of their disability.">
+			use = <"Used to record the characterisation baseline dyspnea in patients with respiratory disease such as COPD. Whilst it moderately correlates with other healthcare-associated morbidity, mortality and quality of life scales (particularly in COPD) the scores are only variably associated with patients' perceptions of respiratory symptom burden. It is used as a component of the BODE Index, which predicts adverse outcomes, including mortality and risk of hospitalisation. The scale is easy and efficient to use.">
+			keywords = <"COPD, Breathlessness, Dyspnoe", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"Nerys Williams, The MRC breathlessness scale, Occupational Medicine, Volume 67, Issue 6, August 2017, Pages 496–497, https://doi.org/10.1093/occmed/kqx086">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"FBF7EDD4DD1BB76D2719B7F41A52AFE2">
+		["build_uid"] = <"1abc0a1c-699f-4629-b0f6-0a010d8cd7c4">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] occurrences matches {0..1} matches {    -- Modified Medical Research Council (mMRC) Dyspnea Scale
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- mMRC-grade
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0005,    -- Grade 0
+													at0006,    -- Grade 1
+													at0007,    -- Grade 2
+													at0008,    -- Grade 3
+													at0009]    -- Grade 4
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0010] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Modified Medical Research Council (mMRC) Dyspnea Scale">
+					description = <"The mMRC scale is a self-rating tool to measure the degree of disability that breathlessness poses on day-to-day activities on a scale from 0 to 4.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"mMRC-grade">
+					description = <"To grade the symptom severity.">
+				>
+				["at0005"] = <
+					text = <"Grade 0">
+					description = <"I only get breathless with strenuous exercise.">
+				>
+				["at0006"] = <
+					text = <"Grade 1">
+					description = <"I get short of breath when hurrying on level ground or walking up a slight hill.">
+				>
+				["at0007"] = <
+					text = <"Grade 2">
+					description = <"On level ground, I walk slower than people of the same age because of breathlessness, or I have to stop for breath when walking at my own pace on the level.">
+				>
+				["at0008"] = <
+					text = <"Grade 3">
+					description = <"I stop for breath after walking about 100 yards or after a few minutes on level ground.">
+				>
+				["at0009"] = <
+					text = <"Grade 4">
+					description = <"I am too breathless to leave the house or I am breathless when dressing.">
+				>
+				["at0010"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0011"] = <
+					text = <"Comment">
+					description = <"Additional narrative that comment on the mMRC-grade.">
+				>
+				["at0012"] = <
+					text = <"Extension">
+					description = <"Additional narrative, not captured in other fields.Additional narrative, not captured in other fields.">
+				>
+			>
+		>
+	>
