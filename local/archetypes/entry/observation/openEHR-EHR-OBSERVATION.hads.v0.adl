@@ -1,0 +1,588 @@
+﻿archetype (adl_version=1.4; uid=d776e99b-c8da-4375-8852-85681cd818fd)
+	openEHR-EHR-OBSERVATION.hads.v0
+
+concept
+	[at0000]	-- Hospital Anxiety and Depression Scale (HADS)
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Mareike Joseph">
+		["organisation"] = <"Peter L. Reichertz Institute for Medical Informatics of TU BS and Hannover Medical School">
+		["email"] = <"joseph.mareike@mh-hannover.de">
+		["date"] = <"2022-04-26">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the results of the Hospital Anxiety and Depression Scale (HADS), a self-assessment questionnaire for depressive and anxiety symptoms.">
+			use = <"Use to record depressive and axiety symptoms, which are queried with the HADS questionnaire.">
+			keywords = <"Hospital, Anxiety, Depression, Scale, questionnaire", ...>
+			misuse = <"Not to be used to record other questionnaires than the HADS in the given form.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Zigmond AS, Snaith RP. The Hospital Anxiety and Depression Scale. Acta Psychiatr Scand 1983;67:361-370
+The Hospital Anxiety and Depression Scale© (HADS) is protected worldwide by international copyright laws in all languages, with all rights reserved to GL Assessment, UK. Do not use without permission.
+HADS contact information and permission to use: Mapi Research Trust, Lyon, France, https://eprovide.mapi-trust.org">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"C89F215C62D09763F7FC1F61067E7547">
+		["build_uid"] = <"ce74839c-d981-4dc3-8212-c78122b15984">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] occurrences matches {0..1} matches {    -- Hospital Anxiety and Depression Scale (HADS)
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0086] occurrences matches {0..1} matches {    -- Depression
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Enjoying
+												value matches {
+													0|[local::at0028],
+													1|[local::at0029],
+													2|[local::at0030],
+													3|[local::at0031]
+												}
+											}
+											ELEMENT[at0007] occurrences matches {0..1} matches {    -- Laughing
+												value matches {
+													0|[local::at0036],
+													1|[local::at0037],
+													2|[local::at0038],
+													3|[local::at0039]
+												}
+											}
+											ELEMENT[at0009] occurrences matches {0..1} matches {    -- Cheerful
+												value matches {
+													3|[local::at0044],
+													2|[local::at0045],
+													1|[local::at0046],
+													0|[local::at0047]
+												}
+											}
+											ELEMENT[at0011] occurrences matches {0..1} matches {    -- Slowed down
+												value matches {
+													3|[local::at0052],
+													2|[local::at0053],
+													1|[local::at0054],
+													0|[local::at0055]
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {    -- Lost interest in appearance
+												value matches {
+													3|[local::at0060],
+													2|[local::at0061],
+													1|[local::at0062],
+													0|[local::at0063]
+												}
+											}
+											ELEMENT[at0015] occurrences matches {0..1} matches {    -- Looking forward
+												value matches {
+													0|[local::at0068],
+													1|[local::at0069],
+													2|[local::at0070],
+													3|[local::at0071]
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {    -- Enjoying book
+												value matches {
+													0|[local::at0076],
+													1|[local::at0077],
+													2|[local::at0078],
+													3|[local::at0079]
+												}
+											}
+											ELEMENT[at0019] occurrences matches {0..1} matches {    -- Depression score
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..21|}
+													}
+												}
+											}
+											ELEMENT[at0087] occurrences matches {0..1} matches {    -- Severity
+												value matches {
+													DV_CODED_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0083] occurrences matches {0..1} matches {    -- Anxiety
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0004] occurrences matches {0..1} matches {    -- Feeling tense
+												value matches {
+													3|[local::at0024],
+													2|[local::at0025],
+													1|[local::at0026],
+													0|[local::at0027]
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Frightening
+												value matches {
+													3|[local::at0032],
+													2|[local::at0033],
+													1|[local::at0034],
+													0|[local::at0035]
+												}
+											}
+											ELEMENT[at0008] occurrences matches {0..1} matches {    -- Worrying
+												value matches {
+													3|[local::at0040],
+													2|[local::at0041],
+													1|[local::at0042],
+													0|[local::at0043]
+												}
+											}
+											ELEMENT[at0010] occurrences matches {0..1} matches {    -- Relaxed
+												value matches {
+													0|[local::at0048],
+													1|[local::at0049],
+													2|[local::at0050],
+													3|[local::at0051]
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Sort of frightening
+												value matches {
+													0|[local::at0056],
+													1|[local::at0057],
+													2|[local::at0058],
+													3|[local::at0059]
+												}
+											}
+											ELEMENT[at0014] occurrences matches {0..1} matches {    -- Restlessness
+												value matches {
+													3|[local::at0064],
+													2|[local::at0065],
+													1|[local::at0066],
+													0|[local::at0067]
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {    -- Panicful
+												value matches {
+													3|[local::at0072],
+													2|[local::at0073],
+													1|[local::at0074],
+													0|[local::at0075]
+												}
+											}
+											ELEMENT[at0018] occurrences matches {0..1} matches {    -- Anxiety score
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..21|}
+													}
+												}
+											}
+											ELEMENT[at0081] occurrences matches {0..1} matches {    -- Severity
+												value matches {
+													DV_CODED_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0080] occurrences matches {0..1} matches {    -- Overall sum
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..42|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0021] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0022] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hospital Anxiety and Depression Scale (HADS)">
+					description = <"To record the results of the Hospital Anxiety and Depression Scale (HADS), a self-assessment questionnaire for depressive and anxiety symptoms.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Feeling tense">
+					description = <"Statement: I feel tense or 'wound up'.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0005"] = <
+					text = <"Enjoying">
+					description = <"Statement: I still enjoy the things I used to 
+enjoy.">
+					comment = <"Category: Depression.">
+				>
+				["at0006"] = <
+					text = <"Frightening">
+					description = <"Statement: I get a sort of frightened feeling as if something awful is about to happen.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0007"] = <
+					text = <"Laughing">
+					description = <"Statement: I can laugh and see the funny side of things.">
+					comment = <"Category: Depression.">
+				>
+				["at0008"] = <
+					text = <"Worrying">
+					description = <"Statement: Worrying thoughts go through my mind.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0009"] = <
+					text = <"Cheerful">
+					description = <"Statement: I feel cheerful.">
+					comment = <"Category: Depression.">
+				>
+				["at0010"] = <
+					text = <"Relaxed">
+					description = <"Statement: I can sit at ease and feel relaxed.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0011"] = <
+					text = <"Slowed down">
+					description = <"Statement: I feel as if I am slowed down.">
+					comment = <"Category: Depression.">
+				>
+				["at0012"] = <
+					text = <"Sort of frightening">
+					description = <"Statement: I get a sort of frightened feeling like 'butterflies' in the stomach.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0013"] = <
+					text = <"Lost interest in appearance">
+					description = <"Statement: I have lost interest in my appearance.">
+					comment = <"Category: Depression.">
+				>
+				["at0014"] = <
+					text = <"Restlessness">
+					description = <"Statement: I feel restless as I have to be on the move.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0015"] = <
+					text = <"Looking forward">
+					description = <"Statement: I look forward with enjoyment to things.">
+					comment = <"Category: Depression.">
+				>
+				["at0016"] = <
+					text = <"Panicful">
+					description = <"Statement: I get sudden feelings of panic.">
+					comment = <"Category: Anxiety.">
+				>
+				["at0017"] = <
+					text = <"Enjoying book">
+					description = <"Statement: I can enjoy a good book or radio or TV program.">
+					comment = <"Category: Depression.">
+				>
+				["at0018"] = <
+					text = <"Anxiety score">
+					description = <"Sum of all answers of category \"Anxiety\".">
+				>
+				["at0019"] = <
+					text = <"Depression score">
+					description = <"Sum of all answers of category \"Depression\".">
+				>
+				["at0021"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the questionnaire, not captured in other fields.">
+				>
+				["at0023"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+				["at0024"] = <
+					text = <"Most of the time">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"A lot of the time">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"From time to time, occasionally">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Definitely as much">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Not quite so much">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Only a little">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Hardly at all">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Very definitely and quite badly">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Yes, but not too badly">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"A little, but it doesn't worry me">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"As much as I always could">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Not quite so much now">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"Definitely not so much now">
+					description = <"">
+				>
+				["at0039"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0040"] = <
+					text = <"A great deal of the time">
+					description = <"">
+				>
+				["at0041"] = <
+					text = <"A lot of the time">
+					description = <"">
+				>
+				["at0042"] = <
+					text = <"From time to time, but not too often">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Only occasionally">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Sometimes">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Most of the time">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Definitely">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"Usually">
+					description = <"">
+				>
+				["at0050"] = <
+					text = <"Not Often">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"Nearly all the time">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Very often">
+					description = <"">
+				>
+				["at0054"] = <
+					text = <"Sometimes">
+					description = <"">
+				>
+				["at0055"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0056"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0057"] = <
+					text = <"Occasionally">
+					description = <"">
+				>
+				["at0058"] = <
+					text = <"Quite Often">
+					description = <"">
+				>
+				["at0059"] = <
+					text = <"Very Often">
+					description = <"">
+				>
+				["at0060"] = <
+					text = <"Definitely">
+					description = <"">
+				>
+				["at0061"] = <
+					text = <"I don't take as much care as I should">
+					description = <"">
+				>
+				["at0062"] = <
+					text = <"I may not take quite as much care">
+					description = <"">
+				>
+				["at0063"] = <
+					text = <"I take just as much care as ever">
+					description = <"">
+				>
+				["at0064"] = <
+					text = <"Very much indeed">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"Quite a lot">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"Not very much">
+					description = <"">
+				>
+				["at0067"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0068"] = <
+					text = <"As much as I ever did">
+					description = <"">
+				>
+				["at0069"] = <
+					text = <"Rather less than I used to">
+					description = <"">
+				>
+				["at0070"] = <
+					text = <"Definitely less than I used to">
+					description = <"">
+				>
+				["at0071"] = <
+					text = <"Hardly at all">
+					description = <"">
+				>
+				["at0072"] = <
+					text = <"Very often indeed">
+					description = <"">
+				>
+				["at0073"] = <
+					text = <"Quite often">
+					description = <"">
+				>
+				["at0074"] = <
+					text = <"Not very often">
+					description = <"">
+				>
+				["at0075"] = <
+					text = <"Not at all">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"Often">
+					description = <"">
+				>
+				["at0077"] = <
+					text = <"Sometimes">
+					description = <"">
+				>
+				["at0078"] = <
+					text = <"Not often">
+					description = <"">
+				>
+				["at0079"] = <
+					text = <"Very seldom">
+					description = <"">
+				>
+				["at0080"] = <
+					text = <"Overall sum">
+					description = <"Overall sum of all answers of both categories.">
+				>
+				["at0081"] = <
+					text = <"Severity">
+					description = <"Narrative description of how to classify the depression.">
+					comment = <"For example: \"mild\", \"moderate\", \"critical\".
+The classification can base on a publication, an open scale or an individual scales and has to be specified in the template.">
+				>
+				["at0083"] = <
+					text = <"Anxiety">
+					description = <"">
+				>
+				["at0086"] = <
+					text = <"Depression">
+					description = <"">
+				>
+				["at0087"] = <
+					text = <"Severity">
+					description = <"Narrative description of how to classify the depression.">
+					comment = <"For example: \"mild\", \"moderate\", \"critical\".
+The classification can base on a publication, an open scale or an individual scales and has to be specified in the template.">
+				>
+			>
+		>
+	>
