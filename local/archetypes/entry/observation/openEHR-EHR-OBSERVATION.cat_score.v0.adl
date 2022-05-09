@@ -1,0 +1,440 @@
+﻿archetype (adl_version=1.4; uid=cb1423dd-a492-44fa-b764-d777f5c28b34)
+	openEHR-EHR-OBSERVATION.cat_score.v0
+
+concept
+	[at0000]	-- CAT Score
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"Peter L. Reichertz Institut für Medizinische Informatik">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2022-04-11">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation von Auswirkungen der COPD (chronisch obstruktive Lungenerkrankung) auf das Wohlbefinden und das tägliches Leben. Die Antworten sollen das Test-Ergebnis vom Arzt dazu verwendet werden, die Behandlung von COPD zu verbessern. ">
+			use = <"Zur Repräsentation des CAT-Score-Wertes, für die einzelnen Komponentenparameter und deren Gesamtwerte für den CAT-Score.
+
+Der CAT-Score wird in der Regel auf Pneumologie Stationen verwendet, bei den die Patienten eine Selbsteinschätzung bzw. ein COPD-Beurteilungstest durchführt. Dieser soll dazu dienen ein COPD-Schweregrad sowie die Abschätzung der Auswirkungen der Erkrankung im Alltag unterstützt.  Er wird alternativ zum Modified Medical Research Council (mMRC) eingesetzt. Der CAT eignet sich auch zur Erfolgskontrolle während der COPD-Therapie.
+
+Unter 10 Punkte - Die meisten Tage sind gut, die COPD hindert Sie an der einen oder
+anderen Aktivität, dauerhafte Beschwerden bestehen jedoch nicht. Vordringlich ist – sofern
+noch nicht umgesetzt – die Beendigung des Rauchens, Medikamente sind nicht zwingend
+erforderlich. Sinnvoll ist jedoch die Wahrnehmung körperlicher Aktivität (Lungensport).
+
+10 bis 20 Punkte - Einige Tage in der Woche sind gut, an den meisten Tagen bereitet die
+COPD Probleme (Husten, Auswurf, Kurzatmigkeit). Hier können bedarfsorientiert angewendete
+Medikamente Linderung verschaffen.
+
+Über 20 Punkte - Die COPD schränkt Lebensqualität und Belastbarkeit dauerhaft ein, im
+Alltag sind Beschwerden ständig vorhanden. Die vordringliche Maßnahme ist – sofern noch
+nicht umgesetzt – die Beendigung des Rauchens, meist können eine medikamentöse Dauerbehandlung
+und vor allem auch Lungensport eine Linderung verschaffen.
+
+Über 30 Punkte - Lebensqualität und Belastbarkeit sind sehr stark und dauerhaft eingeschränkt,
+hier müssen alle verfügbaren Behandlungsmöglichkeiten (Beendigung des Tabakkonsums,
+Medikamente, Lungensport, Sauerstoffbehandlung) hinsichtlich eines möglichen
+Einsatzes geprüft werden.">
+			keywords = <"CAT; COPD Assessment Test; chronisch obstruktive Lungenerkrankung; Lungenerkrankung", ...>
+			misuse = <"Nicht zur Repräsentation aktueller Messungen für die einzelnen Komponenten zu verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"CAT-COPD Assessment Test: https://www.catestonline.org/patient-site-test-page-german-germany.html
+
+Weitere Links: 
+https://www.atemwegsliga.de/copd-assessment-test.html
+https://flexikon.doccheck.com/de/COPD_Assessment_Test">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"A699DFCA5D12C792865CED357C5EEF46">
+		["build_uid"] = <"c59eb237-f03c-4900-9d47-37250d55aed7">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- CAT Score
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Husten
+										value matches {
+											0|[local::at0018],
+											1|[local::at0019],
+											2|[local::at0020],
+											3|[local::at0021],
+											4|[local::at0022],
+											5|[local::at0023]
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Verschleimt
+										value matches {
+											0|[local::at0024],
+											1|[local::at0025],
+											2|[local::at0026],
+											3|[local::at0027],
+											4|[local::at0028],
+											5|[local::at0029]
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Engegefühl Brust
+										value matches {
+											0|[local::at0030],
+											1|[local::at0031],
+											2|[local::at0032],
+											3|[local::at0033],
+											4|[local::at0034],
+											5|[local::at0035]
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Atem
+										value matches {
+											0|[local::at0036],
+											1|[local::at0037],
+											2|[local::at0038],
+											3|[local::at0039],
+											4|[local::at0040],
+											5|[local::at0041]
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Eingeschränkt
+										value matches {
+											0|[local::at0042],
+											1|[local::at0043],
+											2|[local::at0044],
+											3|[local::at0045],
+											4|[local::at0046],
+											5|[local::at0047]
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Haus
+										value matches {
+											0|[local::at0048],
+											1|[local::at0049],
+											2|[local::at0050],
+											3|[local::at0051],
+											4|[local::at0052],
+											5|[local::at0053]
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Schlafen
+										value matches {
+											0|[local::at0054],
+											1|[local::at0055],
+											2|[local::at0056],
+											3|[local::at0057],
+											4|[local::at0058],
+											5|[local::at0059]
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Energie
+										value matches {
+											0|[local::at0060],
+											1|[local::at0061],
+											2|[local::at0062],
+											3|[local::at0063],
+											4|[local::at0064],
+											5|[local::at0065]
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {    -- Gesamtergebnis
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..40|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0013] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"CAT Score">
+					description = <"CAT Score">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Husten">
+					description = <"Ich huste nie - Ich huste ständig
+">
+				>
+				["at0005"] = <
+					text = <"Verschleimt">
+					description = <"Ich bin überhaupt nicht verschleimt - Ich bin völlig verschleimt">
+				>
+				["at0006"] = <
+					text = <"Engegefühl Brust">
+					description = <"Ich spüre keinerlei Engegefühl in der Brust - Ich spüre ein sehr starkes Engegefühl in der Brust">
+				>
+				["at0007"] = <
+					text = <"Atem">
+					description = <"Wenn ich bergauf oder eine Treppe hinaufgehe, komme ich nicht außer Atem - Wenn ich bergauf oder eine Treppe hinaufgehe, komme ich sehr außer Atem">
+				>
+				["at0008"] = <
+					text = <"Eingeschränkt">
+					description = <"Ich bin bei meinen häuslichen Aktivitäten nicht eingeschränkt - Ich bin bei meinen häuslichen Aktivitäten nicht eingeschränkt">
+				>
+				["at0009"] = <
+					text = <"Haus">
+					description = <"Ich bin bei meinen häuslichen Aktivitäten nicht eingeschränkt - Ich bin bei meinen häuslichen Aktivitäten nicht eingeschränkt">
+				>
+				["at0010"] = <
+					text = <"Schlafen">
+					description = <"Ich schlafe tief und fest - Wegen meiner Lungenerkrankung schlafe ich nicht tief und fest">
+				>
+				["at0011"] = <
+					text = <"Energie">
+					description = <"Ich bin voller Energie - Ich habe überhaupt keine Energie">
+				>
+				["at0012"] = <
+					text = <"Gesamtergebnis">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0018"] = <
+					text = <"Ich huste nie">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Ich huste ständig">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Ich bin überhaupt nicht verschleimt">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Ich bin völlig verschleimt">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Ich spüre keinerlei Engegefühl in der Brust">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Ich spüre ein sehr starkes Engegefühl in der Brust">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Wenn ich bergauf oder eine Treppe hinaufgehe, komme ich nicht außer Atem">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0039"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0040"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0041"] = <
+					text = <"Wenn ich bergauf oder eine Treppe hinaufgehe, komme ich sehr außer Atem">
+					description = <"">
+				>
+				["at0042"] = <
+					text = <"Ich bin bei meinen häuslichen Aktivitäten nicht eingeschränkt">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Ich bin bei meinen häuslichen Aktivitäten sehr stark eingeschränkt">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Ich habe keine Bedenken, trotz meiner Lungenerkrankung das Haus zu verlassen">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0050"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Ich habe wegen meiner Lungenerkrankung große Bedenken, das Haus zu verlassen">
+					description = <"">
+				>
+				["at0054"] = <
+					text = <"Ich schlafe tief und fest">
+					description = <"">
+				>
+				["at0055"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0056"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0057"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0058"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0059"] = <
+					text = <"Wegen meiner Lungenerkrankung schlafe ich nicht tief und fest">
+					description = <"">
+				>
+				["at0060"] = <
+					text = <"Ich bin voller Energie">
+					description = <"">
+				>
+				["at0061"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0062"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0063"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0064"] = <
+					text = <"-">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"Ich habe überhaupt keine Energie">
+					description = <"">
+				>
+			>
+		>
+	>
