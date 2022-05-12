@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>4c850f07-856c-4b65-b5fd-6e7564a83c0f</id>
-    <name>KDS_Versorgungsstellenkontakt</name>
+    <name>Versorgungsstellenkontakt</name>
     <description>
         <lifecycle_state>in_development</lifecycle_state>
         <details>
             <purpose>Zur Repräsentation eines Kontakts zu einer Versorgungsstelle im Krankenhaus.</purpose>
             <keywords>
-                <item>Versorgungsstellenkontakt</item>
+                <item>Kerndatensatz</item>
+				<item>Versorgungsstelle</item>
                 <item>Fall</item>
-                <item>Versorgungsort</item>
+                <item>Encounter</item>
+				<item>Versorgung</item>
+				<item>Kontakt</item>
             </keywords>
-            <use>Für die zusammenfassende Darstellung eines Versorgungsstellenkontakts.</use>
-            <misuse>Nicht zur Repräsentation der administrativen Daten des zugehörigen, ÜBERGEORDNETEN Versorgungsfalls (inkl. Aufnahme und Entlassung). Bitte die Archetypen ADMIN_ENTRY.discharge_summary.v0 und/oder  ADMIN_ENTRY.admission.v0 oder die Templates zur Versorgungsfall ( KDS_Sonstiger Versorgungsfall,  KDS_Stationärer Versorgungsfall) verwenden.
+            <use>Für die Darstellung eines Kontakts zu einer Versorgungsstelle. In den Versorgungsstellen (Stationsdienst, OP-Dienst, Untersuchungslabor, Ambulanz, Pflegedienst) findet die eigentliche Versorgung statt.</use>
+            <misuse>Nicht zur Repräsentation der administrativen Daten des zugehörigen, ÜBERGEORDNETEN Versorgungsfalls in einer Einrichtung oder Fachabteilung (inkl. Aufnahme und Entlassung). Bitte die die Templates zum Versorgungsfall ( Sonstiger Versorgungsfall,  Stationärer Versorgungsfall) verwenden.
 	  
-Nicht zur Repräsentation der einzelnen Versorgungsorte des Patienten während seines Abteilungsaufenthaltes (z.B. Aufenthalt in Flur/Bett/zugehörige Station etc.). Bitte das Template Patientenaufenthalt verwenden.</misuse>
+Nicht zur Repräsentation der einzelnen Versorgungsorte des Patienten während seines Abteilungsaufenthaltes (z.B. Aufenthalt in Flur/Bett/zugehörige Station etc.). Bitte das Template "Patientenaufenthalt" verwenden.</misuse>
         </details>
         <other_details>
             <item>
@@ -247,19 +250,16 @@ Nicht zur Repräsentation der einzelnen Versorgungsorte des Patienten während s
             <Rule min="1" path="/data[at0001]/items[at0004]"/>
             <Rule name="Grund" path="/data[at0001]/items[at0006]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.organization.v0"
-                max="1" path="/data[at0001]/items[at0013]" xsi:type="tem:CLUSTER">
+                concept_name="Organisationseinheit" max="1"
+                name="Versorgungsstelle"
+                path="/data[at0001]/items[at0013]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0051]">
                     <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>local_terms::prov::Healthcare Provider</includedValues>
                         <includedValues>local_terms::dept::Hospital Department</includedValues>
                     </constraint>
                 </Rule>
-                <Rule path="/items[at0024]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <termQueryId
-                            queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/dkgev/Fachabteilungsschluessel-erweitert" terminologyID="//fhir.hl7.org/"/>
-                    </constraint>
-                </Rule>
+                <Rule name="Interner Identifikator" path="/items[at0024]"/>
             </Items>
         </Content>
         <Context>
