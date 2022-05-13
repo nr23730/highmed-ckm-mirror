@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=f39d1844-4f39-4ded-b4b7-0e96ca6cdda6)
-	openEHR-EHR-OBSERVATION.visual_analogue_scale.v0
+﻿archetype (adl_version=1.4; uid=9ce6fafe-52bf-468c-9132-d554adb957eb)
+	openEHR-EHR-OBSERVATION.visual_analogue_scale.v1
 
 concept
 	[at0000]	-- Visual Analogue Scale (VAS)
@@ -16,15 +16,15 @@ description
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record a subjective well-being in an easy handling manner. Visual analogue scales (VAS) are psychometric response scales used to measure subjective characteristics or attitudes and have been used in the past for a multitude of disorders, as well as in market research and social science investigations, among others.">
-			use = <"Used to record the subjective well-being. Originally a measure of pain, but adaptable to many more questions. The most important aspect of any VAS however is the question that is combined to it and not the scale. The line remains the same but the question may change. The word “analogue” stresses the inﬁnitely variable, continuously changing response format. As a result, and particularly since the advent of computer technology, a verbal distinction to “digital” is made, whereby there is always a stepwise change per Bit. VAS are, therefore, effectively classless, meaning that, theoretically, they permit an inﬁnite number of gradations between endpoints—the variable is a latent continuum.
-Thus, they clearly differ from (in the above sense, digital) categorical scales, which do not permit intermediate evaluations, and, in extreme cases, provide only two modalities (“yes” – “no”).">
+			use = <"Use to record the subjective well-being, if a self-defined VAS or a not yet modelled VAS is used. This archetype represents a generic VAS. If you are using a standardised VAS, that is already modelled (like the VAS for pain), use the dedicated archetype.
+This archetype allows to use an individual scale by defining an individual minimum, maximum or a stepwidth. Furthermore the verbal definition of the minimum and maximum can be set by the instructor individually as well.">
 			keywords = <"VAS, visual, analogue, analog, scale, rating, subjective, well-being", ...>
-			misuse = <"Not to be used to record the used to measure pain. Therefore use the dedicated archetype of rating pain.
+			misuse = <"Not to be used to record the measurement of pain. Therefore use the dedicated archetype of rating pain.
 The VAS for pain can be obtained from the following publication: Carlsson A. Assessment of chronic pain. I. Aspects of the reliability and validity of the visual analogue scale. Pain 1983; 16: 87-101.">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
@@ -33,9 +33,9 @@ The VAS for pain can be obtained from the following publication: Carlsson A. Ass
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"12991C17DEEFDB9FAE9B8235221D0C79">
-		["build_uid"] = <"e7b759ab-064b-4bf1-bec6-325edd067d58">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"764BBA26195ECD530A781A7ACEF6764A">
+		["build_uid"] = <"d57defd2-3cbf-4b84-8b7e-f093a23bf242">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -50,6 +50,7 @@ definition
 									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Score
 										value matches {
 											DV_COUNT matches {*}
+											DV_PROPORTION matches {*}
 											DV_QUANTITY matches {*}
 										}
 									}
@@ -76,6 +77,7 @@ definition
 					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Minimum of Scale
 						value matches {
 							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
 						}
 					}
 					ELEMENT[at0028] occurrences matches {0..1} matches {    -- Verbal minimum
@@ -86,6 +88,7 @@ definition
 					ELEMENT[at0027] occurrences matches {0..1} matches {    -- Maximum of Scale
 						value matches {
 							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
 						}
 					}
 					ELEMENT[at0029] occurrences matches {0..1} matches {    -- Verbal maximum
@@ -96,9 +99,15 @@ definition
 					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Stepwidth of Scale
 						value matches {
 							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
 						}
 					}
 					ELEMENT[at0025] occurrences matches {0..1} matches {*}    -- Publication source
+					ELEMENT[at0030] occurrences matches {0..1} matches {    -- Implementation
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 					ELEMENT[at0014] occurrences matches {0..1} matches {    -- Comment
 						value matches {
 							DV_TEXT matches {*}
@@ -128,7 +137,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -177,34 +186,19 @@ ontology
 				["at0028"] = <
 					text = <"Verbal minimum">
 					description = <"To record the definition of the minimum verbally to reproduce the method.">
-					comment = <"In order to demonstrate that patients have the en-
-tire range of possible perceptions of symptoms at their
-disposal when responding, each end of the scale is de-
-ﬁned with contrasting terms such as “always – never”,
-“applies completely – does not apply at all”, or “yes
-– no”. One end of the scale represents the maximum
-conceivable symptom strength (i. e., 100%), the other
-end no symptoms whatsoever (i. e., 0%).
-VAS should not have any markings (e. g., identifying
-the middle or dividing the line up into equally sized
-fragments), since the sensitivity of VAS without mark-
-ings is higher than it is with. ">
+					comment = <"In order to demonstrate that patients have the entire range of possible perceptions of symptoms at their disposal when responding, each end of the scale is deﬁned with contrasting terms such as “always – never”, “applies completely – does not apply at all”, or “yes – no”. One end of the scale represents the maximum conceivable symptom strength (i. e., 100%), the other end no symptoms whatsoever (i. e., 0%).
+VAS should not have any markings (e. g., identifying the middle or dividing the line up into equally sized fragments), since the sensitivity of VAS without markings is higher than it is with.">
 				>
 				["at0029"] = <
 					text = <"Verbal maximum">
 					description = <"To record the definition of the maximum verbally to reproduce the method.">
-					comment = <"In order to demonstrate that patients have the en-
-tire range of possible perceptions of symptoms at their
-disposal when responding, each end of the scale is de-
-ﬁned with contrasting terms such as “always – never”,
-“applies completely – does not apply at all”, or “yes
-– no”. One end of the scale represents the maximum
-conceivable symptom strength (i. e., 100%), the other
-end no symptoms whatsoever (i. e., 0%).
-VAS should not have any markings (e. g., identifying
-the middle or dividing the line up into equally sized
-fragments), since the sensitivity of VAS without mark-
-ings is higher than it is with.">
+					comment = <"In order to demonstrate that patients have the entire range of possible perceptions of symptoms at their disposal when responding, each end of the scale is deﬁned with contrasting terms such as “always – never”, “applies completely – does not apply at all”, or “yes – no”. One end of the scale represents the maximum conceivable symptom strength (i. e., 100%), the other end no symptoms whatsoever (i. e., 0%).
+VAS should not have any markings (e. g., identifying the middle or dividing the line up into equally sized fragments), since the sensitivity of VAS without markings is higher than it is with.">
+				>
+				["at0030"] = <
+					text = <"Implementation">
+					description = <"Additional narrative describing the method how the score is determined.">
+					comment = <"E.g. analogue with pen and paper asking the patient to mark the score on a 10cm long line or digital with the option to select one of 10 predefined values between 0 and 10.">
 				>
 			>
 		>

@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=cda64ddc-0c10-403f-bacf-a3bd876ddf6e)
-	openEHR-EHR-OBSERVATION.fatigue_assessment_scale.v0
+﻿archetype (adl_version=1.4; uid=a2535147-96c2-4510-aaf6-739dee11c5b0)
+	openEHR-EHR-OBSERVATION.fatigue_assessment_scale.v1
 
 concept
 	[at0000]	-- Fatigue Assessment Scale (FAS)
@@ -15,25 +15,25 @@ description
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"The FAS is a 10-item scale evaluating symptoms of chronic fatigue. In contrast to other similar measures (e.g., the Multidimensional Fatigue Inventory Chap. 57), the FAS treats fatigue as an uni-dimensional construct and does not separate its measurement into different factors. However, in order to ensure that the scale would evaluate all aspects of fatigue, developers chose items to represent both physical and mental symptoms.">
-			use = <"The FAS is a self-report, paper-and-pencil measure requiring approximately 2 min for administration. The response scale is a 5-point scale (1 ¼ never to 5 ¼ always). Scores on the FAS can range from 10 to 50.">
+			purpose = <"To record symptoms of chronic fatigue. In contrast to other similar measures (e.g., the Multidimensional Fatigue Inventory Chap. 57), this 10-item scale treats fatigue as an uni-dimensional construct and does not separate its measurement into different factors. However, in order to ensure that the scale would evaluate all aspects of fatigue, developers chose items to represent both physical and mental symptoms.">
+			use = <"Use to record the Fatigue Assessment Scale (FAS). The FAS is a self-report, paper-and-pencil measure requiring approximately 2 min for administration. The response scale is a 5-point scale (1 ¼ never to 5 ¼ always). Scores on the FAS can range from 10 to 50.">
 			keywords = <"Fatigue", "Assessment", "Scale", "fatigue measure", "FAS", "physical", "mental">
 			misuse = <"">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"openEHR Foundation">
+		["custodian_organisation"] = <"HiGHmed">
 		["references"] = <"Michielsen, H. J., De Vries, J., Van Heck, G. L., Van de Vijver, F. J. R., & Sijtsma, K. (2004). Examination of the dimensionality of fatigue: The construction of the Fatigue Assessment Scale (FAS). European Journal of Psychological Assessment, 20, 39–48.">
-		["original_namespace"] = <"org.openehr">
-		["original_publisher"] = <"openEHR Foundation">
-		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"17C06ED0CDD718333D7E0115C87E041C">
-		["build_uid"] = <"e2d78a21-0c89-4af6-888d-e2faacbc86f7">
-		["revision"] = <"0.0.1-alpha">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"A809497E762319152524471857A6F845">
+		["build_uid"] = <"ee565dee-271c-4bca-946c-784a82dbf589">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -142,6 +142,18 @@ definition
 											}
 										}
 									}
+									ELEMENT[at0113] occurrences matches {0..1} matches {    -- Severity
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0114,    -- Keine Fatigue
+													at0115,    -- Leichte Fatigue
+													at0116]    -- Schwere Fatigue
+												}
+											}
+										}
+									}
 								}
 							}
 						}
@@ -153,6 +165,11 @@ definition
 			ITEM_TREE[at0064] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0112] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0117] occurrences matches {0..1} matches {    -- Source
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -181,7 +198,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -452,6 +469,27 @@ ontology
 				["at0112"] = <
 					text = <"Comment">
 					description = <"Additional narrative about the test, not captured in other fields.">
+				>
+				["at0113"] = <
+					text = <"Severity">
+					description = <"To record the severity of the fatigue based on the FAS-Score.">
+					comment = <"The underlying source (e.g. a publication) for evaluating the severity of fatigue shall be named.">
+				>
+				["at0114"] = <
+					text = <"Keine Fatigue">
+					description = <"">
+				>
+				["at0115"] = <
+					text = <"Leichte Fatigue">
+					description = <"">
+				>
+				["at0116"] = <
+					text = <"Schwere Fatigue">
+					description = <"">
+				>
+				["at0117"] = <
+					text = <"Source">
+					description = <"To record the underlying source (e.g. a publication) for evaluating the severity of fatigue.">
 				>
 			>
 		>

@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=a78254ad-23e6-42a7-a1f0-488f45fdf1c6)
-	openEHR-EHR-OBSERVATION.mmrc_dyspnea_scale.v0
+﻿archetype (adl_version=1.4; uid=37ac0be3-ed38-4d88-825b-9d047a7a7618)
+	openEHR-EHR-OBSERVATION.mmrc_dyspnea_scale.v1
 
 concept
 	[at0000]	-- Modified Medical Research Council (mMRC) Dyspnea Scale
@@ -7,30 +7,33 @@ language
 	original_language = <[ISO_639-1::en]>
 description
 	original_author = <
+		["name"] = <"Mareike Joseph">
+		["organisation"] = <"Peter L. Reichertz Institute for Medical Informatics of TU BS and Hannover Medical School">
+		["email"] = <"joseph.mareike@mh-hannover.de">
 		["date"] = <"2022-04-19">
 	>
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the expression of dyspnea the Modified Medical Research Council (mMRC) Dyspnea Scale is a simple and valid method. It can be used to categorize patients with chronic obstructive pulmonary disease (COPD) in terms of their disability.">
-			use = <"Used to record the characterisation baseline dyspnea in patients with respiratory disease such as COPD. Whilst it moderately correlates with other healthcare-associated morbidity, mortality and quality of life scales (particularly in COPD) the scores are only variably associated with patients' perceptions of respiratory symptom burden. It is used as a component of the BODE Index, which predicts adverse outcomes, including mortality and risk of hospitalisation. The scale is easy and efficient to use.">
-			keywords = <"COPD, Breathlessness, Dyspnoe", ...>
+			purpose = <"To record the expression of dyspnea the Modified Medical Research Council (mMRC) Dyspnea Scale.">
+			use = <"Use to record the characterisation baseline dyspnea in patients with respiratory disease such as COPD. Whilst it moderately correlates with other healthcare-associated morbidity, mortality and quality of life scales (particularly in COPD) the scores are only variably associated with patients' perceptions of respiratory symptom burden. It is used as a component of the BODE Index, which predicts adverse outcomes, including mortality and risk of hospitalisation. The scale is easy and efficient to use and can be used to categorize patients with chronic obstructive pulmonary disease (COPD) in terms of their disability.">
+			keywords = <"COPD, Breathlessness, Dyspnoea, Syspnea, Shortness of breath, Modified British Medical Research Council, mMRC, mMRC-Score, COPD severity, COPD Stages, pneumology", ...>
 			misuse = <"">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"openEHR Foundation">
+		["custodian_organisation"] = <"HiGHmed">
 		["references"] = <"Nerys Williams, The MRC breathlessness scale, Occupational Medicine, Volume 67, Issue 6, August 2017, Pages 496–497, https://doi.org/10.1093/occmed/kqx086">
-		["original_namespace"] = <"org.openehr">
-		["original_publisher"] = <"openEHR Foundation">
-		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"72400A0CA85B4376E5D72D783A11F1D6">
-		["build_uid"] = <"90129a04-1b15-4024-8684-1e3bc09cf3ca">
-		["revision"] = <"0.0.1-alpha">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"0776B69A83639BA9723FD78A3DA0C290">
+		["build_uid"] = <"78e51a6c-93bd-4c77-aa09-91a08fc4ddd4">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -56,6 +59,11 @@ definition
 											}
 										}
 									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 								}
 							}
 						}
@@ -66,7 +74,7 @@ definition
 		protocol matches {
 			ITEM_TREE[at0010] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0011] occurrences matches {0..1} matches {    -- Comment
+					ELEMENT[at0014] occurrences matches {0..1} matches {    -- Comment
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -95,7 +103,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -129,13 +137,18 @@ ontology
 					text = <"Item tree">
 					description = <"@ internal @">
 				>
-				["at0011"] = <
+				["at0012"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+				["at0013"] = <
 					text = <"Comment">
 					description = <"Additional narrative that comment on the mMRC-grade.">
 				>
-				["at0012"] = <
-					text = <"Extension">
-					description = <"Additional narrative, not captured in other fields.Additional narrative, not captured in other fields.">
+				["at0014"] = <
+					text = <"Comment">
+					description = <"Additional narrative that comment on the mMRC-grade or environmental variables not captured in other fields.">
 				>
 			>
 		>
