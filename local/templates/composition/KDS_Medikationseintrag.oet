@@ -85,7 +85,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>9.0.0</value>
+                <value>11.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -197,7 +197,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                 </constraint>
             </Rule>
             <Rule min="1" name="Startzeitpunkt Einnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
-            <Rule min="1" name="Dauer der Einnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+            <Rule name="Dauer der Einnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
             <Rule name="Endzeitpunkt Einnahme" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
             <Rule name="Behandlungsgrund" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0031]"/>
@@ -209,12 +209,6 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
             <Rule name="Hinweis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v2"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0144]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Interval</includedTypes>
-                    </constraint>
-                </Rule>
                 <Rule max="0" path="/items[at0135]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Text</includedTypes>
@@ -229,17 +223,14 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0102]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Duration</includedTypes>
-                        <includedTypes>Interval</includedTypes>
+                    <constraint xsi:type="tem:durationConstraint">
+                        <pattern>PDTHMS</pattern>
+                        <minMagnitude>PT0S</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0176]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Quantity</includedTypes>
-                        <includedTypes>Interval</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/items[at0176]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
                     concept_name="Zeitablauf - täglich"
@@ -281,7 +272,12 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                             <includesMinimum>true</includesMinimum>
                         </constraint>
                     </Rule>
-                    <Rule max="1" name="Zeitpunkt" path="/items[at0004]"/>
+                    <Rule max="1" name="Zeitpunkt" path="/items[at0004]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Time</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0023]"/>
                     <Rule max="0" path="/items[at0025]"/>
                     <Rule name="Ereignis" path="/items[at0039]/items[at0026]"/>
@@ -289,7 +285,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <constraint xsi:type="tem:durationConstraint">
                             <pattern>PTHMS</pattern>
                             <maxMagnitude>PT24H</maxMagnitude>
-                            <minMagnitude>PT0H</minMagnitude>
+                            <minMagnitude>-PT24H</minMagnitude>
                             <includesMaximum>true</includesMaximum>
                             <includesMinimum>true</includesMinimum>
                         </constraint>
@@ -334,7 +330,12 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                             </unitMagnitude>
                         </constraint>
                     </Rule>
-                    <Rule max="1" name="Zeitpunkt" path="/items[at0001]"/>
+                    <Rule max="1" name="Zeitpunkt" path="/items[at0001]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Date</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0004]">
                         <constraint xsi:type="tem:countConstraint">
@@ -412,6 +413,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::FRB::FRB</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::FSE::Seife</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::FTA::Tabl</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::GEK::Gran</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::GEL::Gel</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::GLI::GLI</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::GLO::Globuli</includedValues>
@@ -427,13 +429,17 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::HVW::Kaps</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFA::Amp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFB::Beutel</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFD::InfDisp</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFE::Spritze</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFF::Flasche</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFK::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFL::Flasche</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IFS::Set</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IHA::InhAmp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IHP::InhPulv</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IIE::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IIL::Lösung</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IIM::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IKA::InhKaps</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::ILO::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::IMP::Impl</includedValues>
@@ -452,6 +458,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KEG::Kegel</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KER::Kerne</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KGU::Kaug</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KID::Konz</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KII::Konz</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KKS::Supp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::KLI::Klist</includedValues>
@@ -477,6 +484,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::LUP::LUP</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::LUT::LuTabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::MIL::Milch</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::MIS::Misch</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::MIX::Mixtur</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::MRG::RetGran</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::MRP::Pellets</includedValues>
@@ -500,17 +508,22 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PFL::Pflast</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PFT::Pflast</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PHI::Pulver</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PHV::Pulver</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIE::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIF::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PII::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIJ::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIK::Pulver</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIS::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PIV::PIV</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PKI::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLE::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLF::PLF</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLG::PLG</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLH::PLH</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLI::PLI</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLK::PLK</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLS::Pulver</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PLV::PLV</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PPL::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::PRS::PRS</includedValues>
@@ -524,6 +537,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::RGR::RetGran</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::RKA::RekKaps</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::RSC::Schaum</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::RSU::RecSusp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::RUT::RetTabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SAF::Saft</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SAL::Salbe</includedValues>
@@ -539,6 +553,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SPF::Flasche</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SPL::Lösung</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SPR::Spray</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SPT::Spray</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SRI::Spritze</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SSU::Supp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::STA::Amp</includedValues>
@@ -547,6 +562,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::STR::Streif</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUB::Subst</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUE::Susp</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUL::SubSpr</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUP::Supp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUS::Susp</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::SUT::SubTabl</includedValues>
@@ -560,6 +576,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TES::Test</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TIN::Tinktur</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TKA::Tabl</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TLE::LösTabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TMR::Tabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TON::Tonikum</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TPN::Tampon</includedValues>
@@ -571,6 +588,8 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TRT::TrTabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSA::Saft</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSD::TSD</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSE::SusTabl</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSD::TSD</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSS::TSS</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TST::Test</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TSY::TSY</includedValues>
@@ -578,6 +597,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TUB::Tube</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TUE::Tücher</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TUP::Tupfer</includedValues>
+                        <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::TVW::RetTabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::UTA::Tabl</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::VAL::VagLös</includedValues>
                         <includedValues>https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BMP_DARREICHUNGSFORM::VAR::VagRing</includedValues>
@@ -676,11 +696,7 @@ Nicht für die Darstellung der eigentlichen Medikamentenverabreichung, die auf v
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule max="0" path="/items[at0139]"/>
                     <Rule max="0" path="/items[at0148]"/>
-                    <Rule name="IsActive (Wirkstoff)" path="/items[at0127]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <excludedValues>local::at0084</excludedValues>
-                        </constraint>
-                    </Rule>
+                    <Rule name="IsActive (Wirkstoff)" path="/items[at0127]"/>
                     <Rule max="0" path="/items[at0133]"/>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.drug_class.v0"
