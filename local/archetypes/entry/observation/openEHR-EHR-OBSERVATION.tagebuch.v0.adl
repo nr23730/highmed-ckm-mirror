@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.tagebuch.v0
 
 concept
-	[at0000]	-- Tagebuch
+	[at0000]	-- NATARS_Tagebuch
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -15,28 +15,28 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Auswertung von Tagebüchern im Bezug auf Stürzen, Besuch und Befinden der Patienten.">
-			use = <"">
-			keywords = <"Tagebuch, Sturz, Besuch, Befinden", ...>
-			misuse = <"">
+			purpose = <"Dieser Fragebogen wird verwendet um im Rahmen der NATARS-Studie Stürze, Besuche und das Befinden von Patient*innen regelmäßig zu erfassen.">
+			use = <"Zur Darstellung von Stürzen, Besuchen und Befinden von Teilnehmer*innen der NATARS_Studie.">
+			keywords = <"Tagebuch, Sturz, Besuch, Befinden, NATARS", ...>
+			misuse = <"Nicht zur Darstellung der Folge von Stürzen, Besuchen und Befinden.">
 			copyright = <"© HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"HiGHmed">
-		["original_namespace"] = <"org.highmed">
+		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"FCEFB541FA82E34D04F7A3ED3F47372B">
-		["build_uid"] = <"6a9fcdcb-554f-46d0-9286-0ee60b4f2aec">
+		["MD5-CAM-1.0.1"] = <"44653C41E53A92EC0BE9CA637DA40A08">
+		["build_uid"] = <"03b1fc32-137d-40f1-85ef-c9835dc6701e">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- Tagebuch
+	OBSERVATION[at0000] matches {    -- NATARS_Tagebuch
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -47,18 +47,18 @@ definition
 									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Tag der Durchführung
 										value matches {
 											DV_COUNT matches {
-												magnitude matches {|1..1000|}
+												magnitude matches {|>=0|}
 											}
 										}
 									}
 									CLUSTER[at0031] occurrences matches {0..1} matches {    -- Sturzgeschehen
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Sturz
+											ELEMENT[at0005] occurrences matches {0..*} matches {    -- Sturz
 												value matches {
 													DV_BOOLEAN matches {*}
 												}
 											}
-											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Zeitpunkt des Sturzes
+											ELEMENT[at0006] occurrences matches {0..*} matches {    -- Zeitpunkt des Sturzes
 												value matches {
 													DV_CODED_TEXT matches {
 														defining_code matches {
@@ -80,12 +80,12 @@ definition
 									}
 									CLUSTER[at0032] occurrences matches {0..1} matches {    -- Besuchserfassung
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0011] occurrences matches {0..1} matches {    -- Besuch
+											ELEMENT[at0011] occurrences matches {0..*} matches {    -- Besuch
 												value matches {
 													DV_BOOLEAN matches {*}
 												}
 											}
-											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Besuchszeit
+											ELEMENT[at0012] occurrences matches {0..*} matches {    -- Besuchszeit
 												value matches {
 													DV_CODED_TEXT matches {
 														defining_code matches {
@@ -138,6 +138,10 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
+					allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
 				}
 			}
 		}
@@ -149,8 +153,8 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Tagebuch">
-					description = <"Tagebuch">
+					text = <"NATARS_Tagebuch">
+					description = <"Erfassen von Stürzen, Besuch und Befinden von Studienteilnehmer*innen in der NATARS-Studie.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -158,7 +162,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -166,11 +170,11 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Tag der Durchführung">
-					description = <"Tag der Durchführung, Tag 1 bei Startdatum.">
+					description = <"Tag der Durchführung, Tag 0 bei Startdatum, Tag 1 ist der erste Tag nach dem Startdatum.">
 				>
 				["at0005"] = <
 					text = <"Sturz">
-					description = <"Angabe, ob der Patient gestürzt ist.">
+					description = <"Angabe, ob der/die Patient*in gestürzt ist.">
 				>
 				["at0006"] = <
 					text = <"Zeitpunkt des Sturzes">
@@ -178,23 +182,23 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Morgens">
-					description = <"Sturz ist zwischen 5 Uhr und 11 Uhr geschehen.">
+					description = <"Sturz ist zwischen morgens geschehen.">
 				>
 				["at0008"] = <
 					text = <"Mittags">
-					description = <"Sturz ist zwischen 11 Uhr und 16 Uhr geschehen.">
+					description = <"Sturz ist zwischen mittags geschehen.">
 				>
 				["at0009"] = <
 					text = <"Abends">
-					description = <"Sturz ist zwischen 16 Uhr und 21 Uhr geschehen.">
+					description = <"Sturz ist zwischen abends geschehen.">
 				>
 				["at0010"] = <
 					text = <"Nachts">
-					description = <"Sturz ist zwischen 21 Uhr und 5 Uhr geschehen.">
+					description = <"Sturz ist zwischen nachts geschehen.">
 				>
 				["at0011"] = <
 					text = <"Besuch">
-					description = <"Angabe, ob der Patient Besuch an diesem Tag der Durchführung hatte.">
+					description = <"Angabe, ob der/die Patient/in Besuch an diesem Tag hatte.">
 				>
 				["at0012"] = <
 					text = <"Besuchszeit">
@@ -218,7 +222,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Befinden">
-					description = <"Angabe, wie der Patient sich an diesem Tag der Durchführung gefühlt hat. Diese Angabe könnte ein Grund für möglichen Besuch oder Sturz sein.">
+					description = <"Angabe, wie der/die Patient*in sich an diesem Tag gefühlt hat.">
 				>
 				["at0018"] = <
 					text = <"Sehr gut">
@@ -238,7 +242,7 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Bemerkung">
-					description = <"Genauere Angaben zum Eigenbefinden des Patienten.">
+					description = <"Genauere Angaben zum Befinden des/der Patient*in.">
 				>
 				["at0023"] = <
 					text = <"Item tree">
@@ -246,23 +250,28 @@ ontology
 				>
 				["at0024"] = <
 					text = <"Bemerkung">
-					description = <"Weitere Anmerkungen zum Besuch, die bisher nicht erfasst wurden.">
+					description = <"Weitere Anmerkungen zum den Besuchen, die bisher nicht erfasst wurden.">
 				>
 				["at0025"] = <
 					text = <"Bemerkung">
-					description = <"Weitere Anmerkungen zum Sturz, die bisher nicht erfasst wurden.">
+					description = <"Weitere Anmerkungen zum den Stürzen, die bisher nicht erfasst wurden.">
 				>
 				["at0026"] = <
 					text = <"Sonstige Anmerkungen">
-					description = <"Hier ist Platz für alle weiteren Anmerkungen, die bisher keinen Platz gefunden haben.">
+					description = <"Zusätzliche Informationen, die nicht in anderen Feldern erfasst werden.">
 				>
 				["at0031"] = <
 					text = <"Sturzgeschehen">
-					description = <"Alle Einträge zum Sturz werden in diesem Cluster gesammelt.">
+					description = <"Alle Einträge zum Sturzgeschehen werden in diesem Cluster gesammelt.">
 				>
 				["at0032"] = <
 					text = <"Besuchserfassung">
 					description = <"Alle Einträge zum Besuch werden in diesem Cluster gesammelt.">
+				>
+				["at0033"] = <
+					text = <"Extension">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 			>
 		>
