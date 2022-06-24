@@ -58,7 +58,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>e963edec60d0d575b04ec9c1afae0b82</value>
+                <value>da6afb711ae3529887eb3a6db928186d</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -66,11 +66,15 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.0</value>
+                <value>2.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
                 <value>697694f4-5e77-42ce-a501-cb4dc2ec06e8</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -113,7 +117,7 @@
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]"/>
-                <Rule clone="true" name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
+                <Rule name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001]/items[at1005]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001]/items[at0005]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001]/items[at1055]"/>
@@ -136,9 +140,36 @@
                     </nameConstraint>
                 </Rule>
                 <Rule name="Weitere Informationen zu Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001]/items[at1059]"/>
-                <Rule clone="true" name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
+                <Rule clone="true" name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
+                <Rule clone="true" max="0" name="Vorhandensein" path="/data[at0002]/events[at1036]/data[at0001]/items[at1005]"/>
+                <Rule clone="true" max="0" name="Regelmäßigkeit" path="/data[at0002]/events[at1036]/data[at0001]/items[at0005]"/>
+                <Rule clone="true" max="0" name="Unregelmäßiger Typ" path="/data[at0002]/events[at1036]/data[at0001]/items[at1055]"/>
+                <Rule clone="true" max="1" name="Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001]/items[at1030]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schrittmacher</includedValues>
+                        <includedValues>kein Schrittmacher</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" max="0" name="Klinische Beschreibung" path="/data[at0002]/events[at1036]/data[at0001]/items[at1022]"/>
+                <Rule clone="true" name="Klinische Interpretation" path="/data[at0002]/events[at1036]/data[at0001]/items[at1023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Sinusrhythmus</includedValues>
+                        <includedValues>Vorhofflimmern</includedValues>
+                        <includedValues>Anderer Rhythmus</includedValues>
+                        <includedValues>Schrittmacherstimulation</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at1057</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule clone="true"
+                    name="Weitere Informationen zu Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001]/items[at1059]"/>
+                <Rule name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]/state[at0012]/items[at0013]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]/state[at0012]/items[at1018]"/>
+                <Rule clone="true" name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
+                <Rule clone="true" max="0" name="Körperhaltung" path="/data[at0002]/events[at1036]/state[at0012]/items[at0013]"/>
+                <Rule clone="true" max="0" name="Störfaktoren" path="/data[at0002]/events[at1036]/state[at0012]/items[at1018]"/>
                 <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
                 <Rule max="0" path="/protocol[at0010]/items[at1037]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -434,6 +465,20 @@
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
                         concept_name="Ergebnis der Bildgebung" max="1"
+                        name="Linksatriale Fläche 4-Kammer- Blick (endsystolisch) / Körperoberfläche (LA-Flächen-Index (4CH))"
+                        path="/items[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <includedUnits>cm2/m2</includedUnits>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0001]/items[at0003]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0011]"/>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                        concept_name="Ergebnis der Bildgebung" max="1"
                         name="RV Dilatation (basal)"
                         path="/items[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
                         <Rule path="/items[at0001]/items[at0002]">
@@ -582,6 +627,41 @@
                         archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
                         concept_name="Ergebnis der Bildgebung" max="1"
                         name="Linksatriales Volumen / Körperoberfläche (LA-Volumen-Index)"
+                        path="/items[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <includedUnits>ml/m2</includedUnits>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0001]/items[at0003]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0011]"/>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                        concept_name="Ergebnis der Bildgebung" max="1"
+                        name="Rechtsatriales Volumen biplan (RA-Volumen)"
+                        path="/items[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <includedUnits>ml</includedUnits>
+                                <unitMagnitude>
+                                    <unit>ml</unit>
+                                    <maxMagnitude>200.0</maxMagnitude>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>true</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0001]/items[at0003]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0004]"/>
+                        <Rule max="0" path="/items[at0001]/items[at0011]"/>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
+                        concept_name="Ergebnis der Bildgebung" max="1"
+                        name="Rechtsatriales Volumen / Körperoberfläche (RA-Volumen-Index)"
                         path="/items[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
                         <Rule path="/items[at0001]/items[at0002]">
                             <constraint xsi:type="tem:quantityConstraint">
@@ -1078,6 +1158,11 @@
                 <value>null_flavour</value>
             </items>
         </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.imaging_exam_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0, '2-D Messungen (4CH und 2CH apikal, subkostal)']/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result.v0, 'Linksatriale Fläche 4-Kammer- Blick (endsystolisch) / Körperoberfläche (LA-Flächen-Index (4CH))']/items[at0001]/items[at0002]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.imaging_exam_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0, '2-D Messungen (4CH und 2CH apikal, subkostal)']/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result.v0, 'RV Dilatation (basal)']/items[at0001]/items[at0002]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
@@ -1119,6 +1204,16 @@
             </items>
         </constraints>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.imaging_exam_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0, '2-D Messungen (4CH und 2CH apikal, subkostal)']/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result.v0, 'Linksatriales Volumen / Körperoberfläche (LA-Volumen-Index)']/items[at0001]/items[at0002]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.imaging_exam_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0, '2-D Messungen (4CH und 2CH apikal, subkostal)']/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result.v0, 'Rechtsatriales Volumen biplan (RA-Volumen)']/items[at0001]/items[at0002]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.imaging_exam_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0, '2-D Messungen (4CH und 2CH apikal, subkostal)']/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result.v0, 'Rechtsatriales Volumen / Körperoberfläche (RA-Volumen-Index)']/items[at0001]/items[at0002]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>

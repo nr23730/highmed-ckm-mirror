@@ -87,20 +87,9 @@
             name="Systemische/Sonstige Therapie" path="/content" xsi:type="tem:ACTION">
             <Rule name="Therapieart" path="/description[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-<includedValues>local_terms::CH::Chemotherapie</includedValues>
-<includedValues>local_terms::HO::Hormontherapie</includedValues>
-<includedValues>local_terms::IM::Immun-/Antikörpertherapie</includedValues>
-<includedValues>local_terms::ZS::zielgerichtete Substanzen</includedValues>
-<includedValues>local_terms::CI::Chemo- + Immun-/Antikörpertherapie</includedValues>
-<includedValues>local_terms::CZ::Chemotherapie + zielgerichtete Substanzen</includedValues>
-<includedValues>local_terms::CIZ::Chemo- + Immun-/Antikörpertherapie + zielgerichtete Substanzen</includedValues>
-<includedValues>local_terms::IZ::Immun-/Antikörpertherapie + zielgerichtete Substanzen</includedValues>
-<includedValues>local_terms::SZ::Stammzelltransplantation (inklusive Knochenmarktransplantation)</includedValues>
-<includedValues>local_terms::AS::Active Surveillance</includedValues>
-<includedValues>local_terms::WS::Wait and see</includedValues>
-<includedValues>local_terms::WW::Watchful Waiting</includedValues>
-<includedValues>local_terms::SO::Sonstiges</includedValues>
-                </constraint>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieart" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0049]"/>
             <Rule max="0" path="/description[at0001]/items[at0070]"/>
@@ -186,15 +175,10 @@
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="0" path="/description[at0001]/items[at0063]"/>
             <Rule max="1" name="Ende Grund" path="/description[at0001]/items[at0048]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ende grund::AA::Abbruch wegen Nebenwirkung/Toxizität</includedValues>
-                    <includedValues>ende grund::AE::Reguläres Ende</includedValues>
-                    <includedValues>ende grund::AV::Patient verweigert weitere Therapie</includedValues>
-                    <includedValues>ende grund::AR::Reguläres Ende mit Dosisreduktion</includedValues>
-                    <includedValues>ende grund::AP::Abbruch wegen Progress</includedValues>
-                    <includedValues>ende grund::AG::Abbruch aus sonstigen Gründen</includedValues>
-                    <includedValues>ende grund::AX::Unbekannt</includedValues>
-                </constraint>
+					 <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieende-grund" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
             <Rule max="0" path="/description[at0001]/items[at0006]"/>
@@ -210,11 +194,9 @@
             <Rule name="Nummer der Therapielinie" path="/description[at0001]/items[at0067]"/>
             <Rule max="1" name="Intention" path="/description[at0001]/items[at0014]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>intention::K::Kurativ</includedValues>
-                    <includedValues>intention::P::Palliativ</includedValues>
-                    <includedValues>intention::S::Sonstiges</includedValues>
-                    <includedValues>intention::FA::Fehlende Angabe</includedValues>
-                </constraint>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/intention-der-therapie" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
             </Rule>
             <Rule name="Anmerkungen zur Therapie" path="/description[at0001]/items[at0005]"/>
             <Rule name="Systemische Therapie ID" path="/protocol[at0053]/items[at0054]">
@@ -241,15 +223,9 @@
                 <Rule max="0" path="/items[at0008]"/>
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ansprechen::PR::Partial response</includedValues>
-                        <includedValues>ansprechen::SD::Stable disease</includedValues>
-                        <includedValues>ansprechen::PD::Progressive disease</includedValues>
-                        <includedValues>ansprechen::CR::Complete response</includedValues>
-                        <includedValues>ansprechen::MR::Mixed response</includedValues>
-                        <includedValues>ansprechen::U::Beurteilung unmöglich</includedValues>
-                        <includedValues>ansprechen::X::Fehlende Angabe</includedValues>
-                        <includedValues>ansprechen::MP::Mixed Progress</includedValues>
-                    </constraint>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieansprechen" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
                 </Rule>
                 <Rule max="0" path="/items[at0034]"/>
                 <Rule max="0" path="/items[at0035]"/>
@@ -351,7 +327,7 @@
             <Rule name="Substanzname (ATC-Code)" path="/description[at0017]/items[at0020]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId
-                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/pharmacological-therapy-atc" terminologyID="Pharmacological Therapy ATC"/>
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/pharmacological-therapy-atc" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/description[at0017]/items[at0156]"/>
@@ -426,33 +402,14 @@
                 name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
                 <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
                 <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
-                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Links (L)</includedValues>
-                        <includedValues>Rechts (R)</includedValues>
-                        <includedValues>Beidseitig (B)</includedValues>
-                        <includedValues>Mittellinie/ Mittig (M)</includedValues>
-                        <includedValues>Unbekannt (U)</includedValues>
-                        <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
-                    </constraint>
-                </Rule>
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
                 <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
                 <Rule max="0" path="/data[at0001]/items[at0003]"/>
-                <Rule max="0" path="/data[at0001]/items[at0005]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0005]"/>
                 <Rule max="0" path="/data[at0001]/items[at0072]"/>
                 <Rule max="0" path="/data[at0001]/items[at0030]"/>
-                <Rule max="0" path="/data[at0001]/items[at0073]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0073]"/>
                 <Rule max="0" name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
                 <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"

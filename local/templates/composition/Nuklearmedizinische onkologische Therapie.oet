@@ -90,8 +90,9 @@
             concept_name="Prozedur" max="1" min="1"
             name="Nuklearmedizinische Therapie" path="/content" xsi:type="tem:ACTION">
             <Rule path="/description[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Nuklearmedizinische Therapie</includedValues>
+                 <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapiemethode" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Beschreibung (optional)" path="/description[at0001]/items[at0049]"/>
@@ -100,14 +101,10 @@
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="0" path="/description[at0001]/items[at0063]"/>
             <Rule max="1" name="Ende Grund" path="/description[at0001]/items[at0048]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ende grund::AA::Abbruch wegen Nebenwirkung/Toxizität</includedValues>
-                    <includedValues>ende grund::AE::Reguläres Ende</includedValues>
-                    <includedValues>ende grund::AV::Patient verweigert weitere Therapie</includedValues>
-                    <includedValues>ende grund::AP::Abbruch wegen Progress</includedValues>
-                    <includedValues>ende grund::AX::Unbekannt</includedValues>
-                    <includedValues>ende grund::AG::Abbruch aus sonstigen Gründen</includedValues>
-                </constraint>
+               <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieende-grund" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
             <Rule max="0" path="/description[at0001]/items[at0006]"/>
@@ -123,10 +120,8 @@
             <Rule max="0" path="/description[at0001]/items[at0067]"/>
             <Rule max="1" name="Intention" path="/description[at0001]/items[at0014]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>intention::K::Kurativ</includedValues>
-                    <includedValues>intention::P::Palliativ</includedValues>
-                    <includedValues>intention::S::Sonstiges</includedValues>
-                    <includedValues>intention::FA::Fehlende Angabe</includedValues>
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/intention-der-therapie" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Anmerkungen" path="/description[at0001]/items[at0005]"/>
@@ -150,15 +145,10 @@
                 max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0008]"/>
                 <Rule path="/items[at0001]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>ansprechen::PR::Partial response</includedValues>
-                        <includedValues>ansprechen::SD::Stable disease</includedValues>
-                        <includedValues>ansprechen::PD::Progressive disease</includedValues>
-                        <includedValues>ansprechen::CR::Complete response</includedValues>
-                        <includedValues>ansprechen::MR::Mixed response</includedValues>
-                        <includedValues>ansprechen::U::Beurteilung unmöglich</includedValues>
-                        <includedValues>ansprechen::X::Fehlende Angabe</includedValues>
-                    </constraint>
+                     <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieansprechen" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0034]"/>
                 <Rule max="0" path="/items[at0035]"/>
@@ -175,11 +165,10 @@
                     </constraint>
                 </Rule>
                 <Rule max="1" path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>applikationsart::MSIRT::metabolische Therapie: Selektive interne Radio-Therapie (SIRT)</includedValues>
-                        <includedValues>applikationsart::MPRRT::metabolische Therapie: Peptid-Radio-Rezeptor-Therapie (PRRT)</includedValues>
-                        <includedValues>applikationsart::U::Unbekannt</includedValues>
-                    </constraint>
+                     <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/applikationsart-nuklearmedizinische-therapie" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0027]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -323,7 +312,7 @@
                 name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
                 <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
                 <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
-                <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Links (L)</includedValues>
                         <includedValues>Rechts (R)</includedValues>
@@ -333,6 +322,7 @@
                         <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
                 <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
                 <Rule max="0" path="/data[at0001]/items[at0003]"/>
                 <Rule max="0" path="/data[at0001]/items[at0005]">
@@ -350,6 +340,7 @@
                     </constraint>
                 </Rule>
                 <Rule max="0" name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
                     path="/protocol[at0032]/items[at0071]" xsi:type="tem:CLUSTER">
                     <Rule max="1" min="1" path="/items[at0001]"/>
