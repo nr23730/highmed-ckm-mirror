@@ -65,7 +65,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>5.0.0</value>
+                <value>6.1.1</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -77,42 +77,6 @@
             </item>
         </other_details>
     </description>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0001]">
-        <items>
-            <item>
-                <key>hl7v2_mapping</key>
-                <value>OBX.2, OBX.5, OBX.6, OBX.7, OBX.8</value>
-            </item>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Observation.value[x]</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0003]">
-        <items>
-            <item>
-                <key>hl7v2_mapping</key>
-                <value>NTE.3</value>
-            </item>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Observation.note</value>
-            </item>
-        </items>
-    </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.imaging_exam.v0]/description[at0001]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0024]">
-        <items>
-            <item>
-                <key>hl7v2_mapping</key>
-                <value>OBX.3</value>
-            </item>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Observation.code</value>
-            </item>
-        </items>
-    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="Lokale interventionelle Therapie"
         xmlns:tem="openEHR/v1/Template"
@@ -125,10 +89,9 @@
             <Rule max="1"
                 name="Lokale Interventionelle Therapie Methode" path="/description[at0001]/items[at0065]">
                 <constraint xsi:type="tem:textConstraint">
-                        <termQueryId
-                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/methode-lokale-interventionelle-therapie" terminologyID="//fhir.hl7.org/"/>
-                </constraint> 
-					 
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/methode-lokale-interventionelle-therapie" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0058]"/>
             <Rule max="1" path="/description[at0001]/items[at0063]">
@@ -151,9 +114,9 @@
             </Rule>
             <Rule name="Ende Grund" path="/description[at0001]/items[at0048]">
                 <constraint xsi:type="tem:textConstraint">
-                        <termQueryId
-                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieende-grund" terminologyID="//fhir.hl7.org/"/>
-                </constraint> 
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieende-grund" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
             </Rule>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
             <Rule path="/description[at0001]/items[at0006]">
@@ -175,9 +138,9 @@
             <Rule max="0" path="/description[at0001]/items[at0067]"/>
             <Rule max="1" name="Intention" path="/description[at0001]/items[at0014]">
                 <constraint xsi:type="tem:textConstraint">
-                        <termQueryId
-                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/intention-der-therapie" terminologyID="//fhir.hl7.org/"/>
-                </constraint> 
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/intention-der-therapie" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
             </Rule>
             <Rule name="Anmerkungen zur Therapie" path="/description[at0001]/items[at0005]"/>
             <Rule name="Lokale interventionelle Therapie ID" path="/protocol[at0053]/items[at0054]">
@@ -199,14 +162,14 @@
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <termQueryId
-                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieansprechen" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
+                            queryName="/ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/therapieansprechen" terminologyID="//fhir.hl7.org/"/>
+                    </constraint>
                 </Rule>
                 <Rule path="/items[at0034]">
                     <constraint xsi:type="tem:textConstraint">
                         <termQueryId
-                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/klassifikation-therapieansprechen" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
+                            queryName="/ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/klassifikation-therapieansprechen" terminologyID="//fhir.hl7.org/"/>
+                    </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0035]"/>
                 <Rule max="0" path="/items[at0033]"/>
@@ -233,7 +196,12 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0175]"/>
                 <Rule max="0" path="/items[at0186]"/>
-                <Rule max="0" path="/items[at0152]"/>
+                <Rule max="0" path="/items[at0152]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0164]"/>
                 <Rule max="0" path="/items[at0028]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -302,11 +270,13 @@
             <Rule max="0" path="/protocol[at0015]/items[at0016]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.lesions_details.v1"
                 max="1" path="/description[at0001]/items[at0021]" xsi:type="tem:CLUSTER"/>
-            <Items archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
-                concept_name="Bildgebender Befund"
-                name="Ergebnis der Bildgebung"
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.imaging_exam-abnormality.v0"
+                concept_name="Bildgebende Untersuchung einer Anomalie"
+                name="Ergebnis"
                 path="/description[at0001]/items[at0021]" xsi:type="tem:CLUSTER">
-                <Rule name="Ergebnis" path="/items[at0024]">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule path="/items[at0004]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Ablationsausmaß: 100% + Sicherheitsabstand</includedValues>
                         <includedValues>Ablationsausmaß: 100% ohne Sicherheitsabstand</includedValues>
@@ -318,10 +288,44 @@
                         <includedValues>Unbekannt</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0028]"/>
-                <Rule max="0" path="/items[at0033]"/>
-                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0.2]"/>
+                <Rule max="0" path="/items[at0.3]"/>
+                <Rule max="0" path="/items[at0.4]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <unitMagnitude>
+                            <unit>mm</unit>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                        <unitMagnitude>
+                            <unit>cm</unit>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0.9]"/>
+                <Rule max="0" path="/items[at0.10]"/>
+                <Rule max="0" path="/items[at0.11]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0.14]"/>
+                <Rule max="0" path="/items[at0.15]"/>
+                <Rule max="0" path="/items[at0.16]"/>
+                <Rule max="0" path="/items[at0.19]"/>
+                <Rule max="0" path="/items[at0.20]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
             </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
@@ -436,10 +440,10 @@
         <digest id="MD5-CAM-1.0.1">746970F358BA4F1DB0D790406A9E4DE1</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.imaging_finding.v0"
+        archetype_id="openEHR-EHR-CLUSTER.imaging_exam-abnormality.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">53ED6F95BEBEE2249906207F9AC486D0</digest>
+        <digest id="MD5-CAM-1.0.1">BBAFF7CD2A1EF38B8FEE8F9E2F369620</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"

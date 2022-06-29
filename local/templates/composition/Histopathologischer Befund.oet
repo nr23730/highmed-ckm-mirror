@@ -291,6 +291,9 @@
             <Items archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
                 max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0065]" xsi:type="tem:CLUSTER">
+				<Rule max="0" path="/items[at0098]"/>
+				<Rule max="0" path="/items[at0097]"/>
+				<Rule max="0" path="/items[at0099]"/>
                 <Rule max="0" path="/items[at0034]"/>
                 <Rule max="0" path="/items[at0008]"/>
                 <Rule max="0" path="/items[at0007]"/>
@@ -360,11 +363,23 @@
                     </constraint>
                 </Rule>
                 <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
-                <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
-                    max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
-                    <Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
-                    <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
-                </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
+                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+				<Rule path="/items[at0001]">
+				<constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/morphologie-icdo3" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
+				</Rule>
+				<Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
+				<Rule path="/items[at0009]">
+				<constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-biobank/ValueSet/icd-o-3-topography" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
+				</Rule>				
+                <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
+            </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v1" max="1"
                     path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
@@ -789,7 +804,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">0A48CEA5CFCABE46203C50BDC1AA6760</digest>
+        <digest id="MD5-CAM-1.0.1">E637F4E72B8AF6864C778C54E519ADA4</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
         xmlns:tem="openEHR/v1/Template"
