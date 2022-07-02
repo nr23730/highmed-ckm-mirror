@@ -1,0 +1,241 @@
+﻿archetype (adl_version=1.4; uid=d3d3be08-afa7-4957-bb7b-77e4a0ce64fd)
+	openEHR-EHR-OBSERVATION.eq5d.v1
+
+concept
+	[at0000]	-- EQ5D
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"Peter L. Reichertz Institut für Medizinische Informatik">
+		["email"] = <"Sarah.Ballout@mh-hannover.de">
+		["date"] = <"2022-07-01">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation der präferenzbasierten Lebensqualitätsmessung des Patienten. ">
+			use = <"Für die Abbildung eines generisches Messinstrument, dass durch ein standardisiertes sowie präferenzbasiertes Verfahren den Gesundheitszustand eines Patienten erhebt. Dieser gesundheitsfragebogen wird in bevölkerungsbezogenen, klinischen oder gesundheitsökonomischen Studien eingesetzt. 
+
+Der EQ-5D repräsentiert den Gesundheitszustand der Befragten auf einer eindimensionalen Skala von 0 (sehr schlecht) bis 1 (bestmögliche Gesundheit).">
+			keywords = <"Pneumo", "Beweglichkeit", "Schmerzen", "Angst", "körperliche Beschwerden">
+			misuse = <"Nicht zur Repräsentation vom anderen Fragebögen verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"- https://www.researchgate.net/publication/47635944_Health_outcomes_in_economic_evaluation_The_QALY_and_utilities/figures?lo=1">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"28C99F65D7850E3351C1FAF0D2F7AB05">
+		["build_uid"] = <"504d119a-fde1-4513-ad5b-355322c5ec6c">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- EQ5D
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Beweglichkeit/ Mobilität
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0025,    -- Ich habe keine Probleme herumzugehen
+													at0026,    -- Ich habe einige Probleme herumzugehen
+													at0027]    -- Ich bin ans Bett gebunden
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Für sich selbst sorgen
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0022,    -- Ich habe keine Probleme, für mich selbst zu sorgen
+													at0023,    -- Ich habe einige Probleme, mich zu waschen oder anzuziehen
+													at0024]    -- Ich bin nicht in der Lage,  mich selbst zu waschen oder anzuziehen
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Alltägliche Tätigkeiten (z.B. Arbeit, Studium, Hausarbeit, Familie, Freizeit)
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0019,    -- Ich habe keine Probleme, meinen alltäglichen Tätigkeiten nachzugehen
+													at0020,    -- Ich habe einige Probleme, meinen alltäglichen Tätigkeiten nachzugehen
+													at0021]    -- Ich bin nicht in der Lage, meinen alltäglichen Tätigkeiten nachzugehen
+												}
+											}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Schmerzen oder körperliche Beschwerden
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0016,    -- Ich habe keine Schmerzen oder Beschwerden
+													at0017,    -- Ich habe mäßige Schmerzen oder Beschwerden
+													at0018]    -- Ich habe extreme Schmerzen oder Beschwerden
+												}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Angst oder Niedergeschlagenheit
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0013,    -- Ich bin nicht ängstlich oder deprimiert
+													at0014,    -- Ich bin mäßig ängstlich oder deprimiert
+													at0015]    -- Ich bin extrem ängstlich oder deprimiert
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"EQ5D">
+					description = <"EQ-5D (EuroQol)">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Beweglichkeit/ Mobilität">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Für sich selbst sorgen">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Alltägliche Tätigkeiten (z.B. Arbeit, Studium, Hausarbeit, Familie, Freizeit)">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Schmerzen oder körperliche Beschwerden">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Angst oder Niedergeschlagenheit">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Angabe über den EQ5D Fragebogen eines Patienten, der in anderen Bereichen nicht erfasst wurde.">
+				>
+				["at0013"] = <
+					text = <"Ich bin nicht ängstlich oder deprimiert">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Ich bin mäßig ängstlich oder deprimiert">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Ich bin extrem ängstlich oder deprimiert">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Ich habe keine Schmerzen oder Beschwerden">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Ich habe mäßige Schmerzen oder Beschwerden">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Ich habe extreme Schmerzen oder Beschwerden">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Ich habe keine Probleme, meinen alltäglichen Tätigkeiten nachzugehen">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Ich habe einige Probleme, meinen alltäglichen Tätigkeiten nachzugehen">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Ich bin nicht in der Lage, meinen alltäglichen Tätigkeiten nachzugehen">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Ich habe keine Probleme, für mich selbst zu sorgen">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Ich habe einige Probleme, mich zu waschen oder anzuziehen">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Ich bin nicht in der Lage,  mich selbst zu waschen oder anzuziehen">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Ich habe keine Probleme herumzugehen">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"Ich habe einige Probleme herumzugehen">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"Ich bin ans Bett gebunden">
+					description = <"">
+				>
+			>
+		>
+	>
