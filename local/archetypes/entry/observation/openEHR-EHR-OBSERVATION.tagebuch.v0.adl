@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.tagebuch.v0
 
 concept
-	[at0000]	-- NATARS_Tagebuch
+	[at0000]	-- Tagebuch
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -15,10 +15,10 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Dieser Fragebogen wird verwendet um im Rahmen der NATARS-Studie Stürze, Besuche und das Befinden von Patient*innen regelmäßig zu erfassen.">
-			use = <"Zur Darstellung von Stürzen, Besuchen und Befinden von Teilnehmer*innen der NATARS_Studie.">
-			keywords = <"Tagebuch, Sturz, Besuch, Befinden, NATARS", ...>
-			misuse = <"Nicht zur Darstellung der Folge von Stürzen, Besuchen und Befinden.">
+			purpose = <"Zur Darstellung eines Tagebuchs.">
+			use = <"Zur Darstellung eines Tagebuchs.">
+			keywords = <"Tagebuch", ...>
+			misuse = <"">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -30,95 +30,40 @@ description
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"44653C41E53A92EC0BE9CA637DA40A08">
-		["build_uid"] = <"03b1fc32-137d-40f1-85ef-c9835dc6701e">
+		["MD5-CAM-1.0.1"] = <"A706F70F71318BE324FDB9D8770E4501">
+		["build_uid"] = <"331777cd-60ca-4c39-96ef-13d0b63d7f30">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- NATARS_Tagebuch
+	OBSERVATION[at0000] matches {	-- Tagebuch
 		data matches {
-			HISTORY[at0001] matches {    -- History
+			HISTORY[at0001] matches {	-- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {    -- Tree
+							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Tag der Durchführung
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tagbezeichnung
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=0|}
 											}
+											DV_TEXT matches {*}
+											DV_DATE_TIME matches {*}
 										}
 									}
-									CLUSTER[at0031] occurrences matches {0..1} matches {    -- Sturzgeschehen
+									CLUSTER[at0031] occurrences matches {0..*} matches {	-- Parameter
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0005] occurrences matches {0..*} matches {    -- Sturz
-												value matches {
-													DV_BOOLEAN matches {*}
-												}
-											}
-											ELEMENT[at0006] occurrences matches {0..*} matches {    -- Zeitpunkt des Sturzes
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {
-															[local::
-															at0007,    -- Morgens
-															at0008,    -- Mittags
-															at0009,    -- Abends
-															at0010]    -- Nachts
-														}
-													}
-												}
-											}
-											ELEMENT[at0025] occurrences matches {0..1} matches {    -- Bemerkung
+											ELEMENT[at0005] occurrences matches {0..*} matches {*}
+											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Bemerkung
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
 										}
 									}
-									CLUSTER[at0032] occurrences matches {0..1} matches {    -- Besuchserfassung
-										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0011] occurrences matches {0..*} matches {    -- Besuch
-												value matches {
-													DV_BOOLEAN matches {*}
-												}
-											}
-											ELEMENT[at0012] occurrences matches {0..*} matches {    -- Besuchszeit
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {
-															[local::
-															at0013,    -- Morgens
-															at0014,    -- Mittags
-															at0015,    -- Abends
-															at0016]    -- Nachts
-														}
-													}
-												}
-											}
-											ELEMENT[at0024] occurrences matches {0..1} matches {    -- Bemerkung
-												value matches {
-													DV_TEXT matches {*}
-												}
-											}
-										}
-									}
-									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Befinden
-										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0018,    -- Sehr gut
-													at0019,    -- Gut
-													at0020,    -- Nicht gut
-													at0021]    -- Schlecht
-												}
-											}
-										}
-									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {    -- Bemerkung
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Bemerkung
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -127,18 +72,34 @@ definition
 							}
 						}
 					}
+					INTERVAL_EVENT[at0034] occurrences matches {0..*} matches {	-- Pro Tag
+						width matches {
+							DV_DURATION matches {
+								value matches {|PT24H|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[History]/events[Any event]/data[Tree]
+						}
+					}
 				}
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0023] matches {    -- Item tree
+			ITEM_TREE[at0023] matches {	-- Item tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Sonstige Anmerkungen
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Methode der Erfassung
 						value matches {
-							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0035, 	-- Per Hand
+									at0036]	-- Elektronisch
+								}
+							}
 						}
 					}
-					allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {    -- Extension
+					allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {	-- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -153,8 +114,8 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"NATARS_Tagebuch">
-					description = <"Erfassen von Stürzen, Besuch und Befinden von Studienteilnehmer*innen in der NATARS-Studie.">
+					text = <"Tagebuch">
+					description = <"Tagebucheintrag, das von einer Person pro Tag ausfüllt.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -169,109 +130,49 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Tag der Durchführung">
+					text = <"Tagbezeichnung">
 					description = <"Tag der Durchführung, Tag 0 bei Startdatum, Tag 1 ist der erste Tag nach dem Startdatum.">
 				>
 				["at0005"] = <
-					text = <"Sturz">
-					description = <"Angabe, ob der/die Patient*in gestürzt ist.">
-				>
-				["at0006"] = <
-					text = <"Zeitpunkt des Sturzes">
-					description = <"Zu welcher Tageszeit ist der Sturz geschehen?">
-				>
-				["at0007"] = <
-					text = <"Morgens">
-					description = <"Sturz ist zwischen morgens geschehen.">
-				>
-				["at0008"] = <
-					text = <"Mittags">
-					description = <"Sturz ist zwischen mittags geschehen.">
-				>
-				["at0009"] = <
-					text = <"Abends">
-					description = <"Sturz ist zwischen abends geschehen.">
-				>
-				["at0010"] = <
-					text = <"Nachts">
-					description = <"Sturz ist zwischen nachts geschehen.">
-				>
-				["at0011"] = <
-					text = <"Besuch">
-					description = <"Angabe, ob der/die Patient/in Besuch an diesem Tag hatte.">
-				>
-				["at0012"] = <
-					text = <"Besuchszeit">
-					description = <"Zu welcher Tageszeit hat der Besuch stattgefunden?">
-				>
-				["at0013"] = <
-					text = <"Morgens">
-					description = <"Der Besuch hat morgens stattgefunden.">
-				>
-				["at0014"] = <
-					text = <"Mittags">
-					description = <"Der Besuch hat mittags stattgefunden.">
-				>
-				["at0015"] = <
-					text = <"Abends">
-					description = <"Der Besuch hat abends stattgefunden.">
-				>
-				["at0016"] = <
-					text = <"Nachts">
-					description = <"Der Besuch hat nachts stattgefunden.">
-				>
-				["at0017"] = <
-					text = <"Befinden">
-					description = <"Angabe, wie der/die Patient*in sich an diesem Tag gefühlt hat.">
-				>
-				["at0018"] = <
-					text = <"Sehr gut">
-					description = <"Das Wohlbefinden ist sehr gut. Keinerlei Beschwerden der eigenen Gesundheit.">
-				>
-				["at0019"] = <
-					text = <"Gut">
-					description = <"Das Wohlbefinden ist gut. Kaum Einschränkungen durch gesundheitliche Beschwerden.">
-				>
-				["at0020"] = <
-					text = <"Nicht gut">
-					description = <"Das Wohlbefinden ist deutlich getrübt. Einschränkungen des Alltags durch die eigene Gesundheit.">
-				>
-				["at0021"] = <
-					text = <"Schlecht">
-					description = <"Das Wohlbefinden ist deutlich verschlechtert.">
+					text = <"Eintrag">
+					description = <"Eintrag zu einem Parameter.">
 				>
 				["at0022"] = <
 					text = <"Bemerkung">
-					description = <"Genauere Angaben zum Befinden des/der Patient*in.">
+					description = <"Bemerkung zum Tag.">
 				>
 				["at0023"] = <
 					text = <"Item tree">
 					description = <"@ internal @">
 				>
-				["at0024"] = <
-					text = <"Bemerkung">
-					description = <"Weitere Anmerkungen zum den Besuchen, die bisher nicht erfasst wurden.">
-				>
 				["at0025"] = <
 					text = <"Bemerkung">
-					description = <"Weitere Anmerkungen zum den Stürzen, die bisher nicht erfasst wurden.">
+					description = <"Anmerkungen zum dem Eintrag.">
 				>
 				["at0026"] = <
-					text = <"Sonstige Anmerkungen">
+					text = <"Methode der Erfassung">
 					description = <"Zusätzliche Informationen, die nicht in anderen Feldern erfasst werden.">
 				>
 				["at0031"] = <
-					text = <"Sturzgeschehen">
-					description = <"Alle Einträge zum Sturzgeschehen werden in diesem Cluster gesammelt.">
-				>
-				["at0032"] = <
-					text = <"Besuchserfassung">
-					description = <"Alle Einträge zum Besuch werden in diesem Cluster gesammelt.">
+					text = <"Parameter">
+					description = <"Tagebuchparameter.">
 				>
 				["at0033"] = <
 					text = <"Extension">
 					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
 					comment = <"Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0034"] = <
+					text = <"Pro Tag">
+					description = <"Pro Tag">
+				>
+				["at0035"] = <
+					text = <"Per Hand">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Elektronisch">
+					description = <"*">
 				>
 			>
 		>
