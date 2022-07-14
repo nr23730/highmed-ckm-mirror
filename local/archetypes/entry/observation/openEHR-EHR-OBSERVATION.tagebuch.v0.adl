@@ -18,7 +18,7 @@ description
 			purpose = <"Zur Darstellung eines Tagebuchs.">
 			use = <"Zur Darstellung eines Tagebuchs.">
 			keywords = <"Tagebuch", ...>
-			misuse = <"">
+			misuse = <"Dieser Archetyp soll nicht verwendet werden, um andere Berichte als Tagebücher darzustellen.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -30,21 +30,21 @@ description
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"A706F70F71318BE324FDB9D8770E4501">
-		["build_uid"] = <"331777cd-60ca-4c39-96ef-13d0b63d7f30">
+		["MD5-CAM-1.0.1"] = <"6F7E8B32171AE4459C870F84C4C7B1D3">
+		["build_uid"] = <"cdeb9c5a-8496-49b6-a34e-bc383206239c">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Tagebuch
+	OBSERVATION[at0000] matches {    -- Tagebuch
 		data matches {
-			HISTORY[at0001] matches {	-- History
+			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Tree
+							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tagbezeichnung
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Bezeichnung des Tages
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=0|}
@@ -53,17 +53,17 @@ definition
 											DV_DATE_TIME matches {*}
 										}
 									}
-									CLUSTER[at0031] occurrences matches {0..*} matches {	-- Parameter
+									CLUSTER[at0031] occurrences matches {0..*} matches {    -- Parameter
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0005] occurrences matches {0..*} matches {*}
-											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Bemerkung
+											ELEMENT[at0005] occurrences matches {0..*} matches {*}    -- Eintrag
+											ELEMENT[at0025] occurrences matches {0..1} matches {    -- Bemerkung
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
 										}
 									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Bemerkung
+									ELEMENT[at0022] occurrences matches {0..1} matches {    -- Bemerkung
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -72,34 +72,34 @@ definition
 							}
 						}
 					}
-					INTERVAL_EVENT[at0034] occurrences matches {0..*} matches {	-- Pro Tag
+					INTERVAL_EVENT[at0034] occurrences matches {0..*} matches {    -- Pro Tag
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]
+						}
 						width matches {
 							DV_DURATION matches {
-								value matches {|PT24H|}
+								value matches {PT24H}
 							}
-						}
-						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[History]/events[Any event]/data[Tree]
 						}
 					}
 				}
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0023] matches {	-- Item tree
+			ITEM_TREE[at0023] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Methode der Erfassung
+					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Methode der Erfassung
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0035, 	-- Per Hand
-									at0036]	-- Elektronisch
+									at0035,    -- Per Hand
+									at0036]    -- Elektronisch
 								}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0033] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -115,7 +115,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Tagebuch">
-					description = <"Tagebucheintrag, das von einer Person pro Tag ausfüllt.">
+					description = <"Tagebucheintrag, der von einer Person pro Tag erstellt wird.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -130,8 +130,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Tagbezeichnung">
-					description = <"Tag der Durchführung, Tag 0 bei Startdatum, Tag 1 ist der erste Tag nach dem Startdatum.">
+					text = <"Bezeichnung des Tages">
+					description = <"Tag der Durchführung.">
 				>
 				["at0005"] = <
 					text = <"Eintrag">
@@ -164,7 +164,7 @@ ontology
 				>
 				["at0034"] = <
 					text = <"Pro Tag">
-					description = <"Pro Tag">
+					description = <"Pro Tag.">
 				>
 				["at0035"] = <
 					text = <"Per Hand">
