@@ -3,15 +3,33 @@
   <id>24a37b08-718f-4fe5-8595-442184888801</id>
   <name>Pneumo_Schadstoffexposition</name>
   <description>
+    <original_author>
+      <item>
+        <key>Name</key>
+        <value>Nina Schewe</value>
+      </item>
+      <item>
+        <key>Organisation</key>
+        <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+      </item>
+      <item>
+        <key>Email</key>
+        <value>Schewe.Nina@mh-hannover.de</value>
+      </item>
+    </original_author>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Zur Repräsentation der Schadstoffexposition im Rahmen der Pneumo-App.</purpose>
+      <purpose>Zur Repräsentation der Schadstoffexposition für die Speicherung im Rahmen der Pneumo-App.</purpose>
       <keywords>
         <item>Schadstoff</item>
         <item>Exposition</item>
+        <item>Gefahrstoffe</item>
+        <item>Stoffe</item>
+        <item>Schadstoffkontakt</item>
+        <item>Schadstoffexposition</item>
       </keywords>
-      <use>Für die Abbildung der Schadstoffexposition für die Speicherung im Rahmen der Pneumo-App.</use>
-      <misuse />
+      <use>Für die Abbildung der Schadstoffexposition für die Speicherung im Rahmen der Pneumo-App. Es wird nach Gefahrenstoffen oder Stoffe gefragt, denen man privat oder im Beruf ausgesetzt ist und welche die Atemwege reizen können. Sollte eine Exposition gegenüber einem Stoff vorliegen, sollte dies bei "Exposition vorhanden" angekreuzt werden.</use>
+      <misuse>Nicht zur Repräsentation von anderen Expositionen zu verwenden.</misuse>
     </details>
     <other_details>
       <item>
@@ -65,22 +83,114 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1" concept_name="Registereintrag" name="Pneumo_Schadstoffexposition">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" path="/content">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Asbest">
       <Rule path="/data[at0001]" hide_on_form="true" />
-      <Rule path="/data[at0001]/items[at0002]" name="Wirkstoff">
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
         <constraint xsi:type="textConstraint">
           <includedValues>Asbest</includedValues>
-          <includedValues>Staub</includedValues>
-          <includedValues>Daunenwaschmittel</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Stäube z.B. Metall- oder Holzstaub oder Mehl">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Stäube</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Rauch z.B. Zigarettenrauch (passives Rauchen) oder Abgase">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
           <includedValues>Rauch</includedValues>
-          <includedValues>Haustiere</includedValues>
-          <includedValues>Lack</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Lösungsmittel">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
           <includedValues>Lösungsmittel</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0003]" max="0" />
       <Rule path="/data[at0001]/items[at0005]" max="0" />
-      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Lacke oder Farben">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Lacke oder Farben</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Reinigungsmittel">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Reinigungsmittel</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Vogelfedern z.B. Daunenbettwäsche oder Daunenjacke">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Vogelfedern</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
+      <Rule path="/data[at0001]/items[at0010]" max="0" />
+      <Rule path="/protocol[at0008]" hide_on_form="true" />
+      <Rule path="/protocol[at0008]/items[at0009]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exposure.v0" concept_name="Exposure" max="1" path="/content" name="Haustiere">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" name="Exposition mit">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Haustiere</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" name="Exposition vorhanden?" />
       <Rule path="/data[at0001]/items[at0010]" max="0" />
       <Rule path="/protocol[at0008]" hide_on_form="true" />
       <Rule path="/protocol[at0008]/items[at0009]" max="0" />
