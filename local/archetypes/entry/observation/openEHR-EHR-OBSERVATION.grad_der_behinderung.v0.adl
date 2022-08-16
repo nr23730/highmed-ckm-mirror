@@ -1,0 +1,224 @@
+﻿archetype (adl_version=1.4; uid=cd580052-4966-4cf6-9a02-ade4c389a2e4)
+	openEHR-EHR-OBSERVATION.grad_der_behinderung.v0
+
+concept
+	[at0000]	-- Grad der Behinderung (GdB)
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Darin Leonhardt">
+		["organisation"] = <"Peter L. Reichertz Institut für Medizinische Informatik">
+		["date"] = <"2022-08-12">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
+			use = <"Zur Repräsentation des Grad der Behinderung (GdB) sowohl von Erwachsenen als auch von Kindern.
+
+Eine Schwerbehinderung liegt vor, wenn ein Grad der Behinderung (GdB) von 50 oder höher festgestellt wird.">
+			keywords = <"Schwerbehinderte Menschen, Behinderung, Grad der Behinderung, schwerbehindert, Schwerbehinderung, Schwerbehinderte, Gleichgestellte, Gleichstellung", ...>
+			misuse = <"Dient nicht zur Erfassung eines Grad der Behinderung außerhalb von Deutschland.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Niedersächsisches Landesamt für Soziales, Jugend und Familie (2022): Behinderung und Ausweis - Antworten auf häufig gestellte Fragen (FAQ) Niedersachsen.de. 
+Verfügbar unter: https://soziales.niedersachsen.de/faq/behinderung-und-ausweis-faq-202150.html (Zugegriffen: 16. August 2022).">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7792485EAAAF69BC910262D2942D725E">
+		["build_uid"] = <"fd6acb30-87df-4f43-a1d5-75f8db570b73">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Grad der Behinderung (GdB)
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Grad der Behinderung
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0028,    -- 20
+													at0029,    -- 30
+													at0030,    -- 40
+													at0031,    -- 50
+													at0032,    -- 60
+													at0033,    -- 70
+													at0034,    -- 80
+													at0035,    -- 90
+													at0036]    -- 100
+												}
+											}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Merkzeichen
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0020,    -- G
+													at0021,    -- aG
+													at0022,    -- H
+													at0023,    -- B
+													at0024,    -- RF
+													at0025,    -- GL
+													at0026,    -- BL
+													at0027]    -- TBL
+												}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0004] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0039] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Grad der Behinderung (GdB)">
+					description = <"Der Grad der Behinderung gibt an, wie sehr der Körper- und Gesundheitszustand von dem für das Lebensalter typischen Zustand eines Menschen abweicht.">
+					comment = <"Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdings können auch Menschen mit einem GdB von weniger als 50, aber wenigstens 30 schwerbehinderten Menschen gleichgestellt werden.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0015"] = <
+					text = <"Merkzeichen">
+					description = <"Merkzeichen kennzeichnen die Art der Behinderung.">
+					comment = <"Mehrfachnennung möglich.">
+				>
+				["at0018"] = <
+					text = <"Grad der Behinderung">
+					description = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
+					comment = <"Den GdB gibt man in 10er-Graden an. Der niedrigste GdB beginnt bei 20 und der höchste ist 100. Dabei handelt es sich nicht um Prozentangaben. Je höher der Wert, desto stärker ist die Behinderung.">
+				>
+				["at0019"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen zum Grad der Behinderung, die in anderen Feldern nicht erfasst wurden.">
+				>
+				["at0020"] = <
+					text = <"G">
+					description = <"Erhebliche Beeinträchtigung der Bewegungsfähigkeit im Straßenverkehr.">
+				>
+				["at0021"] = <
+					text = <"aG">
+					description = <"Außergewöhnliche Gehbehinderung.">
+				>
+				["at0022"] = <
+					text = <"H">
+					description = <"Hilflosigkeit.">
+				>
+				["at0023"] = <
+					text = <"B">
+					description = <"Berechtigung für eine ständige Begleitung bei der Benutzung öffentlicher Verkehrsmittel.">
+				>
+				["at0024"] = <
+					text = <"RF">
+					description = <"Rundfunkgebührenermäßigung und/oder Gebührenermäßigung beim Telefonanschluss.">
+				>
+				["at0025"] = <
+					text = <"GL">
+					description = <"Gehörlosigkeit.">
+				>
+				["at0026"] = <
+					text = <"BL">
+					description = <"Blindheit.">
+				>
+				["at0027"] = <
+					text = <"TBL">
+					description = <"Taubblindheit.">
+				>
+				["at0028"] = <
+					text = <"20">
+					description = <"Grad der Behinderung.">
+				>
+				["at0029"] = <
+					text = <"30">
+					description = <"Grad der Behinderung.">
+				>
+				["at0030"] = <
+					text = <"40">
+					description = <"Grad der Behinderung.">
+				>
+				["at0031"] = <
+					text = <"50">
+					description = <"Grad der Behinderung.">
+				>
+				["at0032"] = <
+					text = <"60">
+					description = <"Grad der Behinderung.">
+				>
+				["at0033"] = <
+					text = <"70">
+					description = <"Grad der Behinderung.">
+				>
+				["at0034"] = <
+					text = <"80">
+					description = <"Grad der Behinderung.">
+				>
+				["at0035"] = <
+					text = <"90">
+					description = <"Grad der Behinderung.">
+				>
+				["at0036"] = <
+					text = <"100">
+					description = <"Grad der Behinderung.">
+				>
+				["at0039"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+			>
+		>
+	>
