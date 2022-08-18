@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=cd580052-4966-4cf6-9a02-ade4c389a2e4)
-	openEHR-EHR-OBSERVATION.grad_der_behinderung.v0
+﻿archetype (adl_version=1.4; uid=dfebd28a-9577-4981-8283-0450930c09ef)
+	openEHR-EHR-OBSERVATION.degree_of_disability.v0
 
 concept
 	[at0000]	-- Grad der Behinderung (GdB)
@@ -14,27 +14,26 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
-			use = <"Zur Repräsentation des Grad der Behinderung (GdB) sowohl von Erwachsenen als auch von Kindern.
-
-Eine Schwerbehinderung liegt vor, wenn ein Grad der Behinderung (GdB) von 50 oder höher festgestellt wird.">
-			keywords = <"Schwerbehinderte Menschen, Behinderung, Grad der Behinderung, schwerbehindert, Schwerbehinderung, Schwerbehinderte, Gleichgestellte, Gleichstellung", ...>
+			purpose = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person in Deutschland.">
+			use = <"Zur Repräsentation des festgestellten Grad der Behinderung (GdB) in Deutschland sowohl von Erwachsenen als auch von Kindern.">
+			keywords = <"Behinderung, Behinderungsgrad, schwerbehindert, Schwerbehinderung, Schwerbehinderte, Gleichgestellte, Gleichstellung", ...>
 			misuse = <"Dient nicht zur Erfassung eines Grad der Behinderung außerhalb von Deutschland.">
-			copyright = <"© HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Niedersächsisches Landesamt für Soziales, Jugend und Familie (2022): Behinderung und Ausweis - Antworten auf häufig gestellte Fragen (FAQ) Niedersachsen.de. 
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"§ 152 SGB IX Feststellung der Behinderung, Ausweise (ohne Datum) Sozialgesetzbuch-sgb.de. Verfügbar unter: https://www.sozialgesetzbuch-sgb.de/sgbix/152.html (Zugegriffen: 18. August 2022).
+
+Niedersächsisches Landesamt für Soziales, Jugend und Familie (2022): Behinderung und Ausweis - Antworten auf häufig gestellte Fragen (FAQ) Niedersachsen.de. 
 Verfügbar unter: https://soziales.niedersachsen.de/faq/behinderung-und-ausweis-faq-202150.html (Zugegriffen: 16. August 2022).">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"7792485EAAAF69BC910262D2942D725E">
-		["build_uid"] = <"fd6acb30-87df-4f43-a1d5-75f8db570b73">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"4353099F7A11EC5301E94DF1820BF1C8">
+		["build_uid"] = <"10891776-06db-49a7-843c-cbe75396ad6e">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -47,22 +46,22 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Grad der Behinderung
+									ELEMENT[at0040] occurrences matches {0..1} matches {    -- Festgestellter Grad der Behinderung
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0028,    -- 20
-													at0029,    -- 30
-													at0030,    -- 40
-													at0031,    -- 50
-													at0032,    -- 60
-													at0033,    -- 70
-													at0034,    -- 80
-													at0035,    -- 90
-													at0036]    -- 100
-												}
-											}
+											1|[local::at0041],
+											2|[local::at0042],
+											3|[local::at0043],
+											4|[local::at0044],
+											5|[local::at0045],
+											6|[local::at0046],
+											7|[local::at0047],
+											8|[local::at0048],
+											9|[local::at0049]
+										}
+									}
+									ELEMENT[at0050] occurrences matches {0..1} matches {    -- Schwerbehinderung
+										value matches {
+											DV_BOOLEAN matches {*}
 										}
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Merkzeichen
@@ -113,7 +112,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Grad der Behinderung (GdB)">
-					description = <"Der Grad der Behinderung gibt an, wie sehr der Körper- und Gesundheitszustand von dem für das Lebensalter typischen Zustand eines Menschen abweicht.">
+					description = <"Grad der Behinderung, der bei einer Person in Deutschland festgestellt werden kann.">
 					comment = <"Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdings können auch Menschen mit einem GdB von weniger als 50, aber wenigstens 30 schwerbehinderten Menschen gleichgestellt werden.">
 				>
 				["at0001"] = <
@@ -136,11 +135,6 @@ ontology
 					text = <"Merkzeichen">
 					description = <"Merkzeichen kennzeichnen die Art der Behinderung.">
 					comment = <"Mehrfachnennung möglich.">
-				>
-				["at0018"] = <
-					text = <"Grad der Behinderung">
-					description = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
-					comment = <"Den GdB gibt man in 10er-Graden an. Der niedrigste GdB beginnt bei 20 und der höchste ist 100. Dabei handelt es sich nicht um Prozentangaben. Je höher der Wert, desto stärker ist die Behinderung.">
 				>
 				["at0019"] = <
 					text = <"Kommentar">
@@ -178,46 +172,56 @@ ontology
 					text = <"TBL">
 					description = <"Taubblindheit.">
 				>
-				["at0028"] = <
-					text = <"20">
-					description = <"Grad der Behinderung.">
-				>
-				["at0029"] = <
-					text = <"30">
-					description = <"Grad der Behinderung.">
-				>
-				["at0030"] = <
-					text = <"40">
-					description = <"Grad der Behinderung.">
-				>
-				["at0031"] = <
-					text = <"50">
-					description = <"Grad der Behinderung.">
-				>
-				["at0032"] = <
-					text = <"60">
-					description = <"Grad der Behinderung.">
-				>
-				["at0033"] = <
-					text = <"70">
-					description = <"Grad der Behinderung.">
-				>
-				["at0034"] = <
-					text = <"80">
-					description = <"Grad der Behinderung.">
-				>
-				["at0035"] = <
-					text = <"90">
-					description = <"Grad der Behinderung.">
-				>
-				["at0036"] = <
-					text = <"100">
-					description = <"Grad der Behinderung.">
-				>
 				["at0039"] = <
 					text = <"Erweiterung">
 					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
 					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0040"] = <
+					text = <"Festgestellter Grad der Behinderung">
+					description = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
+					comment = <"Den GdB gibt man in 10er-Graden an. Der niedrigste GdB beginnt bei 20 und der höchste ist 100. Dabei handelt es sich nicht um Prozentangaben. Je höher der Wert, desto stärker ist die Behinderung.">
+				>
+				["at0041"] = <
+					text = <"20">
+					description = <"Grad der Behinderung.">
+				>
+				["at0042"] = <
+					text = <"30">
+					description = <"Grad der Behinderung.">
+				>
+				["at0043"] = <
+					text = <"40">
+					description = <"Grad der Behinderung.">
+				>
+				["at0044"] = <
+					text = <"50">
+					description = <"Grad der Behinderung.">
+				>
+				["at0045"] = <
+					text = <"60">
+					description = <"Grad der Behinderung.">
+				>
+				["at0046"] = <
+					text = <"70">
+					description = <"Grad der Behinderung.">
+				>
+				["at0047"] = <
+					text = <"80">
+					description = <"Grad der Behinderung.">
+				>
+				["at0048"] = <
+					text = <"90">
+					description = <"Grad der Behinderung.">
+				>
+				["at0049"] = <
+					text = <"100">
+					description = <"Grad der Behinderung.">
+				>
+				["at0050"] = <
+					text = <"Schwerbehinderung">
+					description = <"Liegt ein Grad der Behinderung (GdB) vor?">
+					comment = <"Als \"Wahr\" darstellen, wenn ein Grad der Behinderung vorliegt.">
 				>
 			>
 		>

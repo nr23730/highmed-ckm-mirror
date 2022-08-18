@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=4b14d040-aecb-4455-b092-7278c554dade)
-	openEHR-EHR-OBSERVATION.pflegegrad.v0
+﻿archetype (adl_version=1.4; uid=2bcc112b-132a-4e68-bfd5-89ec93d4d4ac)
+	openEHR-EHR-OBSERVATION.level_of_care.v0
 
 concept
 	[at0000]	-- Pflegegrad
@@ -15,28 +15,28 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Repräsentation des Pflegegrades einer Person.">
-			use = <"Zur Repräsentation des Pflegegrades sowohl von Erwachsenen als auch von Kindern ab dem vollendeten 11. Lebensjahr.
+			purpose = <"Zur Repräsentation des Pflegegrades einer Person in Deutschland.">
+			use = <"Zur Repräsentation des Pflegegrades sowohl von Erwachsenen als auch von Kindern ab dem vollendeten 11. Lebensjahr in Deutschland.
 Die fünf Pflegegrade zeigen an, wie selbstständig eine Person ist. Dabei orientiert sich der Pflegegrad nach der Schwere der Beeinträchtigung sowie Fähigkeiten und Selbstständigkeit der zu pflegenden Person. Entsprechend dem Hilfebedarf wird der Pflegebedürftige in einen der fünf Pflegegrade eingeteilt.">
 			keywords = <"Pflegegrad, Pflegegrade, Pflegebedürftigkeit, Pflegestufe, Pflegestufen", ...>
 			misuse = <"Nicht zur Repräsentation eines Pflegegrades von Kindern unter zwölf Jahren. Für Kinder unter zwölf Jahren gelten bei der Einstufung andere Maßstäbe als bei Erwachsenen. Die Pflegebedürftigkeit wird anhand der altersentsprechenden Entwicklung im Vergleich mit gesunden Kindern festgestellt. Kleinkinder bis 18 Monate werden pauschal einen Pflegegrad höher eingestuft und nur altersunabhängige Module bewertet.
-Nicht für die Berechnung eines Pflegegrades vorgesehen. Für diesen Zweck muss ein anderer Archetyp verwendet werden.">
-			copyright = <"© HiGHmed">
+Nicht für die Berechnung eines Pflegegrades vorgesehen. Für diesen Zweck muss ein anderer Archetyp verwendet werden.
+Nicht zur Repräsentation einer Pflegeleistung/ Pflegegrades im Ausland.">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
 		["references"] = <"Pflegegrade (ohne Datum) Bundesgesundheitsministerium.de. Verfügbar unter: https://www.bundesgesundheitsministerium.de/pflegegrade.html (Zugegriffen: 17. August 2022).
 Lötzerich, U. und Richter, R. (2016) Pflegegrade im Überblick, pflege.de. Verfügbar unter: https://www.pflege.de/pflegekasse-pflegerecht/pflegegrade/ (Zugegriffen: 17. August 2022).
 (Ohne Datum) Medizinischerdienst.de. Verfügbar unter: https://www.medizinischerdienst.de/fileadmin/user_upload/19-05-20_NBI_Pflegebeduerftigkeit_Fach-Info.pdf (Zugegriffen: 17. August 2022).">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"02A32D9CD580F7BAB5DE03DE80CACDF6">
-		["build_uid"] = <"2f47da56-937e-4593-9b7b-172068e1d01d">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"81C67586D1192BAEB04999F8E139C6E9">
+		["build_uid"] = <"f0341208-664f-43a0-8e6c-6ce4043b0a49">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -49,7 +49,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Pflegegrad
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Festgestellter Pflegegrad
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
@@ -102,8 +102,8 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Pflegegrad">
-					description = <"Der Pflegegrad dient der Einstufung von Pflegebedürftigkeit. Pflegegrade erhalten Menschen, die in ihrer Selbständigkeit und Alltagskompetenz eingeschränkt sind.">
-					comment = <"Das beurteilt der Medizinische Dienst (MD) mithilfe von sechs Modulen.">
+					description = <"Der Pflegegrad dient der Einstufung von Pflegebedürftigkeit einer Person in Deutschland.">
+					comment = <"Pflegegrade erhalten Menschen, die in ihrer Selbständigkeit und Alltagskompetenz eingeschränkt sind. Das beurteilt der Medizinische Dienst (MD) mithilfe von sechs Modulen.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -118,10 +118,9 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Pflegegrad">
-					description = <"Zur Repräsentation des Pflegegrades einer Person.
-Durch die 5 Pflegegrade wird abgebildet, wie stark die Selbstständigkeit beeinträchtigt ist.">
-					comment = <"Pflegegrade erhalten Menschen, die in ihrer Selbständigkeit und Alltagskompetenz eingeschränkt sind. Je nach Schwere der Beeinträchtigung erhalten sie im Rahmen einer Pflegebegutachtung einen der Pflegegrade: Pflegegrad 1, Pflegegrad 2, Pflegegrad 3, Pflegegrad 4 oder Pflegegrad 5.">
+					text = <"Festgestellter Pflegegrad">
+					description = <"Zur Repräsentation des Pflegegrades einer Person.">
+					comment = <"Durch die 5 Pflegegrade wird abgebildet, wie stark die Selbstständigkeit beeinträchtigt ist. Pflegegrade erhalten Menschen, die in ihrer Selbständigkeit und Alltagskompetenz eingeschränkt sind. Je nach Schwere der Beeinträchtigung erhalten sie im Rahmen einer Pflegebegutachtung einen der Pflegegrade: Pflegegrad 1, Pflegegrad 2, Pflegegrad 3, Pflegegrad 4 oder Pflegegrad 5.">
 				>
 				["at0005"] = <
 					text = <"Item tree">
