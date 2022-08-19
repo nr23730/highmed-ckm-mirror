@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>e0d5c3f4-009b-4ad2-aab3-72ed701678d2</id>
-    <name>Impfstatus_Test</name>
+    <name>Impfstatus_Pneumo</name>
     <description>
         <original_author>
             <item>
@@ -19,12 +19,12 @@
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation des Impfstatus.</purpose>
+            <purpose>Zur Repräsentation des Impfstatus im Rahmen der Pneumo-App.</purpose>
             <keywords>
                 <item>Pneumo, Pneumologie, Impfung, Impfungen, Impfstoff, Vakzine</item>
             </keywords>
-            <use>Für die Abbildung des Impfstatus.</use>
-            <misuse>Nicht zur Repräsentation über die Art der Verabreichungswege der Medikationen verwenden.</misuse>
+            <use>Für die Darstellung des Impfstatus im Rahmen der Pneumo-App.</use>
+            <misuse>Nicht zur Repräsentation über die Art der Verabreichungswege der Medikationen verwenden und nicht für andere Use Cases als Pneumo.</misuse>
         </details>
         <other_details>
             <item>
@@ -49,7 +49,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>9.0.0</value>
+                <value>30.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -57,7 +57,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>a8546b7dcfe4fb3ec664c3875c54dfac</value>
+                <value>bc008d40f7c82ccc95914039195f1d14</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -71,11 +71,11 @@
     </description>
     <definition
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="Impfstatus_Test"
+        concept_name="Registereintrag" name="Impfstatus_Pneumo"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
-            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v0"
+            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1"
             concept_name="Fragebogen zum Medikamenten-Screening" max="1"
             name="Grippe (Influenza)" path="/content" xsi:type="tem:OBSERVATION">
             <Rule name="Grippe (Influenza)" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]">
@@ -85,16 +85,16 @@
             </Rule>
             <Rule name="Sind Sie gegen Grippe geimpft?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Weiß nicht / keine Angabe</includedValues>
-                    <includedValues>Nein</includedValues>
                     <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Weiß nicht / keine Angabe</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
         </Content>
         <Content
-            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v0"
+            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1"
             concept_name="Fragebogen zum Medikamenten-Screening" max="1"
             name="Pneumokokken" path="/content" xsi:type="tem:OBSERVATION">
             <Rule name="Pneumokokken" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]">
@@ -104,38 +104,43 @@
             </Rule>
             <Rule name="Sind Sie gegen Pneumokokken geimpft?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Weiß nicht / keine Angabe</includedValues>
-                    <includedValues>Nein</includedValues>
                     <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Weiß nicht / keine Angabe</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
         </Content>
         <Content
-            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v0"
+            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1"
             concept_name="Fragebogen zum Medikamenten-Screening" max="1"
-            name="Tetanus" path="/content" xsi:type="tem:OBSERVATION">
+            name="Tetanus-, Diphtherie-, Pertussis-, Polio – Schutzimpfung"
+            path="/content" xsi:type="tem:OBSERVATION">
             <Rule name="Impfung" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Tetanus</includedValues>
+                    <includedValues>Polio</includedValues>
+                    <includedValues>Diphtherie</includedValues>
+                    <includedValues>Pertussis</includedValues>
                 </constraint>
             </Rule>
             <Rule
                 name="Sind Sie gegen Tetanus (Wundstarrkrampf), Polio, Diphtherie und Pertussis geimpft?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Weiß nicht / keine Angabe</includedValues>
-                    <includedValues>Nein</includedValues>
                     <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Weiß nicht / keine Angabe</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
+            <Rule max="4" name="Impfstoffgruppe" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
             <Rule name="Impfung" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0021]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Tetanus (Wundstarrkrampf)</includedValues>
-                    <includedValues>Polio</includedValues>
+                    <includedValues>Tetanus</includedValues>
                     <includedValues>Diphtherie</includedValues>
                     <includedValues>Pertussis</includedValues>
+                    <includedValues>Polio</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0024]">
@@ -145,36 +150,32 @@
                     <includedTypes>Boolean</includedTypes>
                 </constraint>
             </Rule>
-            <Rule name="Wann zuletzt?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0003]"/>
-            <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0002]">
+            <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0003]">
                 <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Duration</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Text</includedTypes>
                     <includedTypes>Date_Time</includedTypes>
-                    <includedTypes>Interval</includedTypes>
                 </constraint>
             </Rule>
+            <Rule max="1" name="Wann zuletzt?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0002]"/>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0025]"/>
         </Content>
         <Content
-            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v0"
+            archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1"
             concept_name="Fragebogen zum Medikamenten-Screening" max="1"
             name="SARS-CoV-2 (COVID-19)" path="/content" xsi:type="tem:OBSERVATION">
             <Rule name="Impfung" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>SARS-CoV-2</includedValues>
+                    <includedValues>SARS-CoV-2 (COVID-19)</includedValues>
                 </constraint>
             </Rule>
             <Rule name="Sind Sie gegen SARS-CoV-2 (COVID-19) geimpft?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Weiß nicht / keine Angabe</includedValues>
-                    <includedValues>Nein</includedValues>
                     <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Weiß nicht / keine Angabe</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
-            <Rule max="4" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+            <Rule max="4" name="COVID-19-Impfstoffe" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
             <Rule name="Impfung" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0021]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>local_terms::0::Keine / Andere</includedValues>
@@ -191,16 +192,12 @@
                     <includedTypes>Boolean</includedTypes>
                 </constraint>
             </Rule>
-            <Rule name="Zuletzt am" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0003]"/>
-            <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0002]">
+            <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0003]">
                 <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Duration</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Text</includedTypes>
                     <includedTypes>Date_Time</includedTypes>
-                    <includedTypes>Interval</includedTypes>
                 </constraint>
             </Rule>
+            <Rule max="1" name="Wann zuletzt?" path="/data[at0001]/items[at0026]"/>
             <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]/items[at0025]"/>
         </Content>
     </definition>
@@ -211,9 +208,9 @@
         <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v0"
+        archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">8FCBC5D61976D5AF09E8C83D49708D4A</digest>
+        <digest id="MD5-CAM-1.0.1">6CA03E7C2861201510F8F796C64B5F43</digest>
     </integrity_checks>
 </template>
