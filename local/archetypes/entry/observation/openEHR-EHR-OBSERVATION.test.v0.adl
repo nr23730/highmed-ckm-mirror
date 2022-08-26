@@ -1,0 +1,204 @@
+﻿archetype (adl_version=1.4; uid=cb985b0c-da32-4cdf-a701-c9858023a1f3)
+	openEHR-EHR-OBSERVATION.test.v0
+
+concept
+	[at0000]	-- Test
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Der Dr.">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Üben Üben Üben">
+			use = <"Kann man noch nicht sagen">
+			keywords = <"Cool", "Extraodinär", "Fabulös", "Oberhammer">
+			misuse = <"Hoffentlich keiner">
+			copyright = <"© OppeArtEnterprise, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Die wichtigsten Staatsoberhäupter der Welt">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"8BFEBEBFF0DEE3E7FFE87E5424C73DB3">
+		["build_uid"] = <"006d1b69-3071-4498-a1cd-0cde5a7097e8">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Test
+		subject matches {
+			PARTY_RELATED matches {
+				relationship matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::41]}
+					}
+				}
+			}
+		}
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0012] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TABLE[at0003] matches {	-- Tabelle
+								rotated matches {True}
+								rows cardinality matches {0..1; unordered} matches {
+									CLUSTER[at0013] occurrences matches {0..1} matches {	-- row
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0004] matches {	-- Körpergröße
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::122]>
+														list = <
+															["1"] = <
+																units = <"cm">
+															>
+														>
+													>
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0005] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Körpergewicht Personenstatus
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::124]>
+												list = <
+													["1"] = <
+														units = <"kg">
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {	-- Baum
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0014] occurrences matches {1..*} matches {	-- Körperdaten
+						items cardinality matches {1..*; ordered} matches {
+							ELEMENT[at0007] occurrences matches {0..*} matches {	-- Körpergröße Protokoll
+								value matches {
+									C_DV_QUANTITY <
+										property = <[openehr::122]>
+										list = <
+											["1"] = <
+												units = <"cm">
+											>
+										>
+									>
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..*} matches {	-- Körpergewicht Protokoll
+								value matches {
+									C_DV_QUANTITY <
+										property = <[openehr::124]>
+										list = <
+											["1"] = <
+												units = <"kg">
+											>
+										>
+									>
+								}
+							}
+						}
+					}
+					CLUSTER[at0016] occurrences matches {0..1} matches {	-- Herzfunktion
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0018] occurrences matches {0..*} matches {	-- Neues Element
+								value matches {
+									DV_DURATION matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Test">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tabelle">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Körpergröße">
+					description = <"*Körpergewicht">
+				>
+				["at0005"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Körpergröße Protokoll">
+					description = <"*Körpergröße">
+				>
+				["at0008"] = <
+					text = <"Körpergewicht Protokoll">
+					description = <"*Körpergewicht in KG">
+				>
+				["at0011"] = <
+					text = <"Körpergewicht Personenstatus">
+					description = <"*Körpergewicht in KG">
+				>
+				["at0012"] = <
+					text = <"Jedes Ereignis">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"row">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Körperdaten">
+					description = <"*CLUSTER">
+				>
+				["at0016"] = <
+					text = <"Herzfunktion">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Neues Element">
+					description = <"*">
+				>
+			>
+		>
+	>
