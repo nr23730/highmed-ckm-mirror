@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>04da4c30-93d6-4d57-a06d-79909822d870</id>
+    <name>Pneumo_Körperliche Untersuchung</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2022-09-05</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Sarah Ballout</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Peter L. Reichertz Institute for Medical Informatics</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>ballout.sarah@mh-hannover.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation der Körperlichen Untersuchung einer Person im Rahmen der Pneumo_App. </purpose>
+            <keywords>
+                <item>Pneumo, Pneumologie, Impfung, Allergien, Impfstatus</item>
+            </keywords>
+            <use>Für die Abbildung der Körperlichen Untersuchung einer Person im Rahmen der Pneumo_App. 
+Es wird hier nach Körpergröße, Körpergewicht, Impfstatus und nach der Allergischen Verträglichkeit bestimmter Medikamente oder Umwelteinflüsse gefragt. </use>
+            <misuse>Nicht zur Repräsentation über die Art der Verabreichungswege der Medikationen verwenden.</misuse>
+            <copyright>© HiGHmed</copyright>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>13.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>f1cde331c3ac477ea29b4fc245706568</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag"
+        name="Pneumo_Körperliche Untersuchung"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>g</excludedUnits>
+                    <excludedUnits>[lb_av]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>kg</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]"/>
+            <Rule clone="true" name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]/data[at0001]/items[at0024]"/>
+            <Rule clone="true" name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0009]"/>
+            <Rule max="0" path="/data[at0002]/events[at0026]/state[at0008]/items[at0025]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.height.v2"
+            concept_name="Größe/Länge" max="1" name="Körpergröße"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule name="Körpergröße" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <excludedUnits>[in_i]</excludedUnits>
+                    <unitMagnitude>
+                        <unit>cm</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
+            <Rule max="0" path="/data[at0001]/events[at0021]"/>
+            <Rule clone="true" name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
+            <Rule clone="true" name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <unitMagnitude>
+                        <unit>mm[Hg]</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <unitMagnitude>
+                        <unit>mm[Hg]</unit>
+                        <maxMagnitude>1000.0</maxMagnitude>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0006]/data[at0003]/items[at1059]"/>
+            <Rule max="0" path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]"/>
+            <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at0008]"/>
+            <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at1052]"/>
+            <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at1043]"/>
+            <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at1005]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <unitMagnitude>
+                        <unit>deg</unit>
+                        <maxMagnitude>90.0</maxMagnitude>
+                        <minMagnitude>-90.0</minMagnitude>
+                        <includesMaximum>true</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at1042]"/>
+            <Rule clone="true" name="Blutdruck" path="/data[at0001]/events[at1042]/data[at0003]"/>
+            <Rule clone="true" name="state structure" path="/data[at0001]/events[at1042]/state[at0007]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at0013]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at0014]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0011]/items[at1035]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at1038]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at1054]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at1055]"/>
+            <Rule max="0" path="/protocol[at0011]/items[at1010]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.pulse.v2"
+            concept_name="Pulsfrequenz/Herzfrequenz" max="1"
+            name="Herzfrequenz" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1055]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1030]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
+            <Rule max="0" path="/data[at0002]/events[at1036]"/>
+            <Rule clone="true" name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
+            <Rule clone="true" name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1037]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <unitMagnitude>
+                        <unit>ml/dl</unit>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0045]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0046]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0016]"/>
+            <Rule max="0" path="/protocol[at0007]/items[at0009]"/>
+            <Rule max="0" path="/protocol[at0007]/items[at0061]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-ACTION.medication.v1"
+            concept_name="Arzneimittelanwendung" max="1" name="Impfung"
+            path="/content" xsi:type="tem:ACTION">
+            <Rule max="0" min="0" path="/ism_transition[at0109]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0145]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0013]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0012]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0150]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0016]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0153]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0002]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0003]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0106]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0010]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0148]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0004]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0041]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0005]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0006]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0044]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0008]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0009]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0011]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0039]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0007]"/>
+            <Rule name="Impfung" path="/description[at0017]/items[at0020]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Weiß nicht / keine Angabe</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0017]/items[at0156]"/>
+            <Rule max="0" path="/description[at0017]/items[at0132]"/>
+            <Rule max="0" path="/description[at0017]/items[at0133]"/>
+            <Rule name="Datum letzter Impfung" path="/description[at0017]/items[at0043]"/>
+            <Rule max="0" path="/description[at0017]/items[at0154]"/>
+            <Rule max="0" path="/description[at0017]/items[at0155]"/>
+            <Rule name="Impfung gegen" path="/description[at0017]/items[at0021]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Grippe (Influenza)</includedValues>
+                    <includedValues>Pneumokokken</includedValues>
+                    <includedValues>Tetanus (Wundstarrkrampf)</includedValues>
+                    <includedValues>Polio</includedValues>
+                    <includedValues>Diphterie</includedValues>
+                    <includedValues>Pertussis (Keuchhusten)</includedValues>
+                    <includedValues>SARS-CoV-2 (COVID-19)</includedValues>
+                </constraint>
+            </Rule>
+            <Rule
+                name="Allergien oder bekannte Medikamenten-Unverträglichkeiten?" path="/description[at0017]/items[at0140]"/>
+            <Rule
+                name="Leiden Sie unter Allergien oder haben Sie bekannte Medikamenten-Unverträglichkeiten?" path="/description[at0017]/items[at0140]/items[at0147]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Nein</includedValues>
+                    <includedValues>Ja</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0017]/items[at0140]/items[at0141]"/>
+            <Rule name="Wenn ja, gegen was?" path="/description[at0017]/items[at0140]/items[at0143]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Penicillin</includedValues>
+                    <includedValues>Nickel</includedValues>
+                    <includedValues>Katze</includedValues>
+                    <includedValues>Milben</includedValues>
+                    <includedValues>Bäume</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0017]/items[at0033]"/>
+            <Rule max="0" path="/description[at0017]/items[at0149]"/>
+            <Rule max="0" path="/description[at0017]/items[at0025]"/>
+            <Rule name="Weitere Unverträglichkeiten" path="/description[at0017]/items[at0024]"/>
+            <Rule max="0" path="/protocol[at0030]/items[at0103]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            concept_name="Fehlen von Informationen" max="1"
+            name="Welche der folgenden Beschwerden bestehen bei Ihnen aktuell?"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Auswurf" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="1" min="1" name="Husten" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Übelkeit oder Erbrechen" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Brustenge/ -schmerzen" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1" name="Gewichtsverlust" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Arthritis (Gelenkentzündung)" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Nächtliches Wasserlassen (Nykturie)" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Hämoptysen (Bluthusten)" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Infektsymptome/ Fieber" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Kopfschmerzen/ Sehstörungen" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Reflux (Sodbrennen)" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1" name="Nachtschweiss" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="1" min="1"
+                name="Synkopen (plötzl. Bewusstlosigkeit)" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Ja</includedValues>
+                    <includedValues>Nein</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+    </definition>
+    <integrity_checks
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B7CBE264803846DAA95A01EEF598BA3B</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.height.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C75BA8F0FF1D8D127E0E9469D06C9128</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">170F2F8FCE46E22662FC61919622AE21</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">367B17CB3B1709A6BDF8A32723647224</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">02D54A1F08B1D0D12BDEB8DFD499D214</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">F0C4134C4DCAEB8F6EBD3A9318C5B87B</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+    </integrity_checks>
+</template>
