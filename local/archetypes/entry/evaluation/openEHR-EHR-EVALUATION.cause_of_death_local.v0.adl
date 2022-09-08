@@ -6,6 +6,14 @@ concept
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Hannes Bornhorst">
+				["organisation"] = <"PLRI">
+				["email"] = <"hannes.bornhorst@plri.de">
+			>
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
@@ -24,6 +32,28 @@ description
 		["date"] = <"2020-08-03">
 	>
 	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung von Details zu bestimmten Krankheiten, Zuständen oder Verletzungen, die den Tod einer Person hervorgerufen oder dazu beigetragen haben.">
+			use = <"Benutzen zur Darstellung von Details zu bestimmten Krankheiten, Zuständen oder Verletzungen, die den Tod einer Person hervorgerufen oder dazu beigetragen haben.
+
+Ausschnitt an Beispielen für Anwendungsfälle:
+- Eine Sterbeurkunde verschachtelt in dem COMPOSITION.certificate Archetyp;
+- Ein post-mortem-Bericht, verschachtelt in dem COMPOSITION.report-post_mortem Archetyp, als eine mehrerer Komponenten eines post-mortem-Berichts;
+- Krankheitsregister und epidemiologische Überwachung, verschachtelt in dem COMPOSITION.report-case_investigation Archetyp als eine mehrerer Komponenten einer Fall-Untersuchung, wie eine Müttersterblichkeits-Untersuchung.
+
+Beispiel 1:
+- Gehirnblutung (als \"Direkte Ursache\", A)
+- \"durch\" Metastase im Gehirn (als \"Vorhergehende Ursache B\")
+- \"durch\" Brustkrebs (als früheste \"Vorhergehende Ursache C\"). Da Brustkrebs als früheste vorhergehende Ursache aufgeführt ist, könnte sie auch als \"Zugrundeliegende Ursache\" gekennzeichnet sein.
+
+Beispiel 2:
+- Pulmonaler Embolus (als \"Direkte Ursache\", A)
+- \"durch\" gebrochener Oberschenkelknochen (als \"Vorhergehende Ursache B\")
+- \"durch\" unbeabsichtigter Sturz (als \"Vorhergehende/Zugrundeliegende Ursache C\").">
+			keywords = <"Zertifikat", "Urkunde", "Ursache", "Tod", "Vorhergehend", "Post Mortem", "Überwachung", "Benachrichtigung", "Verletzung", "Krankheit">
+			misuse = <"Nicht zur Darstellung von Details zu Krankheiten, Zuständen oder Verletzungen, die keine Beteiligung am Tod der Person hatten. Zu diesem Zweck die EVALUATION.problem_diagnosis oder ACTION.procedure Archetypen benutzen.">
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"For å registrere detaljer om spesifikke sykdommer, tilstander eller skader som forårsaket eller var bidro til individets dødsfall.">
@@ -90,8 +120,8 @@ US Standard Certificate of Death [Internet]. Atlanta; Centre for Disease Control
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"64A20511A60555680928CD60FB6338AF">
-		["build_uid"] = <"00e6a7e5-b606-4313-9844-5bd9b067d984">
+		["MD5-CAM-1.0.1"] = <"1AB10E6976B82C73A083AEA3140C5D04">
+		["build_uid"] = <"21c4adcd-6213-49dc-864c-5de8612cea5a">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -432,6 +462,108 @@ Hvis det finnes flere enn en 'Forutgående årsak', skal de registreres som sepa
 				["at0021"] = <
 					text = <"Varighet">
 					description = <"Det omtrentlige intervall fra debut av identifisert 'Tilstand' til død.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Todesursache">
+					description = <"Details zu speziellen Krankheiten, Zuständen oder Verletzungen, die den Tod der Person hervorgerufen oder dazu beigetragen haben.">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Direkte Ursache">
+					description = <"Die Krankheit, Verletzung oder der Zustand, der direkt zum Tod geführt hat oder zeitlich am nächsten am Todeszeitpunkt liegt.">
+					comment = <"Es wird empfohlen, die \"Direkte Ursache\" mit einer externen Terminologie zu kodieren.
+
+Dieses Daten Element kann auch als \"A\" gekennzeichnet innerhalb der Sterbeurkunde als zum Tode führende Sequenz aufgeführt werden.
+Beispiel:
+Beispiel 1:
+- Gehirnblutung (als \"Direkte Ursache\", A)
+- \"durch\" Metastase im Gehirn (als \"Vorhergehende Ursache B\")
+- \"durch\" Brustkrebs (als früheste \"Vorhergehende Ursache C\").">
+				>
+				["at0003"] = <
+					text = <"Vorhergehende Ursache">
+					description = <"Details zu einer oder mehreren Krankheiten, Verletzungen oder Zuständen in der Sequenz unmittelbar vor dem Tod, aufgeführt in der Reihenfolge von zeitlich zuletzt aufgetreten zu zeitlich zuerst aufgetreten.">
+					comment = <"Im folgenden Beispiel müssten nur zwei Instanzen von \"Vorhergehende Ursache\" CLUSTER im Template verwendet werden:
+- Gehirnblutung (als \"Direkte Ursache\", A)
+- \"durch\" Metastase im Gehirn (als \"Vorhergehende Ursache B\")
+- \"durch\" Brustkrebs (als früheste \"Vorhergehende Ursache C\"; oder \"Zugrundeliegende Ursache C\").
+Bei mehr als einer \"Vorhergehenden Ursache\" wird jede als seperate Instanz dieses CLUSTERs dargestellt.">
+				>
+				["at0004"] = <
+					text = <"Ursache">
+					description = <"Identifizierung einer vorhergehenden Ursache, Verletzung oder Zustand, der direkt zur \"Direkten Ursache\" beigetragen hat.">
+					comment = <"Es wird empfohlen die \"Ursache\" mit einer externen Terminologie zu kodieren.">
+				>
+				["at0005"] = <
+					text = <"Reihenfolge">
+					description = <"Die Reihenfolge der identifizierten \"Vorhergehenden Ursache\" in der Sequenz der Ereignisse unmittelbar vor dem Tod.">
+					comment = <"Die zeitlich am nächsten vor der \"Direkten Ursache\" liegenden Ursache wird als \"B\" gekennzeichnet. Die zeitlich vor \"B\" liegende Ursache wird als \"C\" gekennzeichnet. Die mit \"D\" gekennzeichnete Ursache stellt den Beginn der zeitlichen Sequenz an Ereignissen vor dem Tod dar und kann auch als \"Zugrundeliegende Ursache\" gekennzeichnet sein.">
+				>
+				["at0006"] = <
+					text = <"B">
+					description = <"Die Krankheit, Verletzung oder der Zustand, der der \"Direkten Ursache (A)\" zeitlich vorangegangen ist.">
+				>
+				["at0007"] = <
+					text = <"C">
+					description = <"Die Krankheit, Verletzung oder der Zustand, der der \"Direkten Ursache (B)\" zeitlich vorangegangen ist.">
+				>
+				["at0008"] = <
+					text = <"D">
+					description = <"Die Krankheit, Verletzung oder der Zustand, der den Beginn der zeitlichen Sequenz an Ereignissen vor dem Tod darstellt.">
+					comment = <"Auch als die \"Zugrundeliegende Ursache\" bekannt.">
+				>
+				["at0009"] = <
+					text = <"Dauer">
+					description = <"Der ungefähre Intervall zwischen Auftreten der identifizierten \"Ursache\" und dem Tod.">
+				>
+				["at0012"] = <
+					text = <"Zusätzliche Informationen">
+					description = <"Zusätzliche Informationen zur Ursache des Todes.">
+				>
+				["at0013"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Beschreibung zur Ursache des Todes, mit Informationen, die in den sonstigen Feldern nicht abgedeckt wurden.">
+				>
+				["at0014"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0015"] = <
+					text = <"Zuletzt aktualisiert">
+					description = <"Das Datum, wann die Todesursache zuletzt aktualisiert wurde.">
+				>
+				["at0016"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erweiterung des Modells mit lokalen Inhalten oder zur Angleichung an andere Referenzmodelle.">
+					comment = <"Beispiel: Lokale Informationsvoraussetzungen; oder zusätzliche Metadaten zur Angleichung an FHIR.">
+				>
+				["at0017"] = <
+					text = <"Direkte Ursache Dauer">
+					description = <"Das ungefähre Intervall zwischen Auftreten der identifizierten \"Direkten Ursache\" bis zum Tod.">
+				>
+				["at0018"] = <
+					text = <"Erkrankung">
+					description = <"Name einer signifikanten Erkrankung, die zum Tod beigetragen haben könnten, jedoch ohne direkten kausalen Zusammenhang.">
+					comment = <"Es wird empfohlen, die \"Erkrankung\" mit einer externen Terminologie zu kodieren.">
+				>
+				["at0019"] = <
+					text = <"Beschreibung">
+					description = <"Erzählerische Beschreibung von beteiligten Krankheiten, Verletzungen, Zuständen und Ereignissen, die zum Tod geführt haben.">
+				>
+				["at0020"] = <
+					text = <"Beteiligte Erkrankungen">
+					description = <"Details zu sonstigen signifikanten Zuständen, die zum Tod beigetragen haben könnten, jedoch ohne direkten kausalen Zusammenhang.">
+				>
+				["at0021"] = <
+					text = <"Dauer">
+					description = <"Das ungefähre Intervall zwischen Auftreten der identifizierten \"Erkrankung\" und dem Tod.">
 				>
 			>
 		>
