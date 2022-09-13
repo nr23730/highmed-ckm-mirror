@@ -1,0 +1,136 @@
+﻿archetype (adl_version=1.4; uid=b104405f-f679-4cf7-a221-4ba7a5201469)
+	openEHR-EHR-EVALUATION.vital_status.v0
+
+concept
+	[at0000]	-- Vitalstatus
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Darin Leonhardt">
+		["organisation"] = <"PLRI">
+		["email"] = <"leonhardt.darin@mh-hannover.de">
+		["date"] = <"2022-09-12">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des Vitalstatus eines Patienten zum letzten bekannten Lebenszeitpunkt.">
+			use = <"Diesen Archetypen verwenden, um den Vitalstatus eines Patienten zum letzten bekannten Lebenszeitpunkt aufzuzeichnen.">
+			keywords = <"Vitalstatus, vital, Lebendigkeit, Lebenszeitpunkt, Vitalität, Zustand, Status", ...>
+			misuse = <"Nicht zur Abbildung einer Aufnahme, Entlassung oder eines gesamten Versorgungsfalls - verwenden Sie zu diesem Zweck einen speziellen ENTRY-Archetyp.
+
+	
+Nicht zur Aufzeichnung von Informationen zum Tod einer Person.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Firely (ohne Datum) De.Medizininformatikinitiative.Kerndatensatz.Person, Medizininformatik-initiative.de. Verfügbar unter: https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Vitalstatus (Zugegriffen: 12. September 2022).
+
+Firely (ohne Datum) De.Medizininformatikinitiative.Kerndatensatz.Person, Medizininformatik-initiative.de. Verfügbar unter: https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus (Zugegriffen: 12. September 2022).">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"D0C3555F6BD7D11E780EB8AC3D12BF7D">
+		["build_uid"] = <"db8f7367-3a13-462e-8baf-5af99c710b18">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Vitalstatus
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] matches {    -- Vitalstatus
+						value matches {
+							DV_CODED_TEXT matches {*}
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Letzter Lebenszeitpunkt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {    -- Zusätzliche Angaben
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0002] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0018] occurrences matches {0..1} matches {    -- Letzte Aktualisierung
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vitalstatus">
+					description = <"Zur Darstellung des Vitalstatus (\"Letzter bekannter Lebenszeitpunkt\") bei der Aufnahme/ Entlassung eines Patienten.">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Letzter Lebenszeitpunkt">
+					description = <"Letzter bekannter Lebenszeitpunkt des Patienten.">
+				>
+				["at0006"] = <
+					text = <"Vitalstatus">
+					description = <"Zur Darstellung des Vitalstatus eines Patienten.">
+					comment = <"Zum Beispiel: Patient lebt oder ist verstorben. Nach Möglichkeit wird die Codierung der Probenart mit einer Terminologie bevorzugt.
+fhir_mapping: Observation.value[x].coding:Vitalstatus
+">
+				>
+				["at0010"] = <
+					text = <"Zusätzliche Angaben">
+					description = <"Zusätzliche Angaben zum Vitalstatus.">
+				>
+				["at0013"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen zum Vitalstatus, die in anderen Feldern nicht erfasst wurden.">
+				>
+				["at0018"] = <
+					text = <"Letzte Aktualisierung">
+					description = <"Das Datum, an dem der Vitalstatus zuletzt aktualisiert wurde.">
+				>
+				["at0021"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/ Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen.">
+				>
+			>
+		>
+	>
