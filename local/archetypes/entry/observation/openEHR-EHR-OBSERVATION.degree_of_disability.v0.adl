@@ -15,13 +15,13 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Repräsentation des Grades der Behinderung (GdB) einer Person in Deutschland.">
-			use = <"Zur Repräsentation des festgestellten Grades der Behinderung (GdB) in Deutschland sowohl von Erwachsenen als auch von Kindern.">
+			use = <"Zur Repräsentation des festgestellten Grades der Behinderung (GdB) in Deutschland sowohl von Erwachsenen als auch von Kindern mit Behinderung.">
 			keywords = <"Behinderung, Behinderungsgrad, schwerbehindert, Schwerbehinderung, Schwerbehinderte, Gleichgestellte, Gleichstellung", ...>
-			misuse = <"Dient nicht zur Erfassung eines Grades der Behinderung außerhalb von Deutschland.">
+			misuse = <"Der Archetyp dient nicht zur Darstellung eines Grades der Behinderung außerhalb von Deutschland.">
 		>
 	>
 	lifecycle_state = <"in_development">
-	other_contributors = <"Sarah Ballout", ...>
+	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -32,8 +32,8 @@ Verfügbar unter: https://soziales.niedersachsen.de/faq/behinderung-und-ausweis-
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"001972925B0DE7A839FEC8472E7A7A71">
-		["build_uid"] = <"4d7e0f3d-d1f9-48e5-8522-2bd8d56322f6">
+		["MD5-CAM-1.0.1"] = <"3DB2AE443C25B2C49292B50CE9A4BC79">
+		["build_uid"] = <"9d354d3d-3a38-45d4-bf72-8fddff20bd68">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -51,45 +51,49 @@ definition
 											DV_BOOLEAN matches {*}
 										}
 									}
-									ELEMENT[at0040] occurrences matches {0..1} matches {    -- Festgestellter Grad der Behinderung
+									ELEMENT[at0040] matches {    -- Grad der Behinderung
 										value matches {
 											0|[local::at0052],
-											20|[local::at0041],
-											30|[local::at0042],
-											40|[local::at0043],
-											50|[local::at0044],
-											60|[local::at0045],
-											70|[local::at0046],
-											80|[local::at0047],
-											90|[local::at0048],
-											100|[local::at0049]
-										}
-									}
-									ELEMENT[at0051] occurrences matches {0..1} matches {    -- Gültigkeit
-										value matches {
-											DV_DURATION matches {*}
-										}
-									}
-									ELEMENT[at0015] occurrences matches {0..*} matches {    -- Merkzeichen
-										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0020,    -- G
-													at0021,    -- aG
-													at0022,    -- H
-													at0023,    -- B
-													at0024,    -- RF
-													at0025,    -- GL
-													at0026,    -- BL
-													at0027]    -- TBL
-												}
-											}
+											1|[local::at0041],
+											2|[local::at0042],
+											3|[local::at0043],
+											4|[local::at0044],
+											5|[local::at0045],
+											6|[local::at0046],
+											7|[local::at0047],
+											8|[local::at0048],
+											9|[local::at0049]
 										}
 									}
 									ELEMENT[at0019] occurrences matches {0..1} matches {    -- Kommentar
 										value matches {
 											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0053] occurrences matches {0..1} matches {    -- Details zur Schwerbehinderung
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0051] occurrences matches {0..1} matches {    -- Gültigkeit
+												value matches {
+													DV_DURATION matches {*}
+												}
+											}
+											ELEMENT[at0015] occurrences matches {0..*} matches {    -- Merkzeichen
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0020,    -- G
+															at0021,    -- aG
+															at0022,    -- H
+															at0023,    -- B
+															at0024,    -- RF
+															at0025,    -- GL
+															at0026,    -- BL
+															at0027]    -- TBL
+														}
+													}
+												}
+											}
 										}
 									}
 								}
@@ -118,8 +122,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Grad der Behinderung (GdB)">
-					description = <"Grad der Behinderung, der bei einer Person in Deutschland festgestellt werden kann.">
-					comment = <"Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdings können auch Menschen mit einem GdB von weniger als 50, aber mindestens 30 schwerbehinderten Menschen gleichgestellt werden.">
+					description = <"Grad der Behinderung, der bei einer Person beim Vorliegen einer Behinderung festgestellt werden kann.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -139,7 +142,7 @@ ontology
 				>
 				["at0015"] = <
 					text = <"Merkzeichen">
-					description = <"Merkzeichen kennzeichnen die Art der Behinderung.">
+					description = <"Merkzeichen - Kennung, die ein Schwerbehinderter zusätzlich zum Grad der Behinderung erhalten kann.">
 					comment = <"Mehrfachnennung möglich.">
 				>
 				["at0019"] = <
@@ -184,50 +187,51 @@ ontology
 					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 				["at0040"] = <
-					text = <"Festgestellter Grad der Behinderung">
-					description = <"Zur Repräsentation des Grad der Behinderung (GdB) einer Person.">
+					text = <"Grad der Behinderung">
+					description = <"Festgestellter Grad der Behinderung (GdB) bei der Person.">
 					comment = <"Den GdB gibt man in 10er-Graden an. Der niedrigste GdB beginnt bei 20 und der höchste ist 100. Dabei handelt es sich nicht um Prozentangaben. Je höher der Wert, desto stärker ist die Behinderung.">
 				>
 				["at0041"] = <
-					text = <"Punkte">
+					text = <"GdB 20">
 					description = <"Grad der Behinderung.">
 				>
 				["at0042"] = <
-					text = <"Punkte">
+					text = <"GdB 30">
 					description = <"Grad der Behinderung.">
 				>
 				["at0043"] = <
-					text = <"Punkte">
+					text = <"GdB 40">
 					description = <"Grad der Behinderung.">
 				>
 				["at0044"] = <
-					text = <"Punkte">
+					text = <"GdB 50">
 					description = <"Grad der Behinderung.">
 				>
 				["at0045"] = <
-					text = <"Punkte">
+					text = <"GdB 60">
 					description = <"Grad der Behinderung.">
 				>
 				["at0046"] = <
-					text = <"Punkte">
+					text = <"GdB 70">
 					description = <"Grad der Behinderung.">
 				>
 				["at0047"] = <
-					text = <"Punkte">
+					text = <"GdB 80">
 					description = <"Grad der Behinderung.">
 				>
 				["at0048"] = <
-					text = <"Punkte">
+					text = <"GdB 90">
 					description = <"Grad der Behinderung.">
 				>
 				["at0049"] = <
-					text = <"Punkte">
+					text = <"GdB 100">
 					description = <"Grad der Behinderung.">
 				>
 				["at0050"] = <
 					text = <"Schwerbehinderung">
-					description = <"Liegt ein Grad der Behinderung (GdB) vor?">
-					comment = <"Als \"Wahr\" darstellen, wenn ein Grad der Behinderung vorliegt.">
+					description = <"Liegt eine Schwerbehinderung vor?">
+					comment = <"Als \"Wahr\" darstellen, wenn ein Grad der Behinderung vorliegt.
+Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdings können auch Menschen mit einem GdB von weniger als 50, aber mindestens 30 schwerbehinderten Menschen gleichgestellt werden.">
 				>
 				["at0051"] = <
 					text = <"Gültigkeit">
@@ -235,8 +239,12 @@ ontology
 					comment = <"Gültigkeit kann unbefristet sein oder ein Datum wird festgesetzt und ist dem Schwerbehindertenausweis zu entnehmen.">
 				>
 				["at0052"] = <
-					text = <"Punkte">
+					text = <"0">
 					description = <"Keine Behinderung.">
+				>
+				["at0053"] = <
+					text = <"Details zur Schwerbehinderung">
+					description = <"Details zur festgestellten Schwerbehinderung, die aus dem Schwerbehindertenausweis zu entnehmen sind.">
 				>
 			>
 		>

@@ -16,10 +16,9 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Repräsentation des Pflegegrades einer pflegebedürftigen Person in Deutschland.">
-			use = <"Zur Repräsentation des vorliegenden Pflegegrades von Personen ab dem vollendeten 11. Lebensjahr in Deutschland.
-Die fünf Pflegegrade zeigen an, wie selbstständig eine Person ist. Dabei orientiert sich der Pflegegrad nach der Schwere der Beeinträchtigung sowie Fähigkeiten und Selbstständigkeit der zu pflegenden Person. Entsprechend dem Hilfebedarf wird der Pflegebedürftige in einen der fünf Pflegegrade eingeteilt.">
-			keywords = <"Pflegegrad, Pflegegrad, Pflegebedürftigkeit, Pflegestufe, Pflegestufe", ...>
-			misuse = <"Nicht zur Repräsentation eines Pflegegrades von Kindern unter zwölf Jahren. Für Kinder unter zwölf Jahren gelten bei der Einstufung andere Maßstäbe als bei Erwachsenen. Die Pflegebedürftigkeit wird anhand der altersentsprechenden Entwicklung im Vergleich mit gesunden Kindern festgestellt. Kleinkinder bis 18 Monate werden pauschal einen Pflegegrad höher eingestuft und nur altersunabhängige Module bewertet.
+			use = <"Zur Repräsentation des vorliegenden Pflegegrades von Personen ab dem vollendeten 11. Lebensjahr in Deutschland.">
+			keywords = <"Pflegegrad, Pflegebedürftigkeit, Pflegestufe", ...>
+			misuse = <"Nicht zur Repräsentation eines Pflegegrades von Kindern unter zwölf Jahren.
 Nicht für die Berechnung eines Pflegegrades vorgesehen. Für diesen Zweck muss ein anderer Archetyp verwendet werden.
 Nicht zur Repräsentation einer Pflegeleistung/ Pflegegrades im Ausland.
 Nicht für die Evaluation eines Pflegegrades vorgesehen.">
@@ -31,13 +30,13 @@ Nicht für die Evaluation eines Pflegegrades vorgesehen.">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
 		["references"] = <"Pflegegrade (ohne Datum) Bundesgesundheitsministerium.de. Verfügbar unter: https://www.bundesgesundheitsministerium.de/pflegegrade.html (Zugegriffen: 17. August 2022).
-Lötzerich, U. und Richter, R. (2016) Pflegegrade im Überblick, pflege.de. Verfügbar unter: https://www.pflege.de/pflegekasse-pflegerecht/pflegegrade/ (Zugegriffen: 17. August 2022).
-(Ohne Datum) Medizinischerdienst.de. Verfügbar unter: https://www.medizinischerdienst.de/fileadmin/user_upload/19-05-20_NBI_Pflegebeduerftigkeit_Fach-Info.pdf (Zugegriffen: 17. August 2022).">
+(Ohne Datum) Medizinischerdienst.de. Verfügbar unter: https://www.medizinischerdienst.de/fileadmin/user_upload/19-05-20_NBI_Pflegebeduerftigkeit_Fach-Info.pdf (Zugegriffen: 17. August 2022).
+§ 15 SGB XI Ermittlung des Grades der Pflegebedürftigkeit, Begutachtungsinstrument (ohne Datum) Sozialgesetzbuch-sgb.de. Verfügbar unter: https://www.sozialgesetzbuch-sgb.de/sgbxi/15.html (Zugegriffen: 13. September 2022).">
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"8F0D94F5965D452FBE74AB820F8DE92F">
-		["build_uid"] = <"12bc1144-bfd1-4de8-b657-a6222c1e90c8">
+		["MD5-CAM-1.0.1"] = <"A2B7F406F749379746974403AC11D635">
+		["build_uid"] = <"c09e45ca-2d5e-4005-b10e-37c32bc5ed22">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -50,26 +49,18 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Festgestellter Pflegegrad
-										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0008,    -- Pflegegrad 1
-													at0009,    -- Pflegegrad 2
-													at0010,    -- Pflegegrad 3
-													at0011,    -- Pflegegrad 4
-													at0012]    -- Pflegegrad 5
-												}
-											}
-										}
-									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {    -- Vorhanden?
 										value matches {
 											DV_BOOLEAN matches {*}
 										}
-										name matches {
-											DV_CODED_TEXT matches {*}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Festgestellter Pflegegrad
+										value matches {
+											1|[local::at0016],
+											2|[local::at0017],
+											3|[local::at0018],
+											4|[local::at0019],
+											5|[local::at0020]
 										}
 									}
 									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Kommentar
@@ -118,10 +109,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0004"] = <
-					text = <"Festgestellter Pflegegrad">
-					description = <"Zur Repräsentation des Pflegegrades einer Person.">
-				>
 				["at0005"] = <
 					text = <"Item tree">
 					description = <"@ internal @">
@@ -135,30 +122,34 @@ ontology
 					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
 					comment = <"Comment: Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen.">
 				>
-				["at0008"] = <
-					text = <"Pflegegrad 1">
-					description = <"Geringe Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (12,5 - 27 Punkte).">
-				>
-				["at0009"] = <
-					text = <"Pflegegrad 2">
-					description = <"Erhebliche Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (27 - 47,5 Punkte).">
-				>
-				["at0010"] = <
-					text = <"Pflegegrad 3">
-					description = <"Schwere Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (47,5 - 70 Punkte).">
-				>
-				["at0011"] = <
-					text = <"Pflegegrad 4">
-					description = <"Schwerste Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (70 - 90 Punkte).">
-				>
-				["at0012"] = <
-					text = <"Pflegegrad 5">
-					description = <"Schwerste Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten mit besonderen Anforderungen an die pflegerische Versorgung (90 - 100 Punkte).">
-				>
 				["at0014"] = <
 					text = <"Vorhanden?">
 					description = <"Liegt ein Pflegegrad vor?">
 					comment = <"Als \"Wahr\" darstellen, wenn ein Pflegegrad vorliegt.">
+				>
+				["at0015"] = <
+					text = <"Festgestellter Pflegegrad">
+					description = <"Zur Repräsentation des Pflegegrades einer Person.">
+				>
+				["at0016"] = <
+					text = <"Pflegegrad 1">
+					description = <"Geringe Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (12,5 - 27 Punkte).">
+				>
+				["at0017"] = <
+					text = <"Pflegegrad 2">
+					description = <"Erhebliche Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (27 - 47,5 Punkte).">
+				>
+				["at0018"] = <
+					text = <"Pflegegrad 3">
+					description = <"Schwere Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (47,5 - 70 Punkte).">
+				>
+				["at0019"] = <
+					text = <"Pflegegrad 4">
+					description = <"Schwerste Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten (70 - 90 Punkte).">
+				>
+				["at0020"] = <
+					text = <"Pflegegrad 5">
+					description = <"Schwerste Beeinträchtigungen der Selbstständigkeit oder der Fähigkeiten mit besonderen Anforderungen an die pflegerische Versorgung (90 - 100 Punkte).">
 				>
 			>
 		>
