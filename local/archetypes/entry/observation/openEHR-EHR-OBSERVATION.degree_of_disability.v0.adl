@@ -32,8 +32,8 @@ Verfügbar unter: https://soziales.niedersachsen.de/faq/behinderung-und-ausweis-
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"3DB2AE443C25B2C49292B50CE9A4BC79">
-		["build_uid"] = <"9d354d3d-3a38-45d4-bf72-8fddff20bd68">
+		["MD5-CAM-1.0.1"] = <"B85BB387308572ECF2329E2F533F7BFA">
+		["build_uid"] = <"c8e343cd-ad6c-4476-abdc-43c5bcfdd7f9">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -46,7 +46,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0050] matches {    -- Schwerbehinderung
+									ELEMENT[at0050] occurrences matches {0..1} matches {    -- Schwerbehinderung
 										value matches {
 											DV_BOOLEAN matches {*}
 										}
@@ -54,15 +54,15 @@ definition
 									ELEMENT[at0040] matches {    -- Grad der Behinderung
 										value matches {
 											0|[local::at0052],
-											1|[local::at0041],
-											2|[local::at0042],
-											3|[local::at0043],
-											4|[local::at0044],
-											5|[local::at0045],
-											6|[local::at0046],
-											7|[local::at0047],
-											8|[local::at0048],
-											9|[local::at0049]
+											20|[local::at0041],
+											30|[local::at0042],
+											40|[local::at0043],
+											50|[local::at0044],
+											60|[local::at0045],
+											70|[local::at0046],
+											80|[local::at0047],
+											90|[local::at0048],
+											100|[local::at0049]
 										}
 									}
 									ELEMENT[at0019] occurrences matches {0..1} matches {    -- Kommentar
@@ -72,9 +72,21 @@ definition
 									}
 									CLUSTER[at0053] occurrences matches {0..1} matches {    -- Details zur Schwerbehinderung
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0051] occurrences matches {0..1} matches {    -- Gültigkeit
+											ELEMENT[at0055] occurrences matches {0..1} matches {    -- Gültigkeit
 												value matches {
-													DV_DURATION matches {*}
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0056,    -- Befristet
+															at0057,    -- Unbefristet
+															at0058]    -- Unbekant
+														}
+													}
+												}
+											}
+											ELEMENT[at0054] occurrences matches {0..1} matches {    -- Dauer
+												value matches {
+													DV_DATE matches {*}
 												}
 											}
 											ELEMENT[at0015] occurrences matches {0..*} matches {    -- Merkzeichen
@@ -233,11 +245,6 @@ ontology
 					comment = <"Als \"Wahr\" darstellen, wenn ein Grad der Behinderung vorliegt.
 Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdings können auch Menschen mit einem GdB von weniger als 50, aber mindestens 30 schwerbehinderten Menschen gleichgestellt werden.">
 				>
-				["at0051"] = <
-					text = <"Gültigkeit">
-					description = <"Ist die Schwerbehinderung befristet oder unbefristet?">
-					comment = <"Gültigkeit kann unbefristet sein oder ein Datum wird festgesetzt und ist dem Schwerbehindertenausweis zu entnehmen.">
-				>
 				["at0052"] = <
 					text = <"0">
 					description = <"Keine Behinderung.">
@@ -245,6 +252,27 @@ Schwerbehinderungsgrade beginnen bei einem Grad der Behinderung von 50. Allerdin
 				["at0053"] = <
 					text = <"Details zur Schwerbehinderung">
 					description = <"Details zur festgestellten Schwerbehinderung, die aus dem Schwerbehindertenausweis zu entnehmen sind.">
+				>
+				["at0054"] = <
+					text = <"Dauer">
+					description = <"Datum bis wann die Befristung laut Schwerbehindertenausweis gilt.">
+				>
+				["at0055"] = <
+					text = <"Gültigkeit">
+					description = <"Ist die Schwerbehinderung befristet oder unbefristet?">
+					comment = <"Gültigkeit kann unbefristet sein oder ein Datum wird festgesetzt und ist dem Schwerbehindertenausweis zu entnehmen.">
+				>
+				["at0056"] = <
+					text = <"Befristet">
+					description = <"">
+				>
+				["at0057"] = <
+					text = <"Unbefristet">
+					description = <"">
+				>
+				["at0058"] = <
+					text = <"Unbekant">
+					description = <"">
 				>
 			>
 		>
