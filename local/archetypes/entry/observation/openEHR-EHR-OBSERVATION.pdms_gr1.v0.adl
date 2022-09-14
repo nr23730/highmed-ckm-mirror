@@ -1,0 +1,132 @@
+﻿archetype (adl_version=1.4; uid=15926626-cc25-4ac0-9b3b-1c5356263ea8)
+	openEHR-EHR-OBSERVATION.pdms_gr1.v0
+
+concept
+	[at0000]	-- Pdms
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"6D868F32C4E0CF2B4F66A777443FFD93">
+		["build_uid"] = <"8782a63c-190e-48c7-95ee-89742d38d17f">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Pdms
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0009] occurrences matches {0..*} matches {	-- *Medikamenten Verabreichung auf Intensivstation
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0004] occurrences matches {0..*} matches {	-- GeräteID:
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0007] occurrences matches {0..*} matches {	-- ID des behandelnden Arztes
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0008] occurrences matches {0..1} matches {	-- Verabreichtes Medikament
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {	-- Endzeitpunkt
+												value matches {
+													DV_DATE_TIME matches {
+														value matches {yyyy-mm-ddTHH:MM:SS}
+													}
+												}
+											}
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Startzeitpunkt:
+												value matches {
+													DV_DATE_TIME matches {
+														value matches {yyyy-mm-ddTHH:MM:SS}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pdms">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"GeräteID:">
+					description = <"*Die Geräte ID des Perfusors">
+				>
+				["at0005"] = <
+					text = <"Startzeitpunkt:">
+					description = <"* Startzeitpunkt der Medikation">
+				>
+				["at0006"] = <
+					text = <"Endzeitpunkt">
+					description = <"** Endzeitpunkt der Medikation">
+				>
+				["at0007"] = <
+					text = <"ID des behandelnden Arztes">
+					description = <"*ID / Name des behandelnden Arztes">
+				>
+				["at0008"] = <
+					text = <"Verabreichtes Medikament">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"*Medikamenten Verabreichung auf Intensivstation">
+					description = <"Pro Verabreichrung eines Medikamentes muss, einmal das komplette Cluster ausgefüllt werden.">
+				>
+			>
+		>
+	>
