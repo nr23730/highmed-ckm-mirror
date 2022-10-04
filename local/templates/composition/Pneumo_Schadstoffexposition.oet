@@ -59,7 +59,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.2.0</value>
+                <value>9.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -91,8 +91,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v0"
+            concept_name="Screening-Fragebogen zur Exposition" max="1"
+            name="Screening-Fragebogen zu (Gefahr-) Stoffen"
             path="/content" xsi:type="tem:OBSERVATION">
-            <Rule
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0"
                 name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Asbest</includedValues>
@@ -105,24 +108,26 @@
                     <includedValues>Haustiere</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0"
-                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule name="Welches Haustier bzw. welchen Kontakt?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>Hund</includedValues>
-                    <includedValues>Katze</includedValues>
-                    <includedValues>Pferd</includedValues>
-                    <includedValues>Kleintiere, z.B. Hamster, Kaninchen, Meerschweinchen</includedValues>
-                    <includedValues>Vögel, z.B. Wellensittiche, Tauben, Hühner</includedValues>
-                    <includedValues>Andere</includedValues>
-                </constraint>
-            </Rule>
             <Rule
-                name="Haben Sie Haustiere oder regelmäßig Kontakt zu Tieren?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0011]">
+                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0008</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Gefahrstoffe oder Stoffe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]"/>
+            <Rule name="Name des Ereignis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Asbest</includedValues>
+                    <includedValues>Stäube, z.B. Metall- oder Holzstaub oder Mehl</includedValues>
+                    <includedValues>Rauche, z.B. Zigarettenrauch (passives Rauchen) oder Abgase</includedValues>
+                    <includedValues>Lösungsmittel</includedValues>
+                    <includedValues>Lacke oder Farben</includedValues>
+                    <includedValues>Reinigungsmittel</includedValues>
+                    <includedValues>Vogelfedern, z.B. Daunenbettwäsche oder Daunenjacke</includedValues>
+                    <includedValues>Haustiere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0011]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0014</excludedValues>
                 </constraint>
@@ -132,6 +137,54 @@
                     <includedTypes>Date_Time</includedTypes>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v0"
+            concept_name="Screening-Fragebogen zur Exposition" max="1"
+            name="Screening-Fragebogen zu (Haus-) Tieren"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0"
+                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Asbest</includedValues>
+                    <includedValues>Stäube, z.B. Metall- oder Holzstaub oder Mehl</includedValues>
+                    <includedValues>Rauche, z.B. Zigarettenrauch (passives Rauchen) oder Abgase</includedValues>
+                    <includedValues>Lösungsmittel</includedValues>
+                    <includedValues>Lacke oder Farben</includedValues>
+                    <includedValues>Reinigungsmittel</includedValues>
+                    <includedValues>Vogelfedern, z.B. Daunenbettwäsche oder Daunenjacke</includedValues>
+                    <includedValues>Haustiere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule
+                name="Haben Sie Haustiere oder regelmäßig Kontakt zu Tieren?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0008</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Name des Ereignis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Hund</includedValues>
+                    <includedValues>Katze</includedValues>
+                    <includedValues>Pferd</includedValues>
+                    <includedValues>Kleintiere, z.B. Hamster, Kaninchen, Meerschweinchen</includedValues>
+                    <includedValues>Vögel, z.B. Wellensittiche, Tauben, Hühner</includedValues>
+                    <includedValues>Andere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0011]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0014</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0015]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Date_Time</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
         </Content>
     </definition>
     <integrity_checks
