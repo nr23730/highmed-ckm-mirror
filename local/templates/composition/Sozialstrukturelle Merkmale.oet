@@ -27,7 +27,7 @@
             <keywords>
                 <item>Familienstand; Geburtsland; Allgemeinbildungsabschluss; Ausbildungsabschluss; Erwerbstätigkeit; Nicht-Erwerbstätige; Demographische Daten</item>
             </keywords>
-            <use>Für die Abbildung der demographischen Daten von Personen im Rahmen der Pneumo-App. Es wir nach Geburtsland, Familienstand sowie den höchsten allgemeinbildenden Schulabschluss, den beruflichen Ausbildungsabschlüssen und nach Erwerbstätigkeit und Nichterwerbstätigen gefragt.</use>
+            <use>Für die Abbildung der demographischen Daten von Personen im Rahmen der Pneumo-App. Es wird nach Geburtsland, Familienstand sowie den höchsten allgemeinbildenden Schulabschluss, den beruflichen Ausbildungsabschlüssen und nach Erwerbstätigkeit und Nichterwerbstätigen gefragt.</use>
             <misuse>Nicht zur Repräsentation von anderen Fragebögen oder Screening-Fragebögen dieser Art zu verwenden.</misuse>
         </details>
         <other_details>
@@ -53,7 +53,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>13.0.0</value>
+                <value>22.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -61,7 +61,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>8e642d27abf43234fe30067dbfb649c3</value>
+                <value>e27652be86a59e1a49bd377ad9d208eb</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -79,6 +79,71 @@
         name="Sozialstrukturelle Merkmale"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1" name="Geburtsland"
+            path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Geburtsland" path="/items" xsi:type="tem:EVALUATION">
+                <Rule name="Sind Sie in Deutschland geboren?" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Anderes Land" path="/data[at0001]/items[at0005]"/>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+            concept_name="Soziales Netzwerk" max="1"
+            name="Familienstand" path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0001]/items[at0015]"/>
+            <Rule
+                name="Welchen Familienstand haben Sie? Was in dieser Liste trifft auf Sie zu?" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Familienstand::A::Verheiratet und lebe mit meinem/meiner Ehepartner/-in zusammen</includedValues>
+                    <includedValues>Familienstand::A1::In eingetragener Lebenspartnerschaft zusammenlebend (gleichgeschlechtlich)</includedValues>
+                    <includedValues>Familienstand::B::Verheiratet und lebe von meinem/meiner Ehepartner/-in getrennt</includedValues>
+                    <includedValues>Familienstand::C::Ledig</includedValues>
+                    <includedValues>Familienstand::D::Geschieden</includedValues>
+                    <includedValues>Familienstand::E::Verwitwet</includedValues>
+                    <includedValues>Familienstand::F::Eingetragene Lebenspartnerschaft, getrennt lebend (gleichgeschlechtlich)</includedValues>
+                    <includedValues>Familienstand::G::Eingetragene Lebenspartnerschaft aufgehoben (gleichgeschlechtlich)</includedValues>
+                    <includedValues>Familienstand::H::Eingetragene/r Lebenspartner/-in verstorben (gleichgeschlechtlich)</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0010]/items[at0011]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc Überschrift" max="1"
+            name="Familienbeziehung" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Kinder" path="/items" xsi:type="tem:EVALUATION">
+                <Rule name="Haben Sie Kinder?" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ja</includedValues>
+                        <includedValues>Nein</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" min="1" name="Anzahl der Kinder" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>1</includedValues>
+                        <includedValues>2</includedValues>
+                        <includedValues>3</includedValues>
+                        <includedValues>4</includedValues>
+                        <includedValues>5</includedValues>
+                        <includedValues>6</includedValues>
+                        <includedValues>7</includedValues>
+                        <includedValues>8</includedValues>
+                        <includedValues>9</includedValues>
+                        <includedValues>10</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+        </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
             concept_name="Zusammenfassung der Bildung" max="1"
@@ -100,7 +165,8 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/items[at0002]">
+            <Rule
+                name="Welchen höchsten allgemeinbildenden Schulabschluss haben Sie?" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Allgemeinbildungsabschluss::A::Schüler/-in, besuche eine allgemeinbildende Vollzeitschule</includedValues>
                     <includedValues>Allgemeinbildungsabschluss::B::Von der Schule abgegangen ohne Schulabschluss</includedValues>
@@ -110,23 +176,21 @@
                     <includedValues>Allgemeinbildungsabschluss::F::Polytechnische Oberschule der DDR mit Abschluss der 10. Klasse</includedValues>
                     <includedValues>Allgemeinbildungsabschluss::G::Fachhochschulreife</includedValues>
                     <includedValues>Allgemeinbildungsabschluss::H::Abitur/Allgemeine oder fachgebundene Hochschulreife (Gymnasium bzw. EOS, auch EOS mit Lehre)</includedValues>
-                    <includedValues>Allgemeinbildungsabschluss::I::Einen anderen Schulabschluss, und zwar: bitte angeben
-</includedValues>
+                    <includedValues>Allgemeinbildungsabschluss::I::Einen anderen Schulabschluss, und zwar: bitte angeben</includedValues>
                 </constraint>
             </Rule>
-
-  <Rule path="/data[at0001]/items[at0002]" name="Höchster erreichter Bildungsabschluss Freitext" clone="true" >
+    <Rule path="/data[at0001]/items[at0002]" name="Höchster erreichter Bildungsabschluss Freitext" clone="true" >
             <constraint xsi:type="tem:textConstraint">
             </constraint>
         </Rule>
-
+            <Rule max="0" path="/protocol[at0026]/items[at0028]"/>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.education_record.v1"
                 max="0" path="/data[at0001]/items[at0029]" xsi:type="tem:CLUSTER"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
-            concept_name="Zusammenfassung der Bildung" max="1"
+            concept_name="Zusammenfassung der Bildung"
             name="Ausbildungsabschluss" path="/content" xsi:type="tem:EVALUATION">
             <Rule max="0" path="/data[at0001]/items[at0018]"/>
             <Rule max="0" path="/data[at0001]/items[at0003]">
@@ -145,38 +209,41 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
-            <Rule path="/data[at0001]/items[at0002]">
+            <Rule
+                name="Welche beruflichen Ausbildungsabschlüsse haben Sie? Was in dieser Liste trifft alles auf Sie zu?" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms::A::Noch in beruflicher Ausbildung (Berufsvorbereitungsjahr, Auszubildende/-r, Praktikant/-in, Student/-in)</includedValues>
-                    <includedValues>local_terms::B::Schüler/-in und besuche eine berufsorientierte Aufbau-, Fachschule oder Ähnliches</includedValues>
-                    <includedValues>local_terms::C::Keinen beruflichen Abschluss und bin nicht in beruflicher Ausbildung</includedValues>
-                    <includedValues>local_terms::D::Beruflich-betriebliche Berufsausbildung (Lehre) abgeschlossen</includedValues>
-                    <includedValues>local_terms::E::Berufsqualifizierender Abschluss einer beruflich-schulischen Ausbildung (Berufsfachschule, Kollegschule)</includedValues>
-                    <includedValues>local_terms::F::Vorbereitungsdienst für den mittleren Dienst in der öffentlichen Verwaltung</includedValues>
-                    <includedValues>local_terms::G::Abschluss einer einjährigen Ausbildung an einer Schule des Gesundheitswesens</includedValues>
-                    <includedValues>local_terms::H::Abschluss einer zwei- bis dreijährigen Ausbildung an einer Schule des Gesundheitswesens</includedValues>
-                    <includedValues>local_terms::I::Abschluss einer Ausbildung zum Erzieher/zur Erzieherin</includedValues>
-                    <includedValues>local_terms::J::Abschluss einer Fachschule der DDR</includedValues>
-                    <includedValues>local_terms::K::Abschluss einer Fach-, Meister-, Technikerschule, Verwaltungs- und Wirtschaftsakademie oder Fachakademie</includedValues>
-                    <includedValues>local_terms::L::Bachelor</includedValues>
-                    <includedValues>local_terms::M::Diplom</includedValues>
-                    <includedValues>local_terms::N::Master, Magister, Staatsexamen</includedValues>
-                    <includedValues>local_terms::O::Promotion</includedValues>
-                    <includedValues>local_terms::P::Einen anderen beruflichen Abschluss, und zwar: bitte angeben</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::A::Noch in beruflicher Ausbildung (Berufsvorbereitungsjahr, Auszubildende/-r, Praktikant/-in, Student/-in)</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::B::Schüler/-in und besuche eine berufsorientierte Aufbau-, Fachschule oder Ähnliches</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::C::Keinen beruflichen Abschluss und bin nicht in beruflicher Ausbildung</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::D::Beruflich-betriebliche Berufsausbildung (Lehre) abgeschlossen</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::E::Berufsqualifizierender Abschluss einer beruflich-schulischen Ausbildung (Berufsfachschule, Kollegschule)</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::F::Vorbereitungsdienst für den mittleren Dienst in der öffentlichen Verwaltung</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::G::Abschluss einer einjährigen Ausbildung an einer Schule des Gesundheitswesens</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::H::Abschluss einer zwei- bis dreijährigen Ausbildung an einer Schule des Gesundheitswesens</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::I::Abschluss einer Ausbildung zum Erzieher/zur Erzieherin</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::J::Abschluss einer Fachschule der DDR</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::K::Abschluss einer Fach-, Meister-, Technikerschule, Verwaltungs- und Wirtschaftsakademie oder Fachakademie</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::L::Bachelor</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::M::Diplom</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::N::Master, Magister, Staatsexamen</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::O::Promotion</includedValues>
+                    <includedValues>Ausbildungsabschlüsse::P::Einen anderen beruflichen Abschluss, und zwar: bitte angeben</includedValues>
                 </constraint>
             </Rule>
 
- 	<Rule path="/data[at0001]/items[at0002]" name="Höchster erreichter Bildungsabschluss Freitext" clone="true" >
+  	  <Rule path="/data[at0001]/items[at0002]" name="Höchster erreichter Ausbildungsabschluss Freitext" clone="true" >
             <constraint xsi:type="tem:textConstraint">
             </constraint>
-        	</Rule>
+        </Rule>
+
+            <Rule max="0" path="/protocol[at0026]/items[at0028]"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.occupation_summary.v1"
             concept_name="Zusammenfassung der Beschäftigung" max="1"
             name="Erwerbstätigkeit" path="/content" xsi:type="tem:EVALUATION">
             <Rule max="0" path="/data[at0001]/items[at0002]"/>
-            <Rule name="Welche Erwerbssituation passt für Sie?" path="/data[at0001]/items[at0004]">
+            <Rule max="1" name="Welche Erwerbssituation passt für Sie?" path="/data[at0001]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Beschäftigungsstatus::A::Vollzeiterwerbstätig</includedValues>
                     <includedValues>Beschäftigungsstatus::B::Teilzeiterwerbstätig</includedValues>
@@ -192,13 +259,14 @@
                     <includedValues>Beschäftigungsstatus::L::Nicht erwerbstätig (einschließlich: Schüler/-innen oder Studierende, die nicht gegen Geld arbeiten, Arbeitslose, Vorruheständler/-innen, Renter/-innen ohne Nebenverdienst)</includedValues>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/protocol[at0007]/items[at0009]"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.occupation_summary.v1"
             concept_name="Zusammenfassung der Beschäftigung" max="1"
             name="Nicht-Erwerbstätige" path="/content" xsi:type="tem:EVALUATION">
             <Rule max="0" path="/data[at0001]/items[at0002]"/>
-            <Rule
+            <Rule max="1"
                 name="Wenn Sie nicht vollzeit-oder teilzeiterwerbstätig sind: Zu welcher Gruppe auf dieser Liste gehören Sie?" path="/data[at0001]/items[at0004]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Nicht-Erwerbstätige::A::Schüler/-innen an einer allgemeinbildenden Schule</includedValues>
@@ -210,6 +278,12 @@
                     <includedValues>Nicht-Erwerbstätige::G::Sonstiges, und zwar: bitte angeben</includedValues>
                 </constraint>
             </Rule>
+
+    <Rule path="/data[at0001]/items[at0002]" name="Nicht-Erwerbstätige" clone="true" >
+            <constraint xsi:type="tem:textConstraint">
+            </constraint>
+        </Rule>
+            <Rule max="0" path="/protocol[at0007]/items[at0009]"/>
         </Content>
     </definition>
     <integrity_checks
@@ -217,6 +291,22 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8D51C7D41FE769FA1AAEA7155A8B7447</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
