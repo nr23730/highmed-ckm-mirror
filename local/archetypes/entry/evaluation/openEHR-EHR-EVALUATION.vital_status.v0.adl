@@ -15,14 +15,18 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Darstellung des Vitalstatus eines Patienten zum letzten bekannten Lebenszeitpunkt.">
-			use = <"Diesen Archetypen verwenden, um den Vitalstatus (\"Letzten bekannten Lebenszeitpunktes\") eines Patienten darzustellen.">
+			purpose = <"Zur Darstellung des Vitalstatus einer Person, der z.B. bei der Entlassung aus dem Krankenhaus in Krankenakten verzeichnet wird.">
+			use = <"Diesen Archetypen verwenden, um den Vitalstatus (\"Letzten bekannten Lebenszeitpunktes\") einer Person darzustellen.
+
+Mindestens bei jeder Aufnahme / Entlassung der PatientInnen wird ein Vitalstatus erstellt. Es ist zu beachten, dass die administrative Entlassung der PatientInnen auch aufgrund des Todes dokumentiert wird.
+
+Für jede Beurteilung soll eine neue Archetypen-Instanz verwendet werden.">
 			keywords = <"Vitalstatus, vital, Lebendigkeit, Lebenszeitpunkt, Vitalität, Zustand, Status", ...>
 			misuse = <"Nicht zur Darstellung von Informationen zum Tod einer Person.">
 		>
 	>
 	lifecycle_state = <"in_development">
-	other_contributors = <>
+	other_contributors = <"Natalia Strauch", ...>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -34,8 +38,8 @@ Firely (ohne Datum) De.Medizininformatikinitiative.Kerndatensatz.Person, Medizin
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"7DF509771974F25F33F5995955505B4F">
-		["build_uid"] = <"6fcb076e-a52f-4fc7-83a6-e1cfa7c146ef">
+		["MD5-CAM-1.0.1"] = <"916ADEFB9245E9C3A3975004BA612C65">
+		["build_uid"] = <"f2e59639-3f43-4d1c-820a-6b7e24e6be0c">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -43,23 +47,18 @@ definition
 	EVALUATION[at0000] matches {    -- Vitalstatus
 		data matches {
 			ITEM_TREE[at0001] matches {    -- Item tree
-				items cardinality matches {0..*; unordered} matches {
+				items cardinality matches {1..*; unordered} matches {
 					ELEMENT[at0006] matches {    -- Vitalstatus
 						value matches {
-							DV_CODED_TEXT matches {*}
 							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Status-Datum
-						value matches {
-							DV_DATE_TIME matches {*}
+							DV_CODED_TEXT matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {    -- Zusätzliche Angaben
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Kommentar
+					ELEMENT[at0013] occurrences matches {0..*} matches {    -- Kommentar
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -70,7 +69,7 @@ definition
 		protocol matches {
 			ITEM_TREE[at0002] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0018] occurrences matches {0..1} matches {    -- Letzte Aktualisierung
+					ELEMENT[at0018] matches {    -- Zeitpunkt der Aktualisierung
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
@@ -101,17 +100,11 @@ ontology
 					text = <"Item tree">
 					description = <"@ internal @">
 				>
-				["at0005"] = <
-					text = <"Status-Datum">
-					description = <"Zeitpunkt, zu dem der Vitalstatus als wahr beobachtet wird. Enthält nicht den Todeszeitpunkt.">
-					comment = <"Partielle Datumsangaben sind auch erlaubt.">
-				>
 				["at0006"] = <
 					text = <"Vitalstatus">
-					description = <"Vitalstatus (\"Letzter bekannter Lebenszeitpunkt\") eines Patienten, der mindestens bei der Aufnahme oder Entlassung fesgestellt wird.">
+					description = <"Vitalstatus der Person.">
 					comment = <"Zum Beispiel: Patient lebt oder ist verstorben. Nach Möglichkeit wird die Codierung des Vitalstatus mit einer Terminologie bevorzugt.
-fhir_mapping: Observation.value[x].coding:Vitalstatus
-">
+fhir_mapping: Observation.value[x].coding:Vitalstatus.">
 				>
 				["at0010"] = <
 					text = <"Zusätzliche Angaben">
@@ -122,8 +115,9 @@ fhir_mapping: Observation.value[x].coding:Vitalstatus
 					description = <"Zusätzliche Informationen zum Vitalstatus, die in anderen Feldern nicht erfasst wurden.">
 				>
 				["at0018"] = <
-					text = <"Letzte Aktualisierung">
-					description = <"Das Datum, an dem der Vitalstatus zuletzt aktualisiert wurde.">
+					text = <"Zeitpunkt der Aktualisierung">
+					description = <"Die Zeit oder Zeitspanne, zu der der Vitalstatus als wahr behauptet wird.">
+					comment = <"Partielle Datumsangaben sind auch erlaubt. Enthält nicht den Todeszeitpunkt. fhir_mapping: Observation.effective[x].">
 				>
 				["at0021"] = <
 					text = <"Erweiterung">

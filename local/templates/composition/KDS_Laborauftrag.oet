@@ -245,16 +245,14 @@
             <Rule max="1" path="/activities[at0001]"/>
             <Rule name="Name der Laborleistung" path="/activities[at0001]/description[at0009]/items[at0121]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId queryName="(LOINC)"
-                        terminologyID="LOINC" terminologyLang="en-GB"/>
+                    <termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-labor/ValueSet/ValueSetOrderCodes" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule
-                default="http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory"
                 min="1" name="Art der Laborleistung (Kategorie)" path="/activities[at0001]/description[at0009]/items[at0148]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://terminology.hl7.org/CodeSystem/observation-category::laboratory::Laboratory</includedValues>
-                </constraint>
+				<includedValues>http://terminology.hl7.org/ValueSet/observation-category::laboratory::Laboratory</includedValues>
+                    </constraint>
             </Rule>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0135]"/>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0062]"/>
@@ -262,7 +260,7 @@
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0152]"/>
             <Rule max="1" min="1" path="/activities[at0001]/description[at0009]/items[at0065]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>order</includedValues>
+                    <includedValues>http://hl7.org/fhir/request-intent::order::Order</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0068]">
@@ -282,13 +280,13 @@
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0147]"/>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0076]"/>
             <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0078]"/>
-            <Rule min="1" path="/protocol[at0008]/items[at0010]">
+            <Rule min="1"
+                name="Auftrags-ID des anfordernden/einsendenden Systems (PLAC)" path="/protocol[at0008]/items[at0010]">
                 <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
                     <includedTypes>Identifier</includedTypes>
                 </constraint>
             </Rule>
-            <Rule min="1" path="/protocol[at0008]/items[at0011]">
+            <Rule path="/protocol[at0008]/items[at0011]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Text</includedTypes>
                     <includedTypes>Identifier</includedTypes>
@@ -296,7 +294,7 @@
             </Rule>
             <Rule min="1" path="/protocol[at0008]/items[at0127]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>completed</includedValues>
+                    <includedValues>http://hl7.org/fhir/ValueSet/request-status::completed::Completed</includedValues>
                 </constraint>
             </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
@@ -347,10 +345,17 @@
                 </Rule>
                 <Rule max="0" path="/items[at0045]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.organization.v0"
-                concept_name="Organisationseinheit" max="1"
-                name="Einsenderstandort"
-                path="/protocol[at0008]/items[at0112]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v1"
+                concept_name="Organisation" max="1" min="1"
+                name="Einsender" path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+                <Rule max="1" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0019]"/>
+            </Items>
         </Content>
         <Context>
             <Items
@@ -386,9 +391,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">E637F4E72B8AF6864C778C54E519ADA4</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.organization.v0"
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.organisation.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D89C6BDB7361A3527154105AF319A685</digest>
+        <digest id="MD5-CAM-1.0.1">5DFD0809E7CD46EA0712A590C68F545B</digest>
     </integrity_checks>
 </template>
