@@ -97,7 +97,11 @@ Das SECTION-Template ist nicht zum Aktualisieren des Diagnose-Status bzw. zur Ve
         <Item archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
             concept_name="Problem/Diagnose" max="1" name="Tumordiagnose"
             path="/items[at0001]" xsi:type="tem:EVALUATION">
-            <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
+            <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]">
+				<constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+				</Rule>
             <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
@@ -140,7 +144,7 @@ Das SECTION-Template ist nicht zum Aktualisieren des Diagnose-Status bzw. zur Ve
 				<constraint xsi:type="tem:textConstraint">
                         <termQueryId
                             queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-biobank/ValueSet/icd-o-3-topography" terminologyID="//fhir.hl7.org/"/>
-                </constraint> 
+            	</constraint> 
 				</Rule>				
                 <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
             </Items>

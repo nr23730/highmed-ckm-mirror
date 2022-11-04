@@ -89,7 +89,11 @@
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose" max="1"
                 name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
-                <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
+                <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]">
+				<constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+				</Rule>
                 <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
                 <Rule max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
@@ -120,10 +124,22 @@
                 </Rule>
                 <Rule name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
-                    max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
-                    <Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
-                    <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
-                </Items>
+                max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+				<Rule path="/items[at0001]">
+				<constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/morphologie-icdo3" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
+				</Rule>
+				<Rule name="Morphologie Beschreibung" path="/items[at0003]"/>
+				<Rule path="/items[at0009]">
+				<constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-biobank/ValueSet/icd-o-3-topography" terminologyID="//fhir.hl7.org/"/>
+            	</constraint> 
+				</Rule>				
+                <Rule name="Topographie Beschreibung" path="/items[at0014]"/>
+            </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v1" max="1"
                     path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
