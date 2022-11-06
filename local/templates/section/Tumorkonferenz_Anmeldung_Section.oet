@@ -182,9 +182,8 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
                         <Rule max="0" path="/items[at0010]"/>												
                         <Rule max="0" path="/items[at0003]"/>
                         <Rule max="0" path="/items[at0004]"/>
-                        <Rule max="0" path="/items[at0006]"/>
                         <Items
-                            archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+                            archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
                             max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
                             <Rule path="/items[at0001]">
                                 <constraint xsi:type="tem:textConstraint">
@@ -199,11 +198,47 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
                     </Items>
             </Items>
             <Items
-                archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
-                concept_name="Professional role"
-                name="Erforderliche Fachdisziplinen"
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1" path="/protocol[at0008]/items[at0112]" xsi:type="tem:CLUSTER">
+                <Rule name="Laufende Fallnummer" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
+                    concept_name="Person" max="1"
+                    name="Anmeldender Arzt"
+                    path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0011]"/>
+                    <Rule max="0" path="/items[at0010]"/>	
+					<Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                   <Items
+                        archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
+                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>Dr. med.</includedValues>
+                                <includedValues>Prof. Dr. med.</includedValues>
+                                <includedValues>PD Dr. med.</includedValues>
+                                <includedValues>Dipl.-Med.</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0006]"/>
+                    </Items>
+                </Items>
+        <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
+		        concept_name="Person" name="Erforderliche Fachdisziplinen"
                 path="/protocol[at0008]/items[at0128]" xsi:type="tem:CLUSTER">
-                <Rule name="Fachdisziplinen" path="/items[at0001]">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule name="Fachdisziplinen" path="/items[at0004]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>(Translationale) Onkologie</includedValues>
                         <includedValues>Molekularpathologie</includedValues>
@@ -223,39 +258,9 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
                         <includedValues>Internistische Onkologie</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/items[at0010]"/>
             </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1" path="/protocol[at0008]/items[at0112]" xsi:type="tem:CLUSTER">
-                <Rule name="Laufende Fallnummer" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0006]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
-                    concept_name="Person" max="1"
-                    name="Anmeldender Arzt"
-                    path="/protocol[at0008]/items[at0141]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0011]"/>
-                    <Rule max="0" path="/items[at0010]"/>	
-					<Rule max="0" path="/items[at0003]"/>
-                    <Rule max="0" path="/items[at0004]"/>
-                    <Rule max="0" path="/items[at0006]"/>
-                    <Items
-                        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
-                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                        <Rule path="/items[at0001]">
-                            <constraint xsi:type="tem:textConstraint">
-                                <includedValues>Dr. med.</includedValues>
-                                <includedValues>Prof. Dr. med.</includedValues>
-                                <includedValues>PD Dr. med.</includedValues>
-                                <includedValues>Dipl.-Med.</includedValues>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0006]"/>
-                    </Items>
-                </Items>
-        </Item>
+		</Item>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -279,16 +284,10 @@ Das SECTION-Template ist nicht zum Aktualisieren des Konferenz-Status einer einm
         <digest id="MD5-CAM-1.0.1">F1B417CBAE0A0D6B70856C5909865044</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.structured_name.v0"
+        archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">F22E5188BC742A8C7BB3B29C9C20A2A6</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.professional_role.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">B84D0961F3E68F2EAA3E2CE71DCD2FF9</digest>
+        <digest id="MD5-CAM-1.0.1">4C91B974D7EE4B40B0579711D6B62439</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
