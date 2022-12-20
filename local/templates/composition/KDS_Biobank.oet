@@ -22,7 +22,14 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Zur Darstellung von Daten zu Bioproben, ihrer Gewinnung, Verarbeitung und Lagerung sowie der Organisationeinheiten, die diese Proben verwalten.
+Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformatik Initative.</purpose>
+            <keywords>
+                <item>Biobank; Bioprobe</item>
+            </keywords>
+            <use>Für die Repräsentation der Bioprobendaten eines Patienten.</use>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -46,7 +53,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>29.0.0</value>
+                <value>50.1.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -54,7 +61,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>51dbee7690168441296d819fdb13fdee</value>
+                <value>16bf563dc8dd1045c9f0a7182c2044a7</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -166,14 +173,6 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.biospecimen_summary.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0045]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Specimen.note</value>
-            </item>
-        </items>
-    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.biospecimen_summary.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0007]">
         <items>
             <item>
@@ -190,27 +189,30 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.biospecimen_summary.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0070]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Specimen.collection.collector</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="KDS_Biobank"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-EVALUATION.biospecimen_summary.v0"
-            max="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Bioproben-ID" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Identifier</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                </constraint>
-            </Rule>
-            <Rule clone="true" name="Quellproben-ID" path="/data[at0001]/items[at0002]">
+            concept_name="Zusammenfassung zur Bioprobe" max="1"
+            name="Bioprobe" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Identifier</includedTypes>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/items[at0003]">
-                <constraint limitToList="false" xsi:type="tem:textConstraint">
+                <constraint xsi:type="tem:textConstraint">
                     <includedValues>SNOMED_CT::442524009::a.m. specimen</includedValues>
                     <includedValues>SNOMED_CT::704243004::Animal head specimen</includedValues>
                     <includedValues>SNOMED_CT::734338009::Arthropod material submitted as specimen</includedValues>
@@ -279,22 +281,27 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0019]"/>
-            <Rule path="/data[at0001]/items[at0004]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>v2-0487::ABS::Abscess</includedValues>
-                </constraint>
-            </Rule>
             <Rule max="0" path="/data[at0001]/items[at0005]"/>
             <Rule max="0" path="/data[at0001]/items[at0006]"/>
             <Rule max="0" path="/data[at0001]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/items[at0018]"/>
             <Rule max="0" path="/data[at0001]/items[at0010]"/>
             <Rule max="0" path="/data[at0001]/items[at0011]"/>
             <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule name="Status der Bioprobe" path="/data[at0001]/items[at0016]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>specimen-status::available::Available</includedValues>
+                    <includedValues>specimen-status::unavailable::Unavailable</includedValues>
+                    <includedValues>specimen-status::unsatisfactory::Unsatisfactory</includedValues>
+                    <includedValues>specimen-status::entered-in-error::Entered in Error</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0013]/items[at0014]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.specimen.v1"
                 max="1" path="/data[at0001]/items[at0008]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0029]"/>
                 <Rule max="0" path="/items[at0098]"/>
-                <Rule path="/items[at0097]">
+                <Rule name="Zustand der Probe" path="/items[at0097]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>v2.0493::AUT::Autolyzed</includedValues>
                         <includedValues>v2.0493::CLOT::Clotted</includedValues>
@@ -346,6 +353,12 @@
                 <Rule max="0" path="/items[at0087]"/>
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
+                <Rule name="Identifikator des Probennehmers" path="/items[at0070]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/items[at0080]">
                     <constraint xsi:type="tem:countConstraint">
                         <minMagnitude>0</minMagnitude>
@@ -353,7 +366,7 @@
                         <includesMinimum>true</includesMinimum>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0003]">
+                <Rule path="/items[at0003]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Identifier</includedTypes>
                         <includedTypes>Text</includedTypes>
@@ -371,26 +384,525 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/items[at0045]"/>
+                <Items archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+                    concept_name="Arzneimittel" max="1"
+                    name="verwendetes Material" path="/items[at0085]" xsi:type="tem:CLUSTER">
+                    <Rule min="1" name="Substanz" path="/items[at0132]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED_CT::406455002::Allergen class</includedValues>
+                            <includedValues>SNOMED_CT::255640000::Biocide</includedValues>
+                            <includedValues>SNOMED_CT::115668003::Biological substance</includedValues>
+                            <includedValues>SNOMED_CT::91720002::Body substance</includedValues>
+                            <includedValues>SNOMED_CT::373782009::Diagnostic substance</includedValues>
+                            <includedValues>SNOMED_CT::410942007::Drug or medicament</includedValues>
+                            <includedValues>SNOMED_CT::762766007::Edible substance</includedValues>
+                            <includedValues>SNOMED_CT::260769002::Material</includedValues>
+                            <includedValues>SNOMED_CT::766739005::Substance categorized by disposition</includedValues>
+                            <includedValues>SNOMED_CT::438951008::Substance categorized by hazard characteristics</includedValues>
+                            <includedValues>SNOMED_CT::115669006::Substance categorized by physical state</includedValues>
+                            <includedValues>SNOMED_CT::312412007::Substance categorized functionally</includedValues>
+                            <includedValues>SNOMED_CT::312413002::Substance categorized structurally</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0071]"/>
+                    <Rule name="Kategorie" path="/items[at0142]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SubstanceCategoryCodes::allergen::Allergen</includedValues>
+                            <includedValues>SubstanceCategoryCodes::biological::Biological Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::body::Body Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::chemical::Chemical</includedValues>
+                            <includedValues>SubstanceCategoryCodes::food::Dietary Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::drug::Drug or Medicament</includedValues>
+                            <includedValues>SubstanceCategoryCodes::material::Material</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule clone="true" name="Kategorie" path="/items[at0142]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0152]"/>
+                    <Rule max="0" path="/items[at0158]"/>
+                    <Rule max="0" path="/items[at0115]">
+                        <constraint xsi:type="tem:quantityConstraint"/>
+                    </Rule>
+                    <Rule max="0" path="/items[at0151]"/>
+                    <Rule max="0" path="/items[at0150]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                            <includedTypes>Identifier</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0139]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0008]"/>
+                    <Rule max="0" path="/items[at0148]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0007]"/>
+                    <Rule max="0" path="/items[at0127]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0133]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+                        max="1" path="/items[at0138]" xsi:type="tem:CLUSTER">
+                        <Rule name="Substanz" path="/items[at0132]"/>
+                        <Rule max="0" path="/items[at0071]"/>
+                        <Rule max="0" path="/items[at0142]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Coded_text</includedTypes>
+                                <includedTypes>Text</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0152]"/>
+                        <Rule max="0" path="/items[at0158]"/>
+                        <Rule max="0" path="/items[at0115]">
+                            <constraint xsi:type="tem:quantityConstraint"/>
+                        </Rule>
+                        <Rule max="0" path="/items[at0151]"/>
+                        <Rule max="0" path="/items[at0150]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Text</includedTypes>
+                                <includedTypes>Identifier</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0139]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>1</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0008]"/>
+                        <Rule max="0" path="/items[at0148]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>1</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0007]"/>
+                        <Rule max="0" path="/items[at0127]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Coded_text</includedTypes>
+                                <includedTypes>Text</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0133]"/>
+                    </Items>
+                </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.specimen_container.v1"
                     max="1" path="/items[at0085]" xsi:type="tem:CLUSTER">
-                    <Rule path="/items[at0005]">
-                        <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <Rule min="1"
+                        name="Art des Behälters, der die Probe beinhaltet" path="/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
                             <includedValues>SNOMED_CT::434711009::Specimen container</includedValues>
                             <includedValues>SNOMED_CT::706437002::Container (physical object)</includedValues>
                             <includedValues>SNOMED_CT::706046003::Specimen receptacle (physical object)</includedValues>
                             <includedValues>SNOMED_CT::83059008::Tube, device (physical object)</includedValues>
                         </constraint>
                     </Rule>
+                    <Rule max="0" path="/items[at0003]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Identifier</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0013]"/>
                     <Rule max="0" path="/items[at0037]"/>
                     <Rule max="0" path="/items[at0026]"/>
+                    <Rule path="/items[at0035]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Quantity</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0038]">
                         <constraint xsi:type="tem:multipleConstraint">
                             <includedTypes>Text</includedTypes>
                             <includedTypes>Quantity</includedTypes>
                         </constraint>
                     </Rule>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.specimen_measurements.v1"
+                        concept_name="Probengrößen" max="1"
+                        name="Probenmenge im Behälter"
+                        path="/items[at0028]" xsi:type="tem:CLUSTER">
+                        <Rule name="Probengröße" path="/items[at0046]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>[foz_us]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>mm3</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[gal_us]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>uL</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>cm3</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>dL</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>cl</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[pt_us]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>um3</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>dm3</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>L</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>ml</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0042]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>mm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[ft_i]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[in_i]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>um</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>cm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>m</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>nm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0055]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>mm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[ft_i]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[in_i]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>um</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>cm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>m</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>nm</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0020]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>ug</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>g</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>ng</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>mg</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[oz_av]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>kg</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>[lb_av]</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                </Items>
+                <Items archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+                    concept_name="Arzneimittel"
+                    name="verwendetes Material" path="/items[at0068]" xsi:type="tem:CLUSTER">
+                    <Rule min="1" name="Substanz" path="/items[at0132]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED_CT::406455002::Allergen class</includedValues>
+                            <includedValues>SNOMED_CT::255640000::Biocide</includedValues>
+                            <includedValues>SNOMED_CT::115668003::Biological substance</includedValues>
+                            <includedValues>SNOMED_CT::91720002::Body substance</includedValues>
+                            <includedValues>SNOMED_CT::373782009::Diagnostic substance</includedValues>
+                            <includedValues>SNOMED_CT::410942007::Drug or medicament</includedValues>
+                            <includedValues>SNOMED_CT::762766007::Edible substance</includedValues>
+                            <includedValues>SNOMED_CT::260769002::Material</includedValues>
+                            <includedValues>SNOMED_CT::766739005::Substance categorized by disposition</includedValues>
+                            <includedValues>SNOMED_CT::438951008::Substance categorized by hazard characteristics</includedValues>
+                            <includedValues>SNOMED_CT::115669006::Substance categorized by physical state</includedValues>
+                            <includedValues>SNOMED_CT::312412007::Substance categorized functionally</includedValues>
+                            <includedValues>SNOMED_CT::312413002::Substance categorized structurally</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0071]"/>
+                    <Rule name="Kategorie" path="/items[at0142]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SubstanceCategoryCodes::allergen::Allergen</includedValues>
+                            <includedValues>SubstanceCategoryCodes::biological::Biological Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::body::Body Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::chemical::Chemical</includedValues>
+                            <includedValues>SubstanceCategoryCodes::food::Dietary Substance</includedValues>
+                            <includedValues>SubstanceCategoryCodes::drug::Drug or Medicament</includedValues>
+                            <includedValues>SubstanceCategoryCodes::material::Material</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule clone="true" name="Kategorie" path="/items[at0142]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0152]"/>
+                    <Rule max="0" path="/items[at0158]"/>
+                    <Rule max="0" path="/items[at0115]">
+                        <constraint xsi:type="tem:quantityConstraint"/>
+                    </Rule>
+                    <Rule max="0" path="/items[at0151]"/>
+                    <Rule max="0" path="/items[at0150]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                            <includedTypes>Identifier</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0003]"/>
+                    <Rule max="0" path="/items[at0139]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0008]"/>
+                    <Rule max="0" path="/items[at0148]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0007]"/>
+                    <Rule max="0" path="/items[at0127]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0133]"/>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+                        path="/items[at0138]" xsi:type="tem:CLUSTER">
+                        <Rule name="Substanz" path="/items[at0132]"/>
+                        <Rule max="0" path="/items[at0071]"/>
+                        <Rule max="0" path="/items[at0142]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Coded_text</includedTypes>
+                                <includedTypes>Text</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0152]"/>
+                        <Rule max="0" path="/items[at0158]"/>
+                        <Rule max="0" path="/items[at0115]">
+                            <constraint xsi:type="tem:quantityConstraint"/>
+                        </Rule>
+                        <Rule max="0" path="/items[at0151]"/>
+                        <Rule max="0" path="/items[at0150]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Text</includedTypes>
+                                <includedTypes>Identifier</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0139]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>1</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0008]"/>
+                        <Rule max="0" path="/items[at0148]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <unitMagnitude>
+                                    <unit>1</unit>
+                                    <minMagnitude>0.0</minMagnitude>
+                                    <includesMaximum>false</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0007]"/>
+                        <Rule max="0" path="/items[at0127]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Coded_text</includedTypes>
+                                <includedTypes>Text</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0133]"/>
+                    </Items>
                 </Items>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.specimen_preparation.v0"
@@ -399,165 +911,1042 @@
                         name="Datum und Zeit des Aufbereitungsschrittes - Start" path="/items[at0072]"/>
                     <Rule clone="true"
                         name="Datum und Zeit des Aufbereitungsschrittes - Ende" path="/items[at0072]"/>
-                    <Rule path="/items[at0071]">
+                    <Rule min="1" name="Art des Aufbereitungsschrittes" path="/items[at0071]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>SNOMED_CT::310076001::Chemical</includedValues>
+                            <includedValues>SNOMED_CT::108257001::Anatomic pathology procedure</includedValues>
+                            <includedValues>SNOMED_CT::88094004::Cryopreservation</includedValues>
+                            <includedValues>SNOMED_CT::439986000::Determination of acetylation rate</includedValues>
+                            <includedValues>SNOMED_CT::127789004::Laboratory procedure categorized by method</includedValues>
+                            <includedValues>SNOMED_CT::440677001::Laboratory procedure related to reproduction</includedValues>
+                            <includedValues>SNOMED_CT::16488004::Laboratory reporting</includedValues>
+                            <includedValues>SNOMED_CT::15220000::Laboratory test</includedValues>
+                            <includedValues>SNOMED_CT::59615004::Laboratory test order by laboratory initiative</includedValues>
+                            <includedValues>SNOMED_CT::26895000::Laboratory test order cancelation</includedValues>
+                            <includedValues>SNOMED_CT::116148004::Molecular genetics procedure</includedValues>
+                            <includedValues>SNOMED_CT::448938001::Preparation of smear</includedValues>
+                            <includedValues>SNOMED_CT::108324000::Specimen collection AND/OR ward laboratory procedure</includedValues>
+                            <includedValues>SNOMED_CT::9265001::Specimen processing</includedValues>
                         </constraint>
                     </Rule>
+                    <Rule clone="true" min="1"
+                        name="Art des Aufbereitungsschrittes" path="/items[at0071]"/>
                     <Rule max="0" path="/items[at0074]"/>
                     <Rule max="0" path="/items[at0087]"/>
-                    <Rule name="Temperaturbedingungen" path="/items[at0086]/items[at0073]"/>
+                    <Rule min="1" path="/items[at0086]"/>
+                    <Rule min="1" name="Temperaturbedingungen" path="/items[at0086]/items[at0073]"/>
                     <Rule max="0" path="/items[at0086]/items[at0084]"/>
                     <Rule max="0" path="/items[at0086]/items[at0075]"/>
                     <Rule max="0" path="/items[at0086]/items[at0076]"/>
                 </Items>
                 <Items
-                    archetype_id="openEHR-EHR-CLUSTER.specimen_measurements.v1"
-                    max="1" path="/items[at0027]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0042]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>mm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[ft_i]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[in_i]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>um</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>cm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>m</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>nm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0055]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>mm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[ft_i]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[in_i]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>um</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>cm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>m</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>nm</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0020]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>ug</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>g</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>ng</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>mg</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[oz_av]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>kg</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                            <unitMagnitude>
-                                <unit>[lb_av]</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
-                    </Rule>
-                </Items>
-                <Items
                     archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
                     concept_name="Anatomische Lokalisation" max="1"
-                    name="BodySite Code sct" path="/items[at0013]" xsi:type="tem:CLUSTER">
-                    <Rule name="Body site code" path="/items[at0001]"/>
+                    name="Entnahmestelle (SNOMED CT)"
+                    path="/items[at0013]" xsi:type="tem:CLUSTER">
+                    <Rule name="Body site code" path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED_CT::442083009::Anatomical or acquired body structure (body structure)</includedValues>
+                            <includedValues>SNOMED_CT::106004::Posterior carpal region</includedValues>
+                            <includedValues>SNOMED_CT::107008::Fetal part of placenta</includedValues>
+                            <includedValues>SNOMED_CT::108003::Entire condylar emissary vein</includedValues>
+                            <includedValues>SNOMED_CT::110001::Visceral layer of Bowman's capsule</includedValues>
+                            <includedValues>SNOMED_CT::111002::Parathyroid gland</includedValues>
+                            <includedValues>SNOMED_CT::116007::Subcutaneous tissue of medial surface of index finger</includedValues>
+                            <includedValues>SNOMED_CT::124002::Coronoid process of mandible</includedValues>
+                            <includedValues>SNOMED_CT::149003::Central pair of microtubules, cilium or flagellum, not bacterial</includedValues>
+                            <includedValues>SNOMED_CT::155008::Deep circumflex artery of ilium</includedValues>
+                            <includedValues>SNOMED_CT::167005::Supraclavicular part of brachial plexus</includedValues>
+                            <includedValues>SNOMED_CT::202009::Anterior division of renal artery</includedValues>
+                            <includedValues>SNOMED_CT::205006::Entire left commissure of aortic valve</includedValues>
+                            <includedValues>SNOMED_CT::206007::Gluteus maximus muscle</includedValues>
+                            <includedValues>SNOMED_CT::221001::Articular surface, phalanges, of fourth metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::227002::Canal of Hering</includedValues>
+                            <includedValues>SNOMED_CT::233006::Hepatocolic ligament</includedValues>
+                            <includedValues>SNOMED_CT::235004::Superior labial artery</includedValues>
+                            <includedValues>SNOMED_CT::246001::Lateral vestibular nucleus</includedValues>
+                            <includedValues>SNOMED_CT::247005::Mesotympanum</includedValues>
+                            <includedValues>SNOMED_CT::251007::Pectoral region</includedValues>
+                            <includedValues>SNOMED_CT::256002::Kupffer cell</includedValues>
+                            <includedValues>SNOMED_CT::263002::Thoracic nerve</includedValues>
+                            <includedValues>SNOMED_CT::266005::Right lower lobe of lung</includedValues>
+                            <includedValues>SNOMED_CT::272005::Superior articular process of lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::273000::Lateral myocardium</includedValues>
+                            <includedValues>SNOMED_CT::283001::Central axillary lymph node</includedValues>
+                            <includedValues>SNOMED_CT::284007::Entire flexor tendon and tendon sheath of fourth toe</includedValues>
+                            <includedValues>SNOMED_CT::289002::Metacarpophalangeal joint of index finger</includedValues>
+                            <includedValues>SNOMED_CT::301000::Fifth metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::311007::Plantar surface of great toe</includedValues>
+                            <includedValues>SNOMED_CT::315003::Skin of umbilicus</includedValues>
+                            <includedValues>SNOMED_CT::318001::Cardiac impression of liver</includedValues>
+                            <includedValues>SNOMED_CT::344001::Ankle</includedValues>
+                            <includedValues>SNOMED_CT::345000::Atrioventricular bundle</includedValues>
+                            <includedValues>SNOMED_CT::356000::Reticular corium</includedValues>
+                            <includedValues>SNOMED_CT::393006::Wall of urinary bladder</includedValues>
+                            <includedValues>SNOMED_CT::402006::Dental branches of inferior alveolar artery</includedValues>
+                            <includedValues>SNOMED_CT::405008::Entire posterior temporal diploic vein</includedValues>
+                            <includedValues>SNOMED_CT::414003::Gastric fundus</includedValues>
+                            <includedValues>SNOMED_CT::420002::Anastomosis, heterocladic</includedValues>
+                            <includedValues>SNOMED_CT::422005::Inferior surface of tongue</includedValues>
+                            <includedValues>SNOMED_CT::446003::Trochanteric bursa</includedValues>
+                            <includedValues>SNOMED_CT::457008::Collateral ligament</includedValues>
+                            <includedValues>SNOMED_CT::461002::Lateral corticospinal tract</includedValues>
+                            <includedValues>SNOMED_CT::464005::Basophilic normoblast</includedValues>
+                            <includedValues>SNOMED_CT::465006::Ascending frontal gyrus</includedValues>
+                            <includedValues>SNOMED_CT::471000::Flexor hallucis longus muscle</includedValues>
+                            <includedValues>SNOMED_CT::480000::Cardiopulmonary circulatory system</includedValues>
+                            <includedValues>SNOMED_CT::485005::Transverse colon</includedValues>
+                            <includedValues>SNOMED_CT::528006::Costal surface of lung</includedValues>
+                            <includedValues>SNOMED_CT::552004::Entire vagus nerve parasympathetic fibers to cardiac plexus</includedValues>
+                            <includedValues>SNOMED_CT::565008::Intervertebral disc space of fifth lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::582005::Head of phalanx of great toe</includedValues>
+                            <includedValues>SNOMED_CT::587004::Capsule of proximal interphalangeal joint of third toe</includedValues>
+                            <includedValues>SNOMED_CT::589001::Interventricular septum</includedValues>
+                            <includedValues>SNOMED_CT::595000::Palpebral fissure</includedValues>
+                            <includedValues>SNOMED_CT::608002::Subcutaneous tissue of philtrum</includedValues>
+                            <includedValues>SNOMED_CT::621009::Multivesicular body, internal vesicles</includedValues>
+                            <includedValues>SNOMED_CT::635006::Tuberosity of distal phalanx of little toe</includedValues>
+                            <includedValues>SNOMED_CT::650002::Superior articular process of seventh thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::660006::Tracheal mucous membrane</includedValues>
+                            <includedValues>SNOMED_CT::661005::Jaw</includedValues>
+                            <includedValues>SNOMED_CT::667009::Embryonic structure</includedValues>
+                            <includedValues>SNOMED_CT::688000::Fetal hyaloid artery</includedValues>
+                            <includedValues>SNOMED_CT::691000::Small intestine submucosa</includedValues>
+                            <includedValues>SNOMED_CT::692007::Body of ischium</includedValues>
+                            <includedValues>SNOMED_CT::723004::Dense intermediate filament bundles</includedValues>
+                            <includedValues>SNOMED_CT::774007::Head and neck structure</includedValues>
+                            <includedValues>SNOMED_CT::790007::Visceral aspect of liver</includedValues>
+                            <includedValues>SNOMED_CT::798000::Entire deep temporal vein</includedValues>
+                            <includedValues>SNOMED_CT::808000::Posterior intercostal arteries</includedValues>
+                            <includedValues>SNOMED_CT::809008::Fetal chondrocranium</includedValues>
+                            <includedValues>SNOMED_CT::823005::Posterior cervical spinal cord nerve root</includedValues>
+                            <includedValues>SNOMED_CT::830004::Spinous process of fifth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::836005::Oral region of face</includedValues>
+                            <includedValues>SNOMED_CT::885000::Lamina muscularis of colonic mucous membrane</includedValues>
+                            <includedValues>SNOMED_CT::895007::Anterior cruciate ligament of knee joint</includedValues>
+                            <includedValues>SNOMED_CT::917004::Superior laryngeal aperture</includedValues>
+                            <includedValues>SNOMED_CT::921006::Thyrohyoid branch of ansa cervicalis</includedValues>
+                            <includedValues>SNOMED_CT::947002::Crus of diaphragm</includedValues>
+                            <includedValues>SNOMED_CT::955009::Bronchus</includedValues>
+                            <includedValues>SNOMED_CT::976004::Ovarian vein</includedValues>
+                            <includedValues>SNOMED_CT::996007::Meningeal branches of occipital artery</includedValues>
+                            <includedValues>SNOMED_CT::1005009::Entire diaphragmatic lymph node</includedValues>
+                            <includedValues>SNOMED_CT::1012000::Fibrous portion of pericardium</includedValues>
+                            <includedValues>SNOMED_CT::1015003::Peritonsillar tissue</includedValues>
+                            <includedValues>SNOMED_CT::1028005::Sebaceous gland</includedValues>
+                            <includedValues>SNOMED_CT::1030007::Vesicular bursa of sternohyoid muscle</includedValues>
+                            <includedValues>SNOMED_CT::1063000::Frontozygomatic suture of skull</includedValues>
+                            <includedValues>SNOMED_CT::1075005::Promonocyte</includedValues>
+                            <includedValues>SNOMED_CT::1076006::Entire subcutaneous prepatellar bursa</includedValues>
+                            <includedValues>SNOMED_CT::1086007::Female</includedValues>
+                            <includedValues>SNOMED_CT::1087003::Sternothyroid muscle</includedValues>
+                            <includedValues>SNOMED_CT::1092001::Superior occipital gyrus</includedValues>
+                            <includedValues>SNOMED_CT::1099005::Thymic cortex</includedValues>
+                            <includedValues>SNOMED_CT::1101003::Cranial cavity</includedValues>
+                            <includedValues>SNOMED_CT::1106008::Entire major calyx</includedValues>
+                            <includedValues>SNOMED_CT::1110006::Tarsal gland</includedValues>
+                            <includedValues>SNOMED_CT::1122009::Inferior longitudinal muscle of tongue</includedValues>
+                            <includedValues>SNOMED_CT::1136004::Aortopulmonary septum</includedValues>
+                            <includedValues>SNOMED_CT::1159005::Frenulum linguae</includedValues>
+                            <includedValues>SNOMED_CT::1172006::Odontoid process of axis</includedValues>
+                            <includedValues>SNOMED_CT::1173001::Mandibular nerve</includedValues>
+                            <includedValues>SNOMED_CT::1174007::Chromosomes, group E</includedValues>
+                            <includedValues>SNOMED_CT::1193009::Teres major muscle</includedValues>
+                            <includedValues>SNOMED_CT::1216008::Synostosis</includedValues>
+                            <includedValues>SNOMED_CT::1231004::Meninges</includedValues>
+                            <includedValues>SNOMED_CT::1236009::Duodenal serosa</includedValues>
+                            <includedValues>SNOMED_CT::1243003::Inferior articular process of sixth cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::1246006::Dorsal digital nerves of radial nerve</includedValues>
+                            <includedValues>SNOMED_CT::1263005::Distinctive arrangement of microtubules</includedValues>
+                            <includedValues>SNOMED_CT::1277008::Vertebral nerve</includedValues>
+                            <includedValues>SNOMED_CT::1307006::Glottis</includedValues>
+                            <includedValues>SNOMED_CT::1311000::Telogen hair</includedValues>
+                            <includedValues>SNOMED_CT::1350001::Deep flexor tendon of index finger</includedValues>
+                            <includedValues>SNOMED_CT::1353004::Gastric serosa</includedValues>
+                            <includedValues>SNOMED_CT::1403006::Vastus lateralis muscle</includedValues>
+                            <includedValues>SNOMED_CT::1425000::Posterior limb of stapes</includedValues>
+                            <includedValues>SNOMED_CT::1439000::Paravesicular lymph node</includedValues>
+                            <includedValues>SNOMED_CT::1441004::Ventricle of larynx</includedValues>
+                            <includedValues>SNOMED_CT::1456008::Yellow fibrocartilage</includedValues>
+                            <includedValues>SNOMED_CT::1467009::Parietal branch of superficial temporal artery</includedValues>
+                            <includedValues>SNOMED_CT::1484003::Metatarsus</includedValues>
+                            <includedValues>SNOMED_CT::1490004::Soft tissues of trunk</includedValues>
+                            <includedValues>SNOMED_CT::1502004::Anterior cecal artery</includedValues>
+                            <includedValues>SNOMED_CT::1511004::Ejaculatory duct</includedValues>
+                            <includedValues>SNOMED_CT::1516009::Frontomental diameter of head</includedValues>
+                            <includedValues>SNOMED_CT::1527006::Lamina of fourth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::1537001::Intervertebral disc of eleventh thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::1541002::Coccygeal plexus</includedValues>
+                            <includedValues>SNOMED_CT::1562001::Nucleus pulposus of intervertebral disc of third lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::1580005::Ventral lateral nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::1581009::Ileal arteries</includedValues>
+                            <includedValues>SNOMED_CT::1584001::Entire symphysis</includedValues>
+                            <includedValues>SNOMED_CT::1600003::Splenius capitis muscle</includedValues>
+                            <includedValues>SNOMED_CT::1605008::Histioblast</includedValues>
+                            <includedValues>SNOMED_CT::1610007::Otoconia</includedValues>
+                            <includedValues>SNOMED_CT::1611006::Entire paramammary lymph node</includedValues>
+                            <includedValues>SNOMED_CT::1617005::Intrinsic larynx</includedValues>
+                            <includedValues>SNOMED_CT::1620002::Metaphase nucleus</includedValues>
+                            <includedValues>SNOMED_CT::1626008::Third thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::1627004::Medial collateral ligament of knee joint</includedValues>
+                            <includedValues>SNOMED_CT::1630006::Supraorbital vein</includedValues>
+                            <includedValues>SNOMED_CT::1631005::Foregut</includedValues>
+                            <includedValues>SNOMED_CT::1650005::Hilum of left lung</includedValues>
+                            <includedValues>SNOMED_CT::1655000::Transverse peduncular tract nucleus</includedValues>
+                            <includedValues>SNOMED_CT::1659006::Dorsomedial nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::1684009::Ligamentum teres of liver</includedValues>
+                            <includedValues>SNOMED_CT::1706004::Thymic lobule</includedValues>
+                            <includedValues>SNOMED_CT::1707008::Ventral nuclear group of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::1711002::Periorbital region</includedValues>
+                            <includedValues>SNOMED_CT::1716007::Cupula ampullaris</includedValues>
+                            <includedValues>SNOMED_CT::1721005::Right tonsil</includedValues>
+                            <includedValues>SNOMED_CT::1729007::Central tegmental tract</includedValues>
+                            <includedValues>SNOMED_CT::1732005::Thoracic duct</includedValues>
+                            <includedValues>SNOMED_CT::1765002::Lymphatic of thorax</includedValues>
+                            <includedValues>SNOMED_CT::1780008::Premelanosome</includedValues>
+                            <includedValues>SNOMED_CT::1781007::Sacroiliac region</includedValues>
+                            <includedValues>SNOMED_CT::1797002::Naris</includedValues>
+                            <includedValues>SNOMED_CT::1818002::Greater circulus arteriosus of iris</includedValues>
+                            <includedValues>SNOMED_CT::1825009::Entire root of nose</includedValues>
+                            <includedValues>SNOMED_CT::1832000::Bulbar conjunctiva</includedValues>
+                            <includedValues>SNOMED_CT::1840006::Arrector pili muscles</includedValues>
+                            <includedValues>SNOMED_CT::1849007::Pharyngeal recess</includedValues>
+                            <includedValues>SNOMED_CT::1853009::Suprahyoid muscles</includedValues>
+                            <includedValues>SNOMED_CT::1874005::Entire promontory common iliac lymph node</includedValues>
+                            <includedValues>SNOMED_CT::1893007::Joint of upper extremity</includedValues>
+                            <includedValues>SNOMED_CT::1895000::Entire musculophrenic vein</includedValues>
+                            <includedValues>SNOMED_CT::1902009::Skin of external ear</includedValues>
+                            <includedValues>SNOMED_CT::1910005::Entire ear</includedValues>
+                            <includedValues>SNOMED_CT::1918003::Suprarenal aorta</includedValues>
+                            <includedValues>SNOMED_CT::1927002::Entire left elbow region</includedValues>
+                            <includedValues>SNOMED_CT::1992003::Porus acusticus internus</includedValues>
+                            <includedValues>SNOMED_CT::1997009::Cingulum dentis</includedValues>
+                            <includedValues>SNOMED_CT::2010005::Clavicular facet of scapula</includedValues>
+                            <includedValues>SNOMED_CT::2020000::Superior thoracic artery</includedValues>
+                            <includedValues>SNOMED_CT::2031008::Spinal cord ventral median fissure</includedValues>
+                            <includedValues>SNOMED_CT::2033006::Right fallopian tube</includedValues>
+                            <includedValues>SNOMED_CT::2044003::Vaginal nerves</includedValues>
+                            <includedValues>SNOMED_CT::2048000::Lingual tonsil</includedValues>
+                            <includedValues>SNOMED_CT::2049008::Chorionic villi</includedValues>
+                            <includedValues>SNOMED_CT::2059009::Skin of ear lobule</includedValues>
+                            <includedValues>SNOMED_CT::2071003::Reticular formation of spinal cord</includedValues>
+                            <includedValues>SNOMED_CT::2076008::Head of phalanx of hand</includedValues>
+                            <includedValues>SNOMED_CT::2083001::Nucleus ambiguus</includedValues>
+                            <includedValues>SNOMED_CT::2095001::Accessory sinus</includedValues>
+                            <includedValues>SNOMED_CT::2123001::Tuberomammillary nucleus</includedValues>
+                            <includedValues>SNOMED_CT::2150006::Urinary tract transitional epithelial cell</includedValues>
+                            <includedValues>SNOMED_CT::2156000::Glial cell</includedValues>
+                            <includedValues>SNOMED_CT::2160002::Ligamentum arteriosum</includedValues>
+                            <includedValues>SNOMED_CT::2175005::Pharyngeal cavity</includedValues>
+                            <includedValues>SNOMED_CT::2182009::Endometrial zona basalis</includedValues>
+                            <includedValues>SNOMED_CT::2192001::Clavicular part of pectoralis major muscle</includedValues>
+                            <includedValues>SNOMED_CT::2205003::Lamina of fifth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::2209009::Cerebral basal surface</includedValues>
+                            <includedValues>SNOMED_CT::2236006::Lesser osseous pelvis</includedValues>
+                            <includedValues>SNOMED_CT::2246008::Type I hair cell</includedValues>
+                            <includedValues>SNOMED_CT::2255006::Subserosa</includedValues>
+                            <includedValues>SNOMED_CT::2292006::Nasopharyngeal gland</includedValues>
+                            <includedValues>SNOMED_CT::2302002::Veins of the knee</includedValues>
+                            <includedValues>SNOMED_CT::2305000::Spinous process of cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::2306004::Base of third metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::2327009::Entire salivary seromucous gland (body structure)</includedValues>
+                            <includedValues>SNOMED_CT::2330002::Segmental bronchial branches</includedValues>
+                            <includedValues>SNOMED_CT::2332005::Metencephalon of fetus</includedValues>
+                            <includedValues>SNOMED_CT::2334006::Calyx</includedValues>
+                            <includedValues>SNOMED_CT::2349003::Nasal suture of skull</includedValues>
+                            <includedValues>SNOMED_CT::2372001::Medial surface of toe</includedValues>
+                            <includedValues>SNOMED_CT::2383005::Papillary muscles of right ventricle</includedValues>
+                            <includedValues>SNOMED_CT::2389009::Superior margin of adrenal gland</includedValues>
+                            <includedValues>SNOMED_CT::2395005::Transverse facial artery</includedValues>
+                            <includedValues>SNOMED_CT::2397002::First metatarsal facet of medial cuneiform bone</includedValues>
+                            <includedValues>SNOMED_CT::2400006::Mandibular left first premolar tooth</includedValues>
+                            <includedValues>SNOMED_CT::2402003::Dorsum of foot</includedValues>
+                            <includedValues>SNOMED_CT::2421006::Submaxillary ganglion</includedValues>
+                            <includedValues>SNOMED_CT::2433001::Digital tendon and tendon sheath of foot</includedValues>
+                            <includedValues>SNOMED_CT::2436009::Tunica intima of vein</includedValues>
+                            <includedValues>SNOMED_CT::2453002::Subcutaneous tissue of posterior surface of forearm</includedValues>
+                            <includedValues>SNOMED_CT::2454008::Articular surface, third metacarpal, of second metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::2484000::Skin of frenulum of clitoris</includedValues>
+                            <includedValues>SNOMED_CT::2489005::Medial check ligament of eye</includedValues>
+                            <includedValues>SNOMED_CT::2499000::Entire cisterna pontis</includedValues>
+                            <includedValues>SNOMED_CT::2502001::Membrane of lysosome</includedValues>
+                            <includedValues>SNOMED_CT::2504000::Pancreatic plexus</includedValues>
+                            <includedValues>SNOMED_CT::2510000::Femoral triangle</includedValues>
+                            <includedValues>SNOMED_CT::2539000::Superior rectal artery</includedValues>
+                            <includedValues>SNOMED_CT::2543001::Cuboid articular facet of fourth metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::2550002::Phalanx of thumb</includedValues>
+                            <includedValues>SNOMED_CT::2577006::Gracilis muscle</includedValues>
+                            <includedValues>SNOMED_CT::2579009::Plasmablast</includedValues>
+                            <includedValues>SNOMED_CT::2592007::All extremities</includedValues>
+                            <includedValues>SNOMED_CT::2600000::Flexor pollicis longus muscle tendon</includedValues>
+                            <includedValues>SNOMED_CT::2620004::Intervertebral disc of third thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::2639009::Neuroendocrine tissue</includedValues>
+                            <includedValues>SNOMED_CT::2653009::Posterior thalamic radiation of internal capsule</includedValues>
+                            <includedValues>SNOMED_CT::2666009::Semispinalis capitis muscle</includedValues>
+                            <includedValues>SNOMED_CT::2672009::Anterior cutaneous branch of lumbosacral plexus</includedValues>
+                            <includedValues>SNOMED_CT::2675006::Anterior ethmoidal artery</includedValues>
+                            <includedValues>SNOMED_CT::2681003::Dorsal nerve of penis</includedValues>
+                            <includedValues>SNOMED_CT::2682005::Mucous membrane of urinary bladder</includedValues>
+                            <includedValues>SNOMED_CT::2686008::Medial olfactory gyrus</includedValues>
+                            <includedValues>SNOMED_CT::2687004::Bowman's space</includedValues>
+                            <includedValues>SNOMED_CT::2695000::Left maxillary sinus</includedValues>
+                            <includedValues>SNOMED_CT::2703009::Entire calcarine artery</includedValues>
+                            <includedValues>SNOMED_CT::2712006::Capsule of ankle joint</includedValues>
+                            <includedValues>SNOMED_CT::2718005::Apical foramen of tooth</includedValues>
+                            <includedValues>SNOMED_CT::2726002::Fold for stapes</includedValues>
+                            <includedValues>SNOMED_CT::2730004::Entire vitelline vein of placenta</includedValues>
+                            <includedValues>SNOMED_CT::2739003::Endometrium</includedValues>
+                            <includedValues>SNOMED_CT::2741002::Medial occipitotemporal gyrus</includedValues>
+                            <includedValues>SNOMED_CT::2746007::Circular layer of gastric muscularis</includedValues>
+                            <includedValues>SNOMED_CT::2748008::Spinal cord</includedValues>
+                            <includedValues>SNOMED_CT::2759004::Eccrine gland</includedValues>
+                            <includedValues>SNOMED_CT::2771005::Lamina propria of ureter</includedValues>
+                            <includedValues>SNOMED_CT::2789006::Apocrine gland</includedValues>
+                            <includedValues>SNOMED_CT::2792005::Pars tensa of tympanic membrane</includedValues>
+                            <includedValues>SNOMED_CT::2803000::Tendon sheath of popliteus muscle</includedValues>
+                            <includedValues>SNOMED_CT::2810006::Cremasteric fascia</includedValues>
+                            <includedValues>SNOMED_CT::2812003::Head of femur</includedValues>
+                            <includedValues>SNOMED_CT::2824005::Spinous process of fourth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::2826007::Lamina of fourth lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::2830005::Dorsal digital nerves of lateral hallux and medial second toe</includedValues>
+                            <includedValues>SNOMED_CT::2839006::Perivesicular tissues of seminal vesicles</includedValues>
+                            <includedValues>SNOMED_CT::2841007::Renal artery</includedValues>
+                            <includedValues>SNOMED_CT::2845003::Respiratory epithelium</includedValues>
+                            <includedValues>SNOMED_CT::2848001::Superficial epigastric artery</includedValues>
+                            <includedValues>SNOMED_CT::2855004::Accessory cephalic vein</includedValues>
+                            <includedValues>SNOMED_CT::2861001::Entire gland (organ)</includedValues>
+                            <includedValues>SNOMED_CT::2894003::Posterior epiglottis</includedValues>
+                            <includedValues>SNOMED_CT::2905008::Anterior ligament of uterus</includedValues>
+                            <includedValues>SNOMED_CT::2909002::Posterior portion of diaphragmatic aspect of liver</includedValues>
+                            <includedValues>SNOMED_CT::2920002::Facial nerve motor branch</includedValues>
+                            <includedValues>SNOMED_CT::2922005::Posterior papillary muscle of left ventricle</includedValues>
+                            <includedValues>SNOMED_CT::2923000::Subcutaneous tissue of supraorbital area</includedValues>
+                            <includedValues>SNOMED_CT::2954001::Deciduous supernumerary tooth</includedValues>
+                            <includedValues>SNOMED_CT::2969000::Anatomical space structure (body structure)</includedValues>
+                            <includedValues>SNOMED_CT::2979003::Medial cuneiform bone</includedValues>
+                            <includedValues>SNOMED_CT::2986006::Talar facet of navicular bone of foot</includedValues>
+                            <includedValues>SNOMED_CT::2998001::Entire right margin of uterus</includedValues>
+                            <includedValues>SNOMED_CT::3003007::Anterior limb of internal capsule</includedValues>
+                            <includedValues>SNOMED_CT::3008003::White fibrocartilage</includedValues>
+                            <includedValues>SNOMED_CT::3028004::Transitional epithelial cell</includedValues>
+                            <includedValues>SNOMED_CT::3039001::Subcutaneous tissue of thigh</includedValues>
+                            <includedValues>SNOMED_CT::3042007::Glomerular urinary pole</includedValues>
+                            <includedValues>SNOMED_CT::3054007::Articular surface, metacarpal, of phalanx of thumb</includedValues>
+                            <includedValues>SNOMED_CT::3055008::Bone marrow of vertebral body</includedValues>
+                            <includedValues>SNOMED_CT::3056009::Anteroventral nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::3057000::Nerve</includedValues>
+                            <includedValues>SNOMED_CT::3058005::Peripheral nervous system</includedValues>
+                            <includedValues>SNOMED_CT::3062004::Spinal arachnoid</includedValues>
+                            <includedValues>SNOMED_CT::3068000::Seminal vesicle lumen</includedValues>
+                            <includedValues>SNOMED_CT::3081007::Mitochondrion in division</includedValues>
+                            <includedValues>SNOMED_CT::3093003::Tendinous arch of pelvic fascia</includedValues>
+                            <includedValues>SNOMED_CT::3100007::Clinical crown of tooth</includedValues>
+                            <includedValues>SNOMED_CT::3113001::Suprachoroidal space</includedValues>
+                            <includedValues>SNOMED_CT::3117000::Dorsal surface of index finger</includedValues>
+                            <includedValues>SNOMED_CT::3118005::Trabecula carnea of left ventricle</includedValues>
+                            <includedValues>SNOMED_CT::3120008::Pleura</includedValues>
+                            <includedValues>SNOMED_CT::3134008::Head of fourth metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::3138006::Bony tissue</includedValues>
+                            <includedValues>SNOMED_CT::3153003::Tractus olivocochlearis</includedValues>
+                            <includedValues>SNOMED_CT::3156006::Obturator artery</includedValues>
+                            <includedValues>SNOMED_CT::3159004::Costocervical trunk</includedValues>
+                            <includedValues>SNOMED_CT::3169005::Spinal nerve</includedValues>
+                            <includedValues>SNOMED_CT::3178004::Raphe of soft palate</includedValues>
+                            <includedValues>SNOMED_CT::3194006::Endocardium of right atrium</includedValues>
+                            <includedValues>SNOMED_CT::3198009::Monostomatic sublingual gland</includedValues>
+                            <includedValues>SNOMED_CT::3215002::Subcutaneous tissue of nuchal region</includedValues>
+                            <includedValues>SNOMED_CT::3222005::All large arteries</includedValues>
+                            <includedValues>SNOMED_CT::3227004::Left coronary artery main stem</includedValues>
+                            <includedValues>SNOMED_CT::3236000::Posterior segment of right upper lobe of lung</includedValues>
+                            <includedValues>SNOMED_CT::3243006::Parametrial lymph node</includedValues>
+                            <includedValues>SNOMED_CT::3255000::Papillary area</includedValues>
+                            <includedValues>SNOMED_CT::3262009::Root canal of tooth</includedValues>
+                            <includedValues>SNOMED_CT::3279003::Pedicle of third cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::3295003::Ventral anterior nucleus</includedValues>
+                            <includedValues>SNOMED_CT::3301002::Tectopontine fibers</includedValues>
+                            <includedValues>SNOMED_CT::3302009::Splenic branches of splenic artery</includedValues>
+                            <includedValues>SNOMED_CT::3315000::Vestibulospinal tract</includedValues>
+                            <includedValues>SNOMED_CT::3332001::Occipitofrontal diameter of head</includedValues>
+                            <includedValues>SNOMED_CT::3336003::Haversian canal</includedValues>
+                            <includedValues>SNOMED_CT::3341006::Right lung</includedValues>
+                            <includedValues>SNOMED_CT::3350008::Entire right commissure of pulmonic valve</includedValues>
+                            <includedValues>SNOMED_CT::3362007::Intertragal incisure</includedValues>
+                            <includedValues>SNOMED_CT::3366005::Anterior papillary muscle of left ventricle</includedValues>
+                            <includedValues>SNOMED_CT::3370002::Supporting tissue of rectum</includedValues>
+                            <includedValues>SNOMED_CT::3374006::Secondary spermatocyte</includedValues>
+                            <includedValues>SNOMED_CT::3377004::Agger nasi</includedValues>
+                            <includedValues>SNOMED_CT::3382006::Rima oris</includedValues>
+                            <includedValues>SNOMED_CT::3383001::Nonsegmented basophil</includedValues>
+                            <includedValues>SNOMED_CT::3394002::Suboccipitobregmatic diameter of head</includedValues>
+                            <includedValues>SNOMED_CT::3395001::Superior palpebral arch</includedValues>
+                            <includedValues>SNOMED_CT::3396000::Mesogastrium</includedValues>
+                            <includedValues>SNOMED_CT::3400000::Cell of bone</includedValues>
+                            <includedValues>SNOMED_CT::3409004::Lateral margin of forearm</includedValues>
+                            <includedValues>SNOMED_CT::3417007::Rotator muscles</includedValues>
+                            <includedValues>SNOMED_CT::3438001::Deep lymphatics of upper extremity</includedValues>
+                            <includedValues>SNOMED_CT::3444002::Thalamostriate veins</includedValues>
+                            <includedValues>SNOMED_CT::3447009::Penetrated oocyte</includedValues>
+                            <includedValues>SNOMED_CT::3460003::Anterodorsal nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::3462006::Commissure of tricuspid valve</includedValues>
+                            <includedValues>SNOMED_CT::3471002::Posterior midline of trunk</includedValues>
+                            <includedValues>SNOMED_CT::3478008::Vastus medialis muscle</includedValues>
+                            <includedValues>SNOMED_CT::3481003::Embryonic testis</includedValues>
+                            <includedValues>SNOMED_CT::3488009::Annulate lamella, cisternal lumen</includedValues>
+                            <includedValues>SNOMED_CT::3490005::Subcutaneous tissue of suboccipital region</includedValues>
+                            <includedValues>SNOMED_CT::3524005::Lateral wall of mastoid antrum</includedValues>
+                            <includedValues>SNOMED_CT::3538003::Capsule of proximal tibiofibular joint</includedValues>
+                            <includedValues>SNOMED_CT::3541007::Dorsal metatarsal artery</includedValues>
+                            <includedValues>SNOMED_CT::3553006::Thyroid capsule</includedValues>
+                            <includedValues>SNOMED_CT::3556003::Dorsal nucleus of trapezoid body</includedValues>
+                            <includedValues>SNOMED_CT::3563003::Muscularis of ureter</includedValues>
+                            <includedValues>SNOMED_CT::3572006::Body of vertebra</includedValues>
+                            <includedValues>SNOMED_CT::3578005::Body of gallbladder</includedValues>
+                            <includedValues>SNOMED_CT::3582007::Gastrophrenic ligament</includedValues>
+                            <includedValues>SNOMED_CT::3584008::Arch of tenth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::3594003::Straight part of longus colli muscle</includedValues>
+                            <includedValues>SNOMED_CT::3608004::Ischiococcygeus muscle</includedValues>
+                            <includedValues>SNOMED_CT::3609007::Occipital branch of posterior auricular artery</includedValues>
+                            <includedValues>SNOMED_CT::3646006::Lamellipodium</includedValues>
+                            <includedValues>SNOMED_CT::3663005::Tympanic ostium of Eustachian tube</includedValues>
+                            <includedValues>SNOMED_CT::3665003::Pelvic wall</includedValues>
+                            <includedValues>SNOMED_CT::3670005::Entire subpyloric lymph node</includedValues>
+                            <includedValues>SNOMED_CT::3711007::Great vessel</includedValues>
+                            <includedValues>SNOMED_CT::3743007::Lateral thoracic artery</includedValues>
+                            <includedValues>SNOMED_CT::3761003::Nucleus pulposus of intervertebral disc of first thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::3766008::Subcutaneous tissue of lower extremity</includedValues>
+                            <includedValues>SNOMED_CT::3785006::Entire dorsal metacarpal ligament</includedValues>
+                            <includedValues>SNOMED_CT::3788008::Superior segment of right lower lobe of lung</includedValues>
+                            <includedValues>SNOMED_CT::3789000::Argentaffin cells</includedValues>
+                            <includedValues>SNOMED_CT::3810000::Nasal septal cartilage</includedValues>
+                            <includedValues>SNOMED_CT::3838008::Apex of coccyx</includedValues>
+                            <includedValues>SNOMED_CT::3860006::Transplanted liver</includedValues>
+                            <includedValues>SNOMED_CT::3865001::Interscapular region of back</includedValues>
+                            <includedValues>SNOMED_CT::3867009::Dorsal surface of great toe</includedValues>
+                            <includedValues>SNOMED_CT::3876002::Subcutaneous tissue of femoral region</includedValues>
+                            <includedValues>SNOMED_CT::3877006::Common carotid plexus</includedValues>
+                            <includedValues>SNOMED_CT::3910004::Subcutaneous tissue of lateral surface of fourth toe</includedValues>
+                            <includedValues>SNOMED_CT::3916005::Occipital lymph node</includedValues>
+                            <includedValues>SNOMED_CT::3924000::Pericardiophrenic artery</includedValues>
+                            <includedValues>SNOMED_CT::3931001::Vestibular window</includedValues>
+                            <includedValues>SNOMED_CT::3935005::Head of tenth rib</includedValues>
+                            <includedValues>SNOMED_CT::3937002::Entorhinal cortex</includedValues>
+                            <includedValues>SNOMED_CT::3954005::Lacrimal sac</includedValues>
+                            <includedValues>SNOMED_CT::3956007::Fifth metatarsal articular facet of fourth metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::3959000::Rectus capitis muscle</includedValues>
+                            <includedValues>SNOMED_CT::3960005::Olfactory tract</includedValues>
+                            <includedValues>SNOMED_CT::3964001::Gyrus of brain</includedValues>
+                            <includedValues>SNOMED_CT::3966004::Entire parietal branch of anterior cerebral artery</includedValues>
+                            <includedValues>SNOMED_CT::3977005::Subcutaneous tissue of concha</includedValues>
+                            <includedValues>SNOMED_CT::3984002::Deep veins of clitoris</includedValues>
+                            <includedValues>SNOMED_CT::3989007::Medial nuclei of globus pallidus</includedValues>
+                            <includedValues>SNOMED_CT::4015004::Chromosomes, group A</includedValues>
+                            <includedValues>SNOMED_CT::4019005::Posterior commissure of labia majora</includedValues>
+                            <includedValues>SNOMED_CT::4029003::Eosinophilic promyelocyte</includedValues>
+                            <includedValues>SNOMED_CT::4061004::Lateral wall of orbit</includedValues>
+                            <includedValues>SNOMED_CT::4066009::Capsule of proximal interphalangeal joint of index finger</includedValues>
+                            <includedValues>SNOMED_CT::4072009::Fourth coccygeal vertebra</includedValues>
+                            <includedValues>SNOMED_CT::4081003::Entire dorsal lingual vein</includedValues>
+                            <includedValues>SNOMED_CT::4093007::Vagus nerve bronchial branches</includedValues>
+                            <includedValues>SNOMED_CT::4111006::Macula of saccule</includedValues>
+                            <includedValues>SNOMED_CT::4117005::Lumbosacral spinal cord central canal</includedValues>
+                            <includedValues>SNOMED_CT::4121003::Superior frontal sulcus</includedValues>
+                            <includedValues>SNOMED_CT::4146003::Artery of extremity</includedValues>
+                            <includedValues>SNOMED_CT::4148002::Palmar surface of little finger</includedValues>
+                            <includedValues>SNOMED_CT::4150005::Celiac plexus</includedValues>
+                            <includedValues>SNOMED_CT::4158003::Abdominal aortic plexus</includedValues>
+                            <includedValues>SNOMED_CT::4159006::Hyparterial bronchi</includedValues>
+                            <includedValues>SNOMED_CT::4180000::Both lower extremities</includedValues>
+                            <includedValues>SNOMED_CT::4193005::Entire extensor tendon and tendon sheath of fifth toe</includedValues>
+                            <includedValues>SNOMED_CT::4205002::Türk cell</includedValues>
+                            <includedValues>SNOMED_CT::4212006::Epithelial cell</includedValues>
+                            <includedValues>SNOMED_CT::4215008::Head of second rib</includedValues>
+                            <includedValues>SNOMED_CT::4247003::First metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::4258007::Posterior tibial veins</includedValues>
+                            <includedValues>SNOMED_CT::4268002::Lateral spinorubral tract</includedValues>
+                            <includedValues>SNOMED_CT::4276000::Inferior articular process of seventh cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::4281009::Middle portion of ileum</includedValues>
+                            <includedValues>SNOMED_CT::4295007::Paracortical area of lymph node</includedValues>
+                            <includedValues>SNOMED_CT::4303006::Cartilage canal</includedValues>
+                            <includedValues>SNOMED_CT::4312008::Anterior midline of abdomen</includedValues>
+                            <includedValues>SNOMED_CT::4317002::Spinalis muscle</includedValues>
+                            <includedValues>SNOMED_CT::4328003::Protoplasmic astrocyte</includedValues>
+                            <includedValues>SNOMED_CT::4335006::Upper jaw</includedValues>
+                            <includedValues>SNOMED_CT::4352005::Subchorionic space</includedValues>
+                            <includedValues>SNOMED_CT::4358009::Lateral surface of little finger</includedValues>
+                            <includedValues>SNOMED_CT::4360006::Stratum spinosum</includedValues>
+                            <includedValues>SNOMED_CT::4369007::Small intestine mucous membrane</includedValues>
+                            <includedValues>SNOMED_CT::4371007::Fourth metatarsal facet of lateral cuneiform bone</includedValues>
+                            <includedValues>SNOMED_CT::4375003::Incisure of cartilaginous portion of auditory canal</includedValues>
+                            <includedValues>SNOMED_CT::4377006::Parafascicular nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::4394008::Scala vestibuli</includedValues>
+                            <includedValues>SNOMED_CT::4402002::Anterior articular surface for talus</includedValues>
+                            <includedValues>SNOMED_CT::4419000::Tracheal submucosa</includedValues>
+                            <includedValues>SNOMED_CT::4421005::Cell</includedValues>
+                            <includedValues>SNOMED_CT::4430002::Clivus ossis sphenoidalis</includedValues>
+                            <includedValues>SNOMED_CT::4432005::Ductus arteriosus</includedValues>
+                            <includedValues>SNOMED_CT::4442007::Dental arch</includedValues>
+                            <includedValues>SNOMED_CT::4486002::Accessory sinus gland</includedValues>
+                            <includedValues>SNOMED_CT::4524000::Subclavian plexus</includedValues>
+                            <includedValues>SNOMED_CT::4527007::Joint of lower extremity</includedValues>
+                            <includedValues>SNOMED_CT::4537002::Internal medullary lamina of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::4548009::Lamellated granule, as in surfactant-secreting cell</includedValues>
+                            <includedValues>SNOMED_CT::4549001::Entire vagus nerve parasympathetic fibers to liver, gallbladder, bile ducts and pancreas</includedValues>
+                            <includedValues>SNOMED_CT::4566004::Tentorium cerebelli</includedValues>
+                            <includedValues>SNOMED_CT::4573009::Desmosome</includedValues>
+                            <includedValues>SNOMED_CT::4578000::Skin of posterior surface of thigh</includedValues>
+                            <includedValues>SNOMED_CT::4583008::Splenius muscle of trunk</includedValues>
+                            <includedValues>SNOMED_CT::4588004::Middle trunk of brachial plexus</includedValues>
+                            <includedValues>SNOMED_CT::4596009::Larynx</includedValues>
+                            <includedValues>SNOMED_CT::4603002::Base of phalanx of foot</includedValues>
+                            <includedValues>SNOMED_CT::4606005::Tubercle of eighth rib</includedValues>
+                            <includedValues>SNOMED_CT::4621004::Lesser tuberosity of humerus</includedValues>
+                            <includedValues>SNOMED_CT::4624007::Medullary cord</includedValues>
+                            <includedValues>SNOMED_CT::4647008::Lipid droplet, homogeneous</includedValues>
+                            <includedValues>SNOMED_CT::4651005::Tunica albuginea of corpus spongiosum</includedValues>
+                            <includedValues>SNOMED_CT::4658004::Skin of nuchal region</includedValues>
+                            <includedValues>SNOMED_CT::4677002::Basal lamina, inclusion in subepithelial location</includedValues>
+                            <includedValues>SNOMED_CT::4703008::Cardinal vein</includedValues>
+                            <includedValues>SNOMED_CT::4717004::Neutrophilic myelocyte</includedValues>
+                            <includedValues>SNOMED_CT::4718009::Entire venous plexus of the foramen ovale basis cranii</includedValues>
+                            <includedValues>SNOMED_CT::4743003::Ventral sacrococcygeal ligament</includedValues>
+                            <includedValues>SNOMED_CT::4755009::Medial surface of great toe</includedValues>
+                            <includedValues>SNOMED_CT::4759003::Gemellus muscle</includedValues>
+                            <includedValues>SNOMED_CT::4766002::Supracardinal vein</includedValues>
+                            <includedValues>SNOMED_CT::4768001::Perineal nerve</includedValues>
+                            <includedValues>SNOMED_CT::4774001::Phrenic nerve pericardial branch</includedValues>
+                            <includedValues>SNOMED_CT::4775000::Ventral posterior inferior nucleus</includedValues>
+                            <includedValues>SNOMED_CT::4799000::Deiter's cell</includedValues>
+                            <includedValues>SNOMED_CT::4810005::Uterine venous plexus</includedValues>
+                            <includedValues>SNOMED_CT::4812002::Anterior tibial compartment</includedValues>
+                            <includedValues>SNOMED_CT::4828007::Femoral canal</includedValues>
+                            <includedValues>SNOMED_CT::4840007::Subcutaneous tissue of ring finger</includedValues>
+                            <includedValues>SNOMED_CT::4843009::Membranous ampulla</includedValues>
+                            <includedValues>SNOMED_CT::4861000::Tuberculum impar</includedValues>
+                            <includedValues>SNOMED_CT::4866005::Constrictor pharyngeus muscle</includedValues>
+                            <includedValues>SNOMED_CT::4870002::Dorsal tegmental nuclei of midbrain</includedValues>
+                            <includedValues>SNOMED_CT::4871003::Spiral lamina of modiolus</includedValues>
+                            <includedValues>SNOMED_CT::4881004::Entire sublingual vein</includedValues>
+                            <includedValues>SNOMED_CT::4888005::Entire interlobular vein of kidney</includedValues>
+                            <includedValues>SNOMED_CT::4897009::Cell membrane, prokaryotic</includedValues>
+                            <includedValues>SNOMED_CT::4905007::Uterovaginal plexus</includedValues>
+                            <includedValues>SNOMED_CT::4906008::Tympanic antrum</includedValues>
+                            <includedValues>SNOMED_CT::4924005::Cerebellar gracile lobule</includedValues>
+                            <includedValues>SNOMED_CT::4942000::Lymph node of lower extremity</includedValues>
+                            <includedValues>SNOMED_CT::4954000::Radial notch of ulna</includedValues>
+                            <includedValues>SNOMED_CT::4956003::Subcutaneous tissue of back</includedValues>
+                            <includedValues>SNOMED_CT::4958002::Amygdaloid nucleus</includedValues>
+                            <includedValues>SNOMED_CT::5001007::Superior temporal sulcus</includedValues>
+                            <includedValues>SNOMED_CT::5023006::Yellow bone marrow</includedValues>
+                            <includedValues>SNOMED_CT::5026003::Posterior surface of prostate</includedValues>
+                            <includedValues>SNOMED_CT::5046008::Superficial dorsal veins of clitoris</includedValues>
+                            <includedValues>SNOMED_CT::5068003::Obturator internus muscle ischial bursa</includedValues>
+                            <includedValues>SNOMED_CT::5069006::Rugal column</includedValues>
+                            <includedValues>SNOMED_CT::5076001::Infrasternal angle</includedValues>
+                            <includedValues>SNOMED_CT::5115006::Posterior auricular vein</includedValues>
+                            <includedValues>SNOMED_CT::5122003::Entire angle of first rib</includedValues>
+                            <includedValues>SNOMED_CT::5128004::Suspensory ligament of lens</includedValues>
+                            <includedValues>SNOMED_CT::5140004::Maxillary right first molar tooth</includedValues>
+                            <includedValues>SNOMED_CT::5192008::Intervertebral foramen of twelfth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5194009::Epithelium of lens</includedValues>
+                            <includedValues>SNOMED_CT::5195005::Right external carotid artery</includedValues>
+                            <includedValues>SNOMED_CT::5204005::Superior ileocecal recess</includedValues>
+                            <includedValues>SNOMED_CT::5213007::Frontal veins</includedValues>
+                            <includedValues>SNOMED_CT::5225005::Uterine ostium of fallopian tube</includedValues>
+                            <includedValues>SNOMED_CT::5228007::Right cerebral hemisphere</includedValues>
+                            <includedValues>SNOMED_CT::5229004::Mucosa of gallbladder</includedValues>
+                            <includedValues>SNOMED_CT::5261000::Intervertebral disc of thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5272005::Skin of lateral portion of neck</includedValues>
+                            <includedValues>SNOMED_CT::5279001::Foramen singulare</includedValues>
+                            <includedValues>SNOMED_CT::5296000::Anterior mediastinal lymph node</includedValues>
+                            <includedValues>SNOMED_CT::5324007::Superior pole of kidney</includedValues>
+                            <includedValues>SNOMED_CT::5329002::Fourth cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5336001::Inferior frontal gyrus</includedValues>
+                            <includedValues>SNOMED_CT::5347008::Synaptic specialization, cytoplasmic</includedValues>
+                            <includedValues>SNOMED_CT::5362005::Median arcuate ligament of diaphragm</includedValues>
+                            <includedValues>SNOMED_CT::5366008::Hippocampus</includedValues>
+                            <includedValues>SNOMED_CT::5379004::Small intestine muscularis propria</includedValues>
+                            <includedValues>SNOMED_CT::5382009::Superior fascia of perineum</includedValues>
+                            <includedValues>SNOMED_CT::5394000::Uterine paracervical lymph node</includedValues>
+                            <includedValues>SNOMED_CT::5398002::Normal fat pad</includedValues>
+                            <includedValues>SNOMED_CT::5403001::Articular process of third lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5421003::Sex chromosome Y</includedValues>
+                            <includedValues>SNOMED_CT::5427004::Apocrine intraepidermal duct</includedValues>
+                            <includedValues>SNOMED_CT::5458003::Deep artery of clitoris</includedValues>
+                            <includedValues>SNOMED_CT::5459006::Cardiac incisure of stomach</includedValues>
+                            <includedValues>SNOMED_CT::5491007::Lacrimal part of orbicularis oculi muscle</includedValues>
+                            <includedValues>SNOMED_CT::5493005::Metacarpophalangeal joint of little finger</includedValues>
+                            <includedValues>SNOMED_CT::5498001::Superior aberrant ductule of epididymis</includedValues>
+                            <includedValues>SNOMED_CT::5520004::Subcutaneous tissue of chin</includedValues>
+                            <includedValues>SNOMED_CT::5538001::Tegmental portion of pons</includedValues>
+                            <includedValues>SNOMED_CT::5544002::Longitudinal layer of duodenal muscularis propria</includedValues>
+                            <includedValues>SNOMED_CT::5560003::Alveolar ridge mucous membrane</includedValues>
+                            <includedValues>SNOMED_CT::5564007::Singlet</includedValues>
+                            <includedValues>SNOMED_CT::5574005::Seventh costal cartilage</includedValues>
+                            <includedValues>SNOMED_CT::5580002::Tendon of supraspinatus muscle</includedValues>
+                            <includedValues>SNOMED_CT::5597008::Retina of right eye</includedValues>
+                            <includedValues>SNOMED_CT::5611001::Anulus fibrosus of intervertebral disc of fifth cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5625000::Navicular facet of intermediate cuneiform bone</includedValues>
+                            <includedValues>SNOMED_CT::5627008::Right visceral pleura</includedValues>
+                            <includedValues>SNOMED_CT::5633004::Muscular portion of interventricular septum</includedValues>
+                            <includedValues>SNOMED_CT::5643001::Canal of stomach</includedValues>
+                            <includedValues>SNOMED_CT::5644007::Fractured membrane P face</includedValues>
+                            <includedValues>SNOMED_CT::5653000::Entire inner surface of seventh rib</includedValues>
+                            <includedValues>SNOMED_CT::5665001::Retina</includedValues>
+                            <includedValues>SNOMED_CT::5668004::Lower digestive tract</includedValues>
+                            <includedValues>SNOMED_CT::5677006::Entire lenticular fasciculus</includedValues>
+                            <includedValues>SNOMED_CT::5682004::Subcutaneous tissue of upper extremity</includedValues>
+                            <includedValues>SNOMED_CT::5696005::Entire articular part of tubercle of ninth rib</includedValues>
+                            <includedValues>SNOMED_CT::5697001::Skin of lateral surface of finger</includedValues>
+                            <includedValues>SNOMED_CT::5709001::Multifidus muscles</includedValues>
+                            <includedValues>SNOMED_CT::5713008::Submandibular triangle</includedValues>
+                            <includedValues>SNOMED_CT::5717009::Temporal fossa</includedValues>
+                            <includedValues>SNOMED_CT::5718004::Tendon and tendon sheath of leg and ankle</includedValues>
+                            <includedValues>SNOMED_CT::5727003::Anterior cervical lymph node</includedValues>
+                            <includedValues>SNOMED_CT::5742000::Skin of forearm</includedValues>
+                            <includedValues>SNOMED_CT::5751008::Subcutaneous tissue of anterior portion of neck</includedValues>
+                            <includedValues>SNOMED_CT::5769004::Endocervical epithelium</includedValues>
+                            <includedValues>SNOMED_CT::5780004::Paradidymis</includedValues>
+                            <includedValues>SNOMED_CT::5798000::Diaphragm</includedValues>
+                            <includedValues>SNOMED_CT::5802004::Medium sized neuron</includedValues>
+                            <includedValues>SNOMED_CT::5814007::Entire angle of seventh rib</includedValues>
+                            <includedValues>SNOMED_CT::5815008::Superior rectus muscle</includedValues>
+                            <includedValues>SNOMED_CT::5816009::Duodenal fold</includedValues>
+                            <includedValues>SNOMED_CT::5825003::Substantia propria of sclera</includedValues>
+                            <includedValues>SNOMED_CT::5828001::Posterior cord of brachial plexus</includedValues>
+                            <includedValues>SNOMED_CT::5847003::Superior articular process of seventh cervical vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5854009::Orbital plate of ethmoid bone</includedValues>
+                            <includedValues>SNOMED_CT::5868002::Serosa of urinary bladder</includedValues>
+                            <includedValues>SNOMED_CT::5872003::Subcutaneous tissue of lateral border of sole of foot</includedValues>
+                            <includedValues>SNOMED_CT::5881009::Tuberosity of distal phalanx of hand</includedValues>
+                            <includedValues>SNOMED_CT::5882002::Endothelial sieve plate</includedValues>
+                            <includedValues>SNOMED_CT::5889006::Articular surface, third metacarpal, of fourth metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::5890002::Posterior cells of ethmoid sinus</includedValues>
+                            <includedValues>SNOMED_CT::5893000::Superior recess of tympanic membrane</includedValues>
+                            <includedValues>SNOMED_CT::5898009::Myotome</includedValues>
+                            <includedValues>SNOMED_CT::5923009::Articular process of twelfth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::5926001::Bronchial lumen</includedValues>
+                            <includedValues>SNOMED_CT::5928000::Great cardiac vein</includedValues>
+                            <includedValues>SNOMED_CT::5942008::Tensor tympani muscle</includedValues>
+                            <includedValues>SNOMED_CT::5943003::Vestibular vein</includedValues>
+                            <includedValues>SNOMED_CT::5944009::Posterior palatine arch</includedValues>
+                            <includedValues>SNOMED_CT::5948007::Capsule of distal interphalangeal joint of third toe</includedValues>
+                            <includedValues>SNOMED_CT::5951000::Left wrist</includedValues>
+                            <includedValues>SNOMED_CT::5953002::Eighth rib</includedValues>
+                            <includedValues>SNOMED_CT::5976004::Subcutaneous tissue of eyelid</includedValues>
+                            <includedValues>SNOMED_CT::5979006::Episcleral artery</includedValues>
+                            <includedValues>SNOMED_CT::5996007::Chromosomes, group D</includedValues>
+                            <includedValues>SNOMED_CT::6001004::Quadratus lumborum muscle</includedValues>
+                            <includedValues>SNOMED_CT::6004007::Intervertebral disc of second thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::6006009::Circular layer of duodenal muscularis propria</includedValues>
+                            <includedValues>SNOMED_CT::6009002::Mesentery of ascending colon</includedValues>
+                            <includedValues>SNOMED_CT::6014003::Penicilliary arteries</includedValues>
+                            <includedValues>SNOMED_CT::6023000::Heterolysosome</includedValues>
+                            <includedValues>SNOMED_CT::6032003::Columnar epithelial cell</includedValues>
+                            <includedValues>SNOMED_CT::6046003::Entire outer surface of third rib</includedValues>
+                            <includedValues>SNOMED_CT::6050005::Lacrimal vein</includedValues>
+                            <includedValues>SNOMED_CT::6059006::Metacarpophalangeal joint of middle finger</includedValues>
+                            <includedValues>SNOMED_CT::6062009::Deciduous mandibular right canine tooth</includedValues>
+                            <includedValues>SNOMED_CT::6073002::Ligament of left superior vena cava</includedValues>
+                            <includedValues>SNOMED_CT::6074008::Capsule of temporomandibular joint</includedValues>
+                            <includedValues>SNOMED_CT::6076005::Gastrointestinal subserosa</includedValues>
+                            <includedValues>SNOMED_CT::6104005::Subclavian nerve</includedValues>
+                            <includedValues>SNOMED_CT::6105006::Body of fifth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::6110005::Facial nerve parasympathetic fibers</includedValues>
+                            <includedValues>SNOMED_CT::6216007::Entire postcapillary venule</includedValues>
+                            <includedValues>SNOMED_CT::6217003::Piriform recess</includedValues>
+                            <includedValues>SNOMED_CT::6229007::Os lacrimale</includedValues>
+                            <includedValues>SNOMED_CT::6253001::Sulcus terminalis cordis</includedValues>
+                            <includedValues>SNOMED_CT::6268000::Accessory phrenic nerves</includedValues>
+                            <includedValues>SNOMED_CT::6269008::Subcutaneous tissue of scalp</includedValues>
+                            <includedValues>SNOMED_CT::6279005::Skin of dorsal surface of finger</includedValues>
+                            <includedValues>SNOMED_CT::6317000::Posterior basal branch of left pulmonary artery</includedValues>
+                            <includedValues>SNOMED_CT::6325003::Aryepiglottic muscle</includedValues>
+                            <includedValues>SNOMED_CT::6326002::Structure of fetal atloid articulation</includedValues>
+                            <includedValues>SNOMED_CT::6335009::Lymphoid follicle of stomach</includedValues>
+                            <includedValues>SNOMED_CT::6359004::Hair medulla</includedValues>
+                            <includedValues>SNOMED_CT::6371005::Lymphatics of thyroid gland</includedValues>
+                            <includedValues>SNOMED_CT::6375001::Cavernous portion of urethra</includedValues>
+                            <includedValues>SNOMED_CT::6392005::Coccygeal nerve</includedValues>
+                            <includedValues>SNOMED_CT::6404004::Ligamentum nuchae</includedValues>
+                            <includedValues>SNOMED_CT::6413002::Presymphysial lymph node</includedValues>
+                            <includedValues>SNOMED_CT::6417001::Medial malleolus</includedValues>
+                            <includedValues>SNOMED_CT::6423006::Supraspinatus muscle</includedValues>
+                            <includedValues>SNOMED_CT::6424000::Structure of radiating portion of cortical lobule of kidney</includedValues>
+                            <includedValues>SNOMED_CT::6445007::Mast cell</includedValues>
+                            <includedValues>SNOMED_CT::6448009::Posterior vagal trunk</includedValues>
+                            <includedValues>SNOMED_CT::6450001::Cytotrophoblast</includedValues>
+                            <includedValues>SNOMED_CT::6472004::Medial aspect of ovary</includedValues>
+                            <includedValues>SNOMED_CT::6504002::Glans clitoridis</includedValues>
+                            <includedValues>SNOMED_CT::6511003::Distal portion of circumflex branch of left coronary artery</includedValues>
+                            <includedValues>SNOMED_CT::6530003::Cardiac valve leaflet</includedValues>
+                            <includedValues>SNOMED_CT::6533001::Colonic haustra</includedValues>
+                            <includedValues>SNOMED_CT::6538005::Thyrocervical trunk</includedValues>
+                            <includedValues>SNOMED_CT::6541001::Entire anterior commissure of mitral valve</includedValues>
+                            <includedValues>SNOMED_CT::6544009::Gastrohepatic ligament</includedValues>
+                            <includedValues>SNOMED_CT::6550004::Angular incisure of stomach</includedValues>
+                            <includedValues>SNOMED_CT::6551000::Pollicis artery</includedValues>
+                            <includedValues>SNOMED_CT::6553002::Inferior nasal turbinate</includedValues>
+                            <includedValues>SNOMED_CT::6564004::Medial border of sole</includedValues>
+                            <includedValues>SNOMED_CT::6566002::Cerebellar hemisphere</includedValues>
+                            <includedValues>SNOMED_CT::6572002::Base of phalanx of middle finger</includedValues>
+                            <includedValues>SNOMED_CT::6598008::Lingual nerve</includedValues>
+                            <includedValues>SNOMED_CT::6606008::Structure of dorsal intercuneiform ligaments</includedValues>
+                            <includedValues>SNOMED_CT::6608009::Sphenoparietal sinus</includedValues>
+                            <includedValues>SNOMED_CT::6620001::Cuticle of nail</includedValues>
+                            <includedValues>SNOMED_CT::6623004::Sternal muscle</includedValues>
+                            <includedValues>SNOMED_CT::6633007::Entire right posterior cerebral artery</includedValues>
+                            <includedValues>SNOMED_CT::6643005::Entire right anterior cerebral artery</includedValues>
+                            <includedValues>SNOMED_CT::6646002::Anterior fossa of cranial cavity</includedValues>
+                            <includedValues>SNOMED_CT::6649009::Uterine subserosa</includedValues>
+                            <includedValues>SNOMED_CT::6651008::Central lobule of cerebellum</includedValues>
+                            <includedValues>SNOMED_CT::6684008::Articular facet of head of fibula</includedValues>
+                            <includedValues>SNOMED_CT::6685009::Right ankle</includedValues>
+                            <includedValues>SNOMED_CT::6711001::Arch of second lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::6720005::Femoral nerve lateral muscular branches</includedValues>
+                            <includedValues>SNOMED_CT::6731002::Pleural recess</includedValues>
+                            <includedValues>SNOMED_CT::6739000::Chorda tympani</includedValues>
+                            <includedValues>SNOMED_CT::6742006::Entire callosomarginal branch of anterior cerebral artery</includedValues>
+                            <includedValues>SNOMED_CT::6750002::Mitochondrial inclusion</includedValues>
+                            <includedValues>SNOMED_CT::6757004::Right knee</includedValues>
+                            <includedValues>SNOMED_CT::6787005::Structure of tendon and tendon sheath of hand</includedValues>
+                            <includedValues>SNOMED_CT::6789008::Spermatozoa</includedValues>
+                            <includedValues>SNOMED_CT::6799003::Macula of utricle</includedValues>
+                            <includedValues>SNOMED_CT::6805009::Entire interstitial tissue of spleen</includedValues>
+                            <includedValues>SNOMED_CT::6820003::Obturator nerve anterior branch</includedValues>
+                            <includedValues>SNOMED_CT::6828005::Ligament of lumbosacral joint</includedValues>
+                            <includedValues>SNOMED_CT::6829002::Pars ciliaris of retina</includedValues>
+                            <includedValues>SNOMED_CT::6834003::Axial skeleton</includedValues>
+                            <includedValues>SNOMED_CT::6841009::Corticomedullary junction of kidney</includedValues>
+                            <includedValues>SNOMED_CT::6844001::Spore crystal</includedValues>
+                            <includedValues>SNOMED_CT::6850006::Secondary foot process</includedValues>
+                            <includedValues>SNOMED_CT::6864006::Leaf of epiglottis</includedValues>
+                            <includedValues>SNOMED_CT::6866008::Habenular commissure</includedValues>
+                            <includedValues>SNOMED_CT::6871001::Visceral pericardium</includedValues>
+                            <includedValues>SNOMED_CT::6894000::Medial surface of arm</includedValues>
+                            <includedValues>SNOMED_CT::6902008::Popliteal region</includedValues>
+                            <includedValues>SNOMED_CT::6905005::Subcutaneous tissue of medial surface of third toe</includedValues>
+                            <includedValues>SNOMED_CT::6912001::Lower alveolar ridge mucosa</includedValues>
+                            <includedValues>SNOMED_CT::6914000::Perivascular space</includedValues>
+                            <includedValues>SNOMED_CT::6921000::Right upper extremity</includedValues>
+                            <includedValues>SNOMED_CT::6930008::Entire jugular arch</includedValues>
+                            <includedValues>SNOMED_CT::6944002::Entire anterior labial vein</includedValues>
+                            <includedValues>SNOMED_CT::6969002::Lymphocytic tissue</includedValues>
+                            <includedValues>SNOMED_CT::6975006::Anterior myocardium</includedValues>
+                            <includedValues>SNOMED_CT::6981003::Posterior hypothalamic nucleus</includedValues>
+                            <includedValues>SNOMED_CT::6987004::Collateral sulcus</includedValues>
+                            <includedValues>SNOMED_CT::6989001::Thoracolumbar region of back</includedValues>
+                            <includedValues>SNOMED_CT::6991009::Subcutaneous tissue of jaw</includedValues>
+                            <includedValues>SNOMED_CT::7035006::Bile duct mucous membrane</includedValues>
+                            <includedValues>SNOMED_CT::7050002::Subcutaneous tissue of external genitalia</includedValues>
+                            <includedValues>SNOMED_CT::7067009::Right colic artery</includedValues>
+                            <includedValues>SNOMED_CT::7076002::Interstitial tissue of myocardium</includedValues>
+                            <includedValues>SNOMED_CT::7083009::Middle phalanx of index finger</includedValues>
+                            <includedValues>SNOMED_CT::7090004::Supraaortic branches</includedValues>
+                            <includedValues>SNOMED_CT::7091000::Ventral posterolateral nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::7099003::Attachment plaque of desmosome or hemidesmosome</includedValues>
+                            <includedValues>SNOMED_CT::7117004::Fetal implantation site</includedValues>
+                            <includedValues>SNOMED_CT::7121006::Maxillary right second molar tooth</includedValues>
+                            <includedValues>SNOMED_CT::7148007::Anulus fibrosus of intervertebral disc of thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::7149004::False rib</includedValues>
+                            <includedValues>SNOMED_CT::7154008::Trigeminal ganglion sensory root</includedValues>
+                            <includedValues>SNOMED_CT::7160008::Base of metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::7167006::Paraduodenal recess</includedValues>
+                            <includedValues>SNOMED_CT::7173007::Cauda equina</includedValues>
+                            <includedValues>SNOMED_CT::7188002::Gustatory pore</includedValues>
+                            <includedValues>SNOMED_CT::7192009::Isthmus tympani posticus</includedValues>
+                            <includedValues>SNOMED_CT::7227003::Hypoglossal nerve intrinsic tongue muscle branch</includedValues>
+                            <includedValues>SNOMED_CT::7234001::Entire inferior choroid vein</includedValues>
+                            <includedValues>SNOMED_CT::7242000::Appendiceal muscularis propria</includedValues>
+                            <includedValues>SNOMED_CT::7275008::Lymphatics of appendix and large intestine</includedValues>
+                            <includedValues>SNOMED_CT::7295002::Muscle of perineum</includedValues>
+                            <includedValues>SNOMED_CT::7296001::Deep inguinal ring</includedValues>
+                            <includedValues>SNOMED_CT::7311008::Anterior surface of arm</includedValues>
+                            <includedValues>SNOMED_CT::7344002::Lingual gyrus</includedValues>
+                            <includedValues>SNOMED_CT::7345001::Ciliary processes</includedValues>
+                            <includedValues>SNOMED_CT::7362006::Lymphatic of head</includedValues>
+                            <includedValues>SNOMED_CT::7376007::Entire left margin of uterus</includedValues>
+                            <includedValues>SNOMED_CT::7378008::Paraventricular nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::7384006::Entire plantar calcaneocuboidal ligament</includedValues>
+                            <includedValues>SNOMED_CT::7404008::Anterior semicircular duct</includedValues>
+                            <includedValues>SNOMED_CT::7435002::Ovarian ligament</includedValues>
+                            <includedValues>SNOMED_CT::7471001::Lateral surface of sublingual gland</includedValues>
+                            <includedValues>SNOMED_CT::7477002::Lipid, crystalline</includedValues>
+                            <includedValues>SNOMED_CT::7480001::Iliotibial tract</includedValues>
+                            <includedValues>SNOMED_CT::7494000::Cerebellar lenticular nucleus</includedValues>
+                            <includedValues>SNOMED_CT::7498002::Entire plantar tarsal ligament</includedValues>
+                            <includedValues>SNOMED_CT::7507003::Entire anterior ligament of head of fibula</includedValues>
+                            <includedValues>SNOMED_CT::7524009::Entire vasa vasorum</includedValues>
+                            <includedValues>SNOMED_CT::7532001::Vagus nerve parasympathetic fibers</includedValues>
+                            <includedValues>SNOMED_CT::7554004::Deep head of flexor pollicis brevis muscle</includedValues>
+                            <includedValues>SNOMED_CT::7566005::Mitotic cell in anaphase</includedValues>
+                            <includedValues>SNOMED_CT::7569003::Finger</includedValues>
+                            <includedValues>SNOMED_CT::7591005::Intervertebral disc space of eleventh thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::7597009::Subcutaneous tissue of vertex</includedValues>
+                            <includedValues>SNOMED_CT::7605000::Connexon</includedValues>
+                            <includedValues>SNOMED_CT::7610001::Tenth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::7629007::Thalamoolivary tract</includedValues>
+                            <includedValues>SNOMED_CT::7651004::Intervenous tubercle of right atrium</includedValues>
+                            <includedValues>SNOMED_CT::7652006::Frenulum labii</includedValues>
+                            <includedValues>SNOMED_CT::7657000::Femoral artery</includedValues>
+                            <includedValues>SNOMED_CT::7658005::Subtendinous bursa of triceps brachii muscle</includedValues>
+                            <includedValues>SNOMED_CT::7697002::Pontine portion of medial longitudinal fasciculus</includedValues>
+                            <includedValues>SNOMED_CT::7712004::Subdural space of spinal region</includedValues>
+                            <includedValues>SNOMED_CT::7726008::Skin of medial surface of fifth toe</includedValues>
+                            <includedValues>SNOMED_CT::7736000::Posterior choroidal artery</includedValues>
+                            <includedValues>SNOMED_CT::7742001::Palatine duct</includedValues>
+                            <includedValues>SNOMED_CT::7748002::Skin appendage</includedValues>
+                            <includedValues>SNOMED_CT::7755000::Mesovarian margin of ovary</includedValues>
+                            <includedValues>SNOMED_CT::7756004::Lamina of third thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::7764005::Entire striate artery</includedValues>
+                            <includedValues>SNOMED_CT::7769000::Right foot</includedValues>
+                            <includedValues>SNOMED_CT::7783003::Sympathetic trunk spinal nerve branch</includedValues>
+                            <includedValues>SNOMED_CT::7820009::Lateral posterior nucleus of thalamus</includedValues>
+                            <includedValues>SNOMED_CT::7829005::Anterior surface of manubrium</includedValues>
+                            <includedValues>SNOMED_CT::7832008::Abdominal aorta</includedValues>
+                            <includedValues>SNOMED_CT::7835005::Posterior margin of nasal septum</includedValues>
+                            <includedValues>SNOMED_CT::7840002::Subcutaneous tissue of submental area</includedValues>
+                            <includedValues>SNOMED_CT::7841003::Macrocytic normochromic erythrocyte</includedValues>
+                            <includedValues>SNOMED_CT::7844006::Sternoclavicular joint</includedValues>
+                            <includedValues>SNOMED_CT::7851002::Intracranial subdural space</includedValues>
+                            <includedValues>SNOMED_CT::7854005::Mandibular canal</includedValues>
+                            <includedValues>SNOMED_CT::7872004::Myocardium of ventricle</includedValues>
+                            <includedValues>SNOMED_CT::7874003::Scapular region of back</includedValues>
+                            <includedValues>SNOMED_CT::7880006::Rhopheocytotic vesicle</includedValues>
+                            <includedValues>SNOMED_CT::7884002::Corneal corpuscle</includedValues>
+                            <includedValues>SNOMED_CT::7885001::Rotator cuff including muscles and tendons</includedValues>
+                            <includedValues>SNOMED_CT::7892006::Submucosa of anal canal</includedValues>
+                            <includedValues>SNOMED_CT::7896009::Occipital angle of parietal bone</includedValues>
+                            <includedValues>SNOMED_CT::7911004::Olivocerebellar fibers</includedValues>
+                            <includedValues>SNOMED_CT::7925003::Proximal phalanx of third toe</includedValues>
+                            <includedValues>SNOMED_CT::7936005::Ligament of diaphragm</includedValues>
+                            <includedValues>SNOMED_CT::7944005::Helper cell</includedValues>
+                            <includedValues>SNOMED_CT::7954009::Lamina propria of ethmoid sinus</includedValues>
+                            <includedValues>SNOMED_CT::7967007::Entire first left aortic arch</includedValues>
+                            <includedValues>SNOMED_CT::7986004::Abdominopelvic portion of sympathetic nervous system</includedValues>
+                            <includedValues>SNOMED_CT::7991003::Skin of glans penis</includedValues>
+                            <includedValues>SNOMED_CT::7999001::Articulations of auditory ossicles</includedValues>
+                            <includedValues>SNOMED_CT::8001006::Mucous membrane of tongue</includedValues>
+                            <includedValues>SNOMED_CT::8012006::Anterior communicating artery</includedValues>
+                            <includedValues>SNOMED_CT::8017000::Inflow tract of right ventricle</includedValues>
+                            <includedValues>SNOMED_CT::8024004::Limitans nucleus</includedValues>
+                            <includedValues>SNOMED_CT::8039003::Subcutaneous acromial bursa</includedValues>
+                            <includedValues>SNOMED_CT::8040001::Superficial flexor tendon of little finger</includedValues>
+                            <includedValues>SNOMED_CT::8045006::Membrane-coating granule, amorphous</includedValues>
+                            <includedValues>SNOMED_CT::8057002::Lateral nuclei of globus pallidus</includedValues>
+                            <includedValues>SNOMED_CT::8059004::Pancreatic veins</includedValues>
+                            <includedValues>SNOMED_CT::8067007::Entire superficial circumflex iliac vein</includedValues>
+                            <includedValues>SNOMED_CT::8068002::Stratum lemnisci of corpora quadrigemina</includedValues>
+                            <includedValues>SNOMED_CT::8079007::Radial nerve</includedValues>
+                            <includedValues>SNOMED_CT::8091003::Intervertebral disc space of twelfth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8100009::Infundibulum of Fallopian tube</includedValues>
+                            <includedValues>SNOMED_CT::8111001::Intranuclear crystal</includedValues>
+                            <includedValues>SNOMED_CT::8112008::Hindgut</includedValues>
+                            <includedValues>SNOMED_CT::8119004::Entire delphian lymph node</includedValues>
+                            <includedValues>SNOMED_CT::8128003::Supraaortic valve area</includedValues>
+                            <includedValues>SNOMED_CT::8133004::Superior anastomotic vein</includedValues>
+                            <includedValues>SNOMED_CT::8157004::Vein of head</includedValues>
+                            <includedValues>SNOMED_CT::8158009::Interlobar duct of pancreas</includedValues>
+                            <includedValues>SNOMED_CT::8159001::Superior colliculus of corpora quadrigemina</includedValues>
+                            <includedValues>SNOMED_CT::8160006::Entire lateral striate artery</includedValues>
+                            <includedValues>SNOMED_CT::8161005::Infraorbital nerve</includedValues>
+                            <includedValues>SNOMED_CT::8165001::Superior articular process of fifth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8205005::Wrist</includedValues>
+                            <includedValues>SNOMED_CT::8225009::Accessory atrioventricular bundle</includedValues>
+                            <includedValues>SNOMED_CT::8242003::Apical branch of right pulmonary artery</includedValues>
+                            <includedValues>SNOMED_CT::8251006::Osseous portion of Eustachian tube</includedValues>
+                            <includedValues>SNOMED_CT::8264007::Tunica interna of eyeball</includedValues>
+                            <includedValues>SNOMED_CT::8265008::Articular surface, metacarpal, of phalanx of hand</includedValues>
+                            <includedValues>SNOMED_CT::8266009::Small intestine serosa</includedValues>
+                            <includedValues>SNOMED_CT::8289001::Below knee region</includedValues>
+                            <includedValues>SNOMED_CT::8292002::Interlobular arteries of liver</includedValues>
+                            <includedValues>SNOMED_CT::8314003::Mastoid fontanel of skull</includedValues>
+                            <includedValues>SNOMED_CT::8334002::Lumbar lymph node</includedValues>
+                            <includedValues>SNOMED_CT::8356004::Colic lymph node</includedValues>
+                            <includedValues>SNOMED_CT::8369000::Sphincter pupillae muscle</includedValues>
+                            <includedValues>SNOMED_CT::8373002::Jugum of sphenoid bone</includedValues>
+                            <includedValues>SNOMED_CT::8387002::Lamina of eighth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8389004::Birth canal</includedValues>
+                            <includedValues>SNOMED_CT::8412003::Iliac fossa</includedValues>
+                            <includedValues>SNOMED_CT::8415001::Renal surface of adrenal gland</includedValues>
+                            <includedValues>SNOMED_CT::8454000::Joint of lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8464009::Ligament of sacroiliac joint and pubic symphysis</includedValues>
+                            <includedValues>SNOMED_CT::8482007::Sinoatrial node branch of right coronary artery</includedValues>
+                            <includedValues>SNOMED_CT::8483002::Mesial surface of tooth</includedValues>
+                            <includedValues>SNOMED_CT::8496001::Obliquus capitis muscle</includedValues>
+                            <includedValues>SNOMED_CT::8523001::Inferior articular process of twelfth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8546004::Posterior intercavernous sinus</includedValues>
+                            <includedValues>SNOMED_CT::8556000::Lipid droplet</includedValues>
+                            <includedValues>SNOMED_CT::8559007::Entire juxtaintestinal lymph node</includedValues>
+                            <includedValues>SNOMED_CT::8560002::Interclavicular ligament</includedValues>
+                            <includedValues>SNOMED_CT::8580001::Both feet</includedValues>
+                            <includedValues>SNOMED_CT::8595004::Meissner's plexus</includedValues>
+                            <includedValues>SNOMED_CT::8598002::Vestibulocochlear nerve</includedValues>
+                            <includedValues>SNOMED_CT::8600008::Cricoid cartilage</includedValues>
+                            <includedValues>SNOMED_CT::8603005::Adductor hallucis muscle</includedValues>
+                            <includedValues>SNOMED_CT::8604004::Medulla oblongata fasciculus cuneatus</includedValues>
+                            <includedValues>SNOMED_CT::8608001::Right margin of heart</includedValues>
+                            <includedValues>SNOMED_CT::8617001::Zygomatic region of face</includedValues>
+                            <includedValues>SNOMED_CT::8623006::Transplanted ureter</includedValues>
+                            <includedValues>SNOMED_CT::8629005::Superior right pulmonary vein</includedValues>
+                            <includedValues>SNOMED_CT::8640002::Choroidal branches of posterior spinal artery</includedValues>
+                            <includedValues>SNOMED_CT::8668003::Glycogen vacuole</includedValues>
+                            <includedValues>SNOMED_CT::8671006::All toes</includedValues>
+                            <includedValues>SNOMED_CT::8677005::Body of right atrium</includedValues>
+                            <includedValues>SNOMED_CT::8688004::Lateral olfactory gyrus</includedValues>
+                            <includedValues>SNOMED_CT::8695008::Intervertebral foramen of second lumbar vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8710005::Entire minor sublingual ducts</includedValues>
+                            <includedValues>SNOMED_CT::8711009::Periodontal tissues</includedValues>
+                            <includedValues>SNOMED_CT::8714001::Subcutaneous tissue of interdigital space of hand</includedValues>
+                            <includedValues>SNOMED_CT::8752000::Cavernous portion of internal carotid artery</includedValues>
+                            <includedValues>SNOMED_CT::8775007::Tendinous arch</includedValues>
+                            <includedValues>SNOMED_CT::8784007::Intranuclear body, granular with filamentous capsule</includedValues>
+                            <includedValues>SNOMED_CT::8810002::Corticomedullary junction of adrenal gland</includedValues>
+                            <includedValues>SNOMED_CT::8814006::Iliac tuberosity</includedValues>
+                            <includedValues>SNOMED_CT::8815007::Thenar and hypothenar spaces</includedValues>
+                            <includedValues>SNOMED_CT::8820007::Pedicle of eleventh thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::8821006::Peroneal artery</includedValues>
+                            <includedValues>SNOMED_CT::8827005::Shaft of phalanx of middle finger</includedValues>
+                            <includedValues>SNOMED_CT::8839002::Agranular endoplasmic reticulum, connection with other organelle</includedValues>
+                            <includedValues>SNOMED_CT::8845005::Entire subtendinous prepatellar bursa</includedValues>
+                            <includedValues>SNOMED_CT::8850004::Proper fasciculus</includedValues>
+                            <includedValues>SNOMED_CT::8854008::Crista galli</includedValues>
+                            <includedValues>SNOMED_CT::8862000::Palmar surface of middle finger</includedValues>
+                            <includedValues>SNOMED_CT::8873007::Mandibular right second premolar tooth</includedValues>
+                            <includedValues>SNOMED_CT::8887007::Brachiocephalic vein</includedValues>
+                            <includedValues>SNOMED_CT::8892009::Diaphragmatic surface of lung</includedValues>
+                            <includedValues>SNOMED_CT::8894005::Entire gastric cardiac gland (body structure)</includedValues>
+                            <includedValues>SNOMED_CT::8897003::Lateral glossoepiglottic fold</includedValues>
+                            <includedValues>SNOMED_CT::8907008::Entire left ulnar artery</includedValues>
+                            <includedValues>SNOMED_CT::8910001::Entire inferior transverse scapular ligament</includedValues>
+                            <includedValues>SNOMED_CT::8911002::Entire endocardium of right ventricle</includedValues>
+                            <includedValues>SNOMED_CT::8928004::Inguinal lymph node</includedValues>
+                            <includedValues>SNOMED_CT::8931003::Coracoid process of scapula</includedValues>
+                            <includedValues>SNOMED_CT::8935007::Cerebral meninges</includedValues>
+                            <includedValues>SNOMED_CT::8942007::Trapezoid ligament</includedValues>
+                            <includedValues>SNOMED_CT::8965002::Stratum zonale of corpora quadrigemina</includedValues>
+                            <includedValues>SNOMED_CT::8966001::Left eye</includedValues>
+                            <includedValues>SNOMED_CT::8983005::Joint of vertebral column</includedValues>
+                            <includedValues>SNOMED_CT::8988001::Marginal part of orbicularis oris muscle</includedValues>
+                            <includedValues>SNOMED_CT::8993003::Hepatic vein</includedValues>
+                            <includedValues>SNOMED_CT::9000002::Cerebellar peduncle</includedValues>
+                            <includedValues>SNOMED_CT::9003000::Left parietal lobe</includedValues>
+                            <includedValues>SNOMED_CT::9018004::Entire middle colic vein</includedValues>
+                            <includedValues>SNOMED_CT::9040008::Ascending colon</includedValues>
+                            <includedValues>SNOMED_CT::9055004::Both forearms</includedValues>
+                            <includedValues>SNOMED_CT::9073001::White matter of insula</includedValues>
+                            <includedValues>SNOMED_CT::9081000::Splenic sinusoids</includedValues>
+                            <includedValues>SNOMED_CT::9086005::Superior laryngeal vein</includedValues>
+                            <includedValues>SNOMED_CT::9089003::Arch of foot</includedValues>
+                            <includedValues>SNOMED_CT::9108007::Vein of the scala tympani</includedValues>
+                            <includedValues>SNOMED_CT::9127001::Transverse folds of palate</includedValues>
+                            <includedValues>SNOMED_CT::9156001::Embryo stage 1 structure</includedValues>
+                            <includedValues>SNOMED_CT::9181003::Entire accessory carpal bone (body structure)</includedValues>
+                            <includedValues>SNOMED_CT::9185007::Capsule of metatarsophalangeal joint of fifth toe</includedValues>
+                            <includedValues>SNOMED_CT::9186008::Filaments of contractile apparatus</includedValues>
+                            <includedValues>SNOMED_CT::9188009::Intervertebral disc of eighth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::9208002::Centriole</includedValues>
+                            <includedValues>SNOMED_CT::9212008::Shaft of fifth metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::9229006::Rotatores lumborum muscles</includedValues>
+                            <includedValues>SNOMED_CT::9231002::Entire external pudendal vein</includedValues>
+                            <includedValues>SNOMED_CT::9240003::Niemann-Pick cell</includedValues>
+                            <includedValues>SNOMED_CT::9242006::Posterior segment of right lobe of liver</includedValues>
+                            <includedValues>SNOMED_CT::9258009::Gravid uterus</includedValues>
+                            <includedValues>SNOMED_CT::9261005::Tendon and tendon sheath of second toe</includedValues>
+                            <includedValues>SNOMED_CT::9262003::Pelvic fascia</includedValues>
+                            <includedValues>SNOMED_CT::9284003::Corpus cavernosum of penis</includedValues>
+                            <includedValues>SNOMED_CT::9290004::Posterior intraoccipital synchondrosis</includedValues>
+                            <includedValues>SNOMED_CT::9305001::Labial veins</includedValues>
+                            <includedValues>SNOMED_CT::9317004::Merkel's tactile disc</includedValues>
+                            <includedValues>SNOMED_CT::9320007::Subtendinous iliac bursa</includedValues>
+                            <includedValues>SNOMED_CT::9321006::Tail of epididymis</includedValues>
+                            <includedValues>SNOMED_CT::9325002::Interdental papilla of gingiva</includedValues>
+                            <includedValues>SNOMED_CT::9332006::Lateral ligament of temporomandibular joint</includedValues>
+                            <includedValues>SNOMED_CT::9348007::Skin of medial surface of middle finger</includedValues>
+                            <includedValues>SNOMED_CT::9379006::All permanent teeth</includedValues>
+                            <includedValues>SNOMED_CT::9380009::Pecten ani</includedValues>
+                            <includedValues>SNOMED_CT::9384000::Lumbar vein</includedValues>
+                            <includedValues>SNOMED_CT::9390001::Lymphatics of stomach</includedValues>
+                            <includedValues>SNOMED_CT::9432007::Plantar surface of fourth toe</includedValues>
+                            <includedValues>SNOMED_CT::9438006::Structure of deep cervical lymphatics</includedValues>
+                            <includedValues>SNOMED_CT::9454009::Subclavian vein</includedValues>
+                            <includedValues>SNOMED_CT::9455005::Medial cartilaginous lamina of Eustachian tube</includedValues>
+                            <includedValues>SNOMED_CT::9475001::Amacrine cells of retina</includedValues>
+                            <includedValues>SNOMED_CT::9481009::Afferent glomerular arteriole</includedValues>
+                            <includedValues>SNOMED_CT::9490002::Pulmonary ligament</includedValues>
+                            <includedValues>SNOMED_CT::9498009::Head of metacarpal bone</includedValues>
+                            <includedValues>SNOMED_CT::9502002::Coronal depression of tooth</includedValues>
+                            <includedValues>SNOMED_CT::9512009::Calcaneocuboidal ligament</includedValues>
+                            <includedValues>SNOMED_CT::9535007::Pyramid of medulla oblongata</includedValues>
+                            <includedValues>SNOMED_CT::9558005::Entire facet for fifth costal cartilage of sternum</includedValues>
+                            <includedValues>SNOMED_CT::9566001::Duodenal lumen</includedValues>
+                            <includedValues>SNOMED_CT::9568000::Subcutaneous tissue of areola</includedValues>
+                            <includedValues>SNOMED_CT::9596006::Deep branch of ulnar nerve</includedValues>
+                            <includedValues>SNOMED_CT::9609000::Posterior process of nasal septal cartilage</includedValues>
+                            <includedValues>SNOMED_CT::9625005::Lanugo hair</includedValues>
+                            <includedValues>SNOMED_CT::9642004::Left superior vena cava</includedValues>
+                            <includedValues>SNOMED_CT::9646001::Entire superior transverse scapular ligament</includedValues>
+                            <includedValues>SNOMED_CT::9654004::Gastric mucous gland</includedValues>
+                            <includedValues>SNOMED_CT::9659009::Infraclavicular lymph node</includedValues>
+                            <includedValues>SNOMED_CT::9662007::Subcutaneous tissue of lower margin of nasal septum</includedValues>
+                            <includedValues>SNOMED_CT::9668006::Ciliary muscle</includedValues>
+                            <includedValues>SNOMED_CT::9677004::Head of second metatarsal bone</includedValues>
+                            <includedValues>SNOMED_CT::9683001::Melanocyte</includedValues>
+                            <includedValues>SNOMED_CT::9684007::Posterior scrotal branches of internal pudendal artery</includedValues>
+                            <includedValues>SNOMED_CT::9708001::Iliac fascia</includedValues>
+                            <includedValues>SNOMED_CT::9736006::Right wrist</includedValues>
+                            <includedValues>SNOMED_CT::9743000::Entire tendon of index finger</includedValues>
+                            <includedValues>SNOMED_CT::9758008::Submucosa of tonsil</includedValues>
+                            <includedValues>SNOMED_CT::9770007::Genital tubercle</includedValues>
+                            <includedValues>SNOMED_CT::9775002::Left carotid sinus</includedValues>
+                            <includedValues>SNOMED_CT::9779008::Distinctive shape of mitochondrial cristae</includedValues>
+                            <includedValues>SNOMED_CT::9783008::Superficial lymphatics of thorax</includedValues>
+                            <includedValues>SNOMED_CT::9791004::Deep venous system of lower extremity</includedValues>
+                            <includedValues>SNOMED_CT::9796009::Skeletal muscle fiber, type IIb</includedValues>
+                            <includedValues>SNOMED_CT::9813009::Fascia of upper extremity</includedValues>
+                            <includedValues>SNOMED_CT::9825007::Proximal phalanx of little toe</includedValues>
+                            <includedValues>SNOMED_CT::9837009::Perforating branches of internal thoracic artery</includedValues>
+                            <includedValues>SNOMED_CT::9840009::Biparietal diameter of head</includedValues>
+                            <includedValues>SNOMED_CT::9841008::Interspinalis thoracis muscles</includedValues>
+                            <includedValues>SNOMED_CT::9846003::Right kidney</includedValues>
+                            <includedValues>SNOMED_CT::9847007::Hilum of adrenal gland</includedValues>
+                            <includedValues>SNOMED_CT::9849005::Fornix of lacrimal sac</includedValues>
+                            <includedValues>SNOMED_CT::9870004::Carunculae hymenales</includedValues>
+                            <includedValues>SNOMED_CT::9875009::Thymus</includedValues>
+                            <includedValues>SNOMED_CT::9878006::Entire appendicular vein</includedValues>
+                            <includedValues>SNOMED_CT::9880000::Thyroid tubercle</includedValues>
+                            <includedValues>SNOMED_CT::9881001::Peripheral nerve myelinated nerve fiber</includedValues>
+                            <includedValues>SNOMED_CT::9891007::Transverse arytenoid muscle</includedValues>
+                            <includedValues>SNOMED_CT::9898001::Paracentral lobule</includedValues>
+                            <includedValues>SNOMED_CT::9951005::Posterior ethmoidal nerve</includedValues>
+                            <includedValues>SNOMED_CT::9968009::Primary foot process</includedValues>
+                            <includedValues>SNOMED_CT::9970000::Ileocecal ostium</includedValues>
+                            <includedValues>SNOMED_CT::9976006::Rhomboideus cervicis muscle</includedValues>
+                            <includedValues>SNOMED_CT::9994000::Superior articular process of sixth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::9999005::Duodenal ampulla</includedValues>
+                            <includedValues>SNOMED_CT::10013000::Lateral meniscus of knee joint</includedValues>
+                            <includedValues>SNOMED_CT::10024003::Base of lung</includedValues>
+                            <includedValues>SNOMED_CT::10025002::Base of phalanx of index finger</includedValues>
+                            <includedValues>SNOMED_CT::10026001::Ventral spinocerebellar tract of pons</includedValues>
+                            <includedValues>SNOMED_CT::10036009::Nucleus pulposus of intervertebral disc of eighth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::10042008::Intervertebral foramen of fifth thoracic vertebra</includedValues>
+                            <includedValues>SNOMED_CT::10047002::Transplanted lung</includedValues>
+                            <includedValues>SNOMED_CT::10052007::Male</includedValues>
+                            <includedValues>SNOMED_CT::10056005::Ophthalmic nerve</includedValues>
+                            <includedValues>SNOMED_CT::10062000::Levator labii superioris muscle</includedValues>
+                            <includedValues>SNOMED_CT::10119003::Deep volar arch of radial artery</includedValues>
+                            <includedValues>SNOMED_CT::10124000::Deep dorsal sacrococcygeal ligament</includedValues>
+                            <includedValues>SNOMED_CT::10134009::Medial surface of third toe</includedValues>
+                            <includedValues>SNOMED_CT::10141003::Zygomatic nerve</includedValues>
+                            <includedValues>SNOMED_CT::10145007::Vagus nerve pharyngeal plexus</includedValues>
+                            <includedValues>SNOMED_CT::10148009::Entire costal groove of fifth rib</includedValues>
+                            <includedValues>SNOMED_CT::10149001::Merkel's cell</includedValues>
+                            <includedValues>SNOMED_CT::10151002::Middle part of cartilaginous portion of auditory canal</includedValues>
+                            <includedValues>SNOMED_CT::10167008::Entire inner surface of eleventh rib</includedValues>
+                            <includedValues>SNOMED_CT::10176001::Supraoptic region of hypothalamus</includedValues>
+                            <includedValues>SNOMED_CT::10200004::Liver</includedValues>
+                            <includedValues>SNOMED_CT::10208006::Gynecoid pelvis</includedValues>
+                            <includedValues>SNOMED_CT::10209003::Parotid lymph node</includedValues>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0065]"/>
                     <Rule max="0" path="/items[at0002]"/>
                     <Rule max="0" path="/items[at0064]">
@@ -577,7 +1966,8 @@
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
                     concept_name="Anatomische Lokalisation" max="1"
-                    name="BodySite Code icd-o-3" path="/items[at0013]" xsi:type="tem:CLUSTER">
+                    name="Entnahmestelle (ICD-O-3)"
+                    path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule name="Body site code" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0065]"/>
                     <Rule max="0" path="/items[at0002]"/>
@@ -597,12 +1987,118 @@
                 </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
                     concept_name="Person" max="1"
-                    name="Angaben zum Probenehmer" path="/items[at0071]" xsi:type="tem:CLUSTER">
+                    name="Angaben zum Probennehmer"
+                    path="/items[at0071]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0001]"/>
                     <Rule max="0" path="/items[at0011]"/>
+                    <Rule max="0" path="/items[at0003]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Identifier</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0004]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>v2.0360::PN::Advanced Practice Nurse</includedValues>
+                            <includedValues>v2.0360::AAS::Associate of Applied Science</includedValues>
+                            <includedValues>v2.0360::AA::Associate of Arts</includedValues>
+                            <includedValues>v2.0360::ABA::Associate of Business Administration</includedValues>
+                            <includedValues>v2.0360::AE::Associate of Engineering</includedValues>
+                            <includedValues>v2.0360::AS::Associate of Science</includedValues>
+                            <includedValues>v2.0360::BA::Bachelor of Arts</includedValues>
+                            <includedValues>v2.0360::BBA::Bachelor of Business Administration</includedValues>
+                            <includedValues>v2.0360::BE::Bachelor or Engineering</includedValues>
+                            <includedValues>v2.0360::BFA::Bachelor of Fine Arts</includedValues>
+                            <includedValues>v2.0360::BN::Bachelor of Nursing</includedValues>
+                            <includedValues>v2.0360::BS::Bachelor of Science</includedValues>
+                            <includedValues>v2.0360::BSL::Bachelor of Science - Law</includedValues>
+                            <includedValues>v2.0360::BSN::Bachelor on Science - Nursing</includedValues>
+                            <includedValues>v2.0360::BT::Bachelor of Theology</includedValues>
+                            <includedValues>v2.0360::CER::Certificate</includedValues>
+                            <includedValues>v2.0360::CANP::Certified Adult Nurse Practitioner</includedValues>
+                            <includedValues>v2.0360::CMA::Certified Medical Assistant</includedValues>
+                            <includedValues>v2.0360::CNP::Certified Nurse Practitioner</includedValues>
+                            <includedValues>v2.0360::CNM::Certified Nurse Midwife</includedValues>
+                            <includedValues>v2.0360::CRN::Certified Registered Nurse</includedValues>
+                            <includedValues>v2.0360::CNS::Certified Nurse Specialist</includedValues>
+                            <includedValues>v2.0360::CPNP::Certified Pediatric Nurse Practitioner</includedValues>
+                            <includedValues>v2.0360::CTR::Certified Tumor Registrar</includedValues>
+                            <includedValues>v2.0360::DIP::Diploma</includedValues>
+                            <includedValues>v2.0360::DBA::Doctor of Business Administration</includedValues>
+                            <includedValues>v2.0360::DED::Doctor of Education</includedValues>
+                            <includedValues>v2.0360::PharmD::Doctor of Pharmacy</includedValues>
+                            <includedValues>v2.0360::PHE::Doctor of Engineering</includedValues>
+                            <includedValues>v2.0360::PHD::Doctor of Philosophy</includedValues>
+                            <includedValues>v2.0360::PHS::Doctor of Science</includedValues>
+                            <includedValues>v2.0360::MD::Doctor of Medicine</includedValues>
+                            <includedValues>v2.0360::DO::Doctor of Osteopathy</includedValues>
+                            <includedValues>v2.0360::EMT::Emergency Medical Technician</includedValues>
+                            <includedValues>v2.0360::EMTP::Emergency Medical Technician - Paramedic</includedValues>
+                            <includedValues>v2.0360::FPNP::Family Practice Nurse Practitioner</includedValues>
+                            <includedValues>v2.0360::HS::High School Graduate</includedValues>
+                            <includedValues>v2.0360::JD::Juris Doctor</includedValues>
+                            <includedValues>v2.0360::MA::Master of Arts</includedValues>
+                            <includedValues>v2.0360::MBA::Master of Business Administration</includedValues>
+                            <includedValues>v2.0360::MCE::Master of Civil Engineering</includedValues>
+                            <includedValues>v2.0360::MDI::Master of Divinity</includedValues>
+                            <includedValues>v2.0360::MED::Master of Education</includedValues>
+                            <includedValues>v2.0360::MEE::Master of Electrical Engineering</includedValues>
+                            <includedValues>v2.0360::ME::Master of Engineering</includedValues>
+                            <includedValues>v2.0360::MFA::Master of Fine Arts</includedValues>
+                            <includedValues>v2.0360::MME::Master of Mechanical Engineering</includedValues>
+                            <includedValues>v2.0360::MS::Master of Science</includedValues>
+                            <includedValues>v2.0360::MSL::Master of Science - Law</includedValues>
+                            <includedValues>v2.0360::MSN::Master of Science - Nursing</includedValues>
+                            <includedValues>v2.0360::MTH::Master of Theology</includedValues>
+                            <includedValues>v2.0360::MDA::Medical Assistant</includedValues>
+                            <includedValues>v2.0360::MT::Medical Technician</includedValues>
+                            <includedValues>v2.0360::NG::Non-Graduate</includedValues>
+                            <includedValues>v2.0360::NP::Nurse Practitioner</includedValues>
+                            <includedValues>v2.0360::PA::Physician Assistant</includedValues>
+                            <includedValues>v2.0360::RMA::Registered Medical Assistant</includedValues>
+                            <includedValues>v2.0360::RN::Registered Nurse</includedValues>
+                            <includedValues>v2.0360::RPH::Registered Pharmacist</includedValues>
+                            <includedValues>v2.0360::SEC::Secretarial Certificate</includedValues>
+                            <includedValues>v2.0360::TS::Trade School Graduate</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0010]"/>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.specimen_preparation.v0"
+                    concept_name="Probenverarbeitung" max="1"
+                    name="Lagerprozess" path="/items[at0100]" xsi:type="tem:CLUSTER">
+                    <Rule
+                        name="Datum und Zeit des Aufbereitungsschrittes - Start" path="/items[at0072]"/>
+                    <Rule clone="true"
+                        name="Datum und Zeit des Aufbereitungsschrittes - Ende" path="/items[at0072]"/>
+                    <Rule name="Art des Aufbereitungsschrittes" path="/items[at0071]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>v2-0373::ACID::Acidification</includedValues>
+                            <includedValues>v2-0373::ALK::Alkalization</includedValues>
+                            <includedValues>v2-0373::DEFB::Defibrination</includedValues>
+                            <includedValues>v2-0373::FILT::Filtration</includedValues>
+                            <includedValues>v2-0373::LDLP::LDL Precipitation</includedValues>
+                            <includedValues>v2-0373::NEUT::Neutralization</includedValues>
+                            <includedValues>v2-0373::RECA::Recalification</includedValues>
+                            <includedValues>v2-0373::UFIL::Ultrafiltration</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule clone="true"
+                        name="Art des Aufbereitungsschrittes" path="/items[at0071]"/>
+                    <Rule max="0" path="/items[at0074]"/>
+                    <Rule max="0" path="/items[at0087]"/>
+                    <Rule min="1" name="Temperaturbedingungen" path="/items[at0086]/items[at0073]"/>
+                    <Rule max="0" path="/items[at0086]/items[at0084]"/>
+                    <Rule max="0" path="/items[at0086]/items[at0075]"/>
+                    <Rule max="0" path="/items[at0086]/items[at0076]"/>
                 </Items>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.biobank_storage.v0"
-                max="1" path="/data[at0001]/items[at0009]" xsi:type="tem:CLUSTER">
+                concept_name="Biobank-Lagerung" max="1"
+                name="Biobank, bei der die Probe lagert"
+                path="/data[at0001]/items[at0009]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
                 <Rule path="/items[at0002]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Identifier</includedTypes>
@@ -621,61 +2117,24 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/items[at0006]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.organisation.v1"
                     max="1" path="/items[at0004]" xsi:type="tem:CLUSTER">
-                    <Rule name="Rolle" path="/items[at0004]"/>
+                    <Rule name="Namenszeile Alias" path="/items[at0001]"/>
+                    <Rule max="0" path="/items[at0003]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Identifier</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Typ" path="/items[at0004]"/>
                     <Rule max="0" path="/items[at0019]"/>
-                    <Items archetype_id="openEHR-EHR-CLUSTER.address.v1"
-                        max="1" path="/items[at0005]" xsi:type="tem:CLUSTER">
-                        <Rule max="0" path="/items[at0007]">
-                            <constraint xsi:type="tem:quantityConstraint">
-                                <unitMagnitude>
-                                    <unit>deg</unit>
-                                    <maxMagnitude>90.0</maxMagnitude>
-                                    <minMagnitude>-90.0</minMagnitude>
-                                    <includesMaximum>true</includesMaximum>
-                                    <includesMinimum>true</includesMinimum>
-                                </unitMagnitude>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0008]">
-                            <constraint xsi:type="tem:quantityConstraint">
-                                <unitMagnitude>
-                                    <unit>deg</unit>
-                                    <maxMagnitude>180.0</maxMagnitude>
-                                    <minMagnitude>-180.0</minMagnitude>
-                                    <includesMaximum>true</includesMaximum>
-                                    <includesMinimum>true</includesMinimum>
-                                </unitMagnitude>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0009]">
-                            <constraint xsi:type="tem:quantityConstraint">
-                                <unitMagnitude>
-                                    <unit>m</unit>
-                                    <includesMaximum>false</includesMaximum>
-                                    <includesMinimum>true</includesMinimum>
-                                </unitMagnitude>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0019]"/>
-                        <Rule max="0" path="/items[at0010]">
-                            <constraint xsi:type="tem:multipleConstraint">
-                                <includedTypes>Coded_text</includedTypes>
-                                <includedTypes>Text</includedTypes>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0014]">
-                            <constraint xsi:type="tem:multipleConstraint">
-                                <includedTypes>Coded_text</includedTypes>
-                                <includedTypes>Text</includedTypes>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0018]"/>
-                    </Items>
                     <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
-                        max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        concept_name="Person" max="1"
+                        name="Person Forschungskontakt"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule max="0" path="/items[at0001]"/>
                         <Rule max="0" path="/items[at0011]"/>
                         <Rule max="0" path="/items[at0003]">
                             <constraint xsi:type="tem:multipleConstraint">
@@ -683,25 +2142,18 @@
                                 <includedTypes>Text</includedTypes>
                             </constraint>
                         </Rule>
-                        <Rule max="0" path="/items[at0004]"/>
                         <Rule max="0" path="/items[at0010]"/>
                         <Items
-                            archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
-                            max="1" path="/items[at0002]" xsi:type="tem:CLUSTER"/>
-                        <Items
-                            archetype_id="openEHR-EHR-CLUSTER.electronic_communication.v1"
-                            max="1" path="/items[at0006]" xsi:type="tem:CLUSTER">
-                            <Rule max="0" path="/items[at0003]">
-                                <constraint xsi:type="tem:multipleConstraint">
-                                    <includedTypes>Text</includedTypes>
-                                    <includedTypes>Coded_text</includedTypes>
-                                </constraint>
-                            </Rule>
-                            <Rule max="0" path="/items[at0004]"/>
-                        </Items>
-                        <Items
                             archetype_id="openEHR-EHR-CLUSTER.address.v1"
-                            max="1" path="/items[at0005]" xsi:type="tem:CLUSTER">
+                            concept_name="Adresse" max="1" min="1"
+                            name="Forschungskontakt Adresse"
+                            path="/items[at0005]" xsi:type="tem:CLUSTER">
+                            <Rule max="1" min="1" path="/items[at0001]"/>
+                            <Rule max="0" path="/items[at0002]"/>
+                            <Rule max="0" path="/items[at0003]"/>
+                            <Rule max="0" path="/items[at0004]"/>
+                            <Rule max="0" path="/items[at0005]"/>
+                            <Rule max="0" path="/items[at0006]"/>
                             <Rule max="0" path="/items[at0007]">
                                 <constraint xsi:type="tem:quantityConstraint">
                                     <unitMagnitude>
@@ -748,32 +2200,20 @@
                             </Rule>
                             <Rule max="0" path="/items[at0018]"/>
                         </Items>
-                    </Items>
-                    <Items
-                        archetype_id="openEHR-EHR-CLUSTER.electronic_communication.v1"
-                        max="1" path="/items[at0022]" xsi:type="tem:CLUSTER">
-                        <Rule max="0" path="/items[at0003]">
-                            <constraint xsi:type="tem:multipleConstraint">
-                                <includedTypes>Text</includedTypes>
-                                <includedTypes>Coded_text</includedTypes>
-                            </constraint>
-                        </Rule>
-                        <Rule max="0" path="/items[at0004]"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
+                            max="1" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                            <Rule max="0" path="/items[at0001]"/>
+                            <Rule min="1" path="/items[at0002]"/>
+                            <Rule max="1" min="1" path="/items[at0005]"/>
+                            <Rule max="0" path="/items[at0006]"/>
+                        </Items>
                     </Items>
                 </Items>
             </Items>
         </Content>
-        <Context>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1"
-                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0006]"/>
-            </Items>
-        </Context>
-        <Rule path="/context/other_context[at0001]/items[at0005]">
+        <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
                 <includedValues>specimen-status::available::Available</includedValues>
                 <includedValues>specimen-status::unavailable::Unavailable</includedValues>
@@ -788,12 +2228,6 @@
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
-    </integrity_checks>
-    <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.biospecimen_summary.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
@@ -804,6 +2238,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">E637F4E72B8AF6864C778C54E519ADA4</digest>
     </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2AC0A5FC5AAC3D72188CB7118467A627</digest>
+    </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.specimen_container.v1"
         xmlns:tem="openEHR/v1/Template"
@@ -811,16 +2250,16 @@
         <digest id="MD5-CAM-1.0.1">86469A298616E7CE233B12A8019966B0</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.specimen_preparation.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C90F6FADFEB1D1C3AE7A8B590EF3C854</digest>
-    </integrity_checks>
-    <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.specimen_measurements.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">3469A60230040CB30E2DAFD00B6CE775</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.specimen_preparation.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C90F6FADFEB1D1C3AE7A8B590EF3C854</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1"
@@ -847,18 +2286,12 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">2133C3C9ED943180AF0FD5076B412AD5</digest>
+        <digest id="MD5-CAM-1.0.1">2CF1BF28DCEC6DCF92B55E6F39DF75A6</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4C91B974D7EE4B40B0579711D6B62439</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.electronic_communication.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">631B12227B6F857367CA40D256DD814A</digest>
     </integrity_checks>
 </template>

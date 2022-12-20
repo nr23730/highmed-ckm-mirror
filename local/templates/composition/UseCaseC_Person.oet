@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>63f2eeb6-0383-482d-bd3e-a3643a9564fc</id>
-    <name>KDS_Person</name>
+    <id>2fdc9aa3-29cf-4412-86e5-2c2bb8b8bf11</id>
+    <name>UseCaseC_Person</name>
     <description>
         <original_author>
             <item>
@@ -28,7 +28,7 @@
         <details>
             <purpose>Zur Darstellung von einer Person und ihren demografischen Merkmalen.</purpose>
             <keywords>
-                 <item>Personendaten</item>
+                <item>Personendaten</item>
                 <item>Demografie</item>
                 <item>Patient</item>
                 <item>Identifikation</item>
@@ -65,11 +65,11 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>dd7259d4571fb7ee76a5791b5f16fc01</value>
+                <value>cc185db99b00e5870d54e99e118bc97e</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>D58AD694FDCE20B865CEF3A93241069A</value>
+                <value>6AFE570A2D850AB1D7AA794A541ECC42</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -98,7 +98,7 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             <Rule min="1" path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId
-                        queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/administrative-gender" terminologyID="//fhir.hl7.org/"/>
+                        queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/administrative-gender" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
@@ -117,14 +117,19 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
         </Content>
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
             max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
-             <Rule max="0" name="Aktive Verwendung?" path="/data[at0001]/items[at0008]"/>
+            <Rule max="0" name="Aktive Verwendung?" path="/data[at0001]/items[at0008]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
                 max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule min="1" name="Todesdiagnose" path="/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <termQueryId
-                            queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                            queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0006]"/>
@@ -142,24 +147,22 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                 min="1" path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0011]"/>
-                <Rule max="1" name="Versicherten ID_GKV" path="/items[at0003]">				
-				<constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Identifier</includedTypes>
+                <Rule max="1" name="Versicherten ID_GKV" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
                     </constraint>
-				</Rule>
+                </Rule>
                 <Rule clone="true" name="PID" path="/items[at0003]">
-					<constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Identifier</includedTypes>
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
                     </constraint>
-				</Rule>
+                </Rule>
                 <Rule clone="true" max="1"
                     name="Versicherungsnummer PKV" path="/items[at0003]">
-					<constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Identifier</includedTypes>
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
                     </constraint>
-				</Rule>
-				
-				
+                </Rule>
                 <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0010]"/>
                 <Items
@@ -167,10 +170,10 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     concept_name="Strukturierter Name der Person"
                     max="1" name="Name" path="/items[at0002]" xsi:type="tem:CLUSTER">
                     <Rule max="1" min="1" name="Namensart" path="/items[at0001]">
-    					<constraint xsi:type="tem:textConstraint">
-							<termQueryId
-                            queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
-						</constraint>						
+                        <constraint xsi:type="tem:textConstraint">
+                            <termQueryId
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
+                        </constraint>
                     </Rule>
                     <Rule max="1" name="Vollständiger Name" path="/items[at0002]"/>
                     <Rule clone="true" min="1" name="Vorname" path="/items[at0002]"/>
@@ -188,13 +191,13 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
                     concept_name="Strukturierter Name der Person"
                     max="1" name="Geburtsname" path="/items[at0002]" xsi:type="tem:CLUSTER">
-					<Rule max="1" min="1" name="Namensart" path="/items[at0001]">
-    					<constraint xsi:type="tem:textConstraint">
-							<termQueryId
-                            queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
-						</constraint>						
+                    <Rule max="1" min="1" name="Namensart" path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <termQueryId
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/name-use" terminologyID="//fhir.hl7.org/"/>
+                        </constraint>
                     </Rule>
-					<Rule max="1" name="Vollständiger Name" path="/items[at0002]"/>
+                    <Rule max="1" name="Vollständiger Name" path="/items[at0002]"/>
                     <Rule clone="true" max="0" name="Vorname" path="/items[at0002]"/>
                     <Rule max="1" min="1" name="Familienname" path="/items[at0005]"/>
                     <Rule clone="true" max="1"
@@ -225,29 +228,57 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     <Rule name="Bundesland" path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
                     <Rule min="1" path="/items[at0005]"/>
                     <Rule min="1" path="/items[at0006]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0007]"/>                        
-                    <Rule max="0" path="/items[at0008]"/>                        
-                    <Rule max="0" path="/items[at0009]"/>                        
-                    <Rule max="0" path="/items[at0019]"/>				
-					<Rule min="1" path="/items[at0010]">
-			         <constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Coded_text</includedTypes>
-                    </constraint>
-					</Rule>			
+                    <Rule max="0" path="/items[at0007]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>90.0</maxMagnitude>
+                                <minMagnitude>-90.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0008]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>180.0</maxMagnitude>
+                                <minMagnitude>-180.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0009]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>m</unit>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0019]"/>
+                    <Rule min="1" path="/items[at0010]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule path="/items[at0014]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
                 </Items>
@@ -263,29 +294,57 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     <Rule name="Bundesland" path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
                     <Rule min="1" path="/items[at0005]"/>
                     <Rule min="1" path="/items[at0006]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/iso3166-1-2" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0007]"/>
-					<Rule max="0" path="/items[at0008]"/>   
-                    <Rule max="0" path="/items[at0009]"/>
+                    <Rule max="0" path="/items[at0007]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>90.0</maxMagnitude>
+                                <minMagnitude>-90.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0008]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>180.0</maxMagnitude>
+                                <minMagnitude>-180.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0009]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>m</unit>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0019]"/>
                     <Rule min="1" path="/items[at0010]">
-			         <constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Coded_text</includedTypes>
-                    </constraint>
-					</Rule>
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule path="/items[at0014]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
                 </Items>
@@ -294,11 +353,16 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                 concept_name="Person" max="1" name="Kontaktperson"
                 path="/data[at0001]/items[at0031]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule name="Rolle (Relationship)" path="/items[at0004]">
                     <constraint xsi:type="tem:textConstraint">
                         <termQueryId
-                            queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/patient-contactrelationship" terminologyID="//fhir.hl7.org/"/>
+                            queryName="/ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/patient-contactrelationship" terminologyID="//fhir.hl7.org/"/>
                     </constraint>
                 </Rule>
                 <Items archetype_id="openEHR-EHR-CLUSTER.address.v1"
@@ -309,17 +373,55 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     <Rule max="0" path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
-                                queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
+                                queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/iso/bundeslaender" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0005]"/>
                     <Rule max="0" path="/items[at0006]"/>
-                    <Rule max="0" path="/items[at0007]"/>
-                    <Rule max="0" path="/items[at0008]"/>
-                    <Rule max="0" path="/items[at0009]"/>
+                    <Rule max="0" path="/items[at0007]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>90.0</maxMagnitude>
+                                <minMagnitude>-90.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0008]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>deg</unit>
+                                <maxMagnitude>180.0</maxMagnitude>
+                                <minMagnitude>-180.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0009]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>m</unit>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0019]"/>
-                    <Rule max="0" path="/items[at0010]"/>
-                    <Rule max="0" path="/items[at0014]"/>
+                    <Rule max="0" path="/items[at0010]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0014]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/items[at0018]"/>
                 </Items>
                 <Items
@@ -339,11 +441,10 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </Items>
         </Content>
         <Rule name="Patient ID" path="/context/other_context[at0003]/items[at0004]">
-			         <constraint xsi:type="tem:multipleConstraint">
-						<includedTypes>Identifier</includedTypes>
-                    </constraint>
-            </Rule>	
-			
+            <constraint xsi:type="tem:multipleConstraint">
+                <includedTypes>Identifier</includedTypes>
+            </constraint>
+        </Rule>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.person.v0"
         xmlns:tem="openEHR/v1/Template"
