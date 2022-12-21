@@ -338,6 +338,30 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     max="1" path="/items[at0007]" xsi:type="tem:CLUSTER"/>
             </Items>
         </Content>
+		        <Content archetype_id="openEHR-EHR-EVALUATION.vital_status.v1"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0006]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0013]"/>
+            <Rule path="/protocol[at0002]/items[at0018]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Date_Time</includedTypes>
+                </constraint>
+            </Rule>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.observation_status_fhir.v1"
+                max="1" path="/data[at0001]/items[at0010]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0015]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0014]"/>
+            </Items>
+        </Content>
         <Rule name="Patient ID" path="/context/other_context[at0003]/items[at0004]">
 			         <constraint xsi:type="tem:multipleConstraint">
 						<includedTypes>Identifier</includedTypes>
@@ -399,5 +423,17 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">631B12227B6F857367CA40D256DD814A</digest>
+    </integrity_checks>
+	    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.vital_status.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DD10AF7A98CA0FAF10467F86BFE9CFF1</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.observation_status_fhir.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">3AC67209BBB1A11D6CBDD901C55580B1</digest>
     </integrity_checks>
 </template>

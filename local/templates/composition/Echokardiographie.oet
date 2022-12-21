@@ -191,21 +191,28 @@
                 <Rule max="0" path="/protocol[at0005]/items[at0009]"/>
             </Item>
             <Item
-                archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
+                archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v1"
                 max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="1" path="/data[at0001]/events[at0002]"/>
-                <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <Rule name="Name der Untersuchung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>TTE-Transthorakale Echokardiographie</includedValues>
                     </constraint>
                 </Rule>
-                <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <Rule min="1" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0091]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Ultraschall</includedValues>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
-                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0070]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0072]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0071]"/>
+                <Rule name="Klinische Fragestellung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0061]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0056]"/>
@@ -215,8 +222,62 @@
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]"/>
-                <Rule max="0" path="/protocol[at0025]/items[at0027]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0108]"/>
+                <Rule name="DICOM Studienkennung" path="/protocol[at0025]/items[at0092]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0105]"/>
+                <Rule name="Berichtskennung" path="/protocol[at0025]/items[at0104]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0099]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0098]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0106]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0087]"/>
                 <Rule max="0" path="/protocol[at0025]/items[at0049]"/>
+                <Rule max="1" name="Prozedur" path="/protocol[at0025]/items[at0088]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0062]"/>
+                <Rule name="Vergleichsaufnahmen" path="/protocol[at0025]/items[at0093]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0094]"/>
+                <Rule name="DICOM Serienkennung" path="/protocol[at0025]/items[at0093]/items[at0095]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0096]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0097]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="1" path="/protocol[at0025]/items[at0027]"/>
+                <Rule name="Auftragskennung" path="/protocol[at0025]/items[at0027]/items[at0031]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0028]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0029]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
                     concept_name="Ergebnis der Bildgebung" max="1"
@@ -1337,10 +1398,10 @@
         <digest id="MD5-CAM-1.0.1">C3362CD4E1C6A0A7484CBD220AA6A306</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v0"
+        archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D6C330E6539F65C0A8E99B54E8A65684</digest>
+        <digest id="MD5-CAM-1.0.1">60DD7069B50AAF5B394E3F246F80BCB5</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.imaging_result.v0"
