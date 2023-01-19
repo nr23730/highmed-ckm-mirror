@@ -54,65 +54,78 @@ This archetype is designed for general use within archetypes that describe chara
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"7F72D5A78180177142848209B9239F7B">
-		["build_uid"] = <"c10ebdc5-3096-424e-a198-5ddbc8988d0c">
-		["revision"] = <"1.0.3">
+		["MD5-CAM-1.0.1"] = <"FC149EB72CD23D8A60DD2A8488761581">
+		["build_uid"] = <"0d7fc18d-1aa1-4186-87bd-76a3808ae5b6">
+		["revision"] = <"1.0.4">
 	>
 
 definition
-	CLUSTER[at0000] matches {    -- Studienteilnahme
+	CLUSTER[at0000] matches {	-- Study participation
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Name der Studie
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Study name
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {    -- Studie
+			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Study
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.study_details(-[a-zA-Z0-9_]+)*\.v0/}
 			}
-			ELEMENT[at0018] occurrences matches {0..*} matches {    -- Rechtsgrundlage
+			ELEMENT[at0018] occurrences matches {0..*} matches {	-- Legal basis
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0005] occurrences matches {0..1} matches {    -- Status
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Status
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0006,    -- Informiert
-							at0007,    -- Eingewilligt
-							at0008,    -- Screening-Phase
-							at0009,    -- Eingeschlossen
-							at0010,    -- Widerrufen
-							at0011,    -- Abgebrochen/Ausgeschlossen
-							at0017,    -- Follow-Up
-							at0012]    -- Abgeschlossen
+							at0006, 	-- Informed
+							at0007, 	-- Consented
+							at0008, 	-- Screening phase
+							at0009, 	-- Included
+							at0010, 	-- Revoked
+							at0011, 	-- Cancelled/Excluded
+							at0017, 	-- Follow-up
+							at0012, 	-- Completed
+							at0019, 	-- Potential Candidate
+							at0020]	-- Not Registered
 						}
 					}
+					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0016] occurrences matches {0..1} matches {    -- Identifikation
+			ELEMENT[at0016] occurrences matches {0..*} matches {	-- Identification
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Start of participation
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- End of participation
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Study site
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Assigned arm
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Beginn der Teilnahme
+			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Actual Arm
 				value matches {
-					DV_DATE_TIME matches {*}
+					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Ende der Teilnahme
-				value matches {
-					DV_DATE_TIME matches {*}
-				}
-			}
-			allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {    -- Studienzentrum
-				include
-					archetype_id/value matches {/.*/}
-			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {    -- Kommentar
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Comment
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -205,6 +218,22 @@ ontology
 					description = <"Rechtliche Rahmen oder Regeln für die Teilnahme.">
 					comment = <"Zur Sicherheit der Patienten dürfen Forschungen am Menschen nur durchgeführt werden, wenn zahlreiche Gesetze und Richtlinien eingehalten werden. Hier können Gesetze und Richtlinien, nach welchen die Teilnahme an der Studie geregelt wird, benannt werden, z.B. das Arzneimittelgesetz (AMG) und die GCP-Verordnung bei einer in Deutschland durchgeführten klinischen Arzneimittelstudie.">
 				>
+				["at0019"] = <
+					text = <"Potentielle Teilnahme">
+					description = <"Eine Person, die potenziell für die Teilnahme an der Studie geeignet ist.">
+				>
+				["at0020"] = <
+					text = <"Nicht registriert">
+					description = <"Eine Person, für die die Registrierung in der Studie nicht abgeschlossen wurde.">
+				>
+				["at0021"] = <
+					text = <"Zugewiesener Studienarm">
+					description = <"Der Name des Arms in der Studie, dem die Person voraussichtlich als Teil dieser Studie folgen wird.">
+				>
+				["at0022"] = <
+					text = <"Tatsächlicher Studienarm">
+					description = <"Der Name des Arms in der Studie, dem die Person tatsächlich als Teil dieser Studie folgt oder folgte.">
+				>
 			>
 		>
 		["en"] = <
@@ -288,6 +317,22 @@ ontology
 					text = <"Legal basis">
 					description = <"Legal framework or rules for participation.">
 					comment = <"For patient safety, research involving human subjects may only be conducted if numerous laws and guidelines are followed. Laws and guidelines according to which participation in the study is regulated can be named here, e.g. the German Medicinal Products Act (AMG) and the GCP regulation in the case of a clinical drug study conducted in Germany.">
+				>
+				["at0019"] = <
+					text = <"Potential Candidate">
+					description = <"A person that is potentially eligible for participation in the study.">
+				>
+				["at0020"] = <
+					text = <"Not Registered">
+					description = <"A person for whom registration was not completed.">
+				>
+				["at0021"] = <
+					text = <"Assigned arm">
+					description = <"The name of the arm in the study the subject is expected to follow as part of this study.">
+				>
+				["at0022"] = <
+					text = <"Actual Arm">
+					description = <"The name of the arm in the study the subject actually followed as part of this study.">
 				>
 			>
 		>
