@@ -77,7 +77,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>2c7885476ba359273065d9ec49dd9083</value>
+                <value>ae1c8df0c96360e80c8394918954383c</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -85,7 +85,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>211.0.0</value>
+                <value>216.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -146,11 +146,13 @@
                     <Rule path="/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://snomed.info/sct::14045001::Caucasian (ethnic group)</includedValues>
+                            <includedValues>http://snomed.info/sct::74964007::Other (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
                     <Rule name="Hautfarbe" path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://snomed.info/sct::403243002::Black constitutive skin color (finding)</includedValues>
+                            <includedValues>http://snomed.info/sct::74964007::Other (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
                 </Items>
@@ -574,48 +576,23 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                 concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss Kaukasisch" path="/items" xsi:type="tem:EVALUATION">
-                <Rule path="/data[at0001]/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule path="/data[at0001]/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://snomed.info/sct::14045001::Caucasian (ethnic group)</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/data[at0001]/items[at0012]"/>
-            </Item>
-            <Item
-                archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss Schwarze Hautfarbe" path="/items" xsi:type="tem:EVALUATION">
-                <Rule path="/data[at0001]/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule path="/data[at0001]/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://snomed.info/sct::403243002::Black constitutive skin color (finding)</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/data[at0001]/items[at0012]"/>
-            </Item>
-            <Item
-                archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                concept_name="Ausschluss - spezifisch" max="1"
                 name="Ausschluss Familiäre Disposition" path="/items" xsi:type="tem:EVALUATION">
                 <Rule path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
                     </constraint>
                 </Rule>
-                <Rule default="Familiäre Disposition" path="/data[at0001]/items[at0003]">
+                <Rule default="Familiäre Disposition"
+                    name="Familiäre Krankengeschichte" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Familiäre Disposition</includedValues>
                     </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0004</excludedValues>
+                        <excludedValues>local::at0007</excludedValues>
+                    </nameConstraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
@@ -635,6 +612,35 @@
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Hautfarbe nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::276323006::Finding of color of skin (finding)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Ethnie nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::397731000::Ethnic group finding (finding)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
             </Item>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
@@ -1165,10 +1171,17 @@
                         </constraint>
                     </Rule>
                     <Rule
-                        default="http://snomed.info/sct::67866001::Insulin" path="/data[at0001]/items[at0003]">
+                        default="http://snomed.info/sct::67866001::Insulin"
+                        name="Medikation" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://snomed.info/sct::67866001::Insulin (substance)</includedValues>
                         </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0004</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
                     </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 </Item>
@@ -2293,10 +2306,17 @@
                         </constraint>
                     </Rule>
                     <Rule
-                        default="http://snomed.info/sct::84114007::Heart failure (disorder)" path="/data[at0001]/items[at0003]">
+                        default="http://snomed.info/sct::84114007::Heart failure (disorder)"
+                        name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://snomed.info/sct::84114007::Heart failure (disorder)</includedValues>
                         </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
                     </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 </Item>
@@ -2497,10 +2517,17 @@
                         </constraint>
                     </Rule>
                     <Rule
-                        default="http://snomed.info/sct::56819008::Endocarditis (disorder)" path="/data[at0001]/items[at0003]">
+                        default="http://snomed.info/sct::56819008::Endocarditis (disorder)"
+                        name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://snomed.info/sct::56819008::Endocarditis (disorder)</includedValues>
                         </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
                     </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 </Item>
@@ -3499,10 +3526,17 @@
                             </constraint>
                         </Rule>
                         <Rule
-                            default="http://snomed.info/sct::232778005::Tricuspid valve operation (procedure)" path="/data[at0001]/items[at0003]">
+                            default="http://snomed.info/sct::232778005::Tricuspid valve operation (procedure)"
+                            name="Eingriff" path="/data[at0001]/items[at0003]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>http://snomed.info/sct::232778005::Tricuspid valve operation (procedure)</includedValues>
                             </constraint>
+                            <nameConstraint>
+                                <excludedValues>local::at0008</excludedValues>
+                                <excludedValues>local::at0005</excludedValues>
+                                <excludedValues>local::at0006</excludedValues>
+                                <excludedValues>local::at0004</excludedValues>
+                            </nameConstraint>
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0012]"/>
                     </Item>
@@ -3609,10 +3643,17 @@
                             </constraint>
                         </Rule>
                         <Rule
-                            default="http://snomed.info/sct::232854009::Pulmonary valve operation (procedure)" path="/data[at0001]/items[at0003]">
+                            default="http://snomed.info/sct::232854009::Pulmonary valve operation (procedure)"
+                            name="Eingriff" path="/data[at0001]/items[at0003]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>http://snomed.info/sct::232854009::Pulmonary valve operation (procedure)</includedValues>
                             </constraint>
+                            <nameConstraint>
+                                <excludedValues>local::at0008</excludedValues>
+                                <excludedValues>local::at0005</excludedValues>
+                                <excludedValues>local::at0006</excludedValues>
+                                <excludedValues>local::at0004</excludedValues>
+                            </nameConstraint>
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0012]"/>
                     </Item>
@@ -4159,10 +4200,17 @@
                     </constraint>
                 </Rule>
                 <Rule
-                    default="http://snomed.info/sct::72506001::Implantable defibrillator, device (physical object)" path="/data[at0001]/items[at0003]">
+                    default="http://snomed.info/sct::72506001::Implantable defibrillator, device (physical object)"
+                    name="Eingriff" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::72506001::Implantable defibrillator, device (physical object)</includedValues>
                     </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0005</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0004</excludedValues>
+                    </nameConstraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
@@ -4211,10 +4259,17 @@
                     </constraint>
                 </Rule>
                 <Rule
-                    default="http://snomed.info/sct::14106009::Cardiac pacemaker, device (physical object)" path="/data[at0001]/items[at0003]">
+                    default="http://snomed.info/sct::14106009::Cardiac pacemaker, device (physical object)"
+                    name="Eingriff" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::14106009::Cardiac pacemaker, device (physical object)</includedValues>
                     </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0005</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0004</excludedValues>
+                    </nameConstraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
@@ -4229,10 +4284,17 @@
                     </constraint>
                 </Rule>
                 <Rule
-                    default="http://snomed.info/sct::467207002::Cardiac contractility modulation system (physical object)" path="/data[at0001]/items[at0003]">
+                    default="http://snomed.info/sct::467207002::Cardiac contractility modulation system (physical object)"
+                    name="Eingriff" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::467207002::Cardiac contractility modulation system (physical object)</includedValues>
                     </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at0008</excludedValues>
+                        <excludedValues>local::at0005</excludedValues>
+                        <excludedValues>local::at0006</excludedValues>
+                        <excludedValues>local::at0004</excludedValues>
+                    </nameConstraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
