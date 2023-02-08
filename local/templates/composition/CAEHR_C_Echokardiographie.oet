@@ -1,0 +1,1577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>015dfe61-9282-446f-835e-fb1c4a42aa3d</id>
+    <name>CAEHR_C_Echokardiographie</name>
+    <description>
+        <lifecycle_state>published</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>MetaDataSet:Sample Set </key>
+                <value>Template metadata sample set </value>
+            </item>
+            <item>
+                <key>Acknowledgements</key>
+                <value/>
+            </item>
+            <item>
+                <key>Business Process Level</key>
+                <value/>
+            </item>
+            <item>
+                <key>Care setting</key>
+                <value/>
+            </item>
+            <item>
+                <key>Client group</key>
+                <value/>
+            </item>
+            <item>
+                <key>Clinical Record Element</key>
+                <value/>
+            </item>
+            <item>
+                <key>Copyright</key>
+                <value/>
+            </item>
+            <item>
+                <key>Issues</key>
+                <value/>
+            </item>
+            <item>
+                <key>Owner</key>
+                <value/>
+            </item>
+            <item>
+                <key>Sign off</key>
+                <value/>
+            </item>
+            <item>
+                <key>Speciality</key>
+                <value/>
+            </item>
+            <item>
+                <key>User roles</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>d26c9c72c2d755645bf1b6c953521eff</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>101.0.1</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value>697694f4-5e77-42ce-a501-cb4dc2ec06e8</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::en</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+            concept_name="Exclusion - specific" max="1"
+            name="Echo nicht erhoben" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Procedure" path="/data[at0001]/items[at0003]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://snomed.info/sct::40701008::Echocardiography (procedure)</includedValues>
+                </constraint>
+                <nameConstraint>
+                    <excludedValues>local::at0008</excludedValues>
+                    <excludedValues>local::at0005</excludedValues>
+                    <excludedValues>local::at0006</excludedValues>
+                    <excludedValues>local::at0004</excludedValues>
+                </nameConstraint>
+            </Rule>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc heading" max="1"
+            name="Rhythmus und Frequenz" path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                concept_name="Exclusion - specific" max="1"
+                name="Herzfrequenz nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0001]/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::301112006::Finding of heart rhythm (finding)</includedValues>
+                    </constraint>
+                </Rule>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Absence of information" max="1"
+                name="Ausschluss Herzfrequenz und Rhythmus"
+                path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::301112006::Finding of heart rhythm (finding)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+            </Item>
+            <Item archetype_id="openEHR-EHR-OBSERVATION.pulse.v2"
+                concept_name="Pulse/Heart beat" max="1"
+                name="Herzfrequenz" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule max="1" path="/data[at0002]/events[at0003]"/>
+                <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]"/>
+                <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]"/>
+                <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1055]"/>
+                <Rule max="1" name="Schrittmacher" path="/data[at0002]/events[at0003]/data[at0001]/items[at1030]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schrittmacher</includedValues>
+                        <includedValues>kein Schrittmacher</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]"/>
+                <Rule name="Rhythm" path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::64730000::Normal sinus rhythm (finding)</includedValues>
+                        <includedValues>http://snomed.info/sct::49436004::Atrial fibrillation (disorder)</includedValues>
+                        <includedValues>http://snomed.info/sct::10370003::Rhythm from artificial pacing (finding)</includedValues>
+                        <includedValues>http://snomed.info/sct::74964007::Other (qualifier value)</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at1057</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule name="Weitere Informationen zu Schrittmacher" path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]"/>
+                <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
+                <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]"/>
+                <Rule name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1005]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at0005]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1055]"/>
+                <Rule max="1" name="Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1030]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schrittmacher</includedValues>
+                        <includedValues>kein Schrittmacher</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1022]"/>
+                <Rule path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Sinusrhythmus</includedValues>
+                        <includedValues>Vorhofflimmern</includedValues>
+                        <includedValues>Anderer Rhythmus</includedValues>
+                        <includedValues>Schrittmacherstimulation</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at1057</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule name="Weitere Informationen zu Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1059]"/>
+                <Rule clone="true" name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
+                <Rule clone="true" max="0" name="Presence" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1005]"/>
+                <Rule clone="true" max="0" name="Regularity" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at0005]"/>
+                <Rule clone="true" max="0" name="Irregular type" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1055]"/>
+                <Rule clone="true" max="1" name="Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1030]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schrittmacher</includedValues>
+                        <includedValues>kein Schrittmacher</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" max="0" name="Clinical description" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1022]"/>
+                <Rule clone="true" name="Rhythm" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1023]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Sinusrhythmus</includedValues>
+                        <includedValues>Vorhofflimmern</includedValues>
+                        <includedValues>Anderer Rhythmus</includedValues>
+                        <includedValues>Schrittmacherstimulation</includedValues>
+                    </constraint>
+                    <nameConstraint>
+                        <excludedValues>local::at1057</excludedValues>
+                    </nameConstraint>
+                </Rule>
+                <Rule clone="true"
+                    name="Weitere Informationen zu Schrittmacher" path="/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1059]"/>
+                <Rule name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]/state[at0012, 'List']/items[at0013]"/>
+                <Rule max="0" path="/data[at0002]/events[at1036]/state[at0012, 'List']/items[at1018]"/>
+                <Rule clone="true" name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
+                <Rule clone="true" max="0" name="Position" path="/data[at0002]/events[at1036]/state[at0012, 'List']/items[at0013]"/>
+                <Rule clone="true" max="0" name="Confounding factors" path="/data[at0002]/events[at1036]/state[at0012, 'List']/items[at1018]"/>
+                <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
+                <Rule max="0" path="/protocol[at0010]/items[at1037]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+            </Item>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc heading" max="1" name="Ergebnis"
+            path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.body_surface_area.v1"
+                max="1" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule max="1" path="/data[at0001]/events[at0002]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/state[at0020]/items[at0021]"/>
+                <Rule max="0" path="/protocol[at0005]/items[at0009]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Nicht erhobene Parameter" path="/items" xsi:type="tem:SECTION">
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Vena cava Durchmesser nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::81827009::Diameter</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Pulmonalvenöse diastolische Geschwindigkeit (PVdVel) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118592000::Velocity</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                    concept_name="Ad hoc heading" max="1"
+                    name="nicht erhobene Linksventrikuläre Parameter"
+                    path="/items" xsi:type="tem:SECTION">
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="Linksventrikuläre Auswurffraktion (LV-EF) + Methode  nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>local_termshttp://snomed.info/sct::250908004::Left ventricular ejection fraction (observable entity)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="Linksventrikuläre posteriore Wand (LVPW) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::250932006::Left ventricular end-diastolic cavity size (observable entity)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="Linksventrikulärer endsystolischer Diameter (LVED) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::250926001::Left ventricular segmental wall thickness (observable entity)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="Linksventrikuläres enddiastolisches Volumen (LVEDV) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::408719002::Cardiac end-diastolic volume (observable entity)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="LVPW nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::250932006::Left ventricular end-diastolic cavity size (observable entity)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                </Item>
+                <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                    concept_name="Ad hoc heading" max="1"
+                    name="Flußwellen nicht erhoben" path="/items" xsi:type="tem:SECTION">
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="E´-Welle (lateral) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="A´-Welle (lateral) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="S´-Welle (lateral) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="E´-Welle (medial) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="A´-Welle (medial) nicht erhoben"
+                        path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="S´(medial) nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                    <Item
+                        archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                        concept_name="Absence of information" max="1"
+                        name="A-Welle nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                        <Rule path="/data[at0001]/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::262281005::Waveforms (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/data[at0001]/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Item>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Vena cava atemreagibel (>50 % Abnahme durch Inspiration) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118245000::http://snomed.info/sct</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Pulmonalvenöse systolische Geschwindigkeit (PVsVel) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118592000::Velocity</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Perikarderguss nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118245000::http://snomed.info/sct</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="TAPSE nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118245000::Measurement finding (finding)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="MAPSE nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118245000::Measurement finding (finding)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="RV-Dilatation (Mid-ventrikulär) (Erweiterung rechter Ventrikel) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::25322007::Dilatation</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Linksatriale Fläche 4-Kammer-Blick (endsystolisch) (LA-Fläche 4CH) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::118245000::Evaluation finding (finding)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Intraventrikuläres Septum (enddiastolisch) (IVS) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::http://snomed.info/sct::Measurement finding (finding)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Linker Vorhof (endsystolisch) (LA diam) nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::81827009::Diameter</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="Durchmesser Aortenwurzel nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::81827009::Diameter</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item
+                archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v1"
+                max="1" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule max="1" path="/data[at0001]/events[at0002]"/>
+                <Rule name="Name der Untersuchung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>TTE-Transthorakale Echokardiographie</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="1" min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0091]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Ultraschall</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0070]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0072]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0071]"/>
+                <Rule name="Klinische Fragestellung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0061]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0056]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0059]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0048]"/>
+                <Rule max="0" path="/data[at0001]/events[at0002]/state[at0047]/items[at0108]"/>
+                <Rule name="DICOM Studienkennung" path="/protocol[at0025]/items[at0092]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0105]"/>
+                <Rule name="Berichtskennung" path="/protocol[at0025]/items[at0104]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0099]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0098]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0106]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0087]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0049]"/>
+                <Rule max="1" name="Prozedur" path="/protocol[at0025]/items[at0088]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0062]"/>
+                <Rule name="Vergleichsaufnahmen" path="/protocol[at0025]/items[at0093]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0094]"/>
+                <Rule name="DICOM Serienkennung" path="/protocol[at0025]/items[at0093]/items[at0095]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0096]"/>
+                <Rule max="0" path="/protocol[at0025]/items[at0093]/items[at0097]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>URI</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="1" path="/protocol[at0025]/items[at0027]"/>
+                <Rule name="Auftragskennung" path="/protocol[at0025]/items[at0027]/items[at0031]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0028]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0025]/items[at0027]/items[at0029]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1" name="Durchmesser Aortenwurzel"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::8128003::Aortic root</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Linker Vorhof (endsystolisch) (LA diam)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::82471001::Left atrium</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Intraventrikuläres Septum (enddiastolisch) (IVS)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::589001::Interventricular septum structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Linksatriale Fläche 4-Kammer-Blick (endsystolisch) (LA-Fläche 4CH)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::82471001::Left atrial structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="RV-Dilatation (Mid-ventrikulär) (Erweiterung rechter Ventrikel)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::53085002::Right cardiac ventricular structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1" name="MAPSE lateral"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::53085002::Right cardiac ventricular structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1" name="TAPSE"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::53085002::Right cardiac ventricular structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1" name="Perikarderguss"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::373945007::Pericardial effusion (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1" name="Vena cava Durchmesser"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::35532006::Vena caval structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Vena cava atemreagibel (>50 % Abnahme durch Inspiration)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::35532006::Vena caval structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Pulmonalvenöse systolische Geschwindigkeit (PVsVel)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::122972007::Structure of vein of pulmonary circulation (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                    concept_name="Imaging examination of a body structure"
+                    max="1"
+                    name="Pulmonalvenöse diastolische Geschwindigkeit (PVdVel)"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::122972007::Structure of vein of pulmonary circulation (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.adhoc_cluster_heading.v0"
+                    concept_name="Adhoc cluster heading" max="1"
+                    name="Flußwellen"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="E-Welle" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="A-Welle" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="S´(medial)" path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="A´-Welle (medial)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="E´-Welle (medial)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="S´-Welle (lateral)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="A´-Welle (lateral)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1" name="E´-Welle (lateral)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                </Items>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.adhoc_cluster_heading.v0"
+                    concept_name="Adhoc cluster heading" max="1"
+                    name="Linksventrikuläre Parameter"
+                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" xsi:type="tem:CLUSTER">
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1"
+                        name="Linksventrikuläre posteriore Wand (LVPW)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::87878005::Left cardiac ventricular structure (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1"
+                        name="Linksventrikulärer endsystolischer Diameter (LVED)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::87878005::Left cardiac ventricular structure (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1"
+                        name="Linksventrikuläre Auswurffraktion (LV-EF) + Methode"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1"
+                        name="Linksventrikuläres enddiastolisches Volumen (LVEDV)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+                        concept_name="Imaging examination of a body structure"
+                        max="1"
+                        name="Linksventrikulärer enddiastolischer Diameter (LVED)"
+                        path="/items[at0002]" xsi:type="tem:CLUSTER">
+                        <Rule path="/items[at0001]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::302509004::Entire heart</includedValues>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0002]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::244385005::Entire left cardiac ventricle (body structure)</includedValues>
+                            </constraint>
+                        </Rule>
+                    </Items>
+                </Items>
+            </Item>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+            concept_name="Ad hoc heading" max="1"
+            name="Diagnostik Insuffizienzen und Stenosen"
+            path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Mitralklappeninsuffizienz (MI)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss MI" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::48724000::Mitral valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="MI nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::48724000::Mitral valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::48724000::Mitral valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91134007::Mitral valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Aortenklappenstenose (AS)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss AS" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91434003::Pulmonic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="AS nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91434003::Pulmonic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91434003::Pulmonic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::39057004::Pulmonary valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Pulmonalklappeninsuffizienz (PI)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss PI" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::111287006::Tricuspid valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="PI nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::111287006::Tricuspid valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::111287006::Tricuspid valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::46030003::Tricuspid valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Aortenklappeninsuffizienz ( AI)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss AI" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60573004::Aortic valve stenosis (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="AI nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60573004::Aortic valve stenosis (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60573004::Aortic valve stenosis (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::34202007::Aortic valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Mitralklappenstenose (MS)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss MS" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60234000::Aortic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="MS nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60234000::Aortic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::60234000::Aortic valve regurgitation (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::34202007::Aortic valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+            <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+                concept_name="Ad hoc heading" max="1"
+                name="Trikuspidalklappeninsuffizienz (TI)" path="/items" xsi:type="tem:SECTION">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Exclusion - specific" max="1"
+                    name="Ausschluss TI" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule name="Problem/diagnosis" path="/data[at0001]/items[at0003]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::79619009::Mitral valve stenosis (disorder)</includedValues>
+                        </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0007</excludedValues>
+                        </nameConstraint>
+                    </Rule>
+                </Item>
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Absence of information" max="1"
+                    name="TI nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91134007::Mitral valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    <Rule path="/data[at0001]/items[at0002]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::79619009::Mitral valve stenosis (disorder)</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/data[at0001]/items[at0012]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::91134007::Mitral valve structure (body structure)</includedValues>
+                        </constraint>
+                    </Rule>
+                </Item>
+            </Item>
+        </Content>
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Context>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
+    </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at0003]/data[at0001]/items[at1030]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at0003]/data[at0001]/items[at1023]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1030]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Rhythmus und Frequenz']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at1036]/data[at0001, 'Structure']/items[at1023]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.body_surface_area.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Ergebnis']/items[openEHR-EHR-OBSERVATION.body_surface_area.v1]/protocol[at0005]/items[at0006]/null_flavour">
+            <items id="VisibleInView">
+                <value>null_flavour</value>
+            </items>
+        </constraints>
+    </view>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">367B17CB3B1709A6BDF8A32723647224</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.body_surface_area.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C3362CD4E1C6A0A7484CBD220AA6A306</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.imaging_exam_result.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">60DD7069B50AAF5B394E3F246F80BCB5</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.imaging_exam.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C7771A8FC401E050446E16FFF42F3BC3</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.adhoc_cluster_heading.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">528770673B6F27BE273FC9F786744619</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6780584ECAE98538AF60C1335D7ED4BF</digest>
+    </integrity_checks>
+</template>
