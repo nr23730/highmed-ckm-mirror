@@ -77,7 +77,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>532993b66296db4419c7a0928301e3e4</value>
+                <value>14e034ae591a3c72fa0b792b03ce5407</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -85,7 +85,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>226.0.0</value>
+                <value>239.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -330,7 +330,7 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                 concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss Familiäre Disposition" path="/items" xsi:type="tem:EVALUATION">
+                name="Ausschluss familiäre Disposition" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -704,7 +704,7 @@
                 </Item>
                 <Item archetype_id="openEHR-EHR-ACTION.procedure.v1"
                     concept_name="Prozedur" max="1"
-                    name="Dysplidämie behandlung" path="/items" xsi:type="tem:ACTION">
+                    name="Dyslipidämie Behandlung" path="/items" xsi:type="tem:ACTION">
                     <Rule max="0" min="0" path="/ism_transition[at0004]"/>
                     <Rule max="0" min="0" path="/ism_transition[at0034]"/>
                     <Rule max="0" min="0" path="/ism_transition[at0007]"/>
@@ -765,16 +765,15 @@
                             <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule default="Displädemie Behandlung"
-                        name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
+                    <Rule name="Eingriff" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Displädemie Behandlung</includedValues>
+                            <includedValues>Dyslipidämie Behandlung</includedValues>
                         </constraint>
                         <nameConstraint>
                             <excludedValues>local::at0008</excludedValues>
                             <excludedValues>local::at0005</excludedValues>
                             <excludedValues>local::at0006</excludedValues>
-                            <excludedValues>local::at0007</excludedValues>
+                            <excludedValues>local::at0004</excludedValues>
                         </nameConstraint>
                     </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
@@ -835,9 +834,7 @@
                         concept_name="Arzneimittel" max="1"
                         name="Insulinpflichtig"
                         path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
-                        <Rule
-                            default="http://snomed.info/sct::67866001::Insulin"
-                            name="Insulin" path="/items[at0132]">
+                        <Rule name="Insulin" path="/items[at0132]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>http://snomed.info/sct::67866001::Insulin (substance)</includedValues>
                             </constraint>
@@ -1138,7 +1135,7 @@
                         </constraint>
                     </Rule>
                     <Rule default="Hypertonie Behandlung"
-                        name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
+                        name="Eingriff" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Hypertonie Behandlung</includedValues>
                         </constraint>
@@ -1146,7 +1143,7 @@
                             <excludedValues>local::at0008</excludedValues>
                             <excludedValues>local::at0005</excludedValues>
                             <excludedValues>local::at0006</excludedValues>
-                            <excludedValues>local::at0007</excludedValues>
+                            <excludedValues>local::at0004</excludedValues>
                         </nameConstraint>
                     </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
@@ -1957,6 +1954,78 @@
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0069]"/>
                         <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+                        <Items
+                            archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v2"
+                            max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                            <Rule max="0" path="/items[at0004]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule path="/items[at0060]">
+                                <constraint xsi:type="tem:textConstraint">
+                                    <excludedValues>local::at0062</excludedValues>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0003]"/>
+                            <Rule max="0" path="/items[at0098]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0102]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0083]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0089]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0001]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0107]"/>
+                            <Rule max="0" path="/items[at0071]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0077]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Text</includedTypes>
+                                    <includedTypes>Coded_text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0063]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                    <includedTypes>Text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0073]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Boolean</includedTypes>
+                                    <includedTypes>Coded_text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0110]"/>
+                        </Items>
                     </Item>
                     <Item
                         archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
@@ -2271,7 +2340,7 @@
                 <Item
                     archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                     concept_name="Ausschluss - spezifisch" max="1"
-                    name="Ausschlluss Endokarditis" path="/items" xsi:type="tem:EVALUATION">
+                    name="Ausschluss Endokarditis" path="/items" xsi:type="tem:EVALUATION">
                     <Rule
                         default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
@@ -2349,7 +2418,7 @@
                 <Item
                     archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                     concept_name="Ausschluss - spezifisch" max="1"
-                    name="Ausschluss Angeborener Herzfehler"
+                    name="Ausschluss angeborener Herzfehler"
                     path="/items" xsi:type="tem:EVALUATION">
                     <Rule
                         default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
@@ -2530,7 +2599,7 @@
             path="/content" xsi:type="tem:SECTION">
             <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
                 concept_name="Ad hoc Überschrift" max="1"
-                name="Interventionelle Koronare Revaskularisation"
+                name="Interventionelle koronare Revaskularisation"
                 path="/items" xsi:type="tem:SECTION">
                 <Item archetype_id="openEHR-EHR-ACTION.procedure.v1"
                     concept_name="Prozedur" max="1"
@@ -2596,40 +2665,31 @@
                         </constraint>
                     </Rule>
                 </Item>
-                <Item
-                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                    concept_name="Ausschluss - spezifisch" max="1"
-                    name="Ausschluss Interventionelle Koronare Revaskularisation"
-                    path="/items" xsi:type="tem:EVALUATION">
+                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                    concept_name="Fehlen von Informationen" max="1"
+                    name="Letzter Eingriff nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
                     <Rule
-                        default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
+                        default="Datum der letzten interventionellen koronaren Revaskularisation" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
+                            <includedValues>Datum der letzten interventionellen koronaren Revaskularisation</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule
-                        default="http://snomed.info/sct::81266008::Interventionelle Koronare Revaskularisation"
-                        name="Eingriff" path="/data[at0001]/items[at0003]">
+                    <Rule path="/data[at0001]/items[at0005]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Interventionelle Koronare Revaskularisation</includedValues>
+                            <includedValues>http://snomed.info/sct::261665006::Unknown (qualifier value)</includedValues>
+                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
                         </constraint>
-                        <nameConstraint>
-                            <excludedValues>local::at0008</excludedValues>
-                            <excludedValues>local::at0005</excludedValues>
-                            <excludedValues>local::at0006</excludedValues>
-                            <excludedValues>local::at0004</excludedValues>
-                        </nameConstraint>
                     </Rule>
-                    <Rule max="0" path="/data[at0001]/items[at0012]"/>
+                    <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
                 </Item>
                 <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
                     concept_name="Fehlen von Informationen" max="1"
-                    name="Interventionelle Koronare Revaskularisation nicht erhoben"
+                    name="Interventionelle koronare Revaskularisation nicht erhoben"
                     path="/items" xsi:type="tem:EVALUATION">
                     <Rule
-                        default="http://snomed.info/sct::81266008::Interventionelle Koronare Revaskularisation" path="/data[at0001]/items[at0002]">
+                        default="Interventionelle koronare Revaskularisation" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Interventionelle Koronare Revaskularisation</includedValues>
+                            <includedValues>Interventionelle koronare Revaskularisation</includedValues>
                         </constraint>
                     </Rule>
                     <Rule
@@ -2640,21 +2700,31 @@
                     </Rule>
                     <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
                 </Item>
-                <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-                    concept_name="Fehlen von Informationen" max="1"
-                    name="Letzter Eingriff nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
-                    <Rule default="Datum des letzten Eingriffes" path="/data[at0001]/items[at0002]">
+                <Item
+                    archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+                    concept_name="Ausschluss - spezifisch" max="1"
+                    name="Ausschluss interventionelle koronare Revaskularisation"
+                    path="/items" xsi:type="tem:EVALUATION">
+                    <Rule
+                        default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>Datum des letzten Eingriffes</includedValues>
+                            <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule path="/data[at0001]/items[at0005]">
+                    <Rule
+                        default="Interventionelle koronare Revaskularisation"
+                        name="Eingriff" path="/data[at0001]/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>http://snomed.info/sct::261665006::Unknown (qualifier value)</includedValues>
-                            <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                            <includedValues>Interventionelle koronare Revaskularisation</includedValues>
                         </constraint>
+                        <nameConstraint>
+                            <excludedValues>local::at0008</excludedValues>
+                            <excludedValues>local::at0005</excludedValues>
+                            <excludedValues>local::at0006</excludedValues>
+                            <excludedValues>local::at0004</excludedValues>
+                        </nameConstraint>
                     </Rule>
-                    <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+                    <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 </Item>
             </Item>
             <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1"
@@ -2725,7 +2795,9 @@
                 </Item>
                 <Item
                     archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    concept_name="Ausschluss - spezifisch" max="1"
+                    name="Ausschluss periphere Revaskularisation"
+                    path="/items" xsi:type="tem:EVALUATION">
                     <Rule
                         default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
@@ -2747,7 +2819,9 @@
                     <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 </Item>
                 <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-                    max="1" path="/items" xsi:type="tem:EVALUATION">
+                    concept_name="Fehlen von Informationen" max="1"
+                    name="Periphere Revaskularisation nicht erhoben"
+                    path="/items" xsi:type="tem:EVALUATION">
                     <Rule default="Periphere Revaskularisation" path="/data[at0001]/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Periphere Revaskularisation</includedValues>
@@ -4079,6 +4153,21 @@
                 </Rule>
                 <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
             </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="Schrittmacher Typ nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
+                <Rule path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Schrittmacher Typ</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
         </Content>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
             concept_name="Ad hoc Überschrift" max="1"
@@ -4136,7 +4225,7 @@
                 <Rule max="0" path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]"/>
                 <Rule name="Status" path="/data[at0001]/events[at0006]/state[at0007]"/>
                 <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at0008]"/>
-                <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1052]">
+                <Rule max="0" path="/data[at0001]/events[at0006]/state[at0007]/items[at1052]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::15166001::Relaxed (qualifier value)</includedValues>
                     </constraint>
@@ -4248,6 +4337,30 @@
                 <Rule max="0" path="/protocol[at0011]/items[at1054]"/>
                 <Rule max="0" path="/protocol[at0011]/items[at1055]"/>
                 <Rule max="0" path="/protocol[at0011]/items[at1010]"/>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.level_of_exertion.v0"
+                    max="1"
+                    path="/data[at0001]/events[at0006]/state[at0007]/items[at1030]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0010]/items[at0016]"/>
+                    <Rule max="0" path="/items[at0010]/items[at0011]"/>
+                    <Rule max="0" path="/items[at0010]/items[at0005]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>J/min</unit>
+                                <maxMagnitude>1000.0</maxMagnitude>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>true</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule path="/items[at0009]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <excludedValues>local::at0007</excludedValues>
+                            <excludedValues>local::at0008</excludedValues>
+                        </constraint>
+                    </Rule>
+                </Items>
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
                 concept_name="Fehlen von Informationen" max="1"
@@ -4291,6 +4404,13 @@
                 <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]"/>
                 <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]"/>
                 <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]"/>
+                <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <excludedValues>local::at1003</excludedValues>
+                        <excludedValues>local::at1002</excludedValues>
+                        <excludedValues>local::at1000</excludedValues>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
                 <Rule max="0" path="/data[at0002]/events[at1036]"/>
                 <Rule name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
@@ -4488,7 +4608,7 @@
                 <value>data</value>
             </items>
         </constraints>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Bisherige kardiovaskuläre Interventionen']/items[openEHR-EHR-SECTION.adhoc.v1, 'Interventionelle Koronare Revaskularisation']/items[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0066]/null_flavour">
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Bisherige kardiovaskuläre Interventionen']/items[openEHR-EHR-SECTION.adhoc.v1, 'Interventionelle koronare Revaskularisation']/items[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0066]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>
@@ -4793,6 +4913,12 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">170F2F8FCE46E22662FC61919622AE21</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.level_of_exertion.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">27606DDC8BC11CD99B544D4C7D992C00</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2"
         xmlns:tem="openEHR/v1/Template"
