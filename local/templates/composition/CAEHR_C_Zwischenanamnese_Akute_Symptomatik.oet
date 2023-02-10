@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>02fdbdc4-5eeb-4705-b56c-0e44f61a3f68</id>
-    <name>CAEHR_C_Zwischen_Anamnese_Akute_Symptomatik</name>
+    <name>CAEHR_C_Zwischenanamnese_Akute_Symptomatik</name>
     <description>
         <original_author>
             <item>
@@ -76,7 +76,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>a709d373602874937179acc4f82d6727</value>
+                <value>3ad628f4c2d7eb5f2ddcef7bb7b4fbb6</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -84,7 +84,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>198.0.0</value>
+                <value>201.0.1</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -161,7 +161,7 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose" max="1"
-                name="Kardiale zwischen Diagnose" path="/items" xsi:type="tem:EVALUATION">
+                name="Kardiale Zwischendiagnose" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="local_terms::301095005::Cardiac finding (finding)" path="/data[at0001]/items[at0009]">
                     <constraint xsi:type="tem:textConstraint">
@@ -225,7 +225,7 @@
                 </Rule>
                 <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Zwischenzeitlichen Diagnosen</includedValues>
+                        <includedValues>Zwischenzeitliche Diagnosen</includedValues>
                     </constraint>
                     <nameConstraint>
                         <excludedValues>local::at0008</excludedValues>
@@ -246,7 +246,8 @@
                     </constraint>
                 </Rule>
                 <Rule
-                    default="http://snomed.info/sct::1220561009::Not recorded (qualifier value)" path="/data[at0001]/items[at0005]">
+                    default="http://snomed.info/sct::1220561009::Not recorded (qualifier value)"
+                    max="1" path="/data[at0001]/items[at0005]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::1220561009::Not recorded (qualifier value)</includedValues>
                     </constraint>
@@ -525,7 +526,8 @@
             </Item>
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                max="1" path="/items" xsi:type="tem:EVALUATION">
+                concept_name="Ausschluss - spezifisch" max="1"
+                name="Ausschluss Halsvenenstauung" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -548,7 +550,8 @@
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-                max="1" path="/items" xsi:type="tem:EVALUATION">
+                concept_name="Fehlen von Informationen" max="1"
+                name="Halsvenenstauung nicht erhoben" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::271653008::Jugular venous engorgement (finding)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -601,7 +604,9 @@
             </Item>
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
-                max="1" path="/items" xsi:type="tem:EVALUATION">
+                concept_name="Ausschluss - spezifisch" max="1"
+                name="Ausschluss pulmonale Rasselgeräusche"
+                path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -624,7 +629,9 @@
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
-                max="1" path="/items" xsi:type="tem:EVALUATION">
+                concept_name="Fehlen von Informationen" max="1"
+                name="Pulmonale Rasselgeräusche nicht erhoben"
+                path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::48409008::Respiratory crackles (finding)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -648,7 +655,7 @@
                 max="1" name="Belastbarkeit" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule
                     default="http://snomed.info/sct::405155000::Physical fitness behavior (observable entity)"
-                    name="Belastbarkeit bie z.B. Treppensteigen" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                    name="Belastbarkeit bei z.B. Treppensteigen" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::405155000::Physical fitness behavior (observable entity)</includedValues>
                     </constraint>
@@ -745,6 +752,14 @@
                 archetype_id="openEHR-EHR-EVALUATION.menstruation_summary.v0"
                 max="1" path="/items" xsi:type="tem:EVALUATION">
                 <Rule max="0" path="/data[at0001]/items[at0025]"/>
+                <Rule path="/data[at0001]/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::161541000119104::Perimenopausal state (finding)</includedValues>
+                        <includedValues>http://snomed.info/sct::22636003::Premenopausal state (finding)</includedValues>
+                        <includedValues>http://snomed.info/sct::161541000119104::Perimenopausal state (finding)</includedValues>
+                        <includedValues>http://snomed.info/sct::76498008::Postmenopausal state (finding)</includedValues>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:durationConstraint">
                         <pattern>PYM</pattern>
@@ -793,6 +808,8 @@
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <view>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context">
