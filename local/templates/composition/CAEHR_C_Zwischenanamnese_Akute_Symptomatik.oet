@@ -76,7 +76,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>3ad628f4c2d7eb5f2ddcef7bb7b4fbb6</value>
+                <value>edb5887220ebf4e6d31d7ff13b6455d0</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -84,7 +84,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>201.0.1</value>
+                <value>205.1.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -107,8 +107,8 @@
             concept_name="Ad hoc Überschrift" max="1"
             name="Zwischenzeitliche Ereignisse" path="/content" xsi:type="tem:SECTION">
             <Item archetype_id="openEHR-EHR-ACTION.procedure.v1"
-                concept_name="Prozedur" max="1"
-                name="Kardialer Eingriff" path="/items" xsi:type="tem:ACTION">
+                concept_name="Prozedur" name="Kardialer Eingriff"
+                path="/items" xsi:type="tem:ACTION">
                 <Rule max="0" min="0" path="/ism_transition[at0004]"/>
                 <Rule max="0" min="0" path="/ism_transition[at0034]"/>
                 <Rule max="0" min="0" path="/ism_transition[at0007]"/>
@@ -160,7 +160,7 @@
             </Item>
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-                concept_name="Problem/Diagnose" max="1"
+                concept_name="Problem/Diagnose"
                 name="Kardiale Zwischendiagnose" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="local_terms::301095005::Cardiac finding (finding)" path="/data[at0001]/items[at0009]">
@@ -192,17 +192,16 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                 concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss Eingriffe" path="/items" xsi:type="tem:EVALUATION">
+                name="Ausschluss kardiale Eingriffe" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
                     </constraint>
                 </Rule>
-                <Rule default="Zwischenzeitlichen Eingriffe"
-                    name="Eingriff" path="/data[at0001]/items[at0003]">
+                <Rule name="Eingriff" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Zwischenzeitlichen Eingriffe</includedValues>
+                        <includedValues>Zwischenzeitliche kardiale Eingriffe</includedValues>
                     </constraint>
                     <nameConstraint>
                         <excludedValues>local::at0008</excludedValues>
@@ -216,16 +215,17 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                 concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss Diagnosen" path="/items" xsi:type="tem:EVALUATION">
+                name="Ausschluss kardiale Diagnosen" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)</includedValues>
                     </constraint>
                 </Rule>
-                <Rule name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
+                <Rule default="Zwischenzeitliche kardiale Diagnosen"
+                    name="Problem/Diagnose" path="/data[at0001]/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Zwischenzeitliche Diagnosen</includedValues>
+                        <includedValues>Zwischenzeitliche kardiale Diagnosen</includedValues>
                     </constraint>
                     <nameConstraint>
                         <excludedValues>local::at0008</excludedValues>
@@ -676,8 +676,9 @@
                     </Rule>
                     <Rule max="0" path="/items[at0012]"/>
                     <Rule max="0" path="/items[at0003]"/>
-                    <Rule path="/items[at0006]">
+                    <Rule max="1" path="/items[at0006]">
                         <constraint xsi:type="tem:textConstraint">
+                            <includedValues>http://snomed.info/sct::255604002::Mild (qualifier value)</includedValues>
                             <includedValues>http://snomed.info/sct::6736007::Moderate (severity modifier) (qualifier value)</includedValues>
                             <includedValues>http://snomed.info/sct::24484000::Severe (severity modifier) (qualifier value)</includedValues>
                         </constraint>
@@ -756,7 +757,6 @@
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>http://snomed.info/sct::161541000119104::Perimenopausal state (finding)</includedValues>
                         <includedValues>http://snomed.info/sct::22636003::Premenopausal state (finding)</includedValues>
-                        <includedValues>http://snomed.info/sct::161541000119104::Perimenopausal state (finding)</includedValues>
                         <includedValues>http://snomed.info/sct::76498008::Postmenopausal state (finding)</includedValues>
                     </constraint>
                 </Rule>
