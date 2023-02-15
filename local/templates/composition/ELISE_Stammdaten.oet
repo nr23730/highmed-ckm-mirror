@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>89e9d20d-8615-4669-bc83-c962b5bbb3ae</id>
+    <id>33d081fc-02a8-4827-8154-3d1fce2e9027</id>
     <name>ELISE_Stammdaten</name>
     <description>
         <original_author>
             <item>
                 <key>date</key>
-                <value>2021-02-22</value>
+                <value>2023-02-15</value>
             </item>
             <item>
                 <key>name</key>
@@ -23,7 +23,7 @@
         </original_author>
         <lifecycle_state>in_development</lifecycle_state>
         <details>
-            <purpose>Zur Identifizierung und Risikoadjustierung von Personen in der Rolle als Patient oder Proband einer Studie.</purpose>
+            <purpose>Zur Darstellung einer Person und ihren demografischen Merkmalen.</purpose>
             <keywords>
                 <item>Personendaten</item>
                 <item>Demographie</item>
@@ -31,7 +31,6 @@
                 <item>Proband</item>
                 <item>Identifikation</item>
             </keywords>
-            <use>Zur Repräsentation von Angaben zu einer Person, die im Kontext einer Gesundheitseinrichtung oder Studie relevant sein können.</use>
         </details>
         <other_details>
             <item>
@@ -55,16 +54,12 @@
                 <value/>
             </item>
             <item>
-                <key>MD5-CAM-1.0.1</key>
-                <value>da2320d5422160937abb6bbbe7b15e6c</value>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
             </item>
             <item>
-                <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>733F48DB9E388D14B686C7DDC5833F2E</value>
-            </item>
-            <item>
-                <key>original_language</key>
-                <value>ISO_639-1::de</value>
+                <key>build_uid</key>
+                <value>2bce1cf1-dd35-4a50-bdb8-88313dd88cee</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -72,21 +67,16 @@
             </item>
         </other_details>
     </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.personendaten.v0"
-        concept_name="Personendaten" name="Person"
+    <definition archetype_id="openEHR-EHR-COMPOSITION.person.v0"
+        concept_name="Personendaten" name="ELISE_Stammdaten"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
             path="/content" xsi:type="tem:EVALUATION">
             <Rule path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>HL7 FHIR::male::the patient identifies as male</includedValues>
-                    <includedValues>HL7 FHIR::female::the patient identifies as female</includedValues>
-                    <includedValues>HL7 FHIR::non-binary::the patient identifies with neither/both female and male</includedValues>
-                    <includedValues>HL7 FHIR::transgender-male::the patient identifies as transgender female-to-male</includedValues>
-                    <includedValues>HL7 FHIR::transgender-female::the patient identifies as transgender male-to-female</includedValues>
-                    <includedValues>HL7 FHIR::other::other gender identity</includedValues>
-                    <includedValues>HL7 FHIR::non-disclose::the patient does not wish to disclose his gender identity</includedValues>
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/v2-0001" terminologyID="v2 SEX"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
@@ -94,65 +84,23 @@
             <Rule max="0" path="/data[at0002]/items[at0025]"/>
             <Rule max="0" path="/data[at0002]/items[at0001]"/>
             <Rule max="0" path="/data[at0002]/items[at0020]"/>
+            <Rule max="0" path="/data[at0002]/items[at0027]"/>
             <Rule max="0" path="/data[at0002]/items[at0014]"/>
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
             max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
-            <Rule max="0" path="/data[at0001]/items[at0008]"/>
-            <Rule max="0" path="/data[at0001]/items[at0024]"/>
+            <Rule max="0" path="/data[at0001]/items[at0008]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
                 max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
                 <Rule max="0" path="/items[at0004]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
-                concept_name="Adresse" max="0"
-                name="Adresse Straßenanschrift"
-                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule name="Straße" path="/items[at0010]"/>
-                <Rule name="Hausnummer" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-            </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
-                concept_name="Adresse" max="0" name="Adresse Postfach"
-                path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0001]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule name="Straße" path="/items[at0010]"/>
-                <Rule name="Postfachnummer" path="/items[at0011]"/>
-                <Rule max="0" path="/items[at0013]"/>
-                <Rule max="0" path="/items[at0016]"/>
-                <Rule max="0" path="/items[at0017]"/>
-            </Items>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-                max="0" path="/data[at0001]/items[at0007]" xsi:type="tem:CLUSTER">
-                <Rule min="1" path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>HL7 FHIR::Candidate::An identified person that can be considered for inclusion in a study.</includedValues>
-                        <includedValues>HL7 FHIR::Eligible::A person that has met the eligibility criteria for inclusion in a study.</includedValues>
-                        <includedValues>HL7 FHIR::Follow-up::A person is no longer receiving study intervention and/or being evaluated with tests and procedures according to the protocol, but they are being monitored on a protocol-prescribed schedule.</includedValues>
-                        <includedValues>HL7 FHIR::Ineligible::A person who did not meet one or more criteria required for participation in a study is considered to have failed screening or is ineligible for the study.</includedValues>
-                        <includedValues>HL7 FHIR::Not Registered::A person for whom registration was not completed.</includedValues>
-                        <includedValues>HL7 FHIR::Off-study::A person that has ended their participation on a study either because their treatment/observation is complete or through not responding, withdrawal, non-compliance and/or adverse event.</includedValues>
-                        <includedValues>HL7 FHIR::On-study::A person that is enrolled or registered on a study.</includedValues>
-                        <includedValues>HL7 FHIR::On-study-intervention::The person is receiving the treatment or participating in an activity (e.g. yoga, diet, etc.) that the study is evaluating.</includedValues>
-                        <includedValues>HL7 FHIR::On-study-observation::The subject is being evaluated via tests and assessments according to the study calendar, but is not receiving any intervention. Note that this state is study-dependent and might not exist in all studies. A synonym for this is "short-term follow-up".</includedValues>
-                        <includedValues>HL7 FHIR::Pending on-study::A person is pre-registered for a study.</includedValues>
-                        <includedValues>HL7 FHIR::Potential Candidate::A person that is potentially eligible for participation in the study.</includedValues>
-                        <includedValues>HL7 FHIR::Screening::A person who is being evaluated for eligibility for a study.</includedValues>
-                        <includedValues>HL7 FHIR::Withdrawn::The person has withdrawn their participation in the study before registration.</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule min="1" name="Studien-Identifier" path="/items[at0016]"/>
-                <Rule min="1" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0014]"/>
             </Items>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
@@ -168,83 +116,23 @@
                 </Rule>
                 <Rule max="0" path="/items[at0005]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-                max="0" path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0022]"/>
-                <Rule name="Präfix" path="/items[at0002]/items[at0017]"/>
-                <Rule max="0" path="/items[at0002]/items[at0004]"/>
-                <Rule name="Zusatz Nachname" path="/items[at0002]/items[at0018]"/>
-                <Rule max="0" path="/items[at0014]"/>
-            </Items>
         </Content>
-        <Content
-            archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
-            max="0" path="/content" xsi:type="tem:ADMIN_ENTRY">
-            <Rule min="1" path="/data[at0001]/items[at0006]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Boolean</includedTypes>
-                    <includedTypes>Identifier</includedTypes>
-                    <includedTypes>MultiMedia</includedTypes>
-                    <includedTypes>Quantity</includedTypes>
-                    <includedTypes>Count</includedTypes>
-                    <includedTypes>Date_Time</includedTypes>
-                    <includedTypes>Date</includedTypes>
-                    <includedTypes>Time</includedTypes>
-                    <includedTypes>Duration</includedTypes>
-                    <includedTypes>Ordinal</includedTypes>
-                    <includedTypes>Proportion</includedTypes>
-                    <includedTypes>URI</includedTypes>
-                    <includedTypes>Text</includedTypes>
-                    <includedTypes>Coded_text</includedTypes>
-                    <includedTypes>Parsable</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>Interval</includedTypes>
-                    <includedTypes>URI</includedTypes>
-                </constraint>
-            </Rule>
-        </Content>
-        <Content archetype_id="openEHR-EHR-OBSERVATION.height.v2"
-            max="1" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
-            <Rule max="0" path="/data[at0001]/events[at0021]"/>
-            <Rule clone="true" name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
-            <Rule path="/data[at0001]/events[at0021]/data[at0003]/items[at0004]">
-                <constraint xsi:type="tem:quantityConstraint">
-                    <unitMagnitude>
-                        <unit>[in_i]</unit>
-                        <maxMagnitude>250.0</maxMagnitude>
-                        <minMagnitude>0.0</minMagnitude>
-                        <includesMaximum>true</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </unitMagnitude>
-                    <unitMagnitude>
-                        <unit>cm</unit>
-                        <maxMagnitude>1000.0</maxMagnitude>
-                        <minMagnitude>0.0</minMagnitude>
-                        <includesMaximum>true</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </unitMagnitude>
-                </constraint>
-            </Rule>
-            <Rule clone="true" name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
-        </Content>
+        <Rule name="Patient ID" path="/context/other_context[at0003]/items[at0004]">
+            <constraint xsi:type="tem:multipleConstraint">
+                <includedTypes>Text</includedTypes>
+                <includedTypes>Identifier</includedTypes>
+            </constraint>
+        </Rule>
     </definition>
-    <integrity_checks
-        archetype_id="openEHR-EHR-COMPOSITION.personendaten.v0"
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.person.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">733F48DB9E388D14B686C7DDC5833F2E</digest>
+        <digest id="MD5-CAM-1.0.1">6AFE570A2D850AB1D7AA794A541ECC42</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">EF681A049575CDCED3F513DFE65343E9</digest>
+        <digest id="MD5-CAM-1.0.1">BF9B28403CBB9F2FB9C120F3EB89DA8E</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
@@ -258,37 +146,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">412038B78AE9EBA86BF7F4A2BDDADE0A</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">A1E749397595691665BCF829DA0B049C</digest>
-    </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FA9E215CB95BE6F50667A10DEB71F199</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person_name.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBEFB311DE64CEE94A1450268C5DE3F6</digest>
-    </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C9780D95195C491B1D68E9F8390F1180</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.height.v2"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C75BA8F0FF1D8D127E0E9469D06C9128</digest>
     </integrity_checks>
 </template>
