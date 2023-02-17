@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
     <id>be154bd2-8de1-4c96-a4c7-99919bd3135c</id>
-    <name>CAEHR_C_Koerperliche_Untersuchung</name>
+    <name>CAEHR_C_Körperliche_Untersuchung</name>
     <description>
         <original_author>
             <item>
@@ -22,7 +22,11 @@
             <item>Alexander Bartschke</item>
         </other_contributors>
         <lifecycle_state>published</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Dient zur beschreibung einer körperlichen Untersuchung im Rahmen von CAEHR</purpose>
+            <use>Körperliche Untersuchung im kardiologischen Rahmen</use>
+            <misuse>Repräsentation einer Körperlichen Untersuchung im allgemeinen.</misuse>
+        </details>
         <other_details>
             <item>
                 <key>MetaDataSet:Sample Set </key>
@@ -74,7 +78,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>20b14b1eb5d3116141ab711fea6b3221</value>
+                <value>50465671dc0215589c1cdb4831d2eb98</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -82,7 +86,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>199.1.0</value>
+                <value>201.1.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -486,7 +490,8 @@
                             </constraint>
                         </Rule>
                         <Rule
-                            default="http://snomed.info/sct::80891009::Heart structure (body structure)" path="/items[at0012]">
+                            default="http://snomed.info/sct::80891009::Heart structure (body structure)"
+                            max="0" path="/items[at0012]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>http://snomed.info/sct::80891009::Heart structure (body structure)</includedValues>
                             </constraint>
@@ -519,9 +524,14 @@
                             </constraint>
                         </Rule>
                         <Rule max="0" path="/items[at0003]"/>
-                        <Rule max="0" path="/items[at0006]"/>
+                        <Rule path="/items[at0006]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>http://snomed.info/sct::31574009::Systolic murmur (finding)</includedValues>
+                                <includedValues>http://snomed.info/sct::30782001::Diastolic murmur (finding)</includedValues>
+                            </constraint>
+                        </Rule>
                         <Rule max="0" path="/items[at0007]"/>
-                        <Rule path="/items[at0.2]">
+                        <Rule max="0" path="/items[at0.2]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>http://snomed.info/sct::31574009::Systolic murmur (finding)</includedValues>
                                 <includedValues>http://snomed.info/sct::30782001::Diastolic murmur (finding)</includedValues>
@@ -540,9 +550,10 @@
                             </constraint>
                         </Rule>
                         <Rule
-                            default="http://snomed.info/sct::82121006::Structure of vein of neck (body structure)" path="/items[at0012]">
+                            default="http://snomed.info/sct::45048000::Neck structure (body structure)"
+                            max="0" path="/items[at0012]">
                             <constraint xsi:type="tem:textConstraint">
-                                <includedValues>http://snomed.info/sct::82121006::Structure of vein of neck (body structure)</includedValues>
+                                <includedValues>http://snomed.info/sct::45048000::Neck structure (body structure)</includedValues>
                             </constraint>
                         </Rule>
                         <Rule max="0" path="/items[at0003]"/>
@@ -643,6 +654,8 @@
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <view>
         <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/null_flavour">
