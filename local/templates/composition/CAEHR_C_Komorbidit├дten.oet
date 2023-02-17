@@ -79,7 +79,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>8b675ecd3ce663c6c0e295f368835403</value>
+                <value>284d0199ee34cf63cf8ac5eba6ec91c9</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -87,7 +87,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>194.0.0</value>
+                <value>196.0.3</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -108,12 +108,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
             concept_name="Ad hoc Überschrift" max="1"
-            name="periphere Arterielle Verschlusskrankheit (pAVK)"
+            name="Periphere arterielle Verschlusskrankheit (pAVK)"
             path="/content" xsi:type="tem:SECTION">
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose" max="1"
-                name="periphere Arterielle Verschlusskrankheit (pAVK)"
+                name="Periphere arterielle Verschlusskrankheit (pAVK)"
                 path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::399957001::Peripheral arterial occlusive disease (disorder)" path="/data[at0001]/items[at0002]">
@@ -155,7 +155,7 @@
             <Item
                 archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
                 concept_name="Ausschluss - spezifisch" max="1"
-                name="Ausschluss PAVK" path="/items" xsi:type="tem:EVALUATION">
+                name="Ausschluss pAVK" path="/items" xsi:type="tem:EVALUATION">
                 <Rule
                     default="http://snomed.info/sct::410594000::Definitely NOT present (qualifier value)" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
@@ -376,10 +376,26 @@
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
                 concept_name="Fehlen von Informationen" max="1"
-                name="Datum unbekannt" path="/items" xsi:type="tem:EVALUATION">
-                <Rule path="/data[at0001]/items[at0002]">
+                name="Schlaganfall Datum unbekannt" path="/items" xsi:type="tem:EVALUATION">
+                <Rule default="Datum des letzten Schlaganfall" path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Datum des/der letzten TIA/Schlaganfalls</includedValues>
+                        <includedValues>Datum des letzten Schlaganfall</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule
+                    default="local_terms::261665006::Unknown (qualifier value)" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::261665006::Unknown (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+                concept_name="Fehlen von Informationen" max="1"
+                name="TIA Datum unbekannt" path="/items" xsi:type="tem:EVALUATION">
+                <Rule default="Datum des letzten TIA" path="/data[at0001]/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Datum des letzten TIA</includedValues>
                     </constraint>
                 </Rule>
                 <Rule
@@ -952,9 +968,11 @@
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <view>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'periphere Arterielle Verschlusskrankheit (pAVK)']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]/null_flavour">
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-SECTION.adhoc.v1, 'Periphere arterielle Verschlusskrankheit (pAVK)']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]/null_flavour">
             <items id="VisibleInView">
                 <value>null_flavour</value>
             </items>

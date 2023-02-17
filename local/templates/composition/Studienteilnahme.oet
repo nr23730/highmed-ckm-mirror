@@ -54,7 +54,7 @@ Eine Studienteilnahme setzt voraus, dass von der Person eine freiwillige informi
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>8867c5d88ddb39fce78b2d84d951c3ca</value>
+                <value>76ef6040c36fed34b7f8589d11514474</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -70,7 +70,7 @@ Eine Studienteilnahme setzt voraus, dass von der Person eine freiwillige informi
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>7.0.0</value>
+                <value>13.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -104,8 +104,28 @@ Eine Studienteilnahme setzt voraus, dass von der Person eine freiwillige informi
                 max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0018]"/>
-                <Rule min="1" name="Status der Teilnahme" path="/items[at0005]"/>
-                <Rule name="Subjekt Identifizierungscode" path="/items[at0016]"/>
+                <Rule min="1" name="Status der Teilnahme" path="/items[at0005]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::candidate::Candidate::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::eligible::Eligible::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::follow-up::Follow-up::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::ineligible::Ineligible::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::not-registered::Not Registered::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::off-study::Off-study::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::on-study::On-study::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::on-study-intervention::On-study-intervention::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::on-study-observation::On-study-observation::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::pending-on-study::Pending on-study::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::potential-candidate::Potential Candidate::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::screening::Screening::</includedValues>
+						<includedValues>http://hl7.org/fhir/ValueSet/research-subject-status::withdrawn::Withdrawn::</includedValues>
+					</constraint>
+	            </Rule>
+                <Rule max="1" min="1"
+                    name="Subjekt Identifizierungscode" path="/items[at0016]"/>
+                <Rule clone="true" name="Subject Iidentifier" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0021]"/>
+                <Rule max="0" path="/items[at0022]"/>
                 <Rule name="Kommentar zur Studienteilnahme" path="/items[at0014]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
@@ -134,7 +154,36 @@ Eine Studienteilnahme setzt voraus, dass von der Person eine freiwillige informi
                     <Rule max="0" path="/items[at0018]"/>
                     <Rule max="0" path="/items[at0019]"/>
                     <Rule max="0" path="/items[at0020]"/>
-                    <Rule max="0" path="/items[at0005]"/>
+                    <Rule min="1" path="/items[at0005]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/research-study-status" terminologyID="//fhir.hl7.org/"/>
+                        </constraint>
+                    </Rule>
+                    <Items
+                        archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
+                        concept_name="Studie/Prüfung" max="1"
+                        name="Teil einer größeren Studie"
+                        path="/items[at0014]" xsi:type="tem:CLUSTER">
+                        <Rule name="Name der übergeordneten Studie" path="/items[at0001]"/>
+                        <Rule max="0" path="/items[at0004]"/>
+                        <Rule max="0" path="/items[at0002]"/>
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0033]"/>
+                        <Rule max="0" path="/items[at0012]"/>
+                        <Rule max="0" path="/items[at0013]"/>
+                        <Rule max="0" path="/items[at0010]"/>
+                        <Rule max="0" path="/items[at0015]"/>
+                        <Rule max="0" path="/items[at0016]"/>
+                        <Rule max="0" path="/items[at0017]"/>
+                        <Rule max="0" path="/items[at0018]"/>
+                        <Rule max="0" path="/items[at0019]"/>
+                        <Rule max="0" path="/items[at0020]"/>
+                        <Rule min="1" path="/items[at0005]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/research-study-status" terminologyID="//fhir.hl7.org/"/>
+                            </constraint>
+                        </Rule>
+                    </Items>
                 </Items>
             </Items>
         </Content>
@@ -189,7 +238,7 @@ Eine Studienteilnahme setzt voraus, dass von der Person eine freiwillige informi
         archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">7F72D5A78180177142848209B9239F7B</digest>
+        <digest id="MD5-CAM-1.0.1">FC149EB72CD23D8A60DD2A8488761581</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
