@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>ecd673af-061d-4343-a1d9-84574248e856</id>
+    <name>CAEHR_B_Stammdaten</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2023-02-28</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Nina Schewe</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Medizinische Hochschule Hannover</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>Schewe.Nina@mh-hannover.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation von demografischen Daten bzw. Stammdaten eines Patienten im Rahmen des CAEHR-Digital Projektes.</purpose>
+            <keywords>
+                <item>Stammdaten</item>
+                <item>Versicherung</item>
+                <item>Adresse</item>
+                <item>Geburtsdatum</item>
+                <item>Geschlecht</item>
+                <item>demografische Daten</item>
+            </keywords>
+            <use>Dieses Template soll zum Aufzeichnen von demografischen Daten bzw. Stammdaten eines Patienten verwendet werden.</use>
+            <misuse>Nicht zur Dokumentation anderer Personen verwenden.</misuse>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>4.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>d9ed4aeec5e233a41fdbf6e87d761bd6</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>6AFE570A2D850AB1D7AA794A541ECC42</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.person.v0"
+        concept_name="Personendaten" name="CAEHR_B_Stammdaten"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0002]/items[at0026]"/>
+            <Rule max="0" path="/data[at0002]/items[at0019]"/>
+            <Rule max="0" path="/data[at0002]/items[at0025]"/>
+            <Rule max="0" path="/data[at0002]/items[at0001]"/>
+            <Rule max="0" path="/data[at0002]/items[at0020]"/>
+            <Rule max="0" path="/data[at0002]/items[at0027]"/>
+            <Rule max="0" path="/data[at0002]/items[at0014]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule max="0" path="/data[at0001]/items[at0008]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0024]/items[at0025]"/>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
+                max="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+                max="1" path="/data[at0001]/items[at0005]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule name="Straße" path="/items[at0010]"/>
+                <Rule name="Hausnummer" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0013]"/>
+                <Rule max="0" path="/items[at0015]"/>
+                <Rule max="0" path="/items[at0016]"/>
+                <Rule max="0" path="/items[at0017]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
+                concept_name="Strukturierter Name der Person" max="1"
+                name="Name der Person"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
+            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule name="Krankenkasse" path="/data[at0001]/items[at0011]"/>
+            <Rule name="Versicherungsart" path="/data[at0001]/items[at0002]"/>
+        </Content>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.person.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6AFE570A2D850AB1D7AA794A541ECC42</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BF9B28403CBB9F2FB9C120F3EB89DA8E</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DDB0ABB0815AAFEC82BA2096C7882EE4</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FA9E215CB95BE6F50667A10DEB71F199</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address_cc.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">4D06DE9D16D3FEC40ADBF38273D8CB4B</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.structured_name.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">4C91B974D7EE4B40B0579711D6B62439</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C9780D95195C491B1D68E9F8390F1180</digest>
+    </integrity_checks>
+</template>
