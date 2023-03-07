@@ -58,7 +58,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>4.0.0</value>
+                <value>8.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -66,7 +66,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>d9ed4aeec5e233a41fdbf6e87d761bd6</value>
+                <value>0551273897064485437a7f5a16da2717</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -84,6 +84,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
             path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0002]/items[at0022]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://fhir.de/CodeSystem/gender-amtlich-de::M::männlich</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/gender-amtlich-de::W::weiblich</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/gender-amtlich-de::X::unbestimmt</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/gender-amtlich-de::D::divers</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
             <Rule max="0" path="/data[at0002]/items[at0019]"/>
             <Rule max="0" path="/data[at0002]/items[at0025]"/>
@@ -131,7 +139,18 @@
             archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0"
             max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
             <Rule name="Krankenkasse" path="/data[at0001]/items[at0011]"/>
-            <Rule name="Versicherungsart" path="/data[at0001]/items[at0002]"/>
+            <Rule name="Versicherungsart" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::GKV::gesetzliche Krankenversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::PKV::private Krankenversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::BG::Berufsgenossenschaft</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::SEL::Selbstzahler</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::SOZ::Sozialamt</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::GPV::gesetzliche Pflegeversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::PPV::private Pflegeversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/versicherungsart-de-basis::BEI::Beihilfe</includedValues>
+                </constraint>
+            </Rule>
         </Content>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.person.v0"
