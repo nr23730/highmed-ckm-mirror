@@ -22,7 +22,17 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+        <details>
+            <purpose>Zur Repräsentation eines SARS-CoV-2 Befundes mittels PCR-Testung für die Speicherung im Rahmen des CAEHR-Projektes.</purpose>
+            <keywords>
+                <item>SARS-CoV-2</item>
+                <item>PCR</item>
+                <item>PCR-Test</item>
+                <item>Covid-19</item>
+            </keywords>
+            <use>Für die Abbildung eines SARS-CoV-2-PCR-Testergebnisses.</use>
+            <misuse>Nicht zur Abbildung eines Antigen Tests auf SARS-CoV-2 verwenden.</misuse>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -62,7 +72,7 @@
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
         </other_details>
     </description>
@@ -78,7 +88,7 @@
         <items>
             <item>
                 <key>fhir_mapping</key>
-                <value>Specimen.collection.sourceSite</value>
+                <value>Specimen.collection.bodySite</value>
             </item>
         </items>
     </annotations>
@@ -207,12 +217,14 @@
         </items>
     </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report-result.v1"
-        concept_name="Result report" name="CAEHR_B_SARS-CoV-2_PCR-Test"
+        concept_name="Ergebnisbericht"
+        name="CAEHR_B_SARS-CoV-2_PCR-Test"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            concept_name="Laborergebnis" max="1" name="PCR-Befund"
+            path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="1" path="/data[at0001]/events[at0002]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                 <constraint xsi:type="tem:textConstraint">
@@ -304,7 +316,7 @@
                 <Rule max="0" path="/items[at0007]"/>
                 <Rule max="0" path="/items[at0079]"/>
                 <Rule max="0" path="/items[at0087]"/>
-                <Rule path="/items[at0015]">
+                <Rule name="Probenahme" path="/items[at0015]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Date_Time</includedTypes>
                     </constraint>
@@ -352,12 +364,12 @@
                     archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
                     max="1" min="1" path="/items[at0013]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
-                    <Rule path="/items[at0024]">
+                    <Rule name="Test" path="/items[at0024]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>LOINC::94500-6::SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory specimen by NAA with probe detection</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule max="1" path="/items[at0001]">
+                    <Rule max="1" name="Nachweis" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId
                                 queryName="/ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/detected-not-detected-inconclusive" terminologyID="//fhir.hl7.org"/>
@@ -409,6 +421,8 @@
                 </Items>
             </Items>
         </Content>
+        <Rule name="Tree" path="/context/other_context[at0001]"/>
+        <Rule name="Bericht ID" path="/context/other_context[at0001]/items[at0002]"/>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.report-result.v1"
