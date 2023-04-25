@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>2dfed761-3383-4e95-837c-f5db79c1f2fe</id>
-    <name>CAEHR_B_PEG_Ernährung</name>
+    <id>d40e82da-9689-43c2-98dd-9f102d7b23f6</id>
+    <name>CAEHR_B_PEG_Ernährung_v3</name>
     <description>
         <original_author>
             <item>
                 <key>date</key>
-                <value>2023-03-13</value>
-            </item>
-            <item>
-                <key>name</key>
-                <value>Nina Schewe</value>
-            </item>
-            <item>
-                <key>organisation</key>
-                <value>Medizinische Hochschule Hannover</value>
-            </item>
-            <item>
-                <key>email</key>
-                <value>Schewe.Nina@mh-hannover.de</value>
+                <value>2023-04-25</value>
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
             <purpose>Zur Repräsentation der enteralen Ernährung mittels einer PEG-Sonde eines Patienten für die Speicherung im Rahmen des CAEHR-Projektes.</purpose>
             <keywords>
-                <item>Ernährung</item>
-                <item>künstliche Ernährung</item>
                 <item>PEG</item>
+                <item>Flüssigkeitszufuhr</item>
+                <item>künstliche Ernährung</item>
+                <item>Ernährung</item>
                 <item>PEG Ernährung</item>
                 <item>Perkutan endoskopische Gastrostomie</item>
                 <item>enteral</item>
@@ -58,7 +47,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.1</value>
+                <value>0.1.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -71,43 +60,33 @@
         </other_details>
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="CAEHR_B_PEG_Ernährung"
+        concept_name="Bericht" name="CAEHR_B_PEG_Ernährung_v3"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
-            archetype_id="openEHR-EHR-EVALUATION.food_nutrition_summary.v0"
-            max="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule max="0" path="/data[at0001]/items[at0011]"/>
-            <Rule max="0" path="/data[at0001]/items[at0013]"/>
-            <Rule name="PEG-Ernährung" path="/data[at0001]/items[at0020]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>ja</includedValues>
-                    <includedValues>nein</includedValues>
+            archetype_id="openEHR-EHR-OBSERVATION.management_screening.v1"
+            concept_name="Screening-Fragebogen zur Managementaktivitäten"
+            max="1" name="PEG_Ernährung" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
+            <Rule name="PEG-Ernährung" path="/data[at0001]/events[at0002]/data[at0003]/items[at0039]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Boolean</includedTypes>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/items[at0002]"/>
-            <Rule max="0" path="/data[at0001]/items[at0003]"/>
-            <Rule max="0" path="/data[at0001]/items[at0008]"/>
-            <Rule max="0" path="/data[at0001]/items[at0009]"/>
-            <Rule max="0" path="/data[at0001]/items[at0021]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]"/>
         </Content>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
-    <view>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.food_nutrition_summary.v0]/data[at0001]/items[at0020]/null_flavour">
-            <items id="VisibleInView">
-                <value>null_flavour</value>
-            </items>
-        </constraints>
-    </view>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.food_nutrition_summary.v0"
+        archetype_id="openEHR-EHR-OBSERVATION.management_screening.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">80A93A7D1D4A7AF2FC2F9DAB18F22B19</digest>
+        <digest id="MD5-CAM-1.0.1">4716FC98A106AB9A4253294859C1B769</digest>
     </integrity_checks>
 </template>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="openEHR/v1/Template">
-    <id>879bd9b0-7721-47c2-af34-7057b87acdb8</id>
-    <name>CAEHR_B_Rollstuhlfahrer</name>
+    <id>490080f6-1bb1-4fcb-b9e7-d8662e3cf2d3</id>
+    <name>CAEHR_B_RollstuhlfahrerIn </name>
     <description>
         <original_author>
             <item>
                 <key>date</key>
-                <value>2023-03-10</value>
+                <value>2023-04-25</value>
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
@@ -15,8 +15,8 @@
             <keywords>
                 <item>Rollstuhl, Mobilitätseinschränkung, Einschränkung, disability, weehlchair</item>
             </keywords>
-            <use>Dieses Template soll zur Dokumentation der Rollstuhl-Nutzung von PatientInnen verwendet werden.</use>
-            <misuse>Nicht zur Dokumentation anderer Hilfsmittel verwenden. Dazu andere geeignete Templates verwenden.</misuse>
+            <use>Zur Repräsentation der Nutzung eines Hilfsmittels für PatientInnen mit Beeinträchtigung der Geh-Fähigkeit. Die Speicherung erfolgt im Rahmen des CAEHR-Projektes.</use>
+            <misuse>Zur Repräsentation der Nutzung eines Hilfsmittels für PatientInnen mit Beeinträchtigung der Geh-Fähigkeit. Die Speicherung erfolgt im Rahmen des CAEHR-Projektes.</misuse>
         </details>
         <other_details>
             <item>
@@ -41,19 +41,11 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>1.0.0</value>
+                <value>3.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
                 <value/>
-            </item>
-            <item>
-                <key>MD5-CAM-1.0.1</key>
-                <value>993e0e9aacce10c8852f6b84622580e8</value>
-            </item>
-            <item>
-                <key>PARENT:MD5-CAM-1.0.1</key>
-                <value>DE0723367AA22BB716CEC5342B21FF60</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -62,33 +54,33 @@
         </other_details>
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="CAEHR_B_Rollstuhlfahrer"
+        concept_name="Bericht" name="CAEHR_B_RollstuhlfahrerIn"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-EVALUATION.device_summary.v0"
-            max="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule max="0" path="/data[at0001]/items[at0020]"/>
-            <Rule max="0" path="/data[at0001]/items[at0002]"/>
-            <Rule max="0" path="/data[at0001]/items[at0015]"/>
-            <Rule max="0" path="/data[at0001]/items[at0022]"/>
-            <Items archetype_id="openEHR-EHR-CLUSTER.rollstuhl.v0"
-                max="1" path="/protocol[at0016]/items[at0018]" xsi:type="tem:CLUSTER"/>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.management_screening.v1"
+            concept_name="Screening-Fragebogen zur Managementaktivitäten"
+            max="1" name="RollstuhlfahrerIn" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
+            <Rule name="Rollstuhl" path="/data[at0001]/events[at0002]/data[at0003]/items[at0039]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Boolean</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]"/>
         </Content>
+        <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">DE0723367AA22BB716CEC5342B21FF60</digest>
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.device_summary.v0"
+        archetype_id="openEHR-EHR-OBSERVATION.management_screening.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">A4B07F5C96E527E2834C1225877B312E</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.rollstuhl.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FEEFA395B9311D88DC4642D90C22C120</digest>
+        <digest id="MD5-CAM-1.0.1">4716FC98A106AB9A4253294859C1B769</digest>
     </integrity_checks>
 </template>
