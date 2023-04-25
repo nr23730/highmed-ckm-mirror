@@ -23,15 +23,24 @@
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation der Dyspnoeskala mMRC (Modified Medical Research Council Dyspnoea Scale), um die subjektive Einstufung der Dyspnoe-Schwere bei Patienten mit chronisch obstruktiver Lungenerkrankung (COPD) zu unterstützen.</purpose>
+            <purpose>Zur Repräsentation der Dyspnoeskala mMRC (Modified Medical Research Council Dyspnoea Scale), um die subjektive Einstufung der Dyspnoe-Schwere bei Patienten mit chronisch obstruktiver Lungenerkrankung (COPD) zu unterstützen.
+
+Zusätzliche Repräsentation des Befindens seit der letzten Vorstellung (in den letzten 12 Monaten) und die aktuelle Belastbarkeit der jeweiligen Person. </purpose>
             <keywords>
                 <item>Pneumo</item>
                 <item>Chronisch Obstruktiven Lungenerkrankung</item>
                 <item>COPD</item>
                 <item>Atemnot</item>
                 <item>Kurzatmig</item>
+                <item>Belastbarkeit</item>
+                <item>Atemnot</item>
+                <item>Kurzatmigkeit</item>
             </keywords>
-            <use>Für die Abbildung der Dyspnoeskala mMRC (Modified Medical Research Council Dyspnoea Scale), um die subjektive Einstufung der Dyspnoe-Schwere bei Patienten mit chronisch obstruktiver Lungenerkrankung (COPD) zu unterstützen. Je höher der Pegel, desto stärker die Atemnot. Dies ermöglicht eine Abschätzung des Risikos einer COPD-Exazerbation.</use>
+            <use>Für die Abbildung der Dyspnoeskala mMRC (Modified Medical Research Council Dyspnoea Scale), um die subjektive Einstufung der Dyspnoe-Schwere bei Patienten mit chronisch obstruktiver Lungenerkrankung (COPD) zu unterstützen. Je höher der Pegel, desto stärker die Atemnot. Dies ermöglicht eine Abschätzung des Risikos einer COPD-Exazerbation.
+
+Für die weitere Abbildung des Befindens der Person seit der letzten Vorstellung bzw. in den letzten 12 Monaten. Es wird auch die aktuelle Belastbarkeit erfasst. 
+
+Dieses Template wurde spezifisch für Befragung der Pneumologie erstellt. </use>
             <misuse>Nicht zur Repräsentation vom CAT-Fragebogen verwenden.</misuse>
             <copyright>© HiGHmed</copyright>
         </details>
@@ -58,11 +67,23 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.0</value>
+                <value>8.0.2</value>
             </item>
             <item>
                 <key>build_uid</key>
                 <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>bd02c73a74f9d70f586f9fd5bb8a64c8</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -76,7 +97,51 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-OBSERVATION.dyspnoeskala_.v1"
-            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule
+                name="Wie schätzen Sie Ihre Kurzatmigkeit/ Atemnot anhand der u.g. Aussagen ein?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.questionnaire_entry.v0"
+            concept_name="Fragebogeneintrag" max="1"
+            name="Belastbarkeit und Befinden" path="/content" xsi:type="tem:OBSERVATION">
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+                concept_name="Fragebogen Element" max="1"
+                name="Wie ist Ihr Befinden seit der letzten Vorstellung bzw. in den letzten 12 Monaten?"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule
+                    name="Wie ist Ihr Befinden seit der letzten Vorstellung bzw. in den letzten 12 Monaten?" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Stabil</includedValues>
+                        <includedValues>Verbessert</includedValues>
+                        <includedValues>Verschlechtert</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+                concept_name="Fragebogen Element"
+                name="Wie ist Ihre aktuelle Belastbarkeit?"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule
+                    name="Wie ist Ihre aktuelle Belastbarkeit? (Eine Etage entspricht 12 Stufen)" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>keine Etage, oder nur wenige Stufen</includedValues>
+                        <includedValues>1 Etage Treppensteigen ohne Pause</includedValues>
+                        <includedValues>2 Etagen Treppensteigen ohne Pause</includedValues>
+                        <includedValues>3 Etagen Treppensteigen ohne Pause</includedValues>
+                        <includedValues>mehr als 3 Etagen Treppensteigen ohne Pause</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0004]"/>
+            </Items>
+        </Content>
     </definition>
     <integrity_checks
         archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
@@ -89,5 +154,17 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">CEEA60943622C85B359BA33102DA627F</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.questionnaire_entry.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">F1FF32A6AEFB1B8E6BBD635C4BD4DA49</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.questionnaire_item.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">877221AC8A8A03CE9E2C16C79B2D29B1</digest>
     </integrity_checks>
 </template>
