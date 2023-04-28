@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4; uid=a79884f3-e4c0-4d85-80d8-d217e005af64)
+﻿archetype (adl_version=1.4; uid=3cf56d7a-2953-4a9f-9e7c-34cd0653c1d3)
 	openEHR-EHR-OBSERVATION.categorical_loudness_scaling.v0
 
 concept
@@ -7,28 +7,42 @@ language
 	original_language = <[ISO_639-1::en]>
 description
 	original_author = <
+		["name"] = <"Lena Schell-Majoor">
+		["organisation"] = <"University of Oldenburg, Cluster of Excellence Hearing4all">
+		["email"] = <"lena.schell-majoor@uni-oldenburg.de">
 		["date"] = <"2023-03-23">
 	>
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"© HiGHmed and Hearing4all">
+			purpose = <"To record responses to loudness scaling tests and calculate respective individual loudness growth functions.">
+			use = <"Use to record responses to loudness scaling procedures with or without using hearing aids.">
+			keywords = <"hearing, test, loudness, scaling,", ...>
+			misuse = <"	
+Not to be used for hearing threshold, audiogram or speech understanding assessment
+
+Not to be used to record other auditory assessments such as:
+- Behavioural Observation Audiometry (BOA);
+- Auditory Brainstem Response (ABR) for diagnostic purposes
+- Transient Evoked Otoacoustic Emission (TEOAE); and
+- Distortion Product Otoacoustic Emission (DPOAE).
+These assessments need to be recorded in specific archetypes for the purpose.">
+			copyright = <"© openEHR Foundation, HiGHmed, Hearing4all">
 		>
 	>
 	lifecycle_state = <"in_development">
-	other_contributors = <>
+	other_contributors = <"Birger Kollmeier, Antje Wulff", ...>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: <Add reference to original resource here>">
+		["references"] = <"Brand, T., & Hohmann, V. (2002). An adaptive procedure for categorical loudness scaling. The Journal of the Acoustical Society of America, 112(4), 1597-1604.
+Hellbrück, J., & Moser, L. M. (1986). Psychophysical measurements of inner ear processes with category scaling of loudness. ORL, 48(2), 135-136.
+">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"2B461E239A16016AB9919F84615E6DE9">
-		["build_uid"] = <"6752c0be-8834-4290-9adf-6629b04682d4">
+		["MD5-CAM-1.0.1"] = <"D7E24BE74F0C7888FFBAA1D4CBF321E0">
+		["build_uid"] = <"ca7a9332-1059-4bed-b361-08f7c413031b">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -62,42 +76,101 @@ definition
 											}
 											CLUSTER[at0031] occurrences matches {0..2} matches {    -- Measurement
 												items cardinality matches {1..*; unordered} matches {
-													ELEMENT[at0032] occurrences matches {0..1} matches {    -- Type of measurement mode
+													ELEMENT[at0110] occurrences matches {0..1} matches {    -- Level
+														value matches {
+															C_DV_QUANTITY <
+																
+																list = <
+																	["1"] = <
+																		units = <"dB">
+																		magnitude = <|-10.0..120.0|>
+																		precision = <|0|>
+																	>
+																>
+															>
+														}
+													}
+													ELEMENT[at0036] occurrences matches {0..1} matches {    -- Frequency
+														value matches {
+															C_DV_QUANTITY <
+																property = <[openehr::382]>
+																list = <
+																	["1"] = <
+																		units = <"Hz">
+																		magnitude = <|125.0..16000.0|>
+																		precision = <|0|>
+																	>
+																	["2"] = <
+																		units = <"kHz">
+																		magnitude = <|0.125..16.0|>
+																		precision = <|3|>
+																	>
+																>
+															>
+														}
+													}
+													ELEMENT[at0040] occurrences matches {0..1} matches {    -- Modality
 														value matches {
 															DV_CODED_TEXT matches {
 																defining_code matches {
 																	[local::
-																	at0033,    -- Bone conduction
-																	at0034]    -- Air conduction
+																	at0041,    -- Narrowband noise
+																	at0042,    -- Broadband
+																	at0043]    -- Other (specify)
+																}
+															}
+														}
+													}
+													ELEMENT[at0032] matches {    -- Type of measurement mode
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0033,    -- scaling data
+																	at0034,    -- fitted parameters
+																	at0100]    -- scaling data + fitted parameters
 																}
 															}
 														}
 													}
 													CLUSTER[at0035] occurrences matches {0..*} matches {    -- Response
 														items cardinality matches {2..2; unordered} matches {
-															ELEMENT[at0036] matches {    -- Frequency
+															ELEMENT[at0111] matches {    -- Category
 																value matches {
 																	C_DV_QUANTITY <
-																		property = <[openehr::382]>
+																		
 																		list = <
 																			["1"] = <
-																				units = <"Hz">
-																				magnitude = <|125.0..16000.0|>
+																				units = <"CU">
+																				magnitude = <|0.0..50.0|>
 																				precision = <|0|>
-																			>
-																			["2"] = <
-																				units = <"kHz">
-																				magnitude = <|0.125..16.0|>
-																				precision = <|3|>
 																			>
 																		>
 																	>
 																}
 															}
-															ELEMENT[at0037] occurrences matches {0..1} matches {    -- Level
+														}
+													}
+													CLUSTER[at0101] occurrences matches {0..1} matches {    -- Fitted parameters
+														items cardinality matches {2..2; unordered} matches {
+															ELEMENT[at0103] occurrences matches {0..3} matches {    -- slope values
 																value matches {
 																	C_DV_QUANTITY <
-																		property = <[openehr::123]>
+																		
+																		list = <
+																			["1"] = <
+																				units = <"CU/dB">
+																				magnitude = <|0.0..10.0|>
+																				precision = <|0|>
+																			>
+																		>
+																	>
+																}
+															}
+															ELEMENT[at0112] occurrences matches {0..3} matches {    -- Level parameters
+																value matches {
+																	C_DV_QUANTITY <
+																		
 																		list = <
 																			["1"] = <
 																				units = <"dB">
@@ -107,35 +180,14 @@ definition
 																		>
 																	>
 																}
-																null_flavour matches {
-																	DV_CODED_TEXT matches {
-																		defining_code matches {
-																			[openehr::
-																			253,
-																			272,
-																			273,
-																			271]
-																		}
-																	}
-																}
 															}
-															ELEMENT[at0038] occurrences matches {0..1} matches {    -- Reason for no level
-																value matches {
-																	DV_CODED_TEXT matches {
-																		defining_code matches {
-																			[local::at0039]    -- Beyond Maxmimum Level
-																		}
-																	}
-																}
-															}
-															ELEMENT[at0040] occurrences matches {0..1} matches {    -- Modality
+															ELEMENT[at0104] occurrences matches {0..1} matches {    -- Reason for no fitted parameters
 																value matches {
 																	DV_CODED_TEXT matches {
 																		defining_code matches {
 																			[local::
-																			at0041,    -- Threshold
-																			at0042,    -- MCL
-																			at0043]    -- UCL
+																			at0105,    -- no fit possible
+																			at0113]    -- other
 																		}
 																	}
 																}
@@ -144,6 +196,45 @@ definition
 													}
 												}
 											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0119] matches {    -- Item tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0116] occurrences matches {0..1} matches {    -- Aided status
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0117,    -- Aided
+													at0118]    -- Unaided
+												}
+											}
+										}
+									}
+									ELEMENT[at0120] occurrences matches {0..1} matches {    -- Type of listening device
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0121,    -- Hearing aid
+													at0122,    -- Cochlear implant
+													at0123]    -- Bone conductor aid
+												}
+											}
+										}
+									}
+									ELEMENT[at0124] occurrences matches {0..1} matches {    -- Listening device settings
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0125] occurrences matches {0..1} matches {    -- Listening device settings
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 								}
@@ -158,21 +249,26 @@ definition
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0095] occurrences matches {0..1} matches {    -- Scaling method
 						value matches {
-							DV_CODED_TEXT matches {*}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0096,    -- Adaptive Categorical Loudness Scaling (ACALOS)
+									at0097]    -- Würzburger Hörfeldskalierung
+								}
+							}
 						}
 					}
 					allow_archetype CLUSTER[at0061] occurrences matches {0..1} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0062] occurrences matches {0..1} matches {    -- Air presentation
+					ELEMENT[at0062] occurrences matches {0..1} matches {    -- Presentation
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0063,    -- Soundfield
-									at0064,    -- Insert earphone
-									at0065]    -- Headphones
+									at0098,    -- headphone presentation
+									at0099]    -- freefield presentation
 								}
 							}
 						}
@@ -183,7 +279,8 @@ definition
 								defining_code matches {
 									[local::
 									at0070,    -- Audiometric booth
-									at0071]    -- Non-sound treated room
+									at0071,    -- Non-sound treated room
+									at0126]    -- free-field
 								}
 							}
 						}
@@ -198,7 +295,8 @@ definition
 									at0078,    -- Warble Tone
 									at0079,    -- Pure Tone
 									at0080,    -- Narrow Band Noise
-									at0081]    -- Pulse tone
+									at0081,    -- Pulse tone
+									at0127]    -- Broadband noise
 								}
 							}
 						}
@@ -233,9 +331,19 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0093] occurrences matches {0..1} matches {    -- Criteria for asymmetry
+					ELEMENT[at0093] occurrences matches {0..1} matches {    -- Criteria for abnormality
 						value matches {
 							DV_TEXT matches {*}
+						}
+						null_flavour matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[openehr::
+									253,
+									271,
+									273]
+								}
+							}
 						}
 					}
 					ELEMENT[at0094] occurrences matches {0..1} matches {    -- Comment
@@ -271,12 +379,12 @@ ontology
 				>
 				["at0025"] = <
 					text = <"Test result name">
-					description = <"Identification of the Audiometry test performed.">
-					comment = <"Coding with an external terminology is preferred, where possible. Applicable tests include: Pure Tone Audiometry; Play Audiometry; Auditory Brainstem Response (for threshold determination); and Visual Reinforcement Orientation Audiometry.">
+					description = <"Identification of the categorical loudness scaling procedure performed.">
+					comment = <"Coding with an external terminology is preferred, where possible. Applicable tests include: ACALOS, Würzburger Hörfeldskalierung.">
 				>
 				["at0026"] = <
 					text = <"Result details">
-					description = <"The test result measurements and interpretations which can be recorded per ear, or for both ears simultaneously.">
+					description = <"The test result and interpretations which can be recorded per ear, or for both ears simultaneously.">
 				>
 				["at0027"] = <
 					text = <"Test ear">
@@ -296,55 +404,43 @@ ontology
 				>
 				["at0031"] = <
 					text = <"Measurement">
-					description = <"The thresholds obtained using air conduction testing.">
+					description = <"">
 				>
 				["at0032"] = <
 					text = <"Type of measurement mode">
 					description = <"">
 				>
 				["at0033"] = <
-					text = <"Bone conduction">
-					description = <"">
+					text = <"scaling data">
+					description = <"each response category for each stimulus level presented">
 				>
 				["at0034"] = <
-					text = <"Air conduction">
-					description = <"">
+					text = <"fitted parameters">
+					description = <"parameters of fitted loudness growth function">
 				>
 				["at0035"] = <
 					text = <"Response">
-					description = <"The measured frequency/threshold dB level pair for air conduction results.">
+					description = <"The reported loudness category for a given stimulus level.">
 				>
 				["at0036"] = <
 					text = <"Frequency">
-					description = <"The stimulus frequency tested.">
-					comment = <"Frequency is not applicable if a click stimulus is presented.">
-				>
-				["at0037"] = <
-					text = <"Level">
-					description = <"The stimulus intensity at threshold for the test frequency.">
-				>
-				["at0038"] = <
-					text = <"Reason for no level">
-					description = <"">
-				>
-				["at0039"] = <
-					text = <"Beyond Maxmimum Level">
-					description = <"">
+					description = <"Center frequency of stimulus tested.">
+					comment = <"Frequency is not applicable if a broadband stimulus is used.">
 				>
 				["at0040"] = <
 					text = <"Modality">
 					description = <"">
 				>
 				["at0041"] = <
-					text = <"Threshold">
+					text = <"Narrowband noise">
 					description = <"">
 				>
 				["at0042"] = <
-					text = <"MCL">
+					text = <"Broadband">
 					description = <"">
 				>
 				["at0043"] = <
-					text = <"UCL">
+					text = <"Other (specify)">
 					description = <"">
 				>
 				["at0060"] = <
@@ -354,23 +450,11 @@ ontology
 				["at0061"] = <
 					text = <"Extension">
 					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
-					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+					comment = <"For example: local information requirements or additional metadata.">
 				>
 				["at0062"] = <
-					text = <"Air presentation">
-					description = <"Presentation of the air conduction test stimulus indirectly to the inner ear through the atmosphere, via the auditory canal and middle ear structures.">
-				>
-				["at0063"] = <
-					text = <"Soundfield">
-					description = <"The stimulus is presented via a loudspeaker located at least one metre away from the subject.">
-				>
-				["at0064"] = <
-					text = <"Insert earphone">
-					description = <"The stimulus is presented via insert earphones.">
-				>
-				["at0065"] = <
-					text = <"Headphones">
-					description = <"The stimulus is presented via external headphones - either circumaural or supraaural.">
+					text = <"Presentation">
+					description = <"Presentation type">
 				>
 				["at0069"] = <
 					text = <"Test environment">
@@ -416,7 +500,7 @@ ontology
 				["at0082"] = <
 					text = <"Test instrument">
 					description = <"Details of device used to conduct the test.">
-					comment = <"Details of the headphones and bone conductors that are calibrated to be used in conjunction with a specific hearing test instrument will be nested as specific CLUSTER archetypes within the CLUSTER.hearing_test_instrument archetype.">
+					comment = <"Details of the headphones or speakers (freefield presentation) that are calibrated to be used in conjunction with a specific hearing test instrument will be nested as specific CLUSTER archetypes within the CLUSTER.hearing_test_instrument archetype.">
 				>
 				["at0083"] = <
 					text = <"Hearing device">
@@ -449,18 +533,119 @@ ontology
 					description = <"The test stimuli are calibrated using the normal hearing level scale.">
 				>
 				["at0093"] = <
-					text = <"Criteria for asymmetry">
-					description = <"The criteria on which asymmetry is defined in the test result interpretation.">
-					comment = <"For example:  binaural difference in bone conduction thresholds of >10 dB at two consecutive frequencies or >15 dB at one frequency (0.25–8.0 kHz).">
+					text = <"Criteria for abnormality">
+					description = <"The criteria on which deviation from normal in the test result interpretation.">
+					comment = <"For example: lower slope of loudness growth function higher than xx CU/dB">
 				>
 				["at0094"] = <
 					text = <"Comment">
-					description = <"Additional narrative about the protocol for the audiogram not captured in other fields.">
+					description = <"Additional narrative about the protocol for the categorical loudness scaling not captured in other fields.">
 					comment = <"For example, the co-operation of the test subject or description of the method used for testing.">
 				>
 				["at0095"] = <
 					text = <"Scaling method">
+					description = <"Choice of scaling method">
+				>
+				["at0096"] = <
+					text = <"Adaptive Categorical Loudness Scaling (ACALOS)">
+					description = <"Method by Brandt & Hohmann 2002">
+				>
+				["at0097"] = <
+					text = <"Würzburger Hörfeldskalierung">
+					description = <"Method by Hellbrück & Moser 1985">
+				>
+				["at0098"] = <
+					text = <"headphone presentation">
 					description = <"">
+				>
+				["at0099"] = <
+					text = <"freefield presentation">
+					description = <"">
+				>
+				["at0100"] = <
+					text = <"scaling data + fitted parameters">
+					description = <"both">
+				>
+				["at0101"] = <
+					text = <"Fitted parameters">
+					description = <"The reported loudness category for a given stimulus level">
+				>
+				["at0103"] = <
+					text = <"slope values">
+					description = <"Slope values for lower, upper and limiting (if applicable) section of fitted loudness growth function">
+				>
+				["at0104"] = <
+					text = <"Reason for no fitted parameters">
+					description = <"">
+				>
+				["at0105"] = <
+					text = <"no fit possible">
+					description = <"">
+				>
+				["at0110"] = <
+					text = <"Level">
+					description = <"The level of the stimulus.">
+				>
+				["at0111"] = <
+					text = <"Category">
+					description = <"The reported loudness category for a given stimulus level">
+				>
+				["at0112"] = <
+					text = <"Level parameters">
+					description = <"Level values for 5, 25 and 45 CU (if applicable) of fitted loudness growth function.">
+				>
+				["at0113"] = <
+					text = <"other">
+					description = <"">
+				>
+				["at0116"] = <
+					text = <"Aided status">
+					description = <"Indication regarding use of an assistive listening device by the test subject during the test.">
+				>
+				["at0117"] = <
+					text = <"Aided">
+					description = <"The test has been conducted with the patient using a form of auditory assistance, such as a hearing aid or cochlear implant.">
+				>
+				["at0118"] = <
+					text = <"Unaided">
+					description = <"The test has been conducted without the patient using any form of auditory assistance, such as a hearing aid or cochlear implant.">
+				>
+				["at0119"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0120"] = <
+					text = <"Type of listening device">
+					description = <"Identification of type of assistive listening device used.">
+					comment = <"Only relevant if 'Aid Status' value is 'Aided'.">
+				>
+				["at0121"] = <
+					text = <"Hearing aid">
+					description = <"A type of hearing device.">
+				>
+				["at0122"] = <
+					text = <"Cochlear implant">
+					description = <"A type of hearing device.">
+				>
+				["at0123"] = <
+					text = <"Bone conductor aid">
+					description = <"A type of hearing device.">
+				>
+				["at0124"] = <
+					text = <"Listening device settings">
+					description = <"Narrative description of the details of the assistive listening device settings.">
+				>
+				["at0125"] = <
+					text = <"Listening device settings">
+					description = <"Narrative description of the details of the assistive listening device settings.">
+				>
+				["at0126"] = <
+					text = <"free-field">
+					description = <"Room with free-field characteristics">
+				>
+				["at0127"] = <
+					text = <"Broadband noise">
+					description = <"The test stimulus is a broad band noise">
 				>
 			>
 		>
