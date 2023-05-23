@@ -323,7 +323,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule name="Fastenstatus" path="/items[at0008]">
+                <Rule max="1" name="Fastenstatus" path="/items[at0008]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>v2-0916::F::Patient was fasting prior to the procedure.</includedValues>
                         <includedValues>v2-0916::NF::The patient indicated they did not fast prior to the procedure.</includedValues>
@@ -331,7 +331,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                     </constraint>
                 </Rule>
                 <Rule path="/items[at0007]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint xsi:type="tem:textConstraint" limitToList="false" >
                         <includedValues>SNOMED_CT::129316008::Aspiration - action</includedValues>
                         <includedValues>SNOMED_CT::129314006::Biopsy - action</includedValues>
                         <includedValues>SNOMED_CT::129300006::Puncture - action</includedValues>
@@ -351,6 +351,14 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         <includedTypes>Date_Time</includedTypes>
                     </constraint>
                 </Rule>
+				
+				<Rule clone="true" path="/items[at0015]" name="Zeitpunkt der Probenentnahme - Ende">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                    </constraint>
+                </Rule>
+				
+				
                 <Rule max="0" path="/items[at0005]"/>
                 <Rule max="0" path="/items[at0067]"/>
                 <Rule max="0" name="Identifikator des Probennehmers" path="/items[at0070]">
@@ -409,13 +417,38 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.specimen_container.v1"
                     path="/items[at0085]" xsi:type="tem:CLUSTER">
-                    <Rule min="1"
+                    <Rule min="1" 
                         name="Art des Behälters, der die Probe beinhaltet" path="/items[at0005]">
-                        <constraint xsi:type="tem:textConstraint">
-                            <includedValues>SNOMED_CT::434711009::Specimen container</includedValues>
-                            <includedValues>SNOMED_CT::706437002::Container (physical object)</includedValues>
-                            <includedValues>SNOMED_CT::706046003::Specimen receptacle (physical object)</includedValues>
-                            <includedValues>SNOMED_CT::83059008::Tube, device (physical object)</includedValues>
+						<constraint limitToList="false" xsi:type="tem:textConstraint">
+                            <includedValues>SNOMED_CT::467330006::Adipose tissue stem cell recovery unit</includedValues>
+                            <includedValues>SNOMED_CT::464784003::Assisted reproduction catheter</includedValues>
+                            <includedValues>SNOMED_CT::465046006::Assisted reproduction cryotube</includedValues>
+                            <includedValues>SNOMED_CT::467131002::Blood autotransfusion system tubing</includedValues>
+                            <includedValues>SNOMED_CT::466704003::Blood collection/fat content reduction device</includedValues>
+                            <includedValues>SNOMED_CT::706067003::Blood collection/transfer device</includedValues>
+                            <includedValues>SNOMED_CT::714731008::Blood component separator</includedValues>
+                            <includedValues>SNOMED_CT::466447002::Blood-processing autotransfusion system container</includedValues>
+                            <includedValues>SNOMED_CT::467743009::Bone marrow explant needle</includedValues>
+                            <includedValues>SNOMED_CT::706045004::Bone particle collector</includedValues>
+                            <includedValues>SNOMED_CT::467182004::Cervical cytology inflatable collector</includedValues>
+                            <includedValues>SNOMED_CT::467499008::Chorionic villus sampling catheter</includedValues>
+                            <includedValues>SNOMED_CT::706042001::Clinical sampling brush</includedValues>
+                            <includedValues>SNOMED_CT::467647004::Cryostat microtome</includedValues>
+                            <includedValues>SNOMED_CT::1141810006::Cytology scraper (physical object)</includedValues>
+                            <includedValues>SNOMED_CT::468200003::Epididymal fluid aspiration catheter</includedValues>
+                            <includedValues>SNOMED_CT::470597005::Gastro-urological scoop</includedValues>
+                            <includedValues>SNOMED_CT::469454007::Intrauterine scoop</includedValues>
+                            <includedValues>SNOMED_CT::469287008::Intrauterine secretion scoop</includedValues>
+                            <includedValues>SNOMED_CT::463568005::Pleural drainage system fluid collector</includedValues>
+                            <includedValues>SNOMED_CT::706046003::Specimen receptacle</includedValues>
+                            <includedValues>SNOMED_CT::706071000::Specimen receptacle transport container</includedValues>
+                            <includedValues>SNOMED_CT::1202028007::Swallowable cell collection sponge in capsule (physical object)</includedValues>
+                            <includedValues>SNOMED_CT::465091002::Tissue extraction bag</includedValues>
+                            <includedValues>SNOMED_CT::701720006::Tissue/fluid collection bag, non-sterile</includedValues>
+                            <includedValues>SNOMED_CT::700855008::Tissue/fluid collection bag, sterile</includedValues>
+                            <includedValues>SNOMED_CT::718302001::Urological fluid funnel, non-sterile</includedValues>
+                            <includedValues>SNOMED_CT::718301008::Urological fluid funnel, sterile</includedValues>
+                            <includedValues>SNOMED_CT::466421006::Viscerotome</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0003]">
@@ -666,12 +699,11 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                     </Items>
                     <Items
                         archetype_id="openEHR-EHR-CLUSTER.medication.v2"
-                        concept_name="Arzneimittel" max="1"
+                        concept_name="Arzneimittel" 
                         name="verwendetes Material"
                         path="/items[at0028]" xsi:type="tem:CLUSTER">
                         <Rule min="1" name="Substanz" path="/items[at0132]">
-                            <constraint xsi:type="tem:textConstraint">
-                                <includedValues>SNOMED_CT::406455002::Allergen class</includedValues>
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
                                 <includedValues>SNOMED_CT::255640000::Biocide</includedValues>
                                 <includedValues>SNOMED_CT::115668003::Biological substance</includedValues>
                                 <includedValues>SNOMED_CT::91720002::Body substance</includedValues>
@@ -688,7 +720,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         </Rule>
                         <Rule max="0" path="/items[at0071]"/>
                         <Rule name="Kategorie" path="/items[at0142]">
-                            <constraint xsi:type="tem:textConstraint">
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
                                 <includedValues>substance-category::allergen::Allergen</includedValues>
                                 <includedValues>substance-category::biological::Biological Substance</includedValues>
                                 <includedValues>substance-category::body::Body Substance</includedValues>
@@ -740,8 +772,8 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         <Rule max="0" path="/items[at0133]"/>
                         <Items
                             archetype_id="openEHR-EHR-CLUSTER.medication.v2"
-                            max="1" path="/items[at0138]" xsi:type="tem:CLUSTER">
-                            <Rule name="Substanz" path="/items[at0132]"/>
+                            name="Inhaltsstoffe" path="/items[at0138]" xsi:type="tem:CLUSTER">
+                            <Rule min="1" name="Substanz" path="/items[at0132]"/>
                             <Rule max="0" path="/items[at0071]"/>
                             <Rule max="0" path="/items[at0142]">
                                 <constraint xsi:type="tem:multipleConstraint">
@@ -750,7 +782,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                                 </constraint>
                             </Rule>
                             <Rule max="0" path="/items[at0152]"/>
-                            <Rule max="0" path="/items[at0115]">
+                            <Rule max="1" path="/items[at0115]">
                                 <constraint xsi:type="tem:quantityConstraint"/>
                             </Rule>
                             <Rule max="0" path="/items[at0151]"/>
@@ -827,8 +859,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         name="verwendetes Material"
                         path="/items[at0088]" xsi:type="tem:CLUSTER">
                         <Rule min="1" name="Substanz" path="/items[at0132]">
-                            <constraint xsi:type="tem:textConstraint">
-                                <includedValues>SNOMED_CT::406455002::Allergen class</includedValues>
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
                                 <includedValues>SNOMED_CT::255640000::Biocide</includedValues>
                                 <includedValues>SNOMED_CT::115668003::Biological substance</includedValues>
                                 <includedValues>SNOMED_CT::91720002::Body substance</includedValues>
@@ -845,7 +876,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         </Rule>
                         <Rule max="0" path="/items[at0071]"/>
                         <Rule name="Kategorie" path="/items[at0142]">
-                            <constraint xsi:type="tem:textConstraint">
+                            <constraint limitToList="false" xsi:type="tem:textConstraint">
                                 <includedValues>SubstanceCategoryCodes::allergen::Allergen</includedValues>
                                 <includedValues>SubstanceCategoryCodes::biological::Biological Substance</includedValues>
                                 <includedValues>SubstanceCategoryCodes::body::Body Substance</includedValues>
@@ -897,8 +928,8 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                         <Rule max="0" path="/items[at0133]"/>
                         <Items
                             archetype_id="openEHR-EHR-CLUSTER.medication.v2"
-                            path="/items[at0138]" xsi:type="tem:CLUSTER">
-                            <Rule name="Substanz" path="/items[at0132]"/>
+                             name="Inhaltsstoffe" path="/items[at0138]" xsi:type="tem:CLUSTER">
+                            <Rule min="1" name="Substanz" path="/items[at0132]"/>
                             <Rule max="0" path="/items[at0071]"/>
                             <Rule max="0" path="/items[at0142]">
                                 <constraint xsi:type="tem:multipleConstraint">
@@ -907,7 +938,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                                 </constraint>
                             </Rule>
                             <Rule max="0" path="/items[at0152]"/>
-                            <Rule max="0" path="/items[at0115]">
+                            <Rule max="1" path="/items[at0115]">
                                 <constraint xsi:type="tem:quantityConstraint"/>
                             </Rule>
                             <Rule max="0" path="/items[at0151]"/>
@@ -2008,7 +2039,7 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
             <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v1"
                 max="1" path="/data[at0001]/items[at0009]" xsi:type="tem:CLUSTER">
                 <Rule min="1" name="Biobank-Name" path="/items[at0001]"/>
-                <Rule max="1" name="Biobank-ID" path="/items[at0003]">
+                <Rule name="Biobank-ID" path="/items[at0003]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Identifier</includedTypes>
                         <includedTypes>Text</includedTypes>
@@ -2017,18 +2048,13 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                 <Rule name="Typ" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0019]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.person.v1"
-                    concept_name="Person" max="1"
+                    concept_name="Person" min="1"
                     name="Person Forschungskontakt"
                     path="/items[at0002]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0001]"/>
-                    <Rule name="Kontaktart" path="/items[at0011]">
+                    <Rule min="1" name="Kontaktart" path="/items[at0011]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>contactentity-type::BILL::Billing</includedValues>
-                            <includedValues>contactentity-type::ADMIN::Administrative</includedValues>
-                            <includedValues>contactentity-type::HR::Human Resource</includedValues>
-                            <includedValues>contactentity-type::PAYOR::Payor</includedValues>
-                            <includedValues>contactentity-type::PATINF::Patient</includedValues>
-                            <includedValues>contactentity-type::PRESS::Press</includedValues>
+                            <includedValues>contactentity-type::RESEARCH::Research</includedValues>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0003]">
@@ -2113,8 +2139,8 @@ Das Template repräsentiert den Kerndatensatz Modul "Biobank" der Medizinformati
                     archetype_id="openEHR-EHR-CLUSTER.organisation.v1"
                     concept_name="Organisation" max="1" name="Sammlung"
                     path="/items[at0021]" xsi:type="tem:CLUSTER">
-                    <Rule name="Sammlung-Name" path="/items[at0001]"/>
-                    <Rule max="1" name="Sammlungs-ID" path="/items[at0003]">
+                    <Rule min="1" name="Sammlung-Name" path="/items[at0001]"/>
+                    <Rule name="Sammlungs-ID" path="/items[at0003]">
                         <constraint xsi:type="tem:multipleConstraint">
                             <includedTypes>Identifier</includedTypes>
                             <includedTypes>Text</includedTypes>
