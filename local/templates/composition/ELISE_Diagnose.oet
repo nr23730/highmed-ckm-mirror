@@ -86,7 +86,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>46b90fd3c256050deda9cea946d20f3a</value>
+                <value>e53c19a8b4385c5f5783d80570987707</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -98,7 +98,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>7.0.0</value>
+                <value>10.2.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -138,12 +138,7 @@
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
             concept_name="Problem/Diagnose" min="1" name="Primärcode"
             path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <termQueryId
-                        queryName="CodeSystem/dimdi/icd-10-gm/null" terminologyID="//fhir.de/CodeSystem/dimdi/icd-10-gm"/>
-                </constraint>
-            </Rule>
+            <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]"/>
             <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule max="0" name="Körperstelle" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
@@ -151,13 +146,7 @@
                         queryName="fhir/valueset-body-site.html/null" terminologyID="//www.hl7.org/fhir/valueset-body-site.html"/>
                 </constraint>
             </Rule>
-            <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
-                <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::B::beiderseits</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::L::links</includedValues>
-                    <includedValues>https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION::R::rechts</includedValues>
-                </constraint>
-            </Rule>
+            <Rule clone="true" max="1" name="Seitenlokalisation" path="/data[at0001]/items[at0012]"/>
             <Rule max="0" path="/data[at0001]/items[at0078]"/>
             <Rule max="0"
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
@@ -180,12 +169,12 @@
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-            <Rule max="0" name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
+            <Rule name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
             <Rule max="0" name="Letztes Dokumentationsdatum" path="/protocol[at0032]/items[at0070]"/>
         </Content>
         <Content
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-            concept_name="Problem/Diagnose" name="Sekundärcode"
+            concept_name="Problem/Diagnose" max="0" name="Sekundärcode"
             path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
