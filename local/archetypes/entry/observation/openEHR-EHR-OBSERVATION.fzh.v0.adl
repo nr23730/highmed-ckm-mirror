@@ -31,8 +31,8 @@ Der vorliegende FZH ist eine modifizierte deutsche Version des Saving Inventory 
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"0176B9AA7298387085F444F91E61BDBD">
-		["build_uid"] = <"a54840df-81f5-4785-8e9c-e920e209679f">
+		["MD5-CAM-1.0.1"] = <"07B8A3A3B05B59C4158546DEF5D0B3D1">
+		["build_uid"] = <"77700a3d-6f11-4834-97ca-499ea9d319f9">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -218,24 +218,30 @@ definition
 									}
 									ELEMENT[at0127] occurrences matches {0..1} matches {    -- Summenwert Unordnung (clutter)
 										value matches {
-											DV_COUNT matches {*}
+											DV_COUNT matches {
+												magnitude matches {|0..28|}
+											}
 										}
 									}
 									ELEMENT[at0128] occurrences matches {0..1} matches {    -- Summenwert Schwierigkeiten, etwas wegzuwerfen (difficulty discarding)
 										value matches {
-											DV_COUNT matches {*}
+											DV_COUNT matches {
+												magnitude matches {|0..28|}
+											}
 										}
 									}
 									ELEMENT[at0126] occurrences matches {0..1} matches {    -- Summenwert Erwerb (acquisition)
 										value matches {
 											DV_COUNT matches {
-												magnitude matches {|0..76|}
+												magnitude matches {|0..20|}
 											}
 										}
 									}
 									ELEMENT[at0129] occurrences matches {0..1} matches {    -- FZH-Gesamtwert
 										value matches {
-											DV_COUNT matches {*}
+											DV_COUNT matches {
+												magnitude matches {|0..76|}
+											}
 										}
 									}
 								}
@@ -253,10 +259,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0124] occurrences matches {0..*} matches {    -- Erweiterungen
-						include
-							archetype_id/value matches {/.*/}
-					}
+					CLUSTER[at0130] occurrences matches {0..1} matches {*}    -- Erweiterung
 				}
 			}
 		}
@@ -277,7 +280,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -747,11 +750,6 @@ ontology
 					text = <"fast immer nicht in der Lage, Dinge wegzuwerfen">
 					description = <"">
 				>
-				["at0124"] = <
-					text = <"Erweiterungen">
-					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
-					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen.">
-				>
 				["at0126"] = <
 					text = <"Summenwert Erwerb (acquisition)">
 					description = <"Subskalenmittelwert aus FZH5, FZH7, FZH8, FZH9 und FZH14.">
@@ -769,6 +767,11 @@ ontology
 					description = <"Summe der einzelnen Bewertungen, die für jede der beitragenden Variablen zugewiesen wurden.">
 					comment = <"Die Auswertung erfolgt über die Berechnung von Mittelwerten, mit welchen die Ausprägung des zwanghaften Hortens eingeschätzt werden kann.
 FZH-Summenwerte über 28 weisen auf zwanghaftes Horten hin.">
+				>
+				["at0130"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen, die zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen erforderlich sind.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen.">
 				>
 			>
 		>
