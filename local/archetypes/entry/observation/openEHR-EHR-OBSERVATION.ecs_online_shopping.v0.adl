@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=9c4b9b52-a26c-47a4-ad2c-eebe376f8005)
-	openEHR-EHR-OBSERVATION.experience_of_gratification_scale.v0
+﻿archetype (adl_version=1.4; uid=1ea78610-35b7-4626-95c3-755d71b01914)
+	openEHR-EHR-OBSERVATION.ecs_online_shopping.v0
 
 concept
-	[at0000]	-- Experience of Gratification Scale (EGS)
+	[at0000]	-- ECS - Online-Shopping
 language
 	original_language = <[ISO_639-1::de]>
 description
@@ -10,15 +10,15 @@ description
 		["name"] = <"Natalia Strauch">
 		["organisation"] = <"Medizinische Hochschule Hannover">
 		["email"] = <"strauch.natalia@mh-hannover.de">
-		["date"] = <"2023-06-07">
+		["date"] = <"2023-06-01">
 	>
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Zur Darstellung der Experience of Gratification Scale (EGS).">
-			use = <"Verwenden Sie diesen Archetyp, um den Fragebogen zum Erleben von Befriedigung (EGS) darzustellen.
+			purpose = <"Zur Darstellung des Fragebogens \"ECS - Online-Shopping\", eines Sub-Fragebogens zur Experience of Compensation Scale (ECS).">
+			use = <"Verwenden Sie diesen Archetyp, um den Fragebogen zur Erfahrung von Kompensation beim Online-Shopping \"ECS - Online-Shopping\" darzustellen. Dieser Fragebogen ist eine Spezialisierung der Experience of Compensation Scale (ECS).
 
-Die Experience of Gratification Scale (EGS) wird verwendet, um das Erleben von Befriedigung bei der Nutzung einer bestimmten Online-Anwendung bei Personen mit potenziell süchtigem Online-Verhalten zu messen.
+Die Experience of Compensation Scale (ECS) wird verwendet, um das Erleben von Kompensation bei der Nutzung einer bestimmten Online-Anwendung bei Personen mit potenziell süchtigem Online-Verhalten zu messen.
 
 Häufige Anwendungsfälle umfassen, sind aber nicht beschränkt auf:
 - Online-Shopping-Sucht (Kaufsucht)
@@ -27,9 +27,9 @@ Häufige Anwendungsfälle umfassen, sind aber nicht beschränkt auf:
 - Störung der Social-Media-Nutzung
 - weitere Störungen aufgrund von süchtigem Verhalten.
 
-Für den EGS-Fragebogen werden zwei Faktoren identifiziert, die die Befriedigung von Bedürfnissen und das Erleben von Vergnügen umfassen.">
-			keywords = <"EGS", "Skala", "Psychologie", "Sucht", "Online", "Kaufsucht", "Spielsucht", "Befriedigung", "süchtig", "Messinstrument", "Fragebogen", "Nutzungsstörung", "Soziale Netzwerke", "Verhaltenssüchte">
-			misuse = <"Dieser Archetyp darf nicht verwendet werden, um andere Fragebögen als EGS darzustellen.">
+Für den ECS-Fragebogen werden zwei Faktoren identifiziert, die die Kompensation von Bedürfnissen und das Erleben von Befreiung von negativen Emotionen umfassen.">
+			keywords = <"Skala", "ECS", "Psychologie", "Sucht", "Online", "Kaufsucht", "Kompensation", "süchtig", "Messinstrument", "Fragebogen", "Nutzungsstörung", "Verhaltenssüchte", "Bedürfnisse", "Emotionen">
+			misuse = <"Dieser Archetyp darf nicht verwendet werden, um andere Messskalen als ECS bei Online-Shopping darzustellen.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -42,13 +42,13 @@ Für den EGS-Fragebogen werden zwei Faktoren identifiziert, die die Befriedigung
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"4E525F39E97E2A4C0D1E7663F602D7A0">
-		["build_uid"] = <"b1006b7d-e75e-4c94-b0e6-94140eff4735">
+		["MD5-CAM-1.0.1"] = <"B6BD5BDE7AEB19728ED57E94998DB109">
+		["build_uid"] = <"78dafe0f-e05e-43bb-8d80-3e478e2b5360">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Experience of Gratification Scale (EGS)
+	OBSERVATION[at0000] matches {	-- ECS - Online-Shopping
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -58,10 +58,12 @@ definition
 								items cardinality matches {1..*; unordered} matches {
 									ELEMENT[at0006] matches {	-- Name der Online-Anwendung
 										value matches {
-											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {[local::at0046]}		-- Online-Shopping
+											}
 										}
 									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- 1. Fühle ich mich gut
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- 1. Fühle ich mich weniger eingeengt
 										value matches {
 											0|[local::at0008], 	-- Nie
 											1|[local::at0009], 	-- Selten
@@ -70,7 +72,7 @@ definition
 											4|[local::at0012]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- 2. Fühle ich mich erfolgreich
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- 2. Fühle ich mich weniger erfolglos
 										value matches {
 											0|[local::at0014], 	-- Nie
 											1|[local::at0015], 	-- Selten
@@ -79,7 +81,7 @@ definition
 											4|[local::at0018]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- 3. Erlebe ich Spaß
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- 3. Fühle ich mich weniger unsicher
 										value matches {
 											0|[local::at0020], 	-- Nie
 											1|[local::at0021], 	-- Selten
@@ -88,7 +90,7 @@ definition
 											4|[local::at0024]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- 4. Fühle ich mich mächtig
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- 4. Fühle ich mich weniger machtlos
 										value matches {
 											0|[local::at0026], 	-- Nie
 											1|[local::at0027], 	-- Selten
@@ -97,7 +99,7 @@ definition
 											4|[local::at0030]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- 5. Erlebe ich Befriedigung
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- 5. Erlebe ich mich als weniger sorgenvoll
 										value matches {
 											0|[local::at0032], 	-- Nie
 											1|[local::at0033], 	-- Selten
@@ -106,16 +108,16 @@ definition
 											4|[local::at0036]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0037] occurrences matches {0..1} matches {	-- 6. Fühle ich mich anderen Menschen nah
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- 6. Fühle ich mich weniger einsam/allein
 										value matches {
 											0|[local::at0038], 	-- Nie
 											1|[local::at0039], 	-- Selten
 											2|[local::at0040], 	-- Manchmal
 											3|[local::at0041], 	-- Oft
-											4|[local::at0042]  	-- Sehr oft
+											4|[local::at0043]  	-- Sehr oft
 										}
 									}
-									ELEMENT[at0043] occurrences matches {0..1} matches {	-- Befriedigung von Bedürfnissen
+									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Kompensation von Bedürfnissen
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::380]>
@@ -129,7 +131,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Erleben von Vergnügen
+									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Erleben von Befreiung von negativen Emotionen
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::380]>
@@ -143,7 +145,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Gesamtmittelwert
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Gesamtmittelwert
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::380]>
@@ -179,8 +181,8 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Experience of Gratification Scale (EGS)">
-					description = <"Skala zum Erleben von Befriedigung bei der Nutzung einer bestimmten Online-Anwendung (EGS).">
+					text = <"ECS - Online-Shopping">
+					description = <"Skala zur Erfahrung von Kompensation bei Online-Shopping.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -205,12 +207,12 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Name der Online-Anwendung">
-					description = <"Bezeichnung einer spezifischen Online-Anwendung, während deren Nutzung das Erleben der Befriedigung abgefragt wird.">
+					description = <"Bezeichnung einer spezifischen Online-Anwendung, während deren Nutzung das Erleben im Vergleich zu anderen Aktivitäten oder ohne Internet abgefragt wird.">
 					comment = <"Die Online-Anwendung soll in den Anweisungen zu jedem Fragebogen definiert werden, zum Beispiel: Glücksspiel, Nutzung von Pornografie, Online-Shopping oder Nutzung von sozialen Netzwerken.">
 				>
 				["at0007"] = <
-					text = <"1. Fühle ich mich gut">
-					description = <"Während ich die Online-Anwendung nutze, fühle ich mich gut.">
+					text = <"1. Fühle ich mich weniger eingeengt">
+					description = <"Während ich online shoppe, fühle ich mich weniger eingeengt.">
 				>
 				["at0008"] = <
 					text = <"Nie">
@@ -233,8 +235,8 @@ ontology
 					description = <"">
 				>
 				["at0013"] = <
-					text = <"2. Fühle ich mich erfolgreich">
-					description = <"Während ich die Online-Anwendung nutze, fühle ich mich erfolgreich.">
+					text = <"2. Fühle ich mich weniger erfolglos">
+					description = <"Während ich online shoppe, fühle ich mich weniger erfolglos.">
 				>
 				["at0014"] = <
 					text = <"Nie">
@@ -257,8 +259,8 @@ ontology
 					description = <"">
 				>
 				["at0019"] = <
-					text = <"3. Erlebe ich Spaß">
-					description = <"Während ich die Online-Anwendung nutze, erlebe ich Spaß.">
+					text = <"3. Fühle ich mich weniger unsicher">
+					description = <"Während ich online shoppe, fühle ich mich weniger unsicher.">
 				>
 				["at0020"] = <
 					text = <"Nie">
@@ -281,8 +283,8 @@ ontology
 					description = <"">
 				>
 				["at0025"] = <
-					text = <"4. Fühle ich mich mächtig">
-					description = <"Während ich die Online-Anwendung nutze, fühle ich mich mächtig.">
+					text = <"4. Fühle ich mich weniger machtlos">
+					description = <"Während ich online shoppe, fühle ich mich weniger machtlos.">
 				>
 				["at0026"] = <
 					text = <"Nie">
@@ -305,8 +307,8 @@ ontology
 					description = <"">
 				>
 				["at0031"] = <
-					text = <"5. Erlebe ich Befriedigung">
-					description = <"Während ich die Online-Anwendung nutze, erlebe ich Befriedigung.">
+					text = <"5. Erlebe ich mich als weniger sorgenvoll">
+					description = <"Während ich online shoppe, erlebe ich mich als weniger sorgenvoll.">
 				>
 				["at0032"] = <
 					text = <"Nie">
@@ -329,8 +331,8 @@ ontology
 					description = <"">
 				>
 				["at0037"] = <
-					text = <"6. Fühle ich mich anderen Menschen nah">
-					description = <"Während ich die Online-Anwendung nutze, fühle ich mich anderen Menschen nah.">
+					text = <"6. Fühle ich mich weniger einsam/allein">
+					description = <"Während ich online shoppe, fühle ich mich weniger einsam/allein.">
 				>
 				["at0038"] = <
 					text = <"Nie">
@@ -349,22 +351,26 @@ ontology
 					description = <"">
 				>
 				["at0042"] = <
+					text = <"Gesamtmittelwert">
+					description = <"Skalenmittelwert \"Overall Means\" für alle sechs Scores.">
+				>
+				["at0043"] = <
 					text = <"Sehr oft">
 					description = <"">
 				>
-				["at0043"] = <
-					text = <"Befriedigung von Bedürfnissen">
-					description = <"Skalenmittelwert für den Faktor \"Gratification of Needs\".">
+				["at0044"] = <
+					text = <"Kompensation von Bedürfnissen">
+					description = <"Skalenmittelwert für den Faktor \"Compensation of Needs\".">
 					comment = <"Zur Berechnung des Faktors werden folgende Items genutzt: 2, 4 und 6.">
 				>
-				["at0044"] = <
-					text = <"Erleben von Vergnügen">
-					description = <"Skalenmittelwert für den Faktor \"Experience of Pleasure\".">
+				["at0045"] = <
+					text = <"Erleben von Befreiung von negativen Emotionen">
+					description = <"Skalenmittelwert für den Faktor \"Experience of Relief from Negative Emotions\".">
 					comment = <"Zur Berechnung des Faktors werden folgende Items genutzt: 1, 3 und 5.">
 				>
-				["at0045"] = <
-					text = <"Gesamtmittelwert">
-					description = <"Skalenmittelwert \"Overall Means\" für alle sechs Scores.">
+				["at0046"] = <
+					text = <"Online-Shopping">
+					description = <"">
 				>
 			>
 		>
