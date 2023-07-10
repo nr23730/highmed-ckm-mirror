@@ -63,7 +63,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>6.1.0</value>
+                <value>10.0.0</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -79,19 +79,19 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.informed_consent.v0]/protocol[at0024]/items[at0033]/items[at0035]">
-        <items>
-            <item>
-                <key>ucc</key>
-                <value>Standortname, Versionsnummer, z.B. MHH, Version 1.2</value>
-            </item>
-        </items>
-    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.informed_consent.v0]/protocol[at0024]/items[at0025]">
         <items>
             <item>
                 <key>ucc</key>
                 <value>"Version " + Versionsnummer, z.B. Version 1.2</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.informed_consent.v0]/protocol[at0024]/items[at0033]/items[at0035]">
+        <items>
+            <item>
+                <key>ucc</key>
+                <value>Standortname, Versionsnummer, z.B. MHH, Version 1.2</value>
             </item>
         </items>
     </annotations>
@@ -122,10 +122,14 @@
             <Rule max="0" path="/protocol[at0024]/items[at0025]"/>
             <Rule max="0" path="/protocol[at0024]/items[at0026]"/>
             <Rule max="1" name="Patienteninformation Hauptstudie" path="/protocol[at0024]/items[at0033]"/>
-            <Rule
-                default="Patienteninformation zur Hauptstudie: Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs" path="/protocol[at0024]/items[at0033, 'Patienteninformation Hauptstudie']/items[at0032]">
+            <Rule path="/protocol[at0024]/items[at0033, 'Patienteninformation Hauptstudie']/items[at0032]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>Patienteninformation zur Hauptstudie: Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs</includedValues>
+                </constraint>
+            </Rule>
+            <Rule default="Version 2.0 vom 06.06.2023" path="/protocol[at0024]/items[at0033, 'Patienteninformation Hauptstudie']/items[at0035]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Version 2.0 vom 06.06.2023</includedValues>
                 </constraint>
             </Rule>
             <Rule clone="true" max="1"
@@ -136,7 +140,11 @@
                     <includedValues>Patienteninformation zur Sensorikstudie: Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs</includedValues>
                 </constraint>
             </Rule>
-            <Rule name="Device ID" path="/protocol[at0024]/items[at0033, 'Patienteninformation Sensorikstudie']/items[at0035]"/>
+            <Rule default="Version 1.0 vom 31.03.2023" path="/protocol[at0024]/items[at0033, 'Patienteninformation Sensorikstudie']/items[at0035]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Version 1.0 vom 31.03.2023</includedValues>
+                </constraint>
+            </Rule>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
                 max="1" min="1"
@@ -148,14 +156,8 @@
                     </constraint>
                 </Rule>
                 <Rule name="Status der Teilnahme (Hauptstudie)" path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0006</excludedValues>
-                        <excludedValues>local::at0007</excludedValues>
-                        <excludedValues>local::at0008</excludedValues>
-                        <excludedValues>local::at0017</excludedValues>
-                        <excludedValues>local::at0012</excludedValues>
-                        <excludedValues>local::at0019</excludedValues>
-                        <excludedValues>local::at0020</excludedValues>
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
                 <Rule max="0" name="Subjekt Identifizierungscode" path="/items[at0016]"/>
@@ -197,8 +199,8 @@
                     <Rule max="0" path="/items[at0013]"/>
                     <Rule max="0" path="/items[at0010]"/>
                     <Rule max="0" path="/items[at0015]"/>
-                    <Rule max="0" path="/items[at0016]"/>
-                    <Rule max="0" path="/items[at0017]"/>
+                    <Rule name="Prä-Phase" path="/items[at0016]"/>
+                    <Rule name="Post-Phase" path="/items[at0017]"/>
                     <Rule max="0" path="/items[at0018]"/>
                     <Rule max="0" path="/items[at0019]"/>
                     <Rule max="0" path="/items[at0020]"/>
@@ -221,14 +223,8 @@
                     </constraint>
                 </Rule>
                 <Rule name="Status der Teilnahme (Sensorikstudie)" path="/items[at0005]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <excludedValues>local::at0006</excludedValues>
-                        <excludedValues>local::at0007</excludedValues>
-                        <excludedValues>local::at0008</excludedValues>
-                        <excludedValues>local::at0017</excludedValues>
-                        <excludedValues>local::at0012</excludedValues>
-                        <excludedValues>local::at0019</excludedValues>
-                        <excludedValues>local::at0020</excludedValues>
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
                 <Rule max="0" name="Subjekt Identifizierungscode" path="/items[at0016]"/>
@@ -238,30 +234,32 @@
                 <Rule max="0" path="/items[at0022]"/>
                 <Items
                     archetype_id="openEHR-EHR-CLUSTER.study_details.v1"
-                    max="0" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                    <Rule default="CAEHR Use Case C"
+                    path="/items[at0002]" xsi:type="tem:CLUSTER">
+                    <Rule default="CAEHR Use Case C Sensorik"
                         name="Name der Studie" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>CAEHR Use Case C</includedValues>
+                            <includedValues>CAEHR Use Case C Sensorik</includedValues>
                         </constraint>
                     </Rule>
                     <Rule
-                        default="Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs" path="/items[at0004]">
+                        default="Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs"
+                        max="0" path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Register von Patienten mit koronarer Herzkrankheit (KHK) oder Herzinsuffizienz (HF) im Rahmen des CAEHR Digitaler Fortschrittshubs</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule default="CAEHR Use Case C" min="1" path="/items[at0002]">
+                    <Rule default="CAEHR Use Case C" max="0" path="/items[at0002]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>CAEHR Use Case C</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule default="Registerstudie" path="/items[at0003]">
+                    <Rule default="Registerstudie" max="0" path="/items[at0003]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>Registerstudie</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0033]"/>
+                    <Rule max="0" path="/items[at0033]/items[at0035]"/>
+                    <Rule max="0" path="/items[at0033]/items[at0034]"/>
                     <Rule default="CAEHR, BMBF" max="0" path="/items[at0012]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>CAEHR, BMBF</includedValues>
@@ -270,13 +268,57 @@
                     <Rule max="0" path="/items[at0013]"/>
                     <Rule max="0" path="/items[at0010]"/>
                     <Rule max="0" path="/items[at0015]"/>
-                    <Rule max="0" path="/items[at0016]"/>
-                    <Rule max="0" path="/items[at0017]"/>
+                    <Rule name="Prä-Phase" path="/items[at0016]"/>
+                    <Rule name="Post-Phase" path="/items[at0017]"/>
                     <Rule max="0" path="/items[at0018]"/>
                     <Rule max="0" path="/items[at0019]"/>
                     <Rule max="0" path="/items[at0020]"/>
                     <Rule max="0" path="/items[at0005]"/>
                 </Items>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
+                concept_name="Medizingerät" max="1" min="1"
+                name="Smartwatch"
+                path="/protocol[at0024]/items[at0033, 'Patienteninformation Sensorikstudie']/items[at0038]" xsi:type="tem:CLUSTER">
+                <Rule default="Smartwatch" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Smartwatch</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0020]"/>
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0025]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0024]"/>
+                <Rule max="0" path="/items[at0008]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
+                concept_name="Medizingerät" max="1" min="1"
+                name="Smartphone"
+                path="/protocol[at0024]/items[at0033, 'Patienteninformation Sensorikstudie']/items[at0038]" xsi:type="tem:CLUSTER">
+                <Rule default="Smartphone" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Smartphone</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0020]"/>
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0025]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0024]"/>
+                <Rule max="0" path="/items[at0008]"/>
             </Items>
         </Content>
         <Context>
@@ -337,5 +379,10 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4244C5EC7B82DFE4829DD920989058F8</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.device.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">EEC8640C1336806D602A1BC344D4F733</digest>
     </integrity_checks>
 </template>
