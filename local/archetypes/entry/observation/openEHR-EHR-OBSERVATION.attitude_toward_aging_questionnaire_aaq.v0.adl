@@ -7,15 +7,20 @@ language
 	original_language = <[ISO_639-1::en]>
 description
 	original_author = <
+		["name"] = <"Nils Hebbelmann">
+		["organisation"] = <"Hearing4All - University of Oldenburg">
+		["email"] = <"nils.hebbelmann@uni-oldenburg.de">
 		["date"] = <"2023-06-06">
 	>
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the results of the Attitude towards aging questionnaire ">
-			use = <"To record the results of the Attitude towards aging questionnaire ">
-			keywords = <"Hospital, Psychiatry, Aging, Attitude toward aging questionnaire, Audiology, Assessment", ...>
-			misuse = <"Not to be used to record other questionnaires than the Attitude toward aging questionnaire in the given form">
+			purpose = <"Seine 24 Elemente sind in drei Subskalen unterteilt, die verschiedene Aspekte des Alterns berücksichtigen: Psychosozialer Verlust, Körperliche Veränderung und Psychologisches Wachstum.
+
+Die erste Subskala konzentriert sich auf psychosoziale Verluste, die für ältere Erwachsene relevant sind. Die zweite Subskala fokussiert eher auf körperliche Funktionen, die sich auf Gesundheit, Bewegung und die Erfahrung des Alterns selbst beziehen. Die dritte Skala, Psychologisches Wachstum, hat einen positiven Fokus und könnte auch als 'Weisheit' oder 'Wachstum' zusammengefasst werden, etwa als positive Gewinne in Bezug auf sich selbst. ">
+			use = <"Aufzeichnung der Ergebnisse des Attitude toward aging questionnaires.">
+			keywords = <"Krankenhaus, Psychiatrie, Altern, Attitude toward aging questionnaire, Audiologie", ...>
+			misuse = <"Darf nicht zur Erfassung anderer Fragebögen als des Fragebogens zur Einstellung zum Älterwerden in der vorgegebenen Form verwendet werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -24,19 +29,30 @@ description
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: <Add reference to original resource here>
+		["references"] = <"Laidlaw, K., Power, M. J., & Schmidt, S. (2007). The attitudes to ageing questionnaire (AAQ): Development and psychometric properties. International Journal of Geriatric Psychiatry, 22(4), 367–379. doi: 10.1002/gps.1683
 
-REFERENCE & ITEMS : Laidlaw, K., Power, M. J., & Schmidt, S. (2007).">
+Deutsche Übersetzung mit DeepL (https://www.deepl.com/) und anschließend von zwei Muttersprachlern überarbeitet.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E0F942B232CEBAAAD276844C63D78091">
-		["build_uid"] = <"adaf4421-fc91-4cee-bc92-014304dbdaed">
+		["MD5-CAM-1.0.1"] = <"E4D9B2C8ADFB9E2BB6C1B92220ED1788">
+		["build_uid"] = <"5fff964a-7ce6-40e2-9eac-fcacf551439f">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	OBSERVATION[at0000] matches {    -- Attitude toward aging questionnaire AAQ
+		protocol matches {
+			ITEM_TREE matches {
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0028] occurrences matches {0..1} matches {    -- Testanweisung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -282,22 +298,6 @@ definition
 				}
 			}
 		}
-		protocol matches {
-			ITEM_TREE matches {
-				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0028] occurrences matches {0..1} matches {    -- Testanweisung
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0029] occurrences matches {0..1} matches {    -- References
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-				}
-			}
-		}
 	}
 
 
@@ -307,7 +307,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Attitude toward aging questionnaire AAQ">
-					description = <"Attitude toward aging questionnaire AAQ">
+					description = <"Zur Erfassung der Ergebnisse des Einstellung zum Altern Fragebogens.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -434,10 +434,6 @@ Ich mag es nicht, älter zu werden.
 
 Sie sollten die Zahl anklicken, die am besten beschreibt wie wahr die Aussagen für Sie sind. Sie würden also die Zahl 4 anklicken, wenn Ihnen das Älterwerden \"sehr unangenehm\" ist, oder die Zahl 1, wenn Sie \"überhaupt nicht\" über das Älterwerden besorgt sind. 
 Bitte lesen Sie jede Frage, schätzen Sie Ihre Gefühle ein und geben Sie für jede Frage die Zahl auf der Skala ein, die für Sie die best passende Antwort ist.">
-				>
-				["at0029"] = <
-					text = <"References">
-					description = <"REFERENCE & ITEMS :  Laidlaw, K., Power, M. J., & Schmidt, S. (2007). ">
 				>
 				["at0030"] = <
 					text = <"Überhaupt nicht zutreffend">
@@ -921,15 +917,18 @@ Bitte lesen Sie jede Frage, schätzen Sie Ihre Gefühle ein und geben Sie für j
 				>
 				["at0151"] = <
 					text = <"Psychosozialer Verlust">
-					description = <"sum (aaq_f1_03, aaq_f1_06, aaq_f1_09, aaq_f1_12, aaq_f1_15, aaq_f1_17, aaq_f1_20, aaq_f1_22)">
+					description = <"Psychosozialer Verlust:
+F3 + F6 + F9 + F12 + F15 + F17 + F20 + F22">
 				>
 				["at0152"] = <
 					text = <"Physische Veränderung">
-					description = <"sum (aaq_f2_07, aaq_f2_08, aaq_f2_11, aaq_f2_13, aaq_f2_14, aaq_f2_16, aaq_f2_23, aaq_f2_24)">
+					description = <"Physische Veränderung:
+F7 + F8 + F11 + F13 + F14 + F16 + F23 + F24">
 				>
 				["at0153"] = <
 					text = <"Psychologische Entwicklung">
-					description = <" sum( aaq_f3_01, aaq_f3_02, aaq_f3_04, aaq_f3_05, aaq_f3_10, aaq_f3_18, aaq_f3_19, aaq_f3_21)">
+					description = <"Psychologische Entwicklung:
+F1 + F2 + F4 + F5 + F10 + F18 + F19 + F21">
 				>
 			>
 		>
