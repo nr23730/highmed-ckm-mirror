@@ -1,24 +1,24 @@
-﻿archetype (adl_version=1.4; uid=b34d2cd3-bf16-4f52-a375-bccf71ca9fbd)
-	openEHR-EHR-OBSERVATION.echo_expected_consequences_of_hearing_aid_ownership.v0
+﻿archetype (adl_version=1.4; uid=e4e38bb6-6ff5-47c8-b682-492f697edafa)
+	openEHR-EHR-OBSERVATION.expected_consequences_of_hearing_aid_ownership_ECHO.v0
 
 concept
-	[at0000]	-- ECHO Expected Consequences of Hearing aid Ownership
+	[at0000]	-- Expected consequences of hearing aid ownership ECHO
 language
 	original_language = <[ISO_639-1::en]>
 description
 	original_author = <
+		["name"] = <"Nils Hebbelmann">
+		["organisation"] = <"Hearing4All - University of Oldenburg ">
+		["email"] = <"nils.hebbelmann@uni-oldenburg.del">
 		["date"] = <"2023-06-02">
 	>
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the results of the Expected Consequences of hearing-aid Ownership 
-">
-			use = <"To record the results of the Expected Consequences of hearing-aid Ownership 
-">
-			keywords = <"Hospital, Psychiatry, ECHO, Hearing, Audiology, Expected Consequences of Hearing aid Ownership,", ...>
-			misuse = <"Not to be used to record other questionnaires than the Expected Consequences of hearing-aid Ownership in the given form
-">
+			purpose = <"Mit seinen 15 Items bewertet dieses Instrument vier verschiedene Bereiche: Erwartungen an die positiven Effekte, aber auch an die negativen Eigenschaften von Hörgeräten, an die erwarteten Dienstleistungen und Kosten und schließlich an die Annahmen über die Veränderung des persönlichen Images im Falle der Nutzung von Hörgeräten">
+			use = <"Aufzeichnung der Ergebnisse des Fragebogens zu erwarteten Konsequenzen des Hörgerätbesitzes.">
+			keywords = <"Krankenhaus, Psychiatrie, ECHO, Hören, Erwartete Konsequenzen des Hörgerätbesitzes", ...>
+			misuse = <"Darf nicht zur Erfassung anderer Fragebögen als des Fragebogens zu erwarteten Konsequenten des Hörgeräts in der vorgegebenen Form verwendet werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -29,19 +29,29 @@ description
 		["custodian_organisation"] = <"HiGHmed">
 		["references"] = <"Derived from: <Add reference to original resource here>
 
-SCORING AND IMPLEMENTATION 
-Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). 
+Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). Übertragung der Fragebögen SADL, ECHO und SSQ ins Deutsche und deren Evaluation. Zeitschrift für Audiologie, 50(1), 6–16.
 ">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"6185B3A9FCC71E20DCDC19BE77DE1769">
-		["build_uid"] = <"28c9d1bd-064d-40db-9d8b-1b07d6e026ea">
+		["MD5-CAM-1.0.1"] = <"94F7B009A64D37FCF1CD6667EE783861">
+		["build_uid"] = <"d883dc38-1c68-4e03-8253-410188d94fe9">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- ECHO Expected Consequences of Hearing aid Ownership
+	OBSERVATION[at0000] matches {    -- Expected consequences of hearing aid ownership ECHO
+		protocol matches {
+			ITEM_TREE[at0110] matches {    -- ITEM_TREE
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0111] occurrences matches {0..1} matches {    -- Testanweisung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -67,7 +77,8 @@ definition
 											5|[local::at0028],
 											4|[local::at0029],
 											3|[local::at0030],
-											2|[local::at0031]
+											2|[local::at0031],
+											1|[local::at0119]
 										}
 									}
 									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Es ist in meinem persönlichen Interesse, Hörgeräte anzuschaffen.
@@ -77,7 +88,8 @@ definition
 											3|[local::at0034],
 											4|[local::at0035],
 											5|[local::at0036],
-											6|[local::at0037]
+											6|[local::at0037],
+											7|[local::at0120]
 										}
 									}
 									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Die Leute werden mein Hörproblem eher wahrnehmen, wenn ich meine Hörgeräte trage.
@@ -88,7 +100,7 @@ definition
 											4|[local::at0041],
 											3|[local::at0042],
 											2|[local::at0043],
-											8|[local::at0112]
+											1|[local::at0112]
 										}
 									}
 									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Meine Hörgeräte werden dafür sorgen, dass ich nicht mehr so oft nachfragen muss.
@@ -98,7 +110,8 @@ definition
 											3|[local::at0046],
 											4|[local::at0047],
 											5|[local::at0048],
-											6|[local::at0049]
+											6|[local::at0049],
+											7|[local::at0121]
 										}
 									}
 									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Der Aufwand, Hörgeräte anzuschaffen, wird sich für mich lohnen.
@@ -108,7 +121,8 @@ definition
 											3|[local::at0052],
 											4|[local::at0053],
 											5|[local::at0054],
-											6|[local::at0055]
+											6|[local::at0055],
+											7|[local::at0122]
 										}
 									}
 									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Es wird mich stören, wenn meine Hörgeräte manchmal pfeifen.
@@ -118,7 +132,8 @@ definition
 											5|[local::at0058],
 											4|[local::at0059],
 											3|[local::at0060],
-											2|[local::at0061]
+											2|[local::at0061],
+											8|[local::at0123]
 										}
 									}
 									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Ich werde das Aussehen meiner Hörgeräte akzeptieren können.
@@ -128,7 +143,8 @@ definition
 											5|[local::at0064],
 											4|[local::at0065],
 											3|[local::at0066],
-											2|[local::at0067]
+											2|[local::at0067],
+											1|[local::at0124]
 										}
 									}
 									ELEMENT[at0012] occurrences matches {0..1} matches {    -- Hörgeräte zu tragen, wird mein Selbstbewusstsein stärken.
@@ -138,7 +154,8 @@ definition
 											3|[local::at0070],
 											4|[local::at0071],
 											5|[local::at0072],
-											6|[local::at0073]
+											6|[local::at0073],
+											7|[local::at0125]
 										}
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Meine Hörgeräte werden einen natürlichen Klang haben.
@@ -148,7 +165,8 @@ definition
 											3|[local::at0076],
 											4|[local::at0077],
 											5|[local::at0078],
-											6|[local::at0079]
+											6|[local::at0079],
+											7|[local::at0126]
 										}
 									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {    -- Meine Hörgeräte werden in Verbindung mit den MEISTEN Telefonen OHNE Verstärker oder Lautsprecher nützlich sein.
@@ -158,7 +176,8 @@ definition
 											3|[local::at0082],
 											4|[local::at0083],
 											5|[local::at0084],
-											6|[local::at0085]
+											6|[local::at0085],
+											7|[local::at0127]
 										}
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Der Hörgeräteakustiker, der mir die Hörgeräte anpassen wird, hat Fachkompetenz.
@@ -168,7 +187,8 @@ definition
 											3|[local::at0088],
 											4|[local::at0089],
 											5|[local::at0090],
-											6|[local::at0091]
+											6|[local::at0091],
+											7|[local::at0128]
 										}
 									}
 									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Hörgeräte zu tragen, wird mich weniger fähig erscheinen lassen.
@@ -178,7 +198,8 @@ definition
 											5|[local::at0094],
 											4|[local::at0095],
 											3|[local::at0096],
-											2|[local::at0097]
+											2|[local::at0097],
+											1|[local::at0129]
 										}
 									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Die Kosten für meine Hörgeräte werden angemessen sein.
@@ -188,7 +209,8 @@ definition
 											3|[local::at0100],
 											4|[local::at0101],
 											5|[local::at0102],
-											6|[local::at0103]
+											6|[local::at0103],
+											7|[local::at0130]
 										}
 									}
 									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Meine Hörgeräte werden zuverlässig sein (benötigen wenige Reparaturen).
@@ -198,32 +220,37 @@ definition
 											3|[local::at0106],
 											4|[local::at0107],
 											5|[local::at0108],
-											6|[local::at0109]
+											6|[local::at0109],
+											7|[local::at0131]
+										}
+									}
+									ELEMENT[at0114] occurrences matches {0..1} matches {    -- Gesamtwert
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0115] occurrences matches {0..1} matches {    -- Positiver Effekt
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0116] occurrences matches {0..1} matches {    -- Service & Kosten
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0117] occurrences matches {0..1} matches {    -- Negative Eigenschaften
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0118] occurrences matches {0..1} matches {    -- Persönliches Image
+										value matches {
+											DV_COUNT matches {*}
 										}
 									}
 								}
 							}
-						}
-					}
-				}
-			}
-		}
-		protocol matches {
-			ITEM_TREE matches {
-				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0111] occurrences matches {0..1} matches {    -- Testanweisung
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0113] occurrences matches {0..1} matches {    -- Bewertung
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0110] occurrences matches {0..1} matches {    -- References
-						value matches {
-							DV_TEXT matches {*}
 						}
 					}
 				}
@@ -237,8 +264,8 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"ECHO Expected Consequences of Hearing aid Ownership">
-					description = <"ECHO Expected Consequences of Hearing aid Ownership">
+					text = <"Expected consequences of hearing aid ownership ECHO">
+					description = <"Zur Erfassung der Ergebnisse des Fragebogens zu erwarteten Konsequenzen des Besitzes eines Hörgerätes. ">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -258,8 +285,7 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Ich werde frustriert sein, wenn meine Hörgeräte Geräusche aufnehmen, die mich daran hindern, das zu hören, was ich hören möchte.">
-					description = <"Reversed item
-">
+					description = <"">
 				>
 				["at0006"] = <
 					text = <"Es ist in meinem persönlichen Interesse, Hörgeräte anzuschaffen.">
@@ -677,11 +703,6 @@ ontology
 					text = <"Weitgehend">
 					description = <"">
 				>
-				["at0110"] = <
-					text = <"References">
-					description = <"SCORING AND IMPLEMENTATION 
-Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). ">
-				>
 				["at0111"] = <
 					text = <"Testanweisung">
 					description = <"Im Folgenden sind Äußerungen über Hörgeräte aufgeführt. Bitte klicken Sie für jede Äußerung die Auswahl an, die angibt in welchem Umfang Sie der jeweiligen Äußerung zustimmen.
@@ -691,21 +712,89 @@ Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). ">
 					text = <"In vollem Umfang">
 					description = <"">
 				>
-				["at0113"] = <
-					text = <"Bewertung">
-					description = <"Teilskala:
-Positive Effekte: 1, 3, 5, 6, 9, 10
-Service & Kosten: 12, 14, 15
-Negative Eigenschaften: 2, 7*, 11
-Persönliches Image: 4*, 8, 13*
+				["at0114"] = <
+					text = <"Gesamtwert">
+					description = <"Berechnen Sie den Durchschnittswert für jede Teilskala.Der Gesamtwert ist der Durchschnitt der Werte aller Fragen.
 
-Berechnen Sie den Durchschnittswert für jede Teilskala.Der Gesamtwert ist der Durchschnitt der Werte aller Fragen.
-
-Höhere Werte = höhere Erwartungen/Akzeptanz/positive Vorstellungen
-
-
+Höhere Werte = höhere Erwartungen/Akzeptanz/positive Vorstellungen.">
+				>
+				["at0115"] = <
+					text = <"Positiver Effekt">
+					description = <"Positive Effekte: 
+F1 + F3 + F5 + F6 + F9 + F10">
+				>
+				["at0116"] = <
+					text = <"Service & Kosten">
+					description = <"Service & Kosten: 
+F12 + F14 +F15">
+				>
+				["at0117"] = <
+					text = <"Negative Eigenschaften">
+					description = <"Negative Eigenschaften: 
+F2 + F7* + F11">
+				>
+				["at0118"] = <
+					text = <"Persönliches Image">
+					description = <"Persönliches Image:
+F4* + F8 + F13*
 
 ">
+				>
+				["at0110"] = <
+					text = <"ITEM_TREE">
+					description = <"">
+				>
+				["at0119"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0120"] = <
+					text = <"In vollem Unfang">
+					description = <"">
+				>
+				["at0121"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0122"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0123"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0124"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0125"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0126"] = <
+					text = <"In vollen Umfang">
+					description = <"">
+				>
+				["at0127"] = <
+					text = <"In vollen Umfang">
+					description = <"">
+				>
+				["at0128"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0129"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0130"] = <
+					text = <"In vollem Umfang">
+					description = <"">
+				>
+				["at0131"] = <
+					text = <"In vollem Umfang">
+					description = <"">
 				>
 			>
 		>

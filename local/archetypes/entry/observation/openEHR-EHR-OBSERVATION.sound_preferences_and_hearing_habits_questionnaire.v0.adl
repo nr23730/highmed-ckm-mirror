@@ -7,34 +7,47 @@ language
 	original_language = <[ISO_639-1::en-us]>
 description
 	original_author = <
-		["name"] = <"test">
+		["name"] = <"Nils Hebbelmann">
+		["organisation"] = <"Hearing4All - University of Oldenburg">
+		["email"] = <"nils.hebbelmann@uni-oldenburg.de">
 		["date"] = <"2023-05-09">
 	>
 	details = <
 		["en-us"] = <
 			language = <[ISO_639-1::en-us]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"© HiGHmed">
+			purpose = <"Der Fragebogen bewertet das Klangpräferenzprofil, welches als Merkmal im Zusammenhang mit den Vorlieben für bestimmte Klänge und Hörgewohnheiten angesehen werden kann. 23 Items messen verschiedene Faktoren, u.a. Ablenkung durch Hintergrundgeräusche, Wichtigkeit der Geräuschqualität, Geräuschempfindlichkeit, Vermietung unvorhersehbarer Geräusche, Offenheit für neue Geräusche, Vorliebe für warme Geräusche und Details der Umweltgeräusche. ">
+			use = <"Aufzeichnung der Ergebnisse des Fragebogens zu Klangvorliebe und Hörgewohnheiten">
+			keywords = <"Krankenhaus, Psychiatrie, Sound preference and hearing habits questionnaire, Klangvorliebe und Hörgewohnheiten", ...>
+			misuse = <"Darf nicht zur Erfassung anderer Fragebögen als des Fragebogens zu Klangvorliebe und Hörgewohnheiten in der vorgegebenen Form verwendet werden.">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: <Add reference to original resource here>">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"FE1CA9A6DFA826CD74456A016852FB9F">
-		["build_uid"] = <"df09c2eb-e207-45ff-ac7b-6ac88f6201d4">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"Meis, M., Huber, R., Fischer, R. L., Schulte, M., Spilski, J., & Meister, H. (2018). Development and psychometric properties of the sound preference and hearing habits questionnaire (SP-HHQ). International Journal of Audiology, 57(0), S118–S129. doi: 10.1080/14992027.2016.1248795">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"8BF37247BC61CAAD9C708D6207BD04B2">
+		["build_uid"] = <"2cd99e82-6cac-435d-8181-e68aee65c947">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
 	OBSERVATION[at0000] matches {    -- Sound preferences and hearing habits questionnaire
+		protocol matches {
+			ITEM_TREE matches {
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Testanweisung
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -254,56 +267,40 @@ definition
 											DV_COUNT matches {*}
 										}
 									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		protocol matches {
-			ITEM_TREE matches {
-				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Testanweisung
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0144] occurrences matches {0..1} matches {    -- References
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					CLUSTER[at0145] occurrences matches {0..1} matches {    -- Patientendokumentation
-						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0146] occurrences matches {0..1} matches {    -- Name
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0147] occurrences matches {0..1} matches {    -- Alter
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0148] occurrences matches {0..1} matches {    -- Datum
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0149] occurrences matches {0..1} matches {    -- Krankengeschichte
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0150] occurrences matches {0..1} matches {    -- Schulabschluss
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0151] occurrences matches {0..1} matches {    -- Beruf
-								value matches {
-									DV_TEXT matches {*}
+									CLUSTER[at0153] occurrences matches {0..1} matches {    -- Patientendokumentation
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0154] occurrences matches {0..1} matches {    -- Name
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0155] occurrences matches {0..1} matches {    -- Alter
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0160] occurrences matches {0..1} matches {    -- Datum
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+											ELEMENT[at0157] occurrences matches {0..1} matches {    -- Krankengeschichte
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0158] occurrences matches {0..1} matches {    -- Schulabschluss
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0159] occurrences matches {0..1} matches {    -- Beruf
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
 								}
 							}
 						}
@@ -320,7 +317,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Sound preferences and hearing habits questionnaire">
-					description = <"Sound preferences and hearing habits questionnaire">
+					description = <"Zur Erfassung der Ergebnisse des Fragebogens zu Klangvorlieben und Hörgewohnheiten">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -890,41 +887,36 @@ ontology
 					text = <"Stimmt völlig">
 					description = <"">
 				>
-				["at0144"] = <
-					text = <"References">
-					description = <"IMPLEMENTATION 
-Meis, M., Huber, R., Fischer, R. L., Schulte, M., Spilski, J., & Meister, H. (2018).  ">
+				["at0152"] = <
+					text = <"Total Score">
+					description = <"">
 				>
-				["at0145"] = <
+				["at0153"] = <
 					text = <"Patientendokumentation">
 					description = <"">
 				>
-				["at0146"] = <
+				["at0154"] = <
 					text = <"Name">
 					description = <"">
 				>
-				["at0147"] = <
+				["at0155"] = <
 					text = <"Alter">
 					description = <"">
 				>
-				["at0148"] = <
-					text = <"Datum">
-					description = <"">
-				>
-				["at0149"] = <
+				["at0157"] = <
 					text = <"Krankengeschichte">
 					description = <"">
 				>
-				["at0150"] = <
+				["at0158"] = <
 					text = <"Schulabschluss">
 					description = <"">
 				>
-				["at0151"] = <
+				["at0159"] = <
 					text = <"Beruf">
 					description = <"">
 				>
-				["at0152"] = <
-					text = <"Total Score">
+				["at0160"] = <
+					text = <"Datum">
 					description = <"">
 				>
 			>

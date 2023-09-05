@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.speech_spatial_and_qualities_of_hearing_ssq.v0
 
 concept
-	[at0000]	-- Sprache, räumliches Hören und Hörqualität
+	[at0000]	-- Speech, Spatial and Qualities of Hearing Questionnaire
 language
 	original_language = <[ISO_639-1::en-us]>
 description
@@ -15,38 +15,33 @@ description
 	details = <
 		["en-us"] = <
 			language = <[ISO_639-1::en-us]>
-			purpose = <"Aufzeichnung der Ergebnisse der Skala für Sprache, räumliches Hören und Hörqualität.
-">
+			purpose = <"Der Fragebogen dient dazu, das Spektrum der Hörfähigkeit über mehrere Bereichen hinweg zu erfassen und verschiedene Situation des Alltagslebens abzudecken. 
+Die 49 Items des Fragebogens sind in drei Skalen unterteilt. Der Bereich des Sprachhörens zielt darauf ab, ein breites Spektrum an Sprach- und Hörkontexten abzudecken, mit denen die Person im täglichen Leben konfrontiert sein kann. Der Bereich Räumliches Hören befasst sich mit den klassischen und physikalischen Komponenten des räumlichen Hörvermögens in Bezug auf Richtung, Entfernung und Bewegung von Geräuschen. Der dritte Abschnitt über andere Qualitäten befasst sich mit weiteren Komponenten des Hörens wie Trennung, Erkennen, wahrgenommene Klarheit und Natürlichkeit von Alltagsgeräuschen sowie mit der Anstrengung beim Hören.">
 			use = <"Aufzeichnung der Ergebnisse der Skala für Sprache, räumliches Hören und Hörqualität.">
-			keywords = <"Krankenhaus, Psychiatrie, Sprache, räumliche, Qualität, Hören, Audiologie, räumliches Hören und Hörqualität, SSQ", ...>
+			keywords = <"Krankenhaus, Psychiatrie, Sprache, räumliche, Qualität, Hören, räumliches Hören und Hörqualität, SSQ", ...>
 			misuse = <"Darf nicht zur Erfassung anderer Fragebögen als des Fragebogens zur Sprache, räumliches Hören und Hörqualität in der vorgegebenen Form verwendet werden.">
-			copyright = <"© HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <"Nils Hebbelmann, Carl von Ossietzky Universität Oldenburg", ...>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Derived from: <Add reference to original resource here>
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"Gatehouse, S., & Noble, I. (2004). The Speech, Spatial and Qualities of Hearing Scale (SSQ). International Journal of Audiology, 43 (2), 85
 
-Deutsche Version:
-Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). 
-
-Wertung/ Skalen
-Gatehouse, S., & Noble, W. (2017).">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"887C16040F2A6624BFF6D993FBC157BF">
-		["build_uid"] = <"4fb9ef15-e16c-435c-8f55-68e371ec6728">
+Deutsche version: Kiessling, J., Grugel, L., Meister, H., & Meis, M. (2011). Übertragung der Fragebogen SAD, ECHO und SSQ ins Deutsche und deren Evaluation. Zeitschrift für Audiologie, 50 (1), 6-16.">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"4717031960750B43CB20E1152C45B953">
+		["build_uid"] = <"353c9227-3bdd-4bff-8cf7-a22e5ee834d3">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- Sprache, räumliches Hören und Hörqualität
+	OBSERVATION[at0000] matches {    -- Speech, Spatial and Qualities of Hearing Questionnaire
 		protocol matches {
-			ITEM_TREE matches {
+			ITEM_TREE[at0004] matches {    -- ITEM_TREE
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0075] occurrences matches {0..1} matches {    -- Testanweisung
 						value matches {
@@ -63,122 +58,125 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0058] occurrences matches {0..1} matches {*}    -- Sprachverstehen
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Sie sprechen mit einer anderen Person während der Fernseher im selben Raum läuft. Können Sie die andere Person, mit der Sie sprechen, verstehen, ohne den Fernseher leise zu stellen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+									CLUSTER[at0136] occurrences matches {0..1} matches {    -- Sprachverstehen
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0137] occurrences matches {0..1} matches {    -- Sie sprechen mit einer anderen Person während der Fernseher im selben Raum läuft. Können Sie die andere Person, mit der Sie sprechen, verstehen, ohne den Fernseher leise zu stellen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0138]
+												}
 											}
-											0|[local::at0005]
-										}
-									}
-									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Sie sprechen mit einer anderen Person in einem ruhigen, mit Teppich ausgelegten Raum. Können Sie die andere Person verstehen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0139] occurrences matches {0..1} matches {    -- Sie sprechen mit einer anderen Person in einem ruhigen, mit Teppich ausgelegten Raum. Können Sie die andere Person verstehen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0140]
+												}
 											}
-											0|[local::at0007]
-										}
-									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Sie sitzen in einer Gruppe von etwa fünf Personen an einem Tisch in einem ruhigen Raum & Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0141] occurrences matches {0..1} matches {    -- Sie sitzen in einer Gruppe von etwa fünf Personen an einem Tisch in einem ruhigen Raum & Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0142]
+												}
 											}
-											0|[local::at0009]
-										}
-									}
-									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0143] occurrences matches {0..1} matches {    -- Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0144]
+												}
 											}
-											0|[local::at0074]
-										}
-									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Sie sprechen mit einer Person bei ständigen Nebengeräuschen, wie z.B. von einem surrenden Ventilator oder von fließendem Wasser. Können Sie die andere Person verstehen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|1..10|}
+											ELEMENT[at0145] occurrences matches {0..1} matches {    -- Sie sprechen mit einer Person bei ständigen Nebengeräuschen, wie z.B. von einem surrenden Ventilator oder von fließendem Wasser. Können Sie die andere Person verstehen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|1..10|}
+													}
+													0|[local::at0146]
+												}
 											}
-											0|[local::at0076]
-										}
-									}
-									ELEMENT[at0012] occurrences matches {0..1} matches {    -- Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie KÖNNEN NICHT jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0147] occurrences matches {0..1} matches {    -- Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie KÖNNEN NICHT jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0148]
+												}
 											}
-											0|[local::at0077]
-										}
-									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Sie sprechen mit jemandem an einem Ort mit viel Nachhall/ Echos, z.B. in einer Kirche oder Bahnhofshalle. Können Sie verstehen, was die andere Person sagt?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0149] occurrences matches {0..1} matches {    -- Sie sprechen mit jemandem an einem Ort mit viel Nachhall/ Echos, z.B. in einer Kirche oder Bahnhofshalle. Können Sie verstehen, was die andere Person sagt?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0150]
+												}
 											}
-											0|[local::at0078]
-										}
-									}
-									ELEMENT[at0014] occurrences matches {0..1} matches {    -- Können Sie sich mit jemandem unterhalten während eine weitere Person in der gleichen Stimmlage spricht?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0151] occurrences matches {0..1} matches {    -- Können Sie sich mit jemandem unterhalten während eine weitere Person in der gleichen Stimmlage spricht?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0152]
+												}
 											}
-											0|[local::at0079]
-										}
-									}
-									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Können Sie sich mit jemandem unterhalten während eine andere Person in einer anderen Stimmlage spricht?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0153] occurrences matches {0..1} matches {    -- Können Sie sich mit jemandem unterhalten während eine andere Person in einer anderen Stimmlage spricht?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0154]
+												}
 											}
-											0|[local::at0080]
-										}
-									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Sie hören jemandem zu, der mit Ihnen spricht, während Sie gleichzeitig versuchen, der Nachrichtensendung im Fernsehen zu folgen. Können sie verstehen, was beide Personen sagen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0155] occurrences matches {0..1} matches {    -- Sie hören jemandem zu, der mit Ihnen spricht, während Sie gleichzeitig versuchen, der Nachrichtensendung im Fernsehen zu folgen. Können sie verstehen, was beide Personen sagen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0156]
+												}
 											}
-											0|[local::at0081]
-										}
-									}
-									ELEMENT[at0027] occurrences matches {0..1} matches {    -- Sie unterhalten sich mit einer Person in einem Raum, in dem viele andere Leute sprechen. Können Sie der Person folgen, mit der Sie sprechen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0157] occurrences matches {0..1} matches {    -- Sie unterhalten sich mit einer Person in einem Raum, in dem viele andere Leute sprechen. Können Sie der Person folgen, mit der Sie sprechen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0158]
+												}
 											}
-											0|[local::at0082]
-										}
-									}
-									ELEMENT[at0028] occurrences matches {0..1} matches {    -- Sie sind in einer Gruppe und die Unterhaltung wechselt von einer Person zur anderen. Können Sie der Unterhaltung mühelos folgen, wenn  eine neue Person zu reden beginnt, ohne den Anfang zu verpassen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0159] occurrences matches {0..1} matches {    -- Sie sind in einer Gruppe und die Unterhaltung wechselt von einer Person zur anderen. Können Sie der Unterhaltung mühelos folgen, wenn  eine neue Person zu reden beginnt, ohne den Anfang zu verpassen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0160]
+												}
 											}
-											0|[local::at0083]
-										}
-									}
-									ELEMENT[at0029] occurrences matches {0..1} matches {    -- Können Sie sich problemlos am Telefon unterhalten?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0161] occurrences matches {0..1} matches {    -- Können Sie sich problemlos am Telefon unterhalten?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0162]
+												}
 											}
-											0|[local::at0084]
-										}
-									}
-									ELEMENT[at0030] occurrences matches {0..1} matches {    -- Sie hören jemandem am Telefon zu und es beginnt jemand neben Ihnen zu sprechen. Können Sie dem folgen, was beide Personen sagen?
-										value matches {
-											DV_COUNT matches {
-												magnitude matches {|0..10|}
+											ELEMENT[at0163] occurrences matches {0..1} matches {    -- Sie hören jemandem am Telefon zu und es beginnt jemand neben Ihnen zu sprechen. Können Sie dem folgen, was beide Personen sagen?
+												value matches {
+													DV_COUNT matches {
+														magnitude matches {|0..10|}
+													}
+													0|[local::at0164]
+												}
 											}
-											0|[local::at0085]
-										}
-									}
-									ELEMENT[at0122] occurrences matches {0..1} matches {    -- Score Sprachverstehen
-										value matches {
-											DV_COUNT matches {*}
+											ELEMENT[at0165] occurrences matches {0..1} matches {    -- Score Sprachverstehen
+												value matches {
+													DV_COUNT matches {*}
+												}
+											}
 										}
 									}
 									CLUSTER[at0034] occurrences matches {0..1} matches {    -- Räumliches Hören
@@ -512,18 +510,8 @@ ontology
 		["en-us"] = <
 			items = <
 				["at0000"] = <
-					text = <"Sprache, räumliches Hören und Hörqualität">
-					description = <"Testanweisung:
-
-Die folgenden Fragen betreffen Aspekte Ihrer Fähigkeit und Erfahrung beim Hören und Zuhören in verschiedenen Situationen.
-
-Für jede Frage setzen Sie bitte eine Markierung, wie zum Beispiel ein Kreuz (x), irgendwo auf der Skala, die von 0 bis 10 reicht. Eine Markierung bei 10 bedeutet, dass Sie perfekt in der Lage wären, das zu tun oder zu erleben, was in der Frage beschrieben wird. Eine Markierung bei 0 bedeutet, dass Sie ziemlich unfähig wären, das zu tun oder zu erleben.
-
-Als Beispiel fragt Frage 1 nach einem Gespräch mit jemandem, während der Fernseher gleichzeitig läuft. Wenn Sie dazu gut in der Lage sind, setzen Sie eine Markierung in Richtung des rechten Endes der Skala. Wenn Sie in dieser Situation etwa die Hälfte des Gesprächs verstehen könnten, setzen Sie die Markierung in der Mitte und so weiter.
-
-Wir gehen davon aus, dass alle Fragen für Ihre alltäglichen Erfahrungen relevant sind, aber wenn eine Frage eine Situation beschreibt, die auf Sie nicht zutrifft, setzen Sie bitte ein Kreuz im Feld \"nicht zutreffend\". Bitte schreiben Sie auch eine Anmerkung neben dieser Frage, in der erklärt wird, warum sie in Ihrem Fall nicht zutrifft.
-
-Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschränkung) wider.">
+					text = <"Speech, Spatial and Qualities of Hearing Questionnaire">
+					description = <"Zur Erfassung der Ergebnisse des Sprache, räumliches Hören und Hörqualität Fragebogens">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -536,74 +524,6 @@ Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschrän
 				["at0003"] = <
 					text = <"Tree">
 					description = <"@ internal @">
-				>
-				["at0004"] = <
-					text = <"Sie sprechen mit einer anderen Person während der Fernseher im selben Raum läuft. Können Sie die andere Person, mit der Sie sprechen, verstehen, ohne den Fernseher leise zu stellen?">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"Sie sprechen mit einer anderen Person in einem ruhigen, mit Teppich ausgelegten Raum. Können Sie die andere Person verstehen?">
-					description = <"">
-				>
-				["at0007"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"Sie sitzen in einer Gruppe von etwa fünf Personen an einem Tisch in einem ruhigen Raum & Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
-					description = <"">
-				>
-				["at0009"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0010"] = <
-					text = <"Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
-					description = <"">
-				>
-				["at0011"] = <
-					text = <"Sie sprechen mit einer Person bei ständigen Nebengeräuschen, wie z.B. von einem surrenden Ventilator oder von fließendem Wasser. Können Sie die andere Person verstehen?">
-					description = <"">
-				>
-				["at0012"] = <
-					text = <"Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie KÖNNEN NICHT jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
-					description = <"">
-				>
-				["at0013"] = <
-					text = <"Sie sprechen mit jemandem an einem Ort mit viel Nachhall/ Echos, z.B. in einer Kirche oder Bahnhofshalle. Können Sie verstehen, was die andere Person sagt?">
-					description = <"">
-				>
-				["at0014"] = <
-					text = <"Können Sie sich mit jemandem unterhalten während eine weitere Person in der gleichen Stimmlage spricht?">
-					description = <"">
-				>
-				["at0015"] = <
-					text = <"Können Sie sich mit jemandem unterhalten während eine andere Person in einer anderen Stimmlage spricht?">
-					description = <"">
-				>
-				["at0016"] = <
-					text = <"Sie hören jemandem zu, der mit Ihnen spricht, während Sie gleichzeitig versuchen, der Nachrichtensendung im Fernsehen zu folgen. Können sie verstehen, was beide Personen sagen?">
-					description = <"">
-				>
-				["at0027"] = <
-					text = <"Sie unterhalten sich mit einer Person in einem Raum, in dem viele andere Leute sprechen. Können Sie der Person folgen, mit der Sie sprechen?">
-					description = <"">
-				>
-				["at0028"] = <
-					text = <"Sie sind in einer Gruppe und die Unterhaltung wechselt von einer Person zur anderen. Können Sie der Unterhaltung mühelos folgen, wenn  eine neue Person zu reden beginnt, ohne den Anfang zu verpassen?">
-					description = <"">
-				>
-				["at0029"] = <
-					text = <"Können Sie sich problemlos am Telefon unterhalten?">
-					description = <"">
-				>
-				["at0030"] = <
-					text = <"Sie hören jemandem am Telefon zu und es beginnt jemand neben Ihnen zu sprechen. Können Sie dem folgen, was beide Personen sagen?">
-					description = <"">
 				>
 				["at0034"] = <
 					text = <"Räumliches Hören">
@@ -704,10 +624,6 @@ Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschrän
 					text = <"Können Sie den Unterschied zwischen den Geräuschen benennen, z.B. Auto oder Bus, kochendes Wasser in einem Topf oder Bratgeräusche in einer Pfanne?">
 					description = <"">
 				>
-				["at0058"] = <
-					text = <"Sprachverstehen">
-					description = <"">
-				>
 				["at0060"] = <
 					text = <"Wenn Sie der Musik zuhören, können Sie erkennen, welche Instrumente spielen?">
 					description = <"">
@@ -763,11 +679,9 @@ Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschrän
 				["at0073"] = <
 					text = <"Müssen Sie sich stark anstrengen um zu verstehen, was in einer Unterhaltung mit anderen gesagt wird?">
 					description = <"[0] - Sehr viel Anstrengung
-[1] - Keine Anstrengung">
-				>
-				["at0074"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
+[1] - Keine Anstrengung
+
+">
 				>
 				["at0075"] = <
 					text = <"Testanweisung">
@@ -780,46 +694,6 @@ Als Beispiel fragt Frage 1 nach einem Gespräch mit jemandem, während der Ferns
 Wir gehen davon aus, dass alle Fragen für Ihre alltäglichen Erfahrungen relevant sind, aber wenn eine Frage eine Situation beschreibt, die auf Sie nicht zutrifft, setzen Sie bitte ein Kreuz im Feld \"nicht zutreffend\". Bitte schreiben Sie auch eine Anmerkung neben dieser Frage, in der erklärt wird, warum sie in Ihrem Fall nicht zutrifft.
 
 Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschränkung) wider.">
-				>
-				["at0076"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0077"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0078"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0079"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0080"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0081"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0082"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0083"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
-				>
-				["at0084"] = <
-					text = <"Triff nicht zu">
-					description = <"">
-				>
-				["at0085"] = <
-					text = <"Trifft nicht zu">
-					description = <"">
 				>
 				["at0086"] = <
 					text = <"Trifft nicht zu">
@@ -949,12 +823,6 @@ Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschrän
 					text = <"Trifft nicht zu">
 					description = <"">
 				>
-				["at0122"] = <
-					text = <"Score Sprachverstehen">
-					description = <"Teilwertung für die Erfassung des Sprachverstehens.">
-					comment = <"Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschränkung) wider. 
-">
-				>
 				["at0123"] = <
 					text = <"Score Räumliches Hören">
 					description = <"Teilwertung für die Erfassung des räumlichen Hörens.">
@@ -1012,7 +880,136 @@ Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschrän
 				["at0135"] = <
 					text = <"Wenn Sie Hörgeräte tragen, seit wann?">
 					description = <"Frage kann in Jahren, Monaten oder Wochen beantwortet werden. 
-Wenn zwei Hörgeräte unterschiedlich lange getragen wurden, soll die getragene Zeit für beide Geräte angegeben werden.">
+
+Wenn zwei Hörgeräte unterschiedlich lange getragen wurden, soll die getragene Zeit für beide Geräte angegeben werden. ">
+				>
+				["at0136"] = <
+					text = <"Sprachverstehen">
+					description = <"">
+				>
+				["at0137"] = <
+					text = <"Sie sprechen mit einer anderen Person während der Fernseher im selben Raum läuft. Können Sie die andere Person, mit der Sie sprechen, verstehen, ohne den Fernseher leise zu stellen?">
+					description = <"">
+				>
+				["at0138"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0139"] = <
+					text = <"Sie sprechen mit einer anderen Person in einem ruhigen, mit Teppich ausgelegten Raum. Können Sie die andere Person verstehen?">
+					description = <"">
+				>
+				["at0140"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0141"] = <
+					text = <"Sie sitzen in einer Gruppe von etwa fünf Personen an einem Tisch in einem ruhigen Raum & Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
+					description = <"">
+				>
+				["at0142"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0144"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0143"] = <
+					text = <"Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie können jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
+					description = <"">
+				>
+				["at0145"] = <
+					text = <"Sie sprechen mit einer Person bei ständigen Nebengeräuschen, wie z.B. von einem surrenden Ventilator oder von fließendem Wasser. Können Sie die andere Person verstehen?">
+					description = <"">
+				>
+				["at0146"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0147"] = <
+					text = <"Sie sind mit einer Gruppe von etwa fünf Personen in einem belebten Restaurant und Sie KÖNNEN NICHT jeden in der Gruppe sehen. Können Sie der Unterhaltung folgen?">
+					description = <"">
+				>
+				["at0148"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0149"] = <
+					text = <"Sie sprechen mit jemandem an einem Ort mit viel Nachhall/ Echos, z.B. in einer Kirche oder Bahnhofshalle. Können Sie verstehen, was die andere Person sagt?">
+					description = <"">
+				>
+				["at0150"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0151"] = <
+					text = <"Können Sie sich mit jemandem unterhalten während eine weitere Person in der gleichen Stimmlage spricht?">
+					description = <"">
+				>
+				["at0152"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"Können Sie sich mit jemandem unterhalten während eine andere Person in einer anderen Stimmlage spricht?">
+					description = <"">
+				>
+				["at0154"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0155"] = <
+					text = <"Sie hören jemandem zu, der mit Ihnen spricht, während Sie gleichzeitig versuchen, der Nachrichtensendung im Fernsehen zu folgen. Können sie verstehen, was beide Personen sagen?">
+					description = <"">
+				>
+				["at0156"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0157"] = <
+					text = <"Sie unterhalten sich mit einer Person in einem Raum, in dem viele andere Leute sprechen. Können Sie der Person folgen, mit der Sie sprechen?">
+					description = <"">
+				>
+				["at0158"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0159"] = <
+					text = <"Sie sind in einer Gruppe und die Unterhaltung wechselt von einer Person zur anderen. Können Sie der Unterhaltung mühelos folgen, wenn  eine neue Person zu reden beginnt, ohne den Anfang zu verpassen?">
+					description = <"">
+				>
+				["at0160"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0161"] = <
+					text = <"Können Sie sich problemlos am Telefon unterhalten?">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Triff nicht zu">
+					description = <"">
+				>
+				["at0163"] = <
+					text = <"Sie hören jemandem am Telefon zu und es beginnt jemand neben Ihnen zu sprechen. Können Sie dem folgen, was beide Personen sagen?">
+					description = <"">
+				>
+				["at0164"] = <
+					text = <"Trifft nicht zu">
+					description = <"">
+				>
+				["at0165"] = <
+					text = <"Score Sprachverstehen">
+					description = <"Teilwertung für die Erfassung des Sprachverstehens.
+
+">
+					comment = <"Höhere Punktzahlen spiegeln immer eine größere Fähigkeit (weniger Einschränkung) wider. 
+">
+				>
+				["at0004"] = <
+					text = <"ITEM_TREE">
+					description = <"">
 				>
 			>
 		>
