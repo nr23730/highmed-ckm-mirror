@@ -6,11 +6,28 @@
         <original_author>
             <item>
                 <key>date</key>
-                <value>2023-07-12</value>
+                <value>2023-10-05</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Severin Kohler</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>BIH @ Charite</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>severin.kohler@charite.de</value>
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
+        <details>
+            <purpose/>
+            <keywords>
+                <item>Medikationseintrag CAEHR_C</item>
+            </keywords>
+        </details>
         <other_details>
             <item>
                 <key>licence</key>
@@ -34,11 +51,23 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>6.0.0</value>
+                <value>11.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
-                <value/>
+                <value>360d6fa1-6215-46cf-a8d9-8de62d53ee83</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>88fbe3f8cb574e50e31357048934babd</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>006E9F209FD9F3691A5B9EFF0BAC3B5B</value>
+            </item>
+            <item>
+                <key>is_singleton</key>
+                <value>ehr</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -47,41 +76,41 @@
         </other_details>
     </description>
     <definition
-        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
-        concept_name="Registereintrag" name="CAEHR_C_Medikation"
+        archetype_id="openEHR-EHR-COMPOSITION.medication_list.v1"
+        concept_name="Medikamentenliste" name="CAEHR_C_Medikation"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
-                <constraint limitToList="false" xsi:type="tem:textConstraint">
-                    <includedValues>highmeducc_arzneimittelgruppe::ACEHem::ACE-Hemmer</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ALDANT::Aldosteron-Antagonist</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::AMIOD::Amiodaron</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANDLIP::Anderer Lipidsenker</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANDAARH::Anderes Antiarrhythmikum</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANDDIU::Anderes Diuretikum</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANTIDEPR::Antidepressivum</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::PULM::Antiobstruktives pulmonales Medikament</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ASS::ASS</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::AT1RANT::AT1-Rezeptorantagonist</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::BETABL::Betablocker</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::CAANT::Ca-Antagonist</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::HG::Herzglykosid</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::INS::Insulin</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::IVAB::Ivabradin</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::NOACs::Neues Orales Antikoagulans (NOACs)</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::NITR::Nitrat</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::NSAIDS::NSAIDs</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANDADIA::Orales Antidiabetikum</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::VALS+SACU::Sacubitril/Valsartan (Entresto)</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::SCHDIU::Schleifendiuretikum</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::SOMEDI::Sonstige Medikation</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::STAT::Statin</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::THIDIU::Thiazid</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::ANDTHROHEM::Thienopyridin (Prasugrel,Ticagrelor, Thienopyridine (z.B. Clopidogrel))</includedValues>
-                    <includedValues>highmeducc_arzneimittelgruppe::VITKANT::Vitamin K-Antagonist</includedValues>
+            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C09A::ACE-Hemmer, rein</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C03DA::Aldosterone antagonists</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C01BD01::Amiodaron</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C10::Mittel, die den Lipidstoffwechsel beeinflussen</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C01B::Antiarrhythmika, Klasse I und III</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C03::Diuretika</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::N06A::Antidepressiva</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::R03::Mittel bei obstruktiven Atemwegserkrankungen</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::B01AC06::Acetylsalicylsäure</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C09C::Angiotensin-II-Rezeptorblocker (ARB)</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C07::Beta-Adrenozeptorantagonisten</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C08::Calciumkanalblocker</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C01A::Herzglykoside</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::A10AB01::Insulin (human)</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C01EB17::Ivabradin</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::B01AE::Direkte Thrombin-Inhibitoren</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::B01AF::Direkte Faktor-Xa-Inhibitoren</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C01DA::Organische Nitrate</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::M01A::Nichtsteroidale Antiphlogistika und Antirheumatika</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::A10BD::Kombinationen oraler Antidiabetika</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C09DX04::Valsartan und Sacubitril</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::c03c::High-ceiling-Diuretika</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C10AA::Statine</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::C03A::Low-ceiling-Diuretika, Thiazide</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::B01AC::Thrombozytenaggregationshemmer, exkl. Heparin</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/bfarm/atc::B01AA::Vitamin-K-Antagonist</includedValues>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
@@ -90,9 +119,6 @@
                     <includedTypes>URI</includedTypes>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]"/>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0031]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0032]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
@@ -182,19 +208,13 @@
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v2" max="1"
                 path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0164]">
-                    <constraint xsi:type="tem:countConstraint">
-                        <minMagnitude>1</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
-                    </constraint>
-                </Rule>
                 <Rule max="0" path="/items[at0135]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Text</includedTypes>
@@ -223,9 +243,31 @@
                     archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
                     max="1" path="/items[at0037]" xsi:type="tem:CLUSTER">
                     <Rule path="/items[at0003]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Quantity</includedTypes>
-                            <includedTypes>Interval</includedTypes>
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1/s</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/d</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/h</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/min</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0014]">
@@ -246,7 +288,6 @@
                     <Rule max="0" path="/items[at0023]"/>
                     <Rule max="0" path="/items[at0024]"/>
                     <Rule max="0" path="/items[at0025]"/>
-                    <Rule max="0" path="/items[at0039]"/>
                     <Rule max="0" path="/items[at0039]/items[at0026]"/>
                     <Rule max="0" path="/items[at0039]/items[at0040]">
                         <constraint xsi:type="tem:durationConstraint">
@@ -257,7 +298,6 @@
                             <includesMinimum>true</includesMinimum>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0035]"/>
                     <Rule max="0" path="/items[at0035]/items[at0036]">
                         <constraint xsi:type="tem:durationConstraint">
                             <pattern>PTHMS</pattern>
@@ -286,18 +326,259 @@
                 </Items>
             </Items>
         </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
+            concept_name="Medikationseintrag" max="1"
+            name="Medikationseintrag Sonstige" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>URI</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0031]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0032]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0033]"/>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>http://standardterms.edqm.eu::20001000::Aurikulare Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20002500::Bukkale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20003000::Anwendung auf der Haut</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20004000::Anwendung auf den Zähnen</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20006000::Endozervikale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20007000::Endosinusiale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20008000::Endotracheopulmonale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20009000::Epidurale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20010000::Epiläsionale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20011000::Extraaminiotische Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20011500::Extrakorporale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20013500::Verwendung im Magen</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20013000::Gastroenterale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20014000::Anwendung auf dem Zahnfleisch</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20015000::Hämodialyse</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20015500::Implantation</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20019500::Infiltration</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20020000::Inhalation</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20021000::Intestinale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20022000::Intraamniotische Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20023000::Intraarterielle Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20024000::Intraartikuläre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20025000::Intrabursale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20025500::Intrakamerale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20026000::Intrakardiale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20026500::Intrakartilaginäre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20027000::Intrakavernöse Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20027010::Intrazerebrale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20080000::Intrazerebroventrikuläre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20028000::Intrazervikale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20028300::Intracholangiopankreatische Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20028500::Intrazisternale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20029000::Intrakoronare Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20030000::Intradermale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20031000::Intradiskale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20031500::Intraepidermale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20031700::Intraglanduläre Verwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20032000::Intralesionale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20033000::Intralymphatische Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20035000::Intramuskuläre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20036000::Intraokulare Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20036500::Intraossäre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20037000::Intraperikardiale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20038000::Intraperitoneale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20039000::Intrapleurale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20039200::Intraportale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20039500::Intraprostatische Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20041000::Intrasternale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20042000::Intrathekale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20043000::Intratumorale Verwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20044000::Intrauterine Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20045000::Intravenöse Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20046000::Intravesikale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20047000::Intravitreale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20047500::Iontophorese</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20048000::Laryngopharyngeale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20049000::Nasale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20051000::Anwendung am Auge</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20053000::Orale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20054000::Oromukosale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20055000::Oropharyngeale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20057000::Periartikuläre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20058000::Perineurale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20059000::Parodontale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20059300::Periose Verwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20059400::Peritumorale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20059500::Posteriore juxtasklerale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20061000::Rektale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20061500::Retrobulbäre Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20062000::Art der Verabreichung nicht anwendbar</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20063000::Skarifizierung der Haut</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20065000::Subkonjunktivale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20066000::Subkutane Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20067000::Sublinguale Einnahme</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20067500::Submukosale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20081000::Subretinale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20070000::Transdermale Anwendung</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20071000::Anwendung in der Harnröhre</includedValues>
+                    <includedValues>http://standardterms.edqm.eu::20072000::Vaginale Anwendung</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0025]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v2" max="1"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0135]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0134]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0102]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0176]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Items
+                    archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1"
+                    max="1" path="/items[at0037]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0003]">
+                        <constraint xsi:type="tem:quantityConstraint">
+                            <unitMagnitude>
+                                <unit>1/s</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/d</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/h</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                            <unitMagnitude>
+                                <unit>1/min</unit>
+                                <minMagnitude>1.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0014]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0004]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Time</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0023]"/>
+                    <Rule max="0" path="/items[at0024]"/>
+                    <Rule max="0" path="/items[at0025]"/>
+                    <Rule max="0" path="/items[at0039]/items[at0026]"/>
+                    <Rule max="0" path="/items[at0039]/items[at0040]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0035]/items[at0036]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0035]/items[at0037]">
+                        <constraint xsi:type="tem:durationConstraint">
+                            <pattern>PTHMS</pattern>
+                            <maxMagnitude>PT24H</maxMagnitude>
+                            <minMagnitude>PT0H</minMagnitude>
+                            <includesMaximum>true</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0035]/items[at0038]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <minMagnitude>0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                </Items>
+            </Items>
+        </Content>
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.care_journey_metadata.v0"
+                max="1"
+                path="/context/other_context[at0005]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
+        </Context>
     </definition>
     <integrity_checks
-        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        archetype_id="openEHR-EHR-COMPOSITION.medication_list.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+        <digest id="MD5-CAM-1.0.1">006E9F209FD9F3691A5B9EFF0BAC3B5B</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.care_journey_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">375F6CD7464C065CF56FC7D2EEC836FD</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.medication_statement.v0"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">BB8EA8763582B9C8D5A828DCE3ED5B5B</digest>
+        <digest id="MD5-CAM-1.0.1">E586ADBA402BACA9E6C3FF018CAF179E</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v2"
         xmlns:tem="openEHR/v1/Template"

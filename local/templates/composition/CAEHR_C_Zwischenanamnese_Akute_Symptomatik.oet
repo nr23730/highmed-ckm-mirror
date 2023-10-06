@@ -27,7 +27,11 @@
         </details>
         <other_details>
             <item>
-                <key>MetaDataSet:Sample Set </key>
+                <key>notes</key>
+                <value>Generated automatically by Adl Designer</value>
+            </item>
+            <item>
+                <key>MetaDataSet:Sample Set</key>
                 <value>Template metadata sample set </value>
             </item>
             <item>
@@ -76,7 +80,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>edb5887220ebf4e6d31d7ff13b6455d0</value>
+                <value>3dee3bca023d844294654514605332ec</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -84,7 +88,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>205.1.0</value>
+                <value>210.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -93,6 +97,10 @@
             <item>
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>is_singleton</key>
+                <value>ehr</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -162,6 +170,7 @@
                 archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
                 concept_name="Problem/Diagnose"
                 name="Kardiale Zwischendiagnose" path="/items" xsi:type="tem:EVALUATION">
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule
                     default="local_terms::301095005::Cardiac finding (finding)" path="/data[at0001]/items[at0009]">
                     <constraint xsi:type="tem:textConstraint">
@@ -268,6 +277,7 @@
                         <includedValues>http://snomed.info/sct::60845006::Dyspnea on exertion (finding)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
@@ -346,6 +356,7 @@
                         <includedValues>http://snomed.info/sct::161941007::Dyspnea at rest (finding)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
@@ -424,6 +435,7 @@
                         <includedValues>http://snomed.info/sct::271809000::Peripheral edema (disorder)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
@@ -502,6 +514,7 @@
                         <includedValues>http://snomed.info/sct::271653008::Jugular venous engorgement (finding)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
@@ -580,6 +593,7 @@
                         <includedValues>http://snomed.info/sct::48409008::Respiratory crackles (finding)</includedValues>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule max="0" path="/data[at0001]/items[at0009]"/>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/items[at0078]"/>
@@ -750,22 +764,13 @@
             concept_name="Ad hoc Überschrift" max="1"
             name="Menstruation" path="/content" xsi:type="tem:SECTION">
             <Item
-                archetype_id="openEHR-EHR-EVALUATION.menstruation_summary.v0"
+                archetype_id="openEHR-EHR-EVALUATION.menstruation_summary.v1"
                 max="1" path="/items" xsi:type="tem:EVALUATION">
                 <Rule max="0" path="/data[at0001]/items[at0025]"/>
-                <Rule path="/data[at0001]/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>http://snomed.info/sct::161541000119104::Perimenopausal state (finding)</includedValues>
-                        <includedValues>http://snomed.info/sct::22636003::Premenopausal state (finding)</includedValues>
-                        <includedValues>http://snomed.info/sct::76498008::Postmenopausal state (finding)</includedValues>
-                    </constraint>
-                </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0002]">
-                    <constraint xsi:type="tem:durationConstraint">
-                        <pattern>PYM</pattern>
-                        <minMagnitude>P0M</minMagnitude>
-                        <includesMaximum>false</includesMaximum>
-                        <includesMinimum>true</includesMinimum>
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Date</includedTypes>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0010]/items[at0011]"/>
@@ -786,7 +791,7 @@
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0010]/items[at0021]"/>
                 <Rule max="0" path="/data[at0001]/items[at0010]/items[at0022]"/>
-                <Rule path="/data[at0001]/items[at0004]">
+                <Rule max="1" name="Alter in den Wechseljahren" path="/data[at0001]/items[at0004]">
                     <constraint xsi:type="tem:durationConstraint">
                         <pattern>PYM</pattern>
                         <minMagnitude>P0M</minMagnitude>
@@ -806,6 +811,21 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.care_journey_metadata.v0"
+                max="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
             </Items>
         </Context>
         <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
@@ -829,6 +849,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.care_journey_metadata.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">375F6CD7464C065CF56FC7D2EEC836FD</digest>
+    </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
@@ -843,7 +869,7 @@
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">6780584ECAE98538AF60C1335D7ED4BF</digest>
+        <digest id="MD5-CAM-1.0.1">70083C267A35C88E111E5BA35120DE86</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
@@ -859,7 +885,7 @@
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.exam.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">EE14278FF1F40843114E3AD7FEA0D73B</digest>
+        <digest id="MD5-CAM-1.0.1">F0AC9F88A21D5F059F7B8C1B00C2C70E</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.exam.v2"
         xmlns:tem="openEHR/v1/Template"
@@ -873,9 +899,9 @@
         <digest id="MD5-CAM-1.0.1">F17EAAFC478546D29320FFEF082FFF54</digest>
     </integrity_checks>
     <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.menstruation_summary.v0"
+        archetype_id="openEHR-EHR-EVALUATION.menstruation_summary.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">26FAB7288BA00F117AA581D09A26C56A</digest>
+        <digest id="MD5-CAM-1.0.1">2AE947B7687E87A39785E3C198EC4AE8</digest>
     </integrity_checks>
 </template>
