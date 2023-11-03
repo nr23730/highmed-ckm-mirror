@@ -34,7 +34,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.4</value>
+                <value>0.1.9</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -42,7 +42,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>c799103d672c19c61968b5154f198da4</value>
+                <value>3699a9d55e584e85ab317dccb435be1e</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -65,10 +65,17 @@
             <Rule max="0" min="0" path="/ism_transition[at0018]"/>
             <Rule max="0" min="0" path="/ism_transition[at0027]"/>
             <Rule max="0" min="0" path="/ism_transition[at0014]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0015]"/>
             <Rule max="0" min="0" path="/ism_transition[at0021]"/>
             <Rule max="0" min="0" path="/ism_transition[at0016]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0017]"/>
             <Rule max="0" min="0" path="/ism_transition[at0022]"/>
-            <Rule name="Einwilligungstyp" path="/description[at0001]/items[at0002]"/>
+            <Rule name="Einwilligungstyp" path="/description[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::pebf::PEBF</includedValues>
+                    <includedValues>local_terms::bc::BC</includedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/description[at0001]/items[at0030]"/>
             <Rule max="0" path="/description[at0001]/items[at0031]"/>
             <Rule max="0" name="Beschreibung" path="/description[at0001]/items[at0011]"/>
@@ -84,18 +91,56 @@
             <Items archetype_id="openEHR-EHR-CLUSTER.free_text.v0"
                 concept_name="Freitext" max="1"
                 name="policy_datennutzung"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule default="local_terms::deny::deny" name="policy" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::deny::deny</includedValues>
+                        <includedValues>local_terms::permit::permit</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.free_text.v0"
-                concept_name="Freitext" max="1"
-                name="policy_biomaterialnutzung"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
+                concept_name="Freitext" name="policy_biomaterialnutzung"
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule default="local_terms::deny::deny" name="policy" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::deny::deny</includedValues>
+                        <includedValues>local_terms::permit::permit</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.free_text.v0"
                 concept_name="Freitext" max="1"
                 name="policy_zufallsbefunde"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule default="local_terms::deny::deny" name="policy" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::deny::deny</includedValues>
+                        <includedValues>local_terms::permit::permit</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.free_text.v0"
                 concept_name="Freitext" max="1" name="policy_rekontakt"
-                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER"/>
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule default="local_terms::deny::deny" name="policy" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::deny::deny</includedValues>
+                        <includedValues>local_terms::permit::permit</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.free_text.v0"
+                concept_name="Freitext" max="1" name="widerruf"
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule default="local_terms::active::active"
+                    name="status" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::active::active</includedValues>
+                        <includedValues>local_terms::withdrawn::withdrawn</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
         </Content>
     </definition>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
