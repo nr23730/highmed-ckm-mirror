@@ -1,0 +1,312 @@
+﻿archetype (adl_version=1.4; uid=85baf617-e4f3-43a9-915a-0ce14dee5af1)
+	openEHR-EHR-OBSERVATION.asthmakontrolltest_test.v0
+
+concept
+	[at0000]	-- Asthmakontrolltest_test
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Darin">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"leonhardt.darin@mh-hannover.de">
+		["date"] = <"2023-11-02">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des Asthmakontrolltests (ACT) in den letzten Woche.
+Dieser Test kann Menschen mit Asthma (12 Jahre 
+und älter) dabei helfen, einzuschätzen, wie gut 
+sie ihr Asthma unter Kontrolle haben.">
+			use = <"Für die Abbildung des ACTs in den letzten 4 Wochen.
+
+Die Gesamtpunktzahl für den Fragebogen zur Asthmakontrolle wird ermittelt, indem die Punkte der Antworten zusammengezählt werden.
+Auswertung:
+
+25 Punkte – Herzlichen Glückwunsch!
+Sie hatten Ihr Asthma in den letzten 4 Wochen vollständig unter Kontrolle. Sie hatten keine 
+Beschwerden und waren in keiner Weise durch Ihr Asthma eingeschränkt. Sprechen Sie 
+regelmäßig mit Ihrem Arzt um die bestmögliche Kontrolle zu halten.
+20 bis 24 Punkte – Im Zielbereich
+Sie hatten Ihr Asthma in den letzten 4 Wochen wahrscheinlich gut unter Kontrolle, aber 
+nicht vollständig. Ihr Arzt kann Ihnen dabei helfen, eine möglichst vollständige Kontrolle zu 
+erreichen.
+Weniger als 20 Punkte – Außerhalb des Zielbereichs
+Sie hatten Ihr Asthma in den letzten 4 Wochen wahrscheinlich nicht unter Kontrolle. Ihr Arzt 
+kann Ihnen Maßnahmen empfehlen, die Ihnen helfen, Ihr Asthma besser unter Kontrolle zu 
+bekommen.">
+			keywords = <"Asthmakontrolltest, ACT, Asthma, Husten, Kurzatmigkeit, Schmerzen, Atemgeräusch", ...>
+			misuse = <"Nicht zur Repräsentation von anderen Fragebögen verwenden.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://www.lungenaerzte-im-netz.de/media/55a4d33733af610dc9001fd9/source/20141206180129_act-erwachsene_ger.pdf">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"D71FFA0A11F2C7CE1544FA8CD4B17C24">
+		["build_uid"] = <"cefe2414-c3ad-4d34-b284-6baa1f381828">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Asthmakontrolltest_test
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Asthma
+										value matches {
+											1|[local::at0005],
+											2|[local::at0006],
+											3|[local::at0007],
+											4|[local::at0008],
+											5|[local::at0009]
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Kurzatmigkeit
+										value matches {
+											1|[local::at0011],
+											2|[local::at0012],
+											3|[local::at0013],
+											4|[local::at0014],
+											5|[local::at0015]
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Asthmabeschwerden
+										value matches {
+											1|[local::at0019],
+											2|[local::at0020],
+											3|[local::at0021],
+											4|[local::at0022],
+											5|[local::at0023]
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Notfallmedikation zur Inhalation
+										value matches {
+											1|[local::at0024],
+											2|[local::at0025],
+											3|[local::at0026],
+											4|[local::at0027],
+											5|[local::at0028]
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Asthma unter Kontrolle
+										value matches {
+											1|[local::at0029],
+											2|[local::at0030],
+											3|[local::at0031],
+											4|[local::at0032],
+											5|[local::at0033]
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {    -- Gesamtsumme ACT
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..25|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0035] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0036] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Asthmakontrolltest_test">
+					description = <"Asthmakontrolltest_test">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Asthma">
+					description = <"Wie oft hat Ihr Asthma Sie in den letzten 4 Wochen daran gehindert, bei der Arbeit,
+in der Schule/im Studium oder zu Hause so viel zu erledigen wie sonst?">
+				>
+				["at0005"] = <
+					text = <"Immer">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Meistens">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Manchmal">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Selten">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Nie">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Kurzatmigkeit">
+					description = <"Wie oft haben Sie in den letzten 4 Wochen unter Kurzatmigkeit gelitten?">
+				>
+				["at0011"] = <
+					text = <"Immer">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Meistens">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Manchmal">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Selten">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Nie">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Asthmabeschwerden">
+					description = <"Wie oft sind Sie in den letzten 4 Wochen wegen Ihrer Asthmabeschwerden (pfeifendes 
+Atemgeräusch, Husten, Kurzatmigkeit, Engegefühl oder Schmerzen in der Brust) nachts 
+wach geworden oder morgens früher als gewöhnlich aufgewacht?">
+				>
+				["at0017"] = <
+					text = <"Notfallmedikation zur Inhalation">
+					description = <"Wie oft haben Sie in den letzten 4 Wochen Ihr Notfallmedikament zur Inhalation eingesetzt?">
+				>
+				["at0018"] = <
+					text = <"Asthma unter Kontrolle">
+					description = <"Wie gut hatten Sie in den letzten 4 Wochen Ihr Asthma unter Kontrolle?">
+				>
+				["at0019"] = <
+					text = <"4 oder mehr Nächte pro Woche">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"2 oder 3 Nächte pro Woche">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Einmal pro Woche">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Ein- oder zweimal pro Woche">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"3 Mal oder öfter am Tag">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"1 oder 2 Mal am Tag">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"2 oder 3 Mal pro Woche">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"Einmal pro Woche oder weniger">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Schlecht">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Etwas">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Gut">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Völlig">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Gesamtsumme ACT">
+					description = <"Zählen Sie Ihre Punkte zusammen, um einen Gesamt-
+wert zu erhalten. Der Asthmakontroll-Wert wird ermittelt.">
+					comment = <"25 Punkte – Herzlichen Glückwunsch!
+Sie hatten Ihr Asthma in den letzten 4 Wochen vollständig unter Kontrolle. Sie hatten keine 
+Beschwerden und waren in keiner Weise durch Ihr Asthma eingeschränkt. Sprechen Sie 
+regelmäßig mit Ihrem Arzt um die bestmögliche Kontrolle zu halten.
+
+20 bis 24 Punkte – Im Zielbereich
+Sie hatten Ihr Asthma in den letzten 4 Wochen wahrscheinlich gut unter Kontrolle, aber 
+nicht vollständig. Ihr Arzt kann Ihnen dabei helfen, eine möglichst vollständige Kontrolle zu 
+erreichen.
+
+Weniger als 20 Punkte – Außerhalb des Zielbereichs
+Sie hatten Ihr Asthma in den letzten 4 Wochen wahrscheinlich nicht unter Kontrolle. Ihr Arzt 
+kann Ihnen Maßnahmen empfehlen, die Ihnen helfen, Ihr Asthma besser unter Kontrolle zu 
+bekommen.">
+				>
+				["at0035"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0036"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Angaben über den ACT von Asthma Patienten, die in anderen Bereichen nicht erfasst wurden.">
+				>
+			>
+		>
+	>
