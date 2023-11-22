@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>495ad16a-c182-4ae7-8469-ee45ea82f592</id>
+    <name>Psych_Fragebogen Patient</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2023-10-23</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>test</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>39.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>73b1b68efc34b24fa878b3fc45dac5f6</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht" name="Psych_Fragebogen Patient"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+            max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
+            <Rule max="0" path="/data[at0001]/items[at0008]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0024]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.person.v1" max="1"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule name="VP_ID" path="/items[at0011]"/>
+                <Rule max="0" name="Codename" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0010]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
+                <Rule name="Rekrutierungsort" path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms_ort::1::PSO MHH</includedValues>
+                        <includedValues>local_terms_ort::2::PSY MHH</includedValues>
+                        <includedValues>local_terms_ort::3::Duisburg</includedValues>
+                        <includedValues>local_terms_ort::4::salus Klinik Friedrichsdorf</includedValues>
+                        <includedValues>local_terms_ort::5::Hannover</includedValues>
+                        <includedValues>local_terms_ort::6::Berlin</includedValues>
+                        <includedValues>local_terms_ort::7::Erlangen</includedValues>
+                        <includedValues>local_terms_ort::8::Nürnberg</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Datum Ambulanztermin" path="/items[at0002]"/>
+                <Rule name="Studiensetting_1" path="/items[at0003]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms_setting1::01::Psychiatrie</includedValues>
+                        <includedValues>local_terms_setting1::02::Psychosomatik Station/TKL</includedValues>
+                        <includedValues>local_terms_setting1::03::Kaufsuchtsprechstunde PSO</includedValues>
+                        <includedValues>local_terms_setting1::04::SH-Gruppe</includedValues>
+                        <includedValues>local_terms_setting1::05::Entwöhnung/Sucht</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Studiensetting_2" path="/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms_setting2::001::nicht klinisch</includedValues>
+                        <includedValues>local_terms_setting2::002::stationär/tagesklinisch</includedValues>
+                        <includedValues>local_terms_setting2::003::ambulant</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.age.v0" max="1"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule name="Alter" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PY</pattern>
+                    <maxMagnitude>P200Y</maxMagnitude>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule name="Dauer der Kaufsucht" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PY</pattern>
+                    <maxMagnitude>P99Y</maxMagnitude>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0002]/items[at0022]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_gender::0001::männlich</includedValues>
+                    <includedValues>local_terms_gender::0002::weiblich</includedValues>
+                    <includedValues>local_terms_gender::0003::Sonstiges</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0002]/items[at0026]"/>
+            <Rule max="0" path="/data[at0002]/items[at0019]"/>
+            <Rule max="0" path="/data[at0002]/items[at0025]"/>
+            <Rule max="0" path="/data[at0002]/items[at0001]"/>
+            <Rule max="0" path="/data[at0002]/items[at0020]"/>
+            <Rule max="0" path="/data[at0002]/items[at0027]"/>
+            <Rule max="0" path="/data[at0002]/items[at0014]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+            concept_name="Soziales Netzwerk" max="1"
+            name="Familienstand" path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0001]/items[at0015]"/>
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_partner::0::Nein</includedValues>
+                    <includedValues>local_terms_partner::1::Ja</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0018]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at0011]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
+            concept_name="Zusammenfassung der Bildung" max="1"
+            name="Allgemeinbildungsabschluss" path="/content" xsi:type="tem:EVALUATION">
+            <Rule
+                name="Welchen höchsten allgemeinbildenden Schulabschluss haben Sie?" path="/data[at0001]/items[at0018]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_schule::00000::Kein</includedValues>
+                    <includedValues>local_terms_schule::00001::Volksschule</includedValues>
+                    <includedValues>local_terms_schule::00002::Hauptschule</includedValues>
+                    <includedValues>local_terms_schule::00003::Mittlere Reife</includedValues>
+                    <includedValues>local_terms_schule::00004::Abitur/Fachhochschule</includedValues>
+                    <includedValues>local_terms_schule::00005::Sonstiges</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" name="Schuljahre" path="/data[at0001]/items[at0003]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PYM</pattern>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0031]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PYM</pattern>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule name="Schuljahre" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_jahre::000001::&lt;12 Jahre</includedValues>
+                    <includedValues>local_terms_jahre::000002::&gt;=12 Jahre</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0007]"/>
+            <Rule max="0" path="/protocol[at0026]/items[at0028]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            concept_name="Problem/Diagnose" max="1" name="Diagnose 1"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0079]"/>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule max="0" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0069]"/>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            concept_name="Problem/Diagnose" max="1" name="Diagnose 2"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0079]"/>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule max="0" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0069]"/>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            concept_name="Problem/Diagnose" max="1" name="Diagnose 3"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0079]"/>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule max="0" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0069]"/>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            concept_name="Problem/Diagnose" max="1" name="Diagnose 4"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Diagnose Freitext" path="/data[at0001]/items[at0002]"/>
+            <Rule max="0" name="Diagnose Freitext" path="/data[at0001]/items[at0079]"/>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule max="0" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0069]"/>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.vorfragebogen_psy.v0"
+            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DDB0ABB0815AAFEC82BA2096C7882EE4</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.person.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A6A3C08A7E900DDBFCB472CF2105BE83</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.age.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A9AA24874908E5DFC16BABE7C45F48A9</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BF9B28403CBB9F2FB9C120F3EB89DA8E</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DB7D4B698449B0D99CB352CDB935B693</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B092069A92C2ED33B96658F84B518BF9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">70083C267A35C88E111E5BA35120DE86</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.vorfragebogen_psy.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7C0C36FBDFBE09F62B32CFB401AD06F7</digest>
+    </integrity_checks>
+</template>
