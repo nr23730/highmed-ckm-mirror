@@ -38,11 +38,19 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>9.0.0</value>
+                <value>24.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
                 <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>73bba91dede3473e81f739b9bc83c4ee</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -55,87 +63,174 @@
         concept_name="Registereintrag" name="Vorfragebogen_Einkauf"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1"
+            path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0002]/items[at0022]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_gender::1::männlich</includedValues>
+                    <includedValues>local_terms_gender::2::weiblich</includedValues>
+                    <includedValues>local_terms_gender::3::Sonstiges</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0002]/items[at0026]"/>
+            <Rule max="0" path="/data[at0002]/items[at0019]"/>
+            <Rule max="0" path="/data[at0002]/items[at0025]"/>
+            <Rule max="0" path="/data[at0002]/items[at0001]"/>
+            <Rule max="0" path="/data[at0002]/items[at0020]"/>
+            <Rule max="0" path="/data[at0002]/items[at0027]"/>
+            <Rule max="0" path="/data[at0002]/items[at0014]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.age.v0" max="1"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule name="Alter" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <maxMagnitude>P100Y</maxMagnitude>
+                    <minMagnitude>P1Y</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule name="Dauer der Kaufsucht" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PY</pattern>
+                    <maxMagnitude>P99Y</maxMagnitude>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>true</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0001]/items[at0015]"/>
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::0::Nein</includedValues>
+                    <includedValues>local_terms::1::Ja</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0018]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at0011]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0001]/items[at0018]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PYM</pattern>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0031]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <pattern>PYM</pattern>
+                    <minMagnitude>P0Y</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms_education::00::Kein</includedValues>
+                    <includedValues>local_terms_education::01::Volksschule</includedValues>
+                    <includedValues>local_terms_education::02::Hauptschule</includedValues>
+                    <includedValues>local_terms_education::03::Mittlere Reife</includedValues>
+                    <includedValues>local_terms_education::04::Abitur/Fachhochschule</includedValues>
+                    <includedValues>local_terms_education::05::Sonstiges</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0007]"/>
+            <Rule max="0" path="/protocol[at0026]/items[at0028]"/>
+        </Content>
         <Content
             archetype_id="openEHR-EHR-OBSERVATION.vorfragebogen_psy.v0"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0078]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_1::0::Nein</includedValues>
-                    <includedValues>local_terms_1::1::Ja</includedValues>
+                    <includedValues>local_terms_1::000::Nein</includedValues>
+                    <includedValues>local_terms_1::001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0079]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_2::00::Nein</includedValues>
-                    <includedValues>local_terms_2::01::Ja</includedValues>
+                    <includedValues>local_terms_2::0000::Nein</includedValues>
+                    <includedValues>local_terms_2::0001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0080]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_3::000::Nein</includedValues>
-                    <includedValues>local_terms_3::001::Ja</includedValues>
+                    <includedValues>local_terms_3::00000::Nein</includedValues>
+                    <includedValues>local_terms_3::00001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0081]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_4::0000::Nein</includedValues>
-                    <includedValues>local_terms_4::0001::Ja</includedValues>
+                    <includedValues>local_terms_4::000000::Nein</includedValues>
+                    <includedValues>local_terms_4::000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0082]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_5::00000::Nein</includedValues>
-                    <includedValues>local_terms_5::00001::Ja</includedValues>
+                    <includedValues>local_terms_5::0000000::Nein</includedValues>
+                    <includedValues>local_terms_5::0000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0083]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_6::000000::Nein</includedValues>
-                    <includedValues>local_terms_6::000001::Ja</includedValues>
+                    <includedValues>local_terms_6::00000000::Nein</includedValues>
+                    <includedValues>local_terms_6::00000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0084]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_7::0000000::Nein</includedValues>
-                    <includedValues>local_terms_7::0000001::Ja</includedValues>
+                    <includedValues>local_terms_7::000000000::Nein</includedValues>
+                    <includedValues>local_terms_7::000000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0086]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_8::00000000::Nein</includedValues>
-                    <includedValues>local_terms_8::00000001::Ja</includedValues>
+                    <includedValues>local_terms_8::0000000000::Nein</includedValues>
+                    <includedValues>local_terms_8::0000000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0088]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_9::000000000::Nein</includedValues>
-                    <includedValues>local_terms_9::000000001::Ja</includedValues>
+                    <includedValues>local_terms_9::00000000000::Nein</includedValues>
+                    <includedValues>local_terms_9::00000000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0087]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_10::0000000000::Nein</includedValues>
-                    <includedValues>local_terms_10::0000000001::Ja</includedValues>
+                    <includedValues>local_terms_10::000000000000::Nein</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0089]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_11::00000000000::Nein</includedValues>
-                    <includedValues>local_terms_11::00000000001::Ja</includedValues>
+                    <includedValues>local_terms_11::0000000000000::Nein</includedValues>
+                    <includedValues>local_terms_11::0000000000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0090]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_12::000000000000::Nein</includedValues>
-                    <includedValues>local_terms_12::000000000001::Ja</includedValues>
+                    <includedValues>local_terms_12::00000000000000::Nein</includedValues>
+                    <includedValues>local_terms_12::00000000000001::Ja</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0091]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>local_terms_13::0000000000000::Nein</includedValues>
-                    <includedValues>local_terms_13::0000000000001::Ja</includedValues>
+                    <includedValues>local_terms_13::000000000000000::Nein</includedValues>
+                    <includedValues>local_terms_13::000000000000001::Ja</includedValues>
                 </constraint>
             </Rule>
+            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0030]"/>
+            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0047]"/>
+            <Rule min="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0048]"/>
         </Content>
     </definition>
     <integrity_checks
@@ -143,6 +238,28 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BF9B28403CBB9F2FB9C120F3EB89DA8E</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.age.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A9AA24874908E5DFC16BABE7C45F48A9</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.social_network.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">DB7D4B698449B0D99CB352CDB935B693</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.education_summary.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B092069A92C2ED33B96658F84B518BF9</digest>
     </integrity_checks>
     <integrity_checks
         archetype_id="openEHR-EHR-OBSERVATION.vorfragebogen_psy.v0"
