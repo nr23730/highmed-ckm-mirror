@@ -48,7 +48,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.1.2</value>
+                <value>2.2.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -56,7 +56,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>b867d058a867aeacf6076a72c9039030</value>
+                <value>c97a37c4eb5bf32170c2bbf983c862c9</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -78,12 +78,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-OBSERVATION.ecg_result.v1"
             max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" path="/data[at0001]/events[at0002]"/>
             <Rule default="12-Kanal-EKG" path="/data[at0001]/events[at0002]/data[at0005]/items[at0100]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>12-Kanal-EKG</includedValues>
+                    <includedValues>15-Kanal-EKG</includedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0012]">
+            <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0012]">
                 <constraint xsi:type="tem:quantityConstraint">
                     <unitMagnitude>
                         <unit>ms</unit>
@@ -93,7 +95,19 @@
                     </unitMagnitude>
                 </constraint>
             </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0105]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <includedUnits>ms</includedUnits>
+                    <unitMagnitude>
+                        <unit>ms</unit>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0096]"/>
+            <Rule max="1" path="/data[at0001]/events[at0002]/data[at0005]/items[at0009]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0101]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0081]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0089]"/>
@@ -107,13 +121,10 @@
             <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0022]">
                 <constraint xsi:type="tem:quantityConstraint"/>
             </Rule>
-            <Rule max="12" path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]">
+            <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]">
                 <nameConstraint>
-                    <excludedValues>local::at0093</excludedValues>
-                    <excludedValues>local::at0087</excludedValues>
                     <excludedValues>local::at0091</excludedValues>
                     <excludedValues>local::at0092</excludedValues>
-                    <excludedValues>local::at0084</excludedValues>
                     <excludedValues>local::at0085</excludedValues>
                     <excludedValues>local::at0086</excludedValues>
                 </nameConstraint>
@@ -171,8 +182,10 @@
                 <constraint xsi:type="tem:quantityConstraint"/>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]/items[at0069]">
-                <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Text</includedTypes>
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0070</excludedValues>
+                    <excludedValues>local::at0071</excludedValues>
+                    <excludedValues>local::at0072</excludedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]/items[at0075]">
@@ -449,13 +462,13 @@
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.measured_value.v0"
                 concept_name="Messwert" max="1"
-                name="P-Amplitude bei P-Ende"
+                name="P-Amplitude bei P-Beginn"
                 path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]/items[at0114]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule path="/items[at0003]">
                     <constraint xsi:type="tem:quantityConstraint">
-                        <includedUnits>ms</includedUnits>
+                        <includedUnits>mV</includedUnits>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0004]"/>
@@ -470,7 +483,7 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule path="/items[at0003]">
                     <constraint xsi:type="tem:quantityConstraint">
-                        <includedUnits>ms</includedUnits>
+                        <includedUnits>mV</includedUnits>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0004]"/>
@@ -485,7 +498,7 @@
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule path="/items[at0003]">
                     <constraint xsi:type="tem:quantityConstraint">
-                        <includedUnits>ms</includedUnits>
+                        <includedUnits>mV</includedUnits>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0004]"/>
@@ -591,6 +604,25 @@
                 <Rule default="beinhaltet T und T'" path="/items[at0006]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>beinhaltet T und T'</includedValues>
+                    </constraint>
+                </Rule>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.measured_value.v0"
+                concept_name="Messwert" max="1"
+                name="Maximum S-Amplitude"
+                path="/data[at0001]/events[at0002]/data[at0005]/items[at0027]/items[at0114]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule path="/items[at0003]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <includedUnits>mV</includedUnits>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule default="S oder S'" path="/items[at0006]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>S oder S'</includedValues>
                     </constraint>
                 </Rule>
             </Items>
