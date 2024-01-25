@@ -14,9 +14,9 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Dieser Archetyp dient der Dokumentation eines einzelnen Messwerts.">
+			purpose = <"Dieser Archetyp dient der Dokumentation eines einzelnen Messwerts. Der Datentyp des Messwerts kann auf einen passenden Datentyp eingeschränkt werden. Wird der Datentyp QUANTITY gewählt, ist es möglich die Einheit zu erfassen und einen Gültigkeitsbereich festzulegen.">
 			use = <"Dieser generische Archetyp kann verwendet werden, wenn einzelne Messwerte im übergeordneten Archetypen nicht erfasst werden und sich diese Messwerte nicht mit einem spezifischeren Archetypen abbilden lassen.">
-			keywords = <"Messwert, Ergebnis", ...>
+			keywords = <"Messwert, Ergebnis, Messgröße", ...>
 			misuse = <"Wenn möglich ist immer ein spezifischerer Archetyp zu bevorzugen.">
 			copyright = <"© HiGHmed">
 		>
@@ -24,13 +24,13 @@ description
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"HiGHmed">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"8F3A2B4E69961BC7D0FB9542D1E5915A">
-		["build_uid"] = <"962c0f25-54b1-45bd-bb0b-a707abfb784c">
+		["MD5-CAM-1.0.1"] = <"64C41245AFBF91A312B8DB1A71A13361">
+		["build_uid"] = <"81519b78-fe99-47e2-a69d-51372214fc80">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -45,6 +45,11 @@ definition
 			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Bezeichnung des Messwerts
 				value matches {
 					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- Zeitpunkt der Messung
+				value matches {
+					DV_DATE_TIME matches {*}
 				}
 			}
 			ELEMENT[at0003] occurrences matches {0..1} matches {*}    -- Messwert
@@ -62,6 +67,10 @@ definition
 				value matches {
 					DV_TEXT matches {*}
 				}
+			}
+			allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Weitere Details
+				include
+					archetype_id/value matches {/.*/}
 			}
 		}
 	}
@@ -91,7 +100,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Referenzbereichs-Hinweise">
-					description = <"Zusätzlicher Hinweise, ob der Messwert im Referenzbereich liegt.">
+					description = <"Zusätzlicher Hinweis, ob der Messwert im Referenzbereich liegt.">
 					comment = <"z.B.: 'im Referenzbereich, bezogen auf Alter und Geschlecht'.">
 				>
 				["at0005"] = <
@@ -101,6 +110,14 @@ ontology
 				["at0006"] = <
 					text = <"Kommentar">
 					description = <"Kommentar zum Messwert, soweit noch nicht in anderen Feldern erfasst.">
+				>
+				["at0007"] = <
+					text = <"Weitere Details">
+					description = <"Weitere strukturierte Details über den Messwert.">
+				>
+				["at0008"] = <
+					text = <"Zeitpunkt der Messung">
+					description = <"Datum und Uhrzeit der Messung.">
 				>
 			>
 		>
