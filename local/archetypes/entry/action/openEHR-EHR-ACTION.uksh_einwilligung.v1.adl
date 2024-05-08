@@ -1,0 +1,89 @@
+﻿archetype (adl_version=1.4; uid=4a0d850c-6471-4e7b-afaf-94d3b99220a4)
+	openEHR-EHR-ACTION.uksh_einwilligung.v1
+
+concept
+	[at0000]	-- UKSH_Einwilligung
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["date"] = <"2024-05-07">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"3677ADF2E6922E60CC521EB8FAC0BBC9">
+		["build_uid"] = <"e047c32a-ac7b-46ad-84fd-c7a36eb43980">
+		["revision"] = <"1.0.1">
+	>
+
+definition
+	ACTION[at0000] matches {    -- UKSH_Einwilligung
+		protocol matches {
+			ITEM_TREE[at0005] matches {*}    -- Item tree
+		}
+		subject matches {
+			PARTY_IDENTIFIED[at0002] matches {    -- PARTY_IDENTIFIED
+				external_ref matches {
+					PARTY_REF[at0003] matches {*}    -- PARTY_REF
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {    -- CLUSTER_SLOT
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"UKSH_Einwilligung">
+					description = <"UKSH_Einwilligung">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"PARTY_IDENTIFIED">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"PARTY_REF">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"CLUSTER_SLOT">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>
