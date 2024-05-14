@@ -1,0 +1,2312 @@
+﻿archetype (adl_version=1.4; uid=babc7987-4f89-4bf3-9440-be3aae56dad7)
+	openEHR-EHR-EVALUATION.vorsorgevollmacht.v0
+
+concept
+	[at0000]	-- Power of Attorney
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-03-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"*To record a patient's decision regarding whom should be given organisation of their legal procedures. (en)">
+			use = <"">
+			keywords = <"*Power of attorney, person, consent. (en)", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a patient's decision regarding whom should be given organisation of their legal procedures.">
+			use = <"">
+			keywords = <"Power of attorney, person, consent.", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"D87EEBA333167445D7367345A37333E7">
+		["build_uid"] = <"57fb5da0-27d1-4a1c-8695-b14deedd925b">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Power of Attorney
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					CLUSTER[at0014] occurrences matches {0..1} matches {    -- Power of Attorney
+						items cardinality matches {1..*; unordered} matches {
+							CLUSTER[at0015] occurrences matches {0..3} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0309] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0035] occurrences matches {0..3} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0036] occurrences matches {0..*} matches {    -- Address line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0037] occurrences matches {0..*} matches {    -- City/Town
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..*} matches {    -- District/County
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {    -- State/Territory/Province
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0056] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0021] occurrences matches {0..3} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0022] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0023,    -- Mobile
+													at0024,    -- Telephone
+													at0025]    -- Email
+												}
+											}
+										}
+									}
+									ELEMENT[at0028] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0030,    -- Business Use
+													at0031,    -- Personal Use
+													at0032]    -- Both Business Use and Personal Use
+												}
+											}
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0083] occurrences matches {0..1} matches {    -- Individual Power of Attorney
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0370] occurrences matches {0..1} matches {    -- Power of Attorney Cases
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0384,    -- The aforementioned persons may represent me in all matters relating to health care and outpatient or (partial) inpatient care, including the associated financial matters.
+													at0385,    -- You are allowed to take part in all measures to examine the state of health and in medical treatments and consent to medical interventions, even if they could endanger life or my life could suffer serious or long-term damage to health (Section 1904 Paragraph 1 BGB).
+													at0386,    -- You may give your consent to any measures to examine the state of health and to medical treatments and refuse or revoke medical interventions, even if the measure is not carried out could endanger my life or cause me to suffer a serious or prolonged injury could suffer permanent damage to health (Section 1904 Paragraph 2 BGB). So you can too Give consent to refrain from or terminate life-prolonging measures.
+													at0387,    -- You may also consent to coercive medical measures (Section 1906a Para. 1 BGB).
+													at0388,    -- You may view medical records and authorize their release to third parties. I release all treating doctors and non-medical staff from their duty of confidentiality towards authorized persons.
+													at0389,    -- The aforementioned people can determine the details of my stay.
+													at0390]    -- You can request accommodation with deprivation of liberty (§ 1906 para. 1 BGB), measures that deprive you of your liberty (e.g. bed rails, medication and the like) and transport to a hospital to carry out coercive medical measures (§ 1906a para. 4 BGB) decide as long as something like this is necessary for my well-being.
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0086] occurrences matches {0..1} matches {    -- Care for the dead, burial and organ donation
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0424] occurrences matches {0..1} matches {    -- Permitted Person
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0425,    -- Aforementioned Person (s)
+											at0426]    -- Other
+										}
+									}
+								}
+							}
+							CLUSTER[at0089] occurrences matches {0..1} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0090] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0091] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0322] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0095] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0096] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0097,    -- Mobile
+													at0098,    -- Telephone
+													at0099]    -- Email
+												}
+											}
+										}
+									}
+									ELEMENT[at0102] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0103] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0104,    -- Business use
+													at0105,    -- Personal use
+													at0106]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									ELEMENT[at0108] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0109] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0110] occurrences matches {0..*} matches {    -- Address line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0111] occurrences matches {0..*} matches {    -- City/ Town
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0112] occurrences matches {0..*} matches {    -- District/County
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0113] occurrences matches {0..1} matches {    -- State/Territory/Province
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0114] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0115] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0130] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0380] occurrences matches {0..1} matches {    -- Granting Power
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0381,    -- Granting power of attorney for the care of the dead and burial
+											at0382]    -- Granting power of attorney for organ donation.
+										}
+									}
+								}
+							}
+							ELEMENT[at0383] occurrences matches {0..1} matches {    -- The specifications I make in an organ donor card take precedence.
+								value matches {
+									DV_BOOLEAN matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0133] occurrences matches {0..1} matches {    -- General Power of Attorney
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0427] occurrences matches {0..1} matches {    -- Permitted Person
+								value matches {
+									DV_CODED_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0136] occurrences matches {0..1} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0137] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0138] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0323] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0142] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0143] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0144,    -- Mobile
+													at0145,    -- Telephone
+													at0146]    -- Email
+												}
+											}
+										}
+									}
+									ELEMENT[at0149] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0150] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0151,    -- Business use
+													at0152,    -- Personal use
+													at0153]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									ELEMENT[at0155] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0156] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0157] occurrences matches {0..*} matches {    -- Address line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0158] occurrences matches {0..*} matches {    -- City/Town
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0159] occurrences matches {0..*} matches {    -- District/County
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0160] occurrences matches {0..1} matches {    -- State/Territory/Province
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0161] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0162] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0177] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0178] occurrences matches {0..1} matches {    -- General power of attorney cases
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0391] occurrences matches {0..1} matches {    -- Cases
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0392,    -- They may access all of my data on the World Wide Web (Internet), in particular user accounts, regardless of the access medium (e.g. PC, tablet, smartphone) and has the right to decide whether this content should or may be retained, changed or deleted . You may use and request all access data required for this purpose.
+													at0393,    -- The named person(s) may consult me, particularly in financial matters and housing matters represent.
+													at0394,    -- They may represent me in and out of court against people and in all legally permissible cases.
+													at0395,    -- They may accept and open the letters and mail intended for me.
+													at0396,    -- You may grant sub-authorization for certain types of transactions or for individual transactions, exempt from the restrictions of Section 181 of the German Civil Code (BGB).
+													at0397]    -- The power of attorney should be valid beyond my death until it is revoked by my heirs.
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0197] occurrences matches {0..1} matches {    -- Order of Care
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0428] occurrences matches {0..1} matches {    -- Permitted Person
+								value matches {
+									DV_CODED_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0200] occurrences matches {0..1} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0201] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0202] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0327] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0206] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0207] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0208,    -- Mobile
+													at0209,    -- Telephone
+													at0210]    -- Email
+												}
+											}
+										}
+									}
+									ELEMENT[at0213] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0214] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0215,    -- Business use
+													at0216,    -- Personal use
+													at0217]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									ELEMENT[at0219] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0220] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0221] occurrences matches {0..*} matches {    -- Address line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0222] occurrences matches {0..*} matches {    -- City/Town
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0223] occurrences matches {0..*} matches {    -- District/County
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0224] occurrences matches {0..1} matches {    -- State/Territory/Province
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0225] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0226] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0241] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0242] occurrences matches {0..1} matches {    -- Forbidden as a supervisor
+								items cardinality matches {1..*; unordered} matches {
+									CLUSTER[at0243] occurrences matches {0..1} matches {    -- Person
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0244] occurrences matches {0..1} matches {    -- First Name
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0245] occurrences matches {0..1} matches {    -- Last Name
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0326] occurrences matches {0..1} matches {    -- Date of Birth
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0249] occurrences matches {0..1} matches {    -- Electronic communication
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0250] occurrences matches {0..1} matches {    -- Type
+												value matches {
+													DV_TEXT matches {*}
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0251,    -- Mobile
+															at0252,    -- Telephone
+															at0253]    -- Email
+														}
+													}
+												}
+											}
+											ELEMENT[at0256] matches {    -- Value
+												value matches {
+													DV_TEXT matches {*}
+													DV_URI matches {*}
+												}
+											}
+											ELEMENT[at0257] occurrences matches {0..1} matches {    -- Purpose
+												value matches {
+													DV_TEXT matches {*}
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0258,    -- Business use
+															at0259,    -- Personal use
+															at0260]    -- Both business and personal use
+														}
+													}
+												}
+											}
+											ELEMENT[at0262] occurrences matches {0..1} matches {    -- Comment
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0263] occurrences matches {0..1} matches {    -- Address
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0264] occurrences matches {0..*} matches {    -- Address line
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0265] occurrences matches {0..*} matches {    -- City/Town
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0266] occurrences matches {0..*} matches {    -- District/County
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0267] occurrences matches {0..1} matches {    -- State/Territory/Province
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0268] occurrences matches {0..1} matches {    -- Postal code
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0269] occurrences matches {0..1} matches {    -- Country
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0284] occurrences matches {0..1} matches {    -- Comment
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0398] occurrences matches {0..1} matches {    -- Declaration of Consent
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0399] occurrences matches {0..1} matches {    -- Info Text Block
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0400] occurrences matches {0..1} matches {    -- Consent
+								items cardinality matches {1..*; unordered} matches {
+									CLUSTER[at0401] occurrences matches {0..1} matches {    -- Consent of the future trustee
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0402] occurrences matches {0..1} matches {    -- Form of consent
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0403,    -- Written
+															at0404]    -- Verbal
+														}
+													}
+												}
+											}
+											ELEMENT[at0405] occurrences matches {0..1} matches {    -- Consent Agreement
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0406,    -- Accept
+															at0407]    -- Decline
+														}
+													}
+												}
+											}
+											allow_archetype ELEMENT[at0408] occurrences matches {0..*} matches {    -- Multimedia
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0409] occurrences matches {0..1} matches {    -- Date
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+											ELEMENT[at0410] occurrences matches {0..1} matches {    -- Place
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0411] occurrences matches {0..*} matches {    -- Reason for Declination
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+							CLUSTER[at0412] occurrences matches {0..1} matches {    -- Consent
+								items cardinality matches {1..*; unordered} matches {
+									CLUSTER[at0413] occurrences matches {0..1} matches {    -- Author's Consent
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0414] occurrences matches {0..1} matches {    -- Form of consent
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0415,    -- Written
+															at0416]    -- Verbal
+														}
+													}
+												}
+											}
+											ELEMENT[at0417] occurrences matches {0..1} matches {    -- Consent Agreement
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0418,    -- Accept
+															at0419]    -- Decline
+														}
+													}
+												}
+											}
+											allow_archetype ELEMENT[at0420] occurrences matches {0..1} matches {    -- Multimedia
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0421] occurrences matches {0..1} matches {    -- Date
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+											ELEMENT[at0422] occurrences matches {0..1} matches {    -- Place
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0423] occurrences matches {0..1} matches {    -- Reason for Declination
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0084] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0294] occurrences matches {0..*} matches {    -- Document of Consent
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0308] occurrences matches {0..1} matches {    -- Review Date
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vorsorgevollmacht">
+					description = <"*Power of Attorney which is given by a patient to another person(s). (en)">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Vorsorgevollmacht">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0016"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0017"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0021"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0022"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0023"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0029"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0030"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0035"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0036"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0037"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0038"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0039"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0040"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0041"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0056"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0083"] = <
+					text = <"*Individual Power of Attorney (en)">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0086"] = <
+					text = <"Totensorge, Bestattung und Organspende">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0090"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0091"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0095"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0096"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0097"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0098"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0103"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0104"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0105"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0106"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0108"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0109"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0110"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0111"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0112"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0113"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0114"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0115"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0130"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0133"] = <
+					text = <"Generalvollmacht">
+					description = <"">
+				>
+				["at0136"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0137"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0138"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0142"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0143"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0144"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0145"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0146"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0149"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0150"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0151"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0152"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0155"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0156"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0157"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0158"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0159"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0160"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0161"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0162"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0177"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0178"] = <
+					text = <"Generalvollmacht Fälle">
+					description = <"">
+				>
+				["at0197"] = <
+					text = <"Vorsorgevollmacht">
+					description = <"">
+				>
+				["at0200"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0201"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0202"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0206"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0207"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0208"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0213"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0214"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0215"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0216"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0217"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0219"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0220"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0221"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0222"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0223"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0224"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0225"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0226"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0241"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0242"] = <
+					text = <"Vorboten als Betreuer">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0244"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0245"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0249"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0250"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0251"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0257"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0258"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0259"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0260"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0262"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0263"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0264"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0265"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0266"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0267"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0268"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0269"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0284"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0294"] = <
+					text = <"Einwilligungsdokument">
+					description = <"">
+				>
+				["at0308"] = <
+					text = <"Überprüfungsdatum">
+					description = <"">
+				>
+				["at0309"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0322"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0323"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0326"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0327"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Fälle">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Vollmachterteilung">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Vollmachterteilung für die Totensorge und Bestattung">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Vollmachterteilung für die Organspende.">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"Von mir in einem Organspendeausweis getroffene Festlegungen gehen vor.">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"Die zuvor genannten Personen dürfen mich in allen Angelegenheiten der Gesundheitssorge und einer ambulanten oder (teil-)stationären Pflege einschließlich der damit verbundenen vermögensrechtlichen Angelegenheiten vertreten.">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"Sie dürfen in sämtliche Maßnahmen zur Untersuchung des Gesundheitszustandes, in Heilbehandlungen und in ärztliche Eingriffe einwilligen, auch wenn diese mit Lebensgefahr verbunden sein könnten oder ich einen schweren oder länger dauernden gesundheitlichen Schaden erleiden könnte (§ 1904 Abs. 1 BGB).">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"Sie dürfen ihre Einwilligung in jegliche Maßnahmen zur Untersuchung des Gesundheitszustands, in Heilbehandlungen und ärztliche Eingriffe verweigern oder widerrufen, auch wenn die Nichtvornahme der Maßnahme für mich mit Lebensgefahr verbunden sein könnte oder ich dadurch einen schweren oder länger dauernden gesundheitlichen Schaden erleiden könnte (§ 1904 Abs. 2 BGB). Sie dürfen somit auch die Einwilligung zum Unterlassen oder Beenden lebensverlängernder Maßnahmen erteilen.">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"Sie dürfen auch in ärztliche Zwangsmaßnahmen (§ 1906a Abs. 1 BGB) einwilligen.">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"Sie dürfen Krankenunterlagen einsehen und deren Herausgabe an Dritte bewilligen. Ich entbinde alle behandelnden Ärzt:innen und nichtärztliches Personal gegenüber den bevollmächtigten Personen von ihrer Schweigepflicht.">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"Die zuvor genannten Personen können meinen Aufenthalt bestimmen.">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"Sie können über die Unterbringung mit freiheitsentziehender Wirkung (§ 1906 Abs. 1 BGB), über freiheitsentziehende Maßnahmen (z. B. Bettgitter, Medikamente und Ähnliches) und über die Verbringung in ein Krankenhaus zur Durchführung einer ärztlichen Zwangsmaßnahme (§ 1906a Abs. 4 BGB) entscheiden, solange dergleichen zu meinem Wohl erforderlich ist.">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Fälle">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"Sie darf unabhängig vom Zugangsmedium (z.B. PC, Tablet, Smartphone) auf meine sämtlichen Daten im World Wide Web (Internet), insbesondere Benutzerkonten, zugreifen und hat das Recht, zu entscheiden, ob diese Inhalte beibehalten, geändert oder gelöscht werden sollen oder dürfen. Sie darf sämtliche hierzu erforderlichen Zugangsdaten nutzen und diese anfordern.">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"Die genannte(n) Person/Personen darf/dürfen mich insbesondere in Vermögensangelegenheiten und Wohnungsangelegenheiten vertreten.">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"Sie darf/dürfen mich gerichtlich und außergerichtlich gegenüber Personen und in allen gesetzlich zulässigen Fällen vertreten.">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"Sie darf/dürfen die für mich bestimmten Briefe und Postsendungen entgegennehmen und öffnen.">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"Sie darf/dürfen für bestimmte Arten von Geschäften oder für einzelne Geschäfte Untervollmacht unter Befreiung von den Beschränkungen des § 181 BGB erteilen.">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"Die Vollmacht soll über meinen Tod hinaus gültig sein, bis sie von meinen Erben widerrufen wird.">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0403"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0404"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0405"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0407"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0408"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0409"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0410"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0411"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0412"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0413"] = <
+					text = <"Author's Consent">
+					description = <"">
+				>
+				["at0414"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0415"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0416"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0417"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0418"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0419"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0420"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0421"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0422"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0423"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0424"] = <
+					text = <"*Permitted Person (en)">
+					description = <"">
+				>
+				["at0425"] = <
+					text = <"*Aforementioned Person (s) (en)">
+					description = <"">
+				>
+				["at0426"] = <
+					text = <"*Other (en)">
+					description = <"">
+				>
+				["at0427"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+				["at0428"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Power of Attorney">
+					description = <"Power of Attorney which is given by a patient to another person(s).">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Power of Attorney">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0016"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0017"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0021"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0022"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0023"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0029"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0030"] = <
+					text = <"Business Use">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Personal Use">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Both Business Use and Personal Use">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0035"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0036"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0037"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0038"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0039"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0040"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0041"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0056"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0083"] = <
+					text = <"Individual Power of Attorney">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0086"] = <
+					text = <"Care for the dead, burial and organ donation">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0090"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0091"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0095"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0096"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0097"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0098"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0103"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0104"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0105"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0106"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0108"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0109"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0110"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0111"] = <
+					text = <"City/ Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0112"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0113"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0114"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0115"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0130"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0133"] = <
+					text = <"General Power of Attorney">
+					description = <"">
+				>
+				["at0136"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0137"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0138"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0142"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0143"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0144"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0145"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0146"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0149"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0150"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0151"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0152"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0155"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0156"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0157"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0158"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0159"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0160"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0161"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0162"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0177"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0178"] = <
+					text = <"General power of attorney cases">
+					description = <"">
+				>
+				["at0197"] = <
+					text = <"Order of Care">
+					description = <"">
+				>
+				["at0200"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0201"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0202"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0206"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0207"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0208"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0213"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0214"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0215"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0216"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0217"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0219"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0220"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0221"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0222"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0223"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0224"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0225"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0226"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0241"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0242"] = <
+					text = <"Forbidden as a supervisor">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0244"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0245"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0249"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0250"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0251"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0257"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0258"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0259"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0260"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0262"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0263"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0264"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0265"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0266"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0267"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0268"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0269"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0284"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0294"] = <
+					text = <"Document of Consent">
+					description = <"">
+				>
+				["at0308"] = <
+					text = <"Review Date">
+					description = <"">
+				>
+				["at0309"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0322"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0323"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0326"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0327"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Power of Attorney Cases">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Granting Power">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Granting power of attorney for the care of the dead and burial">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Granting power of attorney for organ donation.">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"The specifications I make in an organ donor card take precedence.">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"The aforementioned persons may represent me in all matters relating to health care and outpatient or (partial) inpatient care, including the associated financial matters.">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"You are allowed to take part in all measures to examine the state of health and in medical treatments and consent to medical interventions, even if they could endanger life or my life could suffer serious or long-term damage to health (Section 1904 Paragraph 1 BGB).">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"You may give your consent to any measures to examine the state of health and to medical treatments and refuse or revoke medical interventions, even if the measure is not carried out could endanger my life or cause me to suffer a serious or prolonged injury could suffer permanent damage to health (Section 1904 Paragraph 2 BGB). So you can too Give consent to refrain from or terminate life-prolonging measures.">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"You may also consent to coercive medical measures (Section 1906a Para. 1 BGB).">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"You may view medical records and authorize their release to third parties. I release all treating doctors and non-medical staff from their duty of confidentiality towards authorized persons.">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"The aforementioned people can determine the details of my stay.">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"You can request accommodation with deprivation of liberty (§ 1906 para. 1 BGB), measures that deprive you of your liberty (e.g. bed rails, medication and the like) and transport to a hospital to carry out coercive medical measures (§ 1906a para. 4 BGB) decide as long as something like this is necessary for my well-being.">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Cases">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"They may access all of my data on the World Wide Web (Internet), in particular user accounts, regardless of the access medium (e.g. PC, tablet, smartphone) and has the right to decide whether this content should or may be retained, changed or deleted . You may use and request all access data required for this purpose.">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"The named person(s) may consult me, particularly in financial matters and housing matters represent.">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"They may represent me in and out of court against people and in all legally permissible cases.">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"They may accept and open the letters and mail intended for me.">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"You may grant sub-authorization for certain types of transactions or for individual transactions, exempt from the restrictions of Section 181 of the German Civil Code (BGB).">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"The power of attorney should be valid beyond my death until it is revoked by my heirs.">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0403"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0404"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0405"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0407"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0408"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0409"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0410"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0411"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0412"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0413"] = <
+					text = <"Author's Consent">
+					description = <"">
+				>
+				["at0414"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0415"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0416"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0417"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0418"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0419"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0420"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0421"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0422"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0423"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0424"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+				["at0425"] = <
+					text = <"Aforementioned Person (s)">
+					description = <"">
+				>
+				["at0426"] = <
+					text = <"Other">
+					description = <"">
+				>
+				["at0427"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+				["at0428"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+			>
+		>
+	>

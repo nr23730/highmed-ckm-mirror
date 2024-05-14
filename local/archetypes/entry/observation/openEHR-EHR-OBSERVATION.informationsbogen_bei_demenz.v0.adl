@@ -1,0 +1,2653 @@
+﻿archetype (adl_version=1.4; uid=a01f7e55-a6ff-4dc8-a58a-060a8ac30737)
+	openEHR-EHR-OBSERVATION.informationsbogen_bei_demenz.v0
+
+concept
+	[at0000]	-- Dementia Information Sheet
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-03-26">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"*Provides written information about the needs of a dementia patient for the case that they can not fully express themselves. (en)">
+			use = <"">
+			keywords = <"*Dementia, health history, habits, preferences. (en)", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Provides written information about the needs of a dementia patient for the case that they can not fully express themselves.">
+			use = <"">
+			keywords = <"Dementia, health history, habits, preferences.", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"B6896BDD774567CBBD7E2A63DFFEAEB9">
+		["build_uid"] = <"f42bdd23-5c28-42a6-b01a-b3ac8381e005">
+		["ip_acknowledgements"] = <"This artefact includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyrighted material of the International Health Terminology Standards Development Organisation (IHTSDO). Where an implementation of this artefact makes use of SNOMED CT content, the implementer must have the appropriate SNOMED CT Affiliate license - for more information contact https://www.snomed.org/snomed-ct/get-snomed or info@snomed.org.">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Dementia Information Sheet
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Dementia information sheet for hospital admission
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0010] occurrences matches {0..1} matches {    -- Patient
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0012] occurrences matches {0..1} matches {    -- Person
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0013] occurrences matches {0..1} matches {    -- First Name
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0014] occurrences matches {0..1} matches {    -- Last Name
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0314] occurrences matches {0..1} matches {    -- Date of Birth
+														value matches {
+															DV_DATE matches {*}
+														}
+													}
+												}
+											}
+											CLUSTER[at0018] occurrences matches {0..1} matches {    -- Electronic communication
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0019] occurrences matches {0..1} matches {    -- Type
+														value matches {
+															DV_TEXT matches {*}
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0020,    -- Mobile (cellular) telephone
+																	at0021,    -- Telephone
+																	at0022]    -- Email
+																}
+															}
+														}
+													}
+													ELEMENT[at0025] matches {    -- Value
+														value matches {
+															DV_TEXT matches {*}
+															DV_URI matches {*}
+														}
+													}
+													ELEMENT[at0026] occurrences matches {0..1} matches {    -- Purpose
+														value matches {
+															DV_TEXT matches {*}
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0027,    -- Business use
+																	at0028,    -- Personal use
+																	at0029]    -- Both business and personal use
+																}
+															}
+														}
+													}
+													allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {    -- Additional details
+														include
+															archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+													}
+													ELEMENT[at0031] occurrences matches {0..1} matches {    -- Comment
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+											CLUSTER[at0032] occurrences matches {0..1} matches {    -- Address
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0033] occurrences matches {0..*} matches {    -- Address line
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0034] occurrences matches {0..*} matches {    -- City/Town
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0035] occurrences matches {0..*} matches {    -- District/County
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0036] occurrences matches {0..1} matches {    -- State/Territory/Province
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0037] occurrences matches {0..1} matches {    -- Postal code
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0038] occurrences matches {0..1} matches {    -- Country
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0053] occurrences matches {0..1} matches {    -- Comment
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0401] occurrences matches {0..1} matches {    -- Role
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0402] occurrences matches {0..1} matches {    -- Role
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0403,    -- Relative
+															at0404]    -- Legal Guardian
+														}
+													}
+												}
+											}
+											CLUSTER[at0054] occurrences matches {0..1} matches {    -- Relative
+												items cardinality matches {1..*; unordered} matches {
+													CLUSTER[at0055] occurrences matches {0..1} matches {    -- Person
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0056] occurrences matches {0..1} matches {    -- First Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0057] occurrences matches {0..1} matches {    -- Last Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0312] occurrences matches {0..1} matches {    -- Date of Birth
+																value matches {
+																	DV_DATE matches {*}
+																}
+															}
+														}
+													}
+													CLUSTER[at0061] occurrences matches {0..1} matches {    -- Electronic communication
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0062] occurrences matches {0..1} matches {    -- Type
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0063,    -- Mobile
+																			at0064,    -- Telephone
+																			at0065]    -- Email
+																		}
+																	}
+																}
+															}
+															ELEMENT[at0068] matches {    -- Value
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_URI matches {*}
+																}
+															}
+															ELEMENT[at0069] occurrences matches {0..1} matches {    -- Purpose
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0070,    -- Business use
+																			at0071,    -- Personal use
+																			at0072]    -- Both business and personal use
+																		}
+																	}
+																}
+															}
+														}
+													}
+													CLUSTER[at0075] occurrences matches {0..1} matches {    -- Address
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0076] occurrences matches {0..*} matches {    -- Address line
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0077] occurrences matches {0..*} matches {    -- City/Town
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0078] occurrences matches {0..*} matches {    -- District/County
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0079] occurrences matches {0..1} matches {    -- State/Territory/Province
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0080] occurrences matches {0..1} matches {    -- Postal code
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0081] occurrences matches {0..1} matches {    -- Country
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0096] occurrences matches {0..1} matches {    -- Comment
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+														}
+													}
+													ELEMENT[at0316] occurrences matches {0..1} matches {    -- Relationship
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0317,    -- Partner
+																	at0318,    -- Child
+																	at0319]    -- Other
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0143] occurrences matches {0..1} matches {    -- Legal Guardian
+												items cardinality matches {1..*; unordered} matches {
+													CLUSTER[at0144] occurrences matches {0..1} matches {    -- Person
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0145] occurrences matches {0..1} matches {    -- First Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0146] occurrences matches {0..1} matches {    -- Last Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0313] occurrences matches {0..1} matches {    -- Date of Birth
+																value matches {
+																	DV_DATE matches {*}
+																}
+															}
+														}
+													}
+													CLUSTER[at0150] occurrences matches {0..1} matches {    -- Electronic communication
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0151] occurrences matches {0..1} matches {    -- Type
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0152,    -- Mobile
+																			at0153,    -- Telephone
+																			at0154]    -- Email
+																		}
+																	}
+																}
+															}
+															ELEMENT[at0157] matches {    -- Value
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_URI matches {*}
+																}
+															}
+															ELEMENT[at0158] occurrences matches {0..1} matches {    -- Purpose
+																value matches {
+																	DV_TEXT matches {*}
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0159,    -- Business use
+																			at0160,    -- Personal use
+																			at0161]    -- Both business and personal use
+																		}
+																	}
+																}
+															}
+															allow_archetype CLUSTER[at0162] occurrences matches {0..*} matches {    -- Additional details
+																include
+																	archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+															}
+															ELEMENT[at0163] occurrences matches {0..1} matches {    -- Comment
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+														}
+													}
+													CLUSTER[at0164] occurrences matches {0..1} matches {    -- Address
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0165] occurrences matches {0..*} matches {    -- Address line
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0166] occurrences matches {0..*} matches {    -- City/Town
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0167] occurrences matches {0..*} matches {    -- District/County
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0168] occurrences matches {0..1} matches {    -- State/Territory/Province
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0169] occurrences matches {0..1} matches {    -- Postal code
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0170] occurrences matches {0..1} matches {    -- Country
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0185] occurrences matches {0..1} matches {    -- Comment
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0186] occurrences matches {0..1} matches {    -- Patient Will
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0383] occurrences matches {0..1} matches {    -- Existing Patient Will
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0384,    -- Yes
+															at0385]    -- No
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0189] occurrences matches {0..1} matches {    -- Power of Attorney
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0386] occurrences matches {0..1} matches {    -- Existing Power of Attorney
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0387,    -- Yes
+															at0388]    -- No
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0193] occurrences matches {0..1} matches {    -- Contact in cases of
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0389] occurrences matches {0..*} matches {    -- Cases
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0390,    -- Increasing restlessness of the patient
+															at0391,    -- Introduction of protective measures
+															at0392,    -- Lack of cooperation in care situations
+															at0393]    -- Problems with food/hydration intake
+														}
+													}
+												}
+											}
+											ELEMENT[at0198] occurrences matches {0..*} matches {    -- Other
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0394] occurrences matches {0..1} matches {    -- Contact Times
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0395,    -- Contact Allowed 24/7
+															at0396]    -- Contact only during certain times
+														}
+													}
+												}
+											}
+											ELEMENT[at0324] occurrences matches {0..*} matches {    -- Times
+												value matches {
+													DV_TIME matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0204] occurrences matches {0..1} matches {    -- Important Information for contact with the Patient
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0205] occurrences matches {0..*} matches {    -- Religion
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0206] occurrences matches {0..1} matches {    -- Nationality
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0207] occurrences matches {0..*} matches {    -- Mother Tongue
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0208] occurrences matches {0..*} matches {    -- Previous profession
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0209] occurrences matches {0..*} matches {    -- Important information
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											CLUSTER[at0210] occurrences matches {0..1} matches {    -- Impaired Vision
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0325] occurrences matches {0..*} matches {    -- Severity
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0326,    -- Light
+																	at0327,    -- Difficult
+																	at0328,    -- Glasses needed
+																	at0405]    -- None
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0214] occurrences matches {0..1} matches {    -- Impaired Hearing
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0329] occurrences matches {0..*} matches {    -- Severity
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0330,    -- Light
+																	at0331,    -- Difficult
+																	at0332,    -- Hearing Aid Needed
+																	at0406]    -- None
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0218] occurrences matches {0..1} matches {    -- Understanding of Germann
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0333] occurrences matches {0..1} matches {    -- Comprehension
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0334,    -- Large
+																	at0336,    -- Limited
+																	at0337]    -- No understanding
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0224] occurrences matches {0..1} matches {    -- Speaking ability of German
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0339] occurrences matches {0..1} matches {    -- Ability
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0340,    -- Large
+																	at0342,    -- Limited
+																	at0343]    -- Not possible
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0229] occurrences matches {0..1} matches {    -- Nearness and Distance: The Patient
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0344] occurrences matches {0..*} matches {    -- Patient Preferences
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0345,    -- reacts well to bodily contact
+																	at0346]    -- prefers distance
+																}
+															}
+														}
+													}
+													ELEMENT[at0232] occurrences matches {0..*} matches {    -- Negative reactions
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0242] occurrences matches {0..1} matches {    -- Daily Routines
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0243] occurrences matches {0..*} matches {    -- Mornings
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0244] occurrences matches {0..*} matches {    -- Midday
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0245] occurrences matches {0..*} matches {    -- Evenings
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0246] occurrences matches {0..*} matches {    -- Nights
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0247] occurrences matches {0..*} matches {    -- To relax
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0248] occurrences matches {0..*} matches {    -- To sleep
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0249] occurrences matches {0..*} matches {    -- In stressful situations
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0250] occurrences matches {0..*} matches {    -- In care situations
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0251] occurrences matches {0..1} matches {    -- Behaviour
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0252] occurrences matches {0..*} matches {    -- Wishes and Preferences
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0253] occurrences matches {0..*} matches {    -- Anger/defensive behavior at
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0254] occurrences matches {0..*} matches {    -- Fear of
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0397] occurrences matches {0..1} matches {    -- Habit of walking away
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0256] occurrences matches {0..1} matches {    -- Eating and Drinking: The Patient
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0347] occurrences matches {0..*} matches {    -- Patient Requirements
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0348,    -- Recognizes Food
+															at0349,    -- Recognizes Drinks
+															at0350,    -- Eats without assistance
+															at0351,    -- Drinks without Assistance
+															at0352,    -- Needs reminding
+															at0353,    -- Needs time and patience
+															at0354,    -- Needs cutlery to be placed in ahnds
+															at0355,    -- Needs hands/ movements guided
+															at0356,    -- Eats with fingers
+															at0357,    -- Has Dentures
+															at0358,    -- Always needs food guided to mouth
+															at0359]    -- Requires high-calorie diet
+														}
+													}
+												}
+											}
+											ELEMENT[at0269] occurrences matches {0..1} matches {    -- Daily drinking quantity
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::129]>
+														list = <
+															["1"] = <
+																units = <"mL">
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0270] occurrences matches {0..*} matches {    -- Risks
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0271] occurrences matches {0..*} matches {    -- Preferred meals and drinks
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0272] occurrences matches {0..*} matches {    -- Dislikes/ Intolerences
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0273] occurrences matches {0..*} matches {    -- Help required for
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0274] occurrences matches {0..*} matches {    -- Negative reactions
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0275] occurrences matches {0..1} matches {    -- Calm and Sleep
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0360] occurrences matches {0..*} matches {    -- Sleeping Problems
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0361,    -- Sleeps without issue
+															at0362,    -- Difficulty falling asleep
+															at0363]    -- Gets up during the night
+														}
+													}
+												}
+											}
+											ELEMENT[at0364] occurrences matches {0..*} matches {    -- Goes to the toilet around this time
+												value matches {
+													DV_TIME matches {*}
+												}
+											}
+											ELEMENT[at0365] occurrences matches {0..*} matches {    -- Goes to bed around this time
+												value matches {
+													DV_TIME matches {*}
+												}
+											}
+											ELEMENT[at0366] occurrences matches {0..*} matches {    -- Wakes up around this time
+												value matches {
+													DV_TIME matches {*}
+												}
+											}
+											ELEMENT[at0283] occurrences matches {0..*} matches {    -- Helpful Tips
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0284] occurrences matches {0..1} matches {    -- Personal Hygiene
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0367] occurrences matches {0..*} matches {    -- Requirements
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0368,    -- Completely Independent Personal Care
+															at0369,    -- Washes independently at the sink
+															at0370,    -- Uses washcloth/ glove
+															at0371,    -- Washes upper-body independently
+															at0372]    -- Requires full assistance
+														}
+													}
+												}
+											}
+											CLUSTER[at0290] occurrences matches {0..1} matches {    -- Prefers
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0398] occurrences matches {0..1} matches {    -- Preferences
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0399,    -- Showering
+																	at0400]    -- Bathing
+																}
+															}
+														}
+													}
+												}
+											}
+											ELEMENT[at0293] occurrences matches {0..*} matches {    -- Help needed when
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0294] occurrences matches {0..*} matches {    -- Negative reactions
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0295] occurrences matches {0..*} matches {    -- Risks
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0296] occurrences matches {0..1} matches {    -- Dressing and Undressing
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0297] occurrences matches {0..*} matches {    -- Favourite clothing piece
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0298] occurrences matches {0..*} matches {    -- Particularities
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0299] occurrences matches {0..*} matches {    -- Negative reactions
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0300] occurrences matches {0..1} matches {    -- Excreting
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0373] occurrences matches {0..*} matches {    -- Details
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0374,    -- Patient has Bladder Control
+															at0375,    -- Patient has Intestinal Control
+															at0376,    -- Patient recognizes toilet
+															at0377]    -- Do not leave Patient alone in the bathroom
+														}
+													}
+												}
+											}
+											ELEMENT[at0305] occurrences matches {0..*} matches {    -- Planned bathroom times
+												value matches {
+													DV_TIME matches {*}
+												}
+											}
+											CLUSTER[at0306] occurrences matches {0..1} matches {    -- Assistance
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0378] occurrences matches {0..*} matches {    -- Assistance Items
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0379,    -- Urine Bottle
+																	at0380,    -- Bedpan
+																	at0381,    -- Insertable garments
+																	at0382]    -- Plans
+																}
+															}
+														}
+													}
+													ELEMENT[at0311] occurrences matches {0..*} matches {    -- Other
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Informationsbogen_bei_Demenz">
+					description = <"*Provides information about a dementia patient's health, habits and general preferences in the casse that they can not do so themselves. Thesheet can be filled out by the patient themselves, relatives, or a carer. (en)">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Informationsbogen bei Demenz für eine Krankenhausaufnahme">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"Patient">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0013"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0014"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0018"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0019"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0020"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0026"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0027"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0031"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0032"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0033"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0034"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0035"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0036"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0037"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0038"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0053"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0054"] = <
+					text = <"Angehöriger">
+					description = <"">
+				>
+				["at0055"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0056"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0057"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0061"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0062"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0063"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0064"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0068"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0069"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0070"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0071"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0072"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0075"] = <
+					text = <"Address">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0076"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0077"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0078"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0079"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0080"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0081"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0096"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0143"] = <
+					text = <"Rechtlicher Betreuer">
+					description = <"">
+				>
+				["at0144"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0145"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0146"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0150"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0151"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0152"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0154"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0157"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0158"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0159"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0160"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0161"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0163"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0164"] = <
+					text = <"Addresse">
+					description = <"Details about the location of a person, physical building or landmark.">
+				>
+				["at0165"] = <
+					text = <"Straße, Hausnr">
+					description = <"An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location.">
+					comment = <"Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'.">
+				>
+				["at0166"] = <
+					text = <"Stadt">
+					description = <"The name of the lowest level locality that contains the address.">
+					comment = <"For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'.">
+				>
+				["at0167"] = <
+					text = <"Bezirk">
+					description = <"The name of a local government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica..">
+				>
+				["at0168"] = <
+					text = <"Bundesland">
+					description = <"The name of a major government district or geographical area that contains the address.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica.">
+				>
+				["at0169"] = <
+					text = <"Postleitzahl">
+					description = <"The code for a postal delivery area containing the address, as defined by the relevant postal delivery service.">
+					comment = <"Also known as a postcode or ZIP code.
+">
+				>
+				["at0170"] = <
+					text = <"Land">
+					description = <"The name of the country containing the address.">
+					comment = <"For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended.">
+				>
+				["at0185"] = <
+					text = <"Kommentar">
+					description = <"Additional narrative about the address not captured in other fields.">
+				>
+				["at0186"] = <
+					text = <"Patientenverfügung">
+					description = <"">
+				>
+				["at0189"] = <
+					text = <"Vorsorgevollmacht">
+					description = <"">
+				>
+				["at0193"] = <
+					text = <"Kontakt bei">
+					description = <"">
+				>
+				["at0198"] = <
+					text = <"Sonstiges">
+					description = <"">
+				>
+				["at0204"] = <
+					text = <"Wichtige Informationen im Kontakt mit dem Kranken">
+					description = <"">
+				>
+				["at0205"] = <
+					text = <"Religion">
+					description = <"">
+				>
+				["at0206"] = <
+					text = <"Herkunft">
+					description = <"">
+				>
+				["at0207"] = <
+					text = <"Muttersprache">
+					description = <"">
+				>
+				["at0208"] = <
+					text = <"Ehemaliger Beruf">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"Bedeutsames">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"Einschränkungen Sehen">
+					description = <"">
+				>
+				["at0214"] = <
+					text = <"Einschränkungen Hören">
+					description = <"">
+				>
+				["at0218"] = <
+					text = <"Verstehen von Deutsch">
+					description = <"">
+				>
+				["at0224"] = <
+					text = <"Sprach- und Sprechfähigkeit ist">
+					description = <"">
+				>
+				["at0229"] = <
+					text = <"Nähe und Distanz: Der Patient">
+					description = <"">
+				>
+				["at0232"] = <
+					text = <"Abwehrendes verhalten">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"Gewohnheiten im Tagesverlauf">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"morgens">
+					description = <"">
+				>
+				["at0244"] = <
+					text = <"mittags">
+					description = <"">
+				>
+				["at0245"] = <
+					text = <"abends">
+					description = <"">
+				>
+				["at0246"] = <
+					text = <"nachts">
+					description = <"">
+				>
+				["at0247"] = <
+					text = <"zur Entspannung">
+					description = <"">
+				>
+				["at0248"] = <
+					text = <"zum Einschlafen">
+					description = <"">
+				>
+				["at0249"] = <
+					text = <"in Stress-situationen">
+					description = <"">
+				>
+				["at0250"] = <
+					text = <"in Pflege-situationen">
+					description = <"">
+				>
+				["at0251"] = <
+					text = <"Verhalten">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"Wünsche und Vorlieben">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"Ärger / abwehrendes Verhalten bei">
+					description = <"">
+				>
+				["at0254"] = <
+					text = <"Angst bei">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"Essen und Trinken">
+					description = <"">
+				>
+				["at0269"] = <
+					text = <"Tägliche Trinkmenge">
+					description = <"">
+				>
+				["at0270"] = <
+					text = <"Risiken">
+					description = <"">
+				>
+				["at0271"] = <
+					text = <"Bevorzugte Mahlzeiten und Getränke">
+					description = <"">
+				>
+				["at0272"] = <
+					text = <"Abneigung / Unverträglichkeiten">
+					description = <"">
+				>
+				["at0273"] = <
+					text = <"Hilfestellung bei">
+					description = <"">
+				>
+				["at0274"] = <
+					text = <"Abwehrendes verhalten">
+					description = <"">
+				>
+				["at0275"] = <
+					text = <"Ruhen und Schlafen">
+					description = <"">
+				>
+				["at0283"] = <
+					text = <"Hilfreiche Informationen">
+					description = <"">
+				>
+				["at0284"] = <
+					text = <"Körperpflege">
+					description = <"">
+				>
+				["at0290"] = <
+					text = <"Bevorzugt">
+					description = <"">
+				>
+				["at0293"] = <
+					text = <"Hilfestellung nötig bei">
+					description = <"">
+				>
+				["at0294"] = <
+					text = <"Abwehrendes verhalten">
+					description = <"">
+				>
+				["at0295"] = <
+					text = <"Risiken">
+					description = <"">
+				>
+				["at0296"] = <
+					text = <"An- und Auskleiden">
+					description = <"">
+				>
+				["at0297"] = <
+					text = <"Lieblingskleidungsstück">
+					description = <"">
+				>
+				["at0298"] = <
+					text = <"Besonderheiten">
+					description = <"">
+				>
+				["at0299"] = <
+					text = <"Abwehrendes verhalten">
+					description = <"">
+				>
+				["at0300"] = <
+					text = <"Ausscheiden">
+					description = <"">
+				>
+				["at0305"] = <
+					text = <"Feste Toilettenzeiten">
+					description = <"">
+				>
+				["at0306"] = <
+					text = <"Hilfsmittel">
+					description = <"">
+				>
+				["at0311"] = <
+					text = <"Sonstiges">
+					description = <"">
+				>
+				["at0312"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0313"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0314"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0316"] = <
+					text = <"Beziehung">
+					description = <"">
+				>
+				["at0317"] = <
+					text = <"Lebenspartner">
+					description = <"">
+				>
+				["at0318"] = <
+					text = <"Kind">
+					description = <"">
+				>
+				["at0319"] = <
+					text = <"Sonstige">
+					description = <"">
+				>
+				["at0324"] = <
+					text = <"Zeiten">
+					description = <"">
+				>
+				["at0325"] = <
+					text = <"Schwere">
+					description = <"">
+				>
+				["at0326"] = <
+					text = <"Leicht">
+					description = <"">
+				>
+				["at0327"] = <
+					text = <"Schwer">
+					description = <"">
+				>
+				["at0328"] = <
+					text = <"Brille vorhanden">
+					description = <"">
+				>
+				["at0329"] = <
+					text = <"Schwere">
+					description = <"">
+				>
+				["at0330"] = <
+					text = <"Leicht">
+					description = <"">
+				>
+				["at0331"] = <
+					text = <"Schwer">
+					description = <"">
+				>
+				["at0332"] = <
+					text = <"Hörgerät benötigt">
+					description = <"">
+				>
+				["at0333"] = <
+					text = <"Verständnis">
+					description = <"">
+				>
+				["at0334"] = <
+					text = <"Weitgehend erhalten">
+					description = <"">
+				>
+				["at0336"] = <
+					text = <"Eingeschränkt">
+					description = <"">
+				>
+				["at0337"] = <
+					text = <"Kein Verständnis">
+					description = <"">
+				>
+				["at0339"] = <
+					text = <"Sprachfähigkeit">
+					description = <"">
+				>
+				["at0340"] = <
+					text = <"Weitgehend erhalten">
+					description = <"">
+				>
+				["at0342"] = <
+					text = <"Eingeschränkt">
+					description = <"">
+				>
+				["at0343"] = <
+					text = <"Nicht möglich">
+					description = <"">
+				>
+				["at0344"] = <
+					text = <"Patientenpräferenzen">
+					description = <"">
+				>
+				["at0345"] = <
+					text = <"Reagiert positiv auf Körperkontakt">
+					description = <"">
+				>
+				["at0346"] = <
+					text = <"Hält lieber Distanz">
+					description = <"">
+				>
+				["at0347"] = <
+					text = <"Patientenanforderungen">
+					description = <"">
+				>
+				["at0348"] = <
+					text = <"Erkennt Essen">
+					description = <"">
+				>
+				["at0349"] = <
+					text = <"Erkennt Getränke">
+					description = <"">
+				>
+				["at0350"] = <
+					text = <"Isst selbstständig">
+					description = <"">
+				>
+				["at0351"] = <
+					text = <"Trinkt selbstständig">
+					description = <"">
+				>
+				["at0352"] = <
+					text = <"Brauct Ansprache/ Erinnerung">
+					description = <"">
+				>
+				["at0353"] = <
+					text = <"Benötigt Zeit und Geduld">
+					description = <"">
+				>
+				["at0354"] = <
+					text = <"Besteck in die Hand legen">
+					description = <"">
+				>
+				["at0355"] = <
+					text = <"Hand/ Bewegung führen">
+					description = <"">
+				>
+				["at0356"] = <
+					text = <"Isst mit den Fingern">
+					description = <"">
+				>
+				["at0357"] = <
+					text = <"Gebiss vorhanden">
+					description = <"">
+				>
+				["at0358"] = <
+					text = <"Essen und Trinken stets anreichen">
+					description = <"">
+				>
+				["at0359"] = <
+					text = <"Benötigt hochkalorische Ernährung">
+					description = <"">
+				>
+				["at0360"] = <
+					text = <"Schlafstörungen">
+					description = <"">
+				>
+				["at0361"] = <
+					text = <"Ruhe und Schlaf ohne Probleme">
+					description = <"">
+				>
+				["at0362"] = <
+					text = <"Einschlafstörungen">
+					description = <"">
+				>
+				["at0363"] = <
+					text = <"Nächtliches Aufstehen">
+					description = <"">
+				>
+				["at0364"] = <
+					text = <"Geht um diese Zeit auf die Toilette">
+					description = <"">
+				>
+				["at0365"] = <
+					text = <"Geht um diese Zeit ins Bett">
+					description = <"">
+				>
+				["at0366"] = <
+					text = <"Wacht auf um diese Zeit">
+					description = <"">
+				>
+				["at0367"] = <
+					text = <"Anforderungen">
+					description = <"">
+				>
+				["at0368"] = <
+					text = <"Körperpflege selbstständig">
+					description = <"">
+				>
+				["at0369"] = <
+					text = <"wäscht sich am Waschbecken selbst">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Benutzt Waschlappen/- handschuh">
+					description = <"">
+				>
+				["at0371"] = <
+					text = <"Wäscht Oberkörper selbstständig">
+					description = <"">
+				>
+				["at0372"] = <
+					text = <"völlig auf Hilfe angewiesen">
+					description = <"">
+				>
+				["at0373"] = <
+					text = <"Details">
+					description = <"">
+				>
+				["at0374"] = <
+					text = <"Kontrolle der Blase">
+					description = <"">
+				>
+				["at0375"] = <
+					text = <"Kontrolle des Darms">
+					description = <"">
+				>
+				["at0376"] = <
+					text = <"Patient erkennt Toilette">
+					description = <"">
+				>
+				["at0377"] = <
+					text = <"Auf Toilette nicht alleine lassen">
+					description = <"">
+				>
+				["at0378"] = <
+					text = <"Hilfsartikel">
+					description = <"">
+				>
+				["at0379"] = <
+					text = <"Urinflasche">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Steckbecken">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Einlage">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Vorlage">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"Patientenverfügung vorhanden">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"Nein">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"Vorsorgevollmacht vorhanden">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"Nein">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"Fälle">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"Zunehmender Unruhe des Kranken">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Einleitung von Schutzmaßnahmen">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"Fehlender Kooperation in Pflegesituationen">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"Problemen bei der Nahrungs-/ Flüssigkeitsaufnahme">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"Kontaktzeiten">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"Kontakt erlaubt 24/7">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"Kontakt nur während bestimmten Zeiten">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"Weglauftendenzen">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Bevorzugt eher">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Duschen">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Baden">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"*Role (en)">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"*Role (en)">
+					description = <"">
+				>
+				["at0403"] = <
+					text = <"*Relative (en)">
+					description = <"">
+				>
+				["at0404"] = <
+					text = <"*Legal Guardian (en)">
+					description = <"">
+				>
+				["at0405"] = <
+					text = <"Keine">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"Keine">
+					description = <"">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Dementia Information Sheet">
+					description = <"Provides information about a dementia patient's health, habits and general preferences in the casse that they can not do so themselves. Thesheet can be filled out by the patient themselves, relatives, or a carer.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Dementia information sheet for hospital admission">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"Patient">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0013"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0014"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0018"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0019"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0020"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0026"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0027"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Additional details">
+					description = <"*Additional details about the electronic communication. (de)">
+				>
+				["at0031"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0032"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0033"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0034"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0035"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0036"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0037"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0038"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0053"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0054"] = <
+					text = <"Relative">
+					description = <"">
+				>
+				["at0055"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0056"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0057"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0061"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0062"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0063"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0064"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0068"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0069"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0070"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0071"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0072"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0075"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0076"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0077"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0078"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0079"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0080"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0081"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0096"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0143"] = <
+					text = <"Legal Guardian">
+					description = <"">
+				>
+				["at0144"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0145"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0146"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0150"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0151"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0152"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0154"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0157"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0158"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0159"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0160"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0161"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Additional details">
+					description = <"*Additional details about the electronic communication. (de)">
+				>
+				["at0163"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0164"] = <
+					text = <"Address">
+					description = <"*Details about the location of a person, physical building or landmark. (de)">
+				>
+				["at0165"] = <
+					text = <"Address line">
+					description = <"*An unstructured address line representing all relevant street-level or post-box details that would support the identification of a location. (de)">
+					comment = <"*Occurrences for this data element is set to 0..* to allow one or more free text 'Address line' data elements to represent the huge variety of ways that ‘street-level' details may need to be recorded within the context of a specified 'Town'. Multiple address lines can be represented in a template, renamed as 'Address line 1', 'Address line 2,' etc. For example: '7A/52 Davis Street' or 'Apartment 7A' as Address line 1 with '52 Davis Street' as Address line 2; a roadside mail box location, such as 'RMB 725, Princes Highway'; or using a descriptive landmark, such as or 'Corner of Smith & Brown Streets' or 'Second house north of the general store with the red door'. (de)">
+				>
+				["at0166"] = <
+					text = <"City/Town">
+					description = <"*The name of the lowest level locality that contains the address. (de)">
+					comment = <"*For example: suburb, town, city, settlement, village, or community. Coding with an external terminology is preferred, where possible. For example: 'Fitzroy'; 'Manchester'; 'Kingston' or 'Bergen'. (de)">
+				>
+				["at0167"] = <
+					text = <"District/County">
+					description = <"*The name of a local government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'Surf Coast' and 'Yarra' local government councils in Victoria, Australia;and the Parishes of 'Saint Andrew' and 'Kingston' in Jamaica.. (de)">
+				>
+				["at0168"] = <
+					text = <"State/Territory/Province">
+					description = <"*The name of a major government district or geographical area that contains the address. (de)">
+					comment = <"*Coding with an external terminology is preferred, where possible. For example: 'New South Wales' and 'Queensland' in Australia; 'British Columbia' and 'Nova Scotia' in Canada; and the Counties of 'Cornwall', 'Middlesex' & 'Surrey' in Jamaica. (de)">
+				>
+				["at0169"] = <
+					text = <"Postal code">
+					description = <"*The code for a postal delivery area containing the address, as defined by the relevant postal delivery service. (de)">
+					comment = <"*Also known as a postcode or ZIP code.
+ (de)">
+				>
+				["at0170"] = <
+					text = <"Country">
+					description = <"*The name of the country containing the address. (de)">
+					comment = <"*For example: Australia; Canada; Jamaica; or Norway. Coding with an external terminology, such as EN ISO 3166–1 Alpha 2 country code, is recommended. (de)">
+				>
+				["at0185"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the address not captured in other fields. (de)">
+				>
+				["at0186"] = <
+					text = <"Patient Will">
+					description = <"">
+				>
+				["at0189"] = <
+					text = <"Power of Attorney">
+					description = <"">
+				>
+				["at0193"] = <
+					text = <"Contact in cases of">
+					description = <"">
+				>
+				["at0198"] = <
+					text = <"Other">
+					description = <"">
+				>
+				["at0204"] = <
+					text = <"Important Information for contact with the Patient">
+					description = <"">
+				>
+				["at0205"] = <
+					text = <"Religion">
+					description = <"">
+				>
+				["at0206"] = <
+					text = <"Nationality">
+					description = <"">
+				>
+				["at0207"] = <
+					text = <"Mother Tongue">
+					description = <"">
+				>
+				["at0208"] = <
+					text = <"Previous profession">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"Important information">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"Impaired Vision">
+					description = <"">
+				>
+				["at0214"] = <
+					text = <"Impaired Hearing">
+					description = <"">
+				>
+				["at0218"] = <
+					text = <"Understanding of Germann">
+					description = <"">
+				>
+				["at0224"] = <
+					text = <"Speaking ability of German">
+					description = <"">
+				>
+				["at0229"] = <
+					text = <"Nearness and Distance: The Patient">
+					description = <"">
+				>
+				["at0232"] = <
+					text = <"Negative reactions">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"Daily Routines">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Mornings">
+					description = <"">
+				>
+				["at0244"] = <
+					text = <"Midday">
+					description = <"">
+				>
+				["at0245"] = <
+					text = <"Evenings">
+					description = <"">
+				>
+				["at0246"] = <
+					text = <"Nights">
+					description = <"">
+				>
+				["at0247"] = <
+					text = <"To relax">
+					description = <"">
+				>
+				["at0248"] = <
+					text = <"To sleep">
+					description = <"">
+				>
+				["at0249"] = <
+					text = <"In stressful situations">
+					description = <"">
+				>
+				["at0250"] = <
+					text = <"In care situations">
+					description = <"">
+				>
+				["at0251"] = <
+					text = <"Behaviour">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"Wishes and Preferences">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"Anger/defensive behavior at">
+					description = <"">
+				>
+				["at0254"] = <
+					text = <"Fear of">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"Eating and Drinking: The Patient">
+					description = <"">
+				>
+				["at0269"] = <
+					text = <"Daily drinking quantity">
+					description = <"">
+				>
+				["at0270"] = <
+					text = <"Risks">
+					description = <"">
+				>
+				["at0271"] = <
+					text = <"Preferred meals and drinks">
+					description = <"">
+				>
+				["at0272"] = <
+					text = <"Dislikes/ Intolerences">
+					description = <"">
+				>
+				["at0273"] = <
+					text = <"Help required for">
+					description = <"">
+				>
+				["at0274"] = <
+					text = <"Negative reactions">
+					description = <"">
+				>
+				["at0275"] = <
+					text = <"Calm and Sleep">
+					description = <"">
+				>
+				["at0283"] = <
+					text = <"Helpful Tips">
+					description = <"">
+				>
+				["at0284"] = <
+					text = <"Personal Hygiene">
+					description = <"">
+				>
+				["at0290"] = <
+					text = <"Prefers">
+					description = <"">
+				>
+				["at0293"] = <
+					text = <"Help needed when">
+					description = <"">
+				>
+				["at0294"] = <
+					text = <"Negative reactions">
+					description = <"">
+				>
+				["at0295"] = <
+					text = <"Risks">
+					description = <"">
+				>
+				["at0296"] = <
+					text = <"Dressing and Undressing">
+					description = <"">
+				>
+				["at0297"] = <
+					text = <"Favourite clothing piece">
+					description = <"">
+				>
+				["at0298"] = <
+					text = <"Particularities">
+					description = <"">
+				>
+				["at0299"] = <
+					text = <"Negative reactions">
+					description = <"">
+				>
+				["at0300"] = <
+					text = <"Excreting">
+					description = <"">
+				>
+				["at0305"] = <
+					text = <"Planned bathroom times">
+					description = <"">
+				>
+				["at0306"] = <
+					text = <"Assistance">
+					description = <"">
+				>
+				["at0311"] = <
+					text = <"Other">
+					description = <"">
+				>
+				["at0312"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0313"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0314"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0316"] = <
+					text = <"Relationship">
+					description = <"">
+				>
+				["at0317"] = <
+					text = <"Partner">
+					description = <"">
+				>
+				["at0318"] = <
+					text = <"Child">
+					description = <"">
+				>
+				["at0319"] = <
+					text = <"Other">
+					description = <"">
+				>
+				["at0324"] = <
+					text = <"Times">
+					description = <"">
+				>
+				["at0325"] = <
+					text = <"Severity">
+					description = <"">
+				>
+				["at0326"] = <
+					text = <"Light">
+					description = <"">
+				>
+				["at0327"] = <
+					text = <"Difficult">
+					description = <"">
+				>
+				["at0328"] = <
+					text = <"Glasses needed">
+					description = <"">
+				>
+				["at0329"] = <
+					text = <"Severity">
+					description = <"">
+				>
+				["at0330"] = <
+					text = <"Light">
+					description = <"">
+				>
+				["at0331"] = <
+					text = <"Difficult">
+					description = <"">
+				>
+				["at0332"] = <
+					text = <"Hearing Aid Needed">
+					description = <"">
+				>
+				["at0333"] = <
+					text = <"Comprehension">
+					description = <"">
+				>
+				["at0334"] = <
+					text = <"Large">
+					description = <"">
+				>
+				["at0336"] = <
+					text = <"Limited">
+					description = <"">
+				>
+				["at0337"] = <
+					text = <"No understanding">
+					description = <"">
+				>
+				["at0339"] = <
+					text = <"Ability">
+					description = <"">
+				>
+				["at0340"] = <
+					text = <"Large">
+					description = <"">
+				>
+				["at0342"] = <
+					text = <"Limited">
+					description = <"">
+				>
+				["at0343"] = <
+					text = <"Not possible">
+					description = <"">
+				>
+				["at0344"] = <
+					text = <"Patient Preferences">
+					description = <"">
+				>
+				["at0345"] = <
+					text = <"reacts well to bodily contact">
+					description = <"">
+				>
+				["at0346"] = <
+					text = <"prefers distance">
+					description = <"">
+				>
+				["at0347"] = <
+					text = <"Patient Requirements">
+					description = <"">
+				>
+				["at0348"] = <
+					text = <"Recognizes Food">
+					description = <"">
+				>
+				["at0349"] = <
+					text = <"Recognizes Drinks">
+					description = <"">
+				>
+				["at0350"] = <
+					text = <"Eats without assistance">
+					description = <"">
+				>
+				["at0351"] = <
+					text = <"Drinks without Assistance">
+					description = <"">
+				>
+				["at0352"] = <
+					text = <"Needs reminding">
+					description = <"">
+				>
+				["at0353"] = <
+					text = <"Needs time and patience">
+					description = <"">
+				>
+				["at0354"] = <
+					text = <"Needs cutlery to be placed in ahnds">
+					description = <"">
+				>
+				["at0355"] = <
+					text = <"Needs hands/ movements guided">
+					description = <"">
+				>
+				["at0356"] = <
+					text = <"Eats with fingers">
+					description = <"">
+				>
+				["at0357"] = <
+					text = <"Has Dentures">
+					description = <"">
+				>
+				["at0358"] = <
+					text = <"Always needs food guided to mouth">
+					description = <"">
+				>
+				["at0359"] = <
+					text = <"Requires high-calorie diet">
+					description = <"">
+				>
+				["at0360"] = <
+					text = <"Sleeping Problems">
+					description = <"">
+				>
+				["at0361"] = <
+					text = <"Sleeps without issue">
+					description = <"">
+				>
+				["at0362"] = <
+					text = <"Difficulty falling asleep">
+					description = <"">
+				>
+				["at0363"] = <
+					text = <"Gets up during the night">
+					description = <"">
+				>
+				["at0364"] = <
+					text = <"Goes to the toilet around this time">
+					description = <"">
+				>
+				["at0365"] = <
+					text = <"Goes to bed around this time">
+					description = <"">
+				>
+				["at0366"] = <
+					text = <"Wakes up around this time">
+					description = <"">
+				>
+				["at0367"] = <
+					text = <"Requirements">
+					description = <"">
+				>
+				["at0368"] = <
+					text = <"Completely Independent Personal Care">
+					description = <"">
+				>
+				["at0369"] = <
+					text = <"Washes independently at the sink">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Uses washcloth/ glove">
+					description = <"">
+				>
+				["at0371"] = <
+					text = <"Washes upper-body independently">
+					description = <"">
+				>
+				["at0372"] = <
+					text = <"Requires full assistance">
+					description = <"">
+				>
+				["at0373"] = <
+					text = <"Details">
+					description = <"">
+				>
+				["at0374"] = <
+					text = <"Patient has Bladder Control">
+					description = <"">
+				>
+				["at0375"] = <
+					text = <"Patient has Intestinal Control">
+					description = <"">
+				>
+				["at0376"] = <
+					text = <"Patient recognizes toilet">
+					description = <"">
+				>
+				["at0377"] = <
+					text = <"Do not leave Patient alone in the bathroom">
+					description = <"">
+				>
+				["at0378"] = <
+					text = <"Assistance Items">
+					description = <"">
+				>
+				["at0379"] = <
+					text = <"Urine Bottle">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Bedpan">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Insertable garments">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Plans">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"Existing Patient Will">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"Yes">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"No">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"Existing Power of Attorney">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"Yes">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"No">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"Cases">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"Increasing restlessness of the patient">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Introduction of protective measures">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"Lack of cooperation in care situations">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"Problems with food/hydration intake">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"Contact Times">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"Contact Allowed 24/7">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"Contact only during certain times">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"Habit of walking away">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Preferences">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Showering">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Bathing">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"Role">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"Role">
+					description = <"">
+				>
+				["at0403"] = <
+					text = <"Relative">
+					description = <"">
+				>
+				["at0404"] = <
+					text = <"Legal Guardian">
+					description = <"">
+				>
+				["at0405"] = <
+					text = <"None">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"None">
+					description = <"">
+				>
+			>
+		>
+	>

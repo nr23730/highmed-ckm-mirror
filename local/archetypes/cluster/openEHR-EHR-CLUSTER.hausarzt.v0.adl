@@ -1,0 +1,756 @@
+﻿archetype (adl_version=1.4; uid=5f6666ce-45b2-475c-b3b7-c57be8d5bd65)
+	openEHR-EHR-CLUSTER.hausarzt.v0
+
+concept
+	[at0000]	-- Support and Care
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-02-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"*To record which support and care organisations a patient uses and which organisations these are. (en)">
+			use = <"">
+			keywords = <"*Suuport, care, organisation. (en)", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record which support and care organisations a patient uses and which organisations these are.">
+			use = <"">
+			keywords = <"Suuport, care, organisation.", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"E7D5BA05165EC6292264295715639687">
+		["build_uid"] = <"72a098a1-119b-437c-986c-77a5fa202f3e">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Support and Care
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0007] occurrences matches {0..1} matches {    -- General Practitioner/ Specialist
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0053] occurrences matches {0..1} matches {    -- Person
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0054] occurrences matches {0..1} matches {    -- Vorname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0055] occurrences matches {0..1} matches {    -- Nachname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0056] occurrences matches {0..*} matches {    -- Addresse
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							allow_archetype CLUSTER[at0058] occurrences matches {0..*} matches {    -- Telefon
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.electronic_communication(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0042] occurrences matches {0..1} matches {    -- Spokesperson for Healthcare
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0043] occurrences matches {0..1} matches {    -- Relationship to Patient
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0044,    -- Authorized Personal
+									at0045]    -- Legal Guardian
+								}
+							}
+						}
+					}
+					CLUSTER[at0047] occurrences matches {0..1} matches {    -- Person
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0048] occurrences matches {0..1} matches {    -- Vorname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0049] occurrences matches {0..1} matches {    -- Nachname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0050] occurrences matches {0..*} matches {    -- Addresse
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							allow_archetype CLUSTER[at0052] occurrences matches {0..*} matches {    -- Telefon
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.electronic_communication(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0010] occurrences matches {0..1} matches {    -- Nursing Service
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0064] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0065] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0066] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0013] occurrences matches {0..1} matches {    -- Care Service
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0082] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0083] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0084] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0017] occurrences matches {0..1} matches {    -- Pharmacy
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0085] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0086] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0087] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0019] occurrences matches {0..1} matches {    -- Home Emergency Call
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0088] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0089] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0090] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0022] occurrences matches {0..1} matches {    -- Food on Wheels
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0091] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0092] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0093] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0025] occurrences matches {0..1} matches {    -- Home Help
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0094] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0095] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0096] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0028] occurrences matches {0..1} matches {    -- Further Care
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0097] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0098] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0099] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..*} matches {    -- Type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			CLUSTER[at0032] occurrences matches {0..1} matches {    -- Palliative Care is provided
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0037] occurrences matches {0..1} matches {    -- Palliative Card Provided
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0038,    -- Yes
+									at0039]    -- No
+								}
+							}
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..1} matches {    -- Since
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					CLUSTER[at0076] occurrences matches {0..1} matches {    -- Person
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0077] occurrences matches {0..1} matches {    -- Vorname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0078] occurrences matches {0..1} matches {    -- Nachname
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0079] occurrences matches {0..*} matches {    -- Addresse
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							allow_archetype CLUSTER[at0081] occurrences matches {0..*} matches {    -- Telefon
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.electronic_communication(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Unterstützung / Versorgung / Betreuung">
+					description = <"*Support and care organisations relevant to a patient. (en)">
+				>
+				["at0007"] = <
+					text = <"Hausarzt/-ärztin / Facharzt/-ärztin">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Pflegedienst">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Betreuungsdienst">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Apotheke">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Hausnotruf">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Essen auf Rädern">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Haushaltshilfe">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Weitere Versorgung">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Form">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Palliativversorgung">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Seit">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Palliativversorgung wird durchgeführt">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0039"] = <
+					text = <"Nein">
+					description = <"">
+				>
+				["at0042"] = <
+					text = <"Ansprechpartner Betreuungsbereich Gesundheit">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Beziehung zum Patienten">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Autorisiertes Personal">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Gesetzlicher Betreuer">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0048"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0049"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0050"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0052"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0053"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0054"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0055"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0056"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0058"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0064"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0077"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0078"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0079"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0081"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0082"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0083"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0085"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0086"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0087"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0088"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0090"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0091"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0092"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0094"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0095"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0097"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0098"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Support and Care">
+					description = <"Support and care organisations relevant to a patient.">
+				>
+				["at0007"] = <
+					text = <"General Practitioner/ Specialist">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Nursing Service">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Care Service">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Pharmacy">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Home Emergency Call">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Food on Wheels">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Home Help">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Further Care">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Type">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Palliative Care is provided">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Since">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Palliative Card Provided">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"Yes">
+					description = <"">
+				>
+				["at0039"] = <
+					text = <"No">
+					description = <"">
+				>
+				["at0042"] = <
+					text = <"Spokesperson for Healthcare">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Relationship to Patient">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Authorized Personal">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Legal Guardian">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0048"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0049"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0050"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0052"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0053"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0054"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0055"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0056"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0058"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0064"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0077"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0078"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0079"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0081"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0082"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0083"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0085"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0086"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0087"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0088"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0090"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0091"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0092"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0094"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0095"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0097"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0098"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Contact">
+					description = <"">
+				>
+			>
+		>
+	>

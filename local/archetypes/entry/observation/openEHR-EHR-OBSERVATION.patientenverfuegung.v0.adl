@@ -1,0 +1,1176 @@
+﻿archetype (adl_version=1.4; uid=a84b2295-b8c8-49d8-b65d-d75b80baeccb)
+	openEHR-EHR-OBSERVATION.patientenverfuegung.v0
+
+concept
+	[at0000]	-- Patient Will
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-03-27">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"*To record a patient's will regarding their care and assets. (en)">
+			use = <"">
+			keywords = <"*Patient, will, consent. (en)", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a patient's will regarding their care and assets.">
+			use = <"">
+			keywords = <"Patient, will, consent.", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"623FCCFC351CBFFEC5738AE900D8BF23">
+		["build_uid"] = <"eaea1c04-d667-4f4c-afd1-47d0afac0e2d">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Patient Will
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Medical Treatment Provisions
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0007] occurrences matches {0..1} matches {    -- Application
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0203] occurrences matches {0..*} matches {    -- Selected Situations
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0204,    -- If, in all probability, I find myself unavoidably in the immediate process of dying
+															at0205,    -- If I am in the final stages of an incurable, fatal illness, even if the imminent death process is not yet foreseeable. If, as a result of brain damage, my abilities to gain insight, make decisions and come into contact with other people are, in the opinion of two experienced doctors, in all likelihood irretrievable, even if occasional reactions to external stimuli are observed, and death is not yet foreseeable. This applies to direct brain damage, e.g. due to an accident, stroke, inflammation or advanced brain degradation process, as well as to indirect brain damage, e.g. after resuscitation, shock or lung failure. I am aware, and I have taken into consideration when making the decisions here, that in such situations the ability to feel may be preserved, but that an improvement in this condition is extremely unlikely.
+															at0206,    -- If, as a result of an advanced brain breakdown process (e.g. dementia), I am no longer able to consume food and fluids naturally, even with ongoing support.
+															at0207]    -- Comparable medical conditions not expressly mentioned here should be assessed accordingly.
+														}
+													}
+												}
+											}
+											ELEMENT[at0208] occurrences matches {0..*} matches {    -- Application to all situations named by selection
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0209,    -- I demand soothing nursing measures, especially oral care to avoid the feeling of thirst as well as soothing medical measures, medication to effectively combat pain, shortness of breath, fear, restlessness, vomiting and other symptoms of illness. I accept the possibility of my lifespan being shortened through these measures.
+															at0210,    -- I prohibit all life-prolonging or life-sustaining therapies or measures that do not have the sole aim of relieving suffering. In particular, I prohibit mechanical ventilation, artificial nutrition, dialysis or surgery. Measures that have already been initiated must be ended.
+															at0211,    -- This also applies to resuscitation measures.
+															at0212,    -- If I am wearing a defibrillator, it must be deactivated.
+															at0213]    -- If there are any uncertainties regarding the implementation of my wishes described in this decree, I also request that ethical advice be consulted for clarification.
+														}
+													}
+												}
+											}
+											CLUSTER[at0037] occurrences matches {0..1} matches {    -- In the event of a vegetative coma situation, I will make one of the following arrangements
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0214] occurrences matches {0..1} matches {    -- Variants
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0215,    -- Variant 1
+																	at0216]    -- Variant 2
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0046] occurrences matches {0..1} matches {    -- Organdonation
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0162] occurrences matches {0..1} matches {    -- Declaration of Awareness
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0047] occurrences matches {0..1} matches {    -- I have an organ donor card
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0051] occurrences matches {0..1} matches {    -- Support
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0052] occurrences matches {0..1} matches {    -- I would like support from
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0053] occurrences matches {0..1} matches {    -- The following Person
+														value matches {
+															DV_BOOLEAN matches {*}
+														}
+													}
+													CLUSTER[at0054] occurrences matches {0..1} matches {    -- Person
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0055] occurrences matches {0..1} matches {    -- First Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0056] occurrences matches {0..1} matches {    -- Last Name
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0163] occurrences matches {0..1} matches {    -- Date of Birth
+																value matches {
+																	DV_DATE matches {*}
+																}
+															}
+															allow_archetype CLUSTER[at0059] occurrences matches {0..*} matches {    -- Telephone
+																include
+																	archetype_id/value matches {/openEHR-EHR-CLUSTER\.electronic_communication(-[a-zA-Z0-9_]+)*\.v1/}
+															}
+														}
+													}
+													ELEMENT[at0060] occurrences matches {0..1} matches {    -- a hospice/palliative service
+														value matches {
+															DV_BOOLEAN matches {*}
+														}
+													}
+												}
+											}
+											ELEMENT[at0061] occurrences matches {0..*} matches {    -- Hospital/hospice or care facility
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0157] occurrences matches {0..1} matches {    -- Home Care Preference Clause
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0066] occurrences matches {0..*} matches {    -- Additional Instructions
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0217] occurrences matches {0..1} matches {    -- Declaration of Consent
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0218] occurrences matches {0..1} matches {    -- Info Text Block
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											CLUSTER[at0219] occurrences matches {0..1} matches {    -- Consent
+												items cardinality matches {1..*; unordered} matches {
+													CLUSTER[at0220] occurrences matches {0..1} matches {    -- Consent of the future trustee
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0221] occurrences matches {0..1} matches {    -- Form of consent
+																value matches {
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0222,    -- Written
+																			at0223]    -- Verbal
+																		}
+																	}
+																}
+															}
+															ELEMENT[at0224] occurrences matches {0..1} matches {    -- Consent Agreement
+																value matches {
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0225,    -- Accept
+																			at0226]    -- Decline
+																		}
+																	}
+																}
+															}
+															allow_archetype ELEMENT[at0227] occurrences matches {0..*} matches {    -- Multimedia
+																include
+																	archetype_id/value matches {/.*/}
+															}
+															ELEMENT[at0228] occurrences matches {0..1} matches {    -- Date
+																value matches {
+																	DV_DATE matches {*}
+																}
+															}
+															ELEMENT[at0229] occurrences matches {0..1} matches {    -- Place
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0230] occurrences matches {0..*} matches {    -- Reason for Declination
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0231] occurrences matches {0..1} matches {    -- Consent
+												items cardinality matches {1..*; unordered} matches {
+													CLUSTER[at0232] occurrences matches {0..1} matches {    -- Author's Consent
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0233] occurrences matches {0..1} matches {    -- Form of consent
+																value matches {
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0234,    -- Written
+																			at0235]    -- Verbal
+																		}
+																	}
+																}
+															}
+															ELEMENT[at0236] occurrences matches {0..1} matches {    -- Consent Agreement
+																value matches {
+																	DV_CODED_TEXT matches {
+																		defining_code matches {
+																			[local::
+																			at0237,    -- Accept
+																			at0238]    -- Decline
+																		}
+																	}
+																}
+															}
+															allow_archetype ELEMENT[at0239] occurrences matches {0..1} matches {    -- Multimedia
+																include
+																	archetype_id/value matches {/.*/}
+															}
+															ELEMENT[at0240] occurrences matches {0..1} matches {    -- Date
+																value matches {
+																	DV_DATE matches {*}
+																}
+															}
+															ELEMENT[at0241] occurrences matches {0..1} matches {    -- Place
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0242] occurrences matches {0..1} matches {    -- Reason for Declination
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0081] occurrences matches {0..1} matches {    -- Consultancy
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0243] occurrences matches {0..1} matches {    -- Person
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0244] occurrences matches {0..1} matches {    -- Vorname
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0245] occurrences matches {0..1} matches {    -- Nachname
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													allow_archetype CLUSTER[at0246] occurrences matches {0..*} matches {    -- Addresse
+														include
+															archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1/}
+													}
+												}
+											}
+											CLUSTER[at0089] occurrences matches {0..1} matches {    -- Electronic communication
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0090] occurrences matches {0..1} matches {    -- Type
+														value matches {
+															DV_TEXT matches {*}
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0091,    -- Mobile
+																	at0092,    -- Telephone
+																	at0093]    -- Email
+																}
+															}
+														}
+													}
+													ELEMENT[at0096] matches {    -- Value
+														value matches {
+															DV_TEXT matches {*}
+															DV_URI matches {*}
+														}
+													}
+													ELEMENT[at0097] occurrences matches {0..1} matches {    -- Purpose
+														value matches {
+															DV_TEXT matches {*}
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0098,    -- Business Use
+																	at0099,    -- Personal Use
+																	at0100]    -- Both business and personal use
+																}
+															}
+														}
+													}
+													ELEMENT[at0102] occurrences matches {0..1} matches {    -- Comment
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0125] occurrences matches {0..1} matches {    -- Confirmation of Will
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0164] occurrences matches {0..1} matches {    -- Info Text Block
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0126] occurrences matches {0..1} matches {    -- No Changes
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											CLUSTER[at0128] occurrences matches {0..1} matches {    -- Changes confirmed by
+												items cardinality matches {1..*; unordered} matches {
+													CLUSTER[at0249] occurrences matches {0..1} matches {    -- Person
+														items cardinality matches {1..*; unordered} matches {
+															ELEMENT[at0250] occurrences matches {0..1} matches {    -- Vorname
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															ELEMENT[at0251] occurrences matches {0..1} matches {    -- Nachname
+																value matches {
+																	DV_TEXT matches {*}
+																}
+															}
+															allow_archetype CLUSTER[at0252] occurrences matches {0..*} matches {    -- Addresse
+																include
+																	archetype_id/value matches {/openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1/}
+															}
+															allow_archetype CLUSTER[at0254] occurrences matches {0..*} matches {    -- Telefon
+																include
+																	archetype_id/value matches {/openEHR-EHR-CLUSTER\.electronic_communication(-[a-zA-Z0-9_]+)*\.v1/}
+															}
+														}
+													}
+													ELEMENT[at0255] occurrences matches {0..1} matches {    -- Date
+														value matches {
+															DV_DATE matches {*}
+														}
+													}
+												}
+											}
+											ELEMENT[at0165] occurrences matches {0..1} matches {    -- Info Text Block
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0077] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0196] occurrences matches {0..1} matches {    -- Document of Consent
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0202] occurrences matches {0..1} matches {    -- Review Date
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pantientenverfügung">
+					description = <"*Patient's Will (en)">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Bestimmungen für die medizinische Behandlung">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Anwendung">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Für den Fall einer Situation des sogenannten Wachkomas treffe ich eine der folgenden Regelungen">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Organspende">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Es ist mir bewusst, dass Organe nur nach Feststellung des Hirntodes bei aufrechterhaltenem Kreislauf entnommen werden können. Deshalb gestatte ich ausnahmsweise für den Fall, dass bei mir eine Organspende medizinisch infrage kommt, die kurzfristige (Stunden bis höchstens wenige Tage umfassende) Durchführung intensivmedizinischer Maßnahmen zur Bestimmung des Hirntodes nach den Richtlinien der Bundesärztekammer und zur anschließenden Entnahme der Organe.">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Beistand">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"Ich möchte Beistand durch">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Folgende Person">
+					description = <"">
+				>
+				["at0054"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0055"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0056"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0059"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0060"] = <
+					text = <"einen Hospiz-/ Palliativdienst">
+					description = <"">
+				>
+				["at0061"] = <
+					text = <"Krankenhaus/Hospiz oder Pflegeeinrichtung">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"Zusätzliche Anweisungen">
+					description = <"">
+				>
+				["at0077"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0081"] = <
+					text = <"Beratung">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0090"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0091"] = <
+					text = <"Handy">
+					description = <"">
+				>
+				["at0092"] = <
+					text = <"Telefon">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"E-Mail">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0097"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0098"] = <
+					text = <"Geschäftliche Nutzung">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0100"] = <
+					text = <"Geschäftliche Nutzung und Persönlicher Gebrauch">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0125"] = <
+					text = <"Bestätigung der Patientenverfügung">
+					description = <"">
+				>
+				["at0126"] = <
+					text = <"Keine Änderungen">
+					description = <"">
+				>
+				["at0128"] = <
+					text = <"Änderungen bestätigt durch">
+					description = <"">
+				>
+				["at0157"] = <
+					text = <"Bevorzugungsklausel für häusliche Pflege">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Aufklärungserklärung des Organspenders">
+					description = <"">
+				>
+				["at0163"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0164"] = <
+					text = <"Info Textblock">
+					description = <"">
+				>
+				["at0165"] = <
+					text = <"Info Textblock">
+					description = <"">
+				>
+				["at0196"] = <
+					text = <"Einwilligungsdokument">
+					description = <"">
+				>
+				["at0202"] = <
+					text = <"Überprüfungsdatum">
+					description = <"">
+				>
+				["at0203"] = <
+					text = <"Ausgewählte Situationen">
+					description = <"">
+				>
+				["at0204"] = <
+					text = <"Wenn ich mich aller Wahrscheinlichkeit nach unabwendbar im unmittelbaren Sterbeprozess befinde.">
+					description = <"">
+				>
+				["at0205"] = <
+					text = <"Wenn ich mich im Endstadium einer unheilbaren, tödlich verlaufenden Krankheit befi nde, selbst wenn der unmittelbare Sterbeprozess noch nicht absehbar ist. Wenn in Folge einer Gehirnschädigung meine Fähigkeiten, Einsichten zu gewinnen, Entscheidungen zu treffen und mit anderen Menschen in Kontakt zu treten, nach Einschätzung zweier erfahrener Ärzt:innnen aller Wahrscheinlichkeit nach unwiederbringlich erloschen sind, selbst wenn gelegentliche Reaktionen auf äußere Reize beobachtet werden und der Tod noch nicht absehbar ist. Dies gilt für eine direkte Gehirnschädigung z.B. durch Unfall, Schlaganfall, Entzündung oder fortgeschrittenen Hirnabbauprozess ebenso wie für indirekte Gehirnschädigung z.B. nach Wiederbelebung, Schock oder Lungenversagen. Es ist mir bewusst und ich habe bei den hierniedergelegten Entscheidungen bedacht, dass in solchen Situationen die Fähigkeit zu Empfi ndungen erhalten sein kann, dass aber eine Besserung dieses Zustands äußerst unwahrscheinlich ist.">
+					description = <"">
+				>
+				["at0206"] = <
+					text = <"Wenn ich in Folge eines weit fortgeschrittenen Hirnabbauprozesses (z. B. bei Demenzerkrankung) auch mit ausdauernder Hilfestellung nicht mehr in der Lage bin, Nahrung und Flüssigkeit auf natürliche Weise zu mir zu nehmen.">
+					description = <"">
+				>
+				["at0207"] = <
+					text = <"Vergleichbare, hier nicht ausdrücklich erwähnte Krankheitszustände sollen entsprechend beurteilt werden.">
+					description = <"">
+				>
+				["at0208"] = <
+					text = <"Anwendung auf alle durch Auswahl genannten Situationen">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"Ich verlange lindernde pfl egerische Maßnahmen, insbesondere Mundpfl ege zur Vermeidung des Durstgefühls sowie lindernde ärztliche Maßnahmen, Medikamente zur wirksamen Bekämpfung von Schmerzen, Luftnot, Angst, Unruhe, Erbrechen und anderen Krankheitserscheinungen. Die Möglichkeit einer Verkürzung meiner Lebenszeit durch diese Maßnahmen nehme ich in Kauf.">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"Ich untersage alle lebensverlängernden oder lebenserhaltenden Therapien oder Maßnahmen, die nicht ausschließlich die Linderung von Leiden zum Ziel haben. Insbesondere verbiete ich maschinelle Beatmung, künstliche Ernährung, Dialyse oder Operationen. Bereits eingeleitete Maßnahmen sind zu beenden.">
+					description = <"">
+				>
+				["at0211"] = <
+					text = <"Dies gilt auch Wiederbelebungsmaßnahmen.">
+					description = <"">
+				>
+				["at0212"] = <
+					text = <"Sollte ich Träger:in eines Defibrillators sein, so ist dieser zu deaktivieren.">
+					description = <"">
+				>
+				["at0213"] = <
+					text = <"Sollte es Unklarheiten zur Umsetzung meines in dieser Verfügung beschriebenen Willens geben, so verlange ich zur Klärung auch die Hinzuziehung einer ethischen Beratung.">
+					description = <"">
+				>
+				["at0214"] = <
+					text = <"Varianten">
+					description = <"">
+				>
+				["at0215"] = <
+					text = <"Variante 1">
+					description = <"">
+				>
+				["at0216"] = <
+					text = <"Variante 2">
+					description = <"">
+				>
+				["at0217"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0218"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0219"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0220"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0221"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0222"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0223"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0224"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0225"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0226"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0227"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0228"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0229"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0230"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0231"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0232"] = <
+					text = <"Author's Consent">
+					description = <"">
+				>
+				["at0233"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0234"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0235"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0236"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0237"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0238"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0239"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0240"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0241"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0244"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0245"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0246"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0249"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0250"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0251"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0252"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0254"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0255"] = <
+					text = <"Datum">
+					description = <"">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Patient Will">
+					description = <"Patient's Will">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Medical Treatment Provisions">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Application">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"In the event of a vegetative coma situation, I will make one of the following arrangements">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Organdonation">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"I have an organ donor card">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Support">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"I would like support from">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"The following Person">
+					description = <"">
+				>
+				["at0054"] = <
+					text = <"Person">
+					description = <"*An individual human being. (de)">
+				>
+				["at0055"] = <
+					text = <"First Name">
+					description = <"*The unstructured name for the individual. (de)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0056"] = <
+					text = <"Last Name">
+					description = <"*A label for the individual. (de)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0059"] = <
+					text = <"Telephone">
+					description = <"*Details about one or more types of electronic communication for the individual. (de)">
+				>
+				["at0060"] = <
+					text = <"a hospice/palliative service">
+					description = <"">
+				>
+				["at0061"] = <
+					text = <"Hospital/hospice or care facility">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"Additional Instructions">
+					description = <"">
+				>
+				["at0077"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0081"] = <
+					text = <"Consultancy">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Electronic communication">
+					description = <"*Details about a specified type of electronic communication. (de)">
+				>
+				["at0090"] = <
+					text = <"Type">
+					description = <"*The type or form of electronic communication. (de)">
+					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (de)">
+				>
+				["at0091"] = <
+					text = <"Mobile">
+					description = <"">
+				>
+				["at0092"] = <
+					text = <"Telephone">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"Value">
+					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (de)">
+					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (de)">
+				>
+				["at0097"] = <
+					text = <"Purpose">
+					description = <"*The purpose or use for the identified type of electronic communication. (de)">
+				>
+				["at0098"] = <
+					text = <"Business Use">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Personal Use">
+					description = <"">
+				>
+				["at0100"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"Comment">
+					description = <"*Additional narrative about the electronic communication not captured in other fields. (de)">
+				>
+				["at0125"] = <
+					text = <"Confirmation of Will">
+					description = <"">
+				>
+				["at0126"] = <
+					text = <"No Changes">
+					description = <"">
+				>
+				["at0128"] = <
+					text = <"Changes confirmed by">
+					description = <"">
+				>
+				["at0157"] = <
+					text = <"Home Care Preference Clause">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Declaration of Awareness">
+					description = <"">
+				>
+				["at0163"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0164"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0165"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0196"] = <
+					text = <"Document of Consent">
+					description = <"">
+				>
+				["at0202"] = <
+					text = <"Review Date">
+					description = <"">
+				>
+				["at0203"] = <
+					text = <"Selected Situations">
+					description = <"">
+				>
+				["at0204"] = <
+					text = <"If, in all probability, I find myself unavoidably in the immediate process of dying">
+					description = <"">
+				>
+				["at0205"] = <
+					text = <"If I am in the final stages of an incurable, fatal illness, even if the imminent death process is not yet foreseeable. If, as a result of brain damage, my abilities to gain insight, make decisions and come into contact with other people are, in the opinion of two experienced doctors, in all likelihood irretrievable, even if occasional reactions to external stimuli are observed, and death is not yet foreseeable. This applies to direct brain damage, e.g. due to an accident, stroke, inflammation or advanced brain degradation process, as well as to indirect brain damage, e.g. after resuscitation, shock or lung failure. I am aware, and I have taken into consideration when making the decisions here, that in such situations the ability to feel may be preserved, but that an improvement in this condition is extremely unlikely.">
+					description = <"">
+				>
+				["at0206"] = <
+					text = <"If, as a result of an advanced brain breakdown process (e.g. dementia), I am no longer able to consume food and fluids naturally, even with ongoing support.">
+					description = <"">
+				>
+				["at0207"] = <
+					text = <"Comparable medical conditions not expressly mentioned here should be assessed accordingly.">
+					description = <"">
+				>
+				["at0208"] = <
+					text = <"Application to all situations named by selection">
+					description = <"">
+				>
+				["at0209"] = <
+					text = <"I demand soothing nursing measures, especially oral care to avoid the feeling of thirst as well as soothing medical measures, medication to effectively combat pain, shortness of breath, fear, restlessness, vomiting and other symptoms of illness. I accept the possibility of my lifespan being shortened through these measures.">
+					description = <"">
+				>
+				["at0210"] = <
+					text = <"I prohibit all life-prolonging or life-sustaining therapies or measures that do not have the sole aim of relieving suffering. In particular, I prohibit mechanical ventilation, artificial nutrition, dialysis or surgery. Measures that have already been initiated must be ended.">
+					description = <"">
+				>
+				["at0211"] = <
+					text = <"This also applies to resuscitation measures.">
+					description = <"">
+				>
+				["at0212"] = <
+					text = <"If I am wearing a defibrillator, it must be deactivated.">
+					description = <"">
+				>
+				["at0213"] = <
+					text = <"If there are any uncertainties regarding the implementation of my wishes described in this decree, I also request that ethical advice be consulted for clarification.">
+					description = <"">
+				>
+				["at0214"] = <
+					text = <"Variants">
+					description = <"">
+				>
+				["at0215"] = <
+					text = <"Variant 1">
+					description = <"">
+				>
+				["at0216"] = <
+					text = <"Variant 2">
+					description = <"">
+				>
+				["at0217"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0218"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0219"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0220"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0221"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0222"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0223"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0224"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0225"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0226"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0227"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0228"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0229"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0230"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0231"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0232"] = <
+					text = <"Author's Consent">
+					description = <"">
+				>
+				["at0233"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0234"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0235"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0236"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0237"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0238"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0239"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent">
+				>
+				["at0240"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0241"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0244"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0245"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0246"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0249"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0250"] = <
+					text = <"Vorname">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0251"] = <
+					text = <"Nachname">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0252"] = <
+					text = <"Addresse">
+					description = <"Details about an address for the individual.">
+				>
+				["at0254"] = <
+					text = <"Telefon">
+					description = <"Details about one or more types of electronic communication for the individual.">
+				>
+				["at0255"] = <
+					text = <"Date">
+					description = <"">
+				>
+			>
+		>
+	>
