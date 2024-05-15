@@ -1,0 +1,454 @@
+﻿archetype (adl_version=1.4; uid=4e24b778-ccfe-438f-9638-2655aecb3109)
+	openEHR-EHR-EVALUATION.living_situation.v0
+
+concept
+	[at0000]	-- Living Situation
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-05-14">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung der aktuellen Lebenssituation eines Patienten.">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a patient's current living situation.">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"606AD8692CB8B939D49FA67FA4824094">
+		["build_uid"] = <"723d47b2-1afd-4b64-bc16-e6808c62fbfe">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Living Situation
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..*} matches {    -- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Living Arrangement
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0004,    -- Own apartment/ alone
+									at0005,    -- With relatives/ another person
+									at0006,    -- Assisted living
+									at0007]    -- Nursing home
+								}
+							}
+						}
+					}
+					CLUSTER[at0030] occurrences matches {0..1} matches {    -- Institution
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0031] occurrences matches {0..1} matches {    -- Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0032] occurrences matches {0..1} matches {    -- Contact
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0033] occurrences matches {0..1} matches {    -- Address
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0034] occurrences matches {0..1} matches {    -- Use
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0035,    -- Home
+											at0036,    -- Work
+											at0037,    -- Temp
+											at0038]    -- Old
+										}
+									}
+								}
+							}
+							ELEMENT[at0039] occurrences matches {0..1} matches {    -- Type
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0040,    -- Postal
+											at0041,    -- Physical
+											at0042]    -- Both
+										}
+									}
+								}
+							}
+							ELEMENT[at0043] occurrences matches {0..1} matches {    -- Text
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0044] occurrences matches {0..*} matches {    -- Line
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0045] occurrences matches {0..1} matches {    -- City
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0046] occurrences matches {0..1} matches {    -- District
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0047] occurrences matches {0..1} matches {    -- Postal code
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0048] occurrences matches {0..1} matches {    -- Country
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0049] occurrences matches {0..1} matches {    -- Valid period start
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0050] occurrences matches {0..1} matches {    -- Valid period end
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..*} matches {    -- Household members
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {    -- Additional Details
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..*} matches {    -- Pets
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Living Situation">
+					description = <"living_situation">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Description">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Living Arrangement">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"Own apartment/ alone">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"With relatives/ another person">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Assisted living">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Nursing home">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Household members">
+					description = <"The number of individuals who belong to the household.">
+				>
+				["at0009"] = <
+					text = <"Additional Details">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Comment">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Pets">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Contact">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0034"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0035"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0036"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0037"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0038"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0039"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0040"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0041"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0042"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0043"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0044"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0045"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0046"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0047"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0048"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0049"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0050"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Wohnsituation">
+					description = <"*living_situation (en)">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beschreibung">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Wohnform">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"*Own apartment/ alone (en)">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"*With relatives/ another person (en)">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"*Assisted living (en)">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"*Nursing home (en)">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Haushaltmitglieder">
+					description = <"*The number of individuals who belong to the household. (en)">
+				>
+				["at0009"] = <
+					text = <"Additional Details">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Kommentar">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Haustiere">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Institution">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Name">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Kontakt">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0034"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0035"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0036"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0037"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0038"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0039"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0040"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0041"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0042"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0043"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0044"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0045"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0046"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0047"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0048"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0049"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0050"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+			>
+		>
+	>

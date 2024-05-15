@@ -1,0 +1,2045 @@
+﻿archetype (adl_version=1.4; uid=ff69d17e-e6d3-460a-8e68-b22e962c4b57)
+	openEHR-EHR-EVALUATION.power_of_attorney.v0
+
+concept
+	[at0000]	-- power_of attorney
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2024-03-16">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung der Entscheidung eines Patienten darüber, wem die Organisation seiner rechtlichen Rechte übertragen werden soll">
+			use = <"">
+			keywords = <"Vorsorgevollmacht, Person, Einwilligung", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a patient's decision regarding whom should be given organisation of their legal procedures.">
+			use = <"">
+			keywords = <"Power of attorney, person, consent.", ...>
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"AF58F104DC1E6F478241613F265ED687">
+		["build_uid"] = <"4d2f7237-4cc4-4769-b916-6e7c761a7c1f">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- power_of attorney
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					CLUSTER[at0014] occurrences matches {0..1} matches {    -- Power of Attorney
+						items cardinality matches {1..*; unordered} matches {
+							CLUSTER[at0015] occurrences matches {0..3} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0309] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0429] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0430] occurrences matches {0..1} matches {    -- Use
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0431,    -- Home
+													at0432,    -- Work
+													at0433,    -- Temp
+													at0434]    -- Old
+												}
+											}
+										}
+									}
+									ELEMENT[at0435] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0436,    -- Postal
+													at0437,    -- Physical
+													at0438]    -- Both
+												}
+											}
+										}
+									}
+									ELEMENT[at0439] occurrences matches {0..1} matches {    -- Text
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0440] occurrences matches {0..*} matches {    -- Line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0441] occurrences matches {0..1} matches {    -- City
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0442] occurrences matches {0..1} matches {    -- District
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0443] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0444] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0445] occurrences matches {0..1} matches {    -- Valid period start
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0446] occurrences matches {0..1} matches {    -- Valid period end
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0501] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0502] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0503,    -- Mobile (cellular) telephone
+													at0504,    -- Telephone (excluding mobile telephone)
+													at0505,    -- Email
+													at0506,    -- Pager
+													at0507]    -- Fax
+												}
+											}
+										}
+									}
+									ELEMENT[at0508] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0509] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0510,    -- Business use
+													at0511,    -- Personal use
+													at0512]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0513] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0514] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0083] occurrences matches {0..1} matches {    -- Individual Power of Attorney Cases
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0370] occurrences matches {0..1} matches {    -- Cases
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0384,    -- The aforementioned persons may represent me in all matters relating to health care and outpatient or (partial) inpatient care, including the associated financial matters.
+													at0385,    -- You are allowed to take part in all measures to examine the state of health and in medical treatments and consent to medical interventions, even if they could endanger life or my life could suffer serious or long-term damage to health (Section 1904 Paragraph 1 BGB).
+													at0386,    -- You may give your consent to any measures to examine the state of health and to medical treatments and refuse or revoke medical interventions, even if the measure is not carried out could endanger my life or cause me to suffer a serious or prolonged injury could suffer permanent damage to health (Section 1904 Paragraph 2 BGB). So you can too Give consent to refrain from or terminate life-prolonging measures.
+													at0387,    -- You may also consent to coercive medical measures (Section 1906a Para. 1 BGB).
+													at0388,    -- You may view medical records and authorize their release to third parties. I release all treating doctors and non-medical staff from their duty of confidentiality towards authorized persons.
+													at0389,    -- The aforementioned people can determine the details of my stay.
+													at0390]    -- You can request accommodation with deprivation of liberty (§ 1906 para. 1 BGB), measures that deprive you of your liberty (e.g. bed rails, medication and the like) and transport to a hospital to carry out coercive medical measures (§ 1906a para. 4 BGB) decide as long as something like this is necessary for my well-being.
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0086] occurrences matches {0..1} matches {    -- Care for the dead, burial and organ donation
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0424] occurrences matches {0..1} matches {    -- Permitted Person
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0425,    -- Aforementioned Person (s)
+											at0426]    -- Other
+										}
+									}
+								}
+							}
+							CLUSTER[at0089] occurrences matches {0..1} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0090] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0091] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0322] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0515] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0516] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0517,    -- Mobile (cellular) telephone
+													at0518,    -- Telephone (excluding mobile telephone)
+													at0519,    -- Email
+													at0520,    -- Pager
+													at0521]    -- Fax
+												}
+											}
+										}
+									}
+									ELEMENT[at0522] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0523] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0524,    -- Business use
+													at0525,    -- Personal use
+													at0526]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0527] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0528] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0447] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0448] occurrences matches {0..1} matches {    -- Use
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0449,    -- Home
+													at0450,    -- Work
+													at0451,    -- Temp
+													at0452]    -- Old
+												}
+											}
+										}
+									}
+									ELEMENT[at0453] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0454,    -- Postal
+													at0455,    -- Physical
+													at0456]    -- Both
+												}
+											}
+										}
+									}
+									ELEMENT[at0457] occurrences matches {0..1} matches {    -- Text
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0458] occurrences matches {0..*} matches {    -- Line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0459] occurrences matches {0..1} matches {    -- City
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0460] occurrences matches {0..1} matches {    -- District
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0461] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0462] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0463] occurrences matches {0..1} matches {    -- Valid period start
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0464] occurrences matches {0..1} matches {    -- Valid period end
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0380] occurrences matches {0..1} matches {    -- Granting Power
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0381,    -- Granting power of attorney for the care of the dead and burial
+											at0382]    -- Granting power of attorney for organ donation.
+										}
+									}
+								}
+							}
+							ELEMENT[at0383] occurrences matches {0..1} matches {    -- The specifications I make in an organ donor card take precedence.
+								value matches {
+									DV_BOOLEAN matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0133] occurrences matches {0..1} matches {    -- General Power of Attorney
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0427] occurrences matches {0..1} matches {    -- Permitted Person
+								value matches {
+									DV_CODED_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0136] occurrences matches {0..1} matches {    -- Person
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0137] occurrences matches {0..1} matches {    -- First Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0138] occurrences matches {0..1} matches {    -- Last Name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0323] occurrences matches {0..1} matches {    -- Date of Birth
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0529] occurrences matches {0..1} matches {    -- Electronic communication
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0530] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0531,    -- Mobile (cellular) telephone
+													at0532,    -- Telephone (excluding mobile telephone)
+													at0533,    -- Email
+													at0534,    -- Pager
+													at0535]    -- Fax
+												}
+											}
+										}
+									}
+									ELEMENT[at0536] matches {    -- Value
+										value matches {
+											DV_TEXT matches {*}
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0537] occurrences matches {0..1} matches {    -- Purpose
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0538,    -- Business use
+													at0539,    -- Personal use
+													at0540]    -- Both business and personal use
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0541] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0542] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0465] occurrences matches {0..1} matches {    -- Address
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0466] occurrences matches {0..1} matches {    -- Use
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0467,    -- Home
+													at0468,    -- Work
+													at0469,    -- Temp
+													at0470]    -- Old
+												}
+											}
+										}
+									}
+									ELEMENT[at0471] occurrences matches {0..1} matches {    -- Type
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0472,    -- Postal
+													at0473,    -- Physical
+													at0474]    -- Both
+												}
+											}
+										}
+									}
+									ELEMENT[at0475] occurrences matches {0..1} matches {    -- Text
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0476] occurrences matches {0..*} matches {    -- Line
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0477] occurrences matches {0..1} matches {    -- City
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0478] occurrences matches {0..1} matches {    -- District
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0479] occurrences matches {0..1} matches {    -- Postal code
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0480] occurrences matches {0..1} matches {    -- Country
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0481] occurrences matches {0..1} matches {    -- Valid period start
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0482] occurrences matches {0..1} matches {    -- Valid period end
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0178] occurrences matches {0..1} matches {    -- General power of attorney cases
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0391] occurrences matches {0..1} matches {    -- Cases
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0392,    -- They may access all of my data on the World Wide Web (Internet), in particular user accounts, regardless of the access medium (e.g. PC, tablet, smartphone) and has the right to decide whether this content should or may be retained, changed or deleted . You may use and request all access data required for this purpose.
+													at0393,    -- The named person(s) may consult me, particularly in financial matters and housing matters represent.
+													at0394,    -- They may represent me in and out of court against people and in all legally permissible cases.
+													at0395,    -- They may accept and open the letters and mail intended for me.
+													at0396,    -- You may grant sub-authorization for certain types of transactions or for individual transactions, exempt from the restrictions of Section 181 of the German Civil Code (BGB).
+													at0397]    -- The power of attorney should be valid beyond my death until it is revoked by my heirs.
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0398] occurrences matches {0..1} matches {    -- Declaration of Consent
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0399] occurrences matches {0..1} matches {    -- Info Text Block
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0400] occurrences matches {0..1} matches {    -- Consent
+								items cardinality matches {1..*; unordered} matches {
+									CLUSTER[at0401] occurrences matches {0..1} matches {    -- Consent of the future trustee
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0402] occurrences matches {0..1} matches {    -- Form of consent
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0403,    -- Written
+															at0404]    -- Verbal
+														}
+													}
+												}
+											}
+											ELEMENT[at0405] occurrences matches {0..1} matches {    -- Consent Agreement
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0406,    -- Accept
+															at0407]    -- Decline
+														}
+													}
+												}
+											}
+											allow_archetype ELEMENT[at0408] occurrences matches {0..*} matches {    -- Multimedia
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0409] occurrences matches {0..1} matches {    -- Date
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+											ELEMENT[at0410] occurrences matches {0..1} matches {    -- Place
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0411] occurrences matches {0..*} matches {    -- Reason for Declination
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+							CLUSTER[at0412] occurrences matches {0..1} matches {    -- Consent
+								items cardinality matches {1..*; unordered} matches {
+									CLUSTER[at0413] occurrences matches {0..1} matches {    -- Author's Consent
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0414] occurrences matches {0..1} matches {    -- Form of consent
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0415,    -- Written
+															at0416]    -- Verbal
+														}
+													}
+												}
+											}
+											ELEMENT[at0417] occurrences matches {0..1} matches {    -- Consent Agreement
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0418,    -- Accept
+															at0419]    -- Decline
+														}
+													}
+												}
+											}
+											allow_archetype ELEMENT[at0420] occurrences matches {0..1} matches {    -- Multimedia
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0421] occurrences matches {0..1} matches {    -- Date
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+											ELEMENT[at0422] occurrences matches {0..1} matches {    -- Place
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0423] occurrences matches {0..1} matches {    -- Reason for Declination
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0084] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0294] occurrences matches {0..*} matches {    -- Document of Consent
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0308] occurrences matches {0..1} matches {    -- Review Date
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"power_of attorney">
+					description = <"Vollmacht, die ein Patient einer anderen Person(en) erteilt">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Vorsorgevollmacht">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Person">
+					description = <"*An individual human being. (en)">
+				>
+				["at0016"] = <
+					text = <"Vorname">
+					description = <"*The unstructured name for the individual. (en)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (en)">
+				>
+				["at0017"] = <
+					text = <"Nachname">
+					description = <"*A label for the individual.
+ (en)">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0083"] = <
+					text = <"Einzelvorsorgevollmachtfälle">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0086"] = <
+					text = <"Totensorge, Bestattung und Organspende">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Person">
+					description = <"*An individual human being. (en)">
+				>
+				["at0090"] = <
+					text = <"Vorname">
+					description = <"*The unstructured name for the individual. (en)">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0091"] = <
+					text = <"Nachname">
+					description = <"*A label for the individual. (en)">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0133"] = <
+					text = <"Generalvollmacht">
+					description = <"">
+				>
+				["at0136"] = <
+					text = <"Person">
+					description = <"*An individual human being. (en)">
+				>
+				["at0137"] = <
+					text = <"Vorname">
+					description = <"*The unstructured name for the individual. (en)">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (en)">
+				>
+				["at0138"] = <
+					text = <"Nachname">
+					description = <"*A label for the individual. (en)">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (en)">
+				>
+				["at0178"] = <
+					text = <"Generalvollmacht Fälle">
+					description = <"">
+				>
+				["at0294"] = <
+					text = <"Einwilligungsdokument">
+					description = <"">
+				>
+				["at0308"] = <
+					text = <"Überprüfungsdatum">
+					description = <"">
+				>
+				["at0309"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0322"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0323"] = <
+					text = <"Geburtsdatum">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Fälle">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Vollmachterteilung">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Vollmachterteilung für die Totensorge und Bestattung">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Vollmachterteilung für die Organspende.">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"Von mir in einem Organspendeausweis getroffene Festlegungen gehen vor.">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"Die zuvor genannten Personen dürfen mich in allen Angelegenheiten der Gesundheitssorge und einer ambulanten oder (teil-)stationären Pflege einschließlich der damit verbundenen vermögensrechtlichen Angelegenheiten vertreten.">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"Sie dürfen in sämtliche Maßnahmen zur Untersuchung des Gesundheitszustandes, in Heilbehandlungen und in ärztliche Eingriffe einwilligen, auch wenn diese mit Lebensgefahr verbunden sein könnten oder ich einen schweren oder länger dauernden gesundheitlichen Schaden erleiden könnte (§ 1904 Abs. 1 BGB).">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"Sie dürfen ihre Einwilligung in jegliche Maßnahmen zur Untersuchung des Gesundheitszustands, in Heilbehandlungen und ärztliche Eingriffe verweigern oder widerrufen, auch wenn die Nichtvornahme der Maßnahme für mich mit Lebensgefahr verbunden sein könnte oder ich dadurch einen schweren oder länger dauernden gesundheitlichen Schaden erleiden könnte (§ 1904 Abs. 2 BGB). Sie dürfen somit auch die Einwilligung zum Unterlassen oder Beenden lebensverlängernder Maßnahmen erteilen.">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"Sie dürfen auch in ärztliche Zwangsmaßnahmen (§ 1906a Abs. 1 BGB) einwilligen.">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"Sie dürfen Krankenunterlagen einsehen und deren Herausgabe an Dritte bewilligen. Ich entbinde alle behandelnden Ärzt:innen und nichtärztliches Personal gegenüber den bevollmächtigten Personen von ihrer Schweigepflicht.">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"Die zuvor genannten Personen können meinen Aufenthalt bestimmen.">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"Sie können über die Unterbringung mit freiheitsentziehender Wirkung (§ 1906 Abs. 1 BGB), über freiheitsentziehende Maßnahmen (z. B. Bettgitter, Medikamente und Ähnliches) und über die Verbringung in ein Krankenhaus zur Durchführung einer ärztlichen Zwangsmaßnahme (§ 1906a Abs. 4 BGB) entscheiden, solange dergleichen zu meinem Wohl erforderlich ist.">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Fälle">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"Sie darf unabhängig vom Zugangsmedium (z.B. PC, Tablet, Smartphone) auf meine sämtlichen Daten im World Wide Web (Internet), insbesondere Benutzerkonten, zugreifen und hat das Recht, zu entscheiden, ob diese Inhalte beibehalten, geändert oder gelöscht werden sollen oder dürfen. Sie darf sämtliche hierzu erforderlichen Zugangsdaten nutzen und diese anfordern.">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"Die genannte(n) Person/Personen darf/dürfen mich insbesondere in Vermögensangelegenheiten und Wohnungsangelegenheiten vertreten.">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"Sie darf/dürfen mich gerichtlich und außergerichtlich gegenüber Personen und in allen gesetzlich zulässigen Fällen vertreten.">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"Sie darf/dürfen die für mich bestimmten Briefe und Postsendungen entgegennehmen und öffnen.">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"Sie darf/dürfen für bestimmte Arten von Geschäften oder für einzelne Geschäfte Untervollmacht unter Befreiung von den Beschränkungen des § 181 BGB erteilen.">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"Die Vollmacht soll über meinen Tod hinaus gültig sein, bis sie von meinen Erben widerrufen wird.">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0403"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0404"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0405"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0407"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0408"] = <
+					text = <"Multimedia">
+					description = <"*To add multimedia evidence of consent. (en)">
+				>
+				["at0409"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0410"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0411"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0412"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0413"] = <
+					text = <"Einwilligung des Verfassers">
+					description = <"">
+				>
+				["at0414"] = <
+					text = <"Art der Einwilligung">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0415"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0416"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0417"] = <
+					text = <"Einwilligung">
+					description = <"">
+				>
+				["at0418"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0419"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0420"] = <
+					text = <"Multimedia">
+					description = <"*To add multimedia evidence of consent. (en)">
+				>
+				["at0421"] = <
+					text = <"Datum">
+					description = <"">
+				>
+				["at0422"] = <
+					text = <"Ort">
+					description = <"">
+				>
+				["at0423"] = <
+					text = <"Grund der Ablehnung">
+					description = <"">
+				>
+				["at0424"] = <
+					text = <"Erlaubte Person">
+					description = <"">
+				>
+				["at0425"] = <
+					text = <"*Aforementioned Person (s) (en)">
+					description = <"">
+				>
+				["at0426"] = <
+					text = <"*Other (en)">
+					description = <"">
+				>
+				["at0427"] = <
+					text = <"Erlaubte Person">
+					description = <"">
+				>
+				["at0429"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0430"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0431"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0432"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0433"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0434"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0435"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0436"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0437"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0438"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0439"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0440"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0441"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0442"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0443"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0444"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0445"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0446"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0447"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0448"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0449"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0450"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0451"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0452"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0453"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0454"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0455"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0456"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0457"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0458"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0459"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0460"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0461"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0462"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0463"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0464"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0465"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0466"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0467"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0468"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0469"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0470"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0471"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0472"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0473"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0474"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0475"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0476"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0477"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0478"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0479"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0480"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0481"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0482"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0501"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0502"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0503"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0504"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0505"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0506"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0507"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0508"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0509"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0510"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0511"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0512"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0513"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0514"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0515"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0516"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0517"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0518"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0519"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0520"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0521"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0522"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0523"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0524"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0525"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0526"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0527"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0528"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0529"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0530"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0531"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0532"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0533"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0534"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0535"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0536"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0537"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0538"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0539"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0540"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0541"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0542"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"power_of attorney">
+					description = <"Power of Attorney which is given by a patient to another person(s).">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Power of Attorney">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0016"] = <
+					text = <"First Name">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0017"] = <
+					text = <"Last Name">
+					description = <"A label for the individual.
+">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0083"] = <
+					text = <"Individual Power of Attorney Cases">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0086"] = <
+					text = <"Care for the dead, burial and organ donation">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0090"] = <
+					text = <"First Name">
+					description = <"The unstructured name for the individual.">
+					comment = <"*The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'. (de)">
+				>
+				["at0091"] = <
+					text = <"Last Name">
+					description = <"A label for the individual.">
+					comment = <"*For example: 'Neighbour in the house with the red door'. (de)">
+				>
+				["at0133"] = <
+					text = <"General Power of Attorney">
+					description = <"">
+				>
+				["at0136"] = <
+					text = <"Person">
+					description = <"An individual human being.">
+				>
+				["at0137"] = <
+					text = <"First Name">
+					description = <"The unstructured name for the individual.">
+					comment = <"The content of this data element may be derived from one or more components from CLUSTER.structured_name combined together as a text string. For example: 'John Markham', 'Professor Sir John Markham', 'John Markham Jnr MP'.">
+				>
+				["at0138"] = <
+					text = <"Last Name">
+					description = <"A label for the individual.">
+					comment = <"For example: 'Neighbour in the house with the red door'.">
+				>
+				["at0178"] = <
+					text = <"General power of attorney cases">
+					description = <"">
+				>
+				["at0294"] = <
+					text = <"Document of Consent">
+					description = <"">
+				>
+				["at0308"] = <
+					text = <"Review Date">
+					description = <"">
+				>
+				["at0309"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0322"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0323"] = <
+					text = <"Date of Birth">
+					description = <"">
+				>
+				["at0370"] = <
+					text = <"Cases">
+					description = <"">
+				>
+				["at0380"] = <
+					text = <"Granting Power">
+					description = <"">
+				>
+				["at0381"] = <
+					text = <"Granting power of attorney for the care of the dead and burial">
+					description = <"">
+				>
+				["at0382"] = <
+					text = <"Granting power of attorney for organ donation.">
+					description = <"">
+				>
+				["at0383"] = <
+					text = <"The specifications I make in an organ donor card take precedence.">
+					description = <"">
+				>
+				["at0384"] = <
+					text = <"The aforementioned persons may represent me in all matters relating to health care and outpatient or (partial) inpatient care, including the associated financial matters.">
+					description = <"">
+				>
+				["at0385"] = <
+					text = <"You are allowed to take part in all measures to examine the state of health and in medical treatments and consent to medical interventions, even if they could endanger life or my life could suffer serious or long-term damage to health (Section 1904 Paragraph 1 BGB).">
+					description = <"">
+				>
+				["at0386"] = <
+					text = <"You may give your consent to any measures to examine the state of health and to medical treatments and refuse or revoke medical interventions, even if the measure is not carried out could endanger my life or cause me to suffer a serious or prolonged injury could suffer permanent damage to health (Section 1904 Paragraph 2 BGB). So you can too Give consent to refrain from or terminate life-prolonging measures.">
+					description = <"">
+				>
+				["at0387"] = <
+					text = <"You may also consent to coercive medical measures (Section 1906a Para. 1 BGB).">
+					description = <"">
+				>
+				["at0388"] = <
+					text = <"You may view medical records and authorize their release to third parties. I release all treating doctors and non-medical staff from their duty of confidentiality towards authorized persons.">
+					description = <"">
+				>
+				["at0389"] = <
+					text = <"The aforementioned people can determine the details of my stay.">
+					description = <"">
+				>
+				["at0390"] = <
+					text = <"You can request accommodation with deprivation of liberty (§ 1906 para. 1 BGB), measures that deprive you of your liberty (e.g. bed rails, medication and the like) and transport to a hospital to carry out coercive medical measures (§ 1906a para. 4 BGB) decide as long as something like this is necessary for my well-being.">
+					description = <"">
+				>
+				["at0391"] = <
+					text = <"Cases">
+					description = <"">
+				>
+				["at0392"] = <
+					text = <"They may access all of my data on the World Wide Web (Internet), in particular user accounts, regardless of the access medium (e.g. PC, tablet, smartphone) and has the right to decide whether this content should or may be retained, changed or deleted . You may use and request all access data required for this purpose.">
+					description = <"">
+				>
+				["at0393"] = <
+					text = <"The named person(s) may consult me, particularly in financial matters and housing matters represent.">
+					description = <"">
+				>
+				["at0394"] = <
+					text = <"They may represent me in and out of court against people and in all legally permissible cases.">
+					description = <"">
+				>
+				["at0395"] = <
+					text = <"They may accept and open the letters and mail intended for me.">
+					description = <"">
+				>
+				["at0396"] = <
+					text = <"You may grant sub-authorization for certain types of transactions or for individual transactions, exempt from the restrictions of Section 181 of the German Civil Code (BGB).">
+					description = <"">
+				>
+				["at0397"] = <
+					text = <"The power of attorney should be valid beyond my death until it is revoked by my heirs.">
+					description = <"">
+				>
+				["at0398"] = <
+					text = <"Declaration of Consent">
+					description = <"">
+				>
+				["at0399"] = <
+					text = <"Info Text Block">
+					description = <"">
+				>
+				["at0400"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0401"] = <
+					text = <"Consent of the future trustee">
+					description = <"">
+				>
+				["at0402"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0403"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0404"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0405"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0406"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0407"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0408"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent.">
+				>
+				["at0409"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0410"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0411"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0412"] = <
+					text = <"Consent">
+					description = <"">
+				>
+				["at0413"] = <
+					text = <"Author's Consent">
+					description = <"">
+				>
+				["at0414"] = <
+					text = <"Form of consent">
+					description = <"Form of the consent sought or provided.">
+				>
+				["at0415"] = <
+					text = <"Written">
+					description = <"Format of the consent is written.">
+				>
+				["at0416"] = <
+					text = <"Verbal">
+					description = <"Format of the consent is verbal.">
+				>
+				["at0417"] = <
+					text = <"Consent Agreement">
+					description = <"">
+				>
+				["at0418"] = <
+					text = <"Accept">
+					description = <"">
+				>
+				["at0419"] = <
+					text = <"Decline">
+					description = <"">
+				>
+				["at0420"] = <
+					text = <"Multimedia">
+					description = <"To add multimedia evidence of consent.">
+				>
+				["at0421"] = <
+					text = <"Date">
+					description = <"">
+				>
+				["at0422"] = <
+					text = <"Place">
+					description = <"">
+				>
+				["at0423"] = <
+					text = <"Reason for Declination">
+					description = <"">
+				>
+				["at0424"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+				["at0425"] = <
+					text = <"Aforementioned Person (s)">
+					description = <"">
+				>
+				["at0426"] = <
+					text = <"Other">
+					description = <"">
+				>
+				["at0427"] = <
+					text = <"Permitted Person">
+					description = <"">
+				>
+				["at0429"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0430"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0431"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0432"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0433"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0434"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0435"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0436"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0437"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0438"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0439"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0440"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0441"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0442"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0443"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0444"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0445"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0446"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0447"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0448"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0449"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0450"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0451"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0452"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0453"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0454"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0455"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0456"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0457"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0458"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0459"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0460"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0461"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0462"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0463"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0464"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0465"] = <
+					text = <"Address">
+					description = <"Address details aligned with FHIR resource.">
+				>
+				["at0466"] = <
+					text = <"Use">
+					description = <"The purpose of the address.">
+				>
+				["at0467"] = <
+					text = <"Home">
+					description = <"Home address.">
+				>
+				["at0468"] = <
+					text = <"Work">
+					description = <"Work address.">
+				>
+				["at0469"] = <
+					text = <"Temp">
+					description = <"Temporary address.">
+				>
+				["at0470"] = <
+					text = <"Old">
+					description = <"Old address.">
+				>
+				["at0471"] = <
+					text = <"Type">
+					description = <"Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.">
+				>
+				["at0472"] = <
+					text = <"Postal">
+					description = <"Postal type of address.">
+				>
+				["at0473"] = <
+					text = <"Physical">
+					description = <"Physical type of address.">
+				>
+				["at0474"] = <
+					text = <"Both">
+					description = <"Address which is both physical and postal.">
+				>
+				["at0475"] = <
+					text = <"Text">
+					description = <"A full text representation of the address.">
+				>
+				["at0476"] = <
+					text = <"Line">
+					description = <"This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information.">
+				>
+				["at0477"] = <
+					text = <"City">
+					description = <"The name of the city, town, village or other community or delivery center.">
+				>
+				["at0478"] = <
+					text = <"District">
+					description = <"The name of the administrative area (county).">
+				>
+				["at0479"] = <
+					text = <"Postal code">
+					description = <"A postal code designating a region defined by the postal service.">
+				>
+				["at0480"] = <
+					text = <"Country">
+					description = <"Country - a nation as commonly understood or generally accepted.">
+				>
+				["at0481"] = <
+					text = <"Valid period start">
+					description = <"The start of the period. The boundary is inclusive.">
+				>
+				["at0482"] = <
+					text = <"Valid period end">
+					description = <"The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.">
+				>
+				["at0501"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0502"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0503"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0504"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0505"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0506"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0507"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0508"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0509"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0510"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0511"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0512"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0513"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0514"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0515"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0516"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0517"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0518"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0519"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0520"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0521"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0522"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0523"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0524"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0525"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0526"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0527"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0528"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+				["at0529"] = <
+					text = <"Electronic communication">
+					description = <"Details about a specified type of electronic communication.">
+				>
+				["at0530"] = <
+					text = <"Type">
+					description = <"The type or form of electronic communication.">
+					comment = <"The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template.">
+				>
+				["at0531"] = <
+					text = <"Mobile (cellular) telephone">
+					description = <"For SMS or voice calls.">
+				>
+				["at0532"] = <
+					text = <"Telephone (excluding mobile telephone)">
+					description = <"">
+				>
+				["at0533"] = <
+					text = <"Email">
+					description = <"">
+				>
+				["at0534"] = <
+					text = <"Pager">
+					description = <"">
+				>
+				["at0535"] = <
+					text = <"Fax">
+					description = <"">
+				>
+				["at0536"] = <
+					text = <"Value">
+					description = <"The unique combination of alphanumeric characters, relevant for representation of 'Type'.">
+					comment = <"For example: area code + landline phone/pager number; country code + mobile phone number; or email address.">
+				>
+				["at0537"] = <
+					text = <"Purpose">
+					description = <"The purpose or use for the identified type of electronic communication.">
+				>
+				["at0538"] = <
+					text = <"Business use">
+					description = <"">
+				>
+				["at0539"] = <
+					text = <"Personal use">
+					description = <"">
+				>
+				["at0540"] = <
+					text = <"Both business and personal use">
+					description = <"">
+				>
+				["at0541"] = <
+					text = <"Additional details">
+					description = <"Additional details about the electronic communication.">
+				>
+				["at0542"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the electronic communication not captured in other fields.">
+				>
+			>
+		>
+	>
