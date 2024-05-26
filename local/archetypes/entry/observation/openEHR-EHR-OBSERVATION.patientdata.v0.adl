@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.patientdata.v0
 
 concept
-	[at0000]	-- patientdata
+	[at0000]	-- Patient Data
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -40,13 +40,13 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"CD84283E8A1F1BC0989943BDC59203BF">
-		["build_uid"] = <"dc67871d-60f6-465a-ba34-55e3601086d8">
+		["MD5-CAM-1.0.1"] = <"CD71E146CD674DD0B220FC0D5B8802F1">
+		["build_uid"] = <"3528b75c-cc5e-41ae-98bf-2dea178f0c9e">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- patientdata
+	OBSERVATION[at0000] matches {    -- Patient Data
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -54,19 +54,19 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0004] occurrences matches {0..1} matches {    -- Structured name of a person
+									CLUSTER[at0004] matches {    -- Structured name of a person
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0005] occurrences matches {0..*} matches {    -- Title
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0006] occurrences matches {0..*} matches {    -- Given name
+											ELEMENT[at0006] matches {    -- Given name
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0007] occurrences matches {0..*} matches {    -- Family name
+											ELEMENT[at0007] matches {    -- Family name
 												value matches {
 													DV_TEXT matches {*}
 												}
@@ -78,12 +78,12 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0047] occurrences matches {0..1} matches {    -- Date of Birth
+									ELEMENT[at0047] matches {    -- Date of Birth
 										value matches {
 											DV_DATE matches {*}
 										}
 									}
-									CLUSTER[at0009] occurrences matches {0..1} matches {    -- Address
+									CLUSTER[at0009] matches {    -- Address
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0010] occurrences matches {0..1} matches {    -- Use
 												value matches {
@@ -152,7 +152,7 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0032] occurrences matches {0..1} matches {    -- Electronic communication
+									CLUSTER[at0032] occurrences matches {1..*} matches {    -- Electronic communication
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0033] occurrences matches {0..1} matches {    -- Type
 												value matches {
@@ -188,20 +188,15 @@ definition
 													}
 												}
 											}
-											allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {    -- Additional details
-												include
-													archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
-											}
 											ELEMENT[at0045] occurrences matches {0..1} matches {    -- Comment
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-										}
-									}
-									ELEMENT[at0046] occurrences matches {0..1} matches {    -- Date
-										value matches {
-											DV_DATE matches {*}
+											allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {    -- Additional details
+												include
+													archetype_id/value matches {/openEHR-EHR-CLUSTER\.language(-[a-zA-Z0-9_]+)*\.v1/}
+											}
 										}
 									}
 								}
@@ -219,7 +214,7 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"patientdata">
+					text = <"Patient Data">
 					description = <"patientdata">
 				>
 				["at0001"] = <
@@ -388,10 +383,6 @@ ontology
 					text = <"Comment">
 					description = <"Additional narrative about the electronic communication not captured in other fields.">
 				>
-				["at0046"] = <
-					text = <"Date">
-					description = <"">
-				>
 				["at0047"] = <
 					text = <"Date of Birth">
 					description = <"">
@@ -417,35 +408,35 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"*Structured name of a person (en)">
+					text = <"Strukturierter Name einer Person">
 					description = <"*Discrete components of an individual's name. (en)">
 				>
 				["at0005"] = <
-					text = <"*Title (en)">
+					text = <"Titel">
 					description = <"*One or more honorific form(s) of address commencing a name. (en)">
 					comment = <"*Occurrences for this data element are set to 0..* to allow for more than one Title to be recorded. Coding with an external terminology is preferred, where possible. For example: 'Doctor'; 'Ms'; 'Mx'; or 'Professor Dr'. (en)">
 				>
 				["at0006"] = <
-					text = <"*Given name (en)">
+					text = <"Vorname">
 					description = <"*One or more unique name(s) used to identify an individual within a family group. (en)">
 					comment = <"*Occurrences for this data element are set to 0..* to allow for more than one Given name to be recorded. In addition, this data element may be cloned and renamed within a template to allow discrete recording of different types of Given name - for example 'First name', 'Middle name', 'Preferred name' or 'Nickname', as required for a specific use case. (en)">
 				>
 				["at0007"] = <
-					text = <"*Family name (en)">
+					text = <"Nachname">
 					description = <"*One or more name(s) that an individual has in common with a family group. (en)">
 					comment = <"*Also known as 'Last name' or 'Surname'. Occurrences for this data element are set to 0..* to allow for more than one Family name to be recorded. Complex names such as 'El Haddad' or 'van der Heyden' can be recorded using this naming pattern, as identified in ISO 22220 (Annex F), but for the intended use case for this archetype it is most likely that the full family name will be recorded as a string. (en)">
 				>
 				["at0008"] = <
-					text = <"*Suffix (en)">
+					text = <"Suffix">
 					description = <"*One or more term(s) placed after all other name components, usually to differentiate an individual from a family member with identical Given and Family name components. (en)">
 					comment = <"*Occurrences for this data element are set to 0..* to allow for more than one Suffix to be recorded. Coding with an external terminology is preferred, where possible. For example: 'Junior (Jr)'; 'Senior (Sr)'; 'Second (II)'. (en)">
 				>
 				["at0009"] = <
-					text = <"*Address (en)">
+					text = <"Addresse">
 					description = <"*Address details aligned with FHIR resource. (en)">
 				>
 				["at0010"] = <
-					text = <"*Use (en)">
+					text = <"Zweck">
 					description = <"*The purpose of the address. (en)">
 				>
 				["at0011"] = <
@@ -465,7 +456,7 @@ ontology
 					description = <"*Old address. (en)">
 				>
 				["at0015"] = <
-					text = <"*Type (en)">
+					text = <"Typ">
 					description = <"*Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both. (en)">
 				>
 				["at0016"] = <
@@ -481,43 +472,43 @@ ontology
 					description = <"*Address which is both physical and postal. (en)">
 				>
 				["at0019"] = <
-					text = <"*Text (en)">
+					text = <"Text">
 					description = <"*A full text representation of the address. (en)">
 				>
 				["at0020"] = <
-					text = <"*Line (en)">
+					text = <"Straße, Hausnr">
 					description = <"*This component contains the house number, apartment number, street name, street direction, P.O. Box number, delivery hints, and similar address information. (en)">
 				>
 				["at0021"] = <
-					text = <"*City (en)">
+					text = <"Stadt">
 					description = <"*The name of the city, town, village or other community or delivery center. (en)">
 				>
 				["at0022"] = <
-					text = <"*District (en)">
+					text = <"Bezirk">
 					description = <"*The name of the administrative area (county). (en)">
 				>
 				["at0023"] = <
-					text = <"*Postal code (en)">
+					text = <"Postleitzahl">
 					description = <"*A postal code designating a region defined by the postal service. (en)">
 				>
 				["at0024"] = <
-					text = <"*Country (en)">
+					text = <"Land">
 					description = <"*Country - a nation as commonly understood or generally accepted. (en)">
 				>
 				["at0025"] = <
-					text = <"*Valid period start (en)">
+					text = <"Start">
 					description = <"*The start of the period. The boundary is inclusive. (en)">
 				>
 				["at0026"] = <
-					text = <"*Valid period end (en)">
+					text = <"Ende">
 					description = <"*The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time. (en)">
 				>
 				["at0032"] = <
-					text = <"*Electronic communication (en)">
+					text = <"Elektronische Kommunikation">
 					description = <"*Details about a specified type of electronic communication. (en)">
 				>
 				["at0033"] = <
-					text = <"*Type (en)">
+					text = <"Typ">
 					description = <"*The type or form of electronic communication. (en)">
 					comment = <"*The DV_CODED_TEXT value set supports recording of the most common electronic communications used in health. If other alternatives are required the DV_TEXT data type can be used to record other types of electronic communication such as social media or video conferencing URLs within a template. (en)">
 				>
@@ -542,12 +533,12 @@ ontology
 					description = <"">
 				>
 				["at0039"] = <
-					text = <"*Value (en)">
+					text = <"Wert">
 					description = <"*The unique combination of alphanumeric characters, relevant for representation of 'Type'. (en)">
 					comment = <"*For example: area code + landline phone/pager number; country code + mobile phone number; or email address. (en)">
 				>
 				["at0040"] = <
-					text = <"*Purpose (en)">
+					text = <"Zweck">
 					description = <"*The purpose or use for the identified type of electronic communication. (en)">
 				>
 				["at0041"] = <
@@ -563,16 +554,12 @@ ontology
 					description = <"">
 				>
 				["at0044"] = <
-					text = <"*Additional details (en)">
+					text = <"Zusätzliche Details">
 					description = <"*Additional details about the electronic communication. (en)">
 				>
 				["at0045"] = <
-					text = <"*Comment (en)">
+					text = <"Kommentar">
 					description = <"*Additional narrative about the electronic communication not captured in other fields. (en)">
-				>
-				["at0046"] = <
-					text = <"Stand">
-					description = <"">
 				>
 				["at0047"] = <
 					text = <"Geburtsdatum">
