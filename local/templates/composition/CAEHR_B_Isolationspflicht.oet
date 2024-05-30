@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="openEHR/v1/Template">
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
     <id>03aadbd9-c998-4f88-b2b1-000d77388b32</id>
     <name>CAEHR_B_Isolationspflicht</name>
     <description>
@@ -23,15 +22,17 @@
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation eines nachgewiesenen Erregers insbesondere multiresistente Keime für die Speicherung im Rahmen des CAEHR-Projektes.</purpose>
+            <purpose>Für die Abbildung Für die Abbildung eines mikrobiologischen Befundes insbesondere multiresistenter Keime für die Speicherung im Rahmen des CAEHR-Projektes.</purpose>
             <keywords>
                 <item>MRE</item>
                 <item>Erregernachweis</item>
                 <item>Isolationspflicht</item>
                 <item>Multiresistente Keime</item>
+                <item>Kultur</item>
+                <item>Erreger</item>
             </keywords>
-            <use>Dieses Template soll zum Aufzeichnen eines Erregernachweises mit einem multiresistenten Keim verwendet werden.</use>
-            <misuse>Niht zur Darstellung anderer Erreger. Dazu bitte geeignete Templates verwenden.</misuse>
+            <use>Dieses Template soll zum Aufzeichnen eines Laborbefundes mit dem Ergebnis eines multiresistenten Keimes verwendet werden.</use>
+            <misuse>Nicht zur Repräsentation von Laborbefunden anderer Bereiche wie der klinischen Chemie.</misuse>
         </details>
         <other_details>
             <item>
@@ -56,7 +57,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>3.0.0</value>
+                <value>4.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -80,32 +81,21 @@
             </item>
         </other_details>
     </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="CAEHR_B_Isolationspflicht"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0"
-            concept_name="Kennzeichnung Erregernachweis" max="1"
-            name="Erregernachweis" path="/content" xsi:type="tem:EVALUATION">
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="CAEHR_B_Isolationspflicht" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0" concept_name="Kennzeichnung Erregernachweis" max="1" name="Erregernachweis" path="/content" xsi:type="tem:EVALUATION">
             <Rule name="Name des nachgewiesenen Erregers" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId
-                        queryName="/ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/modul-mikrobio/ValueSet/mii-vs-mikrobio-organismen-snomedct" terminologyID="//fhir.hl7.org/"/>
+                    <termQueryId queryName="/ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/modul-mikrobio/ValueSet/mii-vs-mikrobio-organismen-snomedct" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Zeitpunkt der Feststellung" path="/data[at0001]/items[at0015]"/>
             <Rule max="0" path="/data[at0001]/items[at0011]"/>
         </Content>
     </definition>
-    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">185D39F7B5DC8C6BFD923A143E0D0E7A</digest>
     </integrity_checks>
 </template>
