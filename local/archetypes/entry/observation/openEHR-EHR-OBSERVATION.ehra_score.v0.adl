@@ -1,0 +1,115 @@
+﻿archetype (adl_version=1.4; uid=f3f097bd-7f03-42a7-bd64-ee37fc40c9cf)
+	openEHR-EHR-OBSERVATION.ehra_score.v0
+
+concept
+	[at0000]	-- EHRA-Score
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kim Werle">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["date"] = <"2024-06-17">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung des EHRA-Scores von Patienten mit Vorhofflimmern.">
+			use = <"Zur Darstellung des EHRA-Scores von Patienten mit Vorhofflimmern.">
+			keywords = <"Vorhofflimmern, Herzrhythmusstörung, Bewertung", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+
+Diagnose und Behandlung von Vorhofflimmern, 4. Auflage. Grünwald: Börm Bruckmeier, 2021.
+">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"FBB77612C23E4A603F973E813AF8A862">
+		["build_uid"] = <"0c7a3a37-52d6-4feb-966b-8ea2cfe87483">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- EHRA-Score
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Klassifikation
+										value matches {
+											1|[local::at0005],
+											2|[local::at0006],
+											3|[local::at0007],
+											4|[local::at0008],
+											5|[local::at0009]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"EHRA-Score">
+					description = <"Der EHRA-Score (European Heart Rhythm Association) wird verwendet, um den Schweregrad der Symptome bei Vorhofflimmern zu bestimmen.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Klassifikation">
+					description = <"Schweregrad der Symptome bei Vorhofflimmern.">
+				>
+				["at0005"] = <
+					text = <"1 - keine Symptome">
+					description = <"Das Vorhofflimmern verursacht keinerlei Beschwerden.">
+				>
+				["at0006"] = <
+					text = <"2a - leichte Symptome">
+					description = <"Die normale Alltagstätigkeit ist durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt.">
+				>
+				["at0007"] = <
+					text = <"2b - mittelschwere Symptome">
+					description = <"Die normale Alltagstätigkeit ist durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt, die Patienten sind aber durch die Symptome verunsichert und beunruhigt.">
+				>
+				["at0008"] = <
+					text = <"3 - schwere Symptome">
+					description = <"Normale Alltagstätigkeiten sind durch die Symptome des Vorhoffflimmerns beeinträchtigt.">
+				>
+				["at0009"] = <
+					text = <"4 - behindernde Symptome">
+					description = <"Normale Alltagstätigkeiten sind nicht mehr möglich.">
+				>
+			>
+		>
+	>

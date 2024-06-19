@@ -1,0 +1,114 @@
+﻿archetype (adl_version=1.4; uid=8dc8a0d0-5d96-414e-9050-cd70db12b59a)
+	openEHR-EHR-OBSERVATION.fontaine_stage.v0
+
+concept
+	[at0000]	-- Fontaine-Stadium
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kim Werle">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["date"] = <"2024-06-17">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation des Fontaine-Stadiums bei pAVK (periphere arterielle Verschlusskrankheit).">
+			use = <"Zur Dokumentation des Fontaine-Stadiums bei pAVK (periphere arterielle Verschlusskrankheit).">
+			keywords = <"Fontaine, pAVK, periphere arterielle Verschlusskrankheit, Klassifikation", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+
+S3-Leitlinie Periphere arterielle Verschlusskrankheit (PAVK), Diagnostik, Therapie und Nachsorge, Deutsche Gesellschaft für Angiologie - Gesellschaft für Gefäßmedizin, 2015.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"0396819CA5EFDEC72FF96EE660CF1385">
+		["build_uid"] = <"617336e2-b1cc-46e9-82db-b53db7a4d42a">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Fontaine-Stadium
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Klassifikation
+										value matches {
+											1|[local::at0006],
+											2|[local::at0007],
+											3|[local::at0008],
+											4|[local::at0009],
+											5|[local::at0010]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fontaine-Stadium">
+					description = <"fontaine_stage">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Klassifikation">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Stadium I">
+					description = <"Beschwerdefreiheit">
+				>
+				["at0007"] = <
+					text = <"Stadium IIa">
+					description = <"schmerzfreie Gehstrecke > 200 m">
+				>
+				["at0008"] = <
+					text = <"Stadium IIb">
+					description = <"schmerzfreie Gehstrecke < 200 m">
+				>
+				["at0009"] = <
+					text = <"Stadium III">
+					description = <"ischämischer Ruheschmerz">
+				>
+				["at0010"] = <
+					text = <"Stadium IV">
+					description = <"trophische Störungen: Nekrose, Ulkus, Gangrän">
+				>
+			>
+		>
+	>
