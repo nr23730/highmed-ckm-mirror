@@ -129,20 +129,40 @@
         <Content
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
            name="Primärcode" min="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
+            <Rule min="0" name="Kodierte Diagnose - icd-10-gm" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
 					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
+			<Rule min="0" clone="true" name="Kodierte Diagnose - alpha-id" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/alpha-id" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+			<Rule min="0" clone="true" name="Kodierte Diagnose - sct" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://snomed.info/sct" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>		
+		    <Rule min="0" clone="true" name="Kodierte Diagnose - orphanet" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://www.orpha.net" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>	
+			<Rule min="0" clone="true" name="Kodierte Diagnose - icd-o-3" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/CodeSystem/icd-o-3" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>	
             <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
-            <Rule name="Körperstelle" path="/data[at0001]/items[at0012]">
+            <Rule max="1" name="Körperstelle - snomed-ct" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
 					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
-            <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+			<Rule max="1" name="Körperstelle - icd-o-3" clone="true" path="/data[at0001]/items[at0012]">
                 <constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/icd-o-3" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
 			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
@@ -150,7 +170,8 @@
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_DIAGNOSESICHERHEIT" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
-            </Rule>	
+            </Rule>
+			<Rule max="0" path="/data[at0001]/items[at0079]"/>			
             <Rule
                 name="Klinisch relevanter Zeitraum (Zeitpunkt des Auftretens)" path="/data[at0001]/items[at0077]"/>
             <Rule min="1" name="Feststellungsdatum" path="/data[at0001]/items[at0003]"/>
@@ -161,13 +182,6 @@
                     <includedValues>SNOMED CT::255604002::Mild (qualifier value)</includedValues>
                 </constraint>
             </Rule>
-			<Rule path="/data[at0001]/items[at0005]">
-			<constraint xsi:type="tem:textConstraint">
-				<excludedValues>local::at0047</excludedValues>
-				<excludedValues>local::at0048</excludedValues>
-				<excludedValues>local::at0049</excludedValues>
-			</constraint>
-		</Rule>
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
             <Rule
                 name="Klinisch relevanter Zeitraum (Zeitpunkt der Genesung)" path="/data[at0001]/items[at0030]"/>    
@@ -220,24 +234,65 @@
 			<Items
                 archetype_id="openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1"
                 max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+		    <Items archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" max="1" path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
+				<Rule path="/items[at0002]">
+				<constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+				</Rule>
+				<Rule max="0" path="/items[at0065]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0023]"/>
+            </Items>
         </Content>
 		  <Content
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
            name="Sekundärcode" path="/content" xsi:type="tem:EVALUATION">
-            <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">					
+			<Rule min="0" name="Kodierte Diagnose - icd-10-gm" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
 					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
-			 </Rule>	
-            <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
-            <Rule name="Körperstelle" path="/data[at0001]/items[at0012]">
-                <constraint xsi:type="tem:textConstraint">
-                    <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
-				</constraint>
             </Rule>
-            <Rule clone="true" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+			<Rule min="0" clone="true" name="Kodierte Diagnose - alpha-id" path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/alpha-id" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+			<Rule min="0" clone="true" name="Kodierte Diagnose - sct" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://snomed.info/sct" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>		
+		    <Rule min="0" clone="true" name="Kodierte Diagnose - orphanet" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://www.orpha.net" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>	
+			<Rule min="0" clone="true" name="Kodierte Diagnose - icd-o-3" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/CodeSystem/icd-o-3" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>		
+            <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
+            <Rule max="1" name="Körperstelle - snomed-ct" path="/data[at0001]/items[at0012]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+			<Rule max="1" name="Körperstelle - icd-o-3" clone="true" path="/data[at0001]/items[at0012]">
+                <constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/icd-o-3" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
 			<Rule max="0" path="/data[at0001]/items[at0078]"/>	
@@ -251,13 +306,7 @@
                     <includedValues>SNOMED CT::255604002::Mild (qualifier value)</includedValues>
                 </constraint>
             </Rule>
-			<Rule path="/data[at0001]/items[at0005]">
-			<constraint xsi:type="tem:textConstraint">
-				<excludedValues>local::at0047</excludedValues>
-				<excludedValues>local::at0048</excludedValues>
-				<excludedValues>local::at0049</excludedValues>
-			</constraint>
-		</Rule>
+
             <Rule max="0" path="/data[at0001]/items[at0072]"/>
 		
             <Rule
@@ -265,8 +314,9 @@
             <Rule name="Diagnosesicherheit" path="/data[at0001]/items[at0073]">
                 <constraint xsi:type="tem:textConstraint">
                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_DIAGNOSESICHERHEIT" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
-            </Rule>
+				</constraint>
+            </Rule>	
+			<Rule max="0" path="/data[at0001]/items[at0079]"/>			
             <Rule name="Diagnoseerläuterung" path="/data[at0001]/items[at0069]"/>
             <Rule name="Letztes Dokumentationsdatum" path="/protocol[at0032]/items[at0070]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.lebensphase.v0"
@@ -315,6 +365,27 @@
 			<Items
                 archetype_id="openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1"
                 max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+			<Items archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" max="1" path="/data[at0001]/items[at0039]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0002]">
+				<constraint xsi:type="tem:textConstraint">
+					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+				</Rule>
+				<Rule max="0" path="/items[at0065]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0023]"/>
+            </Items>
          </Content>
 <Context>
             <Items
@@ -343,7 +414,7 @@
                 <Rule max="0" path="/items[at0071]"/>
                 <Rule max="0" path="/items[at0077]"/>
                 <Rule max="0" path="/items[at0073]"/>				
-				<Rule name="Diagnoserolle" path="/items[at0063]">
+				<Rule max="1" name="Diagnoserolle" path="/items[at0063]">
 				<constraint xsi:type="tem:textConstraint">
 						<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/diagnosis-role" terminologyID="//fhir.hl7.org/"/>
 					</constraint>
@@ -374,7 +445,7 @@
         archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">6780584ECAE98538AF60C1335D7ED4BF</digest>
+        <digest id="MD5-CAM-1.0.1">78D1421288E4ED0C46F353927AC1B525</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.lebensphase.v0"
         xmlns:tem="openEHR/v1/Template"
@@ -392,5 +463,8 @@
         xmlns:tem="openEHR/v1/Template"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">C5D8EBC78308C8803FE9363B3F191CA7</digest>
+    </integrity_checks>
+	<integrity_checks archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">E44329D7ED80902D20F8490D1DD97F31</digest>
     </integrity_checks>
 </template>
