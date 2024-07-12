@@ -1,5 +1,5 @@
-﻿archetype (adl_version=1.4; uid=f3f097bd-7f03-42a7-bd64-ee37fc40c9cf)
-	openEHR-EHR-OBSERVATION.ehra_score.v0
+﻿archetype (adl_version=1.4; uid=4e72cd88-bcbe-4cb8-85fb-2e98364b064f)
+	openEHR-EHR-OBSERVATION.ehra_score.v1
 
 concept
 	[at0000]	-- EHRA-Score
@@ -16,24 +16,23 @@ description
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Darstellung des EHRA-Scores bei Vorhofflimmern.">
 			use = <"Zur Darstellung des EHRA-Scores bei Vorhofflimmern.">
-			keywords = <"Vorhofflimmern, Herzrhythmusstörung, Bewertung", ...>
-			misuse = <"">
+			keywords = <"Vorhofflimmern, Herzrhythmusstörung, Bewertung, Score", ...>
+			misuse = <"Darf nicht zur Klassifizierung von anderen Erkrankungen als Vorhofflimmern verwendet werden.">
 			copyright = <"© HiGHmed">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"published">
 	other_contributors = <>
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"[1]Diagnose und Behandlung von Vorhofflimmern, 4. Auflage. Grünwald: Börm Bruckmeier, 2021.
-">
+		["references"] = <"G. Hindricks et al., ‘2020 ESC Guidelines for the diagnosis and management of atrial fibrillation developed in collaboration with the European Association for Cardio-Thoracic Surgery (EACTS)’, European Heart Journal, vol. 42, no. 5, pp. 373–498, Feb. 2021, doi: 10.1093/eurheartj/ehaa612.">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"FBB77612C23E4A603F973E813AF8A862">
-		["build_uid"] = <"ba833a6a-17e6-43f6-98f5-b1142953f773">
-		["revision"] = <"0.0.1-alpha">
+		["MD5-CAM-1.0.1"] = <"41182EDD31F424E3D203EB6376D8C8EE">
+		["build_uid"] = <"91506b81-e940-4a80-99e8-09afcf2f3bfd">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -41,11 +40,11 @@ definition
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Beliebiges Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Klassifikation
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- EHRA-Klassifikation
 										value matches {
 											1|[local::at0005],
 											2|[local::at0006],
@@ -77,15 +76,15 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Any event">
-					description = <"@ internal @">
+					text = <"Beliebiges Ereignis">
+					description = <"Standardmäßiger, nicht näher beschriebener Zeitpunkt oder Intervall Ereignis welches in einem Template oder bei der Anwendung genauer definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Tree">
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Klassifikation">
+					text = <"EHRA-Klassifikation">
 					description = <"Schweregrad der Symptome bei Vorhofflimmern.">
 				>
 				["at0005"] = <
@@ -94,11 +93,11 @@ ontology
 				>
 				["at0006"] = <
 					text = <"2a - leichte Symptome">
-					description = <"Die normale Alltagstätigkeit ist durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt.">
+					description = <"Normale Alltagstätigkeiten sind durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt.">
 				>
 				["at0007"] = <
 					text = <"2b - mittelschwere Symptome">
-					description = <"Die normale Alltagstätigkeit ist durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt, die Patienten sind aber durch die Symptome verunsichert und beunruhigt.">
+					description = <"Normale Alltagstätigkeiten sind durch die Symptome des Vorhoffflimmerns nicht beeinträchtigt, die Patienten sind aber durch die Symptome verunsichert und beunruhigt.">
 				>
 				["at0008"] = <
 					text = <"3 - schwere Symptome">
