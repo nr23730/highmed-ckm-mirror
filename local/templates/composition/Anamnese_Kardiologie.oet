@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
     <id>1aa918bc-746c-4b7f-b15f-317b35bcf858</id>
-    <name>ACRIBiS_Anamnese</name>
+    <name>Anamnese_Kardiologie</name>
     <description>
         <original_author>
             <item>
@@ -16,13 +16,13 @@
                 <value>Medizinische Hochschule Hannover</value>
             </item>
         </original_author>
-        <lifecycle_state>in_development</lifecycle_state>
+        <lifecycle_state>release_candidate</lifecycle_state>
         <details>
-            <purpose>Zur Repräsentation der Anamnese Daten von Patient*innen mit Herz-Kreislauf-Erkrankungen.</purpose>
+            <purpose>Zur Repräsentation der Anamnesedaten von Patient*innen mit Herz-Kreislauf-Erkrankungen.</purpose>
             <keywords>
-                <item>ACRIBiS, Anamnese, Kardiovaskuläre Erkrankungen, Herz-Kreislauf-Erkrankungen</item>
+                <item>Anamnese, Kardiologie, Kardiovaskuläre Erkrankungen, Herz-Kreislauf-Erkrankungen</item>
             </keywords>
-            <use>Zur Repräsentation der Anamnese Daten von Patient*innen mit Herz-Kreislauf-Erkrankungen.</use>
+            <use>Zur Repräsentation der Anamnesedaten von Patient*innen mit Herz-Kreislauf-Erkrankungen.</use>
         </details>
         <other_details>
             <item>
@@ -47,7 +47,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.5.0</value>
+                <value>0.5.12</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -55,7 +55,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>e7445979a628b0914fd6e9a10e446859</value>
+                <value>d896fa239dc1c76232bbb12aee196081</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -199,7 +199,7 @@
             </item>
         </items>
     </annotations>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="ACRIBiS_Anamnese" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Anamnese" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Allgemeine Daten" path="/content" xsi:type="tem:SECTION">
             <Item archetype_id="openEHR-EHR-ADMIN_ENTRY.person_data.v0" max="1" path="/items" xsi:type="tem:ADMIN_ENTRY">
                 <Rule max="0" path="/data[at0001]/items[at0008]">
@@ -215,6 +215,7 @@
                     <Rule max="0" path="/items[at0003]"/>
                     <Rule path="/items[at0004]">
                         <constraint xsi:type="tem:textConstraint">
+                            <includedValues>Deutschland</includedValues>
                             <includedValues>Niederlande</includedValues>
                             <includedValues>Westeuropa</includedValues>
                             <includedValues>Nordamerika</includedValues>
@@ -306,8 +307,8 @@
                         <includedValues>Ja</includedValues>
                         <includedValues>Ja, langsamer Anstieg (über Monate)</includedValues>
                         <includedValues>Ja, rascher Anstieg (über Tage)</includedValues>
-                        <includedValues>Ja, ich habe Bewusst Gewicht verloren</includedValues>
-                        <includedValues>Ja, ich habe Gewicht verloren ohne dass ich es möchte</includedValues>
+                        <includedValues>Ja, ich habe bewusst Gewicht verloren</includedValues>
+                        <includedValues>Ja, ich habe Gewicht verloren, ohne dass ich es möchte</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
@@ -386,12 +387,19 @@
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.adverse_reaction_risk.v2" concept_name="Nebenwirkungsrisiko" name="Allergie" path="/items" xsi:type="tem:EVALUATION">
                 <Rule path="/data[at0001]/items[at0002]">
-                    <constraint xsi:type="tem:textConstraint">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
                         <includedValues>Kontrastmittel</includedValues>
                         <includedValues>Iodhaltiges Kontrastmittel</includedValues>
                         <includedValues>Gadoliniumhaltiges Kontrastmittel</includedValues>
                         <includedValues>Antibiotika</includedValues>
                         <includedValues>Sonstiges</includedValues>
+                        <includedValues>Hausstaub(-milben)</includedValues>
+                        <includedValues>Nickel</includedValues>
+                        <includedValues>Cobalt</includedValues>
+                        <includedValues>Gräser</includedValues>
+                        <includedValues>Parfüme</includedValues>
+                        <includedValues>Kolophonium</includedValues>
+                        <includedValues>Pilzsporen</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0130]">
@@ -565,9 +573,11 @@
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" max="1" path="/items" xsi:type="tem:EVALUATION">
                 <Rule max="0" path="/data[at0001]/items[at0043]"/>
+                <Rule max="0" path="/data[at0001]/items[at0015]"/>
                 <Rule max="0" path="/data[at0001]/items[at0080]"/>
                 <Rule max="0" path="/data[at0001]/items[at0029]"/>
-                <Rule max="0" path="/data[at0001]/items[at0093]">
+                <Rule max="0" path="/data[at0001]/items[at0016]"/>
+                <Rule path="/data[at0001]/items[at0093]">
                     <constraint xsi:type="tem:quantityConstraint">
                         <unitMagnitude>
                             <unit>a</unit>
@@ -577,7 +587,7 @@
                         </unitMagnitude>
                     </constraint>
                 </Rule>
-                <Rule max="0" path="/data[at0001]/items[at0094]">
+                <Rule path="/data[at0001]/items[at0094]">
                     <constraint xsi:type="tem:countConstraint">
                         <minMagnitude>0</minMagnitude>
                         <includesMaximum>false</includesMaximum>
@@ -600,26 +610,81 @@
             </Item>
             <Item archetype_id="openEHR-EHR-EVALUATION.alcohol_consumption_summary.v1" max="1" path="/items" xsi:type="tem:EVALUATION">
                 <Rule max="0" path="/data[at0001]/items[at0089]"/>
-                <Rule path="/data[at0001]/items[at0043]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Alkoholkonsum</includedValues>
-                        <includedValues>kein Alkoholkonsum</includedValues>
-                    </constraint>
-                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0043]"/>
                 <Rule max="0" path="/data[at0001]/items[at0015]"/>
                 <Rule max="0" path="/data[at0001]/items[at0080]"/>
                 <Rule max="0" path="/data[at0001]/items[at0114]"/>
-                <Rule max="0" path="/data[at0001]/items[at0064]"/>
-                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0029]"/>
-                <Rule max="0" path="/data[at0001]/items[at0016]"/>
-                <Rule name="Häufigkeit" path="/data[at0001]/items[at0019]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>täglich</includedValues>
-                        <includedValues>mehrmals/Woche</includedValues>
-                        <includedValues>gelegentlich</includedValues>
-                        <includedValues>nie</includedValues>
+                <Rule max="1" name="Momentaner Alkoholkonsum" path="/data[at0001]/items[at0064]"/>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0112]"/>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0081]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Count</includedTypes>
+                        <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0013]"/>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0082]"/>
+                <Rule path="/data[at0001]/items[at0064]/items[at0030]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>täglich</includedValues>
+                        <includedValues>mehrmals pro Woche</includedValues>
+                        <includedValues>gelegentlich</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0097]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0113]"/>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0110]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <unitMagnitude>
+                            <unit>1/wk</unit>
+                            <maxMagnitude>7.0</maxMagnitude>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                        <unitMagnitude>
+                            <unit>1/mo</unit>
+                            <maxMagnitude>31.0</maxMagnitude>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0023]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <excludedUnits>1/d</excludedUnits>
+                        <excludedUnits>1/mo</excludedUnits>
+                        <unitMagnitude>
+                            <unit>1/wk</unit>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0029]"/>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0025]">
+                    <constraint xsi:type="tem:countConstraint">
+                        <minMagnitude>0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0064]/items[at0014]"/>
+                <Rule name="Menge des Alkoholkonsums" path="/data[at0001]/items[at0064]/items[at0087]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>weniger als 8 Gläser pro Woche</includedValues>
+                        <includedValues>mehr als 8 Gläser pro Woche</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0016]"/>
+                <Rule max="0" name="Häufigkeit" path="/data[at0001]/items[at0019]"/>
                 <Rule max="0" path="/protocol[at0021]/items[at0071]"/>
                 <Rule max="0" path="/protocol[at0021]/items[at0085]"/>
                 <Rule max="0" path="/protocol[at0021]/items[at0075]"/>
@@ -648,19 +713,19 @@
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Arterielle Hypertonie</includedValues>
                         <includedValues>Dyslipidämie</includedValues>
-                        <includedValues>Diabetes Mellitus</includedValues>
+                        <includedValues>Diabetes mellitus</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0079]"/>
                 <Rule name="Behandlung" path="/data[at0001]/items[at0009]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Medikamentöse Therapie</includedValues>
-                        <includedValues>keine Medikamentöse Therapie</includedValues>
-                        <includedValues>Apharese</includedValues>
-                        <includedValues>keine Apharese</includedValues>
+                        <includedValues>medikamentöse Therapie</includedValues>
+                        <includedValues>keine medikamentöse Therapie</includedValues>
+                        <includedValues>Apherese</includedValues>
+                        <includedValues>keine Apherese</includedValues>
                         <includedValues>diätisch</includedValues>
-                        <includedValues>Medikamentöse Therapie, Insulin</includedValues>
-                        <includedValues>Medikamentöse Therapie, Orale Antidiabetika (OADs)</includedValues>
+                        <includedValues>medikamentöse Therapie, Insulin</includedValues>
+                        <includedValues>medikamentöse Therapie, Tabletten</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0012]"/>
@@ -720,7 +785,7 @@
                         <includedValues>Familiäre Prädisposition Myokardinfarkt/Schlaganfall</includedValues>
                         <includedValues>Arterielle Hypertonie</includedValues>
                         <includedValues>Dyslipidämie</includedValues>
-                        <includedValues>Diabetes Mellitus</includedValues>
+                        <includedValues>Diabetes mellitus</includedValues>
                     </constraint>
                     <nameConstraint>
                         <excludedValues>local::at0008</excludedValues>
@@ -736,7 +801,7 @@
                         <includedValues>Familiäre Prädisposition Myokardinfarkt/Schlaganfall</includedValues>
                         <includedValues>Arterielle Hypertonie</includedValues>
                         <includedValues>Dyslipidämie</includedValues>
-                        <includedValues>Diabetes Mellitus</includedValues>
+                        <includedValues>Diabetes mellitus</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0005]"/>
@@ -791,8 +856,8 @@
                 </Rule>
                 <Rule name="Behandlung" path="/data[at0001]/items[at0009]">
                     <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Medikamentöse Therapie</includedValues>
-                        <includedValues>keine Medikamentöse Therapie</includedValues>
+                        <includedValues>medikamentöse Therapie</includedValues>
+                        <includedValues>keine medikamentöse Therapie</includedValues>
                         <includedValues>Dialysepflicht</includedValues>
                         <includedValues>keine Dialysepflicht</includedValues>
                         <includedValues>Nierentransplantation</includedValues>
@@ -994,12 +1059,7 @@
                         <includedValues>Stenose</includedValues>
                     </constraint>
                 </Rule>
-                <Rule name="Behandlung" path="/data[at0001]/items[at0009]">
-                    <constraint xsi:type="tem:textConstraint">
-                        <includedValues>Medikamentöse Therapie</includedValues>
-                        <includedValues>keine Medikamentöse Therapie</includedValues>
-                    </constraint>
-                </Rule>
+                <Rule max="0" name="Behandlung" path="/data[at0001]/items[at0009]"/>
                 <Rule path="/data[at0001]/items[at0012]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Aortenklappe</includedValues>
@@ -1114,10 +1174,10 @@
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/state[at0016]/items[at0017]"/>
             </Item>
-            <Item archetype_id="openEHR-EHR-OBSERVATION.ehra_score.v0" max="1" path="/items" xsi:type="tem:OBSERVATION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.ehra_score.v1" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="1" path="/data[at0001]/events[at0002]"/>
             </Item>
-            <Item archetype_id="openEHR-EHR-OBSERVATION.fontaine_stage.v0" max="1" path="/items" xsi:type="tem:OBSERVATION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.fontaine_stage.v1" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="1" path="/data[at0001]/events[at0002]"/>
             </Item>
             <Item archetype_id="openEHR-EHR-OBSERVATION.ccs_angina_status.v0" max="1" path="/items" xsi:type="tem:OBSERVATION">
@@ -1129,7 +1189,7 @@
                 <Rule path="/data[at0001]/items[at0020]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>Kardialer Device (implantiert)</includedValues>
-                        <includedValues>Herz-Kreislauf-Unterstützungssysteme</includedValues>
+                        <includedValues>Herz-Kreislauf-Unterstützungssystem</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0002]"/>
@@ -1213,7 +1273,7 @@
                         <includedValues>Operative Klappenrekonstruktion</includedValues>
                         <includedValues>Katheterinterventionelle TAVI</includedValues>
                         <includedValues>Kardiale Device-Implantation</includedValues>
-                        <includedValues>Herz-Kreislauf-Unterstützungssysteme</includedValues>
+                        <includedValues>Herz-Kreislauf-Unterstützungssystem</includedValues>
                     </constraint>
                     <nameConstraint>
                         <excludedValues>local::at0008</excludedValues>
@@ -1237,7 +1297,7 @@
                         <includedValues>Operative Klappenrekonstruktion</includedValues>
                         <includedValues>Katheterinterventionelle TAVI</includedValues>
                         <includedValues>Kardiale Device-Implantation</includedValues>
-                        <includedValues>Herz-Kreislauf-Unterstützungssysteme</includedValues>
+                        <includedValues>Herz-Kreislauf-Unterstützungssystem</includedValues>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/data[at0001]/items[at0005]"/>
@@ -1304,11 +1364,11 @@
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F17EAAFC478546D29320FFEF082FFF54</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.ehra_score.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBB77612C23E4A603F973E813AF8A862</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.ehra_score.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">41182EDD31F424E3D203EB6376D8C8EE</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.fontaine_stage.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">C1DC2932C96181534A97DBEA53446C5E</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.fontaine_stage.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BAFAD3A908FA2FBC4189AA8FD46457C2</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.ccs_angina_status.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D102349271ADC9B1601A244B218F92E3</digest>
