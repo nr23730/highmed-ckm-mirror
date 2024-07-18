@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="openEHR/v1/Template">
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
     <id>4ec8202e-a376-4add-8805-60627b0d382f</id>
-    <name>3FF22 Patientendatenerhebung</name>
+    <name>Fragebogen 3FF22</name>
     <description>
         <original_author>
             <item>
@@ -34,7 +33,7 @@
         <other_details>
             <item>
                 <key>sem_ver</key>
-                <value>29.0.4</value>
+                <value>31.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -42,7 +41,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>c47327317744759536f047e26f763695</value>
+                <value>26ec363e021fe3069c7378979de1ec73</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -114,15 +113,9 @@
             </item>
         </items>
     </annotations>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="3FF22 Patientendatenerhebung"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-            concept_name="Ad hoc Überschrift" max="1"
-            name="Demographische Daten" path="/content" xsi:type="tem:SECTION">
-            <Item archetype_id="openEHR-EHR-EVALUATION.gender.v1"
-                max="1" path="/items" xsi:type="tem:EVALUATION">
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Fragebogen 3FF22" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Demographische Daten" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1" path="/items" xsi:type="tem:EVALUATION">
                 <Rule max="0" path="/data[at0002]/items[at0022]"/>
                 <Rule max="0" path="/data[at0002]/items[at0026]"/>
                 <Rule path="/data[at0002]/items[at0019]">
@@ -138,27 +131,46 @@
                 <Rule max="0" path="/data[at0002]/items[at0014]"/>
                 <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
             </Item>
-            <Item
-                archetype_id="openEHR-EHR-OBSERVATION.altersangaben.v0"
-                max="1" path="/items" xsi:type="tem:OBSERVATION">
-                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]"/>
+            <Item archetype_id="openEHR-EHR-OBSERVATION.age_assertion.v1" max="1" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                    <constraint xsi:type="tem:quantityConstraint">
+                        <includedUnits>a</includedUnits>
+                        <includedUnits>a_j</includedUnits>
+                        <unitMagnitude>
+                            <unit>a</unit>
+                            <maxMagnitude>200.0</maxMagnitude>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                        <unitMagnitude>
+                            <unit>a_j</unit>
+                            <maxMagnitude>200.0</maxMagnitude>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Quantity</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]"/>
             </Item>
         </Content>
-        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-            concept_name="Ad hoc Überschrift" max="1" name="Anamnese"
-            path="/content" xsi:type="tem:SECTION">
-            <Item
-                archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
-                max="1" path="/items" xsi:type="tem:OBSERVATION">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Anamnese" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0011]"/>
                 <Rule max="0" path="/protocol[at0005]/items[at0006]"/>
                 <Rule max="0" path="/protocol[at0005]/items[at0010]"/>
             </Item>
-            <Item archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0"
-                max="1" path="/items" xsi:type="tem:OBSERVATION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]"/>
@@ -167,13 +179,8 @@
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
             </Item>
         </Content>
-        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-            concept_name="Ad hoc Überschrift" max="1"
-            name="Vitalparameter" path="/content" xsi:type="tem:SECTION">
-            <Item
-                archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-                concept_name="Laborergebnis" max="1" name="Blutwerte"
-                path="/items" xsi:type="tem:OBSERVATION">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Vitalparameter" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" concept_name="Laborergebnis" max="1" name="Blutwerte" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>LOINC::26464-8::Leukocytes [#/volume] in Blood</includedValues>
@@ -243,10 +250,7 @@
                         <includedTypes>URI</includedTypes>
                     </constraint>
                 </Rule>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-                    max="1"
-                    path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
+                <Items archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0027]"/>
                     <Rule max="0" path="/items[at0024]"/>
                     <Rule path="/items[at0001]">
@@ -306,10 +310,7 @@
                     <Rule max="0" path="/items[at0003]"/>
                 </Items>
             </Item>
-            <Item
-                archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-                concept_name="Problem/Diagnose" max="1"
-                name="Kardiovaskuläre Untersuchung" path="/items" xsi:type="tem:EVALUATION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" max="1" name="Kardiovaskuläre Untersuchung" path="/items" xsi:type="tem:EVALUATION">
                 <Rule path="/data[at0001]/items[at0002]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>SNOMED Clinical Terms::49436004::Atrial fibrillation (disorder)</includedValues>
@@ -340,11 +341,8 @@
                 <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
             </Item>
         </Content>
-        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-            concept_name="Ad hoc Überschrift" max="1"
-            name="Hospitalisierung" path="/content" xsi:type="tem:SECTION">
-            <Item archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
-                path="/items" xsi:type="tem:ACTION">
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Hospitalisierung" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1" path="/items" xsi:type="tem:ACTION">
                 <Rule max="0" min="0" path="/ism_transition[at0004]"/>
                 <Rule max="0" min="0" path="/ism_transition[at0034]"/>
                 <Rule max="0" min="0" path="/ism_transition[at0007]"/>
@@ -395,9 +393,7 @@
                         <includedTypes>Identifier</includedTypes>
                     </constraint>
                 </Rule>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0"
-                    max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Items archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0" max="1" path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
                     <Rule path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <excludedValues>local::at0104</excludedValues>
@@ -512,8 +508,7 @@
                             </unitMagnitude>
                         </constraint>
                     </Rule>
-                    <Rule max="0"
-                        name="Inspirationszeit / Inspiratory time (T i)" path="/items[at0038]">
+                    <Rule max="0" name="Inspirationszeit / Inspiratory time (T i)" path="/items[at0038]">
                         <constraint xsi:type="tem:durationConstraint">
                             <pattern>PTS</pattern>
                             <maxMagnitude>PT1000S</maxMagnitude>
@@ -561,9 +556,7 @@
                     </Rule>
                 </Items>
             </Item>
-            <Item
-                archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1"
-                max="1" path="/items" xsi:type="tem:OBSERVATION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0028]">
                     <constraint xsi:type="tem:multipleConstraint">
@@ -596,9 +589,7 @@
                 </Rule>
                 <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]"/>
             </Item>
-            <Item
-                archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0"
-                path="/items" xsi:type="tem:ADMIN_ENTRY">
+            <Item archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" path="/items" xsi:type="tem:ADMIN_ENTRY">
                 <Rule path="/data[at0001]/items[at0040]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>local_terms::H00001::Discharge from the intensive care unit</includedValues>
@@ -616,10 +607,7 @@
             </Item>
         </Content>
         <Context>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-                max="1"
-                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+            <Items archetype_id="openEHR-EHR-CLUSTER.study_participation.v1" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule path="/items[at0001]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>local_terms::3FF22::Circular RNAs regulating the SARS-CoV-2 infection in the cardiovascular system</includedValues>
@@ -645,16 +633,12 @@
                 <Rule max="0" path="/items[at0022]"/>
                 <Rule max="0" path="/items[at0014]"/>
             </Items>
-            <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
-                max="1"
-                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+            <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule name="Tod?" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
                 <Rule max="0" path="/items[at0004]"/>
-                <Items
-                    archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1"
-                    max="1" path="/items[at0005]" xsi:type="tem:CLUSTER">
+                <Items archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1" max="1" path="/items[at0005]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0002]">
                         <constraint xsi:type="tem:durationConstraint">
                             <pattern>PYMWD</pattern>
@@ -704,96 +688,52 @@
         <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
-    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.study_participation.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.study_participation.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FC149EB72CD23D8A60DD2A8488761581</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">3B30D53EADEB7169049A5D91D048D288</digest>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.death_details.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">08195CD0534CD20D2E992E574BDB94F8</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">95309E1587F2F9A3D1845B07B1011799</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.gender.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">BF9B28403CBB9F2FB9C120F3EB89DA8E</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.altersangaben.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">6DF4AF28FDD1AD6ED83B2B766F8710FE</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.age_assertion.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7D6137034CEBDDBFFB3C84B8E741B421</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">E6E1FB050659D261B841146D96F4DFB0</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">96CF01A004B30A00A69956021F95766E</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D02DE57ACD4A04C1ADAE1F8B28197890</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">AB458098681E9505986ADFCEC7FEC742</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">F0EBDC100A16A3A8BE1511BF3715C582</digest>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.laboratory_test_analyte.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2C3F38DD3585D55E2EE0A3210BAF13D4</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">70083C267A35C88E111E5BA35120DE86</digest>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">78D1421288E4ED0C46F353927AC1B525</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">1D47B8E4DEB9C323DBCBE477A47C21FC</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.ventilator_settings2.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">EBA1A7732F98B4B0DD5CBBCA7633F7E9</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">CFAA5A21F30725BDA8D018E31997EA7A</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BEAB7193BB7D94577AC77FC9A46CD1FA</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FFF8C6A6D1CCF30F6FF5B70CB57F52B7</digest>
     </integrity_checks>
 </template>
