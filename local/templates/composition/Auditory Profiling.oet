@@ -33,7 +33,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>8.0.1</value>
+                <value>11.1.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -49,7 +49,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>5555b3c8ef73c63979a8d81554fb3679</value>
+                <value>f8cc6303aea5d559aabb908abad8dc46</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -72,6 +72,7 @@
             </Rule>
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.audiology_speech_test_result_local.v0" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule min="1" path="/data[at0001]/events[at0002]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0017]/items[at0018]">
                 <constraint xsi:type="tem:quantityConstraint">
@@ -128,7 +129,11 @@
                     <excludedValues>local::at0096</excludedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0032]/items[at0054]"/>
+            <Rule min="1" path="/protocol[at0032]/items[at0054]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0055</excludedValues>
+                </constraint>
+            </Rule>
             <Rule path="/protocol[at0032]/items[at0057]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0098</excludedValues>
@@ -143,8 +148,19 @@
                     <excludedValues>local::at0117</excludedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0032]/items[at0060]"/>
-            <Rule max="0" path="/protocol[at0032]/items[at0064]"/>
+            <Rule min="1" path="/protocol[at0032]/items[at0060]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0062</excludedValues>
+                    <excludedValues>local::at0063</excludedValues>
+                    <excludedValues>local::at0086</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule min="1" path="/protocol[at0032]/items[at0064]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0066</excludedValues>
+                    <excludedValues>local::at0067</excludedValues>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/protocol[at0032]/items[at0068]"/>
             <Rule max="0" path="/protocol[at0032]/items[at0069]"/>
             <Rule path="/protocol[at0032]/items[at0070]">
@@ -152,23 +168,34 @@
                     <excludedValues>local::at0071</excludedValues>
                     <excludedValues>local::at0072</excludedValues>
                     <excludedValues>local::at0073</excludedValues>
+                    <excludedValues>local::at0074</excludedValues>
                     <excludedValues>local::at0075</excludedValues>
                     <excludedValues>local::at0076</excludedValues>
+                    <excludedValues>local::at0137</excludedValues>
+                    <excludedValues>local::at0099</excludedValues>
+                    <excludedValues>local::at0100</excludedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0032]/items[at0101]">
+            <Rule min="1" path="/protocol[at0032]/items[at0101]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0102</excludedValues>
                     <excludedValues>local::at0103</excludedValues>
                     <excludedValues>local::at0104</excludedValues>
                 </constraint>
             </Rule>
-            <Rule path="/protocol[at0032]/items[at0083]">
+            <Rule min="1" path="/protocol[at0032]/items[at0040]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0041</excludedValues>
+                    <excludedValues>local::at0043</excludedValues>
+                    <excludedValues>local::at0044</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule min="1" path="/protocol[at0032]/items[at0083]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0085</excludedValues>
                 </constraint>
             </Rule>
-            <Rule path="/protocol[at0032]/items[at0036]">
+            <Rule min="1" path="/protocol[at0032]/items[at0036]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0038</excludedValues>
                     <excludedValues>local::at0108</excludedValues>
@@ -181,15 +208,15 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/protocol[at0032]/items[at0118]"/>
-            <Rule max="0" path="/protocol[at0032]/items[at0153]"/>
         </Content>
-        <Content archetype_id="openEHR-EHR-OBSERVATION.pure_tone_audiogram.v0" concept_name="pure tone audiogram" max="1" name="pure tone audiogram (AC, worse ear)" path="/content" xsi:type="tem:OBSERVATION">
+        <Content archetype_id="openEHR-EHR-OBSERVATION.pure_tone_audiogram.v0" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule min="1" path="/data[at0001]/events[at0002]"/>
             <Rule name="Threshold" path="/data[at0001]/events[at0002]/data[at0003]/items[at0040]"/>
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0040]/items[at0041]">
                 <constraint xsi:type="tem:quantityConstraint">
                     <unitMagnitude>
                         <unit>Hz</unit>
-                        <maxMagnitude>125.0</maxMagnitude>
+                        <maxMagnitude>16000.0</maxMagnitude>
                         <minMagnitude>125.0</minMagnitude>
                         <includesMaximum>true</includesMaximum>
                         <includesMinimum>true</includesMinimum>
@@ -243,16 +270,19 @@
                     <excludedValues>local::at0017</excludedValues>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/protocol[at0004]/items[at0013, 'Test stimulus']/items[at0028]"/>
+            <Rule min="1" path="/protocol[at0004]/items[at0013, 'Test stimulus']/items[at0028]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0013, 'Test stimulus']/items[at0018]"/>
             <Rule clone="true" name="Masking stimulus" path="/protocol[at0004]/items[at0013]"/>
+            <Rule max="0" path="/protocol[at0004]/items[at0013, 'Masking stimulus']/items[at0028]"/>
+            <Rule max="0" path="/protocol[at0004]/items[at0013, 'Masking stimulus']/items[at0018]"/>
+            <Rule max="0" path="/protocol[at0004]/items[at0013, 'Masking stimulus']/items[at0066]"/>
             <Rule max="0" path="/protocol[at0004]/items[at0052]"/>
-            <Rule path="/protocol[at0004]/items[at0025]">
+            <Rule min="1" path="/protocol[at0004]/items[at0025]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0027</excludedValues>
                 </constraint>
             </Rule>
-            <Rule path="/protocol[at0004]/items[at0035]">
+            <Rule min="1" path="/protocol[at0004]/items[at0035]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at0036</excludedValues>
                     <excludedValues>local::at0038</excludedValues>
