@@ -33,7 +33,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>7.0.0</value>
+                <value>8.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -41,7 +41,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>dae20d6aa5d916eaac0e6f05514d988b</value>
+                <value>5e7e5dd6081a0ab993a883e2c54a159d</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -85,14 +85,6 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.fall.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]/items[at0050]">
-        <items>
-            <item>
-                <key>fhir</key>
-                <value>Organization.active</value>
-            </item>
-        </items>
-    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.fall.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]/items[at0052]">
         <items>
             <item>
@@ -117,21 +109,29 @@
             </item>
         </items>
     </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.fall.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]/items[at0050]">
+        <items>
+            <item>
+                <key>fhir</key>
+                <value>Organization.active</value>
+            </item>
+        </items>
+    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.fall.v1" concept_name="Fall" name="KDS_Fall_einfach" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.episode_institution_local.v0" max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
             <Rule max="0" path="/data[at0001]/items[at0014]"/>
             <Rule min="1" path="/data[at0001]/items[at0004]"/>
-            <Rule name="Aufnahmegrund - ErsteUndZweiteStelle" path="/data[at0001]/items[at0008]">
+            <Rule max="1" name="Aufnahmegrund - ErsteUndZweiteStelle" path="/data[at0001]/items[at0008]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/dkgev/AufnahmegrundErsteUndZweiteStelle" terminologyID="dkgev/AufnahmegrundErsteUndZweiteStelle"/>
                 </constraint>
             </Rule>
-            <Rule clone="true" name="Aufnahmegrund - Dritte Stelle" path="/data[at0001]/items[at0008]">
+            <Rule clone="true" max="1" name="Aufnahmegrund - Dritte Stelle" path="/data[at0001]/items[at0008]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/dkgev/AufnahmegrundDritteStelle" terminologyID="dkgev/AufnahmegrundDritteStelle"/>
                 </constraint>
             </Rule>
-            <Rule clone="true" name="Aufnahmegrund - Vierte Stelle" path="/data[at0001]/items[at0008]">
+            <Rule clone="true" max="1" name="Aufnahmegrund - Vierte Stelle" path="/data[at0001]/items[at0008]">
                 <constraint xsi:type="tem:textConstraint">
                     <termQueryId queryName="/ValueSet/$expand?url=http://fhir.de/ValueSet/dkgev/AufnahmegrundVierteStelle" terminologyID="dkgev/AufnahmegrundVierteStelle"/>
                 </constraint>
@@ -150,8 +150,15 @@
             </Rule>
             <Rule max="0" path="/data[at0001]/items[at0026]"/>
             <Rule max="0" path="/data[at0001]/items[at0021]"/>
+            <Rule max="0" path="/data[at0001]/items[at0018]/items[at0019]"/>
+            <Rule max="0" path="/data[at0001]/items[at0018]/items[at0020]"/>
+            <Rule path="/data[at0001]/items[at0006]">
+                <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <termQueryId terminologyID="http://fhir.de/ValueSet/dkgev/EntlassungsgrundErsteUndZweiteStelle"/>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/items[at0003]"/>
-            <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v1" max="1" path="/data[at0001]/items[at0027]" xsi:type="tem:CLUSTER">
+            <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v1" concept_name="Organisation" max="1" name="Überweiser" path="/data[at0001]/items[at0027]" xsi:type="tem:CLUSTER">
                 <Items archetype_id="openEHR-EHR-CLUSTER.address.v1" max="1" path="/items[at0005]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0021]"/>
                     <Rule max="0" path="/items[at0007]">
@@ -212,6 +219,11 @@
                     <termQueryId terminologyID="http://fhir.de/ValueSet/DiagnoseTyp"/>
                 </constraint>
             </Rule>
+            <Rule max="1" min="1" name="Diagnosesubtyp" path="/data[at0001]/items[at0079]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId terminologyID="http://fhir.de/ValueSet/Diagnosesubtyp"/>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/data[at0001]/items[at0012]"/>
             <Rule max="0" path="/data[at0001]/items[at0078]"/>
             <Rule max="0" path="/data[at0001]/items[at0077]"/>
@@ -239,11 +251,12 @@
                         <termQueryId terminologyID="http://fhir.de/ValueSet/dkgev/Fachabteilungsschluessel"/>
                     </constraint>
                 </Rule>
+                <Rule max="0" path="/items[at0050]"/>
             </Items>
         </Context>
         <Rule path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
-                <termQueryId terminologyID="http://fhir.de/ValueSet/EncounterClassDE"/>
+                <termQueryId terminologyID="http://fhir.de/ValueSet/kontaktebene-de"/>
             </constraint>
         </Rule>
         <Rule min="1" path="/context/other_context[at0001]/items[at0004]">
