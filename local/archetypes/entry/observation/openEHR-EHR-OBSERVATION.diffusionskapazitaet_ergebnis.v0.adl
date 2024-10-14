@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4; uid=46bc004b-fec9-468c-b375-84486cb04065)
+﻿archetype (adl_version=1.4; uid=ead5c940-f3b5-4e7f-8bae-08f5c71b60e2)
 	openEHR-EHR-OBSERVATION.diffusionskapazitaet_ergebnis.v0
 
 concept
@@ -7,8 +7,10 @@ language
 	original_language = <[ISO_639-1::de]>
 description
 	original_author = <
-		["name"] = <"test">
-		["date"] = <"2024-09-19">
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <" rehberg.alina@mh-hannover.de">
+		["date"] = <"2024-10-14">
 	>
 	details = <
 		["de"] = <
@@ -36,8 +38,8 @@ Nicht zur Aufzeichnung von Messungen zur Pulsoximetrie geeignet. Verwenden Sie z
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"939F7E256162B9934A4C1485B19A3AA6">
-		["build_uid"] = <"3d488620-f381-4eaa-a3c1-9206e3f24f34">
+		["MD5-CAM-1.0.1"] = <"CCE6F56D400D2E578B1E1A4BB95B8813">
+		["build_uid"] = <"1ed56b7c-d267-4dd4-83e5-48d08d3b0ffc">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -46,11 +48,11 @@ definition
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Jedes Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0007] occurrences matches {0..1} matches {    -- Volumen
+									CLUSTER[at0007] occurrences matches {0..1} matches {    -- Diffusionskapazität
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Ergebnis
 												value matches {
@@ -58,10 +60,7 @@ definition
 														property = <[openehr::347]>
 														list = <
 															["1"] = <
-																units = <"ml/min/mmHg">
-															>
-															["2"] = <
-																units = <"l">
+																units = <"mmol/(24.h)">
 															>
 														>
 													>
@@ -73,10 +72,7 @@ definition
 														property = <[openehr::347]>
 														list = <
 															["1"] = <
-																units = <"ml/min/mmHg">
-															>
-															["2"] = <
-																units = <"l">
+																units = <"mmol/(24.h)">
 															>
 														>
 													>
@@ -145,6 +141,16 @@ definition
 											}
 										}
 									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Klinische Interpretation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 								}
 							}
 						}
@@ -153,7 +159,22 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0008] matches {*}    -- Item tree
+			ITEM_TREE[at0008] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0028] occurrences matches {0..*} matches {    -- Gerät
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0029] occurrences matches {0..*} matches {    -- Quelle der vorhergesagten Ergebnisse
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
 		}
 	}
 
@@ -171,8 +192,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Any event">
-					description = <"@ internal @">
+					text = <"Jedes Ereignis">
+					description = <"Jeder Zeitpunkt oder jedes Intervall, das in einem Template oder zur Laufzeit definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -180,14 +201,14 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagtes Volumen oder Kapazität">
+					description = <"Vorhergesagte Diffusionskapazität">
 				>
 				["at0006"] = <
 					text = <"Ergebnis">
-					description = <"Gemessenes Volumen oder Kapazität">
+					description = <"Gemessene Diffusionskapazität">
 				>
 				["at0007"] = <
-					text = <"Volumen">
+					text = <"Diffusionskapazität">
 					description = <"Das Testergebnis wird als gemessenes Volumen oder berechnete Kapazität dargestellt.">
 					comment = <"Jedes Testergebnis wird über eine separate Instanz dieses Clusters aufgezeichnet.">
 				>
@@ -231,6 +252,27 @@ ontology
 				["at0025"] = <
 					text = <"VA">
 					description = <"Alveoläres Volumen - Das Volumen der Lunge, das aktiv am Gasaustausch beteiligt ist.">
+				>
+				["at0026"] = <
+					text = <"Klinische Interpretation">
+					description = <"Gesamte klinische Interpretation aller Messungen und berechneten Verhältnisse.">
+				>
+				["at0027"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Freitext über die Testergebnisse und deren Interpretation, die nicht in anderen Felder erfasst werden konnte.">
+				>
+				["at0028"] = <
+					text = <"Gerät">
+					description = <"Details über das Gerät mit dem die Spirometrie gemessen wird.">
+				>
+				["at0029"] = <
+					text = <"Quelle der vorhergesagten Ergebnisse">
+					description = <"Die für die vorhergesagten Ergebnisse verwendete Wissensbasis.">
+				>
+				["at0030"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird">
+					comment = <"Zum Beispiel: Informationen bzgl. der lokalen Krankenhausabteilung oder zusätzliche Metadata zur Anpassung an entsprechende FHIR oder CIMI Gegenstücke.">
 				>
 			>
 		>
