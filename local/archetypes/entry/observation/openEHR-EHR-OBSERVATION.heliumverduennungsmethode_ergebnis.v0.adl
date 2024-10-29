@@ -1,0 +1,279 @@
+﻿archetype (adl_version=1.4; uid=e7a768f1-6121-4dc8-916d-c51d079738e8)
+	openEHR-EHR-OBSERVATION.heliumverduennungsmethode_ergebnis.v0
+
+concept
+	[at0000]	-- Heliumverdünnungsmethode Ergebnis
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2024-10-28">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der Ergebnisse einer Heliumverdünnungsmethode zur Bestimmung der funktionellen Residualkapazität (FRC). ">
+			use = <"Zur Darstellung der Ergebnisse einer Heliumverdünnungsmethode. Es handelt sich um eine Technik zur Messung des Lungenvolumens, insbesondere des sogenannten \"Residualvolumens\".
+
+Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um die Darstellung von Folgendem zu unterstützen:
+- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ so oft wie nötig, plus ein zusätzliches Ereignis, das auf „Intervall“ eingestellt ist und das Attribut „Mittelwert“ auswählt;
+- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit einem Zeitversatz verbunden.">
+			keywords = <"Heliumverdünnungsmethode", "Spirometrie", "Gasverdünnungstechnik", "Atemwege", "pulmonal", "Pneumologie", "Lungenvolumen">
+			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie, Körperplethysmographie oder Lungendiffusionstests, geeignet. Verwenden Sie für diese Zwecke bestimmte Archetypen.
+
+Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
+
+Nicht zur Aufzeichnung von Messungen zur Pulsoximetrie geeignet. Verwenden Sie zu diesem Zweck die OBSERVATION.pulse_oximetry.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Bhakta, N. R., McGowan, A., & Ramsey, K. A. (2023). European Respiratory Society/American Thoracic Society technical statement: standardisation of the measurement of lung volumes, 2023 update. European Respiratory Journal, 62(4), 2201519. https://doi.org/10.1183/13993003.01519-2022
+
+Wanger, J., Clausen, J. L., & Coates, A. (2005). Standardisation of the measurement of lung volumes. European Respiratory Journal, 26(3), 511-522. https://doi.org/10.1183/09031936.05.00035005">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"428DBD50D647FC0E92627A4C55CB87BF">
+		["build_uid"] = <"f9b0c705-5f54-43e4-ab86-8a6bef974181">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Heliumverdünnungsmethode Ergebnis
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0004] occurrences matches {0..1} matches {    -- Volumen
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::129]>
+														list = <
+															["1"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+															>
+															["2"] = <
+																units = <"mL">
+																magnitude = <|>=0.0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::129]>
+														list = <
+															["1"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+															>
+															["2"] = <
+																units = <"mL">
+																magnitude = <|>=0.0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0007] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+												value matches {
+													DV_PROPORTION matches {
+														type matches {2}
+													}
+												}
+											}
+										}
+										name matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008,    -- IVC-HE
+													at0009,    -- ERV-HE
+													at0010,    -- TLC-HE
+													at0011,    -- FRC-HE
+													at0012]    -- RV-HE
+												}
+											}
+										}
+									}
+									CLUSTER[at0014] occurrences matches {0..1} matches {    -- Ratio
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0019] occurrences matches {0..1} matches {    -- Ergebnis
+												value matches {
+													DV_PROPORTION matches {
+														type matches {2}
+													}
+												}
+											}
+											ELEMENT[at0020] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+												value matches {
+													DV_PROPORTION matches {
+														type matches {2}
+													}
+												}
+											}
+										}
+										name matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::at0015]    -- RV/TLC-HE
+												}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Klinische Interpretation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0021] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {    -- Gerät
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {    -- Quelle der vorhergesagten Ergebnisse
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Heliumverdünnungsmethode Ergebnis">
+					description = <"Ergebnisse einer Heliumverdünnungsmethode ">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Jeder Zeitpunkt oder jedes Intervall, das in einem Template oder zur Laufzeit definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Volumen">
+					description = <"Das Testergebnis wird als gemessenes Volumen oder berechnete Kapazität dargestellt.">
+					comment = <"Jedes Testergebnis wird über eine separate Instanz dieses Clusters aufgezeichnet.">
+				>
+				["at0005"] = <
+					text = <"Ergebnis">
+					description = <"Gemessenes Volumen">
+				>
+				["at0006"] = <
+					text = <"Vorhergesagtes Ergebnis">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Gemessenes/vorhergesagtes Verhältnis">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"IVC-HE">
+					description = <"Die inspiratorische Vitalkapazität (IVC) ist das maximale Luftvolumen, das aus einer Position voller Exspiration langsam eingeatmet werden kann. Entspricht ERV + TV + IRV.">
+				>
+				["at0009"] = <
+					text = <"ERV-HE">
+					description = <"Das exspiratorische Reservevolumen (ERV) ist das maximale Luftvolumen, das nach dem Ausatmen des normalen Atemzugvolumens zwangsweise ausgeatmet werden kann.">
+				>
+				["at0010"] = <
+					text = <"TLC-HE">
+					description = <"Die totale Lungenkapazität ist das maximale Volumen der Lunge nach vollständiger Einatmung">
+				>
+				["at0011"] = <
+					text = <"FRC-HE">
+					description = <"Die funktionelle Residualkapazität ist das Volumen in der Lunge nach normaler Ausatmung.">
+				>
+				["at0012"] = <
+					text = <"RV-HE">
+					description = <"Das Residualvolumen ist das Volumen, das nach maximaler Ausatmung in der Lunge verbleibt.">
+				>
+				["at0014"] = <
+					text = <"Ratio">
+					description = <"Ein berechnetes Testergebnis ausgedrückt als Verhältnis.">
+					comment = <"Jedes Verhältnis wird mithilfe einer separaten Instanz dieses Clusters aufgezeichnet.">
+				>
+				["at0015"] = <
+					text = <"RV/TLC-HE">
+					description = <"Das Verhältnis von Residualvolumen zu totaler Lungenkapazität.">
+				>
+				["at0019"] = <
+					text = <"Ergebnis">
+					description = <"Berechnetes Verhältnis">
+				>
+				["at0020"] = <
+					text = <"Vorhergesagtes Ergebnis">
+					description = <"Vorhergesagtes Verhältnis">
+				>
+				["at0021"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Gerät">
+					description = <"Details über das Gerät mit dem die Spirometrie gemessen wird.">
+				>
+				["at0023"] = <
+					text = <"Quelle der vorhergesagten Ergebnisse">
+					description = <"Die für die vorhergesagten Ergebnisse verwendete Wissensbasis.">
+				>
+				["at0024"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird.">
+					comment = <"Zum Beispiel: Informationen bzgl. der lokalen Krankenhausabteilung oder zusätzliche Metadata zur Anpassung an entsprechende FHIR oder CIMI Gegenstücke.">
+				>
+				["at0025"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Freitext über die Testergebnisse und deren Interpretation, die nicht in anderen Felder erfasst werden konnte.">
+				>
+				["at0026"] = <
+					text = <"Klinische Interpretation">
+					description = <"Gesamte klinische Interpretation aller Messungen und berechneten Verhältnisse.">
+				>
+			>
+		>
+	>
