@@ -37,7 +37,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.3</value>
+                <value>0.2.2</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -45,7 +45,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>1263569a5711c3bb1eecabc3f01122ce</value>
+                <value>e1acfd1fe0aa29554426386ee21fac1c</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -58,7 +58,7 @@
         </other_details>
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Medikation_Kardiologie" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-ACTION.medication.v1" max="1" path="/content" xsi:type="tem:ACTION">
+        <Content archetype_id="openEHR-EHR-ACTION.medication.v1" path="/content" xsi:type="tem:ACTION">
             <Rule max="0" path="/description[at0017]/items[at0156]"/>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
             <Rule max="0" path="/description[at0017]/items[at0133]"/>
@@ -101,6 +101,12 @@
                 <Rule path="/items[at0139]">
                     <constraint xsi:type="tem:quantityConstraint">
                         <includedUnits>mg</includedUnits>
+                        <unitMagnitude>
+                            <unit>mg</unit>
+                            <minMagnitude>0.0</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </unitMagnitude>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0148]"/>
@@ -110,10 +116,10 @@
                         <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
-                <Rule name="Gruppe" path="/items[at0133]">
+                <Rule max="0" name="Gruppe" path="/items[at0133]">
                     <constraint xsi:type="tem:textConstraint">
                         <includedValues>ACE-Inhibitor</includedValues>
-                        <includedValues>Andere Lipidsenker</includedValues>
+                        <includedValues>andere Lipidsenker</includedValues>
                         <includedValues>andere OAD</includedValues>
                         <includedValues>Angiotensin-Rezeptor Blocker</includedValues>
                         <includedValues>Aspirin niedrigdosiert DOAC</includedValues>
@@ -153,8 +159,8 @@
                         <includedValues>Torasemid</includedValues>
                     </constraint>
                 </Rule>
-                <Items archetype_id="openEHR-EHR-CLUSTER.medication_supply_amount.v0" max="1" path="/items[at0141]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0161]">
+                <Items archetype_id="openEHR-EHR-CLUSTER.medication_supply_amount.v0" path="/items[at0141]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0161]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>morgens</includedValues>
                             <includedValues>mittags</includedValues>
@@ -165,6 +171,12 @@
                     <Rule path="/items[at0131]">
                         <constraint xsi:type="tem:quantityConstraint">
                             <includedUnits>1</includedUnits>
+                            <unitMagnitude>
+                                <unit>1</unit>
+                                <minMagnitude>0.0</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>true</includesMinimum>
+                            </unitMagnitude>
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0158]">
@@ -184,41 +196,52 @@
                         </constraint>
                     </Rule>
                 </Items>
-                <Items archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1" max="1" path="/items[at0141]" xsi:type="tem:CLUSTER">
-                    <Rule max="0" path="/items[at0003]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Quantity</includedTypes>
-                            <includedTypes>Interval</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0014]">
-                        <constraint xsi:type="tem:durationConstraint">
-                            <pattern>PTHMS</pattern>
-                            <maxMagnitude>PT24H</maxMagnitude>
-                            <minMagnitude>PT0H</minMagnitude>
-                            <includesMaximum>true</includesMaximum>
-                            <includesMinimum>true</includesMinimum>
-                        </constraint>
-                    </Rule>
-                    <Rule max="0" path="/items[at0004]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Time</includedTypes>
-                            <includedTypes>Interval</includedTypes>
-                        </constraint>
-                    </Rule>
-                    <Rule path="/items[at0027]">
+                <Items archetype_id="openEHR-EHR-CLUSTER.drug_class.v0" path="/items[at0141]" xsi:type="tem:CLUSTER">
+                    <Rule path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
-                            <includedValues>morgens</includedValues>
-                            <includedValues>mittags</includedValues>
-                            <includedValues>abends</includedValues>
-                            <includedValues>nachts</includedValues>
+                            <includedValues>ACE-Inhibitor</includedValues>
+                            <includedValues>andere Lipidsenker</includedValues>
+                            <includedValues>andere OAD</includedValues>
+                            <includedValues>Angiotensin-Rezeptor Blocker</includedValues>
+                            <includedValues>Aspirin niedrigdosiert DOAC</includedValues>
+                            <includedValues>Aspirin oder äquivalent</includedValues>
+                            <includedValues>Aspirin plus dual antiplatelet</includedValues>
+                            <includedValues>Atorvastatin</includedValues>
+                            <includedValues>Betablocker</includedValues>
+                            <includedValues>Calcium-Canal Blocker</includedValues>
+                            <includedValues>Digitalis</includedValues>
+                            <includedValues>DPP-4 Antagonist</includedValues>
+                            <includedValues>Ezetimibe</includedValues>
+                            <includedValues>Fluvastatin</includedValues>
+                            <includedValues>Furosemid</includedValues>
+                            <includedValues>GLP-1 Agonist</includedValues>
+                            <includedValues>Harnsäuresenkende Therapie</includedValues>
+                            <includedValues>Insulin</includedValues>
+                            <includedValues>Ivabradin</includedValues>
+                            <includedValues>Klasse I-Antiarrhythmika</includedValues>
+                            <includedValues>Klasse III-Antiarryhthmika</includedValues>
+                            <includedValues>Klasse IV-Antiarrhythmika</includedValues>
+                            <includedValues>Lovastatin</includedValues>
+                            <includedValues>Magnesium-Supplementation</includedValues>
+                            <includedValues>Marcumar/Falithrom</includedValues>
+                            <includedValues>Metformin</includedValues>
+                            <includedValues>Mineralokortikoidrezeptor-Antagonist (MRA)</includedValues>
+                            <includedValues>NSAR</includedValues>
+                            <includedValues>PCSK9-Inhibitor</includedValues>
+                            <includedValues>Pravastatin</includedValues>
+                            <includedValues>Rosuvastatin</includedValues>
+                            <includedValues>Sacubitril/Valsartan (ARNI)</includedValues>
+                            <includedValues>Schleifendiuretika</includedValues>
+                            <includedValues>SGLT-Inhibitor (SGLT2i)</includedValues>
+                            <includedValues>Simvastatin</includedValues>
+                            <includedValues>Statine</includedValues>
+                            <includedValues>Thiazid Diuretika</includedValues>
+                            <includedValues>Thrombozytenaggregationshemmer</includedValues>
+                            <includedValues>Torasemid</includedValues>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0023]"/>
-                    <Rule max="0" path="/items[at0024]"/>
-                    <Rule max="0" path="/items[at0025]"/>
-                    <Rule max="0" path="/items[at0039]"/>
-                    <Rule max="0" path="/items[at0035]"/>
+                    <Rule max="0" path="/items[at0004]"/>
+                    <Rule max="0" path="/items[at0007]"/>
                 </Items>
             </Items>
         </Content>
@@ -235,9 +258,9 @@
         <digest id="MD5-CAM-1.0.1">89BA41E6CD217F7E2639D05A6B02465C</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication_supply_amount.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">FBE72718419547A3218110EFAA1177B7</digest>
+        <digest id="MD5-CAM-1.0.1">EE0C097D86C864115F3C4480B21599C4</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">BBF04254F8BEA1421AF2CC97A0B64624</digest>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.drug_class.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">014E566E2D6FA001BE95EAA621A78F3A</digest>
     </integrity_checks>
 </template>
