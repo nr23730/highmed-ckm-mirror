@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="openEHR/v1/Template">
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
     <id>db294327-573b-436d-a18a-bbdbc903c5b8</id>
     <name>KDS_Prozedur</name>
     <description>
@@ -86,7 +85,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>858c2f2a8ad3f82c8f075dedb43d6c2c</value>
+                <value>528bdbda00c0c9caa4a10f46613750d1</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -98,7 +97,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.0</value>
+                <value>7.2.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -110,54 +109,116 @@
             </item>
         </other_details>
     </description>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[at0002]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.identifier</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.encounter</value>
+            </item>
+        </items>
+    </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0063]">
         <items>
             <item>
-                <key>http://snomed.info/sct</key>
-                <value> IsA 442083009 </value>
+                <key>fhir_mapping</key>
+                <value>Procedure.bodySite</value>
             </item>
         </items>
     </annotations>
     <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0002]">
         <items>
             <item>
-                <key>http://fhir.de/ValueSet/dimdi/ops</key>
+                <key>http://fhir.de/ValueSet/bfarm/ops</key>
                 <value>OPS</value>
             </item>
             <item>
                 <key>http://snomed.info/sct</key>
-                <value>DescendentOf 71388002</value>
+                <value>71388002</value>
+            </item>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.code</value>
             </item>
         </items>
     </annotations>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        concept_name="Bericht" name="KDS_Prozedur"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
-            path="/content" xsi:type="tem:ACTION">
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0014]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.extension:durchfuehrungsabsicht</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0067]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.category.coding:sct</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0005]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.note</value>
+            </item>
+        </items>
+    </annotations>
+    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0048]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Procedure.code.coding:ops.extension:Seitenlokalisation</value>
+            </item>
+        </items>
+    </annotations>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="KDS_Prozedur" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-ACTION.procedure.v1" min="1" path="/content" xsi:type="tem:ACTION">
             <Rule max="0" min="0" path="/ism_transition[at0034]"/>
-            <Rule max="0" min="0" path="/ism_transition[at0035]"/>		
-			<Rule name="Name der Prozedur" path="/description[at0001]/items[at0002]">
-				<constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/ops" terminologyID="//fhir.hl7.org/"/>
+            <Rule max="0" min="0" path="/ism_transition[at0035]"/>
+            <Rule path="/description[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/ops" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule name="Freitextbeschreibung" path="/description[at0001]/items[at0049]"/>
             <Rule max="0" path="/description[at0001]/items[at0070]"/>
             <Rule max="0" path="/description[at0001]/items[at0065]"/>
-            <Rule max="0" path="/description[at0001]/items[at0058]"/>		
-			 <Rule name="Körperstelle" path="/description[at0001]/items[at0063]">
-				<constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
-            </Rule>	
-			<Rule clone="true" name="Seitenlokalisation" path="/description[at0001]/items[at0063]">
+            <Rule max="0" path="/description[at0001]/items[at0058]"/>
+            <Rule name="Körperstelle" path="/description[at0001]/items[at0063]">
                 <constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+                    <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
-            <Rule max="0" path="/description[at0001]/items[at0048]"/>
+            <Rule max="1" name="Seitenlokalisation" path="/description[at0001]/items[at0048]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule clone="true" max="0" name="Seitenlokalisation" path="/description[at0001]/items[at0063]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_SEITENLOKALISATION" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule name="Kategorie der Prozedur" path="/description[at0001]/items[at0067]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-category-sct" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="1" name="Durchführungsabsicht" path="/description[at0001]/items[at0014]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-intend" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
             <Rule max="0" path="/description[at0001]/items[at0069]"/>
             <Rule max="0" path="/description[at0001]/items[at0006]"/>
             <Rule max="0" path="/description[at0001]/items[at0066]"/>
@@ -169,16 +230,6 @@
                     <includesMinimum>true</includesMinimum>
                 </constraint>
             </Rule>
-            <Rule name="Kategorie der Prozedur" path="/description[at0001]/items[at0067]">
-				<constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-category-sct" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
-            </Rule>			   
-            <Rule name="Durchführungsabsicht" path="/description[at0001]/items[at0014]">
-               <constraint xsi:type="tem:textConstraint">
-					<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/ValueSet/procedures-intend" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
-            </Rule>			
             <Rule max="0" path="/protocol[at0053]/items[at0054]">
                 <constraint xsi:type="tem:multipleConstraint">
                     <includedTypes>Text</includedTypes>
@@ -193,10 +244,7 @@
             </Rule>
         </Content>
         <Context>
-            <Items
-                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-                max="1"
-                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+            <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule min="1" path="/items[at0001]"/>
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
@@ -205,20 +253,13 @@
         </Context>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
-    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
-    <integrity_checks
-        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1"
-        xmlns:tem="openEHR/v1/Template"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">7976419EEFB8BFACDA7BAB23201F9BEF</digest>
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A83EF7B3123876997EA6F292C16A246D</digest>
     </integrity_checks>
 </template>
