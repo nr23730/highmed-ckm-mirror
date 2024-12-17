@@ -131,9 +131,6 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
             archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
            name="Diagnose" min="1" path="/content" xsi:type="tem:EVALUATION">
                        <Rule name="Kodierte Diagnose" path="/data[at0001]/items[at0002]">
-                <constraint xsi:type="tem:textConstraint">
-                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
-                </constraint>
             </Rule>
             <Rule name="Freitextbeschreibung" path="/data[at0001]/items[at0009]"/>
             <Rule max="0" name="Körperstelle" path="/data[at0001]/items[at0012]">
@@ -189,19 +186,13 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
                 archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v2"
                 concept_name="Problem/Diagnose Attribut" max="1"
                 name="Klinischer Status"
-                path="/data[at0001]/items[at0046]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0004]"/>				
+                path="/data[at0001]/items[at0046]" xsi:type="tem:CLUSTER">		
 				<Rule max="0" path="/items[at0098]"/>
 				<Rule max="0" path="/items[at0102]"/>       
 				<Rule max="0" path="/items[at0060]"/>
                 <Rule name="Klinischer Status" path="/items[at0003]">
                     <constraint xsi:type="tem:textConstraint">
-		 				<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::active::Active</includedValues>
-						<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::inactive::Inactive</includedValues>
-		 				<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::recurrence::Recurrence</includedValues>
-				 		<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::relapse::Relapse</includedValues>
-						<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::remission::Remission</includedValues>
-						<includedValues>http://terminology.hl7.org/CodeSystem/condition-clinical::resolved::Resolved</includedValues>
+		 				<termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/condition-clinical" terminologyID="//fhir.hl7.org/"/>
 					</constraint>				
                 </Rule>
 				 <Rule name="Klinischer Status" path="/items[at0003]">
@@ -219,13 +210,7 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
                 <Rule max="0" path="/items[at0077]"/>       
 				<Rule name="Diagnoserolle" max="1" path="/items[at0063]">				
 					 <constraint xsi:type="tem:textConstraint">		
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::AA::Admission diagnosis</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::DD::Discharge diagnosis</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::CC::Chief complaint</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::CM::Comorbidity diagnosis</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::pre-op::pre-op diagnosis</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::post-op::post-op diagnosis</includedValues>
-						 <includedValues>http://terminology.hl7.org/CodeSystem/diagnosis-role::billing::Billing</includedValues>
+						 <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/diagnosis-role" terminologyID="//fhir.hl7.org/"/>
 					  </constraint>
 				</Rule>			
 			  <Rule name="Diagnoserolle" min="1" max="1" path="/items[at0063]">
@@ -234,10 +219,7 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
 					<excludedValues>local::at0066</excludedValues>
 						<excludedValues>local::at0076</excludedValues>
 				</constraint>
-				</Rule>	
-				
-
-				
+				</Rule>				
                 <Rule max="0" path="/items[at0073]"/>
             </Items>
 			<Items
@@ -276,9 +258,8 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
                 </Rule>
                 <Rule max="0" path="/items[at0023]"/>
             </Items>
-        </Content>
-		 
-<Context>
+        </Content>	 
+		<Context>
             <Items
                 archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
                 max="1"
@@ -289,17 +270,14 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
-               <Rule path="/context/other_context[at0001]/items[at0005]">
+		<Rule path="/context/other_context[at0001]/items[at0005]">
             <constraint limitToList="false" xsi:type="tem:textConstraint">
-                <includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::unconfirmed::Unconfirmed</includedValues>
-               	<includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::provisional::Provisional</includedValues>
-               	<includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::differential::Differential</includedValues>
-               	<includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::confirmed::Confirmed</includedValues>
-               	<includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::refuted::Refuted</includedValues>
-               	<includedValues>http://terminology.hl7.org/CodeSystem/condition-ver-status::entered-in-error::Entered in Error</includedValues>
+                <includedValues>registriert</includedValues>
+                <includedValues>vorläufig</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>geändert</includedValues>
             </constraint>
         </Rule>
-
     </definition>
      <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         xmlns:tem="openEHR/v1/Template"
