@@ -90,13 +90,12 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.person.v0" concept_name="Personendaten" name="Person" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0" max="1" path="/content" xsi:type="tem:ADMIN_ENTRY">
-           <Rule max="0" path="/data[at0001]/items[at0011]"/>
-		   <Rule max="0" path="/data[at0001]/items[at0010]"/>
-		   <Rule path="/data[at0001]/items[at0002]">
+            <Rule max="0" path="/data[at0001]/items[at0011]"/>
+            <Rule path="/data[at0001]/items[at0002]">
                 <constraint xsi:type="tem:textConstraint">
                     <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::GKV::Gesetzliche Krankenversicherung</includedValues>
-					<includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::PKV::Private Krankenversicherung</includedValues>
-					<includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::KVZ10::Krankenversichertennummer</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::PKV::Private Krankenversicherung</includedValues>
+                    <includedValues>http://fhir.de/CodeSystem/identifier-type-de-basis::KVZ10::Krankenversichertennummer</includedValues>
                 </constraint>
             </Rule>
             <Rule path="/data[at0001]/items[at0006]">
@@ -108,15 +107,12 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     <includedTypes>Coded_text</includedTypes>
                 </constraint>
             </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0010]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1" min="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://hl7.org/fhir/ValueSet/administrative-gender::male::Male</includedValues>
-                    <includedValues>http://hl7.org/fhir/ValueSet/administrative-gender::female::Female</includedValues>
-                    <includedValues>http://hl7.org/fhir/ValueSet/administrative-gender::other::Other</includedValues>
-                    <includedValues>http://hl7.org/fhir/ValueSet/administrative-gender::unknown::Unknown</includedValues>
-
+                   <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/v2-0001" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
@@ -127,8 +123,7 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             <Rule max="0" path="/data[at0002]/items[at0027]"/>
             <Rule name="Anderes Geschlecht amtlich" path="/data[at0002]/items[at0014]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>http://fhir.de/ValueSet/gender-other-de::D::divers</includedValues>
-                    <includedValues>http://fhir.de/ValueSet/gender-other-de::X::unbestimmt</includedValues>
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/gender-other-de" terminologyID="//fhir.hl7.org/"/>					
                 </constraint>
             </Rule>
             <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
@@ -140,7 +135,6 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-			<Rule max="0" path="/data[at0001]/items[at0024]/items[at0025]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.person_birth_data_iso.v0" max="1" path="/data[at0001]/items[at0028]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
@@ -149,14 +143,18 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.person.v1" max="1" min="1" path="/data[at0001]/items[at0026]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0001]"/>
-				<Rule max="0" path="/items[at0003]"/>
-				<Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0011]"/>
+                <Rule max="0" path="/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Identifier</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0004]"/>
                 <Rule max="0" path="/items[at0010]"/>
                 <Items archetype_id="openEHR-EHR-CLUSTER.structured_name.v1" concept_name="Strukturierter Name der Person" name="Name" path="/items[at0002]" xsi:type="tem:CLUSTER">
-                    <Rule name="Prefix" path="/items[at0001]">
-                    </Rule>
-					<Rule clone="true" max="1" name="Prefix-qualifier" path="/items[at0001]">
+                    <Rule name="Prefix" path="/items[at0001]"/>
+                    <Rule clone="true" max="1" name="Prefix-qualifier" path="/items[at0001]">
                         <constraint xsi:type="tem:textConstraint">
                             <includedValues>http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier::LS::Legal status</includedValues>
                             <includedValues>http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier::AC::Academic</includedValues>
@@ -170,13 +168,13 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                             <includedValues>http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier::CL::Call me</includedValues>
                             <includedValues>http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier::IN::Initial</includedValues>
                         </constraint>
-                    </Rule>				
+                    </Rule>
                     <Rule min="1" path="/items[at0002]"/>
                     <Rule max="1" min="1" name="Familienname" path="/items[at0005]"/>
                     <Rule clone="true" max="1" name="Familienname-Namenszusatz" path="/items[at0005]"/>
                     <Rule clone="true" max="1" name="Familienname-Nachname" path="/items[at0005]"/>
                     <Rule clone="true" max="1" name="Familienname-Vorsatzwort" path="/items[at0005]"/>
-                    <Rule max="0" path="/items[at0006]"></Rule>
+                    <Rule max="0" path="/items[at0006]"/>
                 </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.organisation.v1" concept_name="Organisation" max="1" name="Verwaltungsorganisation" path="/items[at0007]" xsi:type="tem:CLUSTER">
                     <Rule max="0" path="/items[at0004]"/>
@@ -226,18 +224,16 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                         </constraint>
                     </Rule>
                     <Rule max="0" path="/items[at0009]">
-                        <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>m</unit>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
-                        </constraint>
+                        <constraint xsi:type="tem:quantityConstraint"/>
                     </Rule>
                     <Rule max="0" path="/items[at0019]"/>
                     <Rule min="1" name="Adresstyp" path="/items[at0010]">
-                    </Rule> 	
-                   <Rule path="/items[at0014]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Coded_text</includedTypes>
+                            <includedTypes>Text</includedTypes>
+                        </constraint>
+                    </Rule>
+					<Rule path="/items[at0014]">
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
@@ -284,8 +280,5 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.address.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">4CB383854196F76408BABBEB02117881</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.electronic_communication.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">631B12227B6F857367CA40D256DD814A</digest>
     </integrity_checks>
 </template>
