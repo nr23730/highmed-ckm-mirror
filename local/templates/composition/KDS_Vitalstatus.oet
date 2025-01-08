@@ -37,7 +37,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>4.0.0</value>
+                <value>9.0.4</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -85,38 +85,25 @@
             </item>
         </items>
     </annotations>
-    <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.vital_status.v1]/data[at0001]/items[at0006]">
-        <items>
-            <item>
-                <key>fhir_mapping</key>
-                <value>Observation.value[x].coding:Vitalstatus</value>
-            </item>
-        </items>
-    </annotations>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="KDS_Vitalstatus" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.vital_status.v1" max="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule path="/data[at0001]/items[at0006]">
                 <constraint xsi:type="tem:textConstraint">
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus::L::Patient lebt</includedValues>
-					<includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::T::Patient verstorben</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::A::unbekannt, Patient nicht mehr auffindbar (lost to follow-up)</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::N::unbekannt, Betreuung/Nachsorge nicht mehr nötig</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::B::unbekannt, Patient ist anderenorts in Betreuung</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::V::unbekannt, Patient verweigert weitere Betreuung</includedValues>
-                    <includedValues>https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus::X::unbekannt</includedValues>               
+                    <termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/core/modul-person/ValueSet/Vitalstatus" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
+            <Items archetype_id="openEHR-EHR-CLUSTER.entry_category.v0" concept_name="Kategorie des Eintrags" min="1" name="Kategorie der Beobachtung" path="/data[at0001]/items[at0010]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0002]">
+                    <constraint limitToList="false" xsi:type="tem:textConstraint">
+                        <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/CodeSystem/observation-category" terminologyID="//fhir.hl7.org/"/>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+            </Items>
         </Content>
         <Rule path="/context/other_context[at0001]/items[at0005]">
             <constraint xsi:type="tem:textConstraint">
-                <includedValues>http://hl7.org/fhir/observation-status::Registriert::Registriert</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Vorläufig::Vorläufig</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Final::Final</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Geändert::Geändert</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Korrigiert::Korrigiert</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Abgebrochen::Abgebrochen</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Irrtümlich eingegeben::Irrtümlich eingegeben</includedValues>
-                <includedValues>http://hl7.org/fhir/observation-status::Unbekannt::Unbekannt</includedValues>
+                <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/observation-status" terminologyID="//fhir.hl7.org/"/>
             </constraint>
         </Rule>
     </definition>
@@ -125,5 +112,8 @@
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.vital_status.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">DD10AF7A98CA0FAF10467F86BFE9CFF1</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.entry_category.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">07559D9AA6F76784AE95ADE028603EC0</digest>
     </integrity_checks>
 </template>
