@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
+    <id>d0a7449e-fc01-451a-84b5-4e3262d64cb6</id>
+    <name>KDS_Todesursache</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2025-01-08</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>test</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="KDS_Todesursache" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.cause_of_death.v1" max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule max="0" path="/data[at0001]/items[at0019]"/>
+            <Rule name="Todesursache" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0017]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Duration</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0020]"/>
+        </Content>
+    </definition>
+    <view>
+        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data">
+            <items id="VisibleInView">
+                <value>Aufzeichnungsdatum</value>
+            </items>
+        </constraints>
+    </view>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.cause_of_death.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D194CC05533222B1F032D4DF913FADCB</digest>
+    </integrity_checks>
+</template>
