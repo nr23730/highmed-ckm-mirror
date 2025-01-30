@@ -7,10 +7,8 @@ language
 	original_language = <[ISO_639-1::de]>
 description
 	original_author = <
-		["name"] = <"Alina Rehberg">
-		["organisation"] = <"Medizinische Hochschule Hannover">
-		["email"] = <"rehberg.alina@mh-hannover.de">
-		["date"] = <"2024-10-14">
+		["name"] = <"test">
+		["date"] = <"2024-09-18">
 	>
 	details = <
 		["de"] = <
@@ -27,22 +25,18 @@ Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um die Darstellu
 Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
 
 Nicht zur Aufzeichnung von Messungen zur Pulsoximetrie geeignet. Verwenden Sie zu diesem Zweck die OBSERVATION.pulse_oximetry.">
-			copyright = <"© HiGHmed">
 		>
 	>
 	lifecycle_state = <"in_development">
 	other_contributors = <>
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"HiGHmed">
-		["references"] = <"Bhakta, N. R., McGowan, A., & Ramsey, K. A. (2023). European Respiratory Society/American Thoracic Society technical statement: standardisation of the measurement of lung volumes, 2023 update. European Respiratory Journal, 62(4), 2201519. https://doi.org/10.1183/13993003.01519-2022
-
-Wanger, J., Clausen, J. L., & Coates, A. (2005). Standardisation of the measurement of lung volumes. European Respiratory Journal, 26(3), 511-522. https://doi.org/10.1183/09031936.05.00035005">
-		["original_namespace"] = <"org.highmed">
-		["original_publisher"] = <"HiGHmed">
-		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"2332C173326F114A67D50D42E819E211">
-		["build_uid"] = <"3e605abb-56dc-44b1-903c-15d17da2b267">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"0DB254972E46D13D275417DCD6BE473F">
+		["build_uid"] = <"bf0e0f43-d692-4e77-9b1c-de6f54b8f069">
 		["ip_acknowledgements"] = <"This artefact includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyrighted material of the International Health Terminology Standards Development Organisation (IHTSDO). Where an implementation of this artefact makes use of SNOMED CT content, the implementer must have the appropriate SNOMED CT Affiliate license - for more information contact https://www.snomed.org/snomed-ct/get-snomed or info@snomed.org.">
 		["revision"] = <"0.0.1-alpha">
 	>
@@ -52,7 +46,7 @@ definition
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Jedes Ereignis
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
@@ -71,6 +65,7 @@ definition
 															["2"] = <
 																units = <"mL">
 																magnitude = <|>=0.0|>
+																precision = <|1|>
 															>
 														>
 													>
@@ -84,11 +79,12 @@ definition
 															["1"] = <
 																units = <"L">
 																magnitude = <|>=0.0|>
+																precision = <|3|>
 															>
 															["2"] = <
 																units = <"mL">
 																magnitude = <|>=0.0|>
-																precision = <|3|>
+																precision = <|1|>
 															>
 														>
 													>
@@ -116,53 +112,45 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0013] occurrences matches {0..1} matches {    -- Atemwegswiderstand
+									CLUSTER[at0013] occurrences matches {0..*} matches {    -- Atemwegswiderstand
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0014] occurrences matches {0..1} matches {    -- Ergebnis
 												value matches {
 													C_DV_QUANTITY <
-														
+														property = <[openehr::122]>
 														list = <
 															["1"] = <
-																units = <"kP/L">
-																magnitude = <|>=0.0|>
+																units = <"kPa/L">
 															>
 															["2"] = <
-																units = <"kP*s">
-																magnitude = <|>=0.0|>
+																units = <"kPa*s">
 															>
 															["3"] = <
-																units = <"cmH2O·s/L">
-																magnitude = <|>=0.0|>
+																units = <"cmH2O*s/L">
 															>
 															["4"] = <
-																units = <"kPa·s/L">
-																magnitude = <|>=0.0|>
+																units = <"kPa*s/L">
 															>
-														>
+														>	
 													>
 												}
 											}
 											ELEMENT[at0015] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
 												value matches {
 													C_DV_QUANTITY <
-														
+														property = <[openehr::122]>
 														list = <
 															["1"] = <
-																units = <"kP/L">
-																magnitude = <|>=0.0|>
+																units = <"kPa/L">
 															>
 															["2"] = <
-																units = <"kP*s">
-																magnitude = <|>=0.0|>
+																units = <"kPa*s">
 															>
 															["3"] = <
-																units = <"cmH2O·s/L">
-																magnitude = <|>=0.0|>
+																units = <"cmH2O*s/L">
 															>
 															["4"] = <
-																units = <"kPa·s/L">
-																magnitude = <|>=0.0|>
+																units = <"kPa*s/L">
 															>
 														>
 													>
@@ -188,7 +176,7 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0023] occurrences matches {0..1} matches {    -- Ratio
+									CLUSTER[at0023] occurrences matches {0..*} matches {    -- Ratio
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0024] occurrences matches {0..1} matches {    -- Ergebnis
 												value matches {
@@ -210,7 +198,7 @@ definition
 										name matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
-													[local::at0028]    -- RV/TLC
+													[local::at0028]    -- RV/TLC-B
 												}
 											}
 										}
@@ -253,6 +241,7 @@ definition
 	}
 
 
+
 ontology
 	term_definitions = <
 		["de"] = <
@@ -267,8 +256,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Jedes Ereignis">
-					description = <"Jeder Zeitpunkt oder jedes Intervall, das in einem Template oder zur Laufzeit definiert werden kann.">
+					text = <"Any event">
+					description = <"@ internal @">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -297,15 +286,15 @@ ontology
 				>
 				["at0010"] = <
 					text = <"TLC">
-					description = <"Die totale Lungenkapazität ist das maximale Volumen der Lunge nach vollständiger Einatmung">
+					description = <"Totale Lungenkapazität - Das maximale Volumen der Lunge nach vollständiger Einatmung">
 				>
 				["at0011"] = <
 					text = <"TGV">
-					description = <"Das Thorakales Gasvolumen ist das Gasvolumen in der Lunge am Ende der normalen Ausatmung, das oft mit der funktionellen Residualkapazität (FRC) gleichgesetzt wird.">
+					description = <"Thorakales Gasvolumen - Das Gasvolumen in der Lunge am Ende der normalen Ausatmung, das oft mit der funktionellen Residualkapazität (FRC) gleichgesetzt wird.">
 				>
 				["at0012"] = <
 					text = <"RV">
-					description = <"Das Residualvolumen ist das Volumen, das nach maximaler Ausatmung in der Lunge verbleibt.">
+					description = <"Residualvolumen - Das Volumen, das nach maximaler Ausatmung in der Lunge verbleibt.">
 				>
 				["at0013"] = <
 					text = <"Atemwegswiderstand">
@@ -326,15 +315,15 @@ ontology
 				>
 				["at0020"] = <
 					text = <"RAWtot">
-					description = <"Der Totaler Atemwegswiderstand ist der Widerstand, den die Luft beim Ein- und Ausströmen durch die Atemwege erfährt.">
+					description = <"Totaler Atemwegswiderstand - Der Widerstand, den die Luft beim Ein- und Ausströmen durch die Atemwege erfährt.">
 				>
 				["at0021"] = <
 					text = <"RAW-ex">
-					description = <"Der Exspiratorischer Atemwegswiderstand ist der Widerstand, den die Luft beim Ausatmen durch die Atemwege erfährt.">
+					description = <"Exspiratorischer Atemwegswiderstand - Der Widerstand, den die Luft beim Ausatmen durch die Atemwege erfährt.">
 				>
 				["at0022"] = <
 					text = <"sRAWtot">
-					description = <"Der Spezifischer totaler Atemwegswiderstand ist der Widerstand in Bezug auf das Volumen der Lunge.">
+					description = <"Spezifischer totaler Atemwegswiderstand - Der Atemwegswiderstand in Bezug auf das Volumen der Lunge.">
 				>
 				["at0023"] = <
 					text = <"Ratio">
@@ -358,8 +347,8 @@ ontology
 					description = <"Gesamte klinische Interpretation aller Messungen und berechneten Verhältnisse.">
 				>
 				["at0028"] = <
-					text = <"RV/TLC">
-					description = <"Das Verhältnis von Residualvolumen zu totaler Lungenkapazität.">
+					text = <"RV/TLC-B">
+					description = <"Verhältnis von Residualvolumen zu totaler Lungenkapazität - Bodyplethysmographie">
 				>
 				["at0030"] = <
 					text = <"Gerät">
@@ -377,11 +366,11 @@ ontology
 				>
 				["at0033"] = <
 					text = <"FRC">
-					description = <"Die funktionelle Residualkapazität ist das Volumen in der Lunge nach normaler Ausatmung.">
+					description = <"Funktionelle Residualkapazität - Das Volumen in der Lunge nach normaler Ausatmung.">
 				>
 				["at0034"] = <
 					text = <"ITGV">
-					description = <"Das Intrathorakales Gasvolumen ist das Volumen des Gases im Thorax am Ende einer normalen Ausatmung. Es entspricht dem TGV.">
+					description = <"Intrathorakales Gasvolumen - Das Volumen des Gases im Thorax am Ende einer normalen Ausatmung. Es entspricht dem TGV.">
 				>
 			>
 		>
