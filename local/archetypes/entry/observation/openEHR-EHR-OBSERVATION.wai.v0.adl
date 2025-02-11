@@ -1,0 +1,804 @@
+﻿archetype (adl_version=1.4; uid=07d8b565-f099-41b3-b512-45b379a0b5a2)
+	openEHR-EHR-OBSERVATION.wai.v0
+
+concept
+	[at0000]	-- Work Ability Index (WAI)
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kristina Scheuermann">
+		["organisation"] = <"Peter L. Reichertz Institut für Medizinische Informatik der TU Braunschweig und der Medizinischen Hochschule Hannover">
+		["email"] = <"scheuermann.kristina@mh-hannover.de">
+		["date"] = <"2025-01-20">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Der WAI ist ein Fragebogen zur Quantifizierung der aktuellen sowie zukünftigen subjektiven Arbeitsfähigkeit. Er besteht aus 7 Dimensionen mit 10 Fragestellungen und einer Krankheitsliste. Es gibt ihn in einer Kurz- und Langversion. Dabei unterscheidet sich lediglich die die Länge der Krankheitsliste.">
+			use = <"Zur Erfassung und Bewertung der Arbeitsfähigkeit von Beschäftigten.">
+			keywords = <"Arbeitsbewältigungsindex, Work Ability Index, Arbeitsfähigkeit, Leistungsfähigkeit, Health", ...>
+			misuse = <"Der WAI trifft keine Aussage bezüglich der tatsächlichen Arbeitsleistung, Leistungsfähigkeit oder Gesundheit von Beschäftigten.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Tuomi K, Ilmarinen J, Jahkola A, Katajarinne L, Tulkki A. Work ability index. Finnish Institute of Occupational Health Helsinki; 1998
+Tuomi K, Huuhtanen P, Nykyri E, Ilmarinen J. Promotion of work ability, the quality of work and retirement. Occupational medicine. 2001;51(5):318-24.
+
+Deutsche Übersetzung:  Der WAI-Fragebogen [Internet]. INQA WAI-Netzwerk. 2013. Verfügbar unter: https://www.wainetzwerk.de/de/der-wai-fragebogen-690.html
+">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"9DD9DC27C5E7454E279F5FC8AFAA454B">
+		["build_uid"] = <"6ecf47b3-3b4e-4bb3-906a-d366cff3fde7">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Work Ability Index (WAI)
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Sind Sie bei Ihrer Arbeit…
+										value matches {
+											1|[local::at0005],
+											2|[local::at0006],
+											3|[local::at0007]
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Derzeitige Arbeitsfähigkeit im Vergleich zu der besten, je erreichten Arbeitsfähigkeit
+										value matches {
+											1|[local::at0009],
+											2|[local::at0010],
+											3|[local::at0011],
+											4|[local::at0012],
+											5|[local::at0013],
+											6|[local::at0014],
+											7|[local::at0015],
+											8|[local::at0016],
+											9|[local::at0017],
+											10|[local::at0018]
+										}
+									}
+									CLUSTER[at0020] occurrences matches {0..1} matches {    -- Arbeitsfähigkeit in Bezug auf die Arbeitsanforderungen
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0021] occurrences matches {0..1} matches {    -- Wie schätzen Sie Ihre derzeitige Arbeitsfähigkeit in Bezug auf die körperlichen Arbeitsanforderungen ein?
+												value matches {
+													1|[local::at0023],
+													2|[local::at0024],
+													3|[local::at0025],
+													4|[local::at0026],
+													5|[local::at0027]
+												}
+											}
+											ELEMENT[at0028] occurrences matches {0..1} matches {    -- Wie schätzen Sie Ihre derzeitige Arbeitsfähigkeit in Bezug auf die psychischen Arbeitsanforderungen ein?
+												value matches {
+													1|[local::at0029],
+													2|[local::at0030],
+													3|[local::at0031],
+													4|[local::at0032],
+													5|[local::at0033]
+												}
+											}
+										}
+									}
+									CLUSTER[at0034] occurrences matches {0..1} matches {    -- Anzahl der aktuellen ärztlich diagnostizierten Krankheiten
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0039] occurrences matches {0..1} matches {    -- Unfallverletzungen
+												value matches {
+													0|[local::at0040],
+													1|[local::at0041],
+													2|[local::at0042]
+												}
+											}
+											ELEMENT[at0043] occurrences matches {0..1} matches {    -- Erkrankungen des Muskel-Skelett-Systems
+												value matches {
+													0|[local::at0044],
+													1|[local::at0045],
+													2|[local::at0046]
+												}
+											}
+											ELEMENT[at0047] occurrences matches {0..1} matches {    -- Herz-Kreislauf-Erkrankungen
+												value matches {
+													0|[local::at0048],
+													1|[local::at0049],
+													2|[local::at0050]
+												}
+											}
+											ELEMENT[at0051] occurrences matches {0..1} matches {    -- Atemwegserkrankungen
+												value matches {
+													0|[local::at0052],
+													1|[local::at0053],
+													2|[local::at0054]
+												}
+											}
+											ELEMENT[at0055] occurrences matches {0..1} matches {    -- Psychische Beeinträchtigungen
+												value matches {
+													0|[local::at0056],
+													1|[local::at0057],
+													2|[local::at0058]
+												}
+											}
+											ELEMENT[at0059] occurrences matches {0..1} matches {    -- Neurologische und sensorische Erkrankungen
+												value matches {
+													0|[local::at0060],
+													1|[local::at0061],
+													2|[local::at0062]
+												}
+											}
+											ELEMENT[at0063] occurrences matches {0..1} matches {    -- Erkrankungen des Verdauungssystems
+												value matches {
+													0|[local::at0064],
+													1|[local::at0065],
+													2|[local::at0066]
+												}
+											}
+											ELEMENT[at0067] occurrences matches {0..1} matches {    -- Erkrankungen im Urogenitaltrakt
+												value matches {
+													0|[local::at0068],
+													1|[local::at0069],
+													2|[local::at0070]
+												}
+											}
+											ELEMENT[at0071] occurrences matches {0..1} matches {    -- Hautkrankheiten
+												value matches {
+													0|[local::at0072],
+													1|[local::at0073],
+													2|[local::at0074]
+												}
+											}
+											ELEMENT[at0075] occurrences matches {0..1} matches {    -- Tumore / Krebs
+												value matches {
+													0|[local::at0076],
+													1|[local::at0077],
+													2|[local::at0078]
+												}
+											}
+											ELEMENT[at0079] occurrences matches {0..1} matches {    -- Hormon- / Stoffwechselerkrankungen
+												value matches {
+													0|[local::at0080],
+													1|[local::at0081],
+													2|[local::at0082]
+												}
+											}
+											ELEMENT[at0083] occurrences matches {0..1} matches {    -- Krankheiten des Blutes
+												value matches {
+													0|[local::at0084],
+													1|[local::at0085],
+													2|[local::at0086]
+												}
+											}
+											ELEMENT[at0087] occurrences matches {0..1} matches {    -- Angeborene Leiden / Erkrankungen
+												value matches {
+													0|[local::at0088],
+													1|[local::at0089],
+													2|[local::at0090]
+												}
+											}
+											ELEMENT[at0035] occurrences matches {0..1} matches {    -- Andere Leiden oder Krankheiten
+												value matches {
+													0|[local::at0036],
+													1|[local::at0037],
+													2|[local::at0038]
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0091] occurrences matches {0..1} matches {    -- Geschätzte Beeinträchtigung der Arbeitsleistung durch die Krankheiten
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0092] occurrences matches {0..1} matches {    -- Keine Beeinträchtigung / Ich habe keine Erkrankung
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0093] occurrences matches {0..1} matches {    -- Ich kann meine Arbeit ausführen, habe aber Beschwerden
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0094] occurrences matches {0..1} matches {    -- Ich bin manchmal gezwungen, langsamer zu arbeiten oder  meine Arbeitsmethoden zu ändern
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0095] occurrences matches {0..1} matches {    -- Ich bin oft gezwungen, langsamer zu arbeiten oder meine Arbeitsmethoden zu ändern
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0096] occurrences matches {0..1} matches {    -- Wegen meiner Krankheit bin ich nur in der Lage Teilzeitarbeit  zu verrichten
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+											ELEMENT[at0097] occurrences matches {0..1} matches {    -- Meiner Meinung nach bin ich völlig arbeitsunfähig
+												value matches {
+													DV_BOOLEAN matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0099] occurrences matches {0..1} matches {    -- Krankenstand im vergangenen Jahr (12 Monate)
+										value matches {
+											1|[local::at0100],
+											2|[local::at0101],
+											3|[local::at0102],
+											4|[local::at0103],
+											5|[local::at0104]
+										}
+									}
+									ELEMENT[at0105] occurrences matches {0..1} matches {    -- Einschätzung der eigenen Arbeitsfähigkeit in zwei Jahren
+										value matches {
+											1|[local::at0106],
+											2|[local::at0107],
+											3|[local::at0108]
+										}
+									}
+									CLUSTER[at0109] occurrences matches {0..1} matches {    -- Psychische Leistungsreserven
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0110] occurrences matches {0..1} matches {    -- Haben Sie in der letzten Zeit Ihre täglichen Aufgaben mit Freude erledigt?
+												value matches {
+													0|[local::at0113],
+													1|[local::at0114],
+													2|[local::at0115],
+													3|[local::at0116],
+													4|[local::at0117]
+												}
+											}
+											ELEMENT[at0111] occurrences matches {0..1} matches {    -- Waren Sie in letzter Zeit aktiv und rege?
+												value matches {
+													0|[local::at0118],
+													1|[local::at0119],
+													2|[local::at0120],
+													3|[local::at0121],
+													4|[local::at0122]
+												}
+											}
+											ELEMENT[at0112] occurrences matches {0..1} matches {    -- Waren Sie in der letzten Zeit zuversichtlich, was die Zukunft betrifft?
+												value matches {
+													0|[local::at0123],
+													1|[local::at0124],
+													2|[local::at0125],
+													3|[local::at0126],
+													4|[local::at0127]
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Work Ability Index (WAI)">
+					description = <"Beim Work Ability Index (WAI) oder auch Arbeitsbewältigungsindex (ABI) handelt es sich um ein quantitatives Befragungsverfahren, das die aktuelle sowie zukünftige subjektive Arbeitsfähigkeit von Beschäftigten erfasst und bewertet.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Sind Sie bei Ihrer Arbeit…">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Vorwiegend geistig tätig?">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Vorwiegend körperlich tätig?">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Etwa gleichermaßen geistig und körperlich tätig?">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Derzeitige Arbeitsfähigkeit im Vergleich zu der besten, je erreichten Arbeitsfähigkeit">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"1">
+					description = <"Völlig arbeitsunfähig.">
+				>
+				["at0010"] = <
+					text = <"2">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"3">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"4">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"5">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"6">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"7">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"8">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"9">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"10">
+					description = <"Derzeit die beste Arbeitsfähigkeit.">
+				>
+				["at0020"] = <
+					text = <"Arbeitsfähigkeit in Bezug auf die Arbeitsanforderungen">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Wie schätzen Sie Ihre derzeitige Arbeitsfähigkeit in Bezug auf die körperlichen Arbeitsanforderungen ein?">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Sehr schlecht.">
+					description = <"Sehr schlecht.">
+				>
+				["at0024"] = <
+					text = <"Eher schlecht.">
+					description = <"Eher schlecht.">
+				>
+				["at0025"] = <
+					text = <"Mittelmäßig.">
+					description = <"Mittelmäßig.">
+				>
+				["at0026"] = <
+					text = <"Eher gut.">
+					description = <"Eher gut.">
+				>
+				["at0027"] = <
+					text = <"Sehr gut.">
+					description = <"Sehr gut.">
+				>
+				["at0028"] = <
+					text = <"Wie schätzen Sie Ihre derzeitige Arbeitsfähigkeit in Bezug auf die psychischen Arbeitsanforderungen ein?">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Sehr schlecht.">
+					description = <"Sehr schlecht.">
+				>
+				["at0030"] = <
+					text = <"Eher schlecht.">
+					description = <"Eher schlecht.">
+				>
+				["at0031"] = <
+					text = <"Mittelmäßig.">
+					description = <"Mittelmäßig.">
+				>
+				["at0032"] = <
+					text = <"Eher gut.">
+					description = <"Eher gut.">
+				>
+				["at0033"] = <
+					text = <"Sehr gut.">
+					description = <"Sehr gut.">
+				>
+				["at0034"] = <
+					text = <"Anzahl der aktuellen ärztlich diagnostizierten Krankheiten">
+					description = <"Kreuzen Sie in der folgenden Liste Ihre Krankheiten oder Verletzungen an.
+Geben Sie bitte auch an, ob ein Arzt diese Krankheiten diagnostiziert oder behandelt hat.">
+				>
+				["at0035"] = <
+					text = <"Andere Leiden oder Krankheiten">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0037"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0038"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0039"] = <
+					text = <"Unfallverletzungen">
+					description = <"Z.B. des Rückens, der Glieder, Verbrennungen.">
+				>
+				["at0040"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0041"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0042"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0043"] = <
+					text = <"Erkrankungen des Muskel-Skelett-Systems">
+					description = <"Erkrankungen des Muskel-Skelett-Systems von 
+Rücken, Gliedern oder anderen Körperteilen (z.B. 
+wiederholte Schmerzen in Gelenken oder Muskeln, 
+Ischias, Rheuma, Wirbelsäulenerkrankungen).">
+				>
+				["at0044"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0045"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0046"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0047"] = <
+					text = <"Herz-Kreislauf-Erkrankungen">
+					description = <"Z.B. Bluthochdruck, Herzkrankheit, Herzinfarkt.">
+				>
+				["at0048"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0049"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0050"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0051"] = <
+					text = <"Atemwegserkrankungen">
+					description = <"Z.B. wiederholte Atemwegsinfektionen, chronische
+Bronchitis, Bronchialasthma.">
+				>
+				["at0052"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0053"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0054"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0055"] = <
+					text = <"Psychische Beeinträchtigungen">
+					description = <"Z.B. Depressionen, Angstzustände, chronische 
+Schlaflosigkeit, psychovegetatives 
+Erschöpfungssyndrom.">
+				>
+				["at0056"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0057"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0058"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0059"] = <
+					text = <"Neurologische und sensorische Erkrankungen">
+					description = <"Z.B. Tinnitus, Hörschäden, Augenerkrankungen,
+Migräne, Epilepsie.">
+				>
+				["at0060"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0061"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0062"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0063"] = <
+					text = <"Erkrankungen des Verdauungssystems">
+					description = <"Z.B. der Gallenblase, Leber, Bauchspeicheldrüse, Darm.">
+				>
+				["at0064"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0065"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0066"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0067"] = <
+					text = <"Erkrankungen im Urogenitaltrakt">
+					description = <"Z.B. Harnwegsinfektionen, gynäkologische Erkrankungen.">
+				>
+				["at0068"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0069"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0070"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0071"] = <
+					text = <"Hautkrankheiten">
+					description = <"Z.B. allergischer Hautausschlag, Ekzem.">
+				>
+				["at0072"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0073"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0074"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0075"] = <
+					text = <"Tumore / Krebs">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0077"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0078"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0079"] = <
+					text = <"Hormon- / Stoffwechselerkrankungen">
+					description = <"Z.B. Diabetes, Fettleibigkeit, Schilddrüsenprobleme.">
+				>
+				["at0080"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0081"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0082"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0083"] = <
+					text = <"Krankheiten des Blutes">
+					description = <"Z.B. Anämie.">
+				>
+				["at0084"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0085"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0086"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0087"] = <
+					text = <"Angeborene Leiden / Erkrankungen">
+					description = <"">
+				>
+				["at0088"] = <
+					text = <"Liegt nicht vor.">
+					description = <"Liegt nicht vor.">
+				>
+				["at0089"] = <
+					text = <"Diagnose vom Arzt.">
+					description = <"Diagnose vom Arzt.">
+				>
+				["at0090"] = <
+					text = <"Eigene Diagnose.">
+					description = <"Eigene Diagnose.">
+				>
+				["at0091"] = <
+					text = <"Geschätzte Beeinträchtigung der Arbeitsleistung durch die Krankheiten">
+					description = <"Behindert Sie derzeit eine Erkrankung oder Verletzung bei der Arbeit?">
+				>
+				["at0092"] = <
+					text = <"Keine Beeinträchtigung / Ich habe keine Erkrankung">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"Ich kann meine Arbeit ausführen, habe aber Beschwerden">
+					description = <"">
+				>
+				["at0094"] = <
+					text = <"Ich bin manchmal gezwungen, langsamer zu arbeiten oder  meine Arbeitsmethoden zu ändern">
+					description = <"">
+				>
+				["at0095"] = <
+					text = <"Ich bin oft gezwungen, langsamer zu arbeiten oder meine Arbeitsmethoden zu ändern">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"Wegen meiner Krankheit bin ich nur in der Lage Teilzeitarbeit  zu verrichten">
+					description = <"">
+				>
+				["at0097"] = <
+					text = <"Meiner Meinung nach bin ich völlig arbeitsunfähig">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Krankenstand im vergangenen Jahr (12 Monate)">
+					description = <"Wie viele ganze Tage blieben Sie auf Grund eines gesundheitlichen Problems (Krankheit,
+Gesundheitsvorsorge oder Untersuchung) im letzten Jahr (12 Monate) der Arbeit fern?">
+				>
+				["at0100"] = <
+					text = <"100 - 365 Tage">
+					description = <"">
+				>
+				["at0101"] = <
+					text = <"25 - 99 Tage">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"10 - 24 Tage">
+					description = <"">
+				>
+				["at0103"] = <
+					text = <"höchstens 9 Tage">
+					description = <"">
+				>
+				["at0104"] = <
+					text = <"überhaupt keinen">
+					description = <"">
+				>
+				["at0105"] = <
+					text = <"Einschätzung der eigenen Arbeitsfähigkeit in zwei Jahren">
+					description = <"Glauben Sie, dass Sie, ausgehend von Ihrem jetzigen Gesundheitszustand, Ihre derzeitige Arbeit auch in den nächsten zwei Jahren ausüben können?">
+				>
+				["at0106"] = <
+					text = <"Unwahrscheinlich.">
+					description = <"Unwahrscheinlich.">
+				>
+				["at0107"] = <
+					text = <"Nicht sicher.">
+					description = <"Nicht sicher.">
+				>
+				["at0108"] = <
+					text = <"Ziemlich sicher.">
+					description = <"Ziemlich sicher.">
+				>
+				["at0109"] = <
+					text = <"Psychische Leistungsreserven">
+					description = <"">
+				>
+				["at0110"] = <
+					text = <"Haben Sie in der letzten Zeit Ihre täglichen Aufgaben mit Freude erledigt?">
+					description = <"">
+				>
+				["at0111"] = <
+					text = <"Waren Sie in letzter Zeit aktiv und rege?">
+					description = <"">
+				>
+				["at0112"] = <
+					text = <"Waren Sie in der letzten Zeit zuversichtlich, was die Zukunft betrifft?">
+					description = <"">
+				>
+				["at0113"] = <
+					text = <"Niemals.">
+					description = <"">
+				>
+				["at0114"] = <
+					text = <"Eher selten.">
+					description = <"">
+				>
+				["at0115"] = <
+					text = <"Manchmal.">
+					description = <"">
+				>
+				["at0116"] = <
+					text = <"Eher häufig.">
+					description = <"">
+				>
+				["at0117"] = <
+					text = <"Häufig.">
+					description = <"">
+				>
+				["at0118"] = <
+					text = <"Niemals.">
+					description = <"">
+				>
+				["at0119"] = <
+					text = <"Eher selten.">
+					description = <"">
+				>
+				["at0120"] = <
+					text = <"Manchmal.">
+					description = <"">
+				>
+				["at0121"] = <
+					text = <"Eher häufig.">
+					description = <"">
+				>
+				["at0122"] = <
+					text = <"Immer.">
+					description = <"">
+				>
+				["at0123"] = <
+					text = <"Niemals.">
+					description = <"">
+				>
+				["at0124"] = <
+					text = <"Eher selten.">
+					description = <"">
+				>
+				["at0125"] = <
+					text = <"Manchmal.">
+					description = <"">
+				>
+				["at0126"] = <
+					text = <"Eher häufig.">
+					description = <"">
+				>
+				["at0127"] = <
+					text = <"Ständig.">
+					description = <"">
+				>
+			>
+		>
+	>
