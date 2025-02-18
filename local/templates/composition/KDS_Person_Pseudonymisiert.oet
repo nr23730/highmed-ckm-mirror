@@ -64,7 +64,7 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>2805972a167b1220e8ea396ba0d88e3e</value>
+                <value>231c6f11c75f071bbe8a7f9919847ee3</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -76,7 +76,7 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>57.0.0</value>
+                <value>63.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -90,9 +90,9 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.person.v0" concept_name="Personendaten" name="Person" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.gender.v1" max="1" min="1" path="/content" xsi:type="tem:EVALUATION">
-            <Rule max="0" path="/data[at0002]/items[at0022]">
+            <Rule path="/data[at0002]/items[at0022]">
                 <constraint xsi:type="tem:textConstraint">
-                    <termQueryId queryName="terminology://fhir.hl7.org//ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/v2-0001" terminologyID="//fhir.hl7.org/"/>
+                    <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/v2-0001" terminologyID="//fhir.hl7.org/"/>
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0002]/items[at0026]"/>
@@ -117,9 +117,7 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
             </Rule>
             <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1" max="1" path="/data[at0001]/items[at0024]/items[at0013]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0003]">
-                    <constraint xsi:type="tem:textConstraint"/>
-                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
                 <Rule max="0" path="/items[at0004]"/>
             </Items>
@@ -135,7 +133,6 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                 <Rule name="Identifier Anonymisiert/ Pseudonymisiert" path="/items[at0003]">
                     <constraint xsi:type="tem:multipleConstraint">
                         <includedTypes>Identifier</includedTypes>
-                        <includedTypes>Text</includedTypes>
                     </constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0004]"/>
@@ -198,6 +195,14 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                             <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
                     </Rule>
+                  			
+					 <Rule path="/items[at0014]">
+						<constraint xsi:type="tem:textConstraint">
+							<excludedValues>local::at0015</excludedValues>
+							<excludedValues>local::at0016</excludedValues>
+							<excludedValues>local::at0017</excludedValues>	
+						</constraint>
+                    </Rule>
                 </Items>
                 <Items archetype_id="openEHR-EHR-CLUSTER.address.v1" concept_name="Adresse" max="1" name="Postfach" path="/items[at0005]" xsi:type="tem:CLUSTER">
                     <Rule name="Stadtteil / Stadt / Gemeindeschlüssel" path="/items[at0002]"/>
@@ -256,6 +261,14 @@ Nicht für die Repräsentation von pseudonymisierten / anonymisierten Patienten 
                         <constraint xsi:type="tem:textConstraint">
                             <termQueryId queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/address-use" terminologyID="//fhir.hl7.org/"/>
                         </constraint>
+                    </Rule>
+                  			
+					 <Rule path="/items[at0014]">
+						<constraint xsi:type="tem:textConstraint">
+							<excludedValues>local::at0015</excludedValues>
+							<excludedValues>local::at0016</excludedValues>
+							<excludedValues>local::at0017</excludedValues>	
+						</constraint>
                     </Rule>
                 </Items>
             </Items>
