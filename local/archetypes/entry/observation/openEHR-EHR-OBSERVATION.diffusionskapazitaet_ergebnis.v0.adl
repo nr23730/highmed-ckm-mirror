@@ -18,11 +18,13 @@ description
 			purpose = <"Ergebnisse von Diffusionskapazitätsmessungen der Lunge (DLCO-Test) mit Hilfe eines Spirometers oder speziellen Gas-Analysemethoden.">
 			use = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung. Es handelt sich um eine Lungenfunktionsuntersuchung, die zur Messung des pulmonalen Transferfaktors für Kohlenmonoxid (TLCO bzw. DCO) und der Abschätzung der Diffusionskapazität für Sauerstoff dient.
 
-Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um die Darstellung von Folgendem zu unterstützen:
-- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ so oft wie nötig, plus ein zusätzliches Ereignis, das auf „Intervall“ eingestellt ist und das Attribut „Mittelwert“ auswählt;
-- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit einem Zeitversatz verbunden.">
+Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um folgende Darstellungen zu unterstützen:
+- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ für jede Einzelmessung, plus ein zusätzliches Ereignis vom Typ „Intervall“ mit Attribut „Mittelwert“.;
+- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit Zeitversatz.
+
+Bitte beachten, dass für die korrekte Interpretation der Diffusionskapazität der Hämoglobinwert relevant ist.">
 			keywords = <"Diffusionskapazität", "DLCO (Diffusing Capacity of the Lung for Carbon Monoxide)", "TLCO (Transferfaktor der Lunge für Kohlenmonoxid)", "KCO (Kohlenmonoxid-Transferkoeffizient)", "VA (Alveoläres Volumen)", "Gasaustausch", "Kohlenmonoxid-Diffusion", "Transferkoeffizient", "Alveolar-Kapillar-Membran", "Gasaustauschkapazität", "Pulmonale Funktion", "Restriktive Lungenerkrankungen", "Obstruktive Lungenerkrankungen", "Lungenemphysem", "Lungenfibrose", "CO-Aufnahme", "Alveolarmembran", "Hämoglobin-Affinität", "Lungenvolumina", "Ventilation-Perfusion-Verhältnis">
-			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Bodyplethysmographie, geeignet. Verwenden Sie für diese Zwecke bestimmte Archetypen.
+			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Bodyplethysmographie, geeignet. Verwenden Sie für die Spirometrie den OBSERVATION.spirometry_result und für die Bodyplethysmographie OBSERVATION.bodyplethysmographie_result.
 
 Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
 
@@ -41,8 +43,8 @@ Wanger, J., Clausen, J. L., & Coates, A. (2005). Standardisation of the measurem
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"E9390466478FA08ADCB27223D52268F0">
-		["build_uid"] = <"8c499d3f-5224-4be0-a526-174d892d3fc2">
+		["MD5-CAM-1.0.1"] = <"5F977B668F33D13F75BADB63E123567A">
+		["build_uid"] = <"3f483023-61d4-492d-9f7a-8ae51ad41145">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -73,7 +75,12 @@ definition
 															["3"] = <
 																units = <"mmol/min/kPa/L">
 																magnitude = <|>=0.0|>
-															>																												 
+															>	
+															["4"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+																precision = <|3|>
+															>																
 														>
 													>
 												}
@@ -94,7 +101,12 @@ definition
 															["3"] = <
 																units = <"mmol/min/kPa/L">
 																magnitude = <|>=0.0|>
-															>													
+															>
+															["4"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+																precision = <|3|>
+															>														
 														>
 													>
 												}
@@ -203,13 +215,15 @@ definition
 
 
 
+
+
 ontology
 	term_definitions = <
 		["de"] = <
 			items = <
 				["at0000"] = <
 					text = <"Diffusionskapazität Ergebnis">
-					description = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessungen.">
+					description = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -242,11 +256,11 @@ ontology
 				>
 				["at0009"] = <
 					text = <"TLCO">
-					description = <"Der Transferfaktor der Lunge für Kohlenmonoxid (TLCO) gibt an, wie viel Kohlenmonoxid pro Zeiteinheit von den Alveolen ins Blut übertritt.">
+					description = <"Der Transferfaktor der Lunge für Kohlenmonoxid (TLCO) wird auch oft als DLCO (Diffusionskapazität der Lunge für Kohlenmonoxid) bezeichnet. Er gibt an, wie viel Kohlenmonoxid pro Zeiteinheit von den Alveolen ins Blut übertritt.">
 				>
 				["at0010"] = <
 					text = <"KCO">
-					description = <"Der Kohlenmonoxid-Transferkoeffizient (KCO) normiert auf das Alveolarvolumen (VA), misst die Effizienz des Gasaustauschs pro Volumeneinheit der Lunge.">
+					description = <"KCO [Der Kohlenmonoxid-Transferkoeffizient (KCO), auch Krogh-Index bezeichnet, ist der Transferfaktor (TLCO) normiert auf das Alveolarvolumen (VA) und misst die Effizienz des Gausaustauschs pro Volumeneinheit der Lunge (TLCO / VA).">
 				>
 				["at0012"] = <
 					text = <"Gemessenes/vorhergesagtes Verhältnis">
@@ -275,7 +289,7 @@ ontology
 				>
 				["at0025"] = <
 					text = <"VA">
-					description = <"Das Alveoläres Volumen ist das Volumen der Lunge, das aktiv am Gasaustausch beteiligt ist.">
+					description = <"Das Alveolarvolumen ist das Volumen der Lunge, das aktiv am Gasaustausch beteiligt ist.">
 				>
 				["at0026"] = <
 					text = <"Klinische Interpretation">
@@ -287,7 +301,7 @@ ontology
 				>
 				["at0028"] = <
 					text = <"Gerät">
-					description = <"Details über das Gerät mit dem die Spirometrie gemessen wird.">
+					description = <"Details über das Gerät, mit dem die Diffusionskapazität gemessen wird.">
 				>
 				["at0029"] = <
 					text = <"Quelle der vorhergesagten Ergebnisse">
