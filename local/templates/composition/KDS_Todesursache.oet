@@ -13,15 +13,22 @@
             </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
-        <details/>
-        <other_details>
+                <details>
+            <purpose>Zur Erfassung der Todesursache eines Patienten oder einer Patientin
+			</purpose>
+            <keywords>
+                <item>Todesursache, Tod</item>
+            </keywords>
+            <use>Ermöglicht die strukturierte Erfassung der Todesursache einschließlich klinischer und verifizierender Statusinformationen, Klassifikationen, Codierungen sowie relevanter Zusatzinformationen</use>
+        </details>
+       <other_details>
             <item>
                 <key>licence</key>
                 <value/>
             </item>
             <item>
                 <key>custodian_organisation</key>
-                <value/>
+                <value>HiGHmed</value>
             </item>
             <item>
                 <key>original_namespace</key>
@@ -33,11 +40,11 @@
             </item>
             <item>
                 <key>custodian_namespace</key>
-                <value/>
+                <value>org.highmed</value>
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>7.0.0</value>
+                <value>7.0.1</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -45,7 +52,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>12b39ecb2e3f8f11046bd0ef74ccfe78</value>
+                <value>0e47e89f5789c6a4720865d0c632c562</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -57,6 +64,49 @@
             </item>
         </other_details>
     </description>
+		<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data[at0001]/items[at0002]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Condition.code.coding:icd10-who</value>
+            </item>
+        </items>
+    </annotations>
+	
+		<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0004]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Condition.verificationStatus</value>
+            </item>
+        </items>
+    </annotations>
+	<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0107]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Condition.clinicalStatus</value>
+            </item>
+        </items>
+    </annotations>
+	<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data[at0001]/items[at0013]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Condition.note</value>
+            </item>
+        </items>
+    </annotations>
+	<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/protocol[at0014]/items[at0015]">
+        <items>
+            <item>
+                <key>fhir_mapping</key>
+                <value>Condition.recordedDate</value>
+            </item>
+        </items>
+    </annotations>
+	
+	
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="KDS_Todesursache" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
         <Content archetype_id="openEHR-EHR-EVALUATION.cause_of_death.v1" max="1" path="/content" xsi:type="tem:EVALUATION">
             <Rule max="0" path="/data[at0001]/items[at0019]"/>
@@ -75,11 +125,18 @@
             <Rule max="0" path="/data[at0001]/items[at0003]"/>
             <Rule max="0" path="/data[at0001]/items[at0020]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.problem_qualifier.v2" max="1" path="/data[at0001]/items[at0012]" xsi:type="tem:CLUSTER">
-                <Rule path="/items[at0004]">
-                    <constraint xsi:type="tem:multipleConstraint">
-                        <includedTypes>Coded_text</includedTypes>
-                        <includedTypes>Text</includedTypes>
-                    </constraint>
+                 <Rule name="Verifizierungsstatus" path="/items[at0004]">
+                   <constraint xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/condition-ver-status" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+                </Rule>		
+				<Rule  path="/items[at0004]">
+					<constraint xsi:type="tem:textConstraint">
+						<excludedValues>local::at0016</excludedValues>
+						<excludedValues>local::at0017</excludedValues>
+						<excludedValues>local::at0018</excludedValues>
+						<excludedValues>local::at0088</excludedValues>							
+					</constraint>
                 </Rule>
                 <Rule max="0" path="/items[at0060]"/>
                 <Rule max="0" path="/items[at0003]"/>
@@ -147,22 +204,21 @@
         </Content>
         <Context>
             <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
-                <Rule max="0" path="/items[at0002]"/>
+                <Rule min="1" path="/items[at0001]"/>
+				<Rule max="0" path="/items[at0002]"/>
                 <Rule max="0" path="/items[at0003]"/>
                 <Rule max="0" path="/items[at0006]"/>
             </Items>
         </Context>
         <Rule path="/context/other_context[at0001]/items[at0005]">
-            <constraint xsi:type="tem:textConstraint"/>
+            <constraint limitToList="false" xsi:type="tem:textConstraint">
+                <includedValues>registriert</includedValues>
+                <includedValues>vorläufig</includedValues>
+                <includedValues>final</includedValues>
+                <includedValues>geändert</includedValues>
+            </constraint>
         </Rule>
     </definition>
-    <view>
-        <constraints path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.cause_of_death.v1]/data">
-            <items id="VisibleInView">
-                <value>Aufzeichnungsdatum</value>
-            </items>
-        </constraints>
-    </view>
     <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
