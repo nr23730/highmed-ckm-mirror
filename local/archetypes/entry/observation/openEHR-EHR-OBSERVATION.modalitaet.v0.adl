@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4; uid=6d906a68-8c73-45d2-96b2-f1d5e13b731a)
+﻿archetype (adl_version=1.4; uid=675c34aa-7f4d-4ce4-8cd8-bbc0264b953c)
 	openEHR-EHR-OBSERVATION.modalitaet.v0
 
 concept
@@ -29,8 +29,8 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"2FB961E4C0FD03543D47587A676A7E40">
-		["build_uid"] = <"136bb14b-d41d-44ab-8fcf-0cc8b77cf709">
+		["MD5-CAM-1.0.1"] = <"DD33D2AE2989D179FA05CA11E86DB049">
+		["build_uid"] = <"0f8b0328-4823-4b1e-a160-40e690560282">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -77,21 +77,12 @@ definition
 									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Frequenz
 										value matches {
 											DV_TEXT matches {*}
+											DV_QUANTITY matches {*}
 										}
 									}
 									ELEMENT[at0012] occurrences matches {0..1} matches {    -- URI der Originaldaten
 										value matches {
 											DV_URI matches {*}
-										}
-									}
-									ELEMENT[at0034] occurrences matches {0..1} matches {    -- Anfangsdatum
-										value matches {
-											DV_DATE_TIME matches {*}
-										}
-									}
-									ELEMENT[at0032] occurrences matches {0..1} matches {    -- Enddatum
-										value matches {
-											DV_DATE_TIME matches {*}
 										}
 									}
 									ELEMENT[at0023] occurrences matches {0..1} matches {    -- Befund
@@ -111,9 +102,9 @@ definition
 									}
 									CLUSTER[at0008] occurrences matches {0..*} matches {    -- Messwerte
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0010] occurrences matches {0..1} matches {    -- Messwert
+											ELEMENT[at0009] occurrences matches {0..1} matches {    -- Beschreibung
 												value matches {
-													DV_COUNT matches {*}
+													DV_TEXT matches {*}
 												}
 											}
 											ELEMENT[at0011] occurrences matches {0..1} matches {    -- Messwertyp
@@ -121,9 +112,19 @@ definition
 													DV_CODED_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0009] occurrences matches {0..1} matches {    -- Beschreibung
+											ELEMENT[at0010] occurrences matches {0..1} matches {    -- Messwert
 												value matches {
-													DV_TEXT matches {*}
+													DV_QUANTITY matches {*}
+												}
+											}
+											ELEMENT[at0036] occurrences matches {0..1} matches {    -- Zeitpunkt Start
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0037] occurrences matches {0..1} matches {    -- Startpunkt Ende
+												value matches {
+													DV_DATE_TIME matches {*}
 												}
 											}
 										}
@@ -163,7 +164,7 @@ definition
 							DV_DATE_TIME matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {    -- Gerät
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {    -- Erweiterung
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -195,7 +196,8 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Modalitätstyp">
-					description = <"Die Art der Messung, z. B. „Puls“, „SpO₂“, „Temperatur“.">
+					description = <"Beschreibt die Art der Modalität der Messung, z. B. „EKG“, „Blutdruck“, „Sauerstoffsättigung“.
+">
 				>
 				["at0005"] = <
 					text = <"Beschreibung">
@@ -203,7 +205,7 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Frequenz">
-					description = <"Messfrequenz oder -kanäle, z. B. „kontinuierlich“, „intermittierend“, „12-Kanal“.">
+					description = <"Die Messfrequenz oder -kanäle der Messung, z. B. gemessen in Schlägen pro Minute oder „kontinuierlich“, „intermittierend“, „12-Kanal“.">
 				>
 				["at0008"] = <
 					text = <"Messwerte">
@@ -211,8 +213,8 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Beschreibung">
-					description = <"">
-					comment = <"z.B. Minimum, Maximum">
+					description = <"Beschreibung um welchen Messwert es sich handelt">
+					comment = <"z.B. Puls, O2-Sättigung">
 				>
 				["at0010"] = <
 					text = <"Messwert">
@@ -221,15 +223,16 @@ ontology
 				["at0011"] = <
 					text = <"Messwertyp">
 					description = <"">
-					comment = <"z.B. Puls, O2-Sättigung">
+					comment = <"z.B. Durchschnittswert, Minimum, Maximum">
 				>
 				["at0012"] = <
 					text = <"URI der Originaldaten">
-					description = <"URI zu den vollständigen Rohdaten des Messgeräts.">
+					description = <"Verknüpfung zu den Originaldaten zu den vollständigen Rohdaten der Modalität.">
+					comment = <"Gewöhnlich wird dies ein URL Link einer API sein, über den die Rohdaten angefragt werden können.">
 				>
 				["at0013"] = <
 					text = <"Kommentar">
-					description = <"Weitere Informationen zur Modalität, soweit noch nicht in anderen Feldern erfasst.">
+					description = <"Zusätzlicher Freitext über die Modalität, der nicht in anderen Felder erfasst werden konnte.">
 				>
 				["at0016"] = <
 					text = <"Anzahl der Ableitungen">
@@ -241,7 +244,7 @@ ontology
 				>
 				["at0018"] = <
 					text = <"Zuletzt aktualisiert">
-					description = <"">
+					description = <"Datum der letzten Aktualisierung dieser Zusammenfassung.">
 				>
 				["at0019"] = <
 					text = <"Messverfahren / Typ">
@@ -249,11 +252,13 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Messmethode">
-					description = <"Technisches Verfahren der Erfassung ">
+					description = <"Technisches Verfahren der Erfassung der Daten.">
 				>
 				["at0022"] = <
-					text = <"Gerät">
-					description = <"Details über das Gerät, dass zur Messung verwendet wird.">
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.
+">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
 				>
 				["at0023"] = <
 					text = <"Befund">
@@ -276,8 +281,7 @@ ontology
 				>
 				["at0027"] = <
 					text = <"Geräteinterpretation">
-					description = <"Ein vom Gerät interpretiertes Ergebnis.
-">
+					description = <"Einzelnes Wort, Ausdruck oder Kurzbeschreibung der klinischen Bedeutung und Aussagekraft der Ergebnismessung.">
 					comment = <"Es können mehrere Kommentare sein. Die Kodierung der Interpretation mittels einer Terminologie ist, falls möglich, bevorzugt. Zum Beispiel: Normaler Sinusrhythmus; ischämische ST-T-Strecken-Veränderungen in den anterioren Ableitungen; und/oder schlechte R-Progression in der rechten präkordialen Ableitung.">
 				>
 				["at0028"] = <
@@ -292,13 +296,13 @@ ontology
 					text = <"Sauerstoffsättigung">
 					description = <"Sauerstoffsättigung">
 				>
-				["at0032"] = <
-					text = <"Enddatum">
-					description = <"">
+				["at0036"] = <
+					text = <"Zeitpunkt Start">
+					description = <"Beschreibt den Startzeitpunkt des Messwertes.">
 				>
-				["at0034"] = <
-					text = <"Anfangsdatum">
-					description = <"">
+				["at0037"] = <
+					text = <"Startpunkt Ende">
+					description = <"Beschreibt den Endzeitpunkt des Messwertes.">
 				>
 			>
 		>
