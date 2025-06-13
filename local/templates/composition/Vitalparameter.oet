@@ -37,7 +37,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>13.1.0</value>
+                <value>15.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -50,6 +50,10 @@
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
                 <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -154,8 +158,6 @@
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
             <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
             <Rule max="0" path="/data[at0001]/events[at0021]"/>
-            <Rule name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
-            <Rule name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.body_weight.v2" max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
@@ -174,8 +176,6 @@
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
             <Rule max="0" path="/data[at0002]/events[at0026]"/>
-            <Rule name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
-            <Rule name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2" max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
@@ -257,12 +257,9 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at1042]"/>
-            <Rule name="Blutdruck" path="/data[at0001]/events[at1042]/data[at0003]"/>
-            <Rule name="state structure" path="/data[at0001]/events[at1042]/state[at0007]"/>
             <Rule max="0" path="/protocol[at0011]/items[at0013]"/>
             <Rule path="/protocol[at0011]/items[at0014]">
                 <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
@@ -299,9 +296,13 @@
                 </constraint>
             </Rule>
             <Rule max="0" path="/data[at0001]/events[at1042]"/>
-            <Rule name="Blutdruck" path="/data[at0001]/events[at1042]/data[at0003]"/>
-            <Rule name="state structure" path="/data[at0001]/events[at1042]/state[at0007]"/>
             <Rule max="0" path="/protocol[at0011]/items[at0013]"/>
+            <Rule path="/protocol[at0011]/items[at0014]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
             <Rule path="/protocol[at0011]/items[at1035]">
                 <constraint xsi:type="tem:textConstraint">
                     <excludedValues>local::at1036</excludedValues>
@@ -327,35 +328,12 @@
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
             <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
             <Rule max="0" path="/data[at0002]/events[at1036]"/>
-            <Rule name="Structure" path="/data[at0002]/events[at1036]/data[at0001]"/>
-            <Rule name="List" path="/data[at0002]/events[at1036]/state[at0012]"/>
             <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
             <Rule path="/protocol[at0010]/items[at1037]">
                 <constraint xsi:type="tem:multipleConstraint">
-                    <includedTypes>Coded_text</includedTypes>
                     <includedTypes>Text</includedTypes>
                 </constraint>
             </Rule>
-            <Items archetype_id="openEHR-EHR-CLUSTER.device.v1" max="0" path="/protocol[at0010]/items[at1013]" xsi:type="tem:CLUSTER">
-                <Rule default="GE VC150" path="/items[at0001]">
-                    <constraint limitToList="false" xsi:type="tem:textConstraint">
-                        <includedValues>GE VC150</includedValues>
-                    </constraint>
-                </Rule>
-                <Rule max="0" path="/items[at0003]"/>
-                <Rule max="0" path="/items[at0002]"/>
-                <Rule max="0" path="/items[at0021]"/>
-                <Rule max="0" path="/items[at0004]"/>
-                <Rule max="0" path="/items[at0005]"/>
-                <Rule max="0" path="/items[at0020]"/>
-                <Rule max="0" path="/items[at0022]"/>
-                <Rule max="0" path="/items[at0023]"/>
-                <Rule max="0" path="/items[at0006]"/>
-                <Rule max="0" path="/items[at0025]"/>
-                <Rule max="0" path="/items[at0007]"/>
-                <Rule max="0" path="/items[at0024]"/>
-                <Rule max="0" path="/items[at0008]"/>
-            </Items>
         </Content>
         <Content archetype_id="openEHR-EHR-OBSERVATION.ecg_result.v1" max="1" path="/content" xsi:type="tem:OBSERVATION">
             <Rule max="0" path="/data[at0001]/events[at0002]/data[at0005]/items[at0100]"/>
@@ -566,9 +544,6 @@
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FA62ACCECB4A643E142B1092B1128204</digest>
-    </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.device.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D1349AAD9444365B34B1BAFDE9F0BD4A</digest>
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.ecg_result.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F0CDAB35DB0614EC716AE837F7A2B378</digest>
