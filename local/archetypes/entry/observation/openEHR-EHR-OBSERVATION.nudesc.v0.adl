@@ -1,0 +1,370 @@
+﻿archetype (adl_version=1.4; uid=7d12ec84-8888-4080-8e3d-6910b859f5ce)
+	openEHR-EHR-OBSERVATION.nudesc.v0
+
+concept
+	[at0000]	-- NuDesc
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+			>
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2025-07-17">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Rony Ventura UKSH", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://www.uksh.de/uksh_media/Dateien_Pflege/LOGGIA/Pocket_Cards/LOGGiA_Pocket_Card+_+Delir-p-432443.pdf">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"F5AAE228AF289F2ECD0DBE960B970498">
+		["build_uid"] = <"a2c05fde-d524-4c46-b914-af78b2492927">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- NuDesc
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Disorientation
+										value matches {
+											0|[local::at0011],
+											1|[local::at0012],
+											2|[local::at0013]
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Inappropriate behavior
+										value matches {
+											0|[local::at0016],
+											1|[local::at0015],
+											2|[local::at0014]
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Inappropriate communication
+										value matches {
+											0|[local::at0017],
+											1|[local::at0018],
+											2|[local::at0019]
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Illusions/Hallucinations
+										value matches {
+											0|[local::at0020],
+											1|[local::at0021],
+											2|[local::at0022]
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Psychomotor retardation
+										value matches {
+											0|[local::at0023],
+											1|[local::at0024],
+											2|[local::at0025]
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Total score
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..10|}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- NuDesc Score
+										value matches {
+											0|[local::at0026],
+											1|[local::at0027]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0028] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"NuDesc">
+					description = <"NuDesc">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Disorientation">
+					description = <"Manifestation of disorientation to time or place through words or behavior
+or failure to recognize surrounding people">
+				>
+				["at0005"] = <
+					text = <"Inappropriate behavior">
+					description = <"Inappropriate behavior towards the place and/or person: e.g., pulling on catheters or bandages, attempting to get out of bed even when contraindicated, etc.">
+				>
+				["at0006"] = <
+					text = <"Inappropriate communication">
+					description = <"Inappropriate communication regarding location and/or person: e.g., incoherent or no communication, nonsensical or incomprehensible verbal utterances">
+				>
+				["at0007"] = <
+					text = <"Illusions/Hallucinations">
+					description = <"Seeing or hearing nonexistent objects, distortion of visual or acoustic impressions">
+				>
+				["at0008"] = <
+					text = <"Psychomotor retardation">
+					description = <"Slowed responsiveness, little or no spontaneous activity/expression,
+e.g., when the patient is nudged, the response is delayed and/or the patient cannot be properly aroused">
+				>
+				["at0009"] = <
+					text = <"Total score">
+					description = <"The sum of the ordinal scores recorded for each of the five component responses.">
+				>
+				["at0010"] = <
+					text = <"NuDesc Score">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Symptom not present">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Symptom present">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Severe symptom present">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Severe symptom present">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Symptom present">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Symptom not present">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Symptom not present">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Symptom present">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Severe symptom present">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Symptom not present">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Symptom present">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Severe symptom present">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Symptom not present">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Symptom present">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Severe symptom present">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"< 2">
+					description = <"No">
+				>
+				["at0027"] = <
+					text = <">= 2">
+					description = <"Yes">
+				>
+				["at0028"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"NuDesc">
+					description = <"NuDesc">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Desorientierung">
+					description = <"Manifestierung einer Desorientierung zu Zeit oder Ort durch Worte oder Verhalten
+oder Nicht-Erkennen der umgebenden Personen">
+				>
+				["at0005"] = <
+					text = <"Unangemessenes Verhalten">
+					description = <"Unangemessenes Verhalten zu Ort und/oder Person: z.B. ziehen an Kathedern
+oder Verbänden, Versuch aus dem Bett zusteigen, auch wenn es kontraindiziert
+ist usw.">
+				>
+				["at0006"] = <
+					text = <"Unangemessene Kommunikation">
+					description = <"Unangemessene Kommunikation zu Ort und/oder Person: z.B. zusammenhanglose oder gar keine Kommunikation, unsinnige oder unverständliche sprachliche
+Äußerungen">
+				>
+				["at0007"] = <
+					text = <"Illusionen/ Halluzinationen">
+					description = <"Sehen oder Hören nichtvorhandener Dinge, Verzerrung optischer oder akustischer
+Eindrücke">
+				>
+				["at0008"] = <
+					text = <"Psychomotorische Retardierung">
+					description = <"Verlangsamte Ansprechbarkeit, wenige oder keine spontane Aktivität/ Äußerung,
+z.B. wenn der Patient angestupst wird, ist die Reaktion verzögert und/ oder der
+Patient ist nicht richtig erweckbar">
+				>
+				["at0009"] = <
+					text = <"Sum">
+					description = <"Die Summe der ordinalen Bewertungen, die für jede der fünf Teilantworten aufgezeichnet wurden.">
+				>
+				["at0010"] = <
+					text = <"NuDesc Score">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Symptom nicht vorhanden">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Symptom vorhanden">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Symptom in starker Ausprägung vorhanden">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Symptom in starker Ausprägung vorhanden">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Symptom vorhanden">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Symptom nicht vorhanden">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Symptom nicht vorhanden">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Symptom vorhanden">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Symptom in starker Ausprägung vorhanden">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Symptom nicht vorhanden">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Symptom vorhanden">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Symptom in starker Ausprägung vorhanden">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Symptom nicht vorhanden">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Symptom vorhanden">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Symptom in starker Ausprägung vorhanden">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"< 2">
+					description = <"Nein">
+				>
+				["at0027"] = <
+					text = <">= 2">
+					description = <"Ja">
+				>
+				["at0028"] = <
+					text = <"*Item tree (en)">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>
