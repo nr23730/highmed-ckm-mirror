@@ -111,13 +111,17 @@
             <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.histology_grading.v1" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
             <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
-                <Rule name="Morphologie_ICD_O_Code" path="/items[at0001]"/>
+                <Rule name="Morphologie_ICD_O_Code" path="/items[at0001]">
+					<constraint xsi:type="tem:textConstraint">
+						<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-onko/ValueSet/mii-vs-onko-icdo3-morphologie" terminologyID="//fhir.hl7.org/"/>
+            		</constraint> 
+				</Rule>						
                 <Rule name="Morphologie_Freitext" path="/items[at0003]"/>
                 <Rule name="Primaertumor_Topographie_ICD_O" path="/items[at0009]">
                 	<constraint xsi:type="tem:textConstraint">
-	        		<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-biobank/ValueSet/icd-o-3-topography" terminologyID="//fhir.hl7.org/"/>
+						<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-onko/ValueSet/mii-vs-onko-icdo3-topographie" terminologyID="//fhir.hl7.org/"/>
             		</constraint> 
-		</Rule>	
+				</Rule>	
                 <Rule name="Primaertumor_Topographie_Freitext" path="/items[at0014]"/>
             </Items>
             <Items archetype_id="openEHR-EHR-CLUSTER.histologie.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
