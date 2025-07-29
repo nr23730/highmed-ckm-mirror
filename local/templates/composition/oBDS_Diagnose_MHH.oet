@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
+    <id>b5ddd06b-d963-425d-9933-91b8878b5178</id>
+    <name>oBDS_Diagnose_MHH</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2023-08-23</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Alina Rehberg</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>rehberg.alina@mh-hannover.de</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Medizinische Hochschule Hannover</value>
+            </item>
+        </original_author>
+        <lifecycle_state>in_development</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value>This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.</value>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value>HiGHmed</value>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value>org.highmed</value>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value>HiGHmed</value>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value>org.highmed</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>1.0.0</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>7A42F6892858C51A256733E8288064BA</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value>8c7d4bd0-61bb-40a3-88d9-be37a7980038</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>fec25302d710060f4ebcff699435890b</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="oBDS_Diagnose" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" max="1" name="Tumordiagnose" path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Primaertumor_Diagnosetext" path="/data[at0001]/items[at0002]">
+		<constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+	    </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule max="0" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0072]"/>
+            <Rule max="0" path="/data[at0001]/items[at0030]"/>
+            <Rule name="Diagnosesicherung" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::1::Klinisch ohne tumorspezifische Diagnostik (nur körperliche Untersuchung)</includedValues>
+                    <includedValues>local_terms::2::Klinisch: Klinische Diagnose vor dem Sterbedatum durchgeführt; schließt diagnostische Techniken, inklusive Röntgen, Endoskopie, weitere bildgebende Verfahren, Ultraschall, exploratorische Chirurgie (Laparatomie, etc.) und Autopsie, ohne mikroskopische Gewebediagnose, ein.</includedValues>
+                    <includedValues>local_terms::4::Spezifische Tumormarker</includedValues>
+                    <includedValues>local_terms::5::Zytologisch: Untersuchung von Zellen aus primären Lokalisationen inklusive Flüssigkeitsaspirationen mittels Endoskopien oder Nadeln. Schließt mikroskopische Untersuchungen von peripheren Blutausstrichen und Ausstrichen von Beckenkammaspirationen ein.</includedValues>
+                    <includedValues>local_terms::6::Histologie einer Metastase.</includedValues>
+                    <includedValues>local_terms::7::Veraltet; Besser Verwendung von 7.1, 7.2 oder 7.3</includedValues>
+                    <includedValues>local_terms::7.1::Histologie des Primärtumors: Histologische Untersuchung von Gewebe des Primärtumors einschließlich aller Schnitttechniken und Knochenmarksbiopsien.</includedValues>
+                    <includedValues>local_terms::7.2::Histologie Metastase: Histologische Untersuchung des Gewebes aus einer Metastase</includedValues>
+                    <includedValues>local_terms::7.3::Histologie der Autopsie: Histologische Untersuchung des Gewebes bei einer Autopsie</includedValues>
+                    <includedValues>local_terms::8::Zytogenetisch und/oder molekularer Test</includedValues>
+                    <includedValues>local_terms::9::Unbekannt</includedValues>
+                    <excludedValues>local::at0074</excludedValues>
+                    <excludedValues>local::at0075</excludedValues>
+                    <excludedValues>local::at0076</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0069]"/>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.histology_grading.v1" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule name="Morphologie_ICD_O_Code" path="/items[at0001]"/>
+                <Rule name="Morphologie_Freitext" path="/items[at0003]"/>
+                <Rule name="Primaertumor_Topographie_ICD_O" path="/items[at0009]">
+                	<constraint xsi:type="tem:textConstraint">
+	        		<termQueryId queryName="ValueSet/$expand?url=https://www.medizininformatik-initiative.de/fhir/ext/modul-biobank/ValueSet/icd-o-3-topography" terminologyID="//fhir.hl7.org/"/>
+            		</constraint> 
+		</Rule>	
+                <Rule name="Primaertumor_Topographie_Freitext" path="/items[at0014]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.histologie.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0041]"/>
+                <Rule name="Bezeichnung" path="/items[at0059]/items[at0060]"/>
+                <Rule name="Auspraegung" path="/items[at0059]/items[at0080]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::M::Mutation/positiv</includedValues>
+                        <includedValues>local_terms::W::Wildtyp/nicht mutiert/negativ</includedValues>
+                        <includedValues>local_terms::P::Polymorphismus</includedValues>
+                        <includedValues>local_terms::N::nicht bestimmbar</includedValues>
+                        <includedValues>local_terms::U::unbekannt</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Sonstige_Auspraegung" path="/items[at0059]/items[at0040]"/>
+                <Rule max="0" path="/items[at0059]/items[at0055]"/>
+                <Rule max="0" path="/items[at0059]/items[at0083]"/>
+                <Rule max="0" path="/items[at0059]/items[at0074]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0056]"/>
+                <Rule max="0" path="/items[at0065]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1" concept_name="Pathologische TNM-Klassifikation" max="1" name="pTNM" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0029]"/>
+                <Rule max="0" path="/items[at0030.1]"/>
+                <Rule max="0" path="/items[at0.1]"/>
+                <Rule max="0" path="/items[at0.2]"/>
+                <Rule max="0" path="/items[at0.3]"/>
+                <Rule max="0" path="/items[at0.8]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.tnm.v1" concept_name="Klinische TNM-Klassifikation" max="1" name="cTNM" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0029]"/>
+                <Rule max="0" path="/items[at0030]"/>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule name="Variante" path="/items[at0002]"/>
+                <Rule name="Stadium" path="/items[at0003]"/>
+                <Rule name="Datum" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0007]"/>
+            </Items>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Fruehere_Tumorerkrankung" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" max="1" name="Frühere Tumordiagnose" path="/items" xsi:type="tem:EVALUATION">
+		 <Rule name="ICD" path="/data[at0001]/items[at0002]">
+			<constraint limitToList="false" xsi:type="tem:textConstraint">
+                   		 <termQueryId queryName="ValueSet/$expand?url=http://fhir.de/ValueSet/bfarm/icd-10-gm" terminologyID="//fhir.hl7.org/"/>
+               		</constraint>
+		</Rule>
+                <Rule name="Freitext" path="/data[at0001]/items[at0009]"/>
+                <Rule max="0" path="/data[at0001]/items[at0012]"/>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
+                <Rule name="Diagnosedatum" path="/data[at0001]/items[at0077]"/>
+                <Rule max="0" path="/data[at0001]/items[at0003]"/>
+                <Rule max="0" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0072]"/>
+                <Rule max="0" path="/data[at0001]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/items[at0073]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+            </Item>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Fernmetastase" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/Diagnose" name="Fernmetastase" path="/items" xsi:type="tem:EVALUATION">
+                <Rule default="local::399409002::Fernmetastase" name="Fernmetastase" path="/data[at0001]/items[at0002]"/>
+                <Rule max="0" path="/data[at0001]/items[at0009]"/>
+                <Rule name="Lokalisation" path="/data[at0001]/items[at0012]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::PUL::Lunge</includedValues>
+                        <includedValues>local_terms::OSS::Knochen</includedValues>
+                        <includedValues>local_terms::HEP::Leber</includedValues>
+                        <includedValues>local_terms::BRA::Hirn</includedValues>
+                        <includedValues>local_terms::LYM::Lymphknoten</includedValues>
+                        <includedValues>local_terms::MAR::Knochenmark</includedValues>
+                        <includedValues>local_terms::PLE::Pleura</includedValues>
+                        <includedValues>local_terms::PER::Peritoneum</includedValues>
+                        <includedValues>local_terms::ADR::Nebennieren</includedValues>
+                        <includedValues>local_terms::SKI::Haut</includedValues>
+                        <includedValues>local_terms::OTH::Andere Organe</includedValues>
+                        <includedValues>local_terms::GEN::Generalisierte Metastasierung</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
+                <Rule name="Diagnosedatum" path="/data[at0001]/items[at0077]"/>
+                <Rule max="0" path="/data[at0001]/items[at0003]"/>
+                <Rule max="0" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0072]"/>
+                <Rule max="0" path="/data[at0001]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/items[at0073]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+            </Item>
+        </Content>
+        <Context>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_allgemein.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_mamma.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_darm.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_prostata.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0011]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Proportion</includedTypes>
+                    </constraint>
+                </Rule>
+            </Items>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_malignes_melanom.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.modul_dkkr.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER"/>
+        </Context>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_allgemein.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">C2A2120F0452F81DAFF6AFFF06057C6A</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_mamma.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">5511E0C08FF918D93392233843978477</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_darm.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">12A8283D4596A5EEBE0DB2AC8A755D42</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_prostata.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2BC23366F0A4F20F76A34F13362B847B</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_malignes_melanom.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6BDD3E126A1995D332D289D416934F4D</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.modul_dkkr.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2851A08C2FFCE911C178E8632CF001D4</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">F3BA1A6809F466FF10AB50CC86EC78C5</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.histology_grading.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">411F7175E953C02AEAEB6733B35B9369</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2C7E496D1B1499B94ED9B4D4881AE5C0</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.histologie.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">31604208D7681AFFA2D0A53B77BA2BF1</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A62E1D03D61F037BF9A7278E2F2269B4</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">623BAC3524C44A48FA15C2EE2B4243A8</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tnm.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">48BA7281FAFAD1B5D72DD78E6D2A3E85</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">9D88CDB6615B7F392A6AA024B01D72D0</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.adhoc.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8FE80F3E80C594AAF99D3BA540A53D73</digest>
+    </integrity_checks>
+</template>
