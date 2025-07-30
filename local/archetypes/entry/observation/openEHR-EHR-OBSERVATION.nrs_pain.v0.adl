@@ -1,0 +1,159 @@
+﻿archetype (adl_version=1.4; uid=5c6d5455-6cb9-4b00-b0ad-8eeac43a4d5f)
+	openEHR-EHR-OBSERVATION.nrs_pain.v0
+
+concept
+	[at0000]	-- Numeric Rating Scale (NRS)
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Carlotta Jöhnk">
+				["organisation"] = <"Universitätsklinikum Schleswig-Holstein, Germany">
+				["email"] = <"carlottapauline.joehnk@uksh.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Carlotta Jöhnk">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein, Germany">
+		["email"] = <"carlottapauline.joehnk@uksh.de">
+		["date"] = <"2025-07-18">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der subjektiven Beurteilung des Schmerzlevels eine Patienten.">
+			use = <"Der Archetyp kann verwendet werden, um das subjektiv wahrgenommene Schmerzlevel eines Patienten darzustellen.  
+Um die Schmerzintensität zu bewerten, wird eine segmentierte Skala von 0 (\"kein Schmerz\") bis 10 (\"schlimmste vorstellbare Schmerzen\") verwendet. Die befragte Person bewertet ihren Schmerz, indem sie einen Wert auf der Skala angibt, der ihrer subjektiv empfundenen Schmerzintensität entspricht.">
+			keywords = <"Schmerz, Schmerzskala, Schmerzstärke, Schmerzintensität, NRS", ...>
+			misuse = <"Die numerische Rating-Skala soll nicht bei Kindern verwendet werden.">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To represent the subjective evaluation of the pain level of a patient.">
+			use = <"The archetype is used to represent the subjective pain perception of a patient.
+A segmented scale reaching from 0 (\"no pain\") to 10 (\"worst pain imaginable\") is used to evaluate the pain. The respondent rates their pain intensity by marking a numeric value on the scale that describes their subjective pain intensity the  best.">
+			keywords = <"Pain, Pain scale, Pain severity, Pain intensity, NRS", ...>
+			misuse = <"The NRS is intended to be used on adults only and must not be used on children.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Measures of Adult Pain: Visual Analog Scale for Pain (VAS Pain), Numeric Rating Scale for Pain (NRS Pain), McGill Pain Questionnaire (MPQ), Short-Form McGill Pain Questionnaire (SF-MPQ), Chronic Pain Grade Scale (CPGS), Short Form-36 Bodily Pain Scale (SF-36 BPS), and Measure of Intermittent and Constant Osteoarthritis Pain (ICOAP), Hawker G. A., Mian S., Kendzerska T., French M., 2011">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"37BC9DFCC53A02A43B988305A4C1E2C0">
+		["build_uid"] = <"cf7ae168-2c6a-4235-8e80-fec4fe57b4ee">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Numeric Rating Scale (NRS)
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Pain score
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..10|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Numeric Rating Scale (NRS)">
+					description = <"The Numeric Rating Scale (NRS) for pain is an 11-point numeric scale that is applied to measure the subjective perception of pain of the patient.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Pain score">
+					description = <"Pain intensity from 0 (\"no pain\") to 10 (\"worst pain imaginable\").">
+				>
+				["at0005"] = <
+					text = <"Comment">
+					description = <"Additional information that is not captured by the NRS score but might be relevant for evaluating the pain intensity.">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Numerische Rating-Skala (NRS)">
+					description = <"Die Numerische Rating-Skala (NRS) wird angewendet, um die vom Patienten subjektiv wahrgenommene Schmerzintensität zu messen.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Schmerzpunktzahl">
+					description = <"Schmerz-Intensität von 0 (\"kein Schmerz\") bis 10 (\"schlimmste vorstellbare Schmerzen\").">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen, die nicht durch die Schmerzpunktzahl erfasst werden, aber dennoch relevant für die Beurteilung der Schmerzintensität sein können.">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>
