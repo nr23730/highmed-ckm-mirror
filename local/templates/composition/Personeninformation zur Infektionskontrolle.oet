@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>c37d27fc-38c8-4ca3-9481-fba3f4050319</id>
+  <name>Personeninformation zur Infektionskontrolle</name>
+  <description>
+    <original_author>
+      <item>
+        <key>date</key>
+        <value>2020-09-09</value>
+      </item>
+      <item>
+        <key>name</key>
+        <value>Alina Rehberg</value>
+      </item>
+      <item>
+        <key>email</key>
+        <value>rehberg.alina@mh-hannover.de</value>
+      </item>
+      <item>
+        <key>organisation</key>
+        <value>Medizinische Hochschule Hannover</value>
+      </item>
+    </original_author>
+    <lifecycle_state>unmanaged</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>licence</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_organisation</key>
+        <value />
+      </item>
+      <item>
+        <key>original_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>original_publisher</key>
+        <value />
+      </item>
+      <item>
+        <key>custodian_namespace</key>
+        <value />
+      </item>
+      <item>
+        <key>original_language</key>
+        <value>ISO_639-1::de</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Personeninformation zur Infektionskontrolle">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0" concept_name="Screening-Fragebogen zur Symptomen/Anzeichen" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0034]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0" concept_name="Kennzeichnung Erregernachweis" path="/content">
+      <Rule path="/data[at0001]/items[at0012]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>local_terms::COV::SARS-CoV-2</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exemption_from_work.v0" concept_name="Freistellung von der Arbeit" path="/content">
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Nachweis einer SARS-CoV-2 Infektion</includedValues>
+          <includedValues>Ungeschützer Kontakt zu einer SARS-CoV-2 infizierten Person</includedValues>
+          <includedValues>Andere Gründe</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0" concept_name="Meldung an das Gesundheitsamt" path="/content">
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Nachweis einer SARS-CoV-2 Infektion</includedValues>
+          <includedValues>Ungeschützer Kontakt zu einer SARS-CoV-2 infizierten Person</includedValues>
+          <includedValues>Andere Gründe</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]/items[at0005]" max="0" />
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.report.v1">
+    <digest id="MD5-CAM-1.0.1">E3BC8668BB89A4BD43BF551931977A9D</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v0">
+    <digest id="MD5-CAM-1.0.1">269EE020BE81616AF9DC9B47EB6BFFD6</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.flag_pathogen.v0">
+    <digest id="MD5-CAM-1.0.1">185D39F7B5DC8C6BFD923A143E0D0E7A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.exemption_from_work.v0">
+    <digest id="MD5-CAM-1.0.1">9886F9CD40BC596A14A4CE48DBA606D5</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ADMIN_ENTRY.report_to_health_department.v0">
+    <digest id="MD5-CAM-1.0.1">02CB6195589F1F8E631ABAA2563D1214</digest>
+  </integrity_checks>
+</template>

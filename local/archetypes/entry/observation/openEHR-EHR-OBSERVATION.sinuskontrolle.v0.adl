@@ -1,0 +1,236 @@
+﻿archetype (adl_version=1.4; uid=c4150689-f2cd-4e9b-ac05-b64105d5d0bc)
+	openEHR-EHR-OBSERVATION.sinuskontrolle.v0
+
+concept
+	[at0000]	-- Sinuskontrolle
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"Peter L. Reichertz Institute for Medical Informatics">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2022-09-05">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des Fragebogens bezüglich der Sinuskontrolle einer Person. ">
+			use = <"Für die Abbildung der Ergebnisse der Sinussymptomatik der letzten zwei Wochen. ">
+			keywords = <"Sinuskontrolle, Sinusitis, Nase, Nasensekret, Sinussymptomatik", ...>
+			misuse = <"Nicht zur Repräsentation von andere Screening-Fragebögen verwenden. ">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/38111/Dissertation_Netzer.pdf?sequence=3&isAllowed=y">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"AF9C226C7061434F27AC43E720F63A4D">
+		["build_uid"] = <"f543438e-b666-4da1-bc14-bfda0e3f1a28">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Sinuskontrolle
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- In den letzten 2 Wochen, wie stark war Ihre Nase verstopft?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0015,    -- gar nicht
+													at0016,    -- minimal
+													at0017,    -- etwas
+													at0018,    -- viel
+													at0019]    -- die ganze Zeit
+												}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- In den letzten 2 Wochen, wie stark hatten Sie Nasensekret?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0020,    -- gar nicht
+													at0021,    -- minimal
+													at0022,    -- etwas
+													at0023,    -- viel
+													at0024]    -- die ganze Zeit
+												}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {    -- Wie stark hat sich Ihre Sinnussymptomatik in den letzten zwei Wochen auf Ihre Produktivität bei der Arbeit oder zuhause ausgewirkt?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0025,    -- gar nicht
+													at0026,    -- minimal
+													at0027,    -- etwas
+													at0028,    -- viel
+													at0029]    -- die ganze Zeit
+												}
+											}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Mussten Sie in den letzten zwei Wochen eine orale Steroid- oder Antibiotikatherapie aufgrund Ihrer Sinusitis einnehmen?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0030,    -- Ja
+													at0031]    -- Nein
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0004] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0014] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sinuskontrolle">
+					description = <"Sinuskontrolle">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"In den letzten 2 Wochen, wie stark war Ihre Nase verstopft?">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"In den letzten 2 Wochen, wie stark hatten Sie Nasensekret?">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Wie stark hat sich Ihre Sinnussymptomatik in den letzten zwei Wochen auf Ihre Produktivität bei der Arbeit oder zuhause ausgewirkt?">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Mussten Sie in den letzten zwei Wochen eine orale Steroid- oder Antibiotikatherapie aufgrund Ihrer Sinusitis einnehmen?">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"gar nicht">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"minimal">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"etwas">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"viel">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"die ganze Zeit">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"gar nicht">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"minimal">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"etwas">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"viel">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"die ganze Zeit">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"gar nicht">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"minimal">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"etwas">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"viel">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"die ganze Zeit">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Nein">
+					description = <"">
+				>
+			>
+		>
+	>

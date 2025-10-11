@@ -1,0 +1,290 @@
+﻿archetype (adl_version=1.4; uid=0295d101-c246-42ec-b63a-5ea82a0d2995)
+	openEHR-EHR-OBSERVATION.phq4.v1
+
+concept
+	[at0000]	-- Patientengesundheit (PHQ-4) Angst und Depression
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"Peter L. Reichertz Institut für Medizinische Informatik">
+		["email"] = <"Sarah.Ballout@mh-hannover.de">
+		["date"] = <"2022-06-27">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation des PHQ-4 Fragebogen in der Psychiatrie. Dieser hat die Kurzform des Gesundheitfragebogens für den Patienten (PHQ-D). Dieser umfasst die ersten beiden Fragen des Depressionsmoduls des PHQ-D (PHQ-2) und die ersten beiden Fragen des Moduls zur Erfassung der generalisierten Ängstlichkeit (GAD-2).
+
+">
+			use = <"Für die Abbildung des PHQ-4-Fragebogens in der Psychiatrie. Der PHQ-2 umfasst die beiden diagnostischen Kernkriterien für depressive Störungen nach DSM-IV. Der GAD-2 beinhaltet zwei Kernkriterien für die Generalisierte Angststörung nach DSM-IV, welche sich auch als effektives Screening-Instrument für die Störungen Soziale Phobie, Panikstörung und Posttraumatische Belastungsstörung erwiesen haben. Beide Instrumente wurden deshalb mit je 2 Fragen zu einem neuen Instrument, dem PHQ-4, kombiniert. Nach den Ursprungsskalen des Patientengesundheitsfragebogens (PHQ-D) wird im PHQ-4 gefragt, wie oft man sich in den letzten zwei Wochen von Interessen- oder Lustverlust (Frage 1) und Niedergeschlagenheit, Melancholie oder Hoffnungslosigkeit (Frage 2) sowie von Nervosität, Angst oder Sorgen (Frage 3) und Gefühlen der Unruhe (Frage 4) betroffen gefühlt hat. 
+
+">
+			keywords = <"PHQ-4", "Angst", "Depression", "Patient", "Gesundheit", "Patientengesundheit", "Gefühle", "Hoffnung">
+			misuse = <"Nicht zur Repräsentation vom PHQ-D Fragebogen verwenden. ">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"- Reprinted with permission from Kroenke K, Spitzer RL, Williams JB, Löwe B. An ultra-brief screening scale for 
+anxiety and depression: the PHQ-4. Psychosomatics. 2009;50(6):613-21. From Principles of Neuropathic Pain 
+Assessment and Management, November 2011
+- https://www.oregonpainguidance.org/app/content/uploads/2016/05/PHQ-4.pdf
+- https://de.wikipedia.org/wiki/PHQ-4">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"085554B42D7AAF4B5FE2E0948F1C20C4">
+		["build_uid"] = <"37b11bef-0027-4cb3-95f6-d8154e716eca">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Patientengesundheit (PHQ-4) Angst und Depression
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Wenig Interesse oder Freunde an Ihren Tätigkeiten
+										value matches {
+											0|[local::at0006],
+											1|[local::at0007],
+											2|[local::at0008],
+											3|[local::at0009]
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {    -- Niedergeschlagenheit, Schwermut oder Hoffnungslosigkeit
+										value matches {
+											0|[local::at0013],
+											1|[local::at0014],
+											2|[local::at0015],
+											3|[local::at0016]
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Nervosität, Ängstlichkeit oder Anspannung
+										value matches {
+											0|[local::at0019],
+											1|[local::at0020],
+											2|[local::at0021],
+											3|[local::at0022]
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren
+										value matches {
+											0|[local::at0023],
+											1|[local::at0024],
+											2|[local::at0025],
+											3|[local::at0026]
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {    -- Bewertung der Patientengesundheit
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..12|}
+											}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {    -- Wenn eines oder mehrere dieser Probleme bei Ihnen vorliegen, geben Sie bitte an, wie sehr diese Probleme es Ihnen erschwert haben, Ihre Arbeit zu erledigen, Ihren Haushalt zu regeln oder mit anderen Menschen zurecht zu kommen:
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0030,    -- Überhaupt nicht erschwert
+													at0031,    -- Etwas erschwert
+													at0032,    -- Relativ stark erschwert
+													at0033]    -- Sehr stark erschwert
+												}
+											}
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {    -- Möchten Sie Hilfe für diese Beschwerden in Anspruch nehmen?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0036,    -- Ja
+													at0037]    -- Nein
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0004] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0038] occurrences matches {0..1} matches {    -- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Patientengesundheit (PHQ-4) Angst und Depression">
+					description = <"Patientengesundheit ">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Wenig Interesse oder Freunde an Ihren Tätigkeiten">
+					description = <"Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt? ">
+				>
+				["at0006"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"An einzelnen Tagen">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"An mehr als der Hälfte der Tage">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Beinahe jeden Tag">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Niedergeschlagenheit, Schwermut oder Hoffnungslosigkeit">
+					description = <"Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt? ">
+				>
+				["at0013"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"An einzelnen Tagen">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"An mehr als der Hälfte der Tage">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Beinahe jeden Tag">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Nervosität, Ängstlichkeit oder Anspannung">
+					description = <"Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt? ">
+				>
+				["at0018"] = <
+					text = <"Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren">
+					description = <"Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt? ">
+				>
+				["at0019"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"An einzelnen Tagen">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"An mehr als der Hälfte der Tage">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Beinahe jeden Tag">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Überhaupt nicht">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"An einzelnen Tagen">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"An mehr als der Hälfte der Tage">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"Beinahe jeden Tag">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"Bewertung der Patientengesundheit">
+					description = <"Die Gesamtpunktzahl wird ermittelt, indem die Punktzahlen der einzelnen 4 Elemente addiert werden. 
+Die Werte werden als normal (0-2), mild (3-5), moderat (6-8) und schwer (9-12) bewertet.
+Gesamtpunktzahl ≥3 für die ersten 2 Fragen deutet auf Angst hin.
+Gesamtnote ≥3 für die letzten 2 Fragen deutet auf eine Depression hin.">
+				>
+				["at0029"] = <
+					text = <"Wenn eines oder mehrere dieser Probleme bei Ihnen vorliegen, geben Sie bitte an, wie sehr diese Probleme es Ihnen erschwert haben, Ihre Arbeit zu erledigen, Ihren Haushalt zu regeln oder mit anderen Menschen zurecht zu kommen:">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Überhaupt nicht erschwert">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Etwas erschwert">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Relativ stark erschwert">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Sehr stark erschwert">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Möchten Sie Hilfe für diese Beschwerden in Anspruch nehmen?">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Nein">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"Kommentar">
+					description = <"">
+				>
+			>
+		>
+	>

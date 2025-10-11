@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
+    <id>2a54738b-96d2-484e-94c6-ca6f05397cee</id>
+    <name>SpO2_UKSH</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2025-08-05</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Rony Ventura</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>UKSH</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>rony.ventura@uksh.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details>
+            <purpose>Zur Dokumentation der Sauerstoffsättigung im Blut unter Benutzung eines Pulsoxymeters.</purpose>
+            <keywords>
+                <item>Sauerstoff</item>
+                <item>Behandlung mit Sauerstoff</item>
+                <item>Pulsoxymeter</item>
+                <item>Pulsoxymetrie</item>
+            </keywords>
+            <use>Zur Darstellung des Blutsauerstoffs und damit zusammenhängender Messungen, die durch Pulsoxymetrie oder Puls-CO-Oximetrie gemessen werden.
+
+Wellenformen sollten hier aufgezeichnet werden, wenn sie zur Dokumentation der Qualität der Blutgasmessung verwendet werden.</use>
+            <misuse>Nicht zur Darstellung von andere nicht-invasive Blutgasmessungen wie transkutane CO₂, laterale endtidalen CO₂ oder nicht-invasive zerebraler Oxymetrie verwendet.
+
+Nicht zur Darstellung von Plethysmographie zu verwenden. Verwenden Sie einen anderen geeigneten Archetyp für diesen Zweck.
+
+Nicht zur Darstellung einer anderen Art von Messung verwenden, wie z.B. der Pulsfrequenz, wenn das Aufzeichnungsgerät dies ebenfalls ermöglicht. Dies sollte in einem separaten Archetyp aufgezeichnet werden, der für diese spezielle Messung geeignet ist, um eine konsistente Abfrage zu ermöglichen. In diesem Beispiel sollte die Pulsfrequenz im Archetyp OBSERVATION.pulse aufgezeichnet werden.
+
+Nicht zur Darstellung von Messungen der peripheren Blutgase zu verwenden, die einen direkten Kontakt mit Blut beinhalten. Zum Beispiel sollte PaO₂, PaCO₂ unter Verwendung des Archetyps OBSERVATION.laboratory_test_result aufgezeichnet werden.
+
+Nicht zur Darstellung invasiver Blutgasmessungen verwenden. Zum Beispiel arterielle (SaO₂), venöse (SvO₂) Sauerstoffsättigung oder Sauerstoffgehalt (CaOC), die normalerweise durch invasive Methoden wie Laborblutgase oder Gefäßkathetergeräte bestimmt werden. Diese sollten auch innerhalb des Archetyps OBSERVATION.laboratory_test_resultate erfasst werden.</misuse>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>2.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="SpO2_UKSH" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <unitMagnitude>
+                        <unit>ml/dl</unit>
+                        <minMagnitude>0.0</minMagnitude>
+                        <includesMaximum>false</includesMaximum>
+                        <includesMinimum>true</includesMinimum>
+                    </unitMagnitude>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0045]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0046]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0058]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0014]/items[at0016]"/>
+            <Rule max="0" path="/protocol[at0007]/items[at0009]"/>
+            <Rule max="0" path="/protocol[at0007]/items[at0061]"/>
+        </Content>
+        <Context>
+            <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Context>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A60D0B7F52F1F9C3C9B3518DB83ACDAE</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">9B34EF48D236BB3A28FB31CD3776BAA7</digest>
+    </integrity_checks>
+</template>

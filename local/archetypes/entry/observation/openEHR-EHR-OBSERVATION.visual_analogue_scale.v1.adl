@@ -1,0 +1,301 @@
+﻿archetype (adl_version=1.4; uid=9ce6fafe-52bf-468c-9132-d554adb957eb)
+	openEHR-EHR-OBSERVATION.visual_analogue_scale.v1
+
+concept
+	[at0000]	-- Visual Analogue Scale (VAS)
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Darin Leonhardt">
+				["organisation"] = <"PLRI">
+				["email"] = <"leonhardt.darin@mh-hannover.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Mareike Joseph">
+		["organisation"] = <"Peter L. Reichertz Institute for Medical Informatics of TU BS and Hannover Medical School">
+		["email"] = <"joseph.mareike@mh-hannover.de">
+		["date"] = <"2022-04-04">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung des subjektiven Wohlbefindens in einer einfach zu handhabenden Weise. Visuelle Analogskalen (VAS) sind psychometrische Antwortskalen zur Messung subjektiver Merkmale oder Einstellungen und wurden in der Vergangenheit unter anderem bei einer Vielzahl von Erkrankungen sowie in der Marktforschung und in sozialwissenschaftlichen Untersuchungen eingesetzt.">
+			use = <"Der Archetyp wird verwendet, um das subjektive Wohlbefinden darzustellen, wenn eine selbst definierte oder eine noch nicht modellierte VAS verwendet wird. Dieser Archetyp steht für eine generische VAS. Wenn Sie eine standardisierte VAS verwenden, die bereits modelliert ist (wie die VAS für Schmerzen), verwenden Sie den speziellen Archetyp.
+Dieser Archetyp ermöglicht die Verwendung einer individuellen Skala durch Definition eines individuellen Minimums, Maximums oder einer Schrittweite. Darüber hinaus kann die verbale Definition des Minimums und des Maximums auch vom Ausbilder individuell festgelegt werden.">
+			keywords = <"VAS, visuell, analoge, Skala, Bewertung, subjektiv, Wohlbefinden", ...>
+			misuse = <"Nicht zur Darstellung der Messung von Schmerzen verwenden. Verwenden Sie für diesen Zweck den speziellen Archetyp zur Bewertung von Schmerzen.
+Die VAS für Schmerzen ist aus der folgenden Veröffentlichung entnommen: Carlsson A. Assessment of chronic pain. I. Aspects of the reliability and validity of the visual analogue scale. Pain 1983; 16: 87-101.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a subjective well-being in an easy handling manner. Visual analogue scales (VAS) are psychometric response scales used to measure subjective characteristics or attitudes and have been used in the past for a multitude of disorders, as well as in market research and social science investigations, among others.">
+			use = <"Use to record the subjective well-being, if a self-defined VAS or a not yet modelled VAS is used. This archetype represents a generic VAS. If you are using a standardised VAS, that is already modelled (like the VAS for pain), use the dedicated archetype.
+This archetype allows to use an individual scale by defining an individual minimum, maximum or a stepwidth. Furthermore the verbal definition of the minimum and maximum can be set by the instructor individually as well.">
+			keywords = <"VAS, visual, analogue, analog, scale, rating, subjective, well-being", ...>
+			misuse = <"Not to be used to record the measurement of pain. Therefore use the dedicated archetype of rating pain.
+The VAS for pain can be obtained from the following publication: Carlsson A. Assessment of chronic pain. I. Aspects of the reliability and validity of the visual analogue scale. Pain 1983; 16: 87-101.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7A590D4D4727C8970DEB0BDAA2CAED18">
+		["build_uid"] = <"1508601a-3cbb-4af0-9653-7f3ad807461c">
+		["revision"] = <"1.0.2">
+	>
+
+definition
+	OBSERVATION[at0000] occurrences matches {0..1} matches {    -- Visual Analogue Scale (VAS)
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Score
+										value matches {
+											DV_COUNT matches {*}
+											DV_PROPORTION matches {*}
+											DV_QUANTITY matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Name
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Minimum of Scale
+						value matches {
+							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {    -- Verbal minimum
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {    -- Maximum of Scale
+						value matches {
+							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0029] occurrences matches {0..1} matches {    -- Verbal maximum
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {    -- Stepwidth of Scale
+						value matches {
+							DV_QUANTITY matches {*}
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {*}    -- Publication source
+					ELEMENT[at0030] occurrences matches {0..1} matches {    -- Implementation
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Visual Analogue Scale (VAS)">
+					description = <"Visual analogue scales (VAS) are psychometric response scales used to measure subjective characteristics or attitudes.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Score">
+					description = <"To record the result a person has marked on the VAS.">
+				>
+				["at0005"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the score, not captured in other fields.">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Extension">
+					description = <"To record further information to capture local content or alignment with other reference models/formalisms not  captured in other fields.">
+				>
+				["at0012"] = <
+					text = <"Stepwidth of Scale">
+					description = <"To record the possible minimal stepwidth of the scale or the analysis to reproduce the method.">
+				>
+				["at0013"] = <
+					text = <"Name">
+					description = <"To specify the name of the VAS used. This can also be an internal name if there is no standard VAS used.">
+				>
+				["at0014"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the VAS, not captured in other fields.">
+				>
+				["at0025"] = <
+					text = <"Publication source">
+					description = <"To record the source of the VAS.">
+				>
+				["at0026"] = <
+					text = <"Minimum of Scale">
+					description = <"To record the minimal value of the VAS.">
+				>
+				["at0027"] = <
+					text = <"Maximum of Scale">
+					description = <"To record the maximal value of the VAS.">
+				>
+				["at0028"] = <
+					text = <"Verbal minimum">
+					description = <"To record the definition of the minimum verbally to reproduce the method.">
+					comment = <"In order to demonstrate that patients have the entire range of possible perceptions of symptoms at their disposal when responding, each end of the scale is deﬁned with contrasting terms such as “always – never”, “applies completely – does not apply at all”, or “yes – no”. One end of the scale represents the maximum conceivable symptom strength (i. e., 100%), the other end no symptoms whatsoever (i. e., 0%).
+VAS should not have any markings (e. g., identifying the middle or dividing the line up into equally sized fragments), since the sensitivity of VAS without markings is higher than it is with.">
+				>
+				["at0029"] = <
+					text = <"Verbal maximum">
+					description = <"To record the definition of the maximum verbally to reproduce the method.">
+					comment = <"In order to demonstrate that patients have the entire range of possible perceptions of symptoms at their disposal when responding, each end of the scale is deﬁned with contrasting terms such as “always – never”, “applies completely – does not apply at all”, or “yes – no”. One end of the scale represents the maximum conceivable symptom strength (i. e., 100%), the other end no symptoms whatsoever (i. e., 0%).
+VAS should not have any markings (e. g., identifying the middle or dividing the line up into equally sized fragments), since the sensitivity of VAS without markings is higher than it is with.">
+				>
+				["at0030"] = <
+					text = <"Implementation">
+					description = <"Additional narrative describing the method how the score is determined.">
+					comment = <"E.g. analogue with pen and paper asking the patient to mark the score on a 10cm long line or digital with the option to select one of 10 predefined values between 0 and 10.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Visuelle Analogskala (VAS)">
+					description = <"Visuelle Analogskalen (VAS) sind psychometrische Antwortskalen, die zur Messung subjektiver Merkmale oder Einstellungen verwendet werden.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Ergebnis">
+					description = <"Das Ergebnis, das eine Person auf der VAS markiert hat.">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Angaben zum Ergebnis, die nicht in anderen Feldern erfasst werden.">
+				>
+				["at0006"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen, die in anderen Feldern nicht erfasst werden.">
+				>
+				["at0012"] = <
+					text = <"Skalenbreite">
+					description = <"Zur Aufzeichnung der möglichen minimalen Schrittweite der Skala oder der Analyse, um die Methode zu reproduzieren.">
+				>
+				["at0013"] = <
+					text = <"Name">
+					description = <"Zur Angabe des Namens des verwendeten VAS. Dies kann auch ein interner Name sein, wenn standardisierte VAS verwendet wird.">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen über die VAS, die in anderen Feldern nicht erfasst werden.">
+				>
+				["at0025"] = <
+					text = <"Publikationsquelle">
+					description = <"Die Quelle der VAS, die verwendet wurde.">
+				>
+				["at0026"] = <
+					text = <"Minimum der Skala">
+					description = <"Der kleinste Wert der VAS.">
+				>
+				["at0027"] = <
+					text = <"Maximum der Skala">
+					description = <"Der maximale Wert der VAS.">
+				>
+				["at0028"] = <
+					text = <"Verbales Minimum">
+					description = <"Das verbale Minimum, um die Methode zu reproduzieren.">
+					comment = <"Um zu verdeutlichen, dass den Patienten bei der Beantwortung die gesamte Spannweite möglicher Wahrnehmungen von Symptomen zur Verfügung steht, wird jedes Ende der Skala mit gegensätzlichen Begriffen wie \"immer - nie\", \"trifft voll und ganz zu - trifft überhaupt nicht zu\" oder \"ja - nein\" bezeichnet. Das eine Ende der Skala steht für die maximal denkbare Symptomstärke (d. h. 100 %), das andere Ende für keine Symptome (d. h. 0 %).
+Die VAS sollte keine Markierungen aufweisen (z. B. Kennzeichnung der Mitte oder Unterteilung in gleich große Fragmente), da die Sensitivität der VAS ohne Markierungen höher ist als mit.">
+				>
+				["at0029"] = <
+					text = <"Verbales Maximum">
+					description = <"Das verbale Maximum, um die Methode zu reproduzieren.">
+					comment = <"Um zu verdeutlichen, dass den Patienten bei der Beantwortung die gesamte Spannweite möglicher Wahrnehmungen von Symptomen zur Verfügung steht, wird jedes Ende der Skala mit gegensätzlichen Begriffen wie \"immer - nie\", \"trifft voll und ganz zu - trifft überhaupt nicht zu\" oder \"ja - nein\" bezeichnet. Das eine Ende der Skala steht für die maximal denkbare Symptomstärke (d. h. 100 %), das andere Ende für keine Symptome (d. h. 0 %).
+Die VAS sollte keine Markierungen aufweisen (z. B. Kennzeichnung der Mitte oder Unterteilung in gleich große Fragmente), da die Sensitivität der VAS ohne Markierungen höher ist als mit.">
+				>
+				["at0030"] = <
+					text = <"Implementierung">
+					description = <"Zusätzlicher Text, der die Methode beschreibt, wie das Ergebnis ermittelt wird.">
+					comment = <"Der Patient wird aufgefordert, den Wert auf einer 10 cm langen Linie z. B. mit Stift und Papier zu markieren, oder digital mit der Möglichkeit, einen von zehn vordefinierten Werten zwischen 0 und 10 zu wählen.">
+				>
+			>
+		>
+	>

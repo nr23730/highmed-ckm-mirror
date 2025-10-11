@@ -1,0 +1,105 @@
+﻿archetype (adl_version=1.4; uid=402d7b68-bd14-4fff-a1e2-688f8eebbb13)
+	openEHR-EHR-CLUSTER.fima_4_hilfen_umfeld.v0
+
+concept
+	[at0000]	-- FIMA_4_Hilfen_Umfeld
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Severin Kohler">
+		["organisation"] = <"Charité">
+		["email"] = <"severin.kohler@bih-charite.de">
+		["date"] = <"2024-10-08">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation der FIMA Frage 4:
+\"Haben Sie in den letzten 3 Monaten aufgrund Ihres Gesundheitszustandes Hilfen von
+Familienmitgliedern, Freunden, Bekannten oder Nachbarn in Anspruch genommen?\"">
+			use = <"Zur Repräsentation der  zur Repräsentation der FIMA Frage 4
+
+Dieser Archetyp wurde für die Verwendung innerhalb des OBSERVATION.FIMA-Archetyps und zusammen mit anderen FIMA-Archetypen entwickelt.
+">
+			keywords = <"FIMA", "Fragebogen">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://pubmed.ncbi.nlm.nih.gov/24806594/">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"1480F0B2115BD28D2F7CE5DBD9EF945C">
+		["build_uid"] = <"b74448b4-623c-436d-a09f-d7e8a05a0373">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- FIMA_4_Hilfen_Umfeld
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- 4a. Haben Sie in den letzten 3 Monaten aufgrund Ihres Gesundheitszustandes Hilfen von Familienmitgliedern, Freunden, Bekannten oder Nachbarn in Anspruch genommen?
+				value matches {
+					DV_BOOLEAN matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- 4b. Wenn ja, an wie vielen Tagen in der Woche oder Tagen im Monat wurde Ihnen geholfen?
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::128]>
+						list = <
+							["1"] = <
+								units = <"Tage pro Woche">
+							>
+							["2"] = <
+								units = <"Tage pro Monat">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- 4c. An diesen Tagen, wie lange wurde Ihnen durchschnittlich geholfen?
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::128]>
+						list = <
+							["1"] = <
+								units = <"min">
+							>
+						>
+					>
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"FIMA_4_Hilfen_Umfeld">
+					description = <"FIMA_4_Hilfen_Umfeld">
+				>
+				["at0001"] = <
+					text = <"4a. Haben Sie in den letzten 3 Monaten aufgrund Ihres Gesundheitszustandes Hilfen von Familienmitgliedern, Freunden, Bekannten oder Nachbarn in Anspruch genommen?">
+					description = <"">
+				>
+				["at0002"] = <
+					text = <"4b. Wenn ja, an wie vielen Tagen in der Woche oder Tagen im Monat wurde Ihnen geholfen?">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"4c. An diesen Tagen, wie lange wurde Ihnen durchschnittlich geholfen?">
+					description = <"">
+				>
+			>
+		>
+	>

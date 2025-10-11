@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>d1deb964-3c1e-4834-a547-b447c5cd04f2</id>
+    <name>oBDS_Tumorkonferenz</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2023-08-25</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details/>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>0.1.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value>5cf6fe08-7a24-47dc-8b3f-77e98b34c435</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>d227c335c42590d1d73fe670ae5cf07b</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht" name="oBDS_Tumorkonferenz"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content
+            archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1"
+            max="1" path="/content" xsi:type="tem:INSTRUCTION">
+            <Rule default="Therapieplanung" path="/activities[at0001]/description[at0009]/items[at0121]"/>
+            <Rule name="Typ" path="/activities[at0001]/description[at0009]/items[at0148]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>local_terms::praeth::prätherapeutische Tumorkonferenz (Festlegung der Therapiestrategie)</includedValues>
+                    <includedValues>local_terms::postop::postoperative Tumorkonferenz (Planung der postoperativen Therapie, z. B. zur Frage adjuvante Therapie)</includedValues>
+                    <includedValues>local_terms::postth::posttherapeutische Tumorkonferenz (manche Tumoren werden nicht operiert)</includedValues>
+                    <includedValues>local_terms::ther::Therapieplanung ohne Tumorkonferenz</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0135]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0153]"/>
+            <Rule name="Meldeanlass" path="/activities[at0001]/description[at0009]/items[at0062]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>diagnose</includedValues>
+                    <includedValues>behandlungsbeginn</includedValues>
+                    <includedValues>behandlungsende</includedValues>
+                    <includedValues>statusaenderung</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0064]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0152]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0065]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0068]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0040]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Date_Time</includedTypes>
+                    <includedTypes>Interval</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule name="Datum" path="/activities[at0001]/description[at0009]/items[at0145]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0144]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0147]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0076]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0078]"/>
+            <Rule max="0" path="/activities[at0001]/description[at0009]/items[at0150]"/>
+            <Rule name="Tumorkonferenz_ID" path="/protocol[at0008]/items[at0010]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0008]/items[at0011]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0008]/items[at0127]"/>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0"
+                max="1"
+                path="/activities[at0001]/description[at0009]/items[at0132]" xsi:type="tem:CLUSTER">
+                <Rule name="Typ_Therapieempfehlung" path="/items[at0041]/items[at0042]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>local_terms::CH::Chemotherapie</includedValues>
+                        <includedValues>local_terms::HO::Hormontherapie</includedValues>
+                        <includedValues>local_terms::IM::Immun-/Antikörpertherapie</includedValues>
+                        <includedValues>local_terms::ZS::zielgerichtete Substanzen</includedValues>
+                        <includedValues>local_terms::SZ::Stammzelltransplantation (inkl. Knochenmarktransplantation)</includedValues>
+                        <includedValues>local_terms::CI::Chemo- + Immun-/Antikörpertherapie</includedValues>
+                        <includedValues>local_terms::CZ::Chemotherapie + zielgerichtete Substanzen</includedValues>
+                        <includedValues>local_terms::CIZ::Chemo- + Immun/Antikörpertherapie + zielgerichtete Substanzen</includedValues>
+                        <includedValues>local_terms::IZ::Immun-/Antikörpertherapie + zielgerichtete Substanzen</includedValues>
+                        <includedValues>local_terms::WW::Watchful Waiting</includedValues>
+                        <includedValues>local_terms::AS::Active Surveillance</includedValues>
+                        <includedValues>local_terms::WS::Wait and see</includedValues>
+                        <includedValues>local_terms::OP::Operation</includedValues>
+                        <includedValues>local_terms::ST::Strahlentherapie</includedValues>
+                        <includedValues>local_terms::SO::Sonstiges</includedValues>
+                        <includedValues>local_terms::KW::keine weitere tumorspezifische Therapie empfohlen</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0041]/items[at0043]"/>
+                <Rule max="0" path="/items[at0041]/items[at0066]"/>
+                <Rule max="0" path="/items[at0041]/items[at0066]/items[at0063]"/>
+                <Rule max="0" path="/items[at0041]/items[at0066]/items[at0054]"/>
+                <Rule max="0" path="/items[at0059]"/>
+                <Rule max="0" path="/items[at0059]/items[at0060]"/>
+                <Rule max="0" path="/items[at0059]/items[at0080]"/>
+                <Rule max="0" path="/items[at0059]/items[at0040]"/>
+                <Rule max="0" path="/items[at0059]/items[at0055]"/>
+                <Rule max="0" path="/items[at0059]/items[at0083]"/>
+                <Rule max="0" path="/items[at0059]/items[at0074]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0056]"/>
+                <Rule max="0" path="/items[at0065]"/>
+            </Items>
+        </Content>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-INSTRUCTION.service_request.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6175B5DE04E6302E3DEB0C8EB876BE34</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.evidence_classification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">A62E1D03D61F037BF9A7278E2F2269B4</digest>
+    </integrity_checks>
+</template>

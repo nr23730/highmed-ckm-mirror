@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>1eb42cbc-3dda-45e1-b034-47c3ed8a1061</id>
+    <name>GECCO_Prozedur</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2020-11-10</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Antje Wulff</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>antje.wulff@plri.de</value>
+            </item>
+        </original_author>
+        <other_contributors>
+            <item>Sarah Ballout</item>
+        </other_contributors>
+        <lifecycle_state>published</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation von Prozeduren im Rahmen des FoDaPl-Projektes / GECCO-Datensatzes. Es können vorliegende, unbekannte und explizit ausgeschlossene Prozeduren angelegt werden.</purpose>
+            <keywords>
+                <item>GECCO</item>
+                <item>NUM</item>
+                <item>FoDaPl</item>
+                <item>Prozedur</item>
+                <item>CODEX</item>
+            </keywords>
+            <use>Für die Abbildung von Prozeduren für die Speicherung im Rahmen des FoDaPI-Projektes / GECCO-Datensatzes.</use>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>c86bcf6df9c460a1319f23770155cf80</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>5.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag" name="GECCO_Prozedur"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-ACTION.procedure.v1" max="1"
+            path="/content" xsi:type="tem:ACTION">
+            <Rule max="0" min="0" path="/ism_transition[at0034]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0035]"/>
+            <Rule name="Prozedur hat begonnen" path="/ism_transition[at0068]"/>
+            <Rule path="/description[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedures-combined" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0001]/items[at0049]"/>
+            <Rule max="0" path="/description[at0001]/items[at0065]"/>
+            <Rule max="0" path="/description[at0001]/items[at0058]"/>
+            <Rule path="/description[at0001]/items[at0063]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/body-site" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0001]/items[at0048]"/>
+            <Rule max="0" path="/description[at0001]/items[at0069]"/>
+            <Rule max="0" path="/description[at0001]/items[at0006]"/>
+            <Rule max="0" path="/description[at0001]/items[at0066]"/>
+            <Rule max="0" path="/description[at0001]/items[at0060]"/>
+            <Rule max="0" path="/description[at0001]/items[at0061]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <minMagnitude>PT0S</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule min="1" path="/description[at0001]/items[at0067]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedures-combined" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="1" name="Durchführungsabsicht" path="/description[at0001]/items[at0014]"/>
+            <Rule max="0" path="/protocol[at0053]/items[at0054]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0053]/items[at0056]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+            <Items archetype_id="openEHR-EHR-CLUSTER.device.v1"
+                path="/description[at0001]/items[at0003]" xsi:type="tem:CLUSTER">
+                <Rule path="/items[at0001]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedure-medical-device-name" terminologyID="//fhir.hl7.org/"/>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0021]"/>
+                <Rule max="0" path="/items[at0004]"/>
+                <Rule max="0" path="/items[at0005]"/>
+                <Rule max="0" path="/items[at0020]"/>
+                <Rule max="0" path="/items[at0022]"/>
+                <Rule max="0" path="/items[at0023]"/>
+                <Rule max="0" path="/items[at0006]"/>
+                <Rule max="0" path="/items[at0025]"/>
+                <Rule max="0" path="/items[at0007]"/>
+                <Rule max="0" path="/items[at0024]"/>
+                <Rule max="0" path="/items[at0008]"/>
+            </Items>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+            concept_name="Ausschluss - spezifisch" max="1"
+            name="Nicht durchgeführte Prozedur" path="/content" xsi:type="tem:EVALUATION">
+            <Rule min="1" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>not done</includedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Eingriff" path="/data[at0001]/items[at0003]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedures-combined" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+                <nameConstraint>
+                    <excludedValues>local::at0008</excludedValues>
+                    <excludedValues>local::at0005</excludedValues>
+                    <excludedValues>local::at0006</excludedValues>
+                    <excludedValues>local::at0004</excludedValues>
+                </nameConstraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0012]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            concept_name="Fehlen von Informationen" max="1"
+            name="Unbekannte Prozedur" path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Unbekannte Prozedur" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <termQueryId
+                        queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedures-combined" terminologyID="//fhir.hl7.org/"/>
+                </constraint>
+            </Rule>
+            <Rule max="1" min="1"
+                name="Aussage über die fehlende Information" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>unknown</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0004]"/>
+        <Rule path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <termQueryId
+                    queryName="ValueSet/$expand?url=https://www.netzwerk-universitaetsmedizin.de/fhir/ValueSet/procedure-category" terminologyID="//fhir.hl7.org/"/>
+            </constraint>
+        </Rule>
+    </definition>
+    <integrity_checks
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">108CD01BE8E751B5AA89279E73962671</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.device.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">08C28B0330D6A5C90573D9FF66DB1AF3</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+    </integrity_checks>
+</template>

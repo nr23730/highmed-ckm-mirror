@@ -1,0 +1,133 @@
+﻿archetype (adl_version=1.4; uid=64ebf522-bd42-4195-989b-6ed92b64b41b)
+	openEHR-EHR-OBSERVATION.american_heart_association.v0
+
+concept
+	[at0000]	-- American Heart Association
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["date"] = <"2023-09-08">
+		["Email"] = <"rehberg.alina@mh-hannover.de">
+		["Organisation"] = <"Medizinische Hochschule Hannover">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			keywords = <"Herz", "Insuffizienz", "Herzinsuffizienz", "kardial", "Atemnot", "Erschöpfung", "Dysfunktion", "ventrikulär">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"0C821CBB39FB07230054FD20D17E36E0">
+		["build_uid"] = <"f396e9d8-eec2-48b4-aaa7-4bbe7cd8f830">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- American Heart Association
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Klassifikation
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0009,    -- A
+													at0010,    -- B
+													at0011,    -- C
+													at0012]    -- D
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0005] matches {    -- ITEM_TREE
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"American Heart Association">
+					description = <"Eine von der American Heart Association definierte, einfache Methode zur Klassifizierung des Ausmaßes einer Herzinsuffizienz.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Klassifikation">
+					description = <"Beurteilung von Herzinsuffizienz basierend darauf, wie sich ein Patient mit einer Herzerkrankung während einer körperlichen Aktivität fühlt und Kombination mit weiteren individuellen Risikofaktoren.">
+				>
+				["at0009"] = <
+					text = <"A">
+					description = <"Hohes Herzinsuffizienzrisiko, da Faktoren vorliegen, die stark mit der Entstehung einer Herzinsuffizienz assoziiert sind; keine strukturelle Herzerkrankung, noch nie Herzinsuffizienzsymptome.">
+				>
+				["at0010"] = <
+					text = <"B">
+					description = <"Strukturelle Herzerkrankung, die eng mit der Entstehung einer Herzinsuffizienz assoziiert ist, bisher keine Herzinsuffizienzsymptome.">
+				>
+				["at0011"] = <
+					text = <"C">
+					description = <"Frühere oder derzeitige Herzinsuffizienzsymptome bei struktureller Herzerkrankung.">
+				>
+				["at0012"] = <
+					text = <"D">
+					description = <"Fortgeschrittene strukturelle Herzerkrankung und schwere Herzinsuffizienzsymptome in Ruhe trotz maximaler medikamentöser Therapie (spezielle Therapie erforderlich, z. B. Herztransplantation, Katecholamine i. v., Kunstherz)">
+				>
+				["at0013"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder zur Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Informationen zu örtlichen Krankenhausabteilungen oder zusätzliche Metadaten zur Anpassung an FHIR- oder CIMI-Modelle.
+">
+				>
+				["at0005"] = <
+					text = <"ITEM_TREE">
+					description = <"">
+				>
+			>
+		>
+	>

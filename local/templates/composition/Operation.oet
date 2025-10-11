@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>62406ad3-7e66-498b-8192-21b57ee1d0fc</id>
+    <name>Operation</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2019-12-03</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Alina Rehberg</value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Medizinische Hochschule Hannover</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>rehberg.alina@mh-hannover.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>in_development</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation von Daten zu einer Operation eines Patienten im HiGHmed Projekt.</purpose>
+            <keywords>
+                <item>OP; Chirurigscher Eingriff; Operative Prozedur; Notfalleingriff</item>
+            </keywords>
+            <use>Dieses Template wird verwendet, um Daten zu einer Operation von Patienten zu verzeichnen. Es sollen folgende Daten zu der Operation wie Bezeichnung der Operation, Komplikationen, Intention und Anmerkungen erfasst werden.</use>
+            <misuse>Dieses Template soll nicht verwendet werden, um andere Therapien oder Prozeduren des Patienten zu verzeichnen. Für diese Daten sind jeweils andere Templates zu benutzen.</misuse>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value>This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.</value>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value>openEHR Foundation</value>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value>org.openehr</value>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value>openEHR Foundation</value>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value>org.openehr</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>005501C1FA493A4838F5F1121F2870EC</value>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>62b48aaf4140de9217d4c6d98ffbcfcd</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>2.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        concept_name="Bericht" name="Operation"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-ACTION.procedure.v1"
+            concept_name="Prozedur" max="1" min="1" name="Operation"
+            path="/content" xsi:type="tem:ACTION">
+            <Rule name="Name der Operation (OPS)" path="/description[at0001]/items[at0002]"/>
+            <Rule name="Operation Beschreibung" path="/description[at0001]/items[at0049]"/>
+            <Rule max="0" path="/description[at0001]/items[at0070]"/>
+            <Rule max="0" path="/description[at0001]/items[at0065]"/>
+            <Rule max="0" path="/description[at0001]/items[at0058]"/>
+            <Rule max="0" path="/description[at0001]/items[at0063]"/>
+            <Rule max="0" path="/description[at0001]/items[at0048]"/>
+            <Rule max="0" path="/description[at0001]/items[at0069]"/>
+            <Rule path="/description[at0001]/items[at0006]">
+                <constraint limitToList="false" xsi:type="tem:textConstraint">
+                    <includedValues>Fistel</includedValues>
+                    <includedValues>Arrosionsblutungen</includedValues>
+                    <includedValues>Tumorperforation</includedValues>
+                    <includedValues>Keine</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0001]/items[at0066]"/>
+            <Rule max="0" path="/description[at0001]/items[at0060]"/>
+            <Rule max="0" path="/description[at0001]/items[at0061]">
+                <constraint xsi:type="tem:durationConstraint">
+                    <minMagnitude>PT0S</minMagnitude>
+                    <includesMaximum>false</includesMaximum>
+                    <includesMinimum>true</includesMinimum>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0001]/items[at0067]"/>
+            <Rule max="1" name="Intention" path="/description[at0001]/items[at0014]">
+                <constraint xsi:type="tem:textConstraint">
+                        <termQueryId
+                            queryName="ValueSet/$expand?url=http://highmed.org/fhir/ValueSet/onko/intention-der-therapie" terminologyID="//fhir.hl7.org/"/>
+                </constraint> 
+            </Rule>
+            <Rule name="Anmerkungen" path="/description[at0001]/items[at0005]"/>
+            <Rule name="Operation ID" path="/protocol[at0053]/items[at0054]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0053]/items[at0056]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Text</includedTypes>
+                    <includedTypes>Identifier</includedTypes>
+                </constraint>
+            </Rule>
+        </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
+            concept_name="Problemliste" max="1"
+            name="Tumordiagnose_section" path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                concept_name="Problem/Diagnose" max="1"
+                name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
+                <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
+                <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Links (L)</includedValues>
+                        <includedValues>Rechts (R)</includedValues>
+                        <includedValues>Beidseitig (B)</includedValues>
+                        <includedValues>Mittellinie/ Mittig (M)</includedValues>
+                        <includedValues>Unbekannt (U)</includedValues>
+                        <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
+                <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
+                <Rule max="0" path="/data[at0001]/items[at0003]"/>
+                <Rule max="0" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0072]"/>
+                <Rule max="0" path="/data[at0001]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/items[at0073]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+                <Items archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+                    path="/protocol[at0032]/items[at0071]" xsi:type="tem:CLUSTER">
+                    <Rule max="1" min="1" path="/items[at0001]"/>
+                </Items>
+            </Item>
+        </Content>
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1" min="1"
+                path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Context>
+        <Rule min="1" path="/context/other_context[at0001]/items[at0002]"/>
+        <Rule path="/context/other_context[at0001]/items[at0005]">
+            <constraint xsi:type="tem:textConstraint">
+                <includedValues>Zwischenbericht</includedValues>
+                <includedValues>Endbericht</includedValues>
+            </constraint>
+        </Rule>
+    </definition>
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.procedure.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7976419EEFB8BFACDA7BAB23201F9BEF</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8367D4F2CF2BA5BE59DC4442FD28C085</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6780584ECAE98538AF60C1335D7ED4BF</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">00E81173D3355F5FB8674F6132AECA33</digest>
+    </integrity_checks>
+</template>
