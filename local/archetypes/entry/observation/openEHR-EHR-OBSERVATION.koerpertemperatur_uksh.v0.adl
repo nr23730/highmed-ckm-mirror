@@ -1,0 +1,138 @@
+﻿archetype (adl_version=1.4; uid=abc020b3-baee-432c-a005-d90b878517e6)
+	openEHR-EHR-OBSERVATION.koerpertemperatur_uksh.v0
+
+concept
+	[at0000]	-- Körpertemperatur_UKSH
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Carlotta Jöhnk">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"carlottapauline.joehnk@uksh.de">
+		["date"] = <"2025-08-08">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation der gemessenen Körpertemperatur und der Körperstelle, an der die Temperatur gemessen wurde.">
+			use = <"Zur Dokumentation der Körpertemperatur einer Person.">
+			keywords = <"Temperatur, Körper, Fieber, Hypothermie, Hyperthermie", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"83E872E6EE94F82ABA81BAE5E593DA3B">
+		["build_uid"] = <"94db59e3-c31a-40b1-8fe3-65f1f5b1d6e4">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Körpertemperatur_UKSH
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Beliebiges Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Temperatur
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::127]>
+												list = <
+													["1"] = <
+														units = <"Cel">
+													>
+													["2"] = <
+														units = <"[degF]">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Körperstelle
+										value matches {
+											1|[local::at0012],
+											2|[local::at0013],
+											3|[local::at0014],
+											4|[local::at0015],
+											5|[local::at0016]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0017] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Körpertemperatur_UKSH">
+					description = <"Messung der Körpertemperatur.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Temperatur">
+					description = <"Gemessene Körpertemperatur.">
+				>
+				["at0011"] = <
+					text = <"Körperstelle">
+					description = <"Körperstelle, an der die Temperatur gemessen wurde.">
+				>
+				["at0012"] = <
+					text = <"Harnblase">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Blut">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Nasal">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Rektal">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Nicht spezifiziert">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>
