@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=44e6aa17-3d7f-422c-b2ab-5de90d7c7e5c)
-	openEHR-EHR-OBSERVATION.ecmo.v0
+﻿archetype (adl_version=1.4; uid=dc5375f2-cae7-46d5-8c27-949c9cb43ffe)
+	openEHR-EHR-OBSERVATION.camicu.v0
 
 concept
-	[at0000]	-- ecmo
+	[at0000]	-- CAM ICU
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -17,15 +17,15 @@ description
 		["name"] = <"Rony Ventura">
 		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
 		["email"] = <"rony.ventura@uksh.de">
-		["date"] = <"2025-10-09">
+		["date"] = <"2025-07-23">
 	>
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"">
-			use = <"">
+			purpose = <"standardisiertes Verfahren, um bei Intensivpatienten frühzeitig ein Delir zu erkennen">
+			use = <"Den CAM-ICU-Score aufzeichnen.">
 			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© HiGHmed">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -43,13 +43,13 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"7A9587C1AC65D4F9325EE8914744F4E7">
-		["build_uid"] = <"0df79f2e-4ff4-48ca-88b1-3903a5f48609">
+		["MD5-CAM-1.0.1"] = <"01ECACB4991781B26D5A1690B5EB5046">
+		["build_uid"] = <"bcb51a9f-26d0-4391-8208-a41607e8e5e3">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- ecmo
+	OBSERVATION[at0000] matches {    -- CAM ICU
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -57,19 +57,9 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- modus
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- result
 										value matches {
 											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {    -- description
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {    -- end time
-										value matches {
-											DV_DATE_TIME matches {*}
 										}
 									}
 								}
@@ -79,6 +69,9 @@ definition
 				}
 			}
 		}
+		protocol matches {
+			ITEM_TREE[at0005] matches {*}    -- Item tree
+		}
 	}
 
 
@@ -87,8 +80,8 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"ecmo">
-					description = <"ecmo">
+					text = <"CAM ICU">
+					description = <" Confusion Assessment Method for the Intensive Care Unit">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -103,24 +96,20 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"modus">
+					text = <"result">
 					description = <"">
 				>
-				["at0007"] = <
-					text = <"end time">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"description">
-					description = <"">
+				["at0005"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
 				>
 			>
 		>
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"ecmo">
-					description = <"ecmo ">
+					text = <"CAM ICU">
+					description = <" Confusion Assessment Method for the Intensive Care Unit">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -135,16 +124,12 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"modus">
+					text = <"Beurteilung">
 					description = <"">
 				>
-				["at0007"] = <
-					text = <"end zeit">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"Beschreibung">
-					description = <"">
+				["at0005"] = <
+					text = <"*Item tree (en)">
+					description = <"@ internal @">
 				>
 			>
 		>
