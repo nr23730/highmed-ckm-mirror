@@ -1,0 +1,103 @@
+﻿archetype (adl_version=1.4; uid=8f4ec476-2899-48a6-ad54-1144ccc6d2a0)
+	openEHR-EHR-OBSERVATION.beatmungmodus.v0
+
+concept
+	[at0000]	-- BeatmungModus
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["date"] = <"2025-11-25">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"um den Beatmungsmodus zu erfassen">
+			use = <"">
+			keywords = <"beatmung", ...>
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"7317234B06BB38EEB3A74A18F79550EF">
+		["build_uid"] = <"812559bc-60f0-4fee-9dc0-d595d09b935d">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- BeatmungModus
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- modus
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- End Time
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Description
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"BeatmungModus">
+					description = <"Beatmung Modus">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"modus">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"End Time">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Description">
+					description = <"">
+				>
+			>
+		>
+	>
