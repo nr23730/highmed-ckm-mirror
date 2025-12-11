@@ -1,0 +1,222 @@
+﻿archetype (adl_version=1.4; uid=5e2ca253-d048-45a6-9f2a-23debac2e4f5)
+	openEHR-EHR-OBSERVATION.hearing_screening.v0
+
+concept
+	[at0000]	-- Hearing Screening
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["date"] = <"2023-01-09">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"C57EA93E1B684D22459642EF8208893B">
+		["build_uid"] = <"2f2ee96a-275b-4188-97d8-14399abf4c8b">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Hearing Screening
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Test name
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0005] occurrences matches {0..2} matches {    -- Per ear
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0014] occurrences matches {0..1} matches {    -- Test ear
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0015,    -- Left
+															at0016]    -- Right
+														}
+													}
+												}
+											}
+											CLUSTER[at0008] occurrences matches {0..*} matches {    -- Stimulus response
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0009] occurrences matches {0..1} matches {    -- Frequency
+														value matches {
+															C_DV_QUANTITY <
+																property = <[openehr::382]>
+																list = <
+																	["1"] = <
+																		units = <"kHz">
+																	>
+																>
+															>
+														}
+													}
+													ELEMENT[at0010] occurrences matches {0..1} matches {    -- Intensity
+														value matches {
+															C_DV_QUANTITY <
+																property = <[openehr::123]>
+																list = <
+																	["1"] = <
+																		units = <"dB[A]">
+																	>
+																>
+															>
+														}
+													}
+													ELEMENT[at0012] occurrences matches {0..1} matches {    -- Response
+														value matches {
+															DV_BOOLEAN matches {*}
+														}
+													}
+												}
+											}
+											ELEMENT[at0018] occurrences matches {0..1} matches {    -- Mean hearing loss
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::123]>
+														list = <
+															["1"] = <
+																units = <"dB[A]">
+															>
+														>
+													>
+												}
+											}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Mean hearing loss
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::123]>
+												list = <
+													["1"] = <
+														units = <"dB[A]">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0019] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {    -- Test device
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hearing Screening">
+					description = <"Hearing Screening">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Test name">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Per ear">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Stimulus response">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Frequency">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Intensity">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Response">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Test ear">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Left">
+					description = <"Left ear">
+				>
+				["at0016"] = <
+					text = <"Right">
+					description = <"Right ear">
+				>
+				["at0017"] = <
+					text = <"Mean hearing loss">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Mean hearing loss">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0020"] = <
+					text = <"Comment">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Test device">
+					description = <"">
+				>
+			>
+		>
+	>

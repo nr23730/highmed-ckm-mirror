@@ -1,0 +1,146 @@
+﻿archetype (adl_version=1.4; uid=f6685d54-70f4-4c2a-b1f2-6de49b545594)
+	openEHR-EHR-CLUSTER.cafpaexpert.v0
+
+concept
+	[at0000]	-- cafpaexpert
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Mareike Buhl">
+		["organisation"] = <"Institut de l'Audition, Institut Pasteur, Paris, France ">
+		["email"] = <"mareike.buhl@pasteur.fr">
+		["date"] = <"2023-10-02">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To describe an expert participating in estimating or validating Common Audiological Functional Parameters (CAFPAs). ">
+			use = <"Use to describe experts specifically for studies related to Common Audiological Functional Parameters (CAFPAs.)">
+			keywords = <"expert, CAFPAs, audiology", ...>
+			misuse = <"Not to be used for any other purpose. ">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Buhl M, Warzybok A, Schädler MR, Majdani O, Kollmeier B. Common Audiological Functional Parameters (CAFPAs) for single patient cases: deriving statistical models from an expert-labelled data set. Int J Audiol. 2020 Jul;59(7):534-547. doi: 10.1080/14992027.2020.1728401. Epub 2020 Feb 24. PMID: 32091289.">
+		["current_contact"] = <"Mareike Buhl, Institut de l'Audition, mareike.buhl@pasteur.fr">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"FFA3C18F99BE91117150AF0736AE7ECB">
+		["build_uid"] = <"318a9cf0-970a-4435-bab7-af316fa20a4b">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- cafpaexpert
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] matches {    -- Expert ID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0002] matches {    -- Institution
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Experience
+				value matches {
+					1.0|[local::at0005],
+					2.0|[local::at0006],
+					3.0|[local::at0007]
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Profession
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- Experience in years
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {    -- Experience with CAFPAs
+				value matches {
+					1.0|[local::at0010],
+					2.0|[local::at0011],
+					3.0|[local::at0012]
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"cafpaexpert">
+					description = <"Cluster to describe an expert participating in estimating or validating Common Audiological Functional Parameters (CAFPAs).">
+				>
+				["at0001"] = <
+					text = <"Expert ID">
+					description = <"ID of expert who estimated the CAFPAs. ">
+					comment = <"The ID needs to be defined for each database/study and to be used consistently. 
+">
+				>
+				["at0002"] = <
+					text = <"Institution">
+					description = <"Institute where the expert works.">
+					comment = <"(would be better to have (internally) coded text, however, for new experts a new institute will be needed quite often)">
+				>
+				["at0003"] = <
+					text = <"Experience">
+					description = <"Self-estimated expertise by expert. 
+">
+					comment = <"(TO DO: define appropriate scale)">
+				>
+				["at0004"] = <
+					text = <"Profession">
+					description = <"Profession of the expert (ENT physician, HA acoustician, researcher, ...). ">
+					comment = <"(could also be defined as coded text if list is complete) ">
+				>
+				["at0005"] = <
+					text = <"Novice">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"...">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Highly experienced">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Experience in years">
+					description = <"Experience in current profession in years (self-indicated by expert). ">
+				>
+				["at0009"] = <
+					text = <"Experience with CAFPAs">
+					description = <"Experience the expert has with CAFPAs.">
+					comment = <"(Default is none (so far for nearly all experts); probably better scale needed)">
+				>
+				["at0010"] = <
+					text = <"None">
+					description = <"No previous experience with CAFPAs">
+				>
+				["at0011"] = <
+					text = <"Medium">
+					description = <"Already estimated CAFPAs for 50 to 200 patients">
+				>
+				["at0012"] = <
+					text = <"High">
+					description = <"Already estimated CAFPAs for more than 200 patients">
+				>
+			>
+		>
+	>

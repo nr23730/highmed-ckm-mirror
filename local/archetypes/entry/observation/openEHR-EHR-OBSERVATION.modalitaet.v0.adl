@@ -1,0 +1,292 @@
+﻿archetype (adl_version=1.4; uid=f3451ec0-1572-4893-82ac-5623461a349b)
+	openEHR-EHR-OBSERVATION.modalitaet.v0
+
+concept
+	[at0000]	-- Modalität
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2025-06-03">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Abbildung vollständiger diagnostischer Modalitätsdaten (z. B. ein vollständiges EKG, EEG, Spirometrie etc.), welche extern gespeichert sind, jedoch klinisch relevant referenziert, interpretiert und mit weiteren Informationen versehen dokumentiert werden müssen.">
+			use = <"Dokumentation eines vollständigen diagnostischen Ergebnisses (z. B. EKG-Datei).
+
+Referenzierung der Datei per URI oder Pfad.
+
+Dokumentation der durch das Gerät erzeugten Interpretation.
+
+Ergänzung durch menschliche Befundung oder Kontextinformation.">
+			keywords = <"Modalität", "Vitalparameter", "EKG", "Puls", "Blutdruck", "Sauerstoffsättigung", "Monitoring", "Überwachung", "Messwerte", "Patientenüberwachung">
+			misuse = <"Nicht zur Aufzeichnung der vollständige Rohdaten (z. B. vollständige EKG-Kurven) geeignet.
+
+Nicht zur Aufzeichnung eines einzelnen Messparameter geeinget. Dafür spezifische Archetypen wie „Pulse“, „Blood Pressure“, „Oxygen Saturation“ verwenden
+
+Nicht geeignet zur Speicherung von technischen Geräteeinstellungen oder -konfigurationen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"68419AA85B769A3FDB579523C1C8B5BE">
+		["build_uid"] = <"37abc051-c71c-47bb-ab38-7e396ebb46b7">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Modalität
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Beliebiges Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Modalitätstyp
+										value matches {
+											DV_CODED_TEXT matches {*}
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Beschreibung
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Anzahl der Ableitungen
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..*} matches {    -- Geräteinterpretation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Abtastfrequenz
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::754]>
+												list = <
+													["1"] = <
+														units = <"Hz/s">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- URI der Originaldaten
+										value matches {
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..*} matches {    -- Befund
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0011] occurrences matches {0..*} matches {    -- Messwerte
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Beschreibung
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {    -- Messwerttyp
+												value matches {
+													DV_CODED_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0015] occurrences matches {0..1} matches {    -- Messwert
+												value matches {
+													DV_QUANTITY matches {*}
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {    -- Zeitpunkt Start
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {    -- Startpunkt Ende
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0024] occurrences matches {0..*} matches {    -- Interpretation
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..*} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0014] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0019] occurrences matches {0..1} matches {    -- Messmethode
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {    -- Körperstelle
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {    -- Messverfahren / Typ
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..1} matches {    -- Zuletzt aktualisiert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Modalität">
+					description = <"Dieser Archetyp beschreibt die strukturierte Dokumentation einer medizinischen Beobachtung, die mithilfe einer Modalität – im Sinne eines diagnostischen Medizingeräts – vollständig durchgeführt und in einem referenzierbaren Format (z. B. xxx) abgelegt wurde. Dazu zählen z. B. Elektrokardiogramme (EKG), Pulsoxymetrie, Blutdruckmessgeräte oder andere bildgebende oder messende Systeme.
+Der Fokus liegt dabei nicht auf der Extraktion einzelner Parameter, sondern auf der Verlinkung, Charakterisierung und Interpretation des Gesamtdatensatzes (z. B. 12-Kanal-EKG oder andere diagnostische Modalitäten).
+Der Archetyp bietet die Möglichkeit, externe Ressourcen über eine URI zu referenzieren, Details zur Modalität zu erfassen (z. B. Messmethode, Frequenz, Messerverfahren) sowie automatisierte Geräteinterpretationen (z. B. \"Sinusrhythmus, keine Auffälligkeiten\") strukturiert abzulegen.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Modalitätstyp">
+					description = <"Beschreibt die Art der Modalität der Messung, z. B. „EKG“, „Blutdruck“, „Sauerstoffsättigung“.">
+				>
+				["at0005"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung der Modalität.">
+				>
+				["at0006"] = <
+					text = <"Anzahl der Ableitungen">
+					description = <"Anzahl der Kanäle oder Ableitungen z. B. 12 für ein Standard-12-Kanal-EKG, falls zutreffend.">
+				>
+				["at0007"] = <
+					text = <"Geräteinterpretation">
+					description = <"Einzelnes Wort, Ausdruck oder Kurzbeschreibung der klinischen Bedeutung und Aussagekraft der Ergebnismessung.">
+					comment = <"Es können mehrere Kommentare sein. Die Kodierung der Interpretation mittels einer Terminologie ist, falls möglich, bevorzugt. Zum Beispiel: Normaler Sinusrhythmus; ischämische ST-T-Strecken-Veränderungen in den anterioren Ableitungen; und/oder schlechte R-Progression in der rechten präkordialen Ableitung.">
+				>
+				["at0008"] = <
+					text = <"Abtastfrequenz">
+					description = <"Frequenz, mit der die Modalität das physiologische Signal digital abtastet (Sampling Frequency).">
+				>
+				["at0009"] = <
+					text = <"URI der Originaldaten">
+					description = <"Verknüpfung zu den Originaldaten zu den vollständigen Rohdaten der Modalität.">
+					comment = <"Gewöhnlich wird dies ein URL Link einer API sein, über den die Rohdaten angefragt werden können.">
+				>
+				["at0010"] = <
+					text = <"Befund">
+					description = <"Einzelnes Wort, Satz oder kurze Beschreibung die einen signifikanten Befund des Ergebnisses darstellt.">
+					comment = <"Comment: Zum Beispiel: 'Normales EKG', 'Mehrdeutiges EKG' oder 'Abnormes EKG'; 'Spikes von Schrittmacher Signal'; 'ST-Senkung'; oder 'Vorhofflimmern'. Die Kodierung des Befundes mit einer Terminologie ist, falls möglich, bevorzugt.">
+				>
+				["at0011"] = <
+					text = <"Messwerte">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung um welchen Messwert es sich handelt z.B. Puls, SpO₂ oder O2-Sättigung.">
+				>
+				["at0013"] = <
+					text = <"Messwerttyp">
+					description = <"Der Typ des Messwertes z.B. Durchschnittswert, Minimum, Maximum.">
+				>
+				["at0014"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0015"] = <
+					text = <"Messwert">
+					description = <"Zahlenwert des Parameters.">
+				>
+				["at0016"] = <
+					text = <"Zeitpunkt Start">
+					description = <"Beschreibt den Startzeitpunkt des Messwertes.">
+				>
+				["at0017"] = <
+					text = <"Startpunkt Ende">
+					description = <"Beschreibt den Endzeitpunkt des Messwertes.">
+				>
+				["at0018"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Freitext über die Modalität, der nicht in anderen Felder erfasst werden konnte.">
+				>
+				["at0019"] = <
+					text = <"Messmethode">
+					description = <"Technisches Verfahren der Erfassung der Daten z.B. invasiv oder nicht-invasiv.">
+				>
+				["at0020"] = <
+					text = <"Körperstelle">
+					description = <"Identifikation der anatomischen Lage bzw. Körperstelle der Messung.">
+				>
+				["at0021"] = <
+					text = <"Messverfahren / Typ">
+					description = <"Art des Messverfahrens oder spezifische Modalität z.B. Ruhe-EKG, Langzeit-EKG.">
+				>
+				["at0022"] = <
+					text = <"Zuletzt aktualisiert">
+					description = <"Datum der letzten Aktualisierung dieser Zusammenfassung.">
+				>
+				["at0023"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0024"] = <
+					text = <"Interpretation">
+					description = <"Einzelnes Wort, Ausdruck oder Kurzbeschreibung der klinischen Bedeutung und Aussagekraft der Ergebnismessung.">
+					comment = <"Es können mehrere Kommentare sein. Die Kodierung der Interpretation mittels einer Terminologie ist, falls möglich, bevorzugt. ">
+				>
+			>
+		>
+	>
