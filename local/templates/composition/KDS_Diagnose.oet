@@ -248,6 +248,14 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
 	        </item>
         </items>
 	</annotations>
+		<annotations  path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]">
+        <items>
+            <item>
+				<key>fhir_mapping</key>
+				<value>Encounter.diagnosis.use</value>
+	        </item>
+        </items>
+	</annotations>
 	
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1"
         concept_name="Bericht" name="Diagnose"
@@ -337,7 +345,10 @@ CAVE: Template ist nicht nur für gesicherte Diagnosen. In der Diagnosesicherhei
 				<Rule max="0" path="/items[at0107]"/>	
 				<Rule max="0" path="/items[at0110]"/>	
                 <Rule max="0" path="/items[at0077]"/>       
-				<Rule name="Diagnoserolle" max="1" path="/items[at0063]">				
+				<Rule name="Diagnoserolle" max="1" path="/items[at0063]">
+					  <constraint xsi:type="tem:textConstraint">		
+						 <termQueryId queryName="ValueSet/$expand?url=http://terminology.hl7.org/ValueSet/diagnosis-role" terminologyID="//fhir.hl7.org/"/>
+					  </constraint>				
 				</Rule>						
                 <Rule max="0" path="/items[at0073]"/>
             </Items>
