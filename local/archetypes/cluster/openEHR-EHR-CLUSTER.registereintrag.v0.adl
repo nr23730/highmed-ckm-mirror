@@ -1,0 +1,108 @@
+﻿archetype (adl_version=1.4; uid=3892f28a-dbb1-4d93-9cbc-0080be428641)
+	openEHR-EHR-CLUSTER.registereintrag.v0
+
+concept
+	[at0000]	-- Registereintrag
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Sarah Ballout">
+		["organisation"] = <"MHH-Hannover">
+		["email"] = <"ballout.sarah@mh-hannover.de">
+		["date"] = <"2021-01-25">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Repräsentation eines Registereintrages, welcher eine Strukturierte Samlung von Informationen von COVID-19 Personendaten gibt. ">
+			use = <"Diese Datensatzzusammensetzung ermöglicht die Repräsentation von Forschungsdaten der GECCO-Datensätze. ">
+			keywords = <"COVID-19", "Register", "Registereintrag", "Virus", "Forschungszwecke">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Antje Wulff", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Simplifier: https://simplifier.net/forschungsnetzcovid-19/~resources?category=Profile
+GECCO: http://cocos.team/datasets.html
+">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"28473D87F3A7EB96A4E7FA8CCF036F1C">
+		["build_uid"] = <"442b7b23-53b6-4ec0-942a-506deacfe99f">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Registereintrag
+		items cardinality matches {1..*; unordered} matches {
+			allow_archetype CLUSTER[at0001] occurrences matches {0..*} matches {	-- Cluster
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Status
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0004, 	-- registriert
+							at0005, 	-- vorläufig
+							at0006, 	-- final
+							at0007]	-- geändert
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Kategorie
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registereintrag">
+					description = <"Generische Zusammenstellung zur Darstellung eines Datensatzes für Forschungszwecke. ">
+				>
+				["at0001"] = <
+					text = <"Cluster">
+					description = <"Ergänzende Angaben zum Registereintrag. ">
+				>
+				["at0002"] = <
+					text = <"Status">
+					description = <"Status der gelieferten Daten für den Registereintrag. Hinweis: Dies ist nicht der Status einzelner ">
+				>
+				["at0003"] = <
+					text = <"Kategorie">
+					description = <"Die Klassifikation des Registereintrags (z.B. Typ der Observation des FHIR-Profils).">
+				>
+				["at0004"] = <
+					text = <"registriert">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"vorläufig">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"final">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"geändert">
+					description = <"*">
+				>
+			>
+		>
+	>

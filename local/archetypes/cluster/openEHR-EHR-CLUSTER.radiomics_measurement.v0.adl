@@ -1,0 +1,168 @@
+﻿archetype (adl_version=1.4; uid=5935af01-a24d-4b25-85ba-4dc1fa81c291)
+	openEHR-EHR-CLUSTER.radiomics_measurement.v0
+
+concept
+	[at0000]	-- Radiomics measurement
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Christian Haux">
+		["organisation"] = <"DKFZ Heidelberg">
+		["email"] = <"c.haux@dkfz-heidelberg.de">
+		["date"] = <"2020-01-22">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the results of a radiomics measurement. This contains information about the radiomics measurements used, the extracted radiomics features as well as their values. Additional metadata are recored for the radiomics pipeline.">
+			use = <"Use to record the representation of a radiomic feature and its measurement. The archetype is intended to be used in the \"content\" slot of an openEHR-EHR-COMPOSITION.report.v1 archetype.">
+			keywords = <"Radiology, Imaging, Derived imaging, Diagnosis, Imaging diagnostics, Quantitative Imaging, Radiology", ...>
+			misuse = <"Not to be used to describe features in radiological images created by interpretation by human experts.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"0088D279F4A454EB850CE1F790E8FE7F">
+		["build_uid"] = <"56844599-f6fd-4df5-ab4c-667ab7fc9e00">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] occurrences matches {1..*} matches {    -- Radiomics measurement
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0009] occurrences matches {0..1} matches {    -- Measurement UID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0012] occurrences matches {0..1} matches {    -- Pipeline UID
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			ELEMENT[at0010] occurrences matches {0..1} matches {    -- Generation date and time
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0025] occurrences matches {0..1} matches {    -- Parameter
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0051] occurrences matches {0..1} matches {    -- Measurement method
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_measurement_method\.v0/}
+			}
+			CLUSTER[at0003] occurrences matches {0..*} matches {    -- Feature
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0029] occurrences matches {0..1} matches {    -- Feature UID
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					ELEMENT[at0042] occurrences matches {0..1} matches {    -- Feature value
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {    -- Feature type
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_feature_type\.v0/}
+					}
+					CLUSTER[at0006] occurrences matches {0..*} matches {    -- Feature parameter
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0037] occurrences matches {0..1} matches {    -- Feature parameter UID
+								value matches {
+									DV_IDENTIFIER matches {*}
+								}
+							}
+							ELEMENT[at0046] occurrences matches {0..1} matches {    -- Feature parameter value
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0050] occurrences matches {0..*} matches {    -- Feature parameter type
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.radiomics_feature_parameter_type\.v0/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Radiomics measurement">
+					description = <"A radiomics measurement consists of the radiomics measurement itself and a radiomics feature that represents the result of the radiomics measurement. The radiomics measurement contains the information on which radiological image and segmentation it was created. It also contains information about the date and time when the measurement was performed and which parameters were used. A radiomics measure can be classified with a feature type (e.g. morphologic features).">
+				>
+				["at0003"] = <
+					text = <"Feature">
+					description = <"Feature value(s) extracted by a measurement.">
+				>
+				["at0006"] = <
+					text = <"Feature parameter">
+					description = <"Encoding of features that can be parametrized.">
+				>
+				["at0009"] = <
+					text = <"Measurement UID">
+					description = <"Measurement identifier.">
+				>
+				["at0010"] = <
+					text = <"Generation date and time">
+					description = <"Generation date and time of the measurement.">
+				>
+				["at0012"] = <
+					text = <"Pipeline UID">
+					description = <"Reference to a radiomics pipeline and thus document the pre-processing steps (e.g. resampling, normalization, etc.).">
+				>
+				["at0025"] = <
+					text = <"Parameter">
+					description = <"Specification of the parametrization of the execution used to calculate the current measurement. For example, all argument to (re) execute the same analysis of the referenced method for this particular measurement.">
+				>
+				["at0029"] = <
+					text = <"Feature UID">
+					description = <"Feature identifier.">
+				>
+				["at0037"] = <
+					text = <"Feature parameter UID">
+					description = <"Feature type identifier.">
+				>
+				["at0042"] = <
+					text = <"Feature value">
+					description = <"Feature value extracted by the measurement.">
+				>
+				["at0046"] = <
+					text = <"Feature parameter value">
+					description = <"Feature parameter value.">
+				>
+				["at0049"] = <
+					text = <"Feature type">
+					description = <"Slot for the openEHR-EHR-CLUSTER.radiomics_feature_type.v0 archetype.">
+				>
+				["at0050"] = <
+					text = <"Feature parameter type">
+					description = <"Slot for the openEHR-EHR-CLUSTER.radiomics_feature_parameter_type.v0 archetype.">
+				>
+				["at0051"] = <
+					text = <"Measurement method">
+					description = <"Slot for the openEHR-EHR-CLUSTER.radiomics_measurement_method.v0 archetype.">
+				>
+			>
+		>
+	>

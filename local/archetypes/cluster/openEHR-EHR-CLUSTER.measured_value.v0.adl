@@ -1,0 +1,124 @@
+﻿archetype (adl_version=1.4; uid=e9decf7f-53d8-4a7b-b7c1-b230ca4bc329)
+	openEHR-EHR-CLUSTER.measured_value.v0
+
+concept
+	[at0000]	-- Messwert
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kim Werle">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["date"] = <"2024-01-05">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dieser Archetyp dient der Dokumentation eines einzelnen Messwerts. Der Datentyp des Messwerts kann auf einen passenden Datentyp eingeschränkt werden. Wird der Datentyp QUANTITY gewählt, ist es möglich die Einheit zu erfassen und einen Gültigkeitsbereich festzulegen.">
+			use = <"Dieser generische Archetyp kann verwendet werden, wenn einzelne Messwerte im übergeordneten Archetypen nicht erfasst werden und sich diese Messwerte nicht mit einem spezifischeren Archetypen abbilden lassen.">
+			keywords = <"Messwert, Ergebnis, Messgröße", ...>
+			misuse = <"Wenn möglich ist immer ein spezifischerer Archetyp zu bevorzugen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"64C41245AFBF91A312B8DB1A71A13361">
+		["build_uid"] = <"81519b78-fe99-47e2-a69d-51372214fc80">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Messwert
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Messwert-Reihenfolge
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Bezeichnung des Messwerts
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {    -- Zeitpunkt der Messung
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {*}    -- Messwert
+			ELEMENT[at0004] occurrences matches {0..1} matches {    -- Referenzbereichs-Hinweise
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {    -- Messmethode
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Weitere Details
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Messwert">
+					description = <"Dieser Archetyp dient der Dokumentation eines Messwertes.">
+				>
+				["at0001"] = <
+					text = <"Messwert-Reihenfolge">
+					description = <"Die Position des Messwertes in der Reihenfolge aller Messwerte.">
+					comment = <"z.B. \"1\", \"2\", \"3\"">
+				>
+				["at0002"] = <
+					text = <"Bezeichnung des Messwerts">
+					description = <"Der Name des Messwerts.">
+				>
+				["at0003"] = <
+					text = <"Messwert">
+					description = <"Messwert.">
+					comment = <"z.B. \"100 ms\". Der \"Any\"-Datentyp wird durch eine Spezialisierung, das Template oder zur Laufzeit der Anwendung auf einen passenden Datentyp eingeschränkt, um den Messwert zu erfassen.">
+				>
+				["at0004"] = <
+					text = <"Referenzbereichs-Hinweise">
+					description = <"Zusätzlicher Hinweis, ob der Messwert im Referenzbereich liegt.">
+					comment = <"z.B.: 'im Referenzbereich, bezogen auf Alter und Geschlecht'.">
+				>
+				["at0005"] = <
+					text = <"Messmethode">
+					description = <"Die Beschreibung der Methode, mit der nur dieser Wert gemessen wurde.">
+				>
+				["at0006"] = <
+					text = <"Kommentar">
+					description = <"Kommentar zum Messwert, soweit noch nicht in anderen Feldern erfasst.">
+				>
+				["at0007"] = <
+					text = <"Weitere Details">
+					description = <"Weitere strukturierte Details über den Messwert.">
+				>
+				["at0008"] = <
+					text = <"Zeitpunkt der Messung">
+					description = <"Datum und Uhrzeit der Messung.">
+				>
+			>
+		>
+	>
