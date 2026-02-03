@@ -1,0 +1,541 @@
+﻿archetype (adl_version=1.4; uid=7859a486-d9cc-45f4-baa9-174deb858959)
+	openEHR-EHR-OBSERVATION.bcn_bio_hf_risk_score.v0
+
+concept
+	[at0000]	-- BCN Bio HF Risiko Score
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Aljoscha Kindermann">
+		["organisation"] = <"Heidelberg University Hospital">
+		["date"] = <"2021-05-18">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dient der Erfassung der Ergebnisse für jede Variable, die für die Berechnung des BCN BioHF Scores verwendet wird, sowie der vorhergesagten 1-und 3-Jahres-Mortalität auf Basis des BCN BioHF Scores in dessen Version von 2014 und 2018.">
+			use = <"Zur Erfassung der Ergebnisse für jede Variable, die für die Berechnung des BCN BioHF Scores verwendet wird, sowie der vorhergesagten 1-und 3-Jahres-Mortalität auf Basis des BCN BioHF Scores in dessen Version von 2014 und 2018.">
+			keywords = <"Barcelona", "BCN BioHF", "Risiko", "Score", "Prognose", "Herzinsuffizienz", "HI">
+			misuse = <"Nicht zur Erfassung der eigentlichen Werte, die innerhalb dieses Archetypens als Variablen für die Berechnung des BCN BioHF Scores genutzt werden. Verwenden Sie hierzu die entsprechenden Archetypen.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Lupón, J., De Antonio, M., Vila, J., Peñafiel, J., Galán, A., Zamora, E., Urrutia, A., & Bayes-Genis, A. (2014). Development of a novel heart failure risk tool: The Barcelona bio-heart failure risk calculator (BCN bio-HF calculator). PLoS ONE. https://doi.org/10.1371/journal.pone.0085466
+Lupón, J., Simpson, J., McMurray, J. J. V., de Antonio, M., Vila, J., Subirana, I., Barallat, J., Moliner, P., Domingo, M., Zamora, E., & Bayes-Genis, A. (2018). Barcelona Bio-HF Calculator Version 2.0: incorporation of angiotensin II receptor blocker neprilysin inhibitor (ARNI) and risk for heart failure hospitalization. European Journal of Heart Failure, 20(5), 938–940.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"3DBCDA8EAF73F10BDD9FFF97A2547F7C">
+		["build_uid"] = <"f5213957-b3c5-483b-b957-89f3ff1237b2">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- BCN Bio HF Risiko Score
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Alter
+										value matches {
+											DV_DURATION matches {
+												value matches {|P18Y..P110Y|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Geschlecht
+										value matches {
+											0|[local::at0006],
+											1|[local::at0007]
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- NYHA-Klasse
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0010,    -- I
+													at0011,    -- II
+													at0012,    -- III
+													at0013]    -- IV
+												}
+											}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {    -- LV-EF
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|1.0..100.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Natrium
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"mmol/l">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- eGFR
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::586]>
+												list = <
+													["1"] = <
+														units = <"ml/min/(173/100).m²">
+														magnitude = <|0.0..500.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Hämoglobin
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"g/dl">
+														magnitude = <|0.0..50.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {    -- Dauer der Herzinsuffizienz seit Erstdiagnose
+										value matches {
+											DV_DURATION matches {
+												value matches {PM/|>=P0M|}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Diabetes
+										value matches {
+											0|[local::at0027],
+											1|[local::at0028]
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {    -- Hospitalisierungen im vorangegangenen Jahr
+										value matches {
+											0|[local::at0030],
+											1|[local::at0031]
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Schleifendiuretikum Dosis 1
+										value matches {
+											0|[local::at0019],
+											1|[local::at0020]
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {    -- Schleifendiuretikum Dosis 2
+										value matches {
+											0|[local::at0022],
+											1|[local::at0023]
+										}
+									}
+									ELEMENT[at0032] occurrences matches {0..1} matches {    -- Statin
+										value matches {
+											0|[local::at0033],
+											1|[local::at0034]
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {    -- Betablocker
+										value matches {
+											0|[local::at0036],
+											1|[local::at0037]
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {    -- ACEi/ARB
+										value matches {
+											0|[local::at0039],
+											1|[local::at0040]
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {    -- MRA
+										value matches {
+											0|[local::at0042],
+											1|[local::at0043]
+										}
+									}
+									ELEMENT[at0044] occurrences matches {0..1} matches {    -- ARNi
+										value matches {
+											0|[local::at0059],
+											1|[local::at0060]
+										}
+									}
+									ELEMENT[at0045] occurrences matches {0..1} matches {    -- CRT
+										value matches {
+											0|[local::at0046],
+											1|[local::at0047]
+										}
+									}
+									ELEMENT[at0048] occurrences matches {0..1} matches {    -- ICD
+										value matches {
+											0|[local::at0049],
+											1|[local::at0050]
+										}
+									}
+									ELEMENT[at0051] occurrences matches {0..1} matches {    -- hs-TNT
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"pg/ml">
+													>
+													["2"] = <
+														units = <"ng/l">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0052] occurrences matches {0..1} matches {    -- ST2
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"ng/l">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0053] occurrences matches {0..1} matches {    -- NT-proBNP
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"ng/l">
+													>
+													["2"] = <
+														units = <"pg/ml">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0054] occurrences matches {0..1} matches {    -- 1-Jahres-Mortalität V1
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+									ELEMENT[at0055] occurrences matches {0..1} matches {    -- 3-Jahres-Mortalität V1
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+									ELEMENT[at0056] occurrences matches {0..1} matches {    -- 1-Jahres-Mortalität V2
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+									ELEMENT[at0057] occurrences matches {0..1} matches {    -- 3-Jahres-Mortalität V2
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0058] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"BCN Bio HF Risiko Score">
+					description = <"Der Barcelona Bio-Heart Failure Risk Calculator (BCN Bio-HF Calculator) wurde 2014 von Lupon et al. veröffentlicht. Er erweitert den Umfang der Prädiktoren bis dahin veröffentlichter Scoring Systeme um diagnostische Biomarker. Ziel ist die Voraussage der Mortalität nach 1 und 3 Jahren für Herzinsuffizienz Patienten. 2018 wurde der Algorithmus um weitere Parameter erweitert und eine zweite Version veröffentlicht.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Alter">
+					description = <"">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0005"] = <
+					text = <"Geschlecht">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Männlich">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Weiblich">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"NYHA-Klasse">
+					description = <"Einteilung in die New York Heart Association (NYHA) Klassifikation.">
+				>
+				["at0010"] = <
+					text = <"I">
+					description = <"Klasse I.">
+				>
+				["at0011"] = <
+					text = <"II">
+					description = <"Klasse II.">
+				>
+				["at0012"] = <
+					text = <"III">
+					description = <"Klasse III.">
+				>
+				["at0013"] = <
+					text = <"IV">
+					description = <"Klasse IV.">
+				>
+				["at0014"] = <
+					text = <"LV-EF">
+					description = <"Linksventrikuläre Ejektionsfraktion.">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0015"] = <
+					text = <"Natrium">
+					description = <"Gemessener Laborwert Natrium.">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0016"] = <
+					text = <"eGFR">
+					description = <"Gemessener Wert der glomulären Filtrationsrate.">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0017"] = <
+					text = <"Hämoglobin">
+					description = <"Gemessener Hämoglobinwert.">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0018"] = <
+					text = <"Schleifendiuretikum Dosis 1">
+					description = <"Derzeitige Einnahme eines Schleifendiuretikums in einer Dosis von bis zu 40mg pro Tag Furosemid-Äquivalent.">
+				>
+				["at0019"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme einer Furosemide-Äquivalent Dosis von bis zu 40 mg/Tag.">
+				>
+				["at0020"] = <
+					text = <"Ja">
+					description = <"Einnahme einer Furosemide-Äquivalent Dosis von bis zu 40 mg/Tag.">
+				>
+				["at0021"] = <
+					text = <"Schleifendiuretikum Dosis 2">
+					description = <"Derzeitige Einnahme eines Schleifendiuretikums in einer Dosis von mehr als 40mg pro Tag Furosemid-Äquivalent.">
+				>
+				["at0022"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme einer Furosemide-Äquivalent Dosis von mehr als 40 mg/Tag.">
+				>
+				["at0023"] = <
+					text = <"Ja">
+					description = <"Einnahme einer Furosemide-Äquivalent Dosis von mehr als 40 mg/Tag.">
+				>
+				["at0025"] = <
+					text = <"Dauer der Herzinsuffizienz seit Erstdiagnose">
+					description = <"Wie viele Monate seit der Erstdiagnose dauert die Herzinsuffizienz Erkrankung bereits an?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.
+
+Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0026"] = <
+					text = <"Diabetes">
+					description = <"Liegt eine Diabetes Erkrankung vor?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0027"] = <
+					text = <"Nein">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Ja">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Hospitalisierungen im vorangegangenen Jahr">
+					description = <"Wurde der Patient im vorangegangenen Jahr mindestens einmal wegen seiner Herzinsuffizienz hospitalisiert?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0030"] = <
+					text = <"Ja">
+					description = <"Der Patient hatte eine oder mehrere Hospitalisierungen aufgrund der Herzinsuffizienz im vorangegangenen Jahr.">
+				>
+				["at0031"] = <
+					text = <"Nein">
+					description = <"Der Patient hatte keine Hospitalisierung aufgrund der Herzinsuffizienz im vorangegangenen Jahr.">
+				>
+				["at0032"] = <
+					text = <"Statin">
+					description = <"Derzeitige Einnahme von Statinen?">
+				>
+				["at0033"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von Statinen.">
+				>
+				["at0034"] = <
+					text = <"Ja">
+					description = <"Einnahme von Statinen.">
+				>
+				["at0035"] = <
+					text = <"Betablocker">
+					description = <"Derzeitige Einnahme von Betablockern?">
+				>
+				["at0036"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von Betablockern.">
+				>
+				["at0037"] = <
+					text = <"Ja">
+					description = <"Einnahme von Betablockern.">
+				>
+				["at0038"] = <
+					text = <"ACEi/ARB">
+					description = <"Derzeitige Einnahme von ACE-Hemmern (ACEi) oder Angiotensin-II-Rezeptor-Blockern (ARB)?">
+				>
+				["at0039"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von ACEi/ARB.">
+				>
+				["at0040"] = <
+					text = <"Ja">
+					description = <"Einnahme von ACEi/ARB.">
+				>
+				["at0041"] = <
+					text = <"MRA">
+					description = <"Derzeitige Einnahme von Aldosteron Rezeptor Antagonisten (MRA)?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0042"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von MRA.">
+				>
+				["at0043"] = <
+					text = <"Ja">
+					description = <"Einnahme von MRA.">
+				>
+				["at0044"] = <
+					text = <"ARNi">
+					description = <"Derzeitige Einnahme von Angiotensin-Rezeptor-Neprilysin-Inhibitoren (ARNi)?">
+					comment = <"Beispiele für Wirkstoffe sind Valsartan, Sacubitril, kombiniert verwendet im Medikament der Marke \"Entresto\".
+Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0045"] = <
+					text = <"CRT">
+					description = <"Trägt der Patient einen implantierten Schrittmacher zur kardialen Resynchronisationstherapie (CRT)?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0046"] = <
+					text = <"Nein">
+					description = <"Patient hat kein CRT.">
+				>
+				["at0047"] = <
+					text = <"Ja">
+					description = <"Patient hat ein CRT.">
+				>
+				["at0048"] = <
+					text = <"ICD">
+					description = <"Trägt der Patient derzeit einen implantierbaren Kardioverter-Defibrillator?">
+					comment = <"Parameter wird nur in der Version 2 des Scores abgefragt.">
+				>
+				["at0049"] = <
+					text = <"Nein">
+					description = <"Patient hat kein ICD.">
+				>
+				["at0050"] = <
+					text = <"Ja">
+					description = <"Patient hat ICD.">
+				>
+				["at0051"] = <
+					text = <"hs-TNT">
+					description = <"Gemessener Laborwert hochsensitives Troponin-T (hs-TNT).">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0052"] = <
+					text = <"ST2">
+					description = <"Gemessener Laborwert ST2.">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0053"] = <
+					text = <"NT-proBNP">
+					description = <"Gemessener Laborwert N-terminal prohormone of brain natriuretic peptide (NT-proBNP).">
+					comment = <"Bei Werten außerhalb der von den Autoren angedachten Ober- und Untergrenzen (unterhalb der 1ten oder oberhalb der 99ten Perzentile) wird dieser Wert stattdessen auf den 1ten bzw. die 99ten Perzentilwert der Trainingspopulation gesetzt.">
+				>
+				["at0054"] = <
+					text = <"1-Jahres-Mortalität V1">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach einem Jahr, basierend auf dem BCN BioHF Score basierend auf der Formel der Version 1 von 2014.">
+				>
+				["at0055"] = <
+					text = <"3-Jahres-Mortalität V1">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach drei Jahren, basierend auf dem BCN BioHF Score basierend auf der Formel der Version 1 von 2014.">
+				>
+				["at0056"] = <
+					text = <"1-Jahres-Mortalität V2">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach einem Jahr, basierend auf dem BCN BioHF Score basierend auf der Formel der Version 2 von 2018.">
+				>
+				["at0057"] = <
+					text = <"3-Jahres-Mortalität V2">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach drei Jahren, basierend auf dem BCN BioHF Score basierend auf der Formel der Version 2 von 2018.">
+				>
+				["at0058"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0059"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von ARNi.">
+				>
+				["at0060"] = <
+					text = <"Ja">
+					description = <"Einnahme von ARNi.">
+				>
+			>
+		>
+	>

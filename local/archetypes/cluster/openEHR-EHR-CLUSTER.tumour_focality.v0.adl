@@ -1,0 +1,184 @@
+﻿archetype (adl_version=1.4; uid=89b5a755-340b-47c1-b721-320121b523c2)
+	openEHR-EHR-CLUSTER.tumour_focality.v0
+
+concept
+	[at0000]	-- Tumorfokalität
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Severin Kohler">
+				["organisation"] = <"Charite Berlin">
+				["email"] = <"severin.kohler@bih-charite.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Natalia Strauch">
+		["organisation"] = <"HiGHmed">
+		["email"] = <"strauch.natalia@mh-hannover.de">
+		["date"] = <"2021-06-03">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der Fokalität bzw. des Herdgeschehens des Tumors bei einem Krebspatienten.">
+			use = <"Zur Darstellung der Fokalität des Tumors bei einem Patienten mit Krebsdiagnose.
+
+Dieser Cluster-Archetyp wurde speziell für den SLOT \"Spezifische Angaben\" des Archetyps EVALUATION.problem_diagnosis erstellt. Darf jedoch, wenn klinisch angemessen, in anderen Archetypen, die für die Darstellung einer bildgebenden oder histologischen Befundung verwendet werden, als Slot hinzugefügt werden.">
+			keywords = <"Tumor", "Fokalität", "Tumorherd", "Läsion", "Tumorvorkommen", "Tumorbefund", "Tumorbefall", "Herdgeschehen", "Streuherd">
+			misuse = <"Dieser Archetyp darf nicht für die Darstellung der Seitenlokalistaion eines Tumors verwendet werden. Nutzen Sie dafür die Cluster-Archetypen der Familie \"Anatomische Lokalisation\".
+
+Der Archetyp darf nicht bei anderen Erkrankungen außer Krebs verwendet werden.">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the focality or focus of the tumor in a cancer patient.">
+			use = <"To record the focality of the tumor in a patient with a cancer diagnosis.
+
+This cluster archetype was created specifically for the SLOT ‘Specific information’ of the EVALUATION.problem_diagnosis archetype. However, when clinically appropriate, may be added as a slot in other archetypes used to represent an imaging or histological finding.">
+			keywords = <"Tumor", "Focality", "tumor focus", "lesion", "Tumor occurrence", "Tumor findings", "Tumor involvement", "focal tumor", "Tumor spread">
+			misuse = <"Not to be used to represent the lateral location of a tumor. To do this, use the cluster archetypes from the “Anatomical Localization” family.
+
+Not to be used for any disease other than cancer.">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Katrin Tröltzsch (Universität Heidelberg, HiGHmed)", "Weronika Gujo <Weronika.Gujo@med.uni-heidelberg.de>">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"https://www.awmf.org/uploads/tx_szleitlinien/032-053OLl_S3_Hepatozellul%C3%A4res_Karzinom_Diagnostik_Therapie_2013-abgelaufen.pdf.
+	
+Brierley JD, Gospodarowicz MK, Wittekind C. TNM Classification of Malignant Tumours, 8th Edition. Wiley-Springer; 2016.
+
+Person with cancer—tumour focality indicator, code N: https://meteor.aihw.gov.au/content/index.phtml/itemId/495313.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"AD1739503B7A43223FAA223235C88997">
+		["build_uid"] = <"9fd810e6-730f-4f75-a344-c32765e4da20">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Tumorfokalität
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Fokalität
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002, 	-- Unifokal
+							at0007, 	-- Bifokal
+							at0003, 	-- Multifokal
+							at0004, 	-- Unbekannt/unzureichend beschrieben
+							at0008]	-- Systemisch
+						}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Lokalisation
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Beschreibung der Fokalität
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tumorfokalität">
+					description = <"Beschreibt die Fokalität bzw. das Herdgeschehen des Tumors bei einem Krebspatienten.">
+					comment = <"Der Fokus bezeichnet den Herd bzw. Streuherd im Sinne eines lokalen Krankheitsprozesses, der über die direkte Umgebung hinaus pathologische Fernwirkungen auslösen kann.">
+				>
+				["at0001"] = <
+					text = <"Fokalität">
+					description = <"Fokalität bzw. das Herdgeschehen des Tumors.">
+				>
+				["at0002"] = <
+					text = <"Unifokal">
+					description = <"Singulärer Tumor, der an genau einem Körperorgan mit einem Krankheitsherd auftritt. Auch als unilokulär oder solitär bezeichnet.">
+				>
+				["at0003"] = <
+					text = <"Multifokal">
+					description = <"Der Tumor tritt an mehreren Orten eines Körperorgans gleichzeitig, mit mehreren Krankheitsherden auf. Auch als Multilokulär bezeichnet.">
+				>
+				["at0004"] = <
+					text = <"Unbekannt/unzureichend beschrieben">
+					description = <"Die Fokalität kann nicht ermittelt werden.">
+				>
+				["at0005"] = <
+					text = <"Lokalisation">
+					description = <"Strukturierte Beschreibung der Lokalisation eines Tumorherdes.">
+				>
+				["at0006"] = <
+					text = <"Beschreibung der Fokalität">
+					description = <"Beschreibung des Herdgeschehens des Tumors.">
+					comment = <"Zum Beispiel \"Diffus wachsend\", \"Multizentrisches Mammakarzinom mit 3 Herden\" oder \"Nachweis von Tumorzellen im Liquorsediment\". ">
+				>
+				["at0007"] = <
+					text = <"Bifokal">
+					description = <"Der Tumor tritt an einem Körperorgan mit zwei Krankheitsherden auf.">
+				>
+				["at0008"] = <
+					text = <"Systemisch">
+					description = <"Kein Tumorherd abgrenzbar, nur einzelne Tumorzellen im Körper.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tumor focality">
+					description = <"Describes the focality or focus of the tumor in a cancer patient.">
+					comment = <"The focus refers to the focus or scattered focus in the sense of a local disease process that can trigger pathological long-distance effects beyond the immediate surroundings.">
+				>
+				["at0001"] = <
+					text = <"Focality">
+					description = <"Focality of the tumor.">
+				>
+				["at0002"] = <
+					text = <"Unifocal">
+					description = <"Singular tumor that occurs in exactly one body organ with a focus of disease. Also referred to as unilocular or solitary.">
+				>
+				["at0003"] = <
+					text = <"Multifokal">
+					description = <"The tumor occurs in several locations of a body organ at the same time, with several foci of disease. Also called multilocular.">
+				>
+				["at0004"] = <
+					text = <"Unknown/inadequately described">
+					description = <"The focality cannot be determined.">
+				>
+				["at0005"] = <
+					text = <"Localization">
+					description = <"Structured description of the localization of a tumor focus.">
+				>
+				["at0006"] = <
+					text = <"Description of focality">
+					description = <"Description of the tumor focus.">
+					comment = <"For example, ‘Diffuse growing’, ‘Multicentric breast carcinoma with 3 foci’ or ‘Detection of tumour cells in cerebrospinal fluid sediment’.">
+				>
+				["at0007"] = <
+					text = <"Bifocal">
+					description = <"The tumor occurs in one body organ with two sites of disease.">
+				>
+				["at0008"] = <
+					text = <"Systemic">
+					description = <"No tumor focus can be defined, only individual tumor cells in the body.">
+				>
+			>
+		>
+	>

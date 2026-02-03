@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>fab0a19b-056c-4e29-94dc-13c5d3979342</id>
+    <name>Tumorverlauf</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2021-08-04</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>test</value>
+            </item>
+        </original_author>
+        <lifecycle_state>in_development</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation von klinischen Daten zum Tumorverlauf zu einem Untersuchungszeitpunkt (z. B. Nachsorge) beim Krebspatienten.</purpose>
+            <keywords>
+                <item>Tumorverlauf, Tumorstatus, Tumorgeschehen, Remissionsstand, Tumornachsorge, Krebsnachsorge, Krankheitsverlauf, Nachbeobachtung, Follow-Up, Verlaufsmeldung, Tumor, Krebsverlauf, Rezidivstatus</item>
+            </keywords>
+            <use>Dieses Template wird verwendet, um den Status eines Tumors zu einem bestimmten Zeitpunkt im Verlauf einer Nachsorge bei einem Krebspatienten im HiGHmed Projekt zu beschreiben. 
+
+Hiermit kann das Tumorgeschehen bzw. der Remissionsstand eines Tumors sowie die Verlaufsmeldungen im Rahmen des Behandlungsverlaufs dargestellt werden. In einer Verlaufsmeldung können nach dem Versterben des Patienten das Sterbedatum und die Information, ob der Tod tumorbedingt war, dargestellt werden.</use>
+            <misuse>Dieses Template soll nicht verwendet werden, um andere Krankheitsverläufe außer den eines Tumorverlaufs zu beschreiben.</misuse>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>7.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>812b24fd7c7fb2ddc13be9a35d6a109f</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>8F3156560D39B12C8362DF26A4C575BD</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.encounter.v1"
+        concept_name="Kontakt" name="Tumorverlauf"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-ACTION.service.v0" max="1"
+            path="/content" xsi:type="tem:ACTION">
+            <Rule max="0" min="0" path="/ism_transition[at0002]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0026]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0008]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0009]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0003]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0010]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0006]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0023]"/>
+            <Rule max="0" min="0" path="/ism_transition[at0005]"/>
+            <Rule path="/description[at0001]/items[at0011]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Verlaufs-/Kontolluntersuchung</includedValues>
+                    <includedValues>Nachsorgeuntersuchung</includedValues>
+                    <includedValues>Verlaufsmeldung</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/description[at0001]/items[at0014]"/>
+            <Rule max="0" path="/description[at0001]/items[at0013]"/>
+            <Rule name="Datum der Untersuchung" path="/description[at0001]/items[at0025]"/>
+            <Rule name="Grund der Untersuchung" path="/description[at0001]/items[at0012]"/>
+            <Rule name="Kommentar zur Untersuchung" path="/description[at0001]/items[at0028]"/>
+            <Rule max="0" path="/protocol[at0015]/items[at0016]"/>
+            <Rule max="0" path="/protocol[at0015]/items[at0018]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule name="Diagnose" path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Primärtumor</includedValues>
+                    <includedValues>Rezidiv</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0009]"/>
+            <Rule name="Lokalisation (nur bei Rezidiv)" path="/data[at0001]/items[at0012]"/>
+            <Rule max="0" path="/data[at0001]/items[at0078]"/>
+            <Rule name="Datum der Erstdiagnose (nur bei Rezidiv)" path="/data[at0001]/items[at0077]"/>
+            <Rule max="0" path="/data[at0001]/items[at0003]"/>
+            <Rule max="0" path="/data[at0001]/items[at0005]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule name="Beschreibung des Diagnoseverlaufs" path="/data[at0001]/items[at0072]"/>
+            <Rule name="Datum der Genesung" path="/data[at0001]/items[at0030]"/>
+            <Rule max="0" path="/data[at0001]/items[at0073]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.tumour_status.v1"
+                max="1" path="/data[at0001]/items[at0046]" xsi:type="tem:CLUSTER">
+                <Rule name="Tumorstatus Primärtumor" path="/items[at0001]"/>
+            </Items>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v2"
+                concept_name="Tumor_Diagnosesicherung" max="1"
+                name="Rezidiv: Modalität"
+                path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0094]"/>
+                <Rule max="0" path="/items[at0017]/items[at0102]/items[at0107]"/>
+                <Rule max="0" path="/items[at0017]/items[at0108]/items[at0116]"/>
+                <Rule max="0" path="/items[at0017]/items[at0117]/items[at0127]"/>
+                <Rule max="0" path="/items[at0017]/items[at0125]/items[at0128]"/>
+                <Rule max="0" path="/items[at0017]/items[at0129]"/>
+            </Items>
+        </Content>
+        <Content archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+            max="1" path="/content" xsi:type="tem:EVALUATION">
+            <Rule path="/data[at0001]/items[at0002]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Rezidiv</includedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/protocol[at0003]/items[at0004]"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.follow_up.v0"
+            max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0037]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0039]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0042]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0046]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
+                max="1"
+                path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]/items[at0045]" xsi:type="tem:CLUSTER"/>
+        </Content>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.progress_note.v1"
+            max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+<Content archetype_id="openEHR-EHR-SECTION.problem_list.v0"
+            concept_name="Problemliste" max="1"
+            name="Tumordiagnose_section" path="/content" xsi:type="tem:SECTION">
+            <Item
+                archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+                concept_name="Problem/Diagnose" max="1"
+                name="Tumordiagnose" path="/items[at0001]" xsi:type="tem:EVALUATION">
+                <Rule name="Diagnose Name (ICD-10)" path="/data[at0001]/items[at0002]"/>
+                <Rule name="Diagnose Beschreibung" path="/data[at0001]/items[at0009]"/>
+                <Rule max="0" name="Seitenlokalisation" path="/data[at0001]/items[at0012]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>Links (L)</includedValues>
+                        <includedValues>Rechts (R)</includedValues>
+                        <includedValues>Beidseitig (B)</includedValues>
+                        <includedValues>Mittellinie/ Mittig (M)</includedValues>
+                        <includedValues>Unbekannt (U)</includedValues>
+                        <includedValues>Trifft nicht zu (T; Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0078]"/>
+                <Rule name="Erstdiagnosedatum" path="/data[at0001]/items[at0077]"/>
+                <Rule max="0" path="/data[at0001]/items[at0003]"/>
+                <Rule max="0" path="/data[at0001]/items[at0005]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0001]/items[at0072]"/>
+                <Rule max="0" path="/data[at0001]/items[at0030]"/>
+                <Rule max="0" path="/data[at0001]/items[at0073]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" name="Kommentar Tumordiagnose" path="/data[at0001]/items[at0069]"/>
+                <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+                <Items archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+                    path="/protocol[at0032]/items[at0071]" xsi:type="tem:CLUSTER">
+                    <Rule max="1" min="1" path="/items[at0001]"/>
+                </Items>
+            </Item>
+        </Content>
+
+
+        <Context>
+            <Items
+                archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+                max="1" min="1"
+                path="/context/other_context[at0001]/items[at0002]" xsi:type="tem:CLUSTER">
+                <Rule min="1" path="/items[at0001]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0003]"/>
+                <Rule max="0" path="/items[at0006]"/>
+            </Items>
+        </Context>
+    </definition>
+    <integrity_checks
+        archetype_id="openEHR-EHR-COMPOSITION.encounter.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8F3156560D39B12C8362DF26A4C575BD</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.case_identification.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.service.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BAAC34A3E48B526B3A3034618FDAB3AB</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6780584ECAE98538AF60C1335D7ED4BF</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.tumour_status.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8A8863A8AF0BBCF52CEDADADDBC7C7AC</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.confirmed_cancer.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">16D003D88AC3C5E2ED76BFB9FC2E5093</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-EVALUATION.absence.v2"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD5D4B56F1AAC4BF3DFF1AB6120FCD0</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.follow_up.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">7CD4DEDAC5407B9A4B84336F715227C6</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.death_details.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">412038B78AE9EBA86BF7F4A2BDDADE0A</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.progress_note.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6F24243771B944641D47850B1487D23A</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-SECTION.problem_list.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">8367D4F2CF2BA5BE59DC4442FD28C085</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_icdo.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2C7E496D1B1499B94ED9B4D4881AE5C0</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tnm.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">48BA7281FAFAD1B5D72DD78E6D2A3E85</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.tnm-pathological.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">D5BC5C645975EFCAE96A7231F81479ED</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.further_tumor_classification.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">6D422C85F9718516ADFD8A13A5514654</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-CLUSTER.tumour_focality.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">2241D5C6B8F45F8F3D59F2CC9FF579CF</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.tumor_id.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">00E81173D3355F5FB8674F6132AECA33</digest>
+    </integrity_checks>
+</template>

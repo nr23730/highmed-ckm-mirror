@@ -1,0 +1,233 @@
+﻿archetype (adl_version=1.4; uid=47f356ab-a28f-40b8-a132-51c15d433255)
+	openEHR-EHR-OBSERVATION.fitzpatrick_skin_type.v0
+
+concept
+	[at0000]	-- Fitzpatrick skin type
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Maximilian Meixner">
+				["organisation"] = <"Berlin Institute of Health - BIH @ Charité">
+				["email"] = <"maximilian.meixner@bih-charite.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Dmitri Wall">
+		["email"] = <"dmitri.wall@gmail.com">
+		["date"] = <"2015-02-18">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Das Konzept der Hauttypisierung wurde 1975 entwickelt, um die richtige UV-A-Dosis für die Behandlung von Psoriasis mit oralem Methoxsalen, bekannt als Photochemotherapie (PUVA), zu bestimmen. Es wurde in den darauffolgenden Jahren weiterentwickelt und umfasst nun 6 Typen, die von weißer bis schwarzer Haut reichen und anhand der Hauttoleranz gegenüber ultravioletter Strahlung charakterisiert werden.">
+			use = <"Zur Klassifizierung der Hautfarbtyps basierend auf der Hauttoleranz gegenüber ultravioletter Strahlung.">
+			keywords = <"Dermatologie", "Hautfarbe", "Fitzpatrick", "Hauttyp">
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"The concept of skin typing was developed in 1975 in order to select correct ultraviolet A dosage for treatment of psoriasis with oral methoxsalen, known as photochemotherapy (PUVA).  It was further developed in subsequent years to include 6 types, ranging from white to black skin, characterised based on skin tolerance of ultraviolet radiation exposure.">
+			use = <"Classification of skin colour type based on skin tolerance of ultraviolet radiation exposure.">
+			keywords = <"Dermatology", "Skin colour">
+			misuse = <"">
+			copyright = <"© openEHR Foundation, HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Ian McNicoll, freshEHR, UK", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: <Add reference to original resource here>
+
+Fitzpatrick TB. Soleil et peau. J Med Esthet 1975; 2: 33-4.
+
+Fitzpatrick TB. The validity and practicality of sun-reactive skin types I through VI. Arch Dermatol. 1988 Jun;124(6):869-71. doi: 10.1001/archderm.124.6.869. PubMed PMID: 3377516.
+
+Fitzpatrick TB. Ultraviolet-induced pigmentary changes: benefits and hazards. Curr Probl Dermatol. 1986;15:25-38. Review. PubMed PMID: 3512179.
+
+Pathak MA, Jimbow K, Szabo G et al. Sunlight and melanin pigmentation. In: Photochemical and photobiological reviews: Springer. 1976; 211-39.">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"3399FB63A82553AB5D56BD07E384B512">
+		["build_uid"] = <"0d7e3249-fcb1-4428-bef3-9818dfb256c9">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Fitzpatrick skin type
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Skin type
+										value matches {
+											1|[local::at0005],
+											2|[local::at0006],
+											3|[local::at0007],
+											4|[local::at0008],
+											5|[local::at0009],
+											6|[local::at0010]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	terminologies_available = <"LOINC", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fitzpatrick skin type">
+					description = <"Numerical schema for classifying skin colour type based on reaction to ultraviolet radiation exposure.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Skin type">
+					description = <"The Fitzpatrick Skin type.">
+				>
+				["at0005"] = <
+					text = <"I">
+					description = <"Always burn, never tan.">
+				>
+				["at0006"] = <
+					text = <"II">
+					description = <"Usually burn, tan less than average (with difficulty).">
+				>
+				["at0007"] = <
+					text = <"III">
+					description = <"Sometimes mild burn, tan about average.">
+				>
+				["at0008"] = <
+					text = <"IV">
+					description = <"Rarely burn, tan more than average (with ease).">
+				>
+				["at0009"] = <
+					text = <"V">
+					description = <"Brown skin, rarely burns, tans profusely.">
+				>
+				["at0010"] = <
+					text = <"VI">
+					description = <"Black skin, never burns.">
+				>
+				["at0011"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fitzpatrick-Hauttyp">
+					description = <"Numerisches Schema zur Klassifizierung des Hautfarbtyps basierend auf der Reaktion nach Einwirkung ultravioletter Strahlung.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt- oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Hauttyp">
+					description = <"Der Fitzpatrick-Hauttyp">
+				>
+				["at0005"] = <
+					text = <"I">
+					description = <"Nur Sonnenbrand, keine Bräune.">
+				>
+				["at0006"] = <
+					text = <"II">
+					description = <"Meistens Sonnenbrand, weniger Bräune als durchschnittlich (mit Erschwernissen)">
+				>
+				["at0007"] = <
+					text = <"III">
+					description = <"Manchmal leichter Sonnenbrand, Bräune etwa durchschnittlich.">
+				>
+				["at0008"] = <
+					text = <"IV">
+					description = <"Selten Sonnenbrand, mehr Bräune als durchschnittlich (mit Leichtigkeit).">
+				>
+				["at0009"] = <
+					text = <"V">
+					description = <"Braune Haut, selten Sonnenbrand, starke Bräune.">
+				>
+				["at0010"] = <
+					text = <"VI">
+					description = <"Schwarze Haut, nie Sonnenbrand.">
+				>
+				["at0011"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Beispielsweise: lokale Informationsanforderungen oder zusätzliche Metadaten zur Anpassung an FHIR- oder CIMI-Äquivalente.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["LOINC"] = <
+			items = <
+				["at0005"] = <[LOINC::LA15337-1]>
+				["at0006"] = <[LOINC::LA15338-9]>
+				["at0007"] = <[LOINC::LA15339-7]>
+				["at0008"] = <[LOINC::LA15340-5]>
+				["at0009"] = <[LOINC::LA15341-3]>
+				["at0010"] = <[LOINC::LA15342-1]>
+				["at0000"] = <[LOINC::66555-4]>
+			>
+		>
+	>

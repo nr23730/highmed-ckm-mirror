@@ -1,0 +1,129 @@
+﻿archetype (adl_version=1.4; uid=d78026a2-f3ce-4804-93d3-65b7ad9286a4)
+	openEHR-EHR-CLUSTER.imaging_technique.v1
+
+concept
+	[at0000]	-- Bildgebendes Verfahren
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Severin Kohler">
+				["organisation"] = <"Charite Berlin">
+				["email"] = <"severin.kohler@bih-charite.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Mhd Samer Abboud Alkarkoukly">
+		["organisation"] = <"University Hospital Cologne">
+		["email"] = <"mabbouda@uni-koeln.de">
+		["date"] = <"2020-05-11">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation der technischen Spezifikationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen.">
+			use = <"Dieser Archetyp wird normalerweise im Slot \"Technisches Verfahren strukturiert\" des übergeordneten Archetypen OBSERVATION.imaging_exam_result verwendet. Kann aber auch in einem anderen bildgebenden Archetyp verwendet werden, um die technischen Spezifikationen des durchgeführten bildgebenden Verfahrens zu dokumentieren.">
+			keywords = <"Bildgebung", "Bildgebendes Verfahren", "technische Details", "CT", "MRT", "Phase", "Kontrastmittel", "Diffusionswichtung", "Bildgebende Diagnostik", "Modalität">
+			misuse = <"Nicht zur Dokumentation von bildgebenden Befunden verwenden.
+Nicht zur Dokumentation von klinischen Informationen eines Patienten verwenden.">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the technical specifications of an imaging examination or a series of imaging examinations performed.">
+			use = <"This archetype is normally used in the SLOT ‘Structured technical procedure’ of the parent archetype OBSERVATION.imaging_exam_result. However, it can also be used in another imaging archetype to record the technical specifications of the imaging procedure performed.">
+			keywords = <"Imaging", "Imaging procedure", "technical details", "CT", "MRI", "phase", "Contrast medium", "Diffusion weighting", "Imaging diagnostics", "modality">
+			misuse = <"Not to be used to record imaging findings.
+Not to be used to record a patient's clinical information.">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"D08379D61EDEE6084653C3CA425CC198">
+		["build_uid"] = <"acadc7a9-ecc1-4d65-8c97-0f6b74e7cc0a">
+		["revision"] = <"1.0.2">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Bildgebendes Verfahren
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0013] occurrences matches {0..*} matches {    -- Bezeichnung des technischen Details oder Verfahrens
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..*} matches {    -- Angewendete Parameter
+				value matches {
+					DV_TEXT matches {*}
+					DV_CODED_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {    -- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Bildgebendes Verfahren">
+					description = <"Zur Darstellung der technischen Spezifikationen einer durchgeführten bildgebenden Untersuchung.">
+				>
+				["at0013"] = <
+					text = <"Bezeichnung des technischen Details oder Verfahrens">
+					description = <"Zur Dokumentation des Typs des durchgeführten bildgebenden Verfahrens.">
+					comment = <"z. B. Diffusionswichtung bei MRT, die Art oder Weg der Verabreichung von Kontrastmittel, Radiopharmazeutika und / oder angewendete Behandlung.">
+				>
+				["at0014"] = <
+					text = <"Angewendete Parameter">
+					description = <"Zur Dokumentation des Subtyps des durchgeführten bildgebenden Verfahrens.">
+					comment = <"z. B.  Native Phase, Spätarterielle Phase für CT, oder T1 GRE fettsupprimiert spätvenös axial, T2 koronar für MRT">
+				>
+				["at0015"] = <
+					text = <"Kommentar">
+					description = <"Zusätzliche Informationen über das durchgeführte bildgebende Verfahren.">
+					comment = <"kann einen Textkommentar enthalten wie z.B. \"der Patient lehnte die Verwendung eines Kontrastmittels ab\" oder \" MRT konnte nicht durchgeführt werden wegen ...\".">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Imaging procedure">
+					description = <"To record the technical specifications of an imaging examination carried out.">
+				>
+				["at0013"] = <
+					text = <"Name of the technical detail or procedure">
+					description = <"To document the type of imaging procedure performed.">
+					comment = <"e.g. Diffusion weighting in MRI, the type or route of contrast medium administration, radiopharmaceuticals and/or treatment applied.">
+				>
+				["at0014"] = <
+					text = <"Applied parameters">
+					description = <"To document the subtype of imaging procedure performed.">
+					comment = <"e.g. Native phase, late arterial phase for CT, or T1 GRE fat suppressed late venous axial, T2 coronal for MRI">
+				>
+				["at0015"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the imaging procedure performed.">
+					comment = <"may contain a text comment such as \"the patient refused the use of a contrast agent\" or \"MRI could not be performed due to...\".">
+				>
+			>
+		>
+	>

@@ -1,0 +1,136 @@
+﻿archetype (adl_version=1.4; uid=d6ff65c1-5bda-484c-8775-8ece5a783cd8)
+	openEHR-EHR-OBSERVATION.signal_magnitude_area.v0
+
+concept
+	[at0000]	-- Signal Magnitude Area
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Aljoscha Kindermann">
+		["organisation"] = <"Heidelberg University Hospital">
+		["email"] = <"aljoscha.kindermann@med.uni-heidelberg.de">
+		["date"] = <"2019-02-14">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation der körperlichen Aktivität von Patienten anhand der Signal Magnitude Area (SMA).">
+			use = <"Zur Dokumentation der körperlichen Aktivität von Patienten anhand der Signal Magnitude Area. 
+Hierbei handelt es sich um das Integral aller Bewegungen eines vom Patienten getragenen Sensors in Richtung der x-, y- und z-Achse.">
+			keywords = <"Signal Magnitude Area", "Beschleunigungssensor", "Accelerometer", "PRO", "Aktivität", "Bewegung">
+			misuse = <"Nicht zur Aufzeichnung von körperlicher Aktivität anhand von anderen Aktivitätsparametern. 
+Nicht zur Aufzeichnung von anderen Sensorvermittelten Werten.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Classifying Prosthetic Use via Accelerometry in Persons with Trans-Tibial Amputations - Morgan T. Redfield, John C. Cagle, Brian J. Hafner, PhD, and Joan E. Sanders, PhDUniversity of Washington - J Rehabil Res Dev
+
+Validity of Using Tri-Axial Accelerometers to Measure Human Movement - Part I: Posture and Movement Detection - Vipul Lugade, Emma Fortune, Melissa Morrow, and Kenton Kaufman - Med Eng Phys">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"F3C41997F3B6E75D858AF9C135C843DE">
+		["build_uid"] = <"32184b9a-79a2-465c-aaa0-da2a3054f097">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Signal Magnitude Area
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Baum
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Per SMA berechnete Beschleunigung
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::339]>
+												list = <
+													["1"] = <
+														units = <"[g]">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {	-- Baum
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Gerät
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Signal Magnitude Area">
+					description = <"Zur Dokumentation der körperlichen Aktivität von Patienten mittels Signal Magnitude Area (SMA).">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Per SMA berechnete Beschleunigung">
+					description = <"Größe des Betrages der berechneten Signal Magnitude Area. Es handelt sich um das normalisierte Integral der ursprünglichen Beschleunigungswerte. Die üblicherweise verwendete Maßeinheit ist das Maß der Erdbeschleunigung [g].">
+				>
+				["at0011"] = <
+					text = <"Baum">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Kommentar">
+					description = <"Weitere Informationen zur Rahmenbedingung der Aktivitätsmessung.">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"Weitere Informationen über die Messung, welche noch nicht einem strukturierten Datenfeld aufgenommen wurde.">
+				>
+				["at0015"] = <
+					text = <"Gerät">
+					description = <"Details über den verwendeten Sensor, der zur Aufzeichnung der SMA verwendet wurde.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,159 @@
+﻿archetype (adl_version=1.4; uid=7dc58ddc-519f-4da4-9afa-9ee91b66c259)
+	openEHR-EHR-CLUSTER.further_tumor_classification.v1
+
+concept
+	[at0000]	-- Weitere Tumorklassifikation
+language
+	original_language = <[ISO_639-1::de]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Severin Kohler">
+				["organisation"] = <"Charite Berlin">
+				["email"] = <"severin.kohler@bih-charite.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Carina Lerch; Katrin Tröltzsch">
+		["organisation"] = <"Heidelberg Medical University">
+		["email"] = <"carina.lerch@med.uni-heidelberg.de">
+		["date"] = <"2019-02-11">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Dieser Archetyp dient zur Darstellung der Einstufung maligner Neoplasien nach weiteren Klassifikationen.">
+			use = <"Zur Darstellung von Klassifikationen und Stadieneinteilungen maligner Neoplasien, die mit keinem anderen Archetyp abgedeckt werden können. Die einzelnen Klassifikationen dienen der Einteilung von Tumorerkrankungen in einen Malignitätsgrad oder ein Stadium. Eine Klassifikation bezieht sich immer auf eine spezielle Entität, wie z. B. die FIGO-Klassifikation bei gynäkologischen Tumoren. Sie kann in bestimmten Fällen auch zur Beurteilung von Metastasen dienen, wie z.B. KRK nach Fong bei Lebermetastasen. Ein weiteres Beispiel ist die Stadiumeinteilung von Lymphomen nach der Ann-Arbor-Klassifikation.
+Dieser Archetyp kann für eine Tumorentität, je nach Anzahl der Klassifikationen, mehrmals verwendet werden.">
+			keywords = <"Klassifikation", "Neoplasie", "Tumor", "Stadium", "Grad", "Gruppe", "maligne", "Stadieneinteilung", "Metastase", "Tumorerkrankung", "Stadienbestimmung", "Staging">
+			misuse = <"Nicht zur Dokumentation einer TNM-Klassifikation verwenden. Hierfür nutzen Sie bitte den Archetyp OBSERVATION.tnm_stage oder OBSERVATION.tnm_stage-pathological.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the classification of malignant neoplasms according to additional classifications.">
+			use = <"Use to record classifications and staging of malignant neoplasms that are not covered by any other archetype. The individual classifications are used to classify tumor diseases into a degree of malignancy or a stage. A classification always refers to a specific entity, such as the FIGO classification for gynecological tumors. In certain cases, it can also be used to assess metastases, such as the KRK classification by Fong for liver metastases. Another example is the staging of lymphomas according to the Ann Arbor classification.
+This archetype can be used multiple times for a tumor entity, depending on the number of classifications.">
+			keywords = <"Classification", "Neoplasm", "Tumor", "Stage", "Grade", "Group", "Malignant", "Staging", "Metastasis", "Tumor disease", "Stage determination", "Staging">
+			misuse = <"Not to be used for recording a TNM classification. 
+Use the OBSERVATION.tnm_stage or OBSERVATION.tnm_stage-pathological archetype for this purpose.">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"9D88CDB6615B7F392A6AA024B01D72D0">
+		["build_uid"] = <"6093725e-5445-42fa-af2f-3c51639d470a">
+		["revision"] = <"1.0.2">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Weitere Tumorklassifikation
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Name der Klassifikation
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Weitere Beschreibung
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Stadium/Gruppe/Grad
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Datum der Klassifizierungseinteilung
+				value matches {
+					DV_DATE matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Auflage der Klassifikation
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Weitere Tumorklassifikation">
+					description = <"Der Archetyp \"Weitere Tumorklassifikation\" dient zur Stadieneinteilung maligner Neoplasien nach sonstigen, weiteren Tumorklassifikationen, außer der TNM-Klassifikation.">
+				>
+				["at0001"] = <
+					text = <"Name der Klassifikation">
+					description = <"Angabe der Bezeichnung der Klassifikation. Wenn möglich wird die Kodierung der spezifischen Klassifikation mit einer Terminologie bevorzugt.">
+				>
+				["at0002"] = <
+					text = <"Weitere Beschreibung">
+					description = <"Jede zusätzliche Beschreibung für die entsprechende Klassifikation.">
+				>
+				["at0003"] = <
+					text = <"Stadium/Gruppe/Grad">
+					description = <"Das Stadium/die Gruppe/der Grad der Einstufung der Malignität anhand der Klassifikation.">
+				>
+				["at0004"] = <
+					text = <"Datum der Klassifizierungseinteilung">
+					description = <"Das Datum, an dem die Klassifikation festgestellt wurde.">
+				>
+				["at0005"] = <
+					text = <"Auflage der Klassifikation">
+					description = <"Die Auflage, auf der die Klassifikation basiert, die für die Beurteilung verwendet wurde.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Ergänzende Beschreibung der weiteren Tumorklassifikation, die nicht in anderen Bereichen erfasst wurde.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Further tumor classification">
+					description = <"The archetype 'Additional tumor classification' is used to classify malignant neoplasms according to other tumor classifications, apart from the TNM staging system.">
+				>
+				["at0001"] = <
+					text = <"Name of the classification">
+					description = <"Specification of the name of the classification. If possible, the coding of the specific classification with a terminology is preferred.">
+				>
+				["at0002"] = <
+					text = <"Further descriptions">
+					description = <"Any additional description for the corresponding classification.">
+				>
+				["at0003"] = <
+					text = <"Stage/Group/Grade">
+					description = <"The stage/group/grade of the malignancy based on the classification.">
+				>
+				["at0004"] = <
+					text = <"Date of classification">
+					description = <"The date the classification was determined.">
+				>
+				["at0005"] = <
+					text = <"Edition of the classification">
+					description = <"The edition on which the classification used for the assessment is based.">
+				>
+				["at0007"] = <
+					text = <"Comment">
+					description = <"Further description of the additional tumour classification that was not recorded in other areas.">
+				>
+			>
+		>
+	>

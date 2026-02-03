@@ -1,0 +1,317 @@
+﻿archetype (adl_version=1.4; uid=d31b3a62-cd42-43da-96b4-e3ff7add2c1b)
+	openEHR-EHR-OBSERVATION.diffusionskapazitaet_ergebnis.v0
+
+concept
+	[at0000]	-- Diffusionskapazität Ergebnis
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Alina Rehberg">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["email"] = <"rehberg.alina@mh-hannover.de">
+		["date"] = <"2024-10-14">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Ergebnisse von Diffusionskapazitätsmessungen der Lunge (DLCO-Test) mit Hilfe eines Spirometers oder speziellen Gas-Analysemethoden.">
+			use = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung. Es handelt sich um eine Lungenfunktionsuntersuchung, die zur Messung des pulmonalen Transferfaktors für Kohlenmonoxid (TLCO bzw. DCO) und der Abschätzung der Diffusionskapazität für Sauerstoff dient.
+
+Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um folgende Darstellungen zu unterstützen:
+- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ für jede Einzelmessung, plus ein zusätzliches Ereignis vom Typ „Intervall“ mit Attribut „Mittelwert“.;
+- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit Zeitversatz.
+
+Bitte beachten, dass für die korrekte Interpretation der Diffusionskapazität der Hämoglobinwert relevant ist.">
+			keywords = <"Diffusionskapazität", "DLCO (Diffusing Capacity of the Lung for Carbon Monoxide)", "TLCO (Transferfaktor der Lunge für Kohlenmonoxid)", "KCO (Kohlenmonoxid-Transferkoeffizient)", "VA (Alveoläres Volumen)", "Gasaustausch", "Kohlenmonoxid-Diffusion", "Transferkoeffizient", "Alveolar-Kapillar-Membran", "Gasaustauschkapazität", "Pulmonale Funktion", "Restriktive Lungenerkrankungen", "Obstruktive Lungenerkrankungen", "Lungenemphysem", "Lungenfibrose", "CO-Aufnahme", "Alveolarmembran", "Hämoglobin-Affinität", "Lungenvolumina", "Ventilation-Perfusion-Verhältnis">
+			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Bodyplethysmographie, geeignet. Verwenden Sie für die Spirometrie den OBSERVATION.spirometry_result und für die Bodyplethysmographie OBSERVATION.bodyplethysmographie_result.
+
+Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
+
+Nicht zur Aufzeichnung von Messungen zur Pulsoximetrie geeignet. Verwenden Sie zu diesem Zweck die OBSERVATION.pulse_oximetry.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Bhakta, N. R., McGowan, A., & Ramsey, K. A. (2023). European Respiratory Society/American Thoracic Society technical statement: standardisation of the measurement of lung volumes, 2023 update. European Respiratory Journal, 62(4), 2201519. https://doi.org/10.1183/13993003.01519-2022
+
+Wanger, J., Clausen, J. L., & Coates, A. (2005). Standardisation of the measurement of lung volumes. European Respiratory Journal, 26(3), 511-522. https://doi.org/10.1183/09031936.05.00035005">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"5F977B668F33D13F75BADB63E123567A">
+		["build_uid"] = <"3f483023-61d4-492d-9f7a-8ae51ad41145">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Diffusionskapazität Ergebnis
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Jedes Ereignis
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0007] occurrences matches {0..*} matches {    -- Diffusionskapazität
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::347]>
+														list = <
+															["1"] = <
+																units = <"mmol/(24.h)">
+																magnitude = <|>=0.0|>
+															>
+															["2"] = <
+																units = <"mmol/min/kPa">
+																magnitude = <|>=0.0|>
+															>
+															["3"] = <
+																units = <"mmol/min/kPa/L">
+																magnitude = <|>=0.0|>
+															>	
+															["4"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+																precision = <|3|>
+															>																
+														>
+													>
+												}
+											}
+											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::347]>
+														list = <
+															["1"] = <
+																units = <"mmol/(24.h)">
+																magnitude = <|>=0.0|>
+															>
+															["2"] = <
+																units = <"mmol/min/kPa">
+																magnitude = <|>=0.0|>
+															>	
+															["3"] = <
+																units = <"mmol/min/kPa/L">
+																magnitude = <|>=0.0|>
+															>
+															["4"] = <
+																units = <"L">
+																magnitude = <|>=0.0|>
+																precision = <|3|>
+															>														
+														>
+													>
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+												value matches {
+													DV_PROPORTION matches {
+														numerator matches {|>=0.0|}
+														type matches {2}
+													}
+												}
+											}
+										}
+										name matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0009,    -- TLCO
+													at0010,    -- KCO
+													at0025]    -- VA
+												}
+											}
+										}
+									}
+									CLUSTER[at0020] occurrences matches {0..*} matches {    -- Haltezeit
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0021] occurrences matches {0..1} matches {    -- Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::128]>
+														list = <
+															["1"] = <
+																units = <"s">
+																magnitude = <|>=0.0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0022] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::128]>
+														list = <
+															["1"] = <
+																units = <"s">
+																magnitude = <|>=0.0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0023] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+												value matches {
+													DV_PROPORTION matches {
+														numerator matches {|>=0.0|}
+														type matches {2}
+													}
+												}
+											}
+										}
+										name matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::at0024]    -- t (hold)
+												}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Klinische Interpretation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {    -- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0008] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0028] occurrences matches {0..*} matches {    -- Gerät
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0029] occurrences matches {0..*} matches {    -- Quelle der vorhergesagten Ergebnisse
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {    -- Erweiterung
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Diffusionskapazität Ergebnis">
+					description = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Jedes Ereignis">
+					description = <"Jeder Zeitpunkt oder jedes Intervall, das in einem Template oder zur Laufzeit definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Vorhergesagtes Ergebnis">
+					description = <"Vorhergesagte Diffusionskapazität">
+				>
+				["at0006"] = <
+					text = <"Ergebnis">
+					description = <"Gemessene Diffusionskapazität">
+				>
+				["at0007"] = <
+					text = <"Diffusionskapazität">
+					description = <"Das Testergebnis wird als gemessenes Volumen oder berechnete Kapazität dargestellt.">
+					comment = <"Jedes Testergebnis wird über eine separate Instanz dieses Clusters aufgezeichnet.">
+				>
+				["at0008"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"TLCO">
+					description = <"Der Transferfaktor der Lunge für Kohlenmonoxid (TLCO) wird auch oft als DLCO (Diffusionskapazität der Lunge für Kohlenmonoxid) bezeichnet. Er gibt an, wie viel Kohlenmonoxid pro Zeiteinheit von den Alveolen ins Blut übertritt.">
+				>
+				["at0010"] = <
+					text = <"KCO">
+					description = <"KCO [Der Kohlenmonoxid-Transferkoeffizient (KCO), auch Krogh-Index bezeichnet, ist der Transferfaktor (TLCO) normiert auf das Alveolarvolumen (VA) und misst die Effizienz des Gausaustauschs pro Volumeneinheit der Lunge (TLCO / VA).">
+				>
+				["at0012"] = <
+					text = <"Gemessenes/vorhergesagtes Verhältnis">
+					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+				>
+				["at0020"] = <
+					text = <"Haltezeit">
+					description = <"Das Testergebnis wird als gemessene Haltezeit dargestellt.">
+					comment = <"Jedes Testergebnis wird über eine separate Instanz dieses Clusters aufgezeichnet.">
+				>
+				["at0021"] = <
+					text = <"Ergebnis">
+					description = <"Gemessene Haltezeit">
+				>
+				["at0022"] = <
+					text = <"Vorhergesagtes Ergebnis">
+					description = <"Vorhergesagte Haltezeit">
+				>
+				["at0023"] = <
+					text = <"Gemessenes/vorhergesagtes Verhältnis">
+					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+				>
+				["at0024"] = <
+					text = <"t (hold)">
+					description = <"Die Haltezeit während eines Atemmanövers in der Lungenfunktionsdiagnostik.">
+				>
+				["at0025"] = <
+					text = <"VA">
+					description = <"Das Alveolarvolumen ist das Volumen der Lunge, das aktiv am Gasaustausch beteiligt ist.">
+				>
+				["at0026"] = <
+					text = <"Klinische Interpretation">
+					description = <"Gesamte klinische Interpretation aller Messungen und berechneten Verhältnisse.">
+				>
+				["at0027"] = <
+					text = <"Kommentar">
+					description = <"Zusätzlicher Freitext über die Testergebnisse und deren Interpretation, die nicht in anderen Felder erfasst werden konnte.">
+				>
+				["at0028"] = <
+					text = <"Gerät">
+					description = <"Details über das Gerät, mit dem die Diffusionskapazität gemessen wird.">
+				>
+				["at0029"] = <
+					text = <"Quelle der vorhergesagten Ergebnisse">
+					description = <"Die für die vorhergesagten Ergebnisse verwendete Wissensbasis.">
+				>
+				["at0030"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird">
+					comment = <"Zum Beispiel: Informationen bzgl. der lokalen Krankenhausabteilung oder zusätzliche Metadata zur Anpassung an entsprechende FHIR oder CIMI Gegenstücke.">
+				>
+			>
+		>
+	>

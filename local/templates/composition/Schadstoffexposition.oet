@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
+    <id>24a37b08-718f-4fe5-8595-442184888801</id>
+    <name>Schadstoffexposition</name>
+    <description>
+        <original_author>
+            <item>
+                <key>date</key>
+                <value>2022-08-05</value>
+            </item>
+            <item>
+                <key>name</key>
+                <value>Sarah Ballout </value>
+            </item>
+            <item>
+                <key>organisation</key>
+                <value>Peter L. Reichertz Institut für Medizinische Informatik</value>
+            </item>
+            <item>
+                <key>email</key>
+                <value>Sarah.Ballout@mh-hannover.de</value>
+            </item>
+        </original_author>
+        <lifecycle_state>unmanaged</lifecycle_state>
+        <details>
+            <purpose>Zur Repräsentation der Schadstoffexposition für die Speicherung im Rahmen der Pneumo-App.</purpose>
+            <keywords>
+                <item>Schadstoff</item>
+                <item>Exposition</item>
+                <item>Gefahrenstoffe</item>
+                <item>Stoffe</item>
+                <item>Schadstoffkontakt</item>
+                <item>Schadstoffexposition</item>
+            </keywords>
+            <use>Für die Abbildung der Schadstoffexposition für die Speicherung im Rahmen der Pneumo-App. Es wird nach Gefahrenstoffen oder Stoffe gefragt, denen man privat oder im Beruf ausgesetzt ist und welche die Atemwege reizen können. Sofern eine Exposition mit einem Haustier vorliegen sollte, soll dies entsprechend angegeben werden. </use>
+            <misuse>Nicht zur Repräsentation von anderen Fragebögen oder Screening-Fragebögen dieser Art zu verwenden.</misuse>
+            <copyright>@ HiGHmed</copyright>
+        </details>
+        <other_details>
+            <item>
+                <key>licence</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_organisation</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>original_publisher</key>
+                <value/>
+            </item>
+            <item>
+                <key>custodian_namespace</key>
+                <value/>
+            </item>
+            <item>
+                <key>sem_ver</key>
+                <value>9.0.0</value>
+            </item>
+            <item>
+                <key>build_uid</key>
+                <value/>
+            </item>
+            <item>
+                <key>MD5-CAM-1.0.1</key>
+                <value>2f644e708e04b4fe5f2cd8639b678c45</value>
+            </item>
+            <item>
+                <key>PARENT:MD5-CAM-1.0.1</key>
+                <value>CD5C7EF669BF9300C4CE104319009B71</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
+        </other_details>
+    </description>
+    <definition
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        concept_name="Registereintrag"
+        name="Schadstoffexposition"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v0"
+            concept_name="Screening-Fragebogen zur Exposition" max="1"
+            name="Screening-Fragebogen zu (Gefahr-) Stoffen"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0"
+                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Asbest</includedValues>
+                    <includedValues>Stäube, z.B. Metall- oder Holzstaub oder Mehl</includedValues>
+                    <includedValues>Rauche, z.B. Zigarettenrauch (passives Rauchen) oder Abgase</includedValues>
+                    <includedValues>Lösungsmittel</includedValues>
+                    <includedValues>Lacke oder Farben</includedValues>
+                    <includedValues>Reinigungsmittel</includedValues>
+                    <includedValues>Vogelfedern, z.B. Daunenbettwäsche oder Daunenjacke</includedValues>
+                    <includedValues>Haustiere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule
+                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0008</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Gefahrstoffe oder Stoffe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]"/>
+            <Rule name="Name des Ereignis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Asbest</includedValues>
+                    <includedValues>Stäube, z.B. Metall- oder Holzstaub oder Mehl</includedValues>
+                    <includedValues>Rauche, z.B. Zigarettenrauch (passives Rauchen) oder Abgase</includedValues>
+                    <includedValues>Lösungsmittel</includedValues>
+                    <includedValues>Lacke oder Farben</includedValues>
+                    <includedValues>Reinigungsmittel</includedValues>
+                    <includedValues>Vogelfedern, z.B. Daunenbettwäsche oder Daunenjacke</includedValues>
+                    <includedValues>Haustiere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0011]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0014</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0015]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Date_Time</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
+        </Content>
+        <Content
+            archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v0"
+            concept_name="Screening-Fragebogen zur Exposition" max="1"
+            name="Screening-Fragebogen zu (Haus-) Tieren"
+            path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="1" min="1" path="/data[at0001]/events[at0002]"/>
+            <Rule max="0"
+                name="Waren Sie in ihrem Beruf oder auch privat einem der folgenden Gefahrstoffe oder Stoffe ausgesetzt, die die Atemwege reizen?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Asbest</includedValues>
+                    <includedValues>Stäube, z.B. Metall- oder Holzstaub oder Mehl</includedValues>
+                    <includedValues>Rauche, z.B. Zigarettenrauch (passives Rauchen) oder Abgase</includedValues>
+                    <includedValues>Lösungsmittel</includedValues>
+                    <includedValues>Lacke oder Farben</includedValues>
+                    <includedValues>Reinigungsmittel</includedValues>
+                    <includedValues>Vogelfedern, z.B. Daunenbettwäsche oder Daunenjacke</includedValues>
+                    <includedValues>Haustiere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule
+                name="Haben Sie Haustiere oder regelmäßig Kontakt zu Tieren?" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0008</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule name="Name des Ereignis" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+                <constraint xsi:type="tem:textConstraint">
+                    <includedValues>Hund</includedValues>
+                    <includedValues>Katze</includedValues>
+                    <includedValues>Pferd</includedValues>
+                    <includedValues>Kleintiere, z.B. Hamster, Kaninchen, Meerschweinchen</includedValues>
+                    <includedValues>Vögel, z.B. Wellensittiche, Tauben, Hühner</includedValues>
+                    <includedValues>Andere</includedValues>
+                </constraint>
+            </Rule>
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0011]">
+                <constraint xsi:type="tem:textConstraint">
+                    <excludedValues>local::at0014</excludedValues>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0015]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Date_Time</includedTypes>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
+        </Content>
+    </definition>
+    <integrity_checks
+        archetype_id="openEHR-EHR-COMPOSITION.registereintrag.v1"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">CD5C7EF669BF9300C4CE104319009B71</digest>
+    </integrity_checks>
+    <integrity_checks
+        archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v0"
+        xmlns:tem="openEHR/v1/Template"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">26A08B6000CF5C752979B7851724F379</digest>
+    </integrity_checks>
+</template>

@@ -1,0 +1,369 @@
+﻿archetype (adl_version=1.4; uid=2e4d791c-24dc-4aca-9866-3a8b297e4d6b)
+	openEHR-EHR-OBSERVATION.maggic_risk_score.v0
+
+concept
+	[at0000]	-- MAGGIC Risiko Score
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Kim Sommer">
+		["organisation"] = <"Medizinische Hochschule Hannover">
+		["date"] = <"2021-05-17">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung der Ergebnisse für jede Variable, die für die Berechnung des MAGGIC Scores verwendet wird, deren Gesamtsumme, sowie die vorhergesagten 1-und 3-Jahres-Mortalität auf Basis des MAGGIC Scores.">
+			use = <"Wird zur Erfassung der Ergebnisse für jede Variable, die für die Berechnung des MAGGIC Scores verwendet wird, deren Gesamtsumme, sowie die vorhergesagten 1-und 3-Jahres-Mortalität auf Basis des MAGGIC Scores, genutzt.">
+			keywords = <"MAGGIC", "Risiko", "Score", "Prognose", "Herzinsuffizienz", "HF">
+			misuse = <"Nicht zur Erfassung der eigentlichen Werte, die innerhalb dieses Archetypens als Variablen für die Berechnung des MAGGIC Scores genutzt werden. Verwenden Sie hierzu die entsprechenden Archetypen.
+
+Nicht für Patienten unter 18 Jahren verwenden.
+
+Mit Vorbehalt für Patienten mit reduzierter Ejektionsfraktion verwenden (noch nicht extern validiert).">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Michaels A, Aurora L, Peterson E, et al. Risk prediction in transition: maggic score performance at discharge and incremental utility of natriuretic peptides. J Card Fail. 2020;26:52–60. doi:10.1016/j.cardfail.2019.11.016
+Sawano M, Shiraishi Y, Kohsaka S, et al. Performance of the maggic heart failure risk score and its modification with the addition of discharge natriuretic peptides. ESC Heart Fail. 2018;5:610–619. doi:10.1002/ehf2.12278
+Rich JD, Burns J, Freed BH, Maurer MS, Burkhoff D, Shah SJ. Meta-analysis global group in chronic (maggic) heart failure risk score: validation of a simple tool for the prediction of morbidity and mortality in heart failure with preserved ejection fraction. J Am Heart Assoc. 2018;7:e009594. doi:10.1161/JAHA.118.009594
+Pocock SJ, Ariti CA, McMurray JJ, et al. Predicting survival in heart failure: A risk score based on 39 372 patients from 30 studies. Eur Heart J. 2013;34:1404–1413. doi:10.1093/eurheartj/ehs337">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"FBFE78895F05599D92B4B0CE6E35EF50">
+		["build_uid"] = <"8f2a53f2-70c5-4959-b90e-4041f95d1b37">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- MAGGIC Risiko Score
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0023] occurrences matches {0..1} matches {    -- Alter
+										value matches {
+											DV_DURATION matches {
+												value matches {|P18Y..P110Y|}
+											}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- BMI
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::349]>
+												list = <
+													["1"] = <
+														units = <"kg/m²">
+														magnitude = <|10.0..50.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Blutdruck - systolisch
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mmHg">
+														magnitude = <|50.0..250.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- NYHA-Klasse
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0007,    -- I
+													at0008,    -- II
+													at0009,    -- III
+													at0010]    -- IV
+												}
+											}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Derzeitiger Raucher
+										value matches {
+											0|[local::at0014],
+											1|[local::at0015]
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {    -- Geschlecht
+										value matches {
+											0|[local::at0020],
+											1|[local::at0021]
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Herzinsuffizienz erstmals diagnostiziert vor mehr als 18 Monaten
+										value matches {
+											0|[local::at0017],
+											1|[local::at0018]
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {    -- Diabetes
+										value matches {
+											0|[local::at0025],
+											1|[local::at0026]
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {    -- COPD
+										value matches {
+											0|[local::at0028],
+											1|[local::at0029]
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {    -- Betablocker
+										value matches {
+											0|[local::at0031],
+											1|[local::at0032]
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {    -- ACEi/ARB
+										value matches {
+											0|[local::at0034],
+											1|[local::at0035]
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- LV-EF
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|1.0..95.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0046] occurrences matches {0..1} matches {    -- Kreatinin
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"μmol/l">
+														magnitude = <|20.0..1400.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0049] occurrences matches {0..1} matches {    -- Gesamtscore
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"1">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0043] occurrences matches {0..1} matches {    -- 1-Jahres-Mortalität
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+									ELEMENT[at0045] occurrences matches {0..1} matches {    -- 3-Jahres-Mortalität
+										value matches {
+											DV_PROPORTION matches {
+												type matches {2}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0044] matches {*}    -- Item tree
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"MAGGIC Risiko Score">
+					description = <"Der Risiko Score der Meta-Analysis Global Group in Chronic Heart Failure (MAGGIC) entstand 2013 und gilt als gutes Instrument zur Vorhersage der Mortalität nach 1 und 3 Jahren für Herzinsuffizienz Patienten.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"BMI">
+					description = <"Body Mass Index.">
+				>
+				["at0005"] = <
+					text = <"Blutdruck - systolisch">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"NYHA-Klasse">
+					description = <"Einteilung in die New York Heart Association (NYHA) Klassifikation.">
+				>
+				["at0007"] = <
+					text = <"I">
+					description = <"Klasse I.">
+				>
+				["at0008"] = <
+					text = <"II">
+					description = <"Klasse II.">
+				>
+				["at0009"] = <
+					text = <"III">
+					description = <"Klasse III.">
+				>
+				["at0010"] = <
+					text = <"IV">
+					description = <"Klasse IV.">
+				>
+				["at0011"] = <
+					text = <"LV-EF">
+					description = <"Linksventrikuläre Ejektionsfraktion.">
+				>
+				["at0013"] = <
+					text = <"Derzeitiger Raucher">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Nein">
+					description = <"Derzeitiger Nichtraucher.">
+				>
+				["at0015"] = <
+					text = <"Ja">
+					description = <"Derzeitiger Raucher.">
+				>
+				["at0016"] = <
+					text = <"Herzinsuffizienz erstmals diagnostiziert vor mehr als 18 Monaten">
+					description = <"Wurde die Herzinsuffizienz erstmals vor mehr als 18 Monaten diagnostiziert?">
+				>
+				["at0017"] = <
+					text = <"Nein">
+					description = <"Herzinsuffizienz erstmals diagnostiziert vor weniger als 18 Monaten.">
+				>
+				["at0018"] = <
+					text = <"Ja">
+					description = <"Herzinsuffizienz erstmals diagnostiziert vor mehr als 18 Monaten.">
+				>
+				["at0019"] = <
+					text = <"Geschlecht">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Weiblich">
+					description = <"Weiblich.">
+				>
+				["at0021"] = <
+					text = <"Männlich">
+					description = <"Männlich.">
+				>
+				["at0023"] = <
+					text = <"Alter">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Diabetes">
+					description = <"Liegt eine Diabeteserkrankung vor?">
+				>
+				["at0025"] = <
+					text = <"Nein">
+					description = <"Kein Diabetes.">
+				>
+				["at0026"] = <
+					text = <"Ja">
+					description = <"Diabetes.">
+				>
+				["at0027"] = <
+					text = <"COPD">
+					description = <"Liegt eine chronisch obstruktive Lungenerkrankung (engl. chronic obstructive pulmonary disease (COPD)) vor?">
+				>
+				["at0028"] = <
+					text = <"Nein">
+					description = <"Kein COPD.">
+				>
+				["at0029"] = <
+					text = <"Ja">
+					description = <"COPD.">
+				>
+				["at0030"] = <
+					text = <"Betablocker">
+					description = <"Derzeitige Einnahme von Betablockern?">
+				>
+				["at0031"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von Betablockern.">
+				>
+				["at0032"] = <
+					text = <"Ja">
+					description = <"Einnahme von Betablockern.">
+				>
+				["at0033"] = <
+					text = <"ACEi/ARB">
+					description = <"Derzeitige Einnahme ACE-Hemmern (ACEi) oder Angiotensin-II-Rezeptor-Blockern (ARB)?">
+				>
+				["at0034"] = <
+					text = <"Nein">
+					description = <"Keine Einnahme von ACEi/ARB.">
+				>
+				["at0035"] = <
+					text = <"Ja">
+					description = <"Einnahme von ACEi/ARB.">
+				>
+				["at0043"] = <
+					text = <"1-Jahres-Mortalität">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach einem Jahr, basierend auf dem MAGGIC Score.">
+				>
+				["at0044"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0045"] = <
+					text = <"3-Jahres-Mortalität">
+					description = <"Vorhergesagtes Mortalitätsrisiko nach 3 Jahren, basierend auf dem MAGGIC Score.">
+				>
+				["at0046"] = <
+					text = <"Kreatinin">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"Gesamtscore">
+					description = <"Summe der Punkte, die jeder zugehörigen Variablen zugeordnet werden.">
+				>
+			>
+		>
+	>
