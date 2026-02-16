@@ -1,0 +1,113 @@
+﻿archetype (adl_version=1.4; uid=b8a080b5-a23b-4700-b12a-f2c8b18e6fb1)
+	openEHR-EHR-OBSERVATION.global_enddiastolischer_volumen_index.v0
+
+concept
+	[at0000]	-- global enddiastolischer volumen index
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"Rony Ventura">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"rony.ventura@uksh.de">
+		["date"] = <"2026-02-13">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Messung des gesamten Blutvolumens in allen vier Herzkammern am Ende der Diastole; es korreliert eng mit dem Dehnungsgrad (Vorlast) des Herzmuskels.">
+			use = <"Zur Messung des GEDVI (Globaler enddiastolischer Volumenindex).">
+			keywords = <"GEDVI", ...>
+			misuse = <"Zur Messung des EDVI (Enddiastolischer Volumenindex).">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"DE18234DF0833C4CBBE0A58699ADD5FC">
+		["build_uid"] = <"86d220c3-1110-4c34-a5d9-800ff09bc9dd">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- global enddiastolischer volumen index
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Value
+										value matches {
+											C_DV_QUANTITY <
+												
+												list = <
+													["1"] = <
+														units = <"mL/m2">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Klinische Interpretation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Description
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"global enddiastolischer volumen index">
+					description = <"global enddiastolischer volumen index">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Value">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Klinische Interpretation">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Description">
+					description = <"">
+				>
+			>
+		>
+	>
