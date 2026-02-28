@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
-    <id>60b64d89-d42e-419c-89cd-a430f4f77eb7</id>
-    <name>Zentraler Venendruck_UKSH</name>
+    <id>401c7ce9-8ec4-4542-96f1-dd52c0bec144</id>
+    <name>Puls_Herzfrequenz</name>
     <description>
         <original_author>
             <item>
                 <key>date</key>
-                <value>2025-08-07</value>
+                <value>2025-10-27</value>
             </item>
             <item>
                 <key>name</key>
@@ -15,18 +15,14 @@
                 <key>organisation</key>
                 <value>Universitätsklinikum Schleswig-Holstein</value>
             </item>
-            <item>
-                <key>email</key>
-                <value>carlottapauline.joehnk@uksh.de</value>
-            </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Zur Darstellung des zentralen Venendrucks einer Person.</purpose>
+            <purpose>Zur Dokumentation der Puls- oder Herzfrequenz.</purpose>
             <keywords>
-                <item>Zentraler Venendruck, zentralvenöser Druck, ZVD, Blutdruck</item>
+                <item>Frequenz, Herzfrequenz, Rhythmus, Herzschlag, Puls, Pulsfrequenz, Pulsschlag, Vitalparameter, Vitalzeichenv</item>
             </keywords>
-            <misuse>Nicht zur Dokumentation von systolischem und diastolischem Blutdruck. Hier sollte stattdessen ein Template verwendet werden, das auf dem Archetypen OBSERVATION.blood_pressure basiert.</misuse>
+            <use>Zur allgemeinen Dokumentation der Puls- oder Herzfrequenz.</use>
         </details>
         <other_details>
             <item>
@@ -51,7 +47,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.1.0</value>
+                <value>0.3.1</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -59,7 +55,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>ee8b127777463feed20b6634b7ad1688</value>
+                <value>e2f52d8cfd13332e203c523512fe781d</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -69,11 +65,30 @@
                 <key>original_language</key>
                 <value>ISO_639-1::de</value>
             </item>
+            <item>
+                <key>original_language</key>
+                <value>ISO_639-1::de</value>
+            </item>
         </other_details>
     </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Zentraler Venendruck_UKSH" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-OBSERVATION.zentraler_venendruck_uksh.v0" max="1" path="/content" xsi:type="tem:OBSERVATION">
-            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]"/>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Puls_Herzfrequenz" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1055]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]"/>
+            <Rule name="Spezifizierung" path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
+            <Rule max="0" path="/data[at0002]/events[at1036]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1037]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
         </Content>
         <Context>
             <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
@@ -89,7 +104,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.zentraler_venendruck_uksh.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">D88F9AD926BC54E7A2C0BB866064E5FB</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BF1B676F47835EC57EA052498DF49042</digest>
     </integrity_checks>
 </template>
