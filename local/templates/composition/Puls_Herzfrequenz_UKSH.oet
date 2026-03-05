@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
-    <id>efdaca44-7267-4dcc-827b-6252c595f0d0</id>
-    <name>Linksventrikulaeres Schlagvolumen</name>
+    <id>401c7ce9-8ec4-4542-96f1-dd52c0bec144</id>
+    <name>Puls_Herzfrequenz_UKSH</name>
     <description>
         <original_author>
             <item>
                 <key>date</key>
-                <value>2025-10-07</value>
+                <value>2025-10-27</value>
             </item>
             <item>
                 <key>name</key>
-                <value>Rony Ventura</value>
+                <value>Carlotta Jöhnk</value>
             </item>
             <item>
                 <key>organisation</key>
                 <value>Universitätsklinikum Schleswig-Holstein</value>
             </item>
-            <item>
-                <key>email</key>
-                <value>rony.ventura@uksh.de</value>
-            </item>
         </original_author>
         <lifecycle_state>unmanaged</lifecycle_state>
         <details>
-            <purpose>Messung der Blutmenge, die der linke Ventrikel während jeder systolischen Kontraktion in die Aorta pumpt.</purpose>
-            <use>Die Messung der Blutmenge, die der linke Ventrikel während jeder systolischen Kontraktion in die Aorta pumpt, aufzeichnen</use>
+            <purpose>Zur Dokumentation der Puls- oder Herzfrequenz.</purpose>
+            <keywords>
+                <item>Frequenz, Herzfrequenz, Rhythmus, Herzschlag, Puls, Pulsfrequenz, Pulsschlag, Vitalparameter, Vitalzeichenv</item>
+            </keywords>
+            <use>Zur allgemeinen Dokumentation der Puls- oder Herzfrequenz.</use>
         </details>
         <other_details>
             <item>
@@ -48,7 +47,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>1.1.1</value>
+                <value>0.4.2</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -56,7 +55,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>1253c4b6c7c575976be895bf9abee0b1</value>
+                <value>b056eb98b0d8ee108311afe525a05526</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -64,7 +63,7 @@
             </item>
             <item>
                 <key>original_language</key>
-                <value>ISO_639-1::en</value>
+                <value>ISO_639-1::de</value>
             </item>
             <item>
                 <key>original_language</key>
@@ -72,8 +71,25 @@
             </item>
         </other_details>
     </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Linksventrikulaeres Schlagvolumen" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-OBSERVATION.stroke_volume.v0" max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Puls_Herzfrequenz_UKSH" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+        <Content archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1055]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]"/>
+            <Rule name="Spezifizierung" path="/data[at0002]/events[at0003]/data[at0001]/items[at1059]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]"/>
+            <Rule max="0" path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]"/>
+            <Rule max="0" path="/data[at0002]/events[at1036]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1019]"/>
+            <Rule max="0" path="/protocol[at0010]/items[at1037]">
+                <constraint xsi:type="tem:multipleConstraint">
+                    <includedTypes>Coded_text</includedTypes>
+                    <includedTypes>Text</includedTypes>
+                </constraint>
+            </Rule>
+        </Content>
         <Context>
             <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
@@ -88,7 +104,7 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.stroke_volume.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">2CE5065F009E675DDAA423D9F9A09880</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulse.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">BF1B676F47835EC57EA052498DF49042</digest>
     </integrity_checks>
 </template>
