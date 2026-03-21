@@ -1,0 +1,132 @@
+﻿archetype (adl_version=1.4; uid=6ea9b3e5-9a81-4cc6-a151-f558e6129820)
+	openEHR-EHR-ADMIN_ENTRY.document_metadata.v0
+
+concept
+	[at0000]	-- Document Metadata
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Rony Ventura">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"rony.ventura@uksh.de">
+		["date"] = <"2026-03-20">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To store document metadata">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"1AC72C2DEF09804D33BD729162F4CA7F">
+		["build_uid"] = <"ada82ac6-cd6e-49bf-9403-3d035e4c2c11">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {    -- Document Metadata
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {    -- Location
+						include
+							archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.location\.v1|openEHR-EHR-CLUSTER\.organization\.v0/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Form
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {    -- MIME type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Binary size
+						value matches {
+							DV_QUANTITY matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Storage directory
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {    -- Storage location
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {    -- Order number
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {    -- Media data
+						include
+							archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.media_file\.v1/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Document Metadata">
+					description = <"Document Metadata">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Location">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Form">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"Binary size">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Storage directory">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Storage location">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Order number">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Media data">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"MIME type">
+					description = <"">
+				>
+			>
+		>
+	>
