@@ -1,0 +1,647 @@
+﻿archetype (adl_version=1.4; uid=ba340136-e45a-42e0-9815-4d54d53e1438)
+	openEHR-EHR-OBSERVATION.tone_audiogram.v0
+
+concept
+	[at0000]	-- tone_audiogram
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Eugen Kludt">
+		["organisation"] = <"Hannover Medical School, Cluster of Excellence Hearing4all">
+		["email"] = <"kludt.eugen@mh-hannover.de">
+		["date"] = <"2026-04-22">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the results of a tone audiometry assessment, i.e. frequency-specific threshold or supra-threshold levels obtained with pure-tone or tone-like stimuli, together with the protocol describing how the stimuli were presented and calibrated.">
+			use = <"Use to record frequency-specific threshold or supra-threshold levels obtained with pure-tone or tone-like stimuli, presented via air conduction, bone conduction, sound field or direct device stimulation. Results may be unaided or aided.">
+			keywords = <"tone audiometry, audiogram, hearing threshold, air conduction, bone conduction, masking, audiology, hearing", ...>
+			misuse = <"Not to be used to record any other auditory assessment than tone audiometry. Use the specific archetypes for these purposes.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Lena Schell-Majoor, University of Oldenburg and Cluster of Excellence Hearing4all, Germany", "Mareike Buhl, University of Oldenburg and Cluster of Excellence Hearing4all, Germany", "Daniel Berg, University of Oldenburg and Cluster of Excellence Hearing4all, Germany">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"EFCD0BFC5A8F72CD176B00CE8A20EBE7">
+		["build_uid"] = <"f1f0e07e-348b-4674-bfd6-8df10d2f86b0">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- tone_audiogram
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0004] occurrences matches {0..1} matches {    -- Measurement
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] matches {    -- Frequency of test stimulus
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::382]>
+														list = <
+															["1"] = <
+																units = <"Hz">
+																magnitude = <|125.0..16000.0|>
+																precision = <|0|>
+															>
+															["2"] = <
+																units = <"kHz">
+																magnitude = <|0.125..16.0|>
+																precision = <|3|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0006] matches {    -- Stimulus level
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::123]>
+														list = <
+															["1"] = <
+																units = <"dB">
+																magnitude = <|-10.0..120.0|>
+																precision = <|0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0007] matches {    -- Response
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0008,    -- Perception
+															at0009,    -- No perception
+															at0010,    -- Unsure perception
+															at0011,    -- Non-auditory perception
+															at0012]    -- Contralateral perception
+														}
+													}
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {    -- Masking Level
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::123]>
+														list = <
+															["1"] = <
+																units = <"dB">
+																magnitude = <|-10.0..120.0|>
+																precision = <|0|>
+															>
+														>
+													>
+												}
+											}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {    -- Overall comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- No test result
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {true}
+											}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Reason for no test result
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0066] matches {    -- Item tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0067] occurrences matches {0..*} matches {    -- Hearing device during test
+										items cardinality matches {1..*; unordered} matches {
+											allow_archetype CLUSTER[at0068] matches {    -- Hearing device
+												include
+													archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+											}
+											ELEMENT[at0069] matches {    -- Side of hearing device
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0070,    -- Left
+															at0071]    -- Right
+														}
+													}
+												}
+											}
+											ELEMENT[at0072] occurrences matches {0..1} matches {    -- Comment
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0073] occurrences matches {0..1} matches {    -- Confounding factors
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0017] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0018] occurrences matches {0..1} matches {    -- Modality
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0019,    -- air conduction
+									at0020,    -- bone conduction
+									at0021,    -- freefield / sound field
+									at0022,    -- device stimulation
+									at0023]    -- other
+								}
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {    -- Tested side
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0025,    -- Left ear
+									at0026,    -- Right ear
+									at0027]    -- Binaural
+								}
+							}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {    -- Perceptual target level
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0029,    -- Hearing threshold
+									at0030,    -- Most comfortable loudness level (MCL)
+									at0031]    -- Uncomfortable loudness level (UCL)
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0032] occurrences matches {0..1} matches {    -- Signal Sources
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0033] occurrences matches {0..1} matches {    -- Presentation method
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0034,    -- Headphone
+											at0035,    -- Insert earphone
+											at0036,    -- Loudspeaker
+											at0037,    -- Direct streaming to sound processor
+											at0038]    -- Bone conduction transducer
+										}
+									}
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0039] occurrences matches {0..1} matches {    -- Presentation method details
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+							}
+							ELEMENT[at0040] occurrences matches {0..1} matches {    -- Type of test stimulus
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0041,    -- Tone burst
+											at0042,    -- Click
+											at0043,    -- Warble tone
+											at0044,    -- Pure tone
+											at0045,    -- Narrowband noise
+											at0046,    -- Pulsed pure tone
+											at0047,    -- Broadband noise
+											at0048]    -- Natural sound
+										}
+									}
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0049] occurrences matches {0..1} matches {    -- Name of test stimulus
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0050] occurrences matches {0..1} matches {    -- Comment
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0051] occurrences matches {0..1} matches {    -- Position
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0052,    -- Left ear
+											at0053,    -- Right ear
+											at0054]    -- Forehead
+										}
+									}
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0055] occurrences matches {0..1} matches {    -- Calibration reference dB
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0056,    -- dB SPL
+									at0057,    -- dB HL
+									at0058]    -- dB nHL
+								}
+							}
+						}
+					}
+					ELEMENT[at0059] occurrences matches {0..1} matches {    -- Test environment
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0060,    -- Sound treated room
+									at0061,    -- Non-sound treated room
+									at0062]    -- Free-field
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0063] occurrences matches {0..1} matches {    -- Test environment details
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+					}
+					allow_archetype CLUSTER[at0064] occurrences matches {0..1} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0065] occurrences matches {0..1} matches {    -- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"tone_audiogram">
+					description = <"The recording of hearing threshold levels for tone stimuli of varying frequencies, typically measured using manual or automated audiometry.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Measurement">
+					description = <"A single tone-audiometric measurement at one test frequency under one masking condition, comprising the stimulus level, the subject's response and, if applicable, the contralateral masking level.">
+					comment = <"All Measurement clusters of one run (same tested side, modality, perceptual target level and signal source) are recorded together in the same data point. Repeat the cluster once per (frequency × masking condition); at most two entries per frequency are expected (one unmasked and one masked)">
+				>
+				["at0005"] = <
+					text = <"Frequency of test stimulus">
+					description = <"The stimulus frequency tested.">
+				>
+				["at0006"] = <
+					text = <"Stimulus level">
+					description = <"The stimulus intensity at threshold for the test frequency.">
+				>
+				["at0007"] = <
+					text = <"Response">
+					description = <"Subject's response to the presented stimulus.">
+				>
+				["at0008"] = <
+					text = <"Perception">
+					description = <"Perceptual target level was reached.">
+				>
+				["at0009"] = <
+					text = <"No perception">
+					description = <"Maximum level presented without obtaining a threshold">
+				>
+				["at0010"] = <
+					text = <"Unsure perception">
+					description = <"Stimunus perception was not reproducable">
+				>
+				["at0011"] = <
+					text = <"Non-auditory perception">
+					description = <"E.g., vibration">
+				>
+				["at0012"] = <
+					text = <"Contralateral perception">
+					description = <"Stimulus is perceived on the non-tested side">
+				>
+				["at0013"] = <
+					text = <"Masking Level">
+					description = <"Level of the masking noise presented to the contralateral (non-test) ear.">
+				>
+				["at0014"] = <
+					text = <"Overall comment">
+					description = <"Additional narrative about the measurement of tone audiometry not captured in other fields.">
+					comment = <"For example: if measurement was not completed or maximum level was reached.">
+				>
+				["at0015"] = <
+					text = <"No test result">
+					description = <"No test result is available.">
+					comment = <"Record as True if no result is available.">
+				>
+				["at0016"] = <
+					text = <"Reason for no test result">
+					description = <"Reason why no result is available.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: patient was not cooperative; patient was not capable; ran out of time; maximum level reached.">
+				>
+				["at0017"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0018"] = <
+					text = <"Modality">
+					description = <"Transmission path by which the test stimulus reaches the auditory system. Determines how the measured threshold is interpreted (e.g. air-conduction thresholds reflect the entire auditory pathway, bone-conduction thresholds bypass the outer and middle ear).">
+					comment = <"Choose one modality per Measurement run. Typical clinical use:
+Air conduction — supra-aural / circumaural headphones or insert earphones; standard for detecting overall hearing loss.
+Bone conduction — bone vibrator on mastoid or forehead; used together with air conduction to separate conductive from sensorineural components.
+Free-field / sound field — loudspeaker presentation; used for unaided sound-field thresholds and for aided measurements with hearing aids or cochlear implants in situ.
+Device stimulation — stimulus delivered directly through the hearing device (e.g. direct audio input, streaming, or implant telemetry); used for device-specific threshold assessment.
+Other — any modality not covered above; specify in the protocol Comment.">
+				>
+				["at0019"] = <
+					text = <"air conduction">
+					description = <"Sound delivered via earphones or insert phones">
+				>
+				["at0020"] = <
+					text = <"bone conduction">
+					description = <"Sound delivered via a bone conduction transducer">
+				>
+				["at0021"] = <
+					text = <"freefield / sound field">
+					description = <"Sound presented through loudspears (sound field is alternative to be discussed in review)">
+				>
+				["at0022"] = <
+					text = <"device stimulation">
+					description = <"Sound presented directly through hearing device">
+				>
+				["at0023"] = <
+					text = <"other">
+					description = <"Other modality not covered by the predefined codes.">
+				>
+				["at0024"] = <
+					text = <"Tested side">
+					description = <"Identification of the tested ear(s)">
+				>
+				["at0025"] = <
+					text = <"Left ear">
+					description = <"The test stimuli were presented to the left ear.">
+				>
+				["at0026"] = <
+					text = <"Right ear">
+					description = <"The test stimuli were presented to the right ear.">
+				>
+				["at0027"] = <
+					text = <"Binaural">
+					description = <"The test stimuli were presented to both ears simultaneously.">
+				>
+				["at0028"] = <
+					text = <"Perceptual target level">
+					description = <"The intended perceptual target of the acoustic stimulus.">
+					comment = <"Use to distinguish whether the measurement targets hearing threshold (HTL), most comfortable level (MCL), or uncomfortable level (UCL/LDL). This describes the intent of the stimulus presentation, not the subject's loudness rating or loudness-scaling outcome">
+				>
+				["at0029"] = <
+					text = <"Hearing threshold">
+					description = <"The lowest stimulus level at which the tone is detected.">
+				>
+				["at0030"] = <
+					text = <"Most comfortable loudness level (MCL)">
+					description = <"The stimulus level judged as most comfortable for sustained listening.">
+				>
+				["at0031"] = <
+					text = <"Uncomfortable loudness level (UCL)">
+					description = <"The stimulus level judged as uncomfortably loud.">
+				>
+				["at0032"] = <
+					text = <"Signal Sources">
+					description = <"Stimulus properties (e.g., test or masking stimulus). ">
+					comment = <"If masked threshold is measured, this cluster occures twice in template for stimulus and masker.">
+				>
+				["at0033"] = <
+					text = <"Presentation method">
+					description = <"The method used to present the test stimulus.">
+				>
+				["at0034"] = <
+					text = <"Headphone">
+					description = <"The stimulus is presented via external headphones - either circumaural or supraaural.">
+				>
+				["at0035"] = <
+					text = <"Insert earphone">
+					description = <"The stimulus is presented via insert earphones.">
+				>
+				["at0036"] = <
+					text = <"Loudspeaker">
+					description = <"The stimulus is presented via a loudspeaker located at least one metre away from the subject.">
+				>
+				["at0037"] = <
+					text = <"Direct streaming to sound processor">
+					description = <"The stimulus is directly streamed to the sound processor of a hearing device.">
+				>
+				["at0038"] = <
+					text = <"Bone conduction transducer">
+					description = <"The stimulus is presented via bone conducter transducer">
+				>
+				["at0039"] = <
+					text = <"Presentation method details">
+					description = <"Details of device used to present test stimulus as specified in 'Presentation method'.">
+					comment = <"For example: type of headphone or speaker.">
+				>
+				["at0040"] = <
+					text = <"Type of test stimulus">
+					description = <"Identification of the stimulus used in the tone audiometry procedure..">
+					comment = <"If the type of stimulus is broadband, use 'Name of test stimulus' for further specification.
+If the type of noise is a tone or a narrowband noise, use 'Frequency of test stimulus' for further specification.">
+				>
+				["at0041"] = <
+					text = <"Tone burst">
+					description = <"The test stimulus is a tone burst.">
+				>
+				["at0042"] = <
+					text = <"Click">
+					description = <"The test stimulus is a click.">
+				>
+				["at0043"] = <
+					text = <"Warble tone">
+					description = <"The test stimulus is a frequency modulated tone.">
+				>
+				["at0044"] = <
+					text = <"Pure tone">
+					description = <"The test stimulus is a pure tone.">
+				>
+				["at0045"] = <
+					text = <"Narrowband noise">
+					description = <"The test stimulus is a narrow band noise centred on the specified frequency.">
+				>
+				["at0046"] = <
+					text = <"Pulsed pure tone">
+					description = <"The test stimulus is a pulsed pure tone.">
+				>
+				["at0047"] = <
+					text = <"Broadband noise">
+					description = <"The test stimulus is a broad band noise.">
+				>
+				["at0048"] = <
+					text = <"Natural sound">
+					description = <"The test stimulus is a natural/recorded sound.">
+				>
+				["at0049"] = <
+					text = <"Name of test stimulus">
+					description = <"Further specification of test stimulus if applicable.">
+					comment = <"Provides name of test stimulus, if it has an established name or description of natural sound. For example: IFNoise, Icra1 or, for natural sounds, birds.">
+				>
+				["at0050"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the test results and intepretation not captured in other fields.">
+				>
+				["at0051"] = <
+					text = <"Position">
+					description = <"Spatial position of the transducer / signal source relative to the subject.">
+					comment = <"For bone conduction, position is typically 'Left ear', 'Right ear' or 'Forehead'.">
+				>
+				["at0052"] = <
+					text = <"Left ear">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Right ear">
+					description = <"">
+				>
+				["at0054"] = <
+					text = <"Forehead">
+					description = <"Boneconduction transducer placed on forehear">
+				>
+				["at0055"] = <
+					text = <"Calibration reference dB">
+					description = <"Scale used for acoustic calibration of the test signal.">
+				>
+				["at0056"] = <
+					text = <"dB SPL">
+					description = <"The test stimuli are calibrated using the sound pressure level scale.">
+				>
+				["at0057"] = <
+					text = <"dB HL">
+					description = <"The test stimuli are calibrated using the hearing level scale.">
+				>
+				["at0058"] = <
+					text = <"dB nHL">
+					description = <"The test stimuli are calibrated using the normal hearing level scale.">
+				>
+				["at0059"] = <
+					text = <"Test environment">
+					description = <"The environment in which the audiometric test is administered.">
+					comment = <"This data element is commonly used in industry hearing programs.">
+				>
+				["at0060"] = <
+					text = <"Sound treated room">
+					description = <"Test environment that has been treated acoustically.">
+				>
+				["at0061"] = <
+					text = <"Non-sound treated room">
+					description = <"Test environment that has not been treated acoustically.">
+				>
+				["at0062"] = <
+					text = <"Free-field">
+					description = <"Room with free-field characteristics.">
+				>
+				["at0063"] = <
+					text = <"Test environment details">
+					description = <"Additional details of 'Test environment'.">
+					comment = <"For example: specific audiometric booth or a free text description of the room's sound treatment.">
+				>
+				["at0064"] = <
+					text = <"Extension">
+					description = <"Additional information required to extend the model with local content or to align with other reference models or formalisms.">
+					comment = <"For example: local information requirements; or additional metadata to align with FHIR.">
+				>
+				["at0065"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the protocol for the audiogram not captured in other fields.">
+					comment = <"For example, the co-operation of the test subject or description of the method used for testing.">
+				>
+				["at0066"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0067"] = <
+					text = <"Hearing device during test">
+					description = <"Information about hearing device use during tone audiometry test.">
+				>
+				["at0068"] = <
+					text = <"Hearing device">
+					description = <"Details of the hearing device used.">
+					comment = <"For example: hearing aid or cochlear implant as type of device.">
+				>
+				["at0069"] = <
+					text = <"Side of hearing device">
+					description = <"Identification of the side where the hearing device is worn during the test.">
+				>
+				["at0070"] = <
+					text = <"Left">
+					description = <"The hearing device is worn at the left side.">
+				>
+				["at0071"] = <
+					text = <"Right">
+					description = <"The hearing device is worn at the right side.">
+				>
+				["at0072"] = <
+					text = <"Comment">
+					description = <"Additional information about the hearing device that is not captured in \"Hearing device\" or \"Side of hearing device\".">
+					comment = <"For example: information about hearing device settings.">
+				>
+				["at0073"] = <
+					text = <"Confounding factors">
+					description = <"Additional issues or factors that may impact tone audiometry test, not captured in other fields.">
+					comment = <"For example: medication or noise exposure prior to test.">
+				>
+			>
+		>
+	>
