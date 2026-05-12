@@ -1,37 +1,23 @@
-﻿archetype (adl_version=1.4; uid=a39e3942-ed44-4d44-810c-c55f42c7b6aa)
-	openEHR-EHR-OBSERVATION.cardiacindex.v0
+﻿archetype (adl_version=1.4; uid=675e18f8-50a3-4246-94b0-62524ace1b9c)
+	openEHR-EHR-OBSERVATION.cardiac_output.v0
 
 concept
-	[at0000]	-- cardiacindex
+	[at0000]	-- cardiac output
 language
 	original_language = <[ISO_639-1::en]>
-	translations = <
-		["de"] = <
-			language = <[ISO_639-1::de]>
-			author = <
-			>
-		>
-	>
 description
 	original_author = <
 		["name"] = <"Rony Ventura">
 		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
 		["email"] = <"rony.ventura@uksh.de">
-		["date"] = <"2025-10-07">
+		["date"] = <"2026-05-11">
 	>
 	details = <
-		["de"] = <
-			language = <[ISO_639-1::de]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"© openEHR Foundation">
-		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"">
+			purpose = <"To record cardiac output ">
 			use = <"">
-			misuse = <"">
+			misuse = <"Not to capture cardiac index, stroke volume, or ejection fraction">
 			copyright = <"© HiGHmed">
 		>
 	>
@@ -43,13 +29,13 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"B5B016B6FADE37346A28B30676AE775C">
-		["build_uid"] = <"ec37925e-4fab-40eb-8e5c-8b880703c39a">
+		["MD5-CAM-1.0.1"] = <"7B89B3840586AF678836DFC739E24490">
+		["build_uid"] = <"1258fa11-d81d-43b1-8d60-37d0788a86fd">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {    -- cardiacindex
+	OBSERVATION[at0000] matches {    -- cardiac output
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
@@ -57,13 +43,13 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Value
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Value
 										value matches {
 											C_DV_QUANTITY <
-												
+												property = <[openehr::126]>
 												list = <
 													["1"] = <
-														units = <"L/min/m2">
+														units = <"l/m">
 													>
 												>
 											>
@@ -76,6 +62,9 @@ definition
 				}
 			}
 		}
+		protocol matches {
+			ITEM_TREE[at0004] matches {*}    -- Item tree
+		}
 	}
 
 
@@ -84,8 +73,8 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"cardiacindex">
-					description = <"cardiacindex">
+					text = <"cardiac output">
+					description = <"Defined as the volume of blood pumped by the heart per minute. It is typically derived from heart rate and stroke volume, or measured directly using hemodynamic monitoring techniques.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -100,31 +89,11 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
 					text = <"Value">
-					description = <"">
-				>
-			>
-		>
-		["de"] = <
-			items = <
-				["at0000"] = <
-					text = <"Herzindex">
-					description = <"Herzindex">
-				>
-				["at0001"] = <
-					text = <"History">
-					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Any event">
-					description = <"@ internal @">
-				>
-				["at0003"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0004"] = <
-					text = <"Wert">
 					description = <"">
 				>
 			>
