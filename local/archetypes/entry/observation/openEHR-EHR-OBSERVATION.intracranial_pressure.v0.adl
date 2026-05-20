@@ -1,0 +1,136 @@
+﻿archetype (adl_version=1.4; uid=a7093f7b-144c-4852-86cc-e406f9279dfa)
+	openEHR-EHR-OBSERVATION.intracranial_pressure.v0
+
+concept
+	[at0000]	-- Intracranial pressure
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Rony Ventura">
+				["organisation"] = <"UKSH">
+				["email"] = <"rony.ventura@uksh.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Rony Ventura">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"rony.ventura@uksh.de">
+		["date"] = <"2026-05-20">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Der intrakranielle Druck (ICP) spiegelt den Druck innerhalb des Schädels sowie das Gleichgewicht zwischen Hirngewebe, Liquor (Gehirn-Rückenmarks-Flüssigkeit) und intrakraniellem Blutvolumen wider. Er wird klinisch eingesetzt, um Hirnverletzungen zu überwachen und zu verhindern, indem das Risiko einer verminderten zerebralen Perfusion und einer Herniation beurteilt wird.">
+			use = <"Aufzeichnung von Druckmessungen innerhalb der Schädelhöhle (intrakranieller Raum), typischerweise mittels invasiver Neuromonitoring-Verfahren (z. B. Ventrikelkatheter oder intraparenchymale Sonde), insbesondere im intensivmedizinischen oder neurochirurgischen Setting.">
+			keywords = <"ICP ,intrakranieller Druck", ...>
+			misuse = <"bei der die Messung nicht tatsächlich dem intrakraniellen Druck entspricht, beispielsweise bei Verwendung für allgemeinen Blutdruck, nicht-intrakranielle Gefäßdrücke oder geschätzte bzw. nicht-invasive Surrogatwerte, die keine echten ICP-Messungen aus geeigneten intrakraniellen Überwachungsgeräten darstellen. IBP, NIBP oder intrakranielle Temperatur dürfen nicht erfasst werden.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Intracranial pressure (ICP) reflects the pressure inside the skull and the balance between brain tissue, cerebrospinal fluid, and intracranial blood volume. It is used clinically to monitor and prevent brain injury by assessing risk of reduced cerebral perfusion and herniation.">
+			use = <"recording measurements of pressure within the cranial cavity (intracranial space), typically obtained via invasive neuromonitoring devices (e.g., intraventricular catheter or intraparenchymal probe), especially in critical care or neurosurgical settings)">
+			keywords = <"icp, Intracranial pressure", ...>
+			misuse = <"where the measurement is not actually intracranial pressure, such as using it for general blood pressure, non-intracranial vascular pressures, or estimated/non-invasive surrogate values that are not true ICP measurements from appropriate intracranial monitoring devices.Do not record IBP, NIBP, or intracranial temperature.">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"B1C80B91679DA7FB9E3CD8602174BE14">
+		["build_uid"] = <"0b6d5864-7912-4eb6-adbc-c6e376abd222">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Intracranial pressure
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Value
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intracranial pressure">
+					description = <"Intracranial pressure">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Value">
+					description = <"">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intrakranieller Druck">
+					description = <"Intrakranieller Druck">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Wert">
+					description = <"">
+				>
+			>
+		>
+	>
