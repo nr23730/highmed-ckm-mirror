@@ -51,7 +51,7 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>2.0.3</value>
+                <value>5.0.0</value>
             </item>
             <item>
                 <key>build_uid</key>
@@ -59,7 +59,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>2111f1cab74d8f9eff6190940099c0c4</value>
+                <value>79c7a8b202d255ed9cb68e762c2c4915</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -76,7 +76,40 @@
         </other_details>
     </description>
     <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Pulmonalarterieller_wedge_Blutdruck_UKSH" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
-        <Content archetype_id="openEHR-EHR-OBSERVATION.pulmonary_capillary_wedge_pressure.v0" max="1" path="/content" xsi:type="tem:OBSERVATION"/>
+        <Content archetype_id="openEHR-EHR-OBSERVATION.intravascular_pressure.v0" max="1" path="/content" xsi:type="tem:OBSERVATION">
+            <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+                <constraint xsi:type="tem:quantityConstraint">
+                    <includedUnits>mm[Hg]</includedUnits>
+                </constraint>
+            </Rule>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0042]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0035]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0038]/items[at0039]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0038]/items[at0040]"/>
+            <Rule max="0" path="/data[at0001]/events[at0002]/state[at0038]/items[at0007]"/>
+            <Rule max="0" path="/data[at0001]/events[at0004]"/>
+            <Rule name="Tree" path="/data[at0001]/events[at0004]/data[at0003]"/>
+            <Rule name="Tree" path="/data[at0001]/events[at0004]/state[at0038]"/>
+            <Rule max="0" path="/protocol[at0021]/items[at0044]"/>
+            <Rule max="0" path="/protocol[at0021]/items[at0043]"/>
+            <Items archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" max="1" path="/protocol[at0021]/items[at0036]" xsi:type="tem:CLUSTER">
+                <Rule max="0" path="/items[at0065]"/>
+                <Rule max="0" path="/items[at0002]"/>
+                <Rule max="0" path="/items[at0064]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0055]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/items[at0023]"/>
+            </Items>
+        </Content>
         <Context>
             <Items archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" max="1" path="/context/other_context[at0001]/items[at0006]" xsi:type="tem:CLUSTER">
                 <Rule max="0" path="/items[at0002]"/>
@@ -91,7 +124,10 @@
     <integrity_checks archetype_id="openEHR-EHR-CLUSTER.case_identification.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">D94F932D76D2D0389D242063ED336124</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.pulmonary_capillary_wedge_pressure.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
-        <digest id="MD5-CAM-1.0.1">9AD17ACDEB3E3D50C69E8E30C12A975E</digest>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.intravascular_pressure.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">B556D6ECD8B7D193B33E149D32470886</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">235D9CDE069C2AEF58B46A00190C05F8</digest>
     </integrity_checks>
 </template>
