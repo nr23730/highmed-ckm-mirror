@@ -45,7 +45,7 @@
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>8cba6c1f65b5d2d44df3e950d4858f43</value>
+                <value>30b2ca337e2580b3f87c3bfa86c243c1</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -98,9 +98,9 @@
                 <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0014]"/>
                 <Rule max="0" path="/data[at0001]/events[at0002]/state[at0013]/items[at0019]"/>
                 <Rule max="0" path="/data[at0001]/events[at0021]"/>
-                <Rule clone="true" name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
+                <Rule name="Simple" path="/data[at0001]/events[at0021]/data[at0003]"/>
                 <Rule max="0" path="/data[at0001]/events[at0021]/data[at0003]/items[at0018]"/>
-                <Rule clone="true" name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
+                <Rule name="Tree" path="/data[at0001]/events[at0021]/state[at0013]"/>
                 <Rule max="0" path="/data[at0001]/events[at0021]/state[at0013]/items[at0014]"/>
                 <Rule max="0" path="/data[at0001]/events[at0021]/state[at0013]/items[at0019]"/>
             </Item>
@@ -108,8 +108,8 @@
                 <Rule max="1" path="/data[at0002]/events[at0003]"/>
                 <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
                     <constraint xsi:type="tem:quantityConstraint">
-                        <excludedUnits>g</excludedUnits>
                         <excludedUnits>[lb_av]</excludedUnits>
+                        <excludedUnits>g</excludedUnits>
                         <unitMagnitude>
                             <unit>kg</unit>
                             <maxMagnitude>1000.0</maxMagnitude>
@@ -123,8 +123,8 @@
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]"/>
                 <Rule max="0" path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]"/>
                 <Rule max="0" path="/data[at0002]/events[at0026]"/>
-                <Rule clone="true" name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
-                <Rule clone="true" name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
+                <Rule name="Simple" path="/data[at0002]/events[at0026]/data[at0001]"/>
+                <Rule name="State structure" path="/data[at0002]/events[at0026]/state[at0008]"/>
             </Item>
             <Item archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v2" max="1" path="/items" xsi:type="tem:OBSERVATION">
                 <Rule max="1" path="/data[at0001]/events[at0002]"/>
@@ -259,16 +259,357 @@
                 <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
             </Item>
         </Content>
+        <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Medikation (Primärdiagnose)" path="/content" xsi:type="tem:SECTION">
+            <Item archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1" concept_name="Fragebogen zum Medikamenten-Screening" max="1" name="Biologika-Screening" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]"/>
+                <Rule max="1" name="Werden derzeit zur Behandlung der Lungenkrankheit Biologika eingenommen?" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
+                <Rule name="Andere" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Andere']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Andere']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Andere']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule name="Andere" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Andere']/items[at0025]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::74964007::Other (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="Omalizumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Omalizumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::406443008::Omalizumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Omalizumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Omalizumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Omalizumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Omalizumab']/items[at0025]"/>
+                <Rule clone="true" name="Mepolizumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Mepolizumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::716046009::Mepolizumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Mepolizumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Mepolizumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Mepolizumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Mepolizumab']/items[at0025]"/>
+                <Rule clone="true" name="Reslizumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Reslizumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::717178009::Reslizumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Reslizumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Reslizumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Reslizumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Reslizumab']/items[at0025]"/>
+                <Rule clone="true" name="Benralizumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Benralizumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::763651005::Benralizumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Benralizumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Benralizumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Benralizumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Benralizumab']/items[at0025]"/>
+                <Rule clone="true" name="Dupilumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Dupilumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::733487000::Dupilumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Dupilumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Dupilumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Dupilumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Dupilumab']/items[at0025]"/>
+                <Rule clone="true" name="Tezepelumab" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Tezepelumab']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::1331983003::Tezepelumab (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Tezepelumab']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Tezepelumab']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Tezepelumab']/items[at0002]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Duration</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Interval</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Tezepelumab']/items[at0025]"/>
+            </Item>
+            <Item archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1" concept_name="Fragebogen zum Medikamenten-Screening" max="1" name="Screening inhalativer Medikamente" path="/items" xsi:type="tem:OBSERVATION">
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0040]"/>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0027]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                        <includedTypes>Boolean</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0043]"/>
+                <Rule name="Cortison" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::32498003::Cortisone (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::255238004::Continuous (qualifier value)</includedValues>
+                        <includedValues>http://snomed.info/sct::1581000175100::Continuous as needed (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0025]"/>
+                <Rule clone="true" name="Beta-2-Sympathomimetika" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Beta-2-Sympathomimetika']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::372884008::Sympathomimetic agent (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Beta-2-Sympathomimetika']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Beta-2-Sympathomimetika']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Beta-2-Sympathomimetika']/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::255238004::Continuous (qualifier value)</includedValues>
+                        <includedValues>http://snomed.info/sct::1581000175100::Continuous as needed (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Wirkdauer" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Beta-2-Sympathomimetika']/items[at0025]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::260402009::Short duration (qualifier value)</includedValues>
+                        <includedValues>http://snomed.info/sct::260384008::Long duration (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule clone="true" name="Anticholinergika" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026]"/>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Anticholinergika']/items[at0021]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::373246003::Substance with acetylcholine receptor antagonist mechanism of action (substance)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Anticholinergika']/items[at0024]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Coded_text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule max="0" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Anticholinergika']/items[at0003]">
+                    <constraint xsi:type="tem:multipleConstraint">
+                        <includedTypes>Date_Time</includedTypes>
+                        <includedTypes>Text</includedTypes>
+                    </constraint>
+                </Rule>
+                <Rule path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Anticholinergika']/items[at0002]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::255238004::Continuous (qualifier value)</includedValues>
+                        <includedValues>http://snomed.info/sct::1581000175100::Continuous as needed (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Rule name="Wirkdauer" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Anticholinergika']/items[at0025]">
+                    <constraint xsi:type="tem:textConstraint">
+                        <includedValues>http://snomed.info/sct::260402009::Short duration (qualifier value)</includedValues>
+                        <includedValues>http://snomed.info/sct::260384008::Long duration (qualifier value)</includedValues>
+                    </constraint>
+                </Rule>
+                <Items archetype_id="openEHR-EHR-CLUSTER.dosage.v2" max="1" path="/data[at0022]/events[at0023]/data[at0001]/items[at0026, 'Cortison']/items[at0041]" xsi:type="tem:CLUSTER">
+                    <Rule max="0" path="/items[at0164]">
+                        <constraint xsi:type="tem:countConstraint">
+                            <minMagnitude>1</minMagnitude>
+                            <includesMaximum>false</includesMaximum>
+                            <includesMinimum>true</includesMinimum>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0144]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Quantity</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0135]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Text</includedTypes>
+                            <includedTypes>Quantity</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0178]"/>
+                    <Rule path="/items[at0134]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <includedValues>niedrige Dosis</includedValues>
+                            <includedValues>mittlere Dosis</includedValues>
+                            <includedValues>hohe Dosis</includedValues>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0102]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Duration</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
+                    <Rule max="0" path="/items[at0176]">
+                        <constraint xsi:type="tem:multipleConstraint">
+                            <includedTypes>Quantity</includedTypes>
+                            <includedTypes>Interval</includedTypes>
+                        </constraint>
+                    </Rule>
+                </Items>
+            </Item>
+        </Content>
         <Content archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Pneumologische Risikofaktoren" path="/content" xsi:type="tem:SECTION">
             <Item archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Ad hoc Überschrift" max="1" name="Rauchverhalten" path="/items" xsi:type="tem:SECTION">
                 <Item archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" max="1" path="/items" xsi:type="tem:EVALUATION">
                     <Rule max="0" path="/data[at0001]/items[at0043]"/>
                     <Rule max="0" path="/data[at0001]/items[at0015]"/>
-                    <Rule max="0" path="/data[at0001]/items[at0080]"/>
-                    <Rule max="0" path="/data[at0001]/items[at0029]"/>
+                    <Rule path="/data[at0001]/items[at0029]/items[at0095]">
+                        <constraint xsi:type="tem:textConstraint">
+                            <excludedValues>local::at0055</excludedValues>
+                            <excludedValues>local::at0056</excludedValues>
+                            <excludedValues>local::at0066</excludedValues>
+                            <excludedValues>local::at0057</excludedValues>
+                            <excludedValues>local::at0062</excludedValues>
+                            <excludedValues>local::at0078</excludedValues>
+                            <excludedValues>local::at0088</excludedValues>
+                        </constraint>
+                    </Rule>
                     <Rule max="0" path="/data[at0001]/items[at0029]/items[at0052]"/>
                     <Rule max="0" path="/data[at0001]/items[at0029]/items[at0053]"/>
-                    <Rule max="0" path="/data[at0001]/items[at0029]/items[at0064]"/>
                     <Rule max="0" path="/data[at0001]/items[at0029]/items[at0064]/items[at0081]">
                         <constraint xsi:type="tem:multipleConstraint">
                             <includedTypes>Count</includedTypes>
@@ -283,14 +624,9 @@
                             <includedTypes>Text</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/data[at0001]/items[at0029]/items[at0064]/items[at0023]">
+                    <Rule name="Zigaretten pro Tag" path="/data[at0001]/items[at0029]/items[at0064]/items[at0023]">
                         <constraint xsi:type="tem:quantityConstraint">
-                            <unitMagnitude>
-                                <unit>1/wk</unit>
-                                <minMagnitude>0.0</minMagnitude>
-                                <includesMaximum>false</includesMaximum>
-                                <includesMinimum>true</includesMinimum>
-                            </unitMagnitude>
+                            <excludedUnits>1/wk</excludedUnits>
                             <unitMagnitude>
                                 <unit>1/d</unit>
                                 <minMagnitude>0.0</minMagnitude>
@@ -302,7 +638,7 @@
                     <Rule max="0" path="/data[at0001]/items[at0029]/items[at0064]/items[at0065]">
                         <constraint xsi:type="tem:quantityConstraint">
                             <unitMagnitude>
-                                <unit>[oz_av]/wk</unit>
+                                <unit>g/d</unit>
                                 <minMagnitude>0.0</minMagnitude>
                                 <includesMaximum>false</includesMaximum>
                                 <includesMinimum>true</includesMinimum>
@@ -320,7 +656,7 @@
                                 <includesMinimum>true</includesMinimum>
                             </unitMagnitude>
                             <unitMagnitude>
-                                <unit>g/d</unit>
+                                <unit>[oz_av]/wk</unit>
                                 <minMagnitude>0.0</minMagnitude>
                                 <includesMaximum>false</includesMaximum>
                                 <includesMinimum>true</includesMinimum>
@@ -362,7 +698,7 @@
                             <includesMinimum>true</includesMinimum>
                         </constraint>
                     </Rule>
-                    <Rule name="Packungsjahre" path="/data[at0001]/items[at0074]">
+                    <Rule max="0" name="Packungsjahre" path="/data[at0001]/items[at0074]">
                         <constraint xsi:type="tem:countConstraint">
                             <minMagnitude>0</minMagnitude>
                             <includesMaximum>false</includesMaximum>
@@ -384,7 +720,11 @@
                     <Rule max="0" path="/protocol[at0021]/items[at0022]"/>
                 </Item>
                 <Item archetype_id="openEHR-EHR-OBSERVATION.exposure_screening.v1" concept_name="Screening-Fragebogen zur Exposition" max="1" name="Rauchverhalten im Haushalt" path="/items" xsi:type="tem:OBSERVATION">
-                    <Rule max="1" name="Point in time" path="/data[at0001]/events[at0002]"/>
+                    <Rule max="1" name="Point in time" path="/data[at0001]/events[at0002]">
+                        <eventConstraint>
+                            <allowedType>PointInTime</allowedType>
+                        </eventConstraint>
+                    </Rule>
                     <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]"/>
                     <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0020]">
                         <constraint xsi:type="tem:textConstraint">
@@ -392,8 +732,8 @@
                         </constraint>
                     </Rule>
                     <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
-                        <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Coded_text</includedTypes>
+                        <constraint xsi:type="tem:textConstraint">
+                            <excludedValues>local::at0008</excludedValues>
                         </constraint>
                     </Rule>
                     <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
@@ -408,13 +748,12 @@
                             <includedTypes>Boolean</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0015]">
+                    <Rule name="Startzeitpunkt" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0015]">
                         <constraint xsi:type="tem:multipleConstraint">
-                            <includedTypes>Interval</includedTypes>
-                            <includedTypes>Duration</includedTypes>
+                            <includedTypes>Date_Time</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
+                    <Rule name="Zigaretten pro Tag" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0017]"/>
                     <Items archetype_id="openEHR-EHR-CLUSTER.person.v1" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0016]" xsi:type="tem:CLUSTER">
                         <Rule max="0" path="/items[at0001]"/>
                         <Rule max="0" path="/items[at0011]"/>
@@ -1380,14 +1719,19 @@
                                 <includedValues>http://snomed.info/sct::419263009::Allergy to tree pollen (finding)</includedValues>
                             </constraint>
                         </Rule>
-                        <Rule name="Blühklasse" path="/data[at0001]/items[at0009]">
+                        <Rule max="0" name="Blühklasse" path="/data[at0001]/items[at0009]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>Frühblüher</includedValues>
                                 <includedValues>Spätblüher</includedValues>
                             </constraint>
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0012]"/>
-                        <Rule max="0" path="/data[at0001]/items[at0078]"/>
+                        <Rule max="0" name="Blühklasse" path="/data[at0001]/items[at0078]">
+                            <constraint xsi:type="tem:textConstraint">
+                                <includedValues>Frühblüher</includedValues>
+                                <includedValues>Spätblüher</includedValues>
+                            </constraint>
+                        </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0077]"/>
                         <Rule max="0" path="/data[at0001]/items[at0003]"/>
                         <Rule max="0" path="/data[at0001]/items[at0005]">
@@ -1406,6 +1750,14 @@
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0069]"/>
                         <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+                        <Items archetype_id="openEHR-EHR-CLUSTER.flowering_class.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                            <Rule path="/items[at0001]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0005]"/>
+                        </Items>
                     </Item>
                     <Item archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" name="Ausschluss Baumpollenallergie" path="/items" xsi:type="tem:EVALUATION">
                         <Rule path="/data[at0001]/items[at0002]">
@@ -1434,7 +1786,7 @@
                                 <includedValues>http://snomed.info/sct::418689008::Allergy to grass pollen (finding)</includedValues>
                             </constraint>
                         </Rule>
-                        <Rule name="Blühklasse" path="/data[at0001]/items[at0009]">
+                        <Rule max="0" name="Blühklasse" path="/data[at0001]/items[at0009]">
                             <constraint xsi:type="tem:textConstraint">
                                 <includedValues>Frühblüher</includedValues>
                                 <includedValues>Spätblüher</includedValues>
@@ -1460,6 +1812,14 @@
                         </Rule>
                         <Rule max="0" path="/data[at0001]/items[at0069]"/>
                         <Rule max="0" path="/protocol[at0032]/items[at0070]"/>
+                        <Items archetype_id="openEHR-EHR-CLUSTER.flowering_class.v0" max="1" path="/data[at0001]/items[at0043]" xsi:type="tem:CLUSTER">
+                            <Rule path="/items[at0001]">
+                                <constraint xsi:type="tem:multipleConstraint">
+                                    <includedTypes>Coded_text</includedTypes>
+                                </constraint>
+                            </Rule>
+                            <Rule max="0" path="/items[at0005]"/>
+                        </Items>
                     </Item>
                     <Item archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Ausschluss - spezifisch" max="1" name="Ausschluss Graspollenallergie" path="/items" xsi:type="tem:EVALUATION">
                         <Rule path="/data[at0001]/items[at0002]">
@@ -1625,6 +1985,12 @@
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">F3BA1A6809F466FF10AB50CC86EC78C5</digest>
     </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-OBSERVATION.medication_screening.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">876BA56A1E975E7F68DC58E6EB81EB33</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">926B8773E3FBB271F2820D4198B4F63E</digest>
+    </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">2652A8203C37B165FD58EC69634FFBF6</digest>
     </integrity_checks>
@@ -1636,5 +2002,8 @@
     </integrity_checks>
     <integrity_checks archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
         <digest id="MD5-CAM-1.0.1">FD31B6A3D7C0FE6280E39084A789BA00</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.flowering_class.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+        <digest id="MD5-CAM-1.0.1">4AC34D8BB15DCFE8A7FC3803F868A10A</digest>
     </integrity_checks>
 </template>
