@@ -1,0 +1,155 @@
+﻿archetype (adl_version=1.4; uid=0eb62211-987f-478c-9160-843cf6a253e5)
+	openEHR-EHR-OBSERVATION.acribis_follow_up.v0
+
+concept
+	[at0000]	-- ACRIBIS Follow-up
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Rony Ventura">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"rony.ventura@uksh.de">
+		["date"] = <"2026-07-01">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"6ED89188E85DF6F34F61DB2489BA7FAD">
+		["build_uid"] = <"69b0f45d-2928-40f0-b455-fd8db4e87783">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- ACRIBIS Follow-up
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Who is completing the quesstionnaire?
+										value matches {
+											1|[local::at0005],
+											2|[local::at0006],
+											3|[local::at0007],
+											4|[local::at0008]
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Who is it? (name)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {    -- Death questions
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {    -- Time period
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {    -- Severe bleeding
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {    -- TIA
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {    -- Heart failure
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"ACRIBIS Follow-up">
+					description = <"ACRIBIS_Follow_up">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Who is completing the quesstionnaire?">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Patient">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Relative">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Doctor">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Other person">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Who is it? (name)">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Death questions">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Time period">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Severe bleeding">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"TIA">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Heart failure">
+					description = <"">
+				>
+			>
+		>
+	>
