@@ -1,0 +1,286 @@
+﻿archetype (adl_version=1.4; uid=2ca0c76a-329f-4c0b-8979-f4c6a37ab74f)
+	openEHR-EHR-OBSERVATION.environmental_measurement.v0
+
+concept
+	[at0000]	-- Environmental Measurement
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Maximilian Meixner">
+				["organisation"] = <"BIH @ Charité - Berlin Institute of Health">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Adrian Neubauer">
+		["organisation"] = <"BIH @ Charité - Berlin Institute of Health">
+		["email"] = <"adrian.neubauer@bih-charite.de">
+		["date"] = <"2026-03-05">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Erfassung objektiver und quantitativer Messergebnisse oder Beobachtungen eines beliebigen Umweltparameters, die mittels eines Sensors, eines Geräts oder einer Messstation gemessen wurden.">
+			use = <"Zu verwenden für die Erfassung quantitativer Ergebnisse von Umweltparametern, die mittels eines Sensors, eines Geräts oder einer Messstation gemessen werden.
+Beispiele hierfür sind unter anderem:
+- Außenwerte für PM10, Ozon und NO2, gemessen von öffentlichen Messstationen zur Überwachung der Luftqualität
+- CO2-Konzentrationen im Wohnbereich eines Patienten, gemessen durch ein Raumklimamessgerät
+- Niederschlagsmenge, Sonneneinstrahlung, Windgeschwindigkeit oder Pollenbelastung im häuslichen Umfeld eines Patienten, gemessen durch eine mobile Wetterstation
+- Umgebungslärmpegel, gemessen durch ein Smart-Gerät oder einen tragbaren Sensor (Wearable).">
+			keywords = <"Umwelt, Luftqualität, Umweltverschmutzung, Schadstoff, Exposition, Wetter, Messung", ...>
+			misuse = <"Nicht zu verwenden für:
+- die Zusammenfassung einer Exposition (EVALUATION.exposure)
+- die Dokumentation einer Reaktion auf eine Exposition (CLUSTER.adverse_reaction_event) oder des Risikos einer möglichen Reaktion (EVALUATION.adverse_reaction_risk)
+- das Screening auf das Vorhandensein oder Fehlen von Umweltfaktoren (OBSERVATION.physical_environment_screening) oder Expositionen (OBSERVATION.exposure_screening)
+- die Aufzeichnung von Messergebnissen aus Labor-Tests und patientennaher Sofortdiagnostik (OBSERVATION.laboratory_test_result, CLUSTER.laboratory_test_analyte), sowie aus Tests, die vom Patienten selbst durchgeführt wurden (OBSERVATION.self_test_result).">
+			copyright = <"© HiGHmed">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the objective and quantitative measurement results or observations of any environmental parameter obtained by some sensor, device or monitoring station.">
+			use = <"Use to record quantitative results of environmental components measured by some sensor, device or monitoring station.
+Examples include but are not limited to: 
+- outdoor PM10, ozone and NO2 levels measured by public monitoring stations tracking air quality
+- CO2 concentrations in a patients home measured by an indoor climate monitor
+- amount of precipitation, solar radiation, wind speed or pollen levels in a patients home environment measured by a mobile weather station
+- ambient noise levels measured by a smart device or wearable sensor">
+			keywords = <"environment, air quality, pollution, pollutant, exposure, weather, measurement", ...>
+			misuse = <"Not to be used for:
+- summarizing an episode of exposure (EVALUATION.exposure)
+- documenting a reaction to an exposure (CLUSTER.adverse_reaction_event) or risk of a potential reaction (EVALUATION.adverse_reaction_risk)
+- screening for the presence or absence of environmental factors (OBSERVATION.physical_environment_screening) or exposures (OBSERVATION.exposure_screening)
+- recording measurement results obtained in a laboratory and point of care test setting (OBSERVATION.laboratory_test_result, CLUSTER.laboratory_test_analyte) or from a test performed by the patient (OBSERVATION.self_test_result)">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Maximilian Meixner, BIH @ Charité - Berlin Institute of Health", "Severin Kohler, BIH @ Charité - Berlin Institute of Health">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["references"] = <"Derived from: PR-418 on international CKM
+https://ckm.openehr.org/ckm/archetypeproposals/1013.38.418">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"6921ADD991719A3E6B9277776013ED93">
+		["build_uid"] = <"6b845d88-4f90-4770-9f04-bcf1fa9c9d66">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Environmental Measurement
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {1..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0009] occurrences matches {0..1} matches {    -- Component
+										value matches {
+											DV_CODED_TEXT matches {*}
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Measurement result
+										value matches {
+											DV_QUANTITY matches {*}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Description
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {    -- Environmental domain
+										value matches {
+											DV_CODED_TEXT matches {*}
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {    -- Environment
+										value matches {
+											DV_CODED_TEXT matches {*}
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {    -- Interpretation
+										value matches {
+											DV_CODED_TEXT matches {*}
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {    -- Environmental details
+										include
+											archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.environmental_conditions\.v0/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0012] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {    -- Device / station details
+						include
+							archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.device\.v1|openEHR-EHR-CLUSTER\.device_details\.v0/}
+					}
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Environmental Measurement">
+					description = <"Quantitative measurement of an environmental parameter.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Description">
+					description = <"Narrative description of the environmental measurement or observation.">
+					comment = <"May be used to provide additional information that is not represented by the other data elements.">
+				>
+				["at0008"] = <
+					text = <"Measurement result">
+					description = <"Quantitative value of the environmental measurement.">
+					comment = <"For example \"11.0 µg/m³\". The reference model of this data type includes attributes for accuracy, reference ranges and normal status.">
+				>
+				["at0009"] = <
+					text = <"Component">
+					description = <"Identifies the environmental parameter being measured or observed.">
+					comment = <"For example PM10, PM2.5, ozone, temperature, relative humidity, or CO₂ concentration. Coding with an external terminology is recommended.">
+				>
+				["at0011"] = <
+					text = <"Environmental details">
+					description = <"Can be used to record additional information describing the environmental context of the  measurement.">
+					comment = <"For example, ambient temperature or atmospheric pressure at the time of measurement can be recorded using the \"Environmental conditions\" CLUSTER archetype.">
+				>
+				["at0012"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Device / station details">
+					description = <"Details of the measuring device used or the measuring station that recorded the measurement result.">
+					comment = <"Using the openEHR-EHR-CLUSTER.device.v1 archetype, for example, the name, properties, and other information regarding the measuring device or measuring station can be recorded.">
+				>
+				["at0014"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+				["at0015"] = <
+					text = <"Environment">
+					description = <"Defines the environmental setting or context in which the measurement was obtained.">
+					comment = <"For example, it can be used to record whether the measurement has taken place in an indoor or outdoor environment, or the setting in which the measurement was performed, such as at home or in the workplace. Coding with an external terminology is recommended.">
+				>
+				["at0017"] = <
+					text = <"Interpretation">
+					description = <"Single word, phrase or brief description that represents the qualitative or interpretive assessment of the environmental measurement, where applicable.">
+					comment = <"For example, \"unremarkable\", \"critical\", or \"no relevant burden.\" etc. Coding with an external terminology is recommended.">
+				>
+				["at0018"] = <
+					text = <"Environmental domain">
+					description = <"Defines the broad environmental domain to which the measurement belongs.">
+					comment = <"Examples include air quality, weather, noise, and water quality. Coding with an external terminology is recommended.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Umweltmessung">
+					description = <"Quantitative Messung eines Umweltparameters.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Standardmäßiger, nicht näher beschriebener Zeitpunkt oder Intervall Ereignis, welches in einem Template oder bei der Anwendung genauer definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Beschreibung">
+					description = <"Beschreibung der Umweltmessung oder -beobachtung.">
+					comment = <"Kann verwendet werden, um zusätzliche Informationen bereitzustellen, die nicht durch die anderen Datenelemente abgebildet werden.">
+				>
+				["at0008"] = <
+					text = <"Messergebnis">
+					description = <"Quantitativer Wert der Umweltmessung.">
+					comment = <"Zum Beispiel \"11,0 µg/m³\". Das Referenzmodell dieses Datentyps enthält Attribute für Genauigkeit, Referenzbereiche und Normalstatus.">
+				>
+				["at0009"] = <
+					text = <"Komponente">
+					description = <"Identifiziert den gemessenen oder beobachteten Umweltparameter.">
+					comment = <"Zum Beispiel PM10, PM2,5, Ozon, Temperatur, relative Luftfeuchtigkeit oder CO₂-Konzentration. Die Verwendung einer externen Terminologie zur Kodierung wird empfohlen.">
+				>
+				["at0011"] = <
+					text = <"Umweltdetails">
+					description = <"Kann verwendet werden, um zusätzliche Informationen zu erfassen, die den Umgebungskontext der Messung beschreiben.">
+					comment = <"Zum Beispiel können über den CLUSTER-Archetypen \"Umweltbedingungen\" Umgebungstemperatur oder atmosphärischer Luftdruck zum Zeitpunkt der Messung aufgezeichnet werden.">
+				>
+				["at0012"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Details zum Gerät / zur Station">
+					description = <"Details des verwendeten Messgeräts oder der Messstation, die das Messergebnis aufgezeichnet hat.">
+					comment = <"Mithilfe des Archetypen openEHR-EHR-CLUSTER.device.v1 können beispielsweise Name, Eigenschaften und weitere Informationen zum Messgerät bzw. zur Messstation aufgezeichnet werden.">
+				>
+				["at0014"] = <
+					text = <"Erweiterung">
+					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
+					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+				>
+				["at0015"] = <
+					text = <"Umgebung">
+					description = <"Definiert die Umgebung oder den Kontext, in dem die Messung durchgeführt wurde.">
+					comment = <"Kann beispielsweise verwendet werden, um anzugeben, ob die Messung in einem Innen- oder Außenbereich stattfand, oder in welchem Umfeld die Messung durchgeführt wurde, z. B. zu Hause oder am Arbeitsplatz. Die Verwendung einer externen Terminologie zur Kodierung wird empfohlen.">
+				>
+				["at0017"] = <
+					text = <"Interpretation">
+					description = <"Einzelnes Wort, Ausdruck oder Kurzbeschreibung, die – sofern zutreffend – die qualitative oder interpretative Bewertung der Umweltmessung darstellt.">
+					comment = <"Zum Beispiel \"unauffällig\", \"kritisch\", oder \"keine relevante Belastung\", etc. Die Verwendung einer externen Terminologie zur Kodierung wird empfohlen.">
+				>
+				["at0018"] = <
+					text = <"Umweltdomäne">
+					description = <"Definiert die übergeordnete Umweltdomäne, der die Messung zugeordnet ist.">
+					comment = <"Zum Beispiel Luftqualität, Wetter, Lärm und Wasserqualität. Die Verwendung einer externen Terminologie zur Kodierung wird empfohlen.">
+				>
+			>
+		>
+	>
