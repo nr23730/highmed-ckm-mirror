@@ -1,0 +1,137 @@
+﻿archetype (adl_version=1.4; uid=91505a4c-26fd-49f9-aaf4-260fe12c25da)
+	openEHR-EHR-OBSERVATION.acribis_anamnese.v0
+
+concept
+	[at0000]	-- ACRIBIS Anamnese
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Rony Ventura">
+				["organisation"] = <"UKSH">
+				["email"] = <"rony.ventura@uksh.de">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Rony Ventura">
+		["organisation"] = <"Universitätsklinikum Schleswig-Holstein">
+		["email"] = <"rony.ventura@uksh.de">
+		["date"] = <"2026-10-05">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© HiGHmed">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"HiGHmed">
+		["original_namespace"] = <"org.highmed">
+		["original_publisher"] = <"HiGHmed">
+		["custodian_namespace"] = <"org.highmed">
+		["MD5-CAM-1.0.1"] = <"506101B0F6E43207DE0E2BA42A2C11AC">
+		["build_uid"] = <"a193ea1c-38c3-4bf2-b1a6-bf8c10ec4244">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- ACRIBIS Anamnese
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {    -- Patient history
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {    -- Patient questionnarie
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"ACRIBIS Anamnese">
+					description = <"ACRIBIS Anamnese">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Patient history">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Patient questionnarie">
+					description = <"">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"ACRIBIS Anamnese">
+					description = <"ACRIBIS Anamnese">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Anamnese">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Patientenfragebogen">
+					description = <"">
+				>
+			>
+		>
+	>
