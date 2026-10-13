@@ -15,9 +15,9 @@ description
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the results of a tone audiometry assessment, i.e. frequency-specific threshold or supra-threshold levels obtained with pure-tone or tone-like stimuli, together with the protocol describing how the stimuli were presented and calibrated.">
-			use = <"Use to record frequency-specific threshold or supra-threshold levels obtained with pure-tone or tone-like stimuli, presented via air conduction, bone conduction, sound field or direct device stimulation. Results may be unaided or aided.">
-			keywords = <"tone audiometry, audiogram, hearing threshold, air conduction, bone conduction, masking, audiology, hearing", ...>
+			purpose = <"To record the results of a tone audiometry assessment, i.e. frequency-specific threshold or supra-threshold levels obtained with pure tones, frequency-modulated (warble) tones or narrow-band noise, together with the protocol describing how the stimuli were presented and calibrated.">
+			use = <"Use to record frequency-specific threshold or supra-threshold levels obtained with pure tones, frequency-modulated (warble) tones or narrow-band noise, presented via air conduction, bone conduction, sound field or direct device stimulation. Results may be unaided or aided with technical hearing device.">
+			keywords = <"tone audiometry, pure tone, audiogram, hearing threshold, loudness levels, UCL, MCL, ULL, air conduction, bone conduction, masking, audiology, hearing", ...>
 			misuse = <"Not to be used to record any other auditory assessment than tone audiometry. Use the specific archetypes for these purposes.">
 		>
 	>
@@ -29,12 +29,14 @@ description
 		["references"] = <"ISO 8253-1:2010 Acoustics — Audiometric test methods
 Part 1: Pure-tone air and bone conduction audiometry
 ISO 8253-2:2009 Acoustics — Audiometric test methods
-Part 2: Sound field audiometry with pure-tone and narrow-band test signals">
+Part 2: Sound field audiometry with pure-tone and narrow-band test signals
+IEC 60645-1:2017 Electroacoustics — Audiometric equipment
+Part 1: Equipment for pure-tone and speech audiometry">
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"96D6A542BAA9ACCB6374EC8652AB668C">
-		["build_uid"] = <"b801bdbc-bdb5-497e-b631-f0032f8e343c">
+		["MD5-CAM-1.0.1"] = <"DAE31F14ECA2F03448B54324C079C731">
+		["build_uid"] = <"da77cd87-a74b-427f-a7c7-01001753195a">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -47,7 +49,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0004] occurrences matches {0..*} matches {    -- Measurement
+									CLUSTER[at0004] occurrences matches {0..*} matches {    -- Frequency specific result
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0005] matches {    -- Frequency of test stimulus
 												value matches {
@@ -56,7 +58,7 @@ definition
 														list = <
 															["1"] = <
 																units = <"Hz">
-																magnitude = <|125.0..16000.0|>
+																magnitude = <|125.0..40000.0|>
 																precision = <|0|>
 															>
 															["2"] = <
@@ -74,7 +76,7 @@ definition
 														property = <[openehr::123]>
 														list = <
 															["1"] = <
-																units = <"dB HL">
+																units = <"dB[HL]">
 																magnitude = <|-10.0..120.0|>
 																precision = <|0|>
 															>
@@ -102,7 +104,21 @@ definition
 														property = <[openehr::123]>
 														list = <
 															["1"] = <
-																units = <"dB">
+																units = <"dB[HL]">
+																magnitude = <|-10.0..120.0|>
+																precision = <|0|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0093] occurrences matches {0..1} matches {    -- Minimum stimulus level
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::123]>
+														list = <
+															["1"] = <
+																units = <"dB[HL]">
 																magnitude = <|-10.0..120.0|>
 																precision = <|0|>
 															>
@@ -174,6 +190,18 @@ definition
 		protocol matches {
 			ITEM_TREE[at0017] matches {    -- Item tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0024] occurrences matches {0..1} matches {    -- Tested side
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0025,    -- Left ear
+									at0026,    -- Right ear
+									at0027]    -- Binaural
+								}
+							}
+						}
+					}
 					ELEMENT[at0018] occurrences matches {0..1} matches {    -- Modality
 						value matches {
 							DV_CODED_TEXT matches {
@@ -184,18 +212,6 @@ definition
 									at0021,    -- freefield / sound field
 									at0022,    -- device stimulation
 									at0023]    -- other
-								}
-							}
-						}
-					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {    -- Tested side
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0025,    -- Left ear
-									at0026,    -- Right ear
-									at0027]    -- Binaural
 								}
 							}
 						}
@@ -213,7 +229,12 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					CLUSTER[at0032] occurrences matches {0..1} matches {    -- Signal Source
+					ELEMENT[at0096] occurrences matches {0..1} matches {    -- Loudness criterion instruction
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0032] occurrences matches {0..*} matches {    -- Signal Source
 						items cardinality matches {1..*; unordered} matches {
 							ELEMENT[at0033] occurrences matches {0..1} matches {    -- Presentation method
 								value matches {
@@ -234,7 +255,7 @@ definition
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
 							}
-							ELEMENT[at0040] occurrences matches {0..1} matches {    -- Type of test stimulus
+							ELEMENT[at0040] occurrences matches {0..1} matches {    -- Type of stimulus
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -245,14 +266,13 @@ definition
 											at0044,    -- Pure tone
 											at0045,    -- Narrowband noise
 											at0046,    -- Pulsed pure tone
-											at0047,    -- Broadband noise
-											at0048]    -- Natural sound
+											at0074]    -- Broadband noise
 										}
 									}
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0049] occurrences matches {0..1} matches {    -- Name of test stimulus
+							ELEMENT[at0049] occurrences matches {0..1} matches {    -- Name of stimulus
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -269,7 +289,9 @@ definition
 											[local::
 											at0052,    -- Left ear
 											at0053,    -- Right ear
-											at0054]    -- Forehead
+											at0054,    -- Forehead
+											at0097,    -- Left mastoid
+											at0098]    -- Right mastoid
 										}
 									}
 									DV_TEXT matches {*}
@@ -293,6 +315,61 @@ definition
 					allow_archetype CLUSTER[at0063] occurrences matches {0..1} matches {    -- Test environment details
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+					}
+					CLUSTER[at0099] occurrences matches {0..1} matches {    -- Audiometer
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0076] occurrences matches {0..1} matches {    -- Audiometer category
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0077,    -- Manual audiometer
+											at0078,    -- Automatic recording audiometer
+											at0079]    -- Computer-controlled audiometer
+										}
+									}
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0101] occurrences matches {0..1} matches {    -- Audiometer device
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
+							}
+						}
+					}
+					ELEMENT[at0080] occurrences matches {0..1} matches {    -- Test procedure
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0081,    -- Ascending method
+									at0082,    -- Shortened ascending method
+									at0083,    -- Bracketing method
+									at0084,    -- Automatic fixed-frequency audiometry
+									at0085,    -- Automatic sweep-frequency audiometry
+									at0086,    -- Screening
+									at0094,    -- Ascending method to loudness criterion
+									at0095]    -- Bracketing method to loudness criterion
+								}
+							}
+						}
+					}
+					ELEMENT[at0087] occurrences matches {0..1} matches {    -- Non-test ear condition
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0088,    -- Open
+									at0089,    -- Masked
+									at0090]    -- Occluded
+								}
+							}
+						}
+					}
+					ELEMENT[at0092] occurrences matches {0..1} matches {    -- Hearing protector type
+						value matches {
+							DV_TEXT matches {*}
+						}
 					}
 					allow_archetype CLUSTER[at0064] occurrences matches {0..1} matches {    -- Extension
 						include
@@ -329,9 +406,9 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Measurement">
+					text = <"Frequency specific result">
 					description = <"A single tone-audiometric measurement at one test frequency under one masking condition, comprising the stimulus level, the subject's response and, if applicable, the contralateral masking level.">
-					comment = <"Measurements of one run (same tested side, modality, perceptual target level and signal source) are recorded together in this cluster. Repeat the cluster once per (frequency × masking condition); at most two entries per frequency are expected (one unmasked and one masked)">
+					comment = <"Measurements of one run (same tested side, modality, perceptual target level and signal source) are recorded together in this cluster. Repeat the cluster once per (frequency × masking condition); at most two entries per frequency are expected (one unmasked and one masked). 'Minimum stimulus level' records the lower limit of the measurable range at this frequency; the upper limit is the stimulus level of a 'No perception' response.">
 				>
 				["at0005"] = <
 					text = <"Frequency of test stimulus">
@@ -340,6 +417,7 @@ ontology
 				["at0006"] = <
 					text = <"Stimulus level">
 					description = <"The stimulus intensity at threshold for the test frequency.">
+					comment = <"If 'Response' is 'No perception', this is the maximum level presented.">
 				>
 				["at0007"] = <
 					text = <"Response">
@@ -351,15 +429,15 @@ ontology
 				>
 				["at0009"] = <
 					text = <"No perception">
-					description = <"Maximum level presented without obtaining a threshold">
+					description = <"Maximum level presented without reaching the target level">
 				>
 				["at0010"] = <
 					text = <"Unsure perception">
-					description = <"Stimunus perception was not reproducable">
+					description = <"Stimulus perception was not reproducible">
 				>
 				["at0011"] = <
 					text = <"Non-auditory perception">
-					description = <"E.g., vibration">
+					description = <"E.g. vibrotactile sensation">
 				>
 				["at0012"] = <
 					text = <"Contralateral perception">
@@ -372,7 +450,7 @@ ontology
 				["at0014"] = <
 					text = <"Overall comment">
 					description = <"Additional narrative about the measurement of tone audiometry not captured in other fields.">
-					comment = <"For example: if measurement was not completed or maximum level was reached.">
+					comment = <"For example: if measurement was not completed.">
 				>
 				["at0015"] = <
 					text = <"No test result">
@@ -382,7 +460,7 @@ ontology
 				["at0016"] = <
 					text = <"Reason for no test result">
 					description = <"Reason why no result is available.">
-					comment = <"Coding with an external terminology is preferred, where possible. For example: patient was not cooperative; patient was not capable; ran out of time; maximum level reached.">
+					comment = <"Coding with an external terminology is preferred, where possible. For example: patient was not cooperative; patient was not capable; ran out of time; maximum level reached; test was not done due to a masking dilemma.">
 				>
 				["at0017"] = <
 					text = <"Item tree">
@@ -483,10 +561,10 @@ Other — any modality not covered above; specify in the protocol Comment.">
 				["at0039"] = <
 					text = <"Presentation method details">
 					description = <"Details of device used to present test stimulus as specified in 'Presentation method'.">
-					comment = <"For example: type of headphone or speaker.">
+					comment = <"For example: type of headphone or speaker. Also transducer fixation for the bone-conduction transducer (e.g. headband, held by examiner, held by subject) ">
 				>
 				["at0040"] = <
-					text = <"Type of test stimulus">
+					text = <"Type of stimulus">
 					description = <"Identification of the stimulus used in the tone audiometry procedure..">
 					comment = <"If the type of stimulus is broadband, use 'Name of test stimulus' for further specification.
 If the type of noise is a tone or a narrowband noise, use 'Frequency of test stimulus' for further specification.">
@@ -515,16 +593,8 @@ If the type of noise is a tone or a narrowband noise, use 'Frequency of test sti
 					text = <"Pulsed pure tone">
 					description = <"The test stimulus is a pulsed pure tone.">
 				>
-				["at0047"] = <
-					text = <"Broadband noise">
-					description = <"The test stimulus is a broad band noise.">
-				>
-				["at0048"] = <
-					text = <"Natural sound">
-					description = <"The test stimulus is a natural/recorded sound.">
-				>
 				["at0049"] = <
-					text = <"Name of test stimulus">
+					text = <"Name of stimulus">
 					description = <"Further specification of test stimulus if applicable.">
 					comment = <"Provides name of test stimulus, if it has an established name or description of natural sound. For example: IFNoise, Icra1 or, for natural sounds, birds.">
 				>
@@ -547,7 +617,7 @@ If the type of noise is a tone or a narrowband noise, use 'Frequency of test sti
 				>
 				["at0054"] = <
 					text = <"Forehead">
-					description = <"Boneconduction transducer placed on forehear">
+					description = <"Boneconduction transducer placed on forehead">
 				>
 				["at0059"] = <
 					text = <"Test environment">
@@ -588,6 +658,7 @@ If the type of noise is a tone or a narrowband noise, use 'Frequency of test sti
 				["at0067"] = <
 					text = <"Hearing device during test">
 					description = <"Information about hearing device use during tone audiometry test.">
+					comment = <"More than one device can be entered. Only devices actively used during this measurement. ">
 				>
 				["at0068"] = <
 					text = <"Hearing device">
@@ -615,6 +686,110 @@ If the type of noise is a tone or a narrowband noise, use 'Frequency of test sti
 					text = <"Confounding factors">
 					description = <"Additional issues or factors that may impact tone audiometry test, not captured in other fields.">
 					comment = <"For example: medication or noise exposure prior to test.">
+				>
+				["at0074"] = <
+					text = <"Broadband noise">
+					description = <"A broad-band noise, e.g. white noise. Used for the masking signal only, not as test stimulus.">
+				>
+				["at0076"] = <
+					text = <"Audiometer category">
+					description = <"Type of audiometer used for the test.">
+				>
+				["at0077"] = <
+					text = <"Manual audiometer">
+					description = <"Signal presentation, frequency and level selection and recording are operated manually.">
+				>
+				["at0078"] = <
+					text = <"Automatic recording audiometer">
+					description = <"Signal presentation, level change, frequency selection and recording of responses are automatic; the subject controls the level change.">
+				>
+				["at0079"] = <
+					text = <"Computer-controlled audiometer">
+					description = <"Presentation and threshold determination are controlled by software, giving results equivalent to the manual procedures.">
+				>
+				["at0080"] = <
+					text = <"Test procedure">
+					description = <"The procedure used to determine the stimulus level at the perceptual target level, or to screen at a fixed level.">
+					comment = <"For screening, 'Stimulus level' holds the screening level and 'Response' the pass (Perception) or fail (No perception) result. Screening results must be clearly identified as such (ISO 8253-1, 10; ISO 8253-2, 11.1). The procedures listed are the threshold procedures of ISO 8253-1; for MCL or UCL, which have no ISO 8253 procedure, use free text.">
+				>
+				["at0081"] = <
+					text = <"Ascending method">
+					description = <"Manual threshold determination with ascending levels. After each response the level is lowered in 10 dB steps until there is no response, then raised in 5 dB steps until a response occurs. This is repeated until 3 responses at the same level are obtained from at most 5 ascents. The hearing threshold level is the lowest level at which responses occur in at least half of the ascents">
+				>
+				["at0082"] = <
+					text = <"Shortened ascending method">
+					description = <"Ascending method ended when at least 2 responses at the same level are obtained from 3 ascents.">
+				>
+				["at0083"] = <
+					text = <"Bracketing method">
+					description = <"Ascending and descending series; threshold = mean of the lowest response levels, rounded to 5 dB.">
+				>
+				["at0084"] = <
+					text = <"Automatic fixed-frequency audiometry">
+					description = <"Subject-controlled level tracking at fixed frequencies; threshold = mean of peaks and valleys.">
+				>
+				["at0085"] = <
+					text = <"Automatic sweep-frequency audiometry">
+					description = <"Subject-controlled level tracking with continuously changing frequency.">
+				>
+				["at0086"] = <
+					text = <"Screening">
+					description = <"Pass/fail test at a fixed screening level.">
+				>
+				["at0087"] = <
+					text = <"Non-test ear condition">
+					description = <"">
+					comment = <"Per-frequency masking levels are recorded in 'Masking Level'">
+				>
+				["at0088"] = <
+					text = <"Open">
+					description = <"The non-test ear was neither masked nor occluded.">
+				>
+				["at0089"] = <
+					text = <"Masked">
+					description = <"A masking noise was presented to the non-test ear.">
+				>
+				["at0090"] = <
+					text = <"Occluded">
+					description = <"The non-test ear was occluded with a passive hearing protector or ear plug.">
+				>
+				["at0092"] = <
+					text = <"Hearing protector type">
+					description = <"Type of hearing protector or ear plug used to occlude the non-test ear.">
+				>
+				["at0093"] = <
+					text = <"Minimum stimulus level">
+					description = <"The lowest stimulus level that could be presented or validly measured at this frequency.">
+					comment = <"The lowest output of the audiometer, or the lowest hearing level measurable because of ambient noise in the test room. If 'Response' is 'Perception' at this level, the true value may be lower.\"">
+				>
+				["at0094"] = <
+					text = <"Ascending method to loudness criterion">
+					description = <"The level is increased in fixed steps (typically 5 dB) from a comfortable level until the subject reports the target loudness. The level at first report, or the mean of repeated ascents, is recorded.">
+				>
+				["at0095"] = <
+					text = <"Bracketing method to loudness criterion">
+					description = <"Levels are presented in ascending and descending series around the target loudness. The result is the mean of the levels judged to meet the criterion in both directions.">
+				>
+				["at0096"] = <
+					text = <"Loudness criterion instruction">
+					description = <"The instruction given to the subject that defines the target loudness.">
+					comment = <"E.g. 'uncomfortably loud', 'loudest level you could tolerate for a short time', 'most comfortable for listening for a long time'. UCL results depend considerably on the wording, so record it for MCL and UCL measurements.">
+				>
+				["at0097"] = <
+					text = <"Left mastoid">
+					description = <"Boneconduction transducer placed on left mastoid">
+				>
+				["at0098"] = <
+					text = <"Right mastoid">
+					description = <"Boneconduction transducer placed on right mastoid">
+				>
+				["at0099"] = <
+					text = <"Audiometer">
+					description = <"Information about audiometer device used in this measurement.">
+				>
+				["at0101"] = <
+					text = <"Audiometer device">
+					description = <"Details of the audiometer device used.">
 				>
 			>
 		>
