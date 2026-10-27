@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><template xmlns="openEHR/v1/Template">
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="openEHR/v1/Template">
     <id>b2e4d552-c749-4621-a538-92fe8369c7c8</id>
     <name>Medikation_Kardiologie</name>
     <description>
@@ -12,7 +13,7 @@
                 <value>test</value>
             </item>
         </original_author>
-        <lifecycle_state>unmanaged</lifecycle_state>
+        <lifecycle_state>in_development</lifecycle_state>
         <details/>
         <other_details>
             <item>
@@ -37,15 +38,15 @@
             </item>
             <item>
                 <key>sem_ver</key>
-                <value>0.2.8</value>
+                <value>0.3.5</value>
             </item>
             <item>
                 <key>build_uid</key>
-                <value>30c17a20-1828-4cf1-9e32-3302efa6ea25</value>
+                <value>8c889266-e34a-46b7-b351-376295e0c80a</value>
             </item>
             <item>
                 <key>MD5-CAM-1.0.1</key>
-                <value>5640b26a8621b9d740572c695c4b2cdc</value>
+                <value>eda616ff944bdeff5586fed5189bd774</value>
             </item>
             <item>
                 <key>PARENT:MD5-CAM-1.0.1</key>
@@ -57,7 +58,7 @@
             </item>
         </other_details>
     </description>
-    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Medikation_Kardiologie" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:COMPOSITION">
+    <definition archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Bericht" name="Medikation_Kardiologie" xsi:type="tem:COMPOSITION" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Content archetype_id="openEHR-EHR-ACTION.medication.v1" path="/content" xsi:type="tem:ACTION">
             <Rule max="0" path="/description[at0017]/items[at0156]"/>
             <Rule max="0" path="/description[at0017]/items[at0132]"/>
@@ -138,20 +139,23 @@
                             <includedValues>andere Diuretika</includedValues>
                             <includedValues>andere Lipidsenker</includedValues>
                             <includedValues>andere OAD</includedValues>
+                            <includedValues>andere Thrombozytenaggregationshemmer</includedValues>
                             <includedValues>Angiotensin-Rezeptor Blocker</includedValues>
-                            <includedValues>Aspirin niedrigdosiert DOAC</includedValues>
                             <includedValues>Aspirin oder äquivalent</includedValues>
-                            <includedValues>Aspirin plus dual antiplatelet</includedValues>
                             <includedValues>Atorvastatin</includedValues>
                             <includedValues>Betablocker</includedValues>
                             <includedValues>Calcium-Canal Blocker</includedValues>
+                            <includedValues>Clopidogrel</includedValues>
                             <includedValues>Digitalis</includedValues>
+                            <includedValues>DOAC</includedValues>
                             <includedValues>DPP-4 Antagonist</includedValues>
+                            <includedValues>Dual antiplatelet therapy (DAPT)</includedValues>
                             <includedValues>Ezetimibe</includedValues>
                             <includedValues>Fluvastatin</includedValues>
                             <includedValues>Furosemid</includedValues>
                             <includedValues>GLP-1 Agonist</includedValues>
                             <includedValues>Harnsäuresenkende Therapie</includedValues>
+                            <includedValues>Heparin</includedValues>
                             <includedValues>Insulin</includedValues>
                             <includedValues>Ivabradin</includedValues>
                             <includedValues>Klasse I-Antiarrhythmika</includedValues>
@@ -172,7 +176,6 @@
                             <includedValues>Simvastatin</includedValues>
                             <includedValues>Statine</includedValues>
                             <includedValues>Thiazid Diuretika</includedValues>
-                            <includedValues>Thrombozytenaggregationshemmer</includedValues>
                             <includedValues>Torasemid</includedValues>
                         </constraint>
                     </Rule>
@@ -204,7 +207,6 @@
                             <includedTypes>Quantity</includedTypes>
                         </constraint>
                     </Rule>
-                    <Rule max="0" path="/items[at0178]"/>
                     <Rule max="0" path="/items[at0134]">
                         <constraint xsi:type="tem:multipleConstraint">
                             <includedTypes>Quantity</includedTypes>
@@ -257,28 +259,82 @@
                         <Rule max="0" path="/items[at0039]"/>
                         <Rule max="0" path="/items[at0035]"/>
                     </Items>
+                    <Items archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1" max="1" path="/items[at0037]" xsi:type="tem:CLUSTER">
+                        <Rule max="0" path="/items[at0002]">
+                            <constraint xsi:type="tem:durationConstraint">
+                                <pattern>PMWD</pattern>
+                                <minMagnitude>P0D</minMagnitude>
+                                <includesMaximum>false</includesMaximum>
+                                <includesMinimum>false</includesMinimum>
+                            </constraint>
+                        </Rule>
+                        <Rule path="/items[at0014]">
+                            <constraint xsi:type="tem:quantityConstraint">
+                                <excludedUnits>1/a</excludedUnits>
+                                <unitMagnitude>
+                                    <unit>1/wk</unit>
+                                    <maxMagnitude>7.0</maxMagnitude>
+                                    <minMagnitude>1.0</minMagnitude>
+                                    <includesMaximum>true</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                                <unitMagnitude>
+                                    <unit>1/mo</unit>
+                                    <maxMagnitude>31.0</maxMagnitude>
+                                    <minMagnitude>1.0</minMagnitude>
+                                    <includesMaximum>true</includesMaximum>
+                                    <includesMinimum>true</includesMinimum>
+                                </unitMagnitude>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0022]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Quantity</includedTypes>
+                                <includedTypes>Interval</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0001]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Date</includedTypes>
+                                <includedTypes>Interval</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0003]"/>
+                        <Rule max="0" path="/items[at0004]">
+                            <constraint xsi:type="tem:multipleConstraint">
+                                <includedTypes>Count</includedTypes>
+                                <includedTypes>Interval</includedTypes>
+                            </constraint>
+                        </Rule>
+                        <Rule max="0" path="/items[at0021]"/>
+                        <Rule max="0" path="/items[at0006]"/>
+                        <Rule max="0" path="/items[at0010]"/>
+                    </Items>
                 </Items>
             </Items>
         </Content>
         <Rule max="0" path="/context/other_context[at0001]/items[at0002]"/>
         <Rule max="0" path="/context/other_context[at0001]/items[at0005]"/>
     </definition>
-    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-COMPOSITION.report.v1" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">005501C1FA493A4838F5F1121F2870EC</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-ACTION.medication.v1" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">0650B5F8DDBF358C1E02ED6A5B17D978</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.medication.v2" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">89BA41E6CD217F7E2639D05A6B02465C</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.drug_class.v0" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.drug_class.v0" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">014E566E2D6FA001BE95EAA621A78F3A</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v2" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.dosage.v2" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">926B8773E3FBB271F2820D4198B4F63E</digest>
     </integrity_checks>
-    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tem:ArchetypeIntegrity">
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_daily.v1" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <digest id="MD5-CAM-1.0.1">BBF04254F8BEA1421AF2CC97A0B64624</digest>
+    </integrity_checks>
+    <integrity_checks archetype_id="openEHR-EHR-CLUSTER.timing_nondaily.v1" xsi:type="tem:ArchetypeIntegrity" xmlns:tem="openEHR/v1/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <digest id="MD5-CAM-1.0.1">95309E1587F2F9A3D1845B07B1011799</digest>
     </integrity_checks>
 </template>
