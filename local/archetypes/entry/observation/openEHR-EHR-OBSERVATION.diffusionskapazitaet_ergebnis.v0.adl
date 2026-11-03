@@ -15,16 +15,17 @@ description
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
-			purpose = <"Ergebnisse von Diffusionskapazitätsmessungen der Lunge (DLCO-Test) mit Hilfe eines Spirometers oder speziellen Gas-Analysemethoden.">
+			purpose = <"Ergebnisse einer Diffusionskapazitätsmessung der Lunge (DLCO-Test) mit Hilfe eines Spirometers oder speziellen Gas-Analysemethoden.">
 			use = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung. Es handelt sich um eine Lungenfunktionsuntersuchung, die zur Messung des pulmonalen Transferfaktors für Kohlenmonoxid (TLCO bzw. DCO) und der Abschätzung der Diffusionskapazität für Sauerstoff dient.
 
 Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um folgende Darstellungen zu unterstützen:
-- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ für jede Einzelmessung, plus ein zusätzliches Ereignis vom Typ „Intervall“ mit Attribut „Mittelwert“.;
+- Mehrere Messungen und ihr Durchschnitt – klonen Sie \"Jedes Ereignis\" für jede Einzelmessung, plus ein zusätzliches Ereignis vom Typ \"Intervall\" mit Attribut \"Mittelwert\";
 - Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit Zeitversatz.
 
 Bitte beachten, dass für die korrekte Interpretation der Diffusionskapazität der Hämoglobinwert relevant ist.">
 			keywords = <"Diffusionskapazität", "DLCO (Diffusing Capacity of the Lung for Carbon Monoxide)", "TLCO (Transferfaktor der Lunge für Kohlenmonoxid)", "KCO (Kohlenmonoxid-Transferkoeffizient)", "VA (Alveoläres Volumen)", "Gasaustausch", "Kohlenmonoxid-Diffusion", "Transferkoeffizient", "Alveolar-Kapillar-Membran", "Gasaustauschkapazität", "Pulmonale Funktion", "Restriktive Lungenerkrankungen", "Obstruktive Lungenerkrankungen", "Lungenemphysem", "Lungenfibrose", "CO-Aufnahme", "Alveolarmembran", "Hämoglobin-Affinität", "Lungenvolumina", "Ventilation-Perfusion-Verhältnis">
-			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Bodyplethysmographie, geeignet. Verwenden Sie für die Spirometrie den OBSERVATION.spirometry_result und für die Bodyplethysmographie OBSERVATION.bodyplethysmographie_result.
+			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Bodyplethysmographie, geeignet. Verwenden Sie für diese Zwecke bestimmte Archetypen.
+Für die Spirometrie bitte den Archtypen OBSERVATION.spirometry_result und für die Bodyplethysmographie den Archtypen OBSERVATION.bodyplethysmographie_result verwenden. 
 
 Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
 
@@ -43,8 +44,8 @@ Wanger, J., Clausen, J. L., & Coates, A. (2005). Standardisation of the measurem
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"5F977B668F33D13F75BADB63E123567A">
-		["build_uid"] = <"3f483023-61d4-492d-9f7a-8ae51ad41145">
+		["MD5-CAM-1.0.1"] = <"A1016D9DBB656702173311733C910B69">
+		["build_uid"] = <"0fd05892-51ef-455e-b802-ad0173d31e96">
 		["revision"] = <"0.0.1-alpha">
 	>
 
@@ -62,7 +63,7 @@ definition
 											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Ergebnis
 												value matches {
 													C_DV_QUANTITY <
-														property = <[openehr::347]>
+														
 														list = <
 															["1"] = <
 																units = <"mmol/(24.h)">
@@ -75,20 +76,20 @@ definition
 															["3"] = <
 																units = <"mmol/min/kPa/L">
 																magnitude = <|>=0.0|>
-															>	
+															>
 															["4"] = <
 																units = <"L">
 																magnitude = <|>=0.0|>
 																precision = <|3|>
-															>																
+															>		
 														>
 													>
 												}
 											}
-											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Referenzwert
 												value matches {
 													C_DV_QUANTITY <
-														property = <[openehr::347]>
+														
 														list = <
 															["1"] = <
 																units = <"mmol/(24.h)">
@@ -97,7 +98,7 @@ definition
 															["2"] = <
 																units = <"mmol/min/kPa">
 																magnitude = <|>=0.0|>
-															>	
+															>
 															["3"] = <
 																units = <"mmol/min/kPa/L">
 																magnitude = <|>=0.0|>
@@ -106,12 +107,12 @@ definition
 																units = <"L">
 																magnitude = <|>=0.0|>
 																precision = <|3|>
-															>														
+															>	
 														>
 													>
 												}
 											}
-											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+											ELEMENT[at0012] occurrences matches {0..1} matches {    -- Gemessenes/Referenzwert Verhältnis
 												value matches {
 													DV_PROPORTION matches {
 														numerator matches {|>=0.0|}
@@ -144,27 +145,6 @@ definition
 															>
 														>
 													>
-												}
-											}
-											ELEMENT[at0022] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
-												value matches {
-													C_DV_QUANTITY <
-														property = <[openehr::128]>
-														list = <
-															["1"] = <
-																units = <"s">
-																magnitude = <|>=0.0|>
-															>
-														>
-													>
-												}
-											}
-											ELEMENT[at0023] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
-												value matches {
-													DV_PROPORTION matches {
-														numerator matches {|>=0.0|}
-														type matches {2}
-													}
 												}
 											}
 										}
@@ -219,7 +199,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Diffusionskapazität Ergebnis">
-					description = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessung.">
+					description = <"Zur Darstellung der Ergebnisse einer Diffusionskapazitätsmessungen.">
 				>
 				["at0001"] = <
 					text = <"History">
@@ -234,12 +214,12 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0005"] = <
-					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagte Diffusionskapazität">
+					text = <"Referenzwert">
+					description = <"Referenzwert der Diffusionskapazität.">
 				>
 				["at0006"] = <
 					text = <"Ergebnis">
-					description = <"Gemessene Diffusionskapazität">
+					description = <"Gemessene Diffusionskapazität.">
 				>
 				["at0007"] = <
 					text = <"Diffusionskapazität">
@@ -252,15 +232,15 @@ ontology
 				>
 				["at0009"] = <
 					text = <"TLCO">
-					description = <"Der Transferfaktor der Lunge für Kohlenmonoxid (TLCO) wird auch oft als DLCO (Diffusionskapazität der Lunge für Kohlenmonoxid) bezeichnet. Er gibt an, wie viel Kohlenmonoxid pro Zeiteinheit von den Alveolen ins Blut übertritt.">
+					description = <"Der Transferfaktor der Lunge für Kohlenmonoxid (TLCO), oft auch als DLCO (Diffusionskapazität der Lunge für Kohlenmonoxid) bezeichnet, gibt an, wie viel Kohlenmonoxid pro Zeiteinheit von den Alveolen ins Blut übertritt.">
 				>
 				["at0010"] = <
 					text = <"KCO">
-					description = <"KCO [Der Kohlenmonoxid-Transferkoeffizient (KCO), auch Krogh-Index bezeichnet, ist der Transferfaktor (TLCO) normiert auf das Alveolarvolumen (VA) und misst die Effizienz des Gausaustauschs pro Volumeneinheit der Lunge (TLCO / VA).">
+					description = <"Der Kohlenmonoxid-Transferkoeffizient (KCO), auch Krogh-Index bezeichnet, ist der Transferfaktor (TLCO) normiert auf das Alveolarvolumen (VA) und misst die Effizienz des Gausaustauschs pro Volumeneinheit der Lunge (TLCO / VA).">
 				>
 				["at0012"] = <
-					text = <"Gemessenes/vorhergesagtes Verhältnis">
-					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+					text = <"Gemessenes/Referenzwert Verhältnis">
+					description = <"Das Verhältnis des gemessenen Ergebnisses zum Referenzwert.">
 				>
 				["at0020"] = <
 					text = <"Haltezeit">
@@ -269,15 +249,7 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Ergebnis">
-					description = <"Gemessene Haltezeit">
-				>
-				["at0022"] = <
-					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagte Haltezeit">
-				>
-				["at0023"] = <
-					text = <"Gemessenes/vorhergesagtes Verhältnis">
-					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+					description = <"Gemessene Haltezeit.">
 				>
 				["at0024"] = <
 					text = <"t (hold)">
@@ -297,7 +269,7 @@ ontology
 				>
 				["at0028"] = <
 					text = <"Gerät">
-					description = <"Details über das Gerät, mit dem die Diffusionskapazität gemessen wird.">
+					description = <"Details über das Gerät mit dem die Diffusionskapazität gemessen wird.">
 				>
 				["at0029"] = <
 					text = <"Quelle der vorhergesagten Ergebnisse">
@@ -305,7 +277,7 @@ ontology
 				>
 				["at0030"] = <
 					text = <"Erweiterung">
-					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird">
+					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird.">
 					comment = <"Zum Beispiel: Informationen bzgl. der lokalen Krankenhausabteilung oder zusätzliche Metadata zur Anpassung an entsprechende FHIR oder CIMI Gegenstücke.">
 				>
 			>

@@ -16,13 +16,18 @@ description
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Darstellung der Ergebnisse einer Bodyplethysmographie (oft auch als Ganzkörperplethysmographie oder große Lungenfunktion bezeichnet).">
-			use = <"Zur Darstellung der Ergebnisse einer Bodyplethysmographie. Es handelt sich um eine Lungenfunktionsuntersuchung, die eine graphische Darstellung gemessener Umfangsveränderungen des Körpers liefert. Die Ganzkörperplethysmographie bestimmt in einem Messvorgang den Atmungswiderstand und das intrathorakale Gasvolumen. 
+			use = <"Zur Darstellung der Ergebnisse einer Bodyplethysmographie. Es handelt sich um eine Lungenfunktionsuntersuchung, die eine  numerischen Ergebnisse diverse gemessener Größen wie Atemwegswiderstand und das intrathorakale Gasvolumen, etc. des Körpers liefert. 
 
-Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um die Darstellung von Folgendem zu unterstützen:
-- Mehrere Messungen und ihr Durchschnitt – klonen Sie „Jedes Ereignis“ so oft wie nötig, plus ein zusätzliches Ereignis, das auf „Intervall“ eingestellt ist und das Attribut „Mittelwert“ auswählt;
-- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit einem Zeitversatz verbunden.">
-			keywords = <"Ganzkörperplethysmographie", "Atemwege", "pulmonal", "Pneumologie", "Spirometrie", "Große Lungenfunktion", "Lunge", "bronchial", "Atemweg">
-			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Lungendiffusionstests, geeignet. Verwenden Sie für diese Zwecke bestimmte Archetypen.
+Die Ergebnisse der Spirometrie, die auch bei der Bodyplethysmographie erhoben werden, sind in einem separaten Archetypen zu finden. Die beiden Archetypen müssen in einem Template kombiniert werden, um alle Ergebnisse einer Bodyplethysmographie darzustellen. 
+
+
+
+Das „Jede Ereignis“ kann geklont und eingeschränkt werden, um folgende Darstellungen zu unterstützen:
+- Mehrere Messungen und ihr Durchschnitt – klonen Sie \"Jedes Ereignis\" für jede Einzelmessung, plus ein zusätzliches Ereignis vom Typ \"Intervall\" mit Attribut \"Mittelwert\";
+- Ergebnisse vor und nach der Bronchialprovokation oder dem Bronchodilatator – klonen Sie „Jedes Ereignis“ und benennen Sie es in „Grundlinie“ und „Postprovokation/Bronchodilatator“ um, bei Bedarf mit Zeitversatz.">
+			keywords = <"Ganzkörperplethysmographie", "Atemwege", "pulmonal", "Pneumologie", "Spirometrie", "Große Lungenfunktion", "Lunge", "bronchial", "Atemweg", "Obstruktion", "Restriktion", "Asthma", "Asthma bronchiale", "COPD", "Chronic Obstructive Pulmonary Disease", "Atemwegswiderstand", "Lufu">
+			misuse = <"Nicht zur Aufzeichnung der Ergebnisse anderer Arten von Lungenfunktionstests, beispielsweise Spirometrie oder Lungendiffusionstests, geeignet. Verwenden Sie für diese Zwecke die dafür vorgesehenen Archetypen.
+Für die Spirometrie bitte den Archtypen OBSERVATION.spirometry_result und für die Diffusionskapazität den Archtypen OBSERVATION.diffusionskapazitaet_ergebnis verwenden. 
 
 Nicht zur Aufzeichnung der Ergebnisse von Blutgasuntersuchungen geeignet. Verwenden Sie zu diesem Zweck das OBSERVATION.laboratory_test_result.
 
@@ -37,8 +42,8 @@ Nicht zur Aufzeichnung von Messungen zur Pulsoximetrie geeignet. Verwenden Sie z
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"0DB254972E46D13D275417DCD6BE473F">
-		["build_uid"] = <"9e8b91e3-3164-4b99-b1fd-d1a0ce742702">
+		["MD5-CAM-1.0.1"] = <"D2C0808493173F4510919DCB963E3850">
+		["build_uid"] = <"abb6e62e-f4af-4cdd-8972-f7db4d18c775">
 		["ip_acknowledgements"] = <"This artefact includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyrighted material of the International Health Terminology Standards Development Organisation (IHTSDO). Where an implementation of this artefact makes use of SNOMED CT content, the implementer must have the appropriate SNOMED CT Affiliate license - for more information contact https://www.snomed.org/snomed-ct/get-snomed or info@snomed.org.">
 		["revision"] = <"0.0.1-alpha">
 	>
@@ -48,7 +53,7 @@ definition
 		data matches {
 			HISTORY[at0001] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Jedes Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
@@ -73,7 +78,7 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0007] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+											ELEMENT[at0007] occurrences matches {0..1} matches {    -- Referenzwert
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::129]>
@@ -92,7 +97,7 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0009] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+											ELEMENT[at0009] occurrences matches {0..1} matches {    -- Gemessenes/Referenzwert Verhältnis
 												value matches {
 													DV_PROPORTION matches {
 														numerator matches {|>=0.0|}
@@ -119,28 +124,7 @@ definition
 											ELEMENT[at0014] occurrences matches {0..1} matches {    -- Ergebnis
 												value matches {
 													C_DV_QUANTITY <
-														property = <[openehr::122]>
-														list = <
-															["1"] = <
-																units = <"kPa/L">
-															>
-															["2"] = <
-																units = <"kPa*s">
-															>
-															["3"] = <
-																units = <"cmH2O*s/L">
-															>
-															["4"] = <
-																units = <"kPa*s/L">
-															>
-														>	
-													>
-												}
-											}
-											ELEMENT[at0015] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
-												value matches {
-													C_DV_QUANTITY <
-														property = <[openehr::122]>
+														
 														list = <
 															["1"] = <
 																units = <"kPa/L">
@@ -158,7 +142,28 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0016] occurrences matches {0..1} matches {    -- Gemessenes/vorhergesagtes Verhältnis
+											ELEMENT[at0015] occurrences matches {0..1} matches {    -- Referenzwert
+												value matches {
+													C_DV_QUANTITY <
+														
+														list = <
+															["1"] = <
+																units = <"kPa/L">
+															>
+															["2"] = <
+																units = <"kPa*s">
+															>
+															["3"] = <
+																units = <"cmH2O*s/L">
+															>
+															["4"] = <
+																units = <"kPa*s/L">
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {    -- Gemessenes/Referenzwert Verhältnis
 												value matches {
 													DV_PROPORTION matches {
 														numerator matches {|>=0.0|}
@@ -173,7 +178,8 @@ definition
 													[local::
 													at0020,    -- RAWtot
 													at0021,    -- RAW-ex
-													at0022]    -- sRAWtot
+													at0022,    -- sRAWtot
+													at0036]    -- sRAWeff
 												}
 											}
 										}
@@ -188,7 +194,7 @@ definition
 													}
 												}
 											}
-											ELEMENT[at0025] occurrences matches {0..1} matches {    -- Vorhergesagtes Ergebnis
+											ELEMENT[at0025] occurrences matches {0..1} matches {    -- Referenzwert
 												value matches {
 													DV_PROPORTION matches {
 														numerator matches {|>=0.0|}
@@ -200,7 +206,9 @@ definition
 										name matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
-													[local::at0028]    -- RV/TLC-B
+													[local::
+													at0028,    -- RV/TLC-B
+													at0035]    -- TGV/TLC-B
 												}
 											}
 										}
@@ -248,7 +256,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Bodyplethysmographie Ergebnis">
-					description = <"Ergebnisse einer Bodyplethysmographie
+					description = <"Ergebnisse einer Bodyplethysmographie, ein Verfahren zur Messung von Lungen- und Atemparametern
 ">
 				>
 				["at0001"] = <
@@ -256,8 +264,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Any event">
-					description = <"@ internal @">
+					text = <"Jedes Ereignis">
+					description = <"Jeder Zeitpunkt oder jedes Intervall, das in einem Template oder zur Laufzeit definiert werden kann.">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -274,15 +282,15 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Ergebnis">
-					description = <"Gemessenes Volumen">
+					description = <"Gemessenes Volumen.">
 				>
 				["at0007"] = <
-					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagtes Volumen">
+					text = <"Referenzwert">
+					description = <"Referenzwert des Volumens.">
 				>
 				["at0009"] = <
-					text = <"Gemessenes/vorhergesagtes Verhältnis">
-					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+					text = <"Gemessenes/Referenzwert Verhältnis">
+					description = <"Das Verhältnis des gemessenen Ergebnisses zum Referenzwert.">
 				>
 				["at0010"] = <
 					text = <"TLC">
@@ -290,7 +298,7 @@ ontology
 				>
 				["at0011"] = <
 					text = <"TGV">
-					description = <"Thorakales Gasvolumen - Das Gasvolumen in der Lunge am Ende der normalen Ausatmung, das oft mit der funktionellen Residualkapazität (FRC) gleichgesetzt wird.">
+					description = <"Thorakales Gasvolumen - Das Luftvolumen, das sich nach einer normalen Ausatmung (am Ende der funktionellen Residualkapazität, FRC) noch im Brustkorb befindet.">
 				>
 				["at0012"] = <
 					text = <"RV">
@@ -298,20 +306,20 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Atemwegswiderstand">
-					description = <"Das Testergebnis wird als gemessener Atemwiderstand dargestellt.">
+					description = <"Das Testergebnis wird als gemessener Atemwegswiderstand dargestellt.">
 					comment = <"Jedes Testergebnis wird über eine separate Instanz dieses Clusters aufgezeichnet.">
 				>
 				["at0014"] = <
 					text = <"Ergebnis">
-					description = <"Gemessener Atemwegswiderstand">
+					description = <"Gemessener Atemwegswiderstand.">
 				>
 				["at0015"] = <
-					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagter Atemwegswiderstand">
+					text = <"Referenzwert">
+					description = <"Referenzwert des Atemwegswiderstands.">
 				>
 				["at0016"] = <
-					text = <"Gemessenes/vorhergesagtes Verhältnis">
-					description = <"Das Verhältnis der gemessenen zu den vorhergesagten Testergebnissen">
+					text = <"Gemessenes/Referenzwert Verhältnis">
+					description = <"Das Verhältnis des gemessenen Ergebnisses zum Referenzwert.">
 				>
 				["at0020"] = <
 					text = <"RAWtot">
@@ -332,11 +340,11 @@ ontology
 				>
 				["at0024"] = <
 					text = <"Ergebnis">
-					description = <"Berechnetes Verhältnis">
+					description = <"Berechnetes Verhältnis.">
 				>
 				["at0025"] = <
-					text = <"Vorhergesagtes Ergebnis">
-					description = <"Vorhergesagtes Verhältnis">
+					text = <"Referenzwert">
+					description = <"Referenzwert des Verhältnisses.">
 				>
 				["at0026"] = <
 					text = <"Kommentar">
@@ -352,25 +360,33 @@ ontology
 				>
 				["at0030"] = <
 					text = <"Gerät">
-					description = <"Details über das Gerät mit dem die Spirometrie gemessen wird.">
+					description = <"Details über das Gerät mit dem die Ganzkörperplethysmographie gemessen wird.">
 				>
 				["at0031"] = <
 					text = <"Quelle der vorhergesagten Ergebnisse">
 					description = <"Die für die vorhergesagten Ergebnisse verwendete Wissensbasis.">
-					comment = <"Zum Beispiel: GLI 2012.">
+					comment = <"Zum Beispiel: The Global Lung Initiative 2012 (GLI 2012) oder The Global Lung Initiative 2021 (GLI 2021) ">
 				>
 				["at0032"] = <
 					text = <"Erweiterung">
-					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt wird.">
+					description = <"Zusätzliche Information, die für die Erfassung des lokalen Kontexts oder für die Anpassung an andere Referenzmodelle/Formalismen benötigt werden.">
 					comment = <"Zum Beispiel: Informationen bzgl. der lokalen Krankenhausabteilung oder zusätzliche Metadata zur Anpassung an entsprechende FHIR oder CIMI Gegenstücke.">
 				>
 				["at0033"] = <
 					text = <"FRC">
-					description = <"Funktionelle Residualkapazität - Das Volumen in der Lunge nach normaler Ausatmung.">
+					description = <"Funktionelle Residualkapazität - Das Volumen in der Lunge nach normaler Ausatmung. Entspricht der ITGV.">
 				>
 				["at0034"] = <
 					text = <"ITGV">
-					description = <"Intrathorakales Gasvolumen - Das Volumen des Gases im Thorax am Ende einer normalen Ausatmung. Es entspricht dem TGV.">
+					description = <"Intrathorakales Gasvolumen - Das Volumen in der Lunge am Ende einer normalen Ausatmung. Entspricht der FRC.">
+				>
+				["at0035"] = <
+					text = <"TGV/TLC-B">
+					description = <"Verhältnis von Thorakalem Gasvolumen zu totaler Lungenkapazität - Bodyplethysmographie">
+				>
+				["at0036"] = <
+					text = <"sRAWeff">
+					description = <"Effektive spezifische Atemwegswiderstand - Der Widerstand, der über mehrere Punkte des gesamten Atemzyklus gemittelt ist.">
 				>
 			>
 		>
