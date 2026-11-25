@@ -2,7 +2,7 @@
 	openEHR-EHR-CLUSTER.erregerdetails_uksh.v0
 
 concept
-	[at0000]	-- Erregerdetails
+	[at0000]	-- erregerdetails_uksh
 language
 	original_language = <[ISO_639-1::de]>
 	translations = <
@@ -48,13 +48,13 @@ description
 		["original_namespace"] = <"org.highmed">
 		["original_publisher"] = <"HiGHmed">
 		["custodian_namespace"] = <"org.highmed">
-		["MD5-CAM-1.0.1"] = <"C4AE1B10D2A71214E7BB5156B3FB17C8">
-		["build_uid"] = <"eff32d00-3cd0-4c72-ad1f-9763edd896a8">
+		["MD5-CAM-1.0.1"] = <"4199E974509C1E3B76CF72682B855926">
+		["build_uid"] = <"68aec832-6015-418e-b865-74b3e3895b55">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	CLUSTER[at0000] matches {    -- Erregerdetails
+	CLUSTER[at0000] matches {    -- erregerdetails_uksh
 		items cardinality matches {1..*; unordered} matches {
 			ELEMENT[at0047] occurrences matches {0..*} matches {    -- Keim Subtyp
 				value matches {
@@ -64,7 +64,7 @@ definition
 			ELEMENT[at0035] occurrences matches {0..1} matches {    -- Keimzahl
 				value matches {
 					C_DV_QUANTITY <
-						property = <[openehr::126]>
+						
 						list = <
 							["1"] = <
 								units = <"{CFU}/mL">
@@ -77,7 +77,7 @@ definition
 					DV_INTERVAL<DV_QUANTITY> matches {
 						lower matches {
 							C_DV_QUANTITY <
-								property = <[openehr::126]>
+								
 								list = <
 									["1"] = <
 										units = <"{CFU}/mL">
@@ -90,7 +90,7 @@ definition
 						}
 						upper matches {
 							C_DV_QUANTITY <
-								property = <[openehr::126]>
+								
 								list = <
 									["1"] = <
 										units = <"{CFU}/mL">
@@ -111,16 +111,53 @@ definition
 					}
 					DV_TEXT matches {*}
 				}
-				null_flavour matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[openehr::
-							272,
-							273,
-							253,
-							271]
+			}
+			ELEMENT[at0075] occurrences matches {0..1} matches {    -- Gesamtkeimzahl
+				value matches {
+					C_DV_QUANTITY <
+						
+						list = <
+							["1"] = <
+								units = <"{CFU}/mL">
+							>
+						>
+					>
+					DV_INTERVAL<DV_QUANTITY> matches {
+						lower matches {
+							C_DV_QUANTITY <
+								
+								list = <
+									["1"] = <
+										units = <"{CFU}/mL">
+									>
+									["2"] = <
+										units = <"{CCU}/mL">
+									>
+								>
+							>
+						}
+						upper matches {
+							C_DV_QUANTITY <
+								
+								list = <
+									["1"] = <
+										units = <"{CFU}/mL">
+									>
+									["2"] = <
+										units = <"{CCU}/mL">
+									>
+								>
+							>
 						}
 					}
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0076,    -- mäßig
+							at0077]    -- reichlich
+						}
+					}
+					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Häufigkeit
@@ -130,6 +167,17 @@ definition
 					2|[local::at0070],
 					3|[local::at0071],
 					4|[local::at0072]
+				}
+			}
+			ELEMENT[at0078] occurrences matches {0..1} matches {    -- Quantifizierung
+				value matches {
+					0|[local::at0079],
+					1|[local::at0080],
+					2|[local::at0081],
+					3|[local::at0082],
+					4|[local::at0083],
+					5|[local::at0084],
+					6|[local::at0085]
 				}
 			}
 			ELEMENT[at0016] occurrences matches {0..1} matches {    -- Virulenzfaktor
@@ -177,7 +225,7 @@ ontology
 		["de"] = <
 			items = <
 				["at0000"] = <
-					text = <"Erregerdetails">
+					text = <"erregerdetails_uksh">
 					description = <"Detaillierte Angaben zum nachgewiesenen Erreger.">
 				>
 				["at0003"] = <
@@ -201,7 +249,7 @@ Erregers, z.B. 3MRGN oder 4MRGN. Bei VRE und MRSA kann es zu einer Redundanz zum
 				>
 				["at0035"] = <
 					text = <"Keimzahl">
-					description = <"Quantitative oder qualitative Angabe zur Keimzahl, z.B. als Messwert (CFU/ml, CCU/ml), Intervall oder semiquantitative Beschreibung.">
+					description = <"Quantitative oder qualitative Angabe zur Keimzahl, z.B. als Messwert (KbE/ml), Intervall oder semiquantitative Beschreibung.">
 				>
 				["at0047"] = <
 					text = <"Keim Subtyp">
@@ -259,12 +307,56 @@ Beispielsweise ein Resultat einer spa-Typsierung bei einem S. aureus oder andere
 					text = <"niedrige Konzentration (<=10.000 CCU/ml)">
 					description = <"Niedrige Konzentration von Mykoplasmen oder Ureaplasmen gemessen mit dem CCU-Test, mit einem Wert von höchstens 10.000 CCU/ml.">
 				>
+				["at0075"] = <
+					text = <"Gesamtkeimzahl">
+					description = <"Quantitative oder qualitative Angabe zur Gesamtkeimzahl, z.B. als Messwert (KbE/ml), Intervall oder semiquantitative Beschreibung.">
+				>
+				["at0076"] = <
+					text = <"mäßig">
+					description = <"Insgesamt niedrige Konzentration von Keimen">
+				>
+				["at0077"] = <
+					text = <"reichlich">
+					description = <"Insgesamt hohe Konzentration von Keimen">
+				>
+				["at0078"] = <
+					text = <"Quantifizierung">
+					description = <"Semiquantitative Angabe zur Keimzahl.">
+				>
+				["at0079"] = <
+					text = <"nicht nachgewiesen">
+					description = <"nicht nachgewiesen">
+				>
+				["at0080"] = <
+					text = <"<10 Zellen/Gesichtsfeld">
+					description = <"<10 Zellen/Gesichtsfeld">
+				>
+				["at0081"] = <
+					text = <"1-10 Zellen/Gesichtsfeld">
+					description = <"1-10 Zellen/Gesichtsfeld">
+				>
+				["at0082"] = <
+					text = <"10-99 Zellen/Gesichtsfeld">
+					description = <"10-99 Zellen/Gesichtsfeld">
+				>
+				["at0083"] = <
+					text = <"11-25 Zellen/Gesichtsfeld">
+					description = <"11-25 Zellen/Gesichtsfeld">
+				>
+				["at0084"] = <
+					text = <"26-100 Zellen/Gesichtsfeld">
+					description = <"26-100 Zellen/Gesichtsfeld">
+				>
+				["at0085"] = <
+					text = <">100 Zellen/Gesichtsfeld">
+					description = <">100 Zellen/Gesichtsfeld">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Pathogen details">
+					text = <"erregerdetails_uksh">
 					description = <"Detailed information about the detected pathogen.">
 				>
 				["at0003"] = <
@@ -287,7 +379,7 @@ virulence characteristics or genes, e.g. PVL in S. aureus or EHEC in E. coli.">
 				>
 				["at0035"] = <
 					text = <"Germination value">
-					description = <"Quantitative or qualitative germ count, e.g. as measured value (CFU/ml, CCU/ml), interval, or semi-quantitative description.">
+					description = <"*Quantitative oder qualitative Angabe zur Keimzahl, z.B. als Messwert (KbE/ml), Intervall oder semiquantitative Beschreibung. (de)">
 				>
 				["at0047"] = <
 					text = <"Germ subtype">
@@ -344,6 +436,50 @@ For example, a result of a spa-typing in S. aureus or other typings like MLST.">
 				["at0074"] = <
 					text = <"Low concentration (<=10,000 CCU/ml)">
 					description = <"Low concentration of mycoplasma or ureaplasma measured by CCU test, at most 10,000 CCU/ml.">
+				>
+				["at0075"] = <
+					text = <"Germination total value">
+					description = <"*Quantitative oder qualitative Angabe zur Gesamtkeimzahl, z.B. als Messwert (KbE/ml), Intervall oder semiquantitative Beschreibung. (de)">
+				>
+				["at0076"] = <
+					text = <"*mäßig (de)">
+					description = <"*Insgesamt niedrige Konzentration von Keimen (de)">
+				>
+				["at0077"] = <
+					text = <"*reichlich (de)">
+					description = <"*Insgesamt hohe Konzentration von Keimen (de)">
+				>
+				["at0078"] = <
+					text = <"Quantification">
+					description = <"Semi-quantitative information regarding the germination value.">
+				>
+				["at0079"] = <
+					text = <"nicht nachgewiesen">
+					description = <"nicht nachgewiesen">
+				>
+				["at0080"] = <
+					text = <"<10 Zellen/Gesichtsfeld">
+					description = <"<10 Zellen/Gesichtsfeld">
+				>
+				["at0081"] = <
+					text = <"1-10 Zellen/Gesichtsfeld">
+					description = <"1-10 Zellen/Gesichtsfeld">
+				>
+				["at0082"] = <
+					text = <"10-99 Zellen/Gesichtsfeld">
+					description = <"10-99 Zellen/Gesichtsfeld">
+				>
+				["at0083"] = <
+					text = <"11-25 Zellen/Gesichtsfeld">
+					description = <"11-25 Zellen/Gesichtsfeld">
+				>
+				["at0084"] = <
+					text = <"26-100 Zellen/Gesichtsfeld">
+					description = <"26-100 Zellen/Gesichtsfeld">
+				>
+				["at0085"] = <
+					text = <">100 Zellen/Gesichtsfeld">
+					description = <">100 Zellen/Gesichtsfeld">
 				>
 			>
 		>
